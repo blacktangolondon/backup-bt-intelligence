@@ -1,6 +1,8 @@
 /**
  * sidebar.js
  * Generates the sidebar content from static data.
+ * Special categories ("PORTFOLIO BUILDER", "THEMATIC PORTFOLIO", "LIVE TV")
+ * are always rendered as clickable items.
  */
 const staticData = {
   STOCKS: {
@@ -116,6 +118,9 @@ const staticData = {
   SUPPORT: []
 };
 
+// List of special categories that must always be clickable:
+const specialCategories = ["PORTFOLIO BUILDER", "THEMATIC PORTFOLIO", "LIVE TV"];
+
 export function generateSidebarContent() {
   const sidebarList = document.getElementById('sidebar-list');
   if (!sidebarList) {
@@ -127,19 +132,30 @@ export function generateSidebarContent() {
   const skipCategories = ["SPREAD", "CRYPTO", "MEMBERS CHAT", "SUPPORT"];
   Object.keys(staticData).forEach(category => {
     if (skipCategories.includes(category)) return;
-    let displayName = (category === "THEMATIC PORTFOLIO") ? "PORTFOLIO IDEAS" : category;
+    // For "THEMATIC PORTFOLIO", display it as "PORTFOLIO IDEAS"
+    let displayName = category === "THEMATIC PORTFOLIO" ? "PORTFOLIO IDEAS" : category;
     const items = staticData[category];
-    if (Array.isArray(items)) {
-      const categoryItem = document.createElement('li');
+
+    // Create a parent list item for the category.
+    const categoryItem = document.createElement('li');
+    // If this category is one of our special categories,
+    // assign it a class so it is clickable.
+    if (specialCategories.includes(category)) {
+      categoryItem.classList.add("instrument-item");
       categoryItem.textContent = displayName;
       sidebarList.appendChild(categoryItem);
+    } else if (Array.isArray(items)) {
+      // For regular arrays, create header and instrument items.
+      const headerItem = document.createElement('li');
+      headerItem.textContent = displayName;
+      sidebarList.appendChild(headerItem);
       if (items.length > 0) {
-        categoryItem.classList.add('expandable');
+        headerItem.classList.add('expandable');
         const toggleBtn = document.createElement('div');
         toggleBtn.classList.add('toggle-btn');
         toggleBtn.innerHTML = `${displayName} <span>+</span>`;
-        categoryItem.textContent = '';
-        categoryItem.appendChild(toggleBtn);
+        headerItem.textContent = '';
+        headerItem.appendChild(toggleBtn);
         const subList = document.createElement('ul');
         subList.classList.add('sub-list');
         items.forEach(instrument => {
@@ -148,14 +164,16 @@ export function generateSidebarContent() {
           listItem.textContent = instrument;
           subList.appendChild(listItem);
         });
-        categoryItem.appendChild(subList);
+        headerItem.appendChild(subList);
         toggleBtn.addEventListener('click', () => {
-          categoryItem.classList.toggle('expanded');
+          headerItem.classList.toggle('expanded');
           const span = toggleBtn.querySelector('span');
-          span.textContent = categoryItem.classList.contains('expanded') ? '-' : '+';
+          span.textContent = headerItem.classList.contains('expanded') ? '-' : '+';
         });
       }
     } else {
+      // If the category is an object (with subcategories),
+      // handle it similarly (not adjusted in this example).
       const categoryItem = document.createElement('li');
       categoryItem.classList.add('expandable');
       const toggleBtn = document.createElement('div');
@@ -197,6 +215,7 @@ export function generateSidebarContent() {
     }
   });
 
+  // Optionally, add a "FULL SCREEN PLATFORM" item.
   const sidebarListEl = document.getElementById("sidebar-list");
   const fullscreenPlatformItem = document.createElement("li");
   fullscreenPlatformItem.id = "sidebar-fullscreen";
@@ -206,7 +225,10 @@ export function generateSidebarContent() {
   sidebarListEl.appendChild(fullscreenPlatformItem);
   fullscreenPlatformItem.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (!document.fullscreenElement) { document.documentElement.requestFullscreen(); }
-    else { document.exitFullscreen(); }
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
   });
 }
