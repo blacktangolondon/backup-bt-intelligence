@@ -219,6 +219,23 @@ export function updateBlock3(instrumentName, groupData, options = {}) {
   }
   updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelsArr, rightLabelsArr, tradingViewUpdater);
 }
+
+/* ------------------- Block3 Tab Switching ------------------- */
+// SINGLE, UNIQUE declaration of initBlock3Tabs.
+export function initBlock3Tabs() {
+  const tabs = document.querySelectorAll("#block3-tabs button");
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active-tab"));
+      const contents = document.querySelectorAll(".portfolio-tab-content");
+      contents.forEach(content => content.classList.remove("active"));
+      tab.classList.add("active-tab");
+      const target = tab.getAttribute("data-target");
+      const activeContent = document.querySelector(`.portfolio-tab-content[data-category="${target}"]`);
+      if (activeContent) activeContent.classList.add("active");
+    });
+  });
+}
 export function showBlock3Tab(tabName) {
   const trendBtn = document.querySelector('#block3-tabs button[data-tab="trendscore"]');
   const tvBtn = document.querySelector('#block3-tabs button[data-tab="tradingview"]');
@@ -313,22 +330,6 @@ export function updateBlock4(instrumentName, groupData, pricesData) {
   }, 300);
 }
 
-/* ------------------- Block3 Tab Switching ------------------- */
-export function initBlock3Tabs() {
-  const tabs = document.querySelectorAll("#block3-tabs button");
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      tabs.forEach(t => t.classList.remove("active-tab"));
-      const contents = document.querySelectorAll(".portfolio-tab-content");
-      contents.forEach(content => content.classList.remove("active"));
-      tab.classList.add("active-tab");
-      const target = tab.getAttribute("data-target");
-      const activeContent = document.querySelector(`.portfolio-tab-content[data-category="${target}"]`);
-      if (activeContent) activeContent.classList.add("active");
-    });
-  });
-}
-
 /* ------------------- Fullscreen & YouTube Popup ------------------- */
 export function updateFullscreenButton() {
   const btn = document.getElementById("fullscreen-button");
@@ -359,7 +360,7 @@ export function updateYouTubePlayer() {
 }
 
 /* ------------------- Portfolio Builder & Thematic Portfolio ------------------- */
-// Full implementation for Portfolio Builder
+// Portfolio Builder
 export function loadPortfolioBuilder() {
   window.portfolioFilters = [];
   const builderContainer = document.getElementById("portfolio-builder-template");
@@ -656,11 +657,10 @@ function generatePortfolioNew() {
     attachPortfolioTableSorting();
   }
 }
-  
+
 // Portfolio Ideas: Thematic Portfolio view
 export function loadThematicPortfolio() {
   const container = document.getElementById("thematic-portfolio-template");
-  // Wait until all CSV data is loaded – we assume global variables are set.
   if (
     Object.keys(window.stocksFullData).length === 0 ||
     Object.keys(window.etfFullData).length === 0 ||
@@ -671,8 +671,6 @@ export function loadThematicPortfolio() {
     setTimeout(loadThematicPortfolio, 1000);
     return;
   }
-  
-  // Build the thematic portfolio view.
   container.innerHTML = `
     <div class="thematic-portfolio-nav">
       <nav>
@@ -697,23 +695,8 @@ export function loadThematicPortfolio() {
       </div>
     </div>
   `;
+  // Reinitialize the tab switching.
   initBlock3Tabs();
-}
-
-/* ------------------- Block3 Tab Switching ------------------- */
-export function initBlock3Tabs() {
-  const tabs = document.querySelectorAll("#block3-tabs button");
-  tabs.forEach(tab => {
-    tab.addEventListener("click", () => {
-      tabs.forEach(t => t.classList.remove("active-tab"));
-      const contents = document.querySelectorAll(".portfolio-tab-content");
-      contents.forEach(content => content.classList.remove("active"));
-      tab.classList.add("active-tab");
-      const target = tab.getAttribute("data-target");
-      const activeContent = document.querySelector(`.portfolio-tab-content[data-category="${target}"]`);
-      if (activeContent) activeContent.classList.add("active");
-    });
-  });
 }
 
 /* ------------------- Fullscreen & YouTube Popup ------------------- */
