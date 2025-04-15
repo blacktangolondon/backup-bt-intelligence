@@ -1,7 +1,6 @@
 /**
  * csvLoader.js
- * Loads CSV data from Google Sheets and populates CSV-based data objects.
- * Uses fetch and PapaParse.
+ * Loads CSV data from Google Sheets using fetch and PapaParse.
  */
 export async function loadCSVData() {
   const etfFullData = {};
