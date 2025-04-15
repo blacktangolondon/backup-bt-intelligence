@@ -1,8 +1,8 @@
 /**
  * sidebar.js
  * Generates the sidebar content from static data.
- * Special categories ("PORTFOLIO BUILDER", "THEMATIC PORTFOLIO", "LIVE TV")
- * are always rendered as clickable items.
+ * Special items (“PORTFOLIO BUILDER”, “THEMATIC PORTFOLIO” displayed as “PORTFOLIO IDEAS”, and “LIVE TV”)
+ * are always rendered as clickable items even if their arrays are empty.
  */
 const staticData = {
   STOCKS: {
@@ -118,7 +118,6 @@ const staticData = {
   SUPPORT: []
 };
 
-// List of special categories that must always be clickable:
 const specialCategories = ["PORTFOLIO BUILDER", "THEMATIC PORTFOLIO", "LIVE TV"];
 
 export function generateSidebarContent() {
@@ -132,90 +131,82 @@ export function generateSidebarContent() {
   const skipCategories = ["SPREAD", "CRYPTO", "MEMBERS CHAT", "SUPPORT"];
   Object.keys(staticData).forEach(category => {
     if (skipCategories.includes(category)) return;
-    // For "THEMATIC PORTFOLIO", display it as "PORTFOLIO IDEAS"
+    // For THEMATIC PORTFOLIO, display as PORTFOLIO IDEAS.
     let displayName = category === "THEMATIC PORTFOLIO" ? "PORTFOLIO IDEAS" : category;
     const items = staticData[category];
-
-    // Create a parent list item for the category.
-    const categoryItem = document.createElement('li');
-    // If this category is one of our special categories,
-    // assign it a class so it is clickable.
     if (specialCategories.includes(category)) {
-      categoryItem.classList.add("instrument-item");
-      categoryItem.textContent = displayName;
-      sidebarList.appendChild(categoryItem);
+      // Render special categories as a single clickable item.
+      const itemEl = document.createElement('li');
+      itemEl.classList.add("instrument-item");
+      itemEl.textContent = displayName;
+      sidebarList.appendChild(itemEl);
     } else if (Array.isArray(items)) {
-      // For regular arrays, create header and instrument items.
+      // Render regular categories.
       const headerItem = document.createElement('li');
-      headerItem.textContent = displayName;
-      sidebarList.appendChild(headerItem);
-      if (items.length > 0) {
-        headerItem.classList.add('expandable');
-        const toggleBtn = document.createElement('div');
-        toggleBtn.classList.add('toggle-btn');
-        toggleBtn.innerHTML = `${displayName} <span>+</span>`;
-        headerItem.textContent = '';
-        headerItem.appendChild(toggleBtn);
-        const subList = document.createElement('ul');
-        subList.classList.add('sub-list');
-        items.forEach(instrument => {
-          const listItem = document.createElement('li');
-          listItem.classList.add("instrument-item");
-          listItem.textContent = instrument;
-          subList.appendChild(listItem);
-        });
-        headerItem.appendChild(subList);
-        toggleBtn.addEventListener('click', () => {
-          headerItem.classList.toggle('expanded');
-          const span = toggleBtn.querySelector('span');
-          span.textContent = headerItem.classList.contains('expanded') ? '-' : '+';
-        });
-      }
-    } else {
-      // If the category is an object (with subcategories),
-      // handle it similarly (not adjusted in this example).
-      const categoryItem = document.createElement('li');
-      categoryItem.classList.add('expandable');
+      headerItem.classList.add("expandable");
       const toggleBtn = document.createElement('div');
-      toggleBtn.classList.add('toggle-btn');
+      toggleBtn.classList.add("toggle-btn");
       toggleBtn.innerHTML = `${displayName} <span>+</span>`;
-      categoryItem.appendChild(toggleBtn);
+      headerItem.appendChild(toggleBtn);
       const subList = document.createElement('ul');
-      subList.classList.add('sub-list');
-      Object.keys(items).forEach(subCategory => {
-        const subCategoryItem = document.createElement('li');
-        subCategoryItem.classList.add('expandable');
-        const subToggleBtn = document.createElement('div');
-        subToggleBtn.classList.add('toggle-btn');
-        subToggleBtn.innerHTML = `${subCategory} <span>+</span>`;
-        subCategoryItem.appendChild(subToggleBtn);
-        const instrumentList = document.createElement('ul');
-        instrumentList.classList.add('sub-list');
-        items[subCategory].forEach(instrument => {
-          const instrumentItem = document.createElement('li');
-          instrumentItem.classList.add("instrument-item");
-          instrumentItem.textContent = instrument;
-          instrumentList.appendChild(instrumentItem);
-        });
-        subCategoryItem.appendChild(instrumentList);
-        subList.appendChild(subCategoryItem);
-        subToggleBtn.addEventListener('click', () => {
-          subCategoryItem.classList.toggle('expanded');
-          const span = subToggleBtn.querySelector('span');
-          span.textContent = subCategoryItem.classList.contains('expanded') ? '-' : '+';
-        });
+      subList.classList.add("sub-list");
+      items.forEach(instrument => {
+        const listItem = document.createElement('li');
+        listItem.classList.add("instrument-item");
+        listItem.textContent = instrument;
+        subList.appendChild(listItem);
       });
-      categoryItem.appendChild(subList);
-      sidebarList.appendChild(categoryItem);
+      headerItem.appendChild(subList);
+      sidebarList.appendChild(headerItem);
       toggleBtn.addEventListener('click', () => {
-        categoryItem.classList.toggle('expanded');
+        headerItem.classList.toggle('expanded');
         const span = toggleBtn.querySelector('span');
-        span.textContent = categoryItem.classList.contains('expanded') ? '-' : '+';
+        span.textContent = headerItem.classList.contains('expanded') ? '-' : '+';
+      });
+    } else {
+      // Render object categories (if any).
+      const headerItem = document.createElement('li');
+      headerItem.classList.add("expandable");
+      const toggleBtn = document.createElement('div');
+      toggleBtn.classList.add("toggle-btn");
+      toggleBtn.innerHTML = `${displayName} <span>+</span>`;
+      headerItem.appendChild(toggleBtn);
+      const subList = document.createElement('ul');
+      subList.classList.add("sub-list");
+      Object.keys(items).forEach(subCategory => {
+        const subItem = document.createElement('li');
+        subItem.classList.add("expandable");
+        const subToggle = document.createElement('div');
+        subToggle.classList.add("toggle-btn");
+        subToggle.innerHTML = `${subCategory} <span>+</span>`;
+        subItem.appendChild(subToggle);
+        const instList = document.createElement('ul');
+        instList.classList.add("sub-list");
+        items[subCategory].forEach(instrument => {
+          const li = document.createElement('li');
+          li.classList.add("instrument-item");
+          li.textContent = instrument;
+          instList.appendChild(li);
+        });
+        subItem.appendChild(instList);
+        subToggle.addEventListener('click', () => {
+          subItem.classList.toggle('expanded');
+          const span = subToggle.querySelector('span');
+          span.textContent = subItem.classList.contains('expanded') ? '-' : '+';
+        });
+        subList.appendChild(subItem);
+      });
+      headerItem.appendChild(subList);
+      sidebarList.appendChild(headerItem);
+      toggleBtn.addEventListener('click', () => {
+        headerItem.classList.toggle('expanded');
+        const span = toggleBtn.querySelector('span');
+        span.textContent = headerItem.classList.contains('expanded') ? '-' : '+';
       });
     }
   });
 
-  // Optionally, add a "FULL SCREEN PLATFORM" item.
+  // Optionally add "FULL SCREEN PLATFORM" item.
   const sidebarListEl = document.getElementById("sidebar-list");
   const fullscreenPlatformItem = document.createElement("li");
   fullscreenPlatformItem.id = "sidebar-fullscreen";
