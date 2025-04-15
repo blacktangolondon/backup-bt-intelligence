@@ -6,12 +6,41 @@ import { updateChart, updateSymbolOverview, updateBlock3, updateBlock4, initBloc
 import { generateSidebarContent } from "./sidebar.js";
 
 export function initEventHandlers(groupedData, pricesData) {
-  // Sidebar instrument click events.
+  // Global click event for sidebar items.
   document.addEventListener('click', (e) => {
     if (e.target && e.target.classList.contains('instrument-item')) {
+      // Remove previous selection and mark the clicked item.
       document.querySelectorAll('#sidebar li.selected').forEach(item => item.classList.remove('selected'));
       e.target.classList.add('selected');
       const instrumentName = e.target.textContent.trim();
+      const upperName = instrumentName.toUpperCase();
+
+      // Special handling for non-data items.
+      if (upperName === "PORTFOLIO BUILDER") {
+        document.getElementById("main-content").style.display = "none";
+        document.getElementById("thematic-portfolio-template").style.display = "none";
+        document.getElementById("portfolio-builder-template").style.display = "block";
+        // loadPortfolioBuilder() should be defined in your dashboard.js or a related module.
+        if (typeof loadPortfolioBuilder === "function") {
+          loadPortfolioBuilder();
+        }
+        return;
+      } else if (upperName === "THEMATIC PORTFOLIO" || upperName === "PORTFOLIO IDEAS") {
+        document.getElementById("main-content").style.display = "none";
+        document.getElementById("portfolio-builder-template").style.display = "none";
+        document.getElementById("thematic-portfolio-template").style.display = "block";
+        // loadThematicPortfolio() should be defined as in your original code.
+        if (typeof loadThematicPortfolio === "function") {
+          loadThematicPortfolio();
+        }
+        return;
+      } else if (upperName === "LIVE TV") {
+        // Open the YouTube popup.
+        openYouTubePopup();
+        return;
+      }
+
+      // If not a special item then process as a normal instrument.
       if (groupedData.STOCKS && groupedData.STOCKS[instrumentName]) {
         updateChart(instrumentName, groupedData.STOCKS);
         updateSymbolOverview(instrumentName, groupedData.STOCKS);
@@ -38,6 +67,7 @@ export function initEventHandlers(groupedData, pricesData) {
         updateBlock3(instrumentName, groupedData.CRYPTO);
         updateBlock4(instrumentName, groupedData.CRYPTO, {});
       } else {
+        // Default behavior: treat as a STOCK instrument.
         updateBlock3(instrumentName, groupedData.STOCKS);
       }
     }
