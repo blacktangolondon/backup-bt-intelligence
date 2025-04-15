@@ -2,45 +2,38 @@
  * events.js
  * Registers UI event handlers.
  */
-import { updateChart, updateSymbolOverview, updateBlock3, updateBlock4, initBlock3Tabs, openYouTubePopup } from "./dashboard.js";
+import { updateChart, updateSymbolOverview, updateBlock3, updateBlock4, initBlock3Tabs, updateFullscreenButton, openYouTubePopup } from "./dashboard.js";
 import { generateSidebarContent } from "./sidebar.js";
 
 export function initEventHandlers(groupedData, pricesData) {
   // Global click event for sidebar items.
   document.addEventListener('click', (e) => {
     if (e.target && e.target.classList.contains('instrument-item')) {
-      // Remove previous selection and mark the clicked item.
+      // Remove previous selection.
       document.querySelectorAll('#sidebar li.selected').forEach(item => item.classList.remove('selected'));
       e.target.classList.add('selected');
-      const instrumentName = e.target.textContent.trim();
-      const upperName = instrumentName.toUpperCase();
-
-      // Special handling for non-data items.
-      if (upperName === "PORTFOLIO BUILDER") {
+      const instrumentName = e.target.textContent.trim().toUpperCase(); // Compare uppercase for consistency.
+      
+      // Special handling for static items.
+      if (instrumentName === "PORTFOLIO BUILDER") {
         document.getElementById("main-content").style.display = "none";
         document.getElementById("thematic-portfolio-template").style.display = "none";
         document.getElementById("portfolio-builder-template").style.display = "block";
-        // loadPortfolioBuilder() should be defined in your dashboard.js or a related module.
-        if (typeof loadPortfolioBuilder === "function") {
-          loadPortfolioBuilder();
-        }
+        loadPortfolioBuilder(); // from dashboard.js
         return;
-      } else if (upperName === "THEMATIC PORTFOLIO" || upperName === "PORTFOLIO IDEAS") {
+      } else if (instrumentName === "PORTFOLIO IDEAS" || instrumentName === "THEMATIC PORTFOLIO") {
         document.getElementById("main-content").style.display = "none";
         document.getElementById("portfolio-builder-template").style.display = "none";
         document.getElementById("thematic-portfolio-template").style.display = "block";
-        // loadThematicPortfolio() should be defined as in your original code.
-        if (typeof loadThematicPortfolio === "function") {
-          loadThematicPortfolio();
-        }
+        loadThematicPortfolio(); // from dashboard.js
         return;
-      } else if (upperName === "LIVE TV") {
-        // Open the YouTube popup.
+      } else if (instrumentName === "LIVE TV") {
         openYouTubePopup();
         return;
       }
 
-      // If not a special item then process as a normal instrument.
+      // Otherwise, treat as a normal instrument.
+      // Try each group in order.
       if (groupedData.STOCKS && groupedData.STOCKS[instrumentName]) {
         updateChart(instrumentName, groupedData.STOCKS);
         updateSymbolOverview(instrumentName, groupedData.STOCKS);
@@ -61,13 +54,8 @@ export function initEventHandlers(groupedData, pricesData) {
         updateSymbolOverview(instrumentName, groupedData.FX);
         updateBlock3(instrumentName, groupedData.FX, { isFX: true });
         updateBlock4(instrumentName, groupedData.FX, pricesData.fxPrices);
-      } else if (groupedData.CRYPTO && groupedData.CRYPTO[instrumentName]) {
-        updateChart(instrumentName, groupedData.CRYPTO);
-        updateSymbolOverview(instrumentName, groupedData.CRYPTO);
-        updateBlock3(instrumentName, groupedData.CRYPTO);
-        updateBlock4(instrumentName, groupedData.CRYPTO, {});
       } else {
-        // Default behavior: treat as a STOCK instrument.
+        // If not found, default to STOCKS.
         updateBlock3(instrumentName, groupedData.STOCKS);
       }
     }
@@ -89,8 +77,8 @@ export function initEventHandlers(groupedData, pricesData) {
   }
   document.addEventListener("fullscreenchange", () => {
     const btn = document.getElementById("fullscreen-button");
-    if (btn && typeof window.updateFullscreenButton === "function") {
-      window.updateFullscreenButton();
+    if (btn && typeof updateFullscreenButton === "function") {
+      updateFullscreenButton();
     }
   });
 
