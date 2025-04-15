@@ -2,16 +2,9 @@
  * main.js
  * Entry point for PHASE1.
  */
-
 import { loadCSVData } from "./csvLoader.js";
 import { generateSidebarContent } from "./sidebar.js";
-import { 
-  updateChart, 
-  updateSymbolOverview, 
-  updateBlock3, 
-  updateBlock4, 
-  initBlock3Tabs 
-} from "./dashboard.js";
+import { updateChart, updateSymbolOverview, updateBlock3, updateBlock4, initBlock3Tabs, updateFullscreenButton, openYouTubePopup, updateYouTubePlayer } from "./dashboard.js";
 import { initEventHandlers } from "./events.js";
 
 async function initializeTrendScore() {
@@ -19,22 +12,21 @@ async function initializeTrendScore() {
     // Load CSV data from Google Sheets.
     const csvData = await loadCSVData();
 
-    // Create a groupedData object from CSV data.
+    // Create a groupedData object.
     const groupedData = {
       STOCKS: csvData.stocksFullData,
       ETFS: csvData.etfFullData,
       FUTURES: csvData.futuresFullData,
       FX: csvData.fxFullData
-      // Add CRYPTO if needed.
     };
 
-    // Set global CSV data for legacy functions.
+    // Set global variables for legacy usage.
     window.stocksFullData = csvData.stocksFullData;
     window.etfFullData = csvData.etfFullData;
     window.futuresFullData = csvData.futuresFullData;
     window.fxFullData = csvData.fxFullData;
 
-    // Prepare a pricesData object to pass to updateBlock4.
+    // Prepare a pricesData object.
     const pricesData = {
       stockPrices: csvData.stockPrices,
       etfPrices: csvData.etfPrices,
@@ -43,13 +35,13 @@ async function initializeTrendScore() {
     };
     window.pricesData = pricesData;
 
-    // Generate the static sidebar.
+    // Generate the sidebar.
     generateSidebarContent();
 
-    // Initialize Block3 Tabs.
+    // Initialize Block3 tabs.
     initBlock3Tabs();
 
-    // Set default dashboard view for a default instrument.
+    // Set default dashboard view using default instrument from STOCKS.
     const defaultInstrument = Object.keys(groupedData.STOCKS)[0] || "AMAZON";
     if (groupedData.STOCKS[defaultInstrument]) {
       updateChart(defaultInstrument, groupedData.STOCKS);
@@ -58,7 +50,7 @@ async function initializeTrendScore() {
       updateBlock4(defaultInstrument, groupedData.STOCKS, pricesData.stockPrices);
     }
 
-    // Initialize global event handlers, passing the proper groupedData.
+    // Initialize event handlers and pass the proper grouped data.
     initEventHandlers(groupedData, {
       stockPrices: pricesData.stockPrices,
       etfPrices: pricesData.etfPrices,
@@ -71,4 +63,3 @@ async function initializeTrendScore() {
 }
 
 initializeTrendScore();
-
