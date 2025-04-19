@@ -1,6 +1,6 @@
 /**
  * main.js
- * Entry point for PHASE1.
+ * Entry point for PHASE1. 
  */
 import { loadCSVData } from "./csvLoader.js";
 import { generateSidebarContent } from "./sidebar.js";
