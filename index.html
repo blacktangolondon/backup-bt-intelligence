@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>TrendScore</title>
   <link rel="stylesheet" href="styles.css" />
+
   <!-- External Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js" defer></script>
 </head>
 <body>
   <!-- Sidebar -->
@@ -73,7 +74,12 @@
     </div>
   </div>
 
-  <!-- Main entry point -->
+  <!-- Application Scripts -->
+  <script defer src="csvLoader.js"></script>
+  <script defer src="charts.js"></script>
+  <script defer src="dashboard.js"></script>
+  <script defer src="sidebar.js"></script>
+  <script defer src="events.js"></script>
   <script type="module" src="main.js"></script>
 </body>
 </html>
