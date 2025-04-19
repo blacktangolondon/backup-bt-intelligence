@@ -1,4 +1,4 @@
-/**
+/** 
  * sidebar.js
  * Generates the sidebar content from static data.
  * Special items (“PORTFOLIO BUILDER”, “THEMATIC PORTFOLIO” displayed as “PORTFOLIO IDEAS”, and “LIVE TV”)
