@@ -699,31 +699,3 @@ export function loadThematicPortfolio() {
   initBlock3Tabs();
 }
 
-/* ------------------- Fullscreen & YouTube Popup ------------------- */
-export function updateFullscreenButton() {
-  const btn = document.getElementById("fullscreen-button");
-  if (!btn) return;
-  if (document.fullscreenElement === null) {
-    btn.innerHTML = `<span class="arrow">&#8598;</span>
-                     <span class="arrow">&#8599;</span><br>
-                     <span class="arrow">&#8601;</span>
-                     <span class="arrow">&#8600;</span>`;
-  } else {
-    btn.innerHTML = `<span class="arrow">&#8598;</span>
-                     <span class="arrow">&#8599;</span><br>
-                     <span class="arrow">&#8601;</span>
-                     <span class="arrow">&#8600;</span>`;
-  }
-}
-export function openYouTubePopup() {
-  const ytPopup = document.getElementById("youtube-popup");
-  if (!ytPopup) return;
-  ytPopup.style.display = "block";
-  if (typeof $ === "function" && $.fn.draggable) {
-    $("#youtube-popup").draggable({ handle: "#youtube-popup-header" });
-  }
-}
-export function updateYouTubePlayer() {
-  const url = document.getElementById("youtube-url").value.trim();
-  document.getElementById("youtube-iframe").src = url;
-}
