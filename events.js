@@ -1,5 +1,5 @@
 /**
- * events.js
+ * events.js 
  * Registers UI event handlers.
  */
 import { updateChart, updateSymbolOverview, updateBlock3, updateBlock4, initBlock3Tabs, updateFullscreenButton, openYouTubePopup } from "./dashboard.js";
