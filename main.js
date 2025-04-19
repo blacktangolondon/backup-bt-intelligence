@@ -1,6 +1,6 @@
 /**
  * main.js
- * Entry point for PHASE1. 
+ * Entry point for TrendScore.
  */
 import { loadCSVData } from "./csvLoader.js";
 import { generateSidebarContent } from "./sidebar.js";
@@ -15,33 +15,33 @@ async function initializeTrendScore() {
     // Create a groupedData object.
     const groupedData = {
       STOCKS: csvData.stocksFullData,
-      ETFS: csvData.etfFullData,
+      ETFS:   csvData.etfFullData,
       FUTURES: csvData.futuresFullData,
-      FX: csvData.fxFullData
+      FX:     csvData.fxFullData
     };
 
-    // Set global variables for legacy usage.
-    window.stocksFullData = csvData.stocksFullData;
-    window.etfFullData = csvData.etfFullData;
-    window.futuresFullData = csvData.futuresFullData;
-    window.fxFullData = csvData.fxFullData;
+    // Expose for debugging / legacy.
+    window.stocksFullData   = csvData.stocksFullData;
+    window.etfFullData      = csvData.etfFullData;
+    window.futuresFullData  = csvData.futuresFullData;
+    window.fxFullData       = csvData.fxFullData;
 
     // Prepare a pricesData object.
     const pricesData = {
-      stockPrices: csvData.stockPrices,
-      etfPrices: csvData.etfPrices,
+      stockPrices:   csvData.stockPrices,
+      etfPrices:     csvData.etfPrices,
       futuresPrices: csvData.futuresPrices,
-      fxPrices: csvData.fxPrices
+      fxPrices:      csvData.fxPrices
     };
     window.pricesData = pricesData;
 
-    // Generate the sidebar.
-    generateSidebarContent();
+    // Generate the sidebar, passing groupedData so it includes special items
+    generateSidebarContent(groupedData);
 
-    // Initialize Block3 tabs.
+    // Initialize Block3 tab switching
     initBlock3Tabs();
 
-    // Set default dashboard view using default instrument from STOCKS.
+    // Render default view for the first STOCKS instrument
     const defaultInstrument = Object.keys(groupedData.STOCKS)[0] || "AMAZON";
     if (groupedData.STOCKS[defaultInstrument]) {
       updateChart(defaultInstrument, groupedData.STOCKS);
@@ -50,16 +50,12 @@ async function initializeTrendScore() {
       updateBlock4(defaultInstrument, groupedData.STOCKS, pricesData.stockPrices);
     }
 
-    // Initialize event handlers and pass the proper grouped data.
-    initEventHandlers(groupedData, {
-      stockPrices: pricesData.stockPrices,
-      etfPrices: pricesData.etfPrices,
-      futuresPrices: pricesData.futuresPrices,
-      fxPrices: pricesData.fxPrices
-    });
+    // Wire up all UI event handlers (including sidebar clicks)
+    initEventHandlers(groupedData, pricesData);
   } catch (error) {
     console.error("Error initializing TrendScore:", error);
   }
 }
 
 initializeTrendScore();
+
