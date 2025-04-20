@@ -8,196 +8,193 @@ import {
   futuresLeftLabels,
   futuresRightLabels,
   fxLeftLabels,
-  fxRightLabels
+  fxRightLabels,
+  parseGap
 } from "./dashboard.js";
 
-// State for selected filters
+// Filter mappings for each asset class
+const filterMappingStocks = {
+  "Score": { source: "left", index: 0 },
+  "Gap to Peak": { source: "left", index: 3 },
+  "S&P500 Correlation": { source: "right", index: 0 },
+  "S&P500 Volatility Ratio": { source: "right", index: 1 },
+  "Bullish Alpha": { source: "right", index: 2 },
+  "Bearish Alpha": { source: "right", index: 3 },
+  "Alpha Strength": { source: "right", index: 4 }
+};
+const filterMappingETFs = { ...filterMappingStocks };
+const filterMappingFutures = {
+  "Score": { source: "left", index: 0 },
+  "Gap to Peak": { source: "left", index: 3 },
+  "S&P500 Correlation": { source: "right", index: 0 },
+  "S&P500 Volatility Ratio": { source: "right", index: 1 },
+  "Alpha Strength": { source: "right", index: 2 }
+};
+const filterMappingFX = {
+  "Score": { source: "left", index: 0 },
+  "Gap to Peak": { source: "left", index: 2 },
+  "AVERAGE DAILY VOLATILITY": { source: "right", index: 0 },
+  "FX Volatility Ratio": { source: "right", index: 1 },
+  "30 DAYS PROJECTION": { source: "right", index: 2 },
+  "LONG TERM - MACRO": { source: "right", index: 3 },
+  "MEDIUM TERM - MATH": { source: "right", index: 4 },
+  "MEDIUM TERM - STATS": { source: "right", index: 5 },
+  "SHORT TERM - TECH": { source: "right", index: 6 }
+};
+
+// State
 let portfolioFilters = [];
 
-// Initialize Portfolio Builder
+// Initialize builder
 export function initPortfolioBuilder() {
   const sidebarList = document.getElementById('sidebar-list');
   if (!sidebarList) return;
-
   sidebarList.addEventListener('click', e => {
-    const li = e.target.closest('li');
-    if (!li) return;
+    const li = e.target.closest('li'); if (!li) return;
     if (li.textContent.trim().toUpperCase() === 'PORTFOLIO BUILDER') {
-      // Hide other views
       document.getElementById('main-content').style.display = 'none';
       document.getElementById('thematic-portfolio-template').style.display = 'none';
-      // Show builder template
-      const tpl = document.getElementById('portfolio-builder-template');
-      tpl.style.display = 'block';
+      const tpl = document.getElementById('portfolio-builder-template'); tpl.style.display = 'block';
       loadPortfolioBuilder();
     }
   });
 }
 
-// Load the initial builder UI
+// Build UI
 function loadPortfolioBuilder() {
   portfolioFilters = [];
-  const container = document.getElementById('portfolio-builder-template');
-  container.innerHTML = `
+  const c = document.getElementById('portfolio-builder-template');
+  c.innerHTML = `
     <div id="portfolio-builder-page">
       <div id="portfolio-builder-container">
         <div id="portfolio_builder1">
           <div id="portfolio-builder-steps">
             <p class="portfolio-builder-instruction">
-              <button class="add-filter-btn">+</button> Add your filters and build your portfolio
+              <button class="add-filter-btn">+</button> Add filters
             </p>
           </div>
           <div id="portfolio-builder-actions">
             <button id="generate-portfolio-btn">GENERATE PORTFOLIO</button>
           </div>
         </div>
-        <div id="portfolio_builder2">
-          <div id="portfolio-results"></div>
-        </div>
+        <div id="portfolio_builder2"><div id="portfolio-results"></div></div>
       </div>
     </div>
   `;
-
-  // Delegate filter-builder clicks
-  container.addEventListener('click', e => {
-    if (e.target.matches('.add-filter-btn')) {
-      openFilterSelector();
-    }
-    if (e.target.matches('#generate-portfolio-btn')) {
-      generatePortfolioNew();
-    }
+  c.addEventListener('click', e => {
+    if (e.target.matches('.add-filter-btn')) openFilterSelector();
+    if (e.target.matches('#generate-portfolio-btn')) generatePortfolioNew();
     if (e.target.matches('.remove-filter-btn')) {
-      const idx = parseInt(e.target.dataset.index, 10);
-      if (!isNaN(idx)) {
-        portfolioFilters.splice(idx, 1);
-        updatePortfolioSteps();
-      }
+      const i = +e.target.dataset.index; portfolioFilters.splice(i,1); updatePortfolioSteps();
     }
   });
 }
 
-// Show filter selection dropdowns
+// Add a filter
 function openFilterSelector() {
-  const availableFilters = [];
-  const assetType = portfolioFilters.length > 0 ? portfolioFilters[0].value : null;
-  let allFilters;
+  const available = [];
+  const assetType = portfolioFilters[0]?.value;
+  let metrics;
+  if (!assetType) metrics = ['Asset Class'];
+  else if (assetType==='FUTURES') metrics = Object.keys(filterMappingFutures);
+  else if (assetType==='FX') metrics = Object.keys(filterMappingFX);
+  else metrics = Object.keys(filterMappingStocks);
 
-  if (assetType === 'FUTURES') {
-    allFilters = ['Score','Gap to Peak','S&P500 Correlation','S&P500 Volatility Ratio','Alpha Strength'];
-  } else if (assetType === 'FX') {
-    allFilters = ['Score','Gap to Peak','AVERAGE DAILY VOLATILITY','FX Volatility Ratio','30 DAYS PROJECTION','LONG TERM - MACRO','MEDIUM TERM - MATH','MEDIUM TERM - STATS','SHORT TERM - TECH'];
-  } else {
-    allFilters = ['Score','Gap to Peak','S&P500 Correlation','S&P500 Volatility Ratio','Bullish Alpha','Bearish Alpha','Alpha Strength'];
-  }
+  // Exclude already selected
+  metrics.forEach(m => {
+    if (m==='Asset Class'|| !portfolioFilters.some(f=>f.filterName===m)) available.push(m);
+  });
 
-  if (portfolioFilters.length === 0) {
-    availableFilters.push('Asset Class');
-  } else {
-    allFilters.forEach(f => {
-      if (!portfolioFilters.some(item => item.filterName === f)) availableFilters.push(f);
-    });
-  }
-
-  const selectorDiv = document.createElement('div');
-  selectorDiv.className = 'filter-selector';
-  selectorDiv.innerHTML = `
-    <select class="filter-name">
-      ${availableFilters.map(f => `<option value="${f}">${f}</option>`).join('')}
-    </select>
+  const div = document.createElement('div'); div.className='filter-selector';
+  div.innerHTML = `
+    <select class="filter-name">${available.map(m=>`<option>${m}</option>`).join('')}</select>
     <span class="input-container"></span>
-    <button class="add-filter-btn">Add Filter</button>
+    <button class="apply-filter-btn">Add</button>
   `;
-  document.getElementById('portfolio_builder1').appendChild(selectorDiv);
+  document.getElementById('portfolio_builder1').appendChild(div);
 
-  const nameSelect = selectorDiv.querySelector('.filter-name');
-  const inputContainer = selectorDiv.querySelector('.input-container');
-
-  function updateInput() {
-    inputContainer.innerHTML = '';
-    const sel = nameSelect.value;
-    if (sel === 'Asset Class') {
-      const assetSelect = document.createElement('select');
-      ['STOCKS','ETFS','FUTURES','FX'].forEach(a => {
-        const o = document.createElement('option'); o.value = a; o.textContent = a;
-        assetSelect.appendChild(o);
-      });
-      inputContainer.appendChild(assetSelect);
+  const nameSel=div.querySelector('.filter-name'), inpDiv=div.querySelector('.input-container');
+  function renderInputs() {
+    inpDiv.innerHTML='';
+    if (nameSel.value==='Asset Class') {
+      const sel = document.createElement('select'); ['STOCKS','ETFS','FUTURES','FX'].forEach(v=>{
+        const o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o);
+      }); inpDiv.appendChild(sel);
     } else {
-      const opSelect = document.createElement('select');
-      ['≥','≤'].forEach(o => { const opt = document.createElement('option'); opt.value=o; opt.textContent=o; opSelect.appendChild(opt); });
-      const numInput = document.createElement('input'); numInput.type='number'; numInput.placeholder='Value';
-      inputContainer.appendChild(opSelect);
-      inputContainer.appendChild(numInput);
+      const op=document.createElement('select');['≥','≤'].forEach(o=>{const x=document.createElement('option');x.value=o;x.textContent=o;op.appendChild(x);});
+      const num=document.createElement('input');num.type='number';num.placeholder='Value';
+      inpDiv.appendChild(op);inpDiv.appendChild(num);
     }
   }
+  nameSel.addEventListener('change', renderInputs); renderInputs();
 
-  nameSelect.addEventListener('change', updateInput);
-  updateInput();
-
-  selectorDiv.querySelector('.add-filter-btn').addEventListener('click', () => {
-    const filter = { filterName: nameSelect.value };
-    if (filter.filterName === 'Asset Class') {
-      filter.value = inputContainer.querySelector('select').value;
-    } else {
-      filter.operator = inputContainer.querySelector('select').value;
-      filter.value = inputContainer.querySelector('input').value;
-    }
-    portfolioFilters.push(filter);
-    updatePortfolioSteps();
-    selectorDiv.remove();
+  div.querySelector('.apply-filter-btn').addEventListener('click',()=>{
+    const f={filterName:nameSel.value};
+    if (f.filterName==='Asset Class') f.value=inpDiv.querySelector('select').value;
+    else {f.operator=inpDiv.querySelector('select').value;f.value=inpDiv.querySelector('input').value;}
+    portfolioFilters.push(f); updatePortfolioSteps(); div.remove();
   });
 }
 
-// Update the list of chosen filters
+// Show selected filters
 function updatePortfolioSteps() {
-  const steps = document.getElementById('portfolio-builder-steps');
-  steps.innerHTML = '';
-  portfolioFilters.forEach((step, i) => {
-    const div = document.createElement('div'); div.className = 'filter-step';
-    let desc = step.filterName;
-    if (desc === 'Asset Class') desc += `: ${step.value}`;
-    else desc += ` ${step.operator} ${step.value}`;
-    div.innerHTML = `<span>${desc}</span><button class="remove-filter-btn" data-index="${i}">✕</button>`;
-    steps.appendChild(div);
+  const steps=document.getElementById('portfolio-builder-steps'); steps.innerHTML='';
+  portfolioFilters.forEach((f,i)=>{
+    const d=document.createElement('div');d.className='filter-step';
+    let text=f.filterName+(f.filterName==='Asset Class'?`: ${f.value}`:` ${f.operator} ${f.value}`);
+    d.innerHTML=`<span>${text}</span><button class="remove-filter-btn" data-index="${i}">✕</button>`;
+    steps.appendChild(d);
   });
-  // Add the "Add another filter" button
-  const instr = document.createElement('p'); instr.className = 'portfolio-builder-instruction';
-  instr.innerHTML = `<button class="add-filter-btn">+</button> Add another filter`;
-  steps.appendChild(instr);
+  const p=document.createElement('p');p.className='portfolio-builder-instruction';
+  p.innerHTML=`<button class="add-filter-btn">+</button> Add another filter`;
+  steps.appendChild(p);
 }
 
-// Apply filters and render results table
+// Apply filters and render
 function generatePortfolioNew() {
-  if (portfolioFilters.length===0 || portfolioFilters[0].filterName !== 'Asset Class') {
-    alert('Please add Asset Class filter first.'); return;
+  if (!portfolioFilters[0]||portfolioFilters[0].filterName!=='Asset Class'){
+    return alert('Add Asset Class first');
   }
-  const asset = portfolioFilters[0].value;
-  let dataObj, labelsLeft, labelsRight;
-  switch(asset) {
-    case 'STOCKS': dataObj = window.stocksFullData; labelsLeft=leftLabels; labelsRight=rightLabels; break;
-    case 'ETFS':   dataObj = window.etfFullData;   labelsLeft=etfLeftLabels; labelsRight=etfRightLabels; break;
-    case 'FUTURES':dataObj = window.futuresFullData;labelsLeft=futuresLeftLabels;labelsRight=futuresRightLabels;break;
-    default:       dataObj = window.fxFullData;     labelsLeft=fxLeftLabels;   labelsRight=fxRightLabels;
-  }
-  const results = document.getElementById('portfolio-results');
-  results.innerHTML = '';
-  const tbl = document.createElement('table');
-  // Header
-  const thead = document.createElement('thead');
-  const headerRow = document.createElement('tr');
-  headerRow.innerHTML = '<th>Instrument</th>' + portfolioFilters.slice(1).map(f => `<th>${f.filterName}</th>`).join('');
-  thead.appendChild(headerRow);
-  tbl.appendChild(thead);
-  // Body
-  const tbody = document.createElement('tbody');
-  Object.entries(dataObj).forEach(([name,info]) => {
-    let include = true;
-    // Apply each filter (omitted detailed logic for brevity)
-    if (!include) return;
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${name}</td>` + portfolioFilters.slice(1).map(f => `<td>…</td>`).join('');
-    tbody.appendChild(tr);
+  const asset=portfolioFilters[0].value;
+  const dataObj = {
+    STOCKS: window.stocksFullData,
+    ETFS: window.etfFullData,
+    FUTURES: window.futuresFullData,
+    FX: window.fxFullData
+  }[asset];
+  const mapping={
+    STOCKS:filterMappingStocks,ETFS:filterMappingETFs,
+    FUTURES:filterMappingFutures,FX:filterMappingFX
+  }[asset];
+  const resultsArr=[];
+  Object.entries(dataObj).forEach(([name,info])=>{
+    let ok=true;
+    portfolioFilters.slice(1).forEach(f=>{
+      const m=mapping[f.filterName]; if(!m)return;
+      const raw = m.source==='left'?info.summaryLeft[m.index]:info.summaryRight[m.index];
+      const val=parseFloat(raw);
+      if (isNaN(val)) { ok=false; return; }
+      if (f.operator==='≥'&&val<parseFloat(f.value)) ok=false;
+      if (f.operator==='≤'&&val>parseFloat(f.value)) ok=false;
+    });
+    if(ok) resultsArr.push({name,info});
   });
-  tbl.appendChild(tbody);
-  results.appendChild(tbl);
+
+  const resDiv=document.getElementById('portfolio-results');resDiv.innerHTML='';
+  const tbl=document.createElement('table');
+  // header
+  const thead=tbl.createTHead(); const hr=thead.insertRow();
+  hr.insertCell().textContent='Instrument';
+  portfolioFilters.slice(1).forEach(f=>hr.insertCell().textContent=f.filterName);
+  // body
+  const tbody=tbl.createTBody();
+  resultsArr.forEach(r=>{
+    const row=tbody.insertRow(); row.insertCell().textContent=r.name;
+    portfolioFilters.slice(1).forEach(f=>{
+      const m=mapping[f.filterName];
+      const raw=m.source==='left'?r.info.summaryLeft[m.index]:r.info.summaryRight[m.index];
+      row.insertCell().textContent= raw;
+    });
+  });
+  resDiv.appendChild(tbl);
 }
