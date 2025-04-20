@@ -42,12 +42,20 @@ async function initializeTrendScore() {
     }
 
     // Initialize global event handlers.
-    initEventHandlers(window, {
-      stockPrices: pricesData.stockPrices,
-      etfPrices: pricesData.etfPrices,
-      futuresPrices: pricesData.futuresPrices,
-      fxPrices: pricesData.fxPrices
-    });
+initEventHandlers(
+  {
+    STOCKS:  window.stocksFullData,
+    ETFS:    window.etfFullData,
+    FUTURES: window.futuresFullData,
+    FX:      window.fxFullData
+  },
+  {
+    stockPrices:   pricesData.stockPrices,
+    etfPrices:     pricesData.etfPrices,
+    futuresPrices: pricesData.futuresPrices,
+    fxPrices:      pricesData.fxPrices
+  }
+);
   } catch (error) {
     console.error("Error initializing TrendScore:", error);
   }
