@@ -22,13 +22,11 @@ export function initThematicPortfolio() {
   const sidebar = document.getElementById('sidebar-list');
   if (!sidebar) return;
   sidebar.addEventListener('click', e => {
-    const li = e.target.closest('li');
-    if (!li) return;
+    const li = e.target.closest('li'); if (!li) return;
     if (li.textContent.trim().toUpperCase() === 'PORTFOLIO IDEAS') {
       document.getElementById('main-content').style.display = 'none';
       document.getElementById('portfolio-builder-template').style.display = 'none';
-      const tpl = document.getElementById('thematic-portfolio-template');
-      tpl.style.display = 'block';
+      const tpl = document.getElementById('thematic-portfolio-template'); tpl.style.display = 'block';
       loadThematicPortfolio();
     }
   });
@@ -98,7 +96,38 @@ function loadThematicPortfolio() {
   }));
   const fx1 = fxData.filter(d => d.score >= 75 || d.score <= -75);
 
-  // Build HTML (no charts)
+  // Generate sections
+  const stocksSections = [
+    renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak','Key Area'], stk1),
+    renderSection('Low S&P500 Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak','Key Area'], stk2),
+    renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak','Key Area'], stk3),
+    renderSection('Trend Plus', ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength','Trend','Approach','Gap to Peak','Key Area'], stk4)
+  ].join('');
+
+  let etfSections = [
+    renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], etf1),
+    renderSection('Low Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak'], etf2),
+    renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak'], etf3),
+    renderSection('Trend Plus', ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength'], etf4)
+  ].join('');
+  if (!(etf1.length || etf2.length || etf3.length || etf4.length)) {
+    etfSections = `<div class="thematic-portfolio-section">
+      <h2>ETF Portfolios</h2>
+      <p style="color:#ccc; text-align:center;">No ETF portfolios available.</p>
+    </div>`;
+  }
+
+  const futuresSections = [
+    renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], fut1),
+    renderSection('Low Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak'], fut2),
+    renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak'], fut3)
+  ].join('');
+
+  const fxSections = [
+    renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], fx1)
+  ].join('');
+
+  // Build HTML
   c.innerHTML = `
   <div class="thematic-portfolio-nav">
     <button class="portfolio-tab active" data-target="stocks">STOCKS</button>
@@ -108,24 +137,16 @@ function loadThematicPortfolio() {
   </div>
   <div class="thematic-portfolio-contents">
     <div class="portfolio-tab-content active" data-category="stocks">
-      ${renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak','Key Area'], stk1)}
-      ${renderSection('Low S&P500 Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak','Key Area'], stk2)}
-      ${renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak','Key Area'], stk3)}
-      ${renderSection('Trend Plus', ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength','Trend','Approach','Gap to Peak','Key Area'], stk4)}
+      ${stocksSections}
     </div>
     <div class="portfolio-tab-content" data-category="etfs">
-      ${renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], etf1)}
-      ${renderSection('Low Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak'], etf2)}
-      ${renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak'], etf3)}
-      ${renderSection('Trend Plus', ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength'], etf4)}
+      ${etfSections}
     </div>
     <div class="portfolio-tab-content" data-category="futures">
-      ${renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], fut1)}
-      ${renderSection('Low Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak'], fut2)}
-      ${renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak'], fut3)}
+      ${futuresSections}
     </div>
     <div class="portfolio-tab-content" data-category="fx">
-      ${renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], fx1)}
+      ${fxSections}
     </div>
   </div>
   `;
@@ -140,7 +161,6 @@ function loadThematicPortfolio() {
 }
 
 function renderSection(title, headers, rows) {
-  // if no entries, show a friendly message
   if (!rows || rows.length === 0) {
     return `
     <div class="thematic-portfolio-section">
