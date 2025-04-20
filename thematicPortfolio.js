@@ -140,7 +140,15 @@ function loadThematicPortfolio() {
 }
 
 function renderSection(title, headers, rows) {
-  if (!rows || rows.length === 0) return '';
+  // if no entries, show a friendly message
+  if (!rows || rows.length === 0) {
+    return `
+    <div class="thematic-portfolio-section">
+      <h2>${title}</h2>
+      <p style="color:#ccc; text-align:center;">No instruments match this criteria.</p>
+    </div>
+    `;
+  }
   return `
   <div class="thematic-portfolio-section">
     <h2>${title}</h2>
