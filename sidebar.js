@@ -2,7 +2,7 @@
  * sidebar.js
  * Generates the sidebar content from static data.
  */
-const staticData = {
+export const staticData = {
   STOCKS: {
     US: [
       "AMAZON", "AMD", "AMERICAN AIRLINES", "APPLE", "AT&T", "BANK OF AMERICA", "COCA COLA",
