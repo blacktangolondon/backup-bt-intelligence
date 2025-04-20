@@ -1,7 +1,6 @@
 // thematicPortfolio.js
 
 import { parseGap } from "./dashboard.js";
-import { renderBarChart, renderPieChart, destroyChartIfExists } from "./charts.js";
 import { staticData } from "./sidebar.js";
 
 // field mapping from table headers to object properties
@@ -31,63 +30,6 @@ export function initThematicPortfolio() {
       loadThematicPortfolio();
     }
   });
-}
-
-// Distribution helpers
-function computeGeoDistribution(data) {
-  const counts = {};
-  data.forEach(d => { counts[d.region] = (counts[d.region] || 0) + 1; });
-  const total = Object.values(counts).reduce((a,b)=>a+b,0);
-  const labels = Object.keys(counts);
-  const arr = labels.map(l=>Math.round(counts[l]/total*100));
-  return { labels, data: arr };
-}
-function computeSectorDistribution(data) {
-  const mapping = staticData.ETFs;
-  const counts = {};
-  Object.keys(mapping).forEach(sec=>counts[sec]=0);
-  data.forEach(d=>{
-    for (const sec in mapping) {
-      if (mapping[sec].includes(d.instrument)) {
-        counts[sec]++;
-        break;
-      }
-    }
-  });
-  const labels = [], arr = [];
-  Object.entries(counts).forEach(([k,v])=>{
-    if(v>0) { labels.push(k); arr.push(Math.round(v/data.length*100)); }
-  });
-  return { labels, data: arr };
-}
-function computeFuturesDistribution(data) {
-  const map = {
-    Indices:['FTSE 100','CAC 40','DAX40','FTSE MIB','EUROSTOXX50','S&P500','DOW JONES','NASDAQ100','RUSSELL2000'],
-    Metals:['GOLD','SILVER','COPPER'],
-    Energy:['WTI','NATURAL GAS'],
-    Agri:['CORN','SOYBEANS']
-  };
-  const counts = {};
-  data.forEach(d=>{
-    for (const cat in map) {
-      if (map[cat].includes(d.instrument)) {
-        counts[cat] = (counts[cat]||0)+1;
-        break;
-      }
-    }
-  });
-  const total = Object.values(counts).reduce((a,b)=>a+b,0);
-  const labels = Object.keys(counts);
-  const arr = labels.map(l=>Math.round(counts[l]/total*100));
-  return { labels, data: arr };
-}
-function computeFXBaseDistribution(data) {
-  const counts = {};
-  data.forEach(d=>{ const base=d.instrument.slice(0,3); counts[base]=(counts[base]||0)+1; });
-  const total=Object.values(counts).reduce((a,b)=>a+b,0);
-  const labels=Object.keys(counts);
-  const arr=labels.map(l=>Math.round(counts[l]/total*100));
-  return { labels, data: arr };
 }
 
 function loadThematicPortfolio() {
@@ -194,9 +136,6 @@ function loadThematicPortfolio() {
     btn.classList.add('active');
     c.querySelector(`.portfolio-tab-content[data-category="${btn.dataset.target}"]`).classList.add('active');
   }));
-
-  // Render charts per section
-  renderAllCharts();
 }
 
 function renderSection(title, headers, rows) {
@@ -212,43 +151,6 @@ function renderSection(title, headers, rows) {
         ).join('')}</tbody>
       </table>
     </div>
-    <div class="portfolio-charts">${generateChartContainers(title)}</div>
   </div>
   `;
-}
-
-function generateChartContainers(title) {
-  // derive IDs from title
-  const idBase = title.toLowerCase().replace(/[^a-z]+/g,'_');
-  return `
-    <div class="portfolio-chart"><canvas id="${idBase}_bar"></canvas></div>
-    <div class="portfolio-chart"><canvas id="${idBase}_pie"></canvas></div>
-  `;
-}
-
-function renderAllCharts() {
-  // iterate each section and draw charts based on data present in DOM
-  document.querySelectorAll('.thematic-portfolio-section').forEach(section=>{
-    const h2 = section.querySelector('h2').textContent;
-    const idBase = h2.toLowerCase().replace(/[^a-z]+/g,'_');
-    const rows = Array.from(section.querySelectorAll('tbody tr')).map(tr=>{
-      const instrument = tr.children[0].textContent;
-      const value = parseFloat(tr.children[ section.querySelectorAll('th').length > 6 ? 2 : 1 ].textContent);
-      return { instrument, value };
-    });
-    if (rows.length) {
-      const labels = rows.map(r=>r.instrument);
-      const dataArr = rows.map(r=>r.value);
-      destroyChartIfExists(idBase+'_bar');
-      renderBarChart(idBase+'_bar', labels, '', dataArr);
-      // choose distribution fn
-      let dist;
-      if (section.dataset.category==='stocks') dist = computeGeoDistribution(rows);
-      else if (section.dataset.category==='etfs') dist = computeSectorDistribution(rows);
-      else if (section.dataset.category==='futures') dist = computeFuturesDistribution(rows);
-      else if (section.dataset.category==='fx') dist = computeFXBaseDistribution(rows);
-      destroyChartIfExists(idBase+'_pie');
-      renderPieChart(idBase+'_pie', dist.labels, dist.data);
-    }
-  });
 }
