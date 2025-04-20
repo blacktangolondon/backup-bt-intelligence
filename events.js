@@ -6,8 +6,19 @@ import { updateChart, updateSymbolOverview, updateBlock3, updateBlock4, initBloc
 import { generateSidebarContent } from "./sidebar.js";
 
 export function initEventHandlers(groupedData, pricesData) {
-  // Sidebar instrument click events.
+  // Sidebar click events
   document.addEventListener('click', (e) => {
+    const li = e.target.closest('li');
+    if (!li) return;
+
+    // If user clicks an instrument, restore main dashboard view
+    if (li.classList.contains('instrument-item')) {
+      document.getElementById('main-content').style.display = '';
+      document.getElementById('portfolio-builder-template').style.display = 'none';
+      document.getElementById('thematic-portfolio-template').style.display = 'none';
+    }
+
+    // Handle instrument selection
     if (e.target && e.target.classList.contains('instrument-item')) {
       document.querySelectorAll('#sidebar li.selected').forEach(item => item.classList.remove('selected'));
       e.target.classList.add('selected');
