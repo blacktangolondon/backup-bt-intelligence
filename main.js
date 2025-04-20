@@ -7,6 +7,8 @@ import { generateSidebarContent } from "./sidebar.js";
 import { updateChart, updateSymbolOverview, updateBlock3, updateBlock4, initBlock3Tabs, updateFullscreenButton, openYouTubePopup, updateYouTubePlayer } from "./dashboard.js";
 import { initEventHandlers } from "./events.js";
 import { initPortfolioBuilder } from "./portfolioBuilder.js";
+import { initThematicPortfolio } from "./thematicPortfolio.js";
+
 
 async function initializeTrendScore() {
   try {
@@ -30,6 +32,7 @@ async function initializeTrendScore() {
     // Generate the static sidebar.
     generateSidebarContent();
     initPortfolioBuilder();
+    initThematicPortfolio();
 
 
     // Initialize Block3 Tabs.
