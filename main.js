@@ -6,6 +6,7 @@ import { loadCSVData } from "./csvLoader.js";
 import { generateSidebarContent } from "./sidebar.js";
 import { updateChart, updateSymbolOverview, updateBlock3, updateBlock4, initBlock3Tabs, updateFullscreenButton, openYouTubePopup, updateYouTubePlayer } from "./dashboard.js";
 import { initEventHandlers } from "./events.js";
+import { initPortfolioBuilder } from "./portfolioBuilder.js";
 
 async function initializeTrendScore() {
   try {
@@ -28,6 +29,8 @@ async function initializeTrendScore() {
 
     // Generate the static sidebar.
     generateSidebarContent();
+    initPortfolioBuilder();
+
 
     // Initialize Block3 Tabs.
     initBlock3Tabs();
