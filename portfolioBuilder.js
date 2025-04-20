@@ -150,51 +150,83 @@ function updatePortfolioSteps() {
   steps.appendChild(p);
 }
 
-// Apply filters and render
+// Apply filters and render using original logic
 function generatePortfolioNew() {
-  if (!portfolioFilters[0]||portfolioFilters[0].filterName!=='Asset Class'){
-    return alert('Add Asset Class first');
+  if (portfolioFilters.length === 0 || portfolioFilters[0].filterName !== 'Asset Class') {
+    alert('Please add the Asset Class filter as your first filter.');
+    return;
   }
-  const asset=portfolioFilters[0].value;
-  const dataObj = {
-    STOCKS: window.stocksFullData,
-    ETFS: window.etfFullData,
-    FUTURES: window.futuresFullData,
-    FX: window.fxFullData
-  }[asset];
-  const mapping={
-    STOCKS:filterMappingStocks,ETFS:filterMappingETFs,
-    FUTURES:filterMappingFutures,FX:filterMappingFX
-  }[asset];
-  const resultsArr=[];
-  Object.entries(dataObj).forEach(([name,info])=>{
-    let ok=true;
-    portfolioFilters.slice(1).forEach(f=>{
-      const m=mapping[f.filterName]; if(!m)return;
-      const raw = m.source==='left'?info.summaryLeft[m.index]:info.summaryRight[m.index];
-      const val=parseFloat(raw);
-      if (isNaN(val)) { ok=false; return; }
-      if (f.operator==='≥'&&val<parseFloat(f.value)) ok=false;
-      if (f.operator==='≤'&&val>parseFloat(f.value)) ok=false;
-    });
-    if(ok) resultsArr.push({name,info});
+  const asset = portfolioFilters[0].value;
+  let dataObj, mapping;
+  if (asset === 'STOCKS') {
+    dataObj = window.stocksFullData;
+    mapping = filterMappingStocks;
+  } else if (asset === 'ETFS') {
+    dataObj = window.etfFullData;
+    mapping = filterMappingETFs;
+  } else if (asset === 'FUTURES') {
+    dataObj = window.futuresFullData;
+    mapping = filterMappingFutures;
+  } else if (asset === 'FX') {
+    dataObj = window.fxFullData;
+    mapping = filterMappingFX;
+  } else {
+    alert('Invalid asset class.');
+    return;
+  }
+
+  let results = [];
+  // iterate through each instrument
+  for (const instrument in dataObj) {
+    const info = dataObj[instrument];
+    let include = true;
+    // apply each filter after Asset Class
+    for (let i = 1; i < portfolioFilters.length; i++) {
+      const filt = portfolioFilters[i];
+      const map = mapping[filt.filterName];
+      if (!map) continue;
+      const rawVal = map.source === 'left'
+        ? info.summaryLeft[map.index]
+        : info.summaryRight[map.index];
+      const num = parseFloat(rawVal.replace('%',''));
+      if (isNaN(num)) { include = false; break; }
+      if (filt.operator === '≥' && num < parseFloat(filt.value)) { include = false; break; }
+      if (filt.operator === '≤' && num > parseFloat(filt.value)) { include = false; break; }
+    }
+    if (include) {
+      results.push({ instrument, info });
+    }
+  }
+
+  const resDiv = document.getElementById('portfolio-results');
+  resDiv.innerHTML = '';
+
+  if (results.length === 0) {
+    resDiv.textContent = 'No instruments meet this criteria.';
+    return;
+  }
+
+  // build table
+  const table = document.createElement('table');
+  const thead = table.createTHead();
+  const headerRow = thead.insertRow();
+  headerRow.insertCell().textContent = 'Instrument';
+  portfolioFilters.slice(1).forEach(f => {
+    headerRow.insertCell().textContent = f.filterName;
   });
 
-  const resDiv=document.getElementById('portfolio-results');resDiv.innerHTML='';
-  const tbl=document.createElement('table');
-  // header
-  const thead=tbl.createTHead(); const hr=thead.insertRow();
-  hr.insertCell().textContent='Instrument';
-  portfolioFilters.slice(1).forEach(f=>hr.insertCell().textContent=f.filterName);
-  // body
-  const tbody=tbl.createTBody();
-  resultsArr.forEach(r=>{
-    const row=tbody.insertRow(); row.insertCell().textContent=r.name;
-    portfolioFilters.slice(1).forEach(f=>{
-      const m=mapping[f.filterName];
-      const raw=m.source==='left'?r.info.summaryLeft[m.index]:r.info.summaryRight[m.index];
-      row.insertCell().textContent= raw;
+  const tbody = table.createTBody();
+  results.forEach(r => {
+    const tr = tbody.insertRow();
+    tr.insertCell().textContent = r.instrument;
+    portfolioFilters.slice(1).forEach(f => {
+      const map = mapping[f.filterName];
+      let rawVal = map.source === 'left'
+        ? r.info.summaryLeft[map.index]
+        : r.info.summaryRight[map.index];
+      tr.insertCell().textContent = rawVal || '';
     });
   });
-  resDiv.appendChild(tbl);
+
+  resDiv.appendChild(table);
 }
