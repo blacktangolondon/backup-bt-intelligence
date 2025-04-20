@@ -97,12 +97,18 @@ function loadThematicPortfolio() {
   const fx1 = fxData.filter(d => d.score >= 75 || d.score <= -75);
 
   // Generate sections
-  const stocksSections = [
+  let stocksSections = [
     renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak','Key Area'], stk1),
     renderSection('Low S&P500 Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak','Key Area'], stk2),
     renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak','Key Area'], stk3),
     renderSection('Trend Plus', ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength','Trend','Approach','Gap to Peak','Key Area'], stk4)
   ].join('');
+  if (!(stk1.length || stk2.length || stk3.length || stk4.length)) {
+    stocksSections = `<div class="thematic-portfolio-section">
+      <h2>STOCKS Portfolios</h2>
+      <p style="color:#ccc; text-align:center;">No STOCKS portfolios available.</p>
+    </div>`;
+  }
 
   let etfSections = [
     renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], etf1),
@@ -117,15 +123,27 @@ function loadThematicPortfolio() {
     </div>`;
   }
 
-  const futuresSections = [
+  let futuresSections = [
     renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], fut1),
     renderSection('Low Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak'], fut2),
     renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak'], fut3)
   ].join('');
+  if (!(fut1.length || fut2.length || fut3.length)) {
+    futuresSections = `<div class="thematic-portfolio-section">
+      <h2>FUTURES Portfolios</h2>
+      <p style="color:#ccc; text-align:center;">No Futures portfolios available.</p>
+    </div>`;
+  }
 
-  const fxSections = [
+  let fxSections = [
     renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], fx1)
   ].join('');
+  if (!fx1.length) {
+    fxSections = `<div class="thematic-portfolio-section">
+      <h2>FX Portfolios</h2>
+      <p style="color:#ccc; text-align:center;">No FX portfolios available.</p>
+    </div>`;
+  }
 
   // Build HTML
   c.innerHTML = `
@@ -137,16 +155,16 @@ function loadThematicPortfolio() {
   </div>
   <div class="thematic-portfolio-contents">
     <div class="portfolio-tab-content active" data-category="stocks">
-      ${stocksSections}
+      \${stocksSections}
     </div>
     <div class="portfolio-tab-content" data-category="etfs">
-      ${etfSections}
+      \${etfSections}
     </div>
     <div class="portfolio-tab-content" data-category="futures">
-      ${futuresSections}
+      \${futuresSections}
     </div>
     <div class="portfolio-tab-content" data-category="fx">
-      ${fxSections}
+      \${fxSections}
     </div>
   </div>
   `;
