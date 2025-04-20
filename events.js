@@ -1,28 +1,28 @@
-/**
- * events.js
- * Registers UI event handlers.
- */
+// events.js
+// Registers UI event handlers.
 import { updateChart, updateSymbolOverview, updateBlock3, updateBlock4, initBlock3Tabs, openYouTubePopup } from "./dashboard.js";
 import { generateSidebarContent } from "./sidebar.js";
 
 export function initEventHandlers(groupedData, pricesData) {
-  // Sidebar click events
+  // Handle clicks on the sidebar
   document.addEventListener('click', (e) => {
+    // Only proceed if a sidebar <li> was clicked
     const li = e.target.closest('li');
     if (!li) return;
 
-    // If user clicks an instrument, restore main dashboard view
+    // If it's an instrument-item, switch back to main dashboard
     if (li.classList.contains('instrument-item')) {
+      // Show dashboard, hide templates
       document.getElementById('main-content').style.display = '';
       document.getElementById('portfolio-builder-template').style.display = 'none';
       document.getElementById('thematic-portfolio-template').style.display = 'none';
-    }
 
-    // Handle instrument selection
-    if (e.target && e.target.classList.contains('instrument-item')) {
+      // Highlight the selected instrument
       document.querySelectorAll('#sidebar li.selected').forEach(item => item.classList.remove('selected'));
-      e.target.classList.add('selected');
-      const instrumentName = e.target.textContent.trim();
+      li.classList.add('selected');
+
+      const instrumentName = li.textContent.trim();
+      // Update dashboard content based on asset class
       if (groupedData.STOCKS && groupedData.STOCKS[instrumentName]) {
         updateChart(instrumentName, groupedData.STOCKS);
         updateSymbolOverview(instrumentName, groupedData.STOCKS);
@@ -49,6 +49,7 @@ export function initEventHandlers(groupedData, pricesData) {
         updateBlock3(instrumentName, groupedData.CRYPTO);
         updateBlock4(instrumentName, groupedData.CRYPTO, {});
       } else {
+        // Fallback
         updateBlock3(instrumentName, groupedData.STOCKS);
       }
     }
@@ -59,13 +60,9 @@ export function initEventHandlers(groupedData, pricesData) {
   if (fsButton) {
     fsButton.addEventListener("click", () => {
       const block1 = document.getElementById("block1");
-      if (block1.requestFullscreen) {
-        block1.requestFullscreen();
-      } else if (block1.webkitRequestFullscreen) {
-        block1.webkitRequestFullscreen();
-      } else {
-        console.error("Fullscreen API not supported.");
-      }
+      if (block1.requestFullscreen) block1.requestFullscreen();
+      else if (block1.webkitRequestFullscreen) block1.webkitRequestFullscreen();
+      else console.error("Fullscreen API not supported.");
     });
   }
   document.addEventListener("fullscreenchange", () => {
@@ -86,7 +83,7 @@ export function initEventHandlers(groupedData, pricesData) {
 
   // jQuery UI Autocomplete for sidebar search.
   if (typeof $ === "function" && $.fn.autocomplete) {
-    let instrumentNames = [];
+    const instrumentNames = [];
     document.querySelectorAll("#sidebar-list .instrument-item").forEach(elem => {
       instrumentNames.push(elem.textContent.trim());
     });
