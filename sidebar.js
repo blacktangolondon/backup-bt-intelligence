@@ -1,4 +1,4 @@
-import instruments from "./instruments.json";
+import instruments from "./instruments.json" assert { type: "json" };
 
 // Group instruments by asset class
 function groupInstruments() {
