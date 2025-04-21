@@ -38,7 +38,7 @@ async function initializeTrendScore() {
     };
 
     // 3) Sidebar, Portfolio Builder & Thematic Portfolio
-    generateSidebarContent();
+    await generateSidebarContent();
     initPortfolioBuilder();
     initThematicPortfolio();
 
