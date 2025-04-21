@@ -1,23 +1,45 @@
-import instruments from "./instruments.js";
+/**
+ * sidebar.js
+ * Generates the sidebar content from instruments.json
+ */
 
-// Group instruments by asset class
-function groupInstruments() {
-  return instruments.reduce((acc, { ticker, asset_class }) => {
-    const key = asset_class.toUpperCase();
-    if (!acc[key]) acc[key] = [];
-    acc[key].push(ticker);
-    return acc;
-  }, {});
-}
+import instruments from "./instruments.json" assert { type: "json" };
 
-// Map JSON asset classes to sidebar display names
-const displayNames = {
-  EQUITY: "STOCKS",
-  ETF: "ETFS",
-  FUTURES: "FUTURES",
-  FX: "FX",
-  CRYPTO: "CRYPTO"
+const staticData = {
+  STOCKS: [],
+  ETFs: [],
+  FUTURES: [],
+  FX: [],
+  CRYPTO: [],
+  "PORTFOLIO BUILDER": [],
+  "THEMATIC PORTFOLIO": [],
+  "LIVE TV": [],
+  "MEMBERS CHAT": [],
+  SUPPORT: []
 };
+
+// Populate each category from instruments.json
+instruments.forEach(({ ticker, asset_class }) => {
+  const name = ticker;
+  switch (asset_class.toLowerCase()) {
+    case "equity":
+      staticData.STOCKS.push(name);
+      break;
+    case "etf":
+      staticData.ETFs.push(name);
+      break;
+    case "future":
+    case "futures":
+      staticData.FUTURES.push(name);
+      break;
+    case "fx":
+      staticData.FX.push(name);
+      break;
+    case "crypto":
+      staticData.CRYPTO.push(name);
+      break;
+  }
+});
 
 export function generateSidebarContent() {
   const sidebarList = document.getElementById('sidebar-list');
@@ -27,52 +49,51 @@ export function generateSidebarContent() {
   }
   sidebarList.innerHTML = "";
 
-  const grouped = groupInstruments();
-  const skip = ["SPREAD", "MEMBERS CHAT", "SUPPORT"];
-
-  Object.keys(grouped).forEach(assetClass => {
-    if (skip.includes(assetClass)) return;
-    const instrumentsList = grouped[assetClass];
-    if (!instrumentsList.length) return;
-
-    const displayName = displayNames[assetClass] || assetClass;
+  const skipCategories = ["SPREAD", "CRYPTO", "MEMBERS CHAT", "SUPPORT"];
+  Object.keys(staticData).forEach(category => {
+    if (skipCategories.includes(category)) return;
+    let displayName = (category === "THEMATIC PORTFOLIO") ? "PORTFOLIO IDEAS" : category;
+    const items = staticData[category];
     const categoryItem = document.createElement('li');
-    categoryItem.classList.add('expandable');
-
-    const toggleBtn = document.createElement('div');
-    toggleBtn.classList.add('toggle-btn');
-    toggleBtn.innerHTML = `${displayName} <span>+</span>`;
-    categoryItem.appendChild(toggleBtn);
-
-    const subList = document.createElement('ul');
-    subList.classList.add('sub-list');
-    instrumentsList.forEach(name => {
-      const listItem = document.createElement('li');
-      listItem.classList.add('instrument-item');
-      listItem.textContent = name;
-      subList.appendChild(listItem);
-    });
-    categoryItem.appendChild(subList);
+    categoryItem.textContent = displayName;
     sidebarList.appendChild(categoryItem);
 
-    toggleBtn.addEventListener('click', () => {
-      categoryItem.classList.toggle('expanded');
-      const span = toggleBtn.querySelector('span');
-      span.textContent = categoryItem.classList.contains('expanded') ? '-' : '+';
-    });
+    if (Array.isArray(items) && items.length > 0) {
+      categoryItem.classList.add('expandable');
+      const toggleBtn = document.createElement('div');
+      toggleBtn.classList.add('toggle-btn');
+      toggleBtn.innerHTML = `${displayName} <span>+</span>`;
+      categoryItem.textContent = '';
+      categoryItem.appendChild(toggleBtn);
+
+      const subList = document.createElement('ul');
+      subList.classList.add('sub-list');
+      items.forEach(instrument => {
+        const listItem = document.createElement('li');
+        listItem.classList.add("instrument-item");
+        listItem.textContent = instrument;
+        subList.appendChild(listItem);
+      });
+      categoryItem.appendChild(subList);
+
+      toggleBtn.addEventListener('click', () => {
+        categoryItem.classList.toggle('expanded');
+        const span = toggleBtn.querySelector('span');
+        span.textContent = categoryItem.classList.contains('expanded') ? '-' : '+';
+      });
+    }
   });
 
-  // Full Screen Platform button
-  const fullscreenItem = document.createElement('li');
-  fullscreenItem.id = 'sidebar-fullscreen';
-  fullscreenItem.textContent = 'FULL SCREEN PLATFORM';
-  fullscreenItem.classList.add('expandable');
-  fullscreenItem.style.cursor = 'pointer';
-  fullscreenItem.style.display = 'none';
-  fullscreenItem.addEventListener('click', e => {
+  // Full-screen platform item
+  const fullscreenItem = document.createElement("li");
+  fullscreenItem.id = "sidebar-fullscreen";
+  fullscreenItem.textContent = "FULL SCREEN PLATFORM";
+  fullscreenItem.style.cursor = "pointer";
+  fullscreenItem.style.display = "none";
+  sidebarList.appendChild(fullscreenItem);
+  fullscreenItem.addEventListener("click", e => {
     e.stopPropagation();
     if (!document.fullscreenElement) document.documentElement.requestFullscreen();
     else document.exitFullscreen();
   });
-  sidebarList.appendChild(fullscreenItem);
 }
