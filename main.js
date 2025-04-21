@@ -21,41 +21,40 @@ import { initThematicPortfolio } from "./thematicPortfolio.js";
 
 async function initializeTrendScore() {
   try {
-    // 1) Load summary data for Block 3 from instruments.json
+    // 1) Load summary data for Block 3
     const jsonData = await loadJSONData();
+    window.stocksFullData  = jsonData.stocksFullData;
     window.etfFullData     = jsonData.etfFullData;
     window.futuresFullData = jsonData.futuresFullData;
     window.fxFullData      = jsonData.fxFullData;
-    window.stocksFullData  = jsonData.stocksFullData;
 
     // 2) Load price history from CSVs for Block 4
     const csvData = await loadCSVData();
-    const pricesData = {
+    window.pricesData = {
+      stockPrices:   csvData.stockPrices,
       etfPrices:     csvData.etfPrices,
       futuresPrices: csvData.futuresPrices,
-      fxPrices:      csvData.fxPrices,
-      stockPrices:   csvData.stockPrices
+      fxPrices:      csvData.fxPrices
     };
-    window.pricesData = pricesData;
 
-    // 3) Sidebar, Portfolio & Thematic
+    // 3) Sidebar, Portfolio Builder & Thematic Portfolio
     generateSidebarContent();
     initPortfolioBuilder();
     initThematicPortfolio();
 
-    // 4) TrendScore tabs
+    // 4) TrendScore (Block 3) tabs
     initBlock3Tabs();
 
-    // 5) Initial view
-    const defaultInstrument = Object.keys(window.stocksFullData)[0] || "AMAZON";
+    // 5) Default dashboard view
+    const defaultInstrument = Object.keys(window.stocksFullData)[0] || "AMZN";
     if (window.stocksFullData[defaultInstrument]) {
       updateChart(defaultInstrument, window.stocksFullData);
       updateSymbolOverview(defaultInstrument, window.stocksFullData);
       updateBlock3(defaultInstrument, window.stocksFullData);
-      updateBlock4(defaultInstrument, window.stocksFullData, pricesData.stockPrices);
+      updateBlock4(defaultInstrument, window.stocksFullData, window.pricesData.stockPrices);
     }
 
-    // 6) Global handlers
+    // 6) Global event handlers (sidebar clicks, fullscreen, etc.)
     initEventHandlers(
       {
         STOCKS:  window.stocksFullData,
@@ -64,10 +63,10 @@ async function initializeTrendScore() {
         FX:      window.fxFullData
       },
       {
-        stockPrices:   pricesData.stockPrices,
-        etfPrices:     pricesData.etfPrices,
-        futuresPrices: pricesData.futuresPrices,
-        fxPrices:      pricesData.fxPrices
+        stockPrices:   window.pricesData.stockPrices,
+        etfPrices:     window.pricesData.etfPrices,
+        futuresPrices: window.pricesData.futuresPrices,
+        fxPrices:      window.pricesData.fxPrices
       }
     );
   } catch (error) {
