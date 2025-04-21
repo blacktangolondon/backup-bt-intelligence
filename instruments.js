@@ -1,4 +1,5 @@
-[
+export default 
+  [
   {
     "ticker": "Amazon.com, Inc.",
     "asset_class": "equity",
