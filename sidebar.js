@@ -2,7 +2,6 @@
  * sidebar.js
  * Generates the sidebar content from instruments.json
  */
-
 export async function generateSidebarContent() {
   const sidebarList = document.getElementById('sidebar-list');
   if (!sidebarList) {
@@ -20,34 +19,29 @@ export async function generateSidebarContent() {
     console.error("Failed to load instruments.json", err);
   }
 
-  // 2. Build staticData by asset_class
-  const staticData = {
-    STOCKS: [], ETFs: [], FUTURES: [], FX: [], CRYPTO: [],
-    "PORTFOLIO BUILDER": [], "THEMATIC PORTFOLIO": [], "LIVE TV": [],
-    "MEMBERS CHAT": [], SUPPORT: []
-  };
+  // 2. Group by asset_class
+  const staticData = { STOCKS: [], ETFs: [], FUTURES: [], FX: [], CRYPTO: [] };
   instruments.forEach(({ ticker, asset_class }) => {
     const name = ticker;
-    switch ((asset_class || "").toLowerCase()) {
+    switch ((asset_class||"").toLowerCase()) {
       case "equity": staticData.STOCKS.push(name); break;
       case "etf":    staticData.ETFs.push(name);    break;
-      case "future":
-      case "futures":staticData.FUTURES.push(name); break;
+      case "future": case "futures":
+                     staticData.FUTURES.push(name); break;
       case "fx":     staticData.FX.push(name);      break;
       case "crypto": staticData.CRYPTO.push(name);  break;
     }
   });
 
-  // 3. Render sidebar
-  const skip = ["SPREAD","CRYPTO","MEMBERS CHAT","SUPPORT"];
-  Object.keys(staticData).forEach(category => {
+  // 3. Render sidebar (skip CRYPTO here if you like)
+  const skip = ["CRYPTO"];
+  Object.entries(staticData).forEach(([category, items]) => {
     if (skip.includes(category)) return;
-    const displayName = category === "THEMATIC PORTFOLIO" ? "PORTFOLIO IDEAS" : category;
+    const displayName = category === "STOCKS" ? "STOCKS" : category;
     const li = document.createElement("li");
     li.textContent = displayName;
     sidebarList.appendChild(li);
 
-    const items = staticData[category];
     if (items.length) {
       li.classList.add("expandable");
       const toggle = document.createElement("div");
@@ -68,12 +62,13 @@ export async function generateSidebarContent() {
 
       toggle.addEventListener("click", () => {
         li.classList.toggle("expanded");
-        toggle.querySelector("span").textContent = li.classList.contains("expanded") ? "-" : "+";
+        toggle.querySelector("span").textContent =
+          li.classList.contains("expanded") ? "-" : "+";
       });
     }
   });
 
-  // 4. Full‐screen platform item
+  // 4. (optional) Full‑screen item
   const fs = document.createElement("li");
   fs.id = "sidebar-fullscreen";
   fs.textContent = "FULL SCREEN PLATFORM";
