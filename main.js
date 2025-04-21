@@ -21,14 +21,14 @@ import { initThematicPortfolio } from "./thematicPortfolio.js";
 
 async function initializeTrendScore() {
   try {
-    // 1) Load summary data for Block 3
+    // 1) Load summary data for Block 3
     const jsonData = await loadJSONData();
     window.stocksFullData  = jsonData.stocksFullData;
     window.etfFullData     = jsonData.etfFullData;
     window.futuresFullData = jsonData.futuresFullData;
     window.fxFullData      = jsonData.fxFullData;
 
-    // 2) Load price history from CSVs for Block 4
+    // 2) Load price history from CSVs for Block 4
     const csvData = await loadCSVData();
     window.pricesData = {
       stockPrices:   csvData.stockPrices,
@@ -38,11 +38,12 @@ async function initializeTrendScore() {
     };
 
     // 3) Sidebar, Portfolio Builder & Thematic Portfolio
+    //    <-- fully awaited so sidebar is built after data loads
     await generateSidebarContent();
     initPortfolioBuilder();
     initThematicPortfolio();
 
-    // 4) TrendScore (Block 3) tabs
+    // 4) TrendScore (Block 3) tabs
     initBlock3Tabs();
 
     // 5) Default dashboard view
@@ -51,7 +52,11 @@ async function initializeTrendScore() {
       updateChart(defaultInstrument, window.stocksFullData);
       updateSymbolOverview(defaultInstrument, window.stocksFullData);
       updateBlock3(defaultInstrument, window.stocksFullData);
-      updateBlock4(defaultInstrument, window.stocksFullData, window.pricesData.stockPrices);
+      updateBlock4(
+        defaultInstrument,
+        window.stocksFullData,
+        window.pricesData.stockPrices
+      );
     }
 
     // 6) Global event handlers (sidebar clicks, fullscreen, etc.)
