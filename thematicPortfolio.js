@@ -1,7 +1,6 @@
 // thematicPortfolio.js
 
 import { parseGap } from "./dashboard.js";
-import { staticData } from "./sidebar.js";
 
 // field mapping from table headers to object properties
 const headerKeyMap = {
