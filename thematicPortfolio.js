@@ -36,7 +36,7 @@ function loadThematicPortfolio() {
   const c = document.getElementById('thematic-portfolio-template');
 
   // Prepare data sets
-  const stocksData = Object.entries(window.stocksFullData).map(([inst,info])=>({
+  const stocksData = Object.entries(window.stocksFullData).map(([inst, info]) => ({
     instrument: inst,
     score: parseFloat(info.summaryLeft[0]),
     trend: info.summaryLeft[1],
@@ -47,16 +47,15 @@ function loadThematicPortfolio() {
     vol: parseFloat(info.summaryRight[1]),
     bullish: parseFloat(info.summaryRight[2]),
     bearish: parseFloat(info.summaryRight[3]),
-    alpha: parseFloat(info.summaryRight[4]),
-    region: info.region
+    alpha: parseFloat(info.summaryRight[4])
   }));
-  const stk1 = stocksData.filter(d=>d.score===100);
-  const stk2 = stk1.filter(d=>d.corr<0.1);
-  const stk3 = stk1.filter(d=>d.vol<1);
-  const stk4 = stk1.filter(d=>d.bullish>1 && d.bearish<1 && d.alpha>1);
+  const stk1 = stocksData.filter(d => d.score === 100);
+  const stk2 = stk1.filter(d => d.corr < 0.1);
+  const stk3 = stk1.filter(d => d.vol < 1);
+  const stk4 = stk1.filter(d => d.bullish > 1 && d.bearish < 1 && d.alpha > 1);
 
   // ETF data
-  const etfData = Object.entries(window.etfFullData).map(([inst,info])=>({
+  const etfData = Object.entries(window.etfFullData).map(([inst, info]) => ({
     instrument: inst,
     score: parseFloat(info.summaryLeft[0]),
     trend: info.summaryLeft[1],
@@ -68,13 +67,13 @@ function loadThematicPortfolio() {
     bearish: parseFloat(info.summaryRight[3]),
     alpha: parseFloat(info.summaryRight[4])
   }));
-  const etf1 = etfData.filter(d=>d.score===100);
-  const etf2 = etf1.filter(d=>d.corr<0.1);
-  const etf3 = etf1.filter(d=>d.vol<1);
-  const etf4 = etf1.filter(d=>d.bullish>1 && d.bearish<1 && d.alpha>1);
+  const etf1 = etfData.filter(d => d.score === 100);
+  const etf2 = etf1.filter(d => d.corr < 0.1);
+  const etf3 = etf1.filter(d => d.vol < 1);
+  const etf4 = etf1.filter(d => d.bullish > 1 && d.bearish < 1 && d.alpha > 1);
 
   // Futures data
-  const futData = Object.entries(window.futuresFullData).map(([inst,info])=>({
+  const futData = Object.entries(window.futuresFullData).map(([inst, info]) => ({
     instrument: inst,
     score: parseFloat(info.summaryLeft[0]),
     trend: info.summaryLeft[1],
@@ -83,19 +82,68 @@ function loadThematicPortfolio() {
     corr: parseFloat(info.summaryRight[0]),
     vol: parseFloat(info.summaryRight[1])
   }));
-  const fut1 = futData.filter(d=>Math.abs(d.score)===100);
-  const fut2 = fut1.filter(d=>d.corr<0.1);
-  const fut3 = fut1.filter(d=>d.vol<1);
+  const fut1 = futData.filter(d => Math.abs(d.score) === 100);
+  const fut2 = fut1.filter(d => d.corr < 0.1);
+  const fut3 = fut1.filter(d => d.vol < 1);
 
   // FX data
-  const fxData = Object.entries(window.fxFullData).map(([inst,info])=>({
+  const fxData = Object.entries(window.fxFullData).map(([inst, info]) => ({
     instrument: inst,
     score: parseFloat(info.summaryLeft[0]),
     trend: info.summaryLeft[1],
     approach: info.summaryLeft[3],
     gap: parseGap(info.summaryLeft[2])
   }));
-  const fx1 = fxData.filter(d=>d.score>=75 || d.score<=-75);
+  const fx1 = fxData.filter(d => d.score >= 75 || d.score <= -75);
+
+  // Generate sections
+  let stocksSections = [
+    renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak','Key Area'], stk1),
+    renderSection('Low S&P500 Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak','Key Area'], stk2),
+    renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak','Key Area'], stk3),
+    renderSection('Trend Plus', ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength','Trend','Approach','Gap to Peak','Key Area'], stk4)
+  ].join('');
+  if (!(stk1.length || stk2.length || stk3.length || stk4.length)) {
+    stocksSections = `<div class="thematic-portfolio-section">
+      <h2>STOCKS Portfolios</h2>
+      <p style="color:#ccc; text-align:center;">No STOCKS portfolios available.</p>
+    </div>`;
+  }
+
+  let etfSections = [
+    renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], etf1),
+    renderSection('Low Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak'], etf2),
+    renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak'], etf3),
+    renderSection('Trend Plus', ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength'], etf4)
+  ].join('');
+  if (!(etf1.length || etf2.length || etf3.length || etf4.length)) {
+    etfSections = `<div class="thematic-portfolio-section">
+      <h2>ETF Portfolios</h2>
+      <p style="color:#ccc; text-align:center;">No ETF portfolios available.</p>
+    </div>`;
+  }
+
+  let futuresSections = [
+    renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], fut1),
+    renderSection('Low Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak'], fut2),
+    renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak'], fut3)
+  ].join('');
+  if (!(fut1.length || fut2.length || fut3.length)) {
+    futuresSections = `<div class="thematic-portfolio-section">
+      <h2>FUTURES Portfolios</h2>
+      <p style="color:#ccc; text-align:center;">No Futures portfolios available.</p>
+    </div>`;
+  }
+
+  let fxSections = [
+    renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], fx1)
+  ].join('');
+  if (!fx1.length) {
+    fxSections = `<div class="thematic-portfolio-section">
+      <h2>FX Portfolios</h2>
+      <p style="color:#ccc; text-align:center;">No FX portfolios available.</p>
+    </div>`;
+  }
 
   // Build HTML
   c.innerHTML = `
@@ -107,47 +155,46 @@ function loadThematicPortfolio() {
   </div>
   <div class="thematic-portfolio-contents">
     <div class="portfolio-tab-content active" data-category="stocks">
-      ${renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak','Key Area'], stk1)}
-      ${renderSection('Low S&P500 Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak','Key Area'], stk2)}
-      ${renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak','Key Area'], stk3)}
-      ${renderSection('Trend Plus', ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength','Trend','Approach','Gap to Peak','Key Area'], stk4)}
+      \${stocksSections}
     </div>
     <div class="portfolio-tab-content" data-category="etfs">
-      ${renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], etf1)}
-      ${renderSection('Low Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak'], etf2)}
-      ${renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak'], etf3)}
-      ${renderSection('Trend Plus', ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength'], etf4)}
+      \${etfSections}
     </div>
     <div class="portfolio-tab-content" data-category="futures">
-      ${renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], fut1)}
-      ${renderSection('Low Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak'], fut2)}
-      ${renderSection('Low Volatility', ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak'], fut3)}
+      \${futuresSections}
     </div>
     <div class="portfolio-tab-content" data-category="fx">
-      ${renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], fx1)}
+      \${fxSections}
     </div>
   </div>
   `;
 
   // Tab switching
-  c.querySelectorAll('.portfolio-tab').forEach(btn=>btn.addEventListener('click',()=>{
-    c.querySelectorAll('.portfolio-tab').forEach(b=>b.classList.remove('active'));
-    c.querySelectorAll('.portfolio-tab-content').forEach(sec=>sec.classList.remove('active'));
+  c.querySelectorAll('.portfolio-tab').forEach(btn => btn.addEventListener('click', () => {
+    c.querySelectorAll('.portfolio-tab').forEach(b => b.classList.remove('active'));
+    c.querySelectorAll('.portfolio-tab-content').forEach(sec => sec.classList.remove('active'));
     btn.classList.add('active');
     c.querySelector(`.portfolio-tab-content[data-category="${btn.dataset.target}"]`).classList.add('active');
   }));
 }
 
 function renderSection(title, headers, rows) {
-  if (!rows || rows.length === 0) return '';
+  if (!rows || rows.length === 0) {
+    return `
+    <div class="thematic-portfolio-section">
+      <h2>${title}</h2>
+      <p style="color:#ccc; text-align:center;">No instruments match this criteria.</p>
+    </div>
+    `;
+  }
   return `
   <div class="thematic-portfolio-section">
     <h2>${title}</h2>
     <div class="thematic-portfolio-table-container">
       <table class="thematic-portfolio-table">
-        <thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
-        <tbody>${rows.map(r=>
-          `<tr>${headers.map(h=>`<td>${r[headerKeyMap[h]]}</td>`).join('')}</tr>`
+        <thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+        <tbody>${rows.map(r =>
+          `<tr>${headers.map(h => `<td>${r[headerKeyMap[h]]}</td>`).join('')}</tr>`
         ).join('')}</tbody>
       </table>
     </div>
