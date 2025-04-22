@@ -4,6 +4,7 @@
  */
 import { loadJSONData } from "./jsonLoader.js";
 import { loadCSVData } from "./csvLoader.js";
+import { resolveTVSymbol } from "./tvResolver.js";
 import { generateSidebarContent } from "./sidebar.js";
 import {
   updateChart,
@@ -36,6 +37,23 @@ async function initializeTrendScore() {
       futuresPrices: csvData.futuresPrices,
       fxPrices:      csvData.fxPrices
     };
+
+    // 2.5) Resolve each ticker → EXCHANGE:SYMBOL
+    async function enrichSymbols() {
+      const buckets = [
+        window.stocksFullData,
+        window.etfFullData,
+        window.futuresFullData,
+        window.fxFullData
+      ];
+      for (const bucket of buckets) {
+        for (const ticker of Object.keys(bucket)) {
+          // overwrite tvSymbol with TradingView’s “EXCHANGE:SYM”
+          bucket[ticker].tvSymbol = await resolveTVSymbol(ticker);
+        }
+      }
+    }
+   await enrichSymbols();
 
     // 3) Sidebar, Portfolio Builder & Thematic Portfolio
     //    <-- fully awaited so sidebar is built after data loads
