@@ -11,156 +11,135 @@ export async function generateSidebarContent() {
   }
   sidebarList.innerHTML = "";
 
-  // 1. Load instruments.json
+  // 1. Load instruments.json via fetch
   let instruments = [];
   try {
     const resp = await fetch("./instruments.json");
     instruments = await resp.json();
   } catch (err) {
     console.error("Failed to load instruments.json", err);
-    return;
   }
 
-  // 2. Prepare grouping buckets
+  // 2. Group by asset_class, but for STOCKS by region, for ETFs by sector
   const staticData = {
-    STOCKS: {},   // by Exchange
-    ETFs:   {},   // by Exchange
-    FUTURES: [],  // flat list
-    FX:      {},  // Majors/Minors
+    STOCKS: {},   // { regionName: [tickers...] }
+    ETFs:   {},   // { sectorName:  [tickers...] }
+    FUTURES: [],
+    FX:      [],
     CRYPTO:  []
   };
 
-  // 3. Friendly names for certain exchanges
-  const stockNames = {
-    NYSE:   'NYSE',
-    NASDAQ: 'NASDAQ',
-    MIL:    'FTSE MIB',
-    XETR:   'DAX 40'
-  };
-  const etfNames = {
-    MIL:    'EURONEXT'
-  };
+  instruments.forEach(({ ticker, asset_class, region, sector }) => {
+    const name = ticker;
+    switch ((asset_class || "").toLowerCase()) {
+      case "equity":
+        const r = region || "Unknown";
+        if (!staticData.STOCKS[r]) staticData.STOCKS[r] = [];
+        staticData.STOCKS[r].push(name);
+        break;
 
-  // 4. List of major FX pairs (TradingView format)
-  const fxMajors = [
-    'EURUSD=X','GBPUSD=X','USDJPY=X','USDCHF=X','USDCAD=X','AUDUSD=X','NZDUSD=X'
-  ];
+      case "etf":
+        const s = sector || "Unknown";
+        if (!staticData.ETFs[s]) staticData.ETFs[s] = [];
+        staticData.ETFs[s].push(name);
+        break;
 
-  // 5. Group instruments
-  instruments.forEach(inst => {
-    const asset = (inst.asset_class || '').toLowerCase();
-    const ticker = inst.ticker;
-    const tv = inst.tvSymbol || '';
+      case "future":
+      case "futures":
+        staticData.FUTURES.push(name);
+        break;
 
-    switch (asset) {
-      case 'equity': {
-        const exch = tv.split(':')[0] || 'Unknown';
-        const name = stockNames[exch] || exch;
-        if (!staticData.STOCKS[name]) staticData.STOCKS[name] = [];
-        staticData.STOCKS[name].push(ticker);
+      case "fx":
+        staticData.FX.push(name);
         break;
-      }
-      case 'etf': {
-        const exch = tv.split(':')[0] || 'Unknown';
-        const name = etfNames[exch] || exch;
-        if (!staticData.ETFs[name]) staticData.ETFs[name] = [];
-        staticData.ETFs[name].push(ticker);
-        break;
-      }
-      case 'future':
-      case 'futures':
-        staticData.FUTURES.push(ticker);
-        break;
-      case 'fx': {
-        const group = fxMajors.includes(tv) ? 'MAJORS' : 'MINORS';
-        if (!staticData.FX[group]) staticData.FX[group] = [];
-        staticData.FX[group].push(ticker);
-        break;
-      }
-      case 'crypto':
-        staticData.CRYPTO.push(ticker);
-        break;
-      default:
+
+      case "crypto":
+        staticData.CRYPTO.push(name);
         break;
     }
   });
 
-  // 6. Render sidebar
-  const skip = ['CRYPTO'];
+  // 3. Render sidebar categories and sub‑categories
+  //    CRYPTO you can skip if you like
+  const skip = ["CRYPTO"];
   Object.entries(staticData).forEach(([category, items]) => {
     if (skip.includes(category)) return;
-    const li = document.createElement('li');
-    li.textContent = category;
+    const displayName = category;
+    const li = document.createElement("li");
+    li.textContent = displayName;
     sidebarList.appendChild(li);
 
-    // flat arrays: FUTURES only
+    // if items is a flat array (FUTURES / FX) → render exactly as before
     if (Array.isArray(items)) {
-      if (!items.length) return;
-      li.classList.add('expandable');
-      const toggle = document.createElement('div');
-      toggle.classList.add('toggle-btn');
-      toggle.innerHTML = `${category} <span>+</span>`;
-      li.textContent = '';
-      li.appendChild(toggle);
+      if (items.length) {
+        li.classList.add('expandable');
+        const toggle = document.createElement('div');
+        toggle.classList.add('toggle-btn');
+        toggle.innerHTML = `${displayName} <span>+</span>`;
+        li.textContent = "";
+        li.appendChild(toggle);
 
-      const ul = document.createElement('ul');
-      ul.classList.add('sub-list');
-      items.forEach(name => {
-        const item = document.createElement('li');
-        item.classList.add('instrument-item');
-        item.textContent = name;
-        ul.appendChild(item);
-      });
-      li.appendChild(ul);
+        const ul = document.createElement('ul');
+        ul.classList.add('sub-list');
+        items.forEach(inst => {
+          const item = document.createElement('li');
+          item.classList.add('instrument-item');
+          item.textContent = inst;
+          ul.appendChild(item);
+        });
+        li.appendChild(ul);
 
-      toggle.addEventListener('click', () => {
-        const expanded = li.classList.toggle('expanded');
-        toggle.querySelector('span').textContent = expanded ? '-' : '+';
-      });
+        toggle.addEventListener('click', () => {
+          li.classList.toggle('expanded');
+          toggle.querySelector("span").textContent =
+            li.classList.contains("expanded") ? "-" : "+";
+        });
+      }
 
     } else {
-      // object with subcategories: STOCKS, ETFs, FX
-      if (!Object.keys(items).length) return;
+      // items is an object ⇒ render each key as a sub‑category
       li.classList.add('expandable');
       const toggle = document.createElement('div');
       toggle.classList.add('toggle-btn');
-      toggle.innerHTML = `${category} <span>+</span>`;
-      li.textContent = '';
+      toggle.innerHTML = `${displayName} <span>+</span>`;
+      li.textContent = "";
       li.appendChild(toggle);
 
       const subList = document.createElement('ul');
       subList.classList.add('sub-list');
-      Object.entries(items).forEach(([subCat, arr]) => {
-        if (!arr.length) return;
+
+      Object.entries(items).forEach(([subCategory, arr]) => {
         const subLi = document.createElement('li');
         subLi.classList.add('expandable');
         const subToggle = document.createElement('div');
         subToggle.classList.add('toggle-btn');
-        subToggle.innerHTML = `${subCat} <span>+</span>`;
+        subToggle.innerHTML = `${subCategory} <span>+</span>`;
         subLi.appendChild(subToggle);
 
         const instList = document.createElement('ul');
         instList.classList.add('sub-list');
-        arr.forEach(name => {
+        arr.forEach(inst => {
           const instItem = document.createElement('li');
           instItem.classList.add('instrument-item');
-          instItem.textContent = name;
+          instItem.textContent = inst;
           instList.appendChild(instItem);
         });
         subLi.appendChild(instList);
         subList.appendChild(subLi);
 
         subToggle.addEventListener('click', () => {
-          const exp = subLi.classList.toggle('expanded');
-          subToggle.querySelector('span').textContent = exp ? '-' : '+';
+          subLi.classList.toggle('expanded');
+          subToggle.querySelector("span").textContent =
+            subLi.classList.contains("expanded") ? "-" : "+";
         });
       });
 
       li.appendChild(subList);
 
       toggle.addEventListener('click', () => {
-        const exp = li.classList.toggle('expanded');
-        toggle.querySelector('span').textContent = exp ? '-' : '+';
+        li.classList.toggle('expanded');
+        toggle.querySelector("span").textContent =
+          li.classList.contains("expanded") ? "-" : "+";
       });
     }
   });
