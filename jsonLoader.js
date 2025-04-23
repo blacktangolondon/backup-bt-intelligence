@@ -39,6 +39,7 @@ export async function loadJSONData() {
       String(item.one_year_low)
     ];
 
+    const key = item.ticker.trim();
     bucket[item.ticker] = {
       summaryLeft,
       summaryRight,
