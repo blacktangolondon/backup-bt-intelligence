@@ -42,7 +42,7 @@ export async function loadJSONData() {
     bucket[item.ticker] = {
       summaryLeft,
       summaryRight,
-      tvSymbol: item.ticker
+      tvSymbol: item.tvSymbol
     };
   });
 
