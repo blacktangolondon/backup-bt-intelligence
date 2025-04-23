@@ -150,14 +150,29 @@ export async function generateSidebarContent() {
     });
   }
 
-  // 7. Render FUTURES (no submenus)
+  // 7. Render FUTURES with submenu
   {
     const catLi = createCategoryLi('FUTURES');
+    catLi.classList.add('expandable');
+    const toggle = document.createElement('div');
+    toggle.classList.add('toggle-btn');
+    toggle.innerHTML = 'FUTURES <span>+</span>';
+    catLi.textContent = '';
+    catLi.appendChild(toggle);
+
+    const subUl = document.createElement('ul');
+    subUl.classList.add('sub-list');
     staticData.FUTURES.sort().forEach(inst => {
       const instLi = document.createElement('li');
       instLi.classList.add('instrument-item');
       instLi.textContent = inst;
-      sidebarList.appendChild(instLi);
+      subUl.appendChild(instLi);
+    });
+
+    catLi.appendChild(subUl);
+    toggle.addEventListener('click', () => {
+      catLi.classList.toggle('expanded');
+      toggle.querySelector('span').textContent = catLi.classList.contains('expanded') ? '-' : '+';
     });
   }
 
