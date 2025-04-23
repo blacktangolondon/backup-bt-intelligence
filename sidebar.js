@@ -1,5 +1,5 @@
 // sidebar.js
-// Updated to group instruments into EQUITIES, ETF, FUTURES, FX with specified submenus
+// Updated to group instruments into EQUITIES, ETF, FUTURES, FX with explicit submenus
 export async function generateSidebarContent() {
   const sidebarList = document.getElementById('sidebar-list');
   if (!sidebarList) {
@@ -18,27 +18,28 @@ export async function generateSidebarContent() {
     return;
   }
 
-  // 2. Group instruments into main categories and subcategories
+  // 2. Prepare data structures
   const staticData = {
-    EQUITIES: {},    // { exchange: [tickers...] }
-    ETF:    {},      // { 'EURONEXT': [tickers...] }
-    FUTURES: [],     // [tickers]
-    FX:     {}       // { 'MAJORS' | 'MINORS': [tickers...] }
+    EQUITIES: { 'NYSE': [], 'NASDAQ': [], 'FTSE MIB': [], 'DAX40': [] },
+    ETF:      { 'EURONEXT': [] },
+    FUTURES:  [],
+    FX:       { 'MAJORS': [], 'MINORS': [] }
   };
 
+  // 3. Group instruments
   instruments.forEach(({ ticker, asset_class, exchange }) => {
     const name = ticker;
-    switch ((asset_class || '').toLowerCase()) {
+    const cls = (asset_class || '').toLowerCase();
+    switch (cls) {
       case 'equity': {
-        const ex = exchange || 'UNKNOWN';
-        if (!staticData.EQUITIES[ex]) staticData.EQUITIES[ex] = [];
-        staticData.EQUITIES[ex].push(name);
+        const ex = (exchange || '').toUpperCase();
+        if (staticData.EQUITIES[ex]) {
+          staticData.EQUITIES[ex].push(name);
+        }
         break;
       }
       case 'etf': {
-        const key = 'EURONEXT';
-        if (!staticData.ETF[key]) staticData.ETF[key] = [];
-        staticData.ETF[key].push(name);
+        staticData.ETF['EURONEXT'].push(name);
         break;
       }
       case 'future':
@@ -47,59 +48,52 @@ export async function generateSidebarContent() {
         break;
       }
       case 'fx': {
-        const cat = (exchange || '').toUpperCase();
-        if (!staticData.FX[cat]) staticData.FX[cat] = [];
-        staticData.FX[cat].push(name);
+        const fxCat = (exchange || '').toUpperCase() === 'MAJORS' ? 'MAJORS' : 'MINORS';
+        staticData.FX[fxCat].push(name);
         break;
       }
     }
   });
 
-  // 3. Define rendering logic
-  const renderCategory = (catName, items) => {
+  // 4. Helper to create category header
+  function createCategoryLi(title) {
     const li = document.createElement('li');
-    li.textContent = catName;
+    li.textContent = title;
     sidebarList.appendChild(li);
+    return li;
+  }
 
-    // If items is an array, render directly under this category
-    if (Array.isArray(items)) {
-      items.sort().forEach(inst => {
-        const itemLi = document.createElement('li');
-        itemLi.classList.add('instrument-item');
-        itemLi.textContent = inst;
-        sidebarList.appendChild(itemLi);
-      });
-      return;
-    }
-
-    // Otherwise items is an object of subcategories
-    li.classList.add('expandable');
+  // 5. Render EQUITIES with submenus
+  {
+    const catLi = createCategoryLi('EQUITIES');
+    catLi.classList.add('expandable');
     const toggle = document.createElement('div');
     toggle.classList.add('toggle-btn');
-    toggle.innerHTML = `${catName} <span>+</span>`;
-    li.textContent = '';
-    li.appendChild(toggle);
+    toggle.innerHTML = 'EQUITIES <span>+</span>';
+    catLi.textContent = '';
+    catLi.appendChild(toggle);
 
     const subUl = document.createElement('ul');
     subUl.classList.add('sub-list');
-
-    Object.entries(items).forEach(([subName, arr]) => {
+    ['NYSE','NASDAQ','FTSE MIB','DAX40'].forEach(ex => {
+      const arr = staticData.EQUITIES[ex];
+      if (!arr.length) return;
       const subLi = document.createElement('li');
       subLi.classList.add('expandable');
       const subToggle = document.createElement('div');
       subToggle.classList.add('toggle-btn');
-      subToggle.innerHTML = `${subName} <span>+</span>`;
+      subToggle.innerHTML = `${ex} <span>+</span>`;
       subLi.appendChild(subToggle);
 
-      const instList = document.createElement('ul');
-      instList.classList.add('sub-list');
+      const instUl = document.createElement('ul');
+      instUl.classList.add('sub-list');
       arr.sort().forEach(inst => {
-        const instItem = document.createElement('li');
-        instItem.classList.add('instrument-item');
-        instItem.textContent = inst;
-        instList.appendChild(instItem);
+        const instLi = document.createElement('li');
+        instLi.classList.add('instrument-item');
+        instLi.textContent = inst;
+        instUl.appendChild(instLi);
       });
-      subLi.appendChild(instList);
+      subLi.appendChild(instUl);
       subUl.appendChild(subLi);
 
       subToggle.addEventListener('click', () => {
@@ -108,17 +102,108 @@ export async function generateSidebarContent() {
       });
     });
 
-    li.appendChild(subUl);
-
+    catLi.appendChild(subUl);
     toggle.addEventListener('click', () => {
-      li.classList.toggle('expanded');
-      toggle.querySelector('span').textContent = li.classList.contains('expanded') ? '-' : '+';
+      catLi.classList.toggle('expanded');
+      toggle.querySelector('span').textContent = catLi.classList.contains('expanded') ? '-' : '+';
     });
-  };
+  }
 
-  // 4. Render all main categories in desired order
-  renderCategory('EQUITIES', staticData.EQUITIES);
-  renderCategory('ETF',     staticData.ETF);
-  renderCategory('FUTURES', staticData.FUTURES);
-  renderCategory('FX',      staticData.FX);
+  // 6. Render ETF
+  {
+    const catLi = createCategoryLi('ETF');
+    catLi.classList.add('expandable');
+    const toggle = document.createElement('div');
+    toggle.classList.add('toggle-btn');
+    toggle.innerHTML = 'ETF <span>+</span>';
+    catLi.textContent = '';
+    catLi.appendChild(toggle);
+
+    const subUl = document.createElement('ul');
+    subUl.classList.add('sub-list');
+    const subLi = document.createElement('li');
+    subLi.classList.add('expandable');
+    const subToggle = document.createElement('div');
+    subToggle.classList.add('toggle-btn');
+    subToggle.innerHTML = `EURONEXT <span>+</span>`;
+    subLi.appendChild(subToggle);
+
+    const instUl = document.createElement('ul');
+    instUl.classList.add('sub-list');
+    staticData.ETF['EURONEXT'].sort().forEach(inst => {
+      const instLi = document.createElement('li');
+      instLi.classList.add('instrument-item');
+      instLi.textContent = inst;
+      instUl.appendChild(instLi);
+    });
+    subLi.appendChild(instUl);
+    subUl.appendChild(subLi);
+
+    catLi.appendChild(subUl);
+    subToggle.addEventListener('click', () => {
+      subLi.classList.toggle('expanded');
+      subToggle.querySelector('span').textContent = subLi.classList.contains('expanded') ? '-' : '+';
+    });
+    toggle.addEventListener('click', () => {
+      catLi.classList.toggle('expanded');
+      toggle.querySelector('span').textContent = catLi.classList.contains('expanded') ? '-' : '+';
+    });
+  }
+
+  // 7. Render FUTURES (no submenus)
+  {
+    const catLi = createCategoryLi('FUTURES');
+    staticData.FUTURES.sort().forEach(inst => {
+      const instLi = document.createElement('li');
+      instLi.classList.add('instrument-item');
+      instLi.textContent = inst;
+      sidebarList.appendChild(instLi);
+    });
+  }
+
+  // 8. Render FX
+  {
+    const catLi = createCategoryLi('FX');
+    catLi.classList.add('expandable');
+    const toggle = document.createElement('div');
+    toggle.classList.add('toggle-btn');
+    toggle.innerHTML = 'FX <span>+</span>';
+    catLi.textContent = '';
+    catLi.appendChild(toggle);
+
+    const subUl = document.createElement('ul');
+    subUl.classList.add('sub-list');
+    ['MAJORS','MINORS'].forEach(key => {
+      const arr = staticData.FX[key];
+      if (!arr.length) return;
+      const subLi = document.createElement('li');
+      subLi.classList.add('expandable');
+      const subToggle = document.createElement('div');
+      subToggle.classList.add('toggle-btn');
+      subToggle.innerHTML = `${key} <span>+</span>`;
+      subLi.appendChild(subToggle);
+
+      const instUl = document.createElement('ul');
+      instUl.classList.add('sub-list');
+      arr.sort().forEach(inst => {
+        const instLi = document.createElement('li');
+        instLi.classList.add('instrument-item');
+        instLi.textContent = inst;
+        instUl.appendChild(instLi);
+      });
+      subLi.appendChild(instUl);
+      subUl.appendChild(subLi);
+
+      subToggle.addEventListener('click', () => {
+        subLi.classList.toggle('expanded');
+        subToggle.querySelector('span').textContent = subLi.classList.contains('expanded') ? '-' : '+';
+      });
+    });
+
+    catLi.appendChild(subUl);
+    toggle.addEventListener('click', () => {
+      catLi.classList.toggle('expanded');
+      toggle.querySelector('span').textContent = catLi.classList.contains('expanded') ? '-' : '+';
+    });
+  }
 }
