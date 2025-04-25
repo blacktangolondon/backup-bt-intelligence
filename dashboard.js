@@ -1,112 +1,60 @@
-/**
- * dashboard.js
- * Handles dashboard updates.
- */
+// jsonLoader.js
+// ----------------
+// Load instruments.json and bucket each item by asset class,
+// preserving the full `tvSymbol` from the JSON instead of overwriting it.
 
-import { renderBarChart, renderPieChart, destroyChartIfExists } from "./charts.js";
+export async function loadJSONData() {
+  const resp = await fetch('instruments.json');
+  const entries = await resp.json();
 
-// Helper: parseGap value.
-export function parseGap(val) {
-  return (val === "-" || isNaN(parseFloat(val))) ? 0 : parseFloat(val);
+  const stocksFullData  = {};
+  const etfFullData     = {};
+  const futuresFullData = {};
+  const fxFullData      = {};
+
+  entries.forEach(item => {
+    const bucket = {
+      equity:  stocksFullData,
+      etf:     etfFullData,
+      futures: futuresFullData,
+      fx:      fxFullData
+    }[item.asset_class];
+    if (!bucket) return;
+
+    const summaryLeft = [
+      String(item.final_score),
+      item.trend,
+      item.approach,
+      String(item.gap_to_peak),
+      item.key_area,
+      item.micro,
+      item.math,
+      item.stats,
+      item.tech
+    ];
+    const summaryRight = [
+      String(item.sp500_correlation),
+      String(item.sp500_volatility_ratio),
+      String(item.bullish_alpha),
+      String(item.bearish_alpha),
+      String(item.alpha_strength),
+      String(item.pe_ratio),
+      String(item.eps),
+      String(item.one_year_high),
+      String(item.one_year_low)
+    ];
+
+    // <<< Here we now use the upstream-built TV-style symbol! >>>
+    bucket[item.ticker] = {
+      summaryLeft,
+      summaryRight,
+      tvSymbol: item.tvSymbol
+    };
+  });
+
+  return { stocksFullData, etfFullData, futuresFullData, fxFullData };
 }
 
-/* Label arrays */
-export const leftLabels = ["SCORE", "TREND", "APPROACH", "GAP TO PEAK", "KEY AREA", "MICRO", "MATH", "STATS", "TECH"];
-export const rightLabels = ["S&P500 CORRELATION", "S&P500 VOLATILITY RATIO", "BULLISH ALPHA", "BEARISH ALPHA", "ALPHA STRENGHT", "PE RATIO", "EPS", "1 YEAR HIGH", "1 YEAR LOW"];
-export const etfLeftLabels = ["SCORE", "TREND", "APPROACH", "GAP TO PEAK", "KEY AREA", "MATH", "STATS", "TECH"];
-export const etfRightLabels = ["S&P500 CORRELATION", "S&P500 VOLATILITY RATIO", "BULLISH ALPHA", "BEARISH ALPHA", "ALPHA STRENGHT", "1 YEAR HIGH", "1 YEAR LOW", "ISSUER - TICKER"];
-export const futuresLeftLabels = ["SCORE", "TREND", "APPROACH", "GAP TO PEAK", "KEY AREA", "LIMIT", "POTENTIAL EXTENSION"];
-export const futuresRightLabels = ["S&P500 CORRELATION", "S&P500 VOLATILITY RATIO", "ALPHA STRENGHT", "30 DAYS PROJECTION", "MATH", "STATS", "TECH"];
-export const fxLeftLabels = ["SCORE", "TREND", "GAP TO PEAK / TO VALLEY", "APPROACH", "KEY AREA", "LIMIT", "POTENTIAL EXTENSION"];
-export const fxRightLabels = ["AVERAGE DAILY VOLATILITY", "FX VOLATILITY RATIO", "30 DAYS PROJECTION", "LONG TERM - MACRO", "MEDIUM TERM - MATH", "MEDIUM TERM - STATS", "SHORT TERM - TECH"];
-
-/* Block1: TradingView Advanced Chart */
-function updateChartGeneric(instrumentName, groupData) {
-  const info = groupData[instrumentName];
-  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
-  const block1 = document.getElementById("block1");
-  const container = block1.querySelector(".tradingview-widget-container");
-  container.innerHTML = `<div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>`;
-  const script = document.createElement('script');
-  script.type = "text/javascript";
-  script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
-  script.async = true;
-  script.textContent = `{
-    "autosize": true,
-    "symbol": "${symbol}",
-    "interval": "D",
-    "timezone": "Etc/UTC",
-    "theme": "dark",
-    "style": "1",
-    "locale": "en",
-    "withdateranges": true,
-    "hide_side_toolbar": false,
-    "allow_symbol_change": false,
-    "backgroundColor": "#001122",
-    "details": true,
-    "calendar": false,
-    "support_host": "https://www.tradingview.com"
-  }`;
-  container.appendChild(script);
-}
-export function updateChart(instrumentName, groupData) {
-  updateChartGeneric(instrumentName, groupData);
-}
-
-/* Block2: Symbol Overview */
-function updateSymbolOverviewGeneric(instrumentName, groupData) {
-  const info = groupData[instrumentName];
-  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
-  const block2 = document.getElementById("block2");
-  let container = block2.querySelector("#symbol-info-container");
-  if (!container) {
-    container = document.createElement("div");
-    container.id = "symbol-info-container";
-    block2.appendChild(container);
-  }
-  container.innerHTML = `<div class="tradingview-widget-container__widget"></div>`;
-  const script = document.createElement('script');
-  script.type = "text/javascript";
-  script.src = "https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js";
-  script.async = true;
-  script.textContent = `{
-    "symbols": [
-      [ "${symbol}|1D" ]
-    ],
-    "chartOnly": false,
-    "width": "100%",
-    "height": "100%",
-    "locale": "en",
-    "colorTheme": "dark",
-    "autosize": true,
-    "showVolume": false,
-    "showMA": false,
-    "hideDateRanges": false,
-    "hideMarketStatus": false,
-    "hideSymbolLogo": false,
-    "scalePosition": "right",
-    "scaleMode": "Normal",
-    "fontFamily": "-apple-system, BlinkMacSystemFont, Roboto, Ubuntu, sans-serif",
-    "fontSize": "10",
-    "noTimeScale": false,
-    "valuesTracking": "1",
-    "changeMode": "price-and-percent",
-    "chartType": "area",
-    "maLineColor": "#2962FF",
-    "maLineWidth": 1,
-    "maLength": 9,
-    "headerFontSize": "medium",
-    "backgroundColor": "rgba(19, 23, 34, 0)",
-    "widgetFontColor": "rgba(255, 152, 0, 1)",
-    "lineWidth": 2,
-    "lineType": 0,
-    "dateRanges": [ "1d|1", "1m|30", "3m|60", "12m|1D", "60m|1W", "all|1M" ]
-  }`;
-  container.appendChild(script);
-}
-export function updateSymbolOverview(instrumentName, groupData) {
-  updateSymbolOverviewGeneric(instrumentName, groupData);
-}
 
 /* Block3: TrendScore Table and TradingView Technical Analysis */
 function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, rightLabelArr, tradingViewUpdater) {
