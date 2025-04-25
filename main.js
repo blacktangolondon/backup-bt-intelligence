@@ -47,7 +47,7 @@ async function initializeTrendScore() {
     initBlock3Tabs();
 
     // 5) Default dashboard view
-    const defaultInstrument = "AMZN";
+    const defaultInstrument = Object.keys(window.stocksFullData)[0] || "AMZN";
     if (window.stocksFullData[defaultInstrument]) {
       updateChart(defaultInstrument, window.stocksFullData);
       updateSymbolOverview(defaultInstrument, window.stocksFullData);
