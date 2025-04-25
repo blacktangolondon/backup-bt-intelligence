@@ -44,7 +44,7 @@ export async function loadJSONData() {
       String(item.one_year_low)
     ];
 
-    // <<< Here we now use the upstream-built TV-style symbol! >>>
+    // Preserve the TV-style symbol built upstream
     bucket[item.ticker] = {
       summaryLeft,
       summaryRight,
