@@ -1,7 +1,12 @@
 // jsonLoader.js
+// ----------------
+// Load instruments.json and bucket each item by asset class,
+// preserving the full `tvSymbol` from the JSON instead of overwriting it.
+
 export async function loadJSONData() {
   const resp = await fetch('instruments.json');
   const entries = await resp.json();
+
   const stocksFullData  = {};
   const etfFullData     = {};
   const futuresFullData = {};
@@ -39,10 +44,11 @@ export async function loadJSONData() {
       String(item.one_year_low)
     ];
 
+    // <<< Here we now use the upstream-built TV-style symbol! >>>
     bucket[item.ticker] = {
       summaryLeft,
       summaryRight,
-      tvSymbol: item.ticker
+      tvSymbol: item.tvSymbol
     };
   });
 
