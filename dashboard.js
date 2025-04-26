@@ -253,14 +253,19 @@ export function updateBlock4(instrumentName, groupData, groupPrices) {
       lookupKey = info.tvSymbol.split(':')[1];
     }
 
-    // 1b) if that exact key isn't present, try to find a match that starts with it
+    // 2) first fallback: match exact, then anything whose key sans-extension equals lookupKey
     if (!(lookupKey in groupPrices)) {
-      const match = Object.keys(groupPrices)
+      let match = Object.keys(groupPrices)
         .find(k => k.split('.')[0] === lookupKey);
+      // 3) second fallback: anything that starts with lookupKey
+      if (!match) {
+        match = Object.keys(groupPrices)
+          .find(k => k.startsWith(lookupKey));
+      }
       if (match) lookupKey = match;
     }
 
-    // 2) compute correlations
+    // 4) compute correlations
     const cor = getCorrelationListForCategory(lookupKey, groupPrices);
 
     if (!cor.length) {
@@ -268,10 +273,11 @@ export function updateBlock4(instrumentName, groupData, groupPrices) {
       return;
     }
 
-    // 3) render chart
+    // 5) render chart
     drawMostCorrelatedChart(cor);
   }, 300);
 }
+
 
 
 
