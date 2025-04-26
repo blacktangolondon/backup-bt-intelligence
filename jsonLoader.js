@@ -16,7 +16,7 @@ export async function loadJSONData() {
     const bucket = {
       equity:  stocksFullData,
       etf:     etfFullData,
-      futures: futuresFullData,
+      future: futuresFullData,
       fx:      fxFullData
     }[item.asset_class];
     if (!bucket) return;
