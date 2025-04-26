@@ -238,13 +238,33 @@ function getCorrelationListForCategory(inst,prices) {
   const data=prices[inst]; if(!data||!data.length) return[];
   return Object.keys(prices).filter(n=>n!==inst).map(n=>[n,pearsonCorrelation(data,prices[n])]).sort((a,b)=>b[1]-a[1]).slice(0,10);
 }
+
 export function updateBlock4(instrumentName, groupData, groupPrices) {
-  const blk=document.getElementById('block4'); blk.innerHTML='<div class="loading-message"><span>CALCULATING...</span></div>';
-  setTimeout(()=>{ blk.innerHTML=''; const cor=getCorrelationListForCategory(instrumentName,groupPrices);
-    if(!cor.length) { blk.innerHTML=`<p style="color:white;">No correlation data found for ${instrumentName}</p>`; return; }
+  const blk = document.getElementById('block4');
+  blk.innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
+  setTimeout(() => {
+    blk.innerHTML = '';
+
+    // 1) grab the tvSymbol (e.g. "NASDAQ:AAPL") and split out the ticker code
+    const info = groupData[instrumentName];
+    let lookupKey = instrumentName;
+    if (info && info.tvSymbol && info.tvSymbol.includes(':')) {
+      lookupKey = info.tvSymbol.split(':')[1];
+    }
+
+    // 2) compute correlations against the correct price array key
+    const cor = getCorrelationListForCategory(lookupKey, groupPrices);
+
+    if (!cor.length) {
+      blk.innerHTML = `<p style="color:white;">No correlation data found for ${instrumentName}</p>`;
+      return;
+    }
+
+    // 3) render chart
     drawMostCorrelatedChart(cor);
-  },300);
+  }, 300);
 }
+
 
 /* Block3 Tab Event */
 export function initBlock3Tabs() {
