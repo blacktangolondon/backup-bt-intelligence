@@ -253,17 +253,26 @@ export function updateBlock4(instrumentName, groupData, groupPrices) {
       lookupKey = info.tvSymbol.split(':')[1];
     }
 
-    // 2) first fallback: match exact, then anything whose key sans-extension equals lookupKey
-    if (!(lookupKey in groupPrices)) {
-      let match = Object.keys(groupPrices)
-        .find(k => k.split('.')[0] === lookupKey);
-      // 3) second fallback: anything that starts with lookupKey
-      if (!match) {
-        match = Object.keys(groupPrices)
-          .find(k => k.startsWith(lookupKey));
-      }
-      if (match) lookupKey = match;
-    }
+
+    // 1b) if that exact key isn't present, try a few fallbacks…
+if (!(lookupKey in groupPrices)) {
+  let match = Object.keys(groupPrices)
+    .find(k => k.split('.')[0] === lookupKey);      // drop “.DE” suffix
+
+  if (!match) {
+    match = Object.keys(groupPrices)
+      .find(k => k.startsWith(lookupKey));          // prefix match
+  }
+
+  if (!match) {
+    match = Object.keys(groupPrices)
+      .find(k => k.includes(lookupKey));            // any substring match
+  }
+
+  if (match) lookupKey = match;
+}
+
+    
 
     // 4) compute correlations
     const cor = getCorrelationListForCategory(lookupKey, groupPrices);
