@@ -239,20 +239,28 @@ function getCorrelationListForCategory(inst,prices) {
   return Object.keys(prices).filter(n=>n!==inst).map(n=>[n,pearsonCorrelation(data,prices[n])]).sort((a,b)=>b[1]-a[1]).slice(0,10);
 }
 
+
 export function updateBlock4(instrumentName, groupData, groupPrices) {
   const blk = document.getElementById('block4');
   blk.innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
   setTimeout(() => {
     blk.innerHTML = '';
 
-    // 1) grab the tvSymbol (e.g. "NASDAQ:AAPL") and split out the ticker code
+    // 1) grab the tvSymbol and split out the ticker code
     const info = groupData[instrumentName];
     let lookupKey = instrumentName;
     if (info && info.tvSymbol && info.tvSymbol.includes(':')) {
       lookupKey = info.tvSymbol.split(':')[1];
     }
 
-    // 2) compute correlations against the correct price array key
+    // 1b) if that exact key isn't present, try to find a match that starts with it
+    if (!(lookupKey in groupPrices)) {
+      const match = Object.keys(groupPrices)
+        .find(k => k.split('.')[0] === lookupKey);
+      if (match) lookupKey = match;
+    }
+
+    // 2) compute correlations
     const cor = getCorrelationListForCategory(lookupKey, groupPrices);
 
     if (!cor.length) {
@@ -264,6 +272,7 @@ export function updateBlock4(instrumentName, groupData, groupPrices) {
     drawMostCorrelatedChart(cor);
   }, 300);
 }
+
 
 
 /* Block3 Tab Event */
