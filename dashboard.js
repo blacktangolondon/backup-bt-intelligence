@@ -132,7 +132,6 @@ export function updateSymbolOverview(instrumentName, groupData) {
 }
 
 /* Block 3: TrendScore Table and Technical Analysis */
-// Updated updateBlock3Generic in dashboard.js
 function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, rightLabelArr, tradingViewUpdater) {
   const trendScoreContainer = document.getElementById('block3-trendscore');
   trendScoreContainer.innerHTML = '<div class="loading-message"><span>CALCULATING.</span></div>';
@@ -145,6 +144,7 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
       showBlock3Tab('trendscore');
       return;
     }
+
     const table = document.createElement('table');
     for (let i = 0; i < rowCount; i++) {
       const tr = document.createElement('tr');
@@ -153,22 +153,28 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
       const td1 = document.createElement('td');
       td1.textContent = leftLabelArr[i] || '';
 
+      // Determine correct left value, accounting for ETF shift
+      let val;
+      if (leftLabelArr === etfLeftLabels && i >= 5) {
+        // ETFs skip the 'MICRO' field, so offset by +1
+        val = info.summaryLeft[i + 1] || '';
+      } else {
+        val = info.summaryLeft[i] || '';
+      }
+      // Convert STATS cell from UP/DOWN into BULLISH/BEARISH for all asset classes
+      if (leftLabelArr[i] === 'STATS') {
+        if (val === 'MEDIUM TERM UP')   val = 'MEDIUM TERM BULLISH';
+        else if (val === 'MEDIUM TERM DOWN') val = 'MEDIUM TERM BEARISH';
+      }
+
       // Value cell (left)
       const td2 = document.createElement('td');
-      let leftText;
-      // Special 0% case for gap
-      if (i === 3 && (info.summaryLeft[i] === '-' || parseFloat(info.summaryLeft[i]) === 0)) {
-        leftText = '0%';
+      // Special 0% case for GAP TO PEAK
+      if (leftLabelArr[i] === 'GAP TO PEAK' && (val === '-' || parseFloat(val) === 0)) {
+        td2.textContent = '0%';
       } else {
-        let val = info.summaryLeft[i] || '';
-        // Convert stats labels for equities
-        if (leftLabelArr[i] === 'STATS') {
-          if (val === 'MEDIUM TERM UP') val = 'MEDIUM TERM BULLISH';
-          else if (val === 'MEDIUM TERM DOWN') val = 'MEDIUM TERM BEARISH';
-        }
-        leftText = val;
+        td2.textContent = val;
       }
-      td2.textContent = leftText;
 
       // Label cell (right)
       const td3 = document.createElement('td');
@@ -183,7 +189,7 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
     }
     trendScoreContainer.appendChild(table);
 
-    // Handle tabs and TradingView pane
+    // TradingView pane or full table for futures/index
     if (groupData === window.futuresFullData || ['CAC 40','FTSE MIB'].includes(instrumentName)) {
       document.getElementById('block3-tabs').style.display = 'none';
       document.getElementById('block3-content').style.height = '100%';
