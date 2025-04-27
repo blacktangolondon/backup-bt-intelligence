@@ -21,28 +21,52 @@ export async function loadJSONData() {
     }[item.asset_class];
     if (!bucket) return;
 
-    const summaryLeft = [
-      String(item.final_score),
-      item.trend,
-      item.approach,
-      String(item.gap_to_peak),
-      item.key_area,
-      item.micro,
-      item.math,
-      item.stats,
-      item.tech
-    ];
-    const summaryRight = [
-      String(item.sp500_correlation),
-      String(item.sp500_volatility_ratio),
-      String(item.bullish_alpha),
-      String(item.bearish_alpha),
-      String(item.alpha_strength),
-      String(item.pe_ratio),
-      String(item.eps),
-      String(item.one_year_high),
-      String(item.one_year_low)
-    ];
+    let summaryLeft, summaryRight;
+    if (item.asset_class === 'future') {
+      // 7 columns for futures matching futuresLeftLabels and futuresRightLabels
+      summaryLeft = [
+        String(item.final_score),         // SCORE
+        item.trend,                       // TREND
+        item.approach,                    // APPROACH
+        String(item.gap_to_peak),         // GAP TO PEAK
+        item.key_area,                    // KEY AREA
+        String(item.limit),               // LIMIT
+        String(item.extension)            // POTENTIAL EXTENSION
+      ];
+      summaryRight = [
+        String(item.sp500_correlation),     // S&P500 CORRELATION
+        String(item.sp500_volatility_ratio),// S&P500 VOLATILITY RATIO
+        String(item.alpha_strength),        // ALPHA STRENGTH
+        String(item.projection_30),         // 30 DAYS PROJECTION
+        item.math,                          // MATH
+        item.stats,                         // STATS
+        item.tech                           // TECH
+      ];
+    } else {
+      // 9 columns for equity, ETF, FX
+      summaryLeft = [
+        String(item.final_score),
+        item.trend,
+        item.approach,
+        String(item.gap_to_peak),
+        item.key_area,
+        item.micro,
+        item.math,
+        item.stats,
+        item.tech
+      ];
+      summaryRight = [
+        String(item.sp500_correlation),
+        String(item.sp500_volatility_ratio),
+        String(item.bullish_alpha),
+        String(item.bearish_alpha),
+        String(item.alpha_strength),
+        String(item.pe_ratio),
+        String(item.eps),
+        String(item.one_year_high),
+        String(item.one_year_low)
+      ];
+    }
 
     // Preserve the TV-style symbol built upstream
     bucket[item.ticker] = {
