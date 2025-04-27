@@ -22,8 +22,8 @@ export async function loadJSONData() {
     if (!bucket) return;
 
     let summaryLeft, summaryRight;
-    if (item.asset_class === 'future') {
-      // 7 columns for futures matching futuresLeftLabels and futuresRightLabels
+    if (item.asset_class === 'future' || item.asset_class === 'fx') {
+      // 7 columns for futures and FX, matching futuresLeftLabels and futuresRightLabels
       summaryLeft = [
         String(item.final_score),         // SCORE
         item.trend,                       // TREND
@@ -43,7 +43,7 @@ export async function loadJSONData() {
         item.tech                           // TECH
       ];
     } else {
-      // 9 columns for equity, ETF, FX
+      // 9 columns for equity, ETF
       summaryLeft = [
         String(item.final_score),
         item.trend,
