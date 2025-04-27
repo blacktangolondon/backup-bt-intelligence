@@ -7,11 +7,8 @@ export async function generateSidebarContent() {
     return;
   }
 
-  // Add static entries for Portfolio Builder and Portfolio Ideas
-  sidebarList.innerHTML = `
-    <li class="menu-item">Portfolio Builder</li>
-    <li class="menu-item">Portfolio Ideas</li>
-  `;
+  // Clear existing content
+  sidebarList.innerHTML = '';
 
   // Load instruments.json
   let instruments = [];
@@ -116,4 +113,13 @@ export async function generateSidebarContent() {
   addCategory('ETF',      data.ETF);
   addCategory('FUTURES',  data.FUTURES);
   addCategory('FX',       data.FX);
+
+  // Add Portfolio Builder and Portfolio Ideas at bottom in uppercase
+  const pbLi = document.createElement('li');
+  pbLi.textContent = 'PORTFOLIO BUILDER';
+  sidebarList.appendChild(pbLi);
+
+  const piLi = document.createElement('li');
+  piLi.textContent = 'PORTFOLIO IDEAS';
+  sidebarList.appendChild(piLi);
 }
