@@ -3,6 +3,7 @@
 // Handles dashboard updates (Blocks 1–4), tab events, fullscreen, and YouTube popup.
 
 import { renderBarChart, renderPieChart, destroyChartIfExists } from "./charts.js";
+import futuresMap from "./futuresMap.json";
 
 // Helper: parseGap value.
 export function parseGap(val) {
@@ -232,13 +233,32 @@ function drawMostCorrelatedChart(top10) {
   const block4=document.getElementById('block4'); block4.innerHTML='<canvas id="correlationChart"></canvas>';
   const ctx=document.getElementById('correlationChart').getContext('2d');
   const labels=top10.map(i=>i[0]), dataArr=top10.map(i=>i[1]);
-  new Chart(ctx,{type:'bar',data:{labels,datasets:[{label:'CORRELATION',data:dataArr,backgroundColor:'rgba(255,165,0,0.7)',borderColor:'rgba(255,165,0,1)',borderWidth:1}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',scales:{x:{ticks:{color:'white'},grid:{color:'rgba(255,255,255,0.2)'}},y:{ticks:{color:'white'},grid:{color:'rgba(255,255,255,0.2)'}}},plugins:{legend:{display:false},title:{display:true,text:'10 MOST CORRELATED INSTRUMENTS',color:'white',font:{size:14,family:'Arial'}}}}});
+  new Chart(ctx,{
+    type:'bar',
+    data:{ labels, datasets:[{ label:'CORRELATION', data:dataArr, backgroundColor:'rgba(255,165,0,0.7)', borderColor:'rgba(255,165,0,1)', borderWidth:1 }]},
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      indexAxis:'y',
+      scales:{
+        x:{ ticks:{ color:'white' }, grid:{ color:'rgba(255,255,255,0.2)' } },
+        y:{ ticks:{ color:'white' }, grid:{ color:'rgba(255,255,255,0.2)' } }
+      },
+      plugins:{
+        legend:{ display:false },
+        title:{ display:true, text:'10 MOST CORRELATED INSTRUMENTS', color:'white', font:{ size:14, family:'Arial' } }
+      }
+    }
+  });
 }
 function getCorrelationListForCategory(inst,prices) {
-  const data=prices[inst]; if(!data||!data.length) return[];
-  return Object.keys(prices).filter(n=>n!==inst).map(n=>[n,pearsonCorrelation(data,prices[n])]).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  const data=prices[inst]; if(!data||!data.length) return [];
+  return Object.keys(prices)
+    .filter(n=>n!==inst)
+    .map(n=>[n, pearsonCorrelation(data, prices[n])])
+    .sort((a,b)=>b[1]-a[1])
+    .slice(0,10);
 }
-
 
 export function updateBlock4(instrumentName, groupData, groupPrices) {
   const blk = document.getElementById('block4');
@@ -246,35 +266,21 @@ export function updateBlock4(instrumentName, groupData, groupPrices) {
   setTimeout(() => {
     blk.innerHTML = '';
 
-    // 1) grab the tvSymbol and split out the ticker code
+    // 1) grab tvSymbol, then map via futuresMap if a future
     const info = groupData[instrumentName];
-    let lookupKey = instrumentName;
-    if (info && info.tvSymbol && info.tvSymbol.includes(':')) {
-      lookupKey = info.tvSymbol.split(':')[1];
+    const tvSym = info && info.tvSymbol ? info.tvSymbol : '';
+    let lookupKey = futuresMap[tvSym] ||
+                    (tvSym.includes(':') ? tvSym.split(':')[1] : instrumentName);
+
+    // 2) fallback to prefix/substring matches if key not found
+    if (!(lookupKey in groupPrices)) {
+      let match = Object.keys(groupPrices).find(k => k.split('.')[0] === lookupKey);
+      if (!match) match = Object.keys(groupPrices).find(k => k.startsWith(lookupKey));
+      if (!match) match = Object.keys(groupPrices).find(k => k.includes(lookupKey));
+      if (match) lookupKey = match;
     }
 
-
-    // 1b) if that exact key isn't present, try a few fallbacks…
-if (!(lookupKey in groupPrices)) {
-  let match = Object.keys(groupPrices)
-    .find(k => k.split('.')[0] === lookupKey);      // drop “.DE” suffix
-
-  if (!match) {
-    match = Object.keys(groupPrices)
-      .find(k => k.startsWith(lookupKey));          // prefix match
-  }
-
-  if (!match) {
-    match = Object.keys(groupPrices)
-      .find(k => k.includes(lookupKey));            // any substring match
-  }
-
-  if (match) lookupKey = match;
-}
-
-    
-
-    // 4) compute correlations
+    // 3) compute correlations
     const cor = getCorrelationListForCategory(lookupKey, groupPrices);
 
     if (!cor.length) {
@@ -282,35 +288,39 @@ if (!(lookupKey in groupPrices)) {
       return;
     }
 
-    // 5) render chart
+    // 4) render chart
     drawMostCorrelatedChart(cor);
   }, 300);
 }
 
-
-
-
 /* Block3 Tab Event */
 export function initBlock3Tabs() {
-  document.querySelectorAll('#block3-tabs button').forEach(tab=>tab.addEventListener('click',()=>{
-    document.querySelectorAll('#block3-tabs button').forEach(b=>b.classList.remove('active-tab'));
-    document.querySelectorAll('.portfolio-tab-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('#block3-tabs button').forEach(tab => tab.addEventListener('click', () => {
+    document.querySelectorAll('#block3-tabs button').forEach(b => b.classList.remove('active-tab'));
+    document.querySelectorAll('.portfolio-tab-content').forEach(c => c.classList.remove('active'));
     tab.classList.add('active-tab');
-    document.querySelector(`.portfolio-tab-content[data-category="${tab.dataset.target}"]`).classList.add('active');
+    document.querySelector(`.portfolio-tab-content[data-category="${tab.dataset.target}"]`)
+      .classList.add('active');
   }));
 }
 
 /* Fullscreen Button & YouTube Popup */
 export function updateFullscreenButton() {
-  const btn=document.getElementById('fullscreen-button'); if(!btn) return;
-  btn.innerHTML = document.fullscreenElement==null
+  const btn = document.getElementById('fullscreen-button');
+  if (!btn) return;
+  btn.innerHTML = document.fullscreenElement == null
     ? `<span class="arrow">&#8598;</span><span class="arrow">&#8599;</span><br><span class="arrow">&#8601;</span><span class="arrow">&#8600;</span>`
     : `<span class="arrow">&#8598;</span><span class="arrow">&#8599;</span><br><span class="arrow">&#8601;</span><span class="arrow">&#8600;</span>`;
 }
 export function openYouTubePopup() {
-  const yt=document.getElementById('youtube-popup'); if(!yt) return; yt.style.display='block';
-  if(typeof $==='function' && $.fn.draggable) $('#youtube-popup').draggable({handle:'#youtube-popup-header'});
+  const yt = document.getElementById('youtube-popup');
+  if (!yt) return;
+  yt.style.display = 'block';
+  if (typeof $ === 'function' && $.fn.draggable) {
+    $('#youtube-popup').draggable({ handle: '#youtube-popup-header' });
+  }
 }
 export function updateYouTubePlayer() {
-  document.getElementById('youtube-iframe').src = document.getElementById('youtube-url').value.trim();
+  document.getElementById('youtube-iframe').src =
+    document.getElementById('youtube-url').value.trim();
 }
