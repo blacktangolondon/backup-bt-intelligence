@@ -132,6 +132,7 @@ export function updateSymbolOverview(instrumentName, groupData) {
 }
 
 /* Block 3: TrendScore Table and Technical Analysis */
+/* Block 3: TrendScore Table and Technical Analysis */
 function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, rightLabelArr, tradingViewUpdater) {
   const trendScoreContainer = document.getElementById('block3-trendscore');
   trendScoreContainer.innerHTML = '<div class="loading-message"><span>CALCULATING.</span></div>';
@@ -182,7 +183,17 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
 
       // Value cell (right)
       const td4 = document.createElement('td');
-      td4.textContent = info.summaryRight[i] || '';
+      let rightVal;
+      if (leftLabelArr === etfLeftLabels) {
+        // ETFs have one fewer left column, so summaryRight indices shift:
+        if (i === 5)       rightVal = info.summaryRight[7];             // 1 YEAR HIGH
+        else if (i === 6)  rightVal = info.summaryRight[8];             // 1 YEAR LOW
+        else if (i === 7)  rightVal = info.ticker || info.tvSymbol;     // ISSUER - TICKER
+        else               rightVal = info.summaryRight[i];
+      } else {
+        rightVal = info.summaryRight[i];
+      }
+      td4.textContent = rightVal || '';
 
       tr.append(td1, td2, td3, td4);
       table.appendChild(tr);
@@ -203,6 +214,7 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
     showBlock3Tab('trendscore');
   }, 300);
 }
+
 
 
 
