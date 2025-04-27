@@ -4,6 +4,8 @@
 
 import { renderBarChart, renderPieChart, destroyChartIfExists } from "./charts.js";
 
+import futuresMap from "./futuresMap.json";
+
 // Helper: parseGap value.
 export function parseGap(val) {
   return (val === "-" || isNaN(parseFloat(val))) ? 0 : parseFloat(val);
@@ -248,11 +250,16 @@ export function updateBlock4(instrumentName, groupData, groupPrices) {
 
     // 1) grab the tvSymbol and split out the ticker code
     const info = groupData[instrumentName];
+
     let lookupKey = instrumentName;
     if (info && info.tvSymbol && info.tvSymbol.includes(':')) {
       lookupKey = info.tvSymbol.split(':')[1];
     }
 
+// for futures, override with the real ticker key from our map
+if (info && info.tvSymbol && futuresMap[info.tvSymbol]) {
+  lookupKey = futuresMap[info.tvSymbol];
+}
 
     // 1b) if that exact key isn't present, try a few fallbacks…
 if (!(lookupKey in groupPrices)) {
