@@ -6,7 +6,12 @@ export async function generateSidebarContent() {
     console.error('Sidebar (#sidebar-list) not found');
     return;
   }
-  sidebarList.innerHTML = '';
+
+  // Add static entries for Portfolio Builder and Portfolio Ideas
+  sidebarList.innerHTML = `
+    <li class="menu-item">Portfolio Builder</li>
+    <li class="menu-item">Portfolio Ideas</li>
+  `;
 
   // Load instruments.json
   let instruments = [];
@@ -106,7 +111,7 @@ export async function generateSidebarContent() {
     sidebarList.appendChild(li);
   }
 
-  // Render categories in order
+  // Render instrument categories
   addCategory('EQUITIES', data.EQUITIES);
   addCategory('ETF',      data.ETF);
   addCategory('FUTURES',  data.FUTURES);
