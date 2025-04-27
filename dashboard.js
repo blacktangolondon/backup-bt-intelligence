@@ -1,4 +1,4 @@
-// dashboard.js 27-4-2025
+// dashboard.js
 // ----------------
 // Handles dashboard updates (Blocks 1–4), tab events, fullscreen, and YouTube popup.
 
@@ -238,13 +238,57 @@ function getCorrelationListForCategory(inst,prices) {
   const data=prices[inst]; if(!data||!data.length) return[];
   return Object.keys(prices).filter(n=>n!==inst).map(n=>[n,pearsonCorrelation(data,prices[n])]).sort((a,b)=>b[1]-a[1]).slice(0,10);
 }
+
+
 export function updateBlock4(instrumentName, groupData, groupPrices) {
-  const blk=document.getElementById('block4'); blk.innerHTML='<div class="loading-message"><span>CALCULATING...</span></div>';
-  setTimeout(()=>{ blk.innerHTML=''; const cor=getCorrelationListForCategory(instrumentName,groupPrices);
-    if(!cor.length) { blk.innerHTML=`<p style="color:white;">No correlation data found for ${instrumentName}</p>`; return; }
-    drawMostCorrelatedChart(cor);
-  },300);
+  const blk = document.getElementById('block4');
+  blk.innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
+  setTimeout(() => {
+    blk.innerHTML = '';
+
+    // 1) grab the tvSymbol and split out the ticker code
+    const info = groupData[instrumentName];
+    let lookupKey = instrumentName;
+    if (info && info.tvSymbol && info.tvSymbol.includes(':')) {
+      lookupKey = info.tvSymbol.split(':')[1];
+    }
+
+
+    // 1b) if that exact key isn't present, try a few fallbacks…
+if (!(lookupKey in groupPrices)) {
+  let match = Object.keys(groupPrices)
+    .find(k => k.split('.')[0] === lookupKey);      // drop “.DE” suffix
+
+  if (!match) {
+    match = Object.keys(groupPrices)
+      .find(k => k.startsWith(lookupKey));          // prefix match
+  }
+
+  if (!match) {
+    match = Object.keys(groupPrices)
+      .find(k => k.includes(lookupKey));            // any substring match
+  }
+
+  if (match) lookupKey = match;
 }
+
+    
+
+    // 4) compute correlations
+    const cor = getCorrelationListForCategory(lookupKey, groupPrices);
+
+    if (!cor.length) {
+      blk.innerHTML = `<p style="color:white;">No correlation data found for ${instrumentName}</p>`;
+      return;
+    }
+
+    // 5) render chart
+    drawMostCorrelatedChart(cor);
+  }, 300);
+}
+
+
+
 
 /* Block3 Tab Event */
 export function initBlock3Tabs() {
