@@ -132,9 +132,10 @@ export function updateSymbolOverview(instrumentName, groupData) {
 }
 
 /* Block 3: TrendScore Table and Technical Analysis */
+// Updated updateBlock3Generic in dashboard.js
 function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, rightLabelArr, tradingViewUpdater) {
   const trendScoreContainer = document.getElementById('block3-trendscore');
-  trendScoreContainer.innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
+  trendScoreContainer.innerHTML = '<div class="loading-message"><span>CALCULATING.</span></div>';
   setTimeout(() => {
     const info = groupData[instrumentName];
     trendScoreContainer.innerHTML = '';
@@ -147,16 +148,42 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
     const table = document.createElement('table');
     for (let i = 0; i < rowCount; i++) {
       const tr = document.createElement('tr');
-      const td1 = document.createElement('td'); td1.textContent = leftLabelArr[i] || '';
+
+      // Label cell
+      const td1 = document.createElement('td');
+      td1.textContent = leftLabelArr[i] || '';
+
+      // Value cell (left)
       const td2 = document.createElement('td');
-      td2.textContent = (i === 3 && (info.summaryLeft[i] === '-' || parseFloat(info.summaryLeft[i]) === 0))
-        ? '0%' : (info.summaryLeft[i] || '');
-      const td3 = document.createElement('td'); td3.textContent = rightLabelArr[i] || '';
-      const td4 = document.createElement('td'); td4.textContent = info.summaryRight[i] || '';
+      let leftText;
+      // Special 0% case for gap
+      if (i === 3 && (info.summaryLeft[i] === '-' || parseFloat(info.summaryLeft[i]) === 0)) {
+        leftText = '0%';
+      } else {
+        let val = info.summaryLeft[i] || '';
+        // Convert stats labels for equities
+        if (leftLabelArr[i] === 'STATS') {
+          if (val === 'MEDIUM TERM UP') val = 'MEDIUM TERM BULLISH';
+          else if (val === 'MEDIUM TERM DOWN') val = 'MEDIUM TERM BEARISH';
+        }
+        leftText = val;
+      }
+      td2.textContent = leftText;
+
+      // Label cell (right)
+      const td3 = document.createElement('td');
+      td3.textContent = rightLabelArr[i] || '';
+
+      // Value cell (right)
+      const td4 = document.createElement('td');
+      td4.textContent = info.summaryRight[i] || '';
+
       tr.append(td1, td2, td3, td4);
       table.appendChild(tr);
     }
     trendScoreContainer.appendChild(table);
+
+    // Handle tabs and TradingView pane
     if (groupData === window.futuresFullData || ['CAC 40','FTSE MIB'].includes(instrumentName)) {
       document.getElementById('block3-tabs').style.display = 'none';
       document.getElementById('block3-content').style.height = '100%';
@@ -170,6 +197,8 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
     showBlock3Tab('trendscore');
   }, 300);
 }
+
+
 
 function updateBlock3TradingViewGeneric(instrumentName, groupData) {
   const info   = groupData[instrumentName];
