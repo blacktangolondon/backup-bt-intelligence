@@ -23,7 +23,7 @@ export const etfLeftLabels     = [
 ];
 export const etfRightLabels    = [
   "S&P500 CORRELATION","S&P500 VOLATILITY RATIO","BULLISH ALPHA","BEARISH ALPHA",
-  "ALPHA STRENGHT","1 YEAR HIGH","1 YEAR LOW","ISSUER - TICKER"
+  "ALPHA STRENGHT","1 YEAR HIGH","1 YEAR LOW","TICKER"
 ];
 export const futuresLeftLabels = [
   "SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","LIMIT","POTENTIAL EXTENSION"
