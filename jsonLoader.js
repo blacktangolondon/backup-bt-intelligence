@@ -24,6 +24,9 @@ export async function loadJSONData() {
     let summaryLeft, summaryRight;
     if (item.asset_class === 'future' || item.asset_class === 'fx') {
       // 7 columns for futures and FX, matching futuresLeftLabels and futuresRightLabels
+      // Convert stats from UP/DOWN to BULLISH/BEARISH
+      const statsLabel = item.stats.replace(/UP/g, 'BULLISH').replace(/DOWN/g, 'BEARISH');
+
       summaryLeft = [
         String(item.final_score),         // SCORE
         item.trend,                       // TREND
@@ -39,7 +42,7 @@ export async function loadJSONData() {
         String(item.alpha_strength),        // ALPHA STRENGTH
         String(item.projection_30),         // 30 DAYS PROJECTION
         item.math,                          // MATH
-        item.stats,                         // STATS
+        statsLabel,                         // STATS (converted to BULLISH/BEARISH)
         item.tech                           // TECH
       ];
     } else {
