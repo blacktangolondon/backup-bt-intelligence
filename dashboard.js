@@ -324,13 +324,12 @@ export function updateBlock4(instrumentName, groupData, groupPrices) {
 
 /* Block3 Tab Event */
 export function initBlock3Tabs() {
-  document.querySelectorAll('#block3-tabs button').forEach(tab => tab.addEventListener('click', () => {
-    document.querySelectorAll('#block3-tabs button').forEach(b => b.classList.remove('active-tab'));
-    document.querySelectorAll('.portfolio-tab-content').forEach(c => c.classList.remove('active'));
-    tab.classList.add('active-tab');
-    document.querySelector(`.portfolio-tab-content[data-category="${tab.dataset.target}"]`)
-      .classList.add('active');
-  }));
+  document.querySelectorAll('#block3-tabs button').forEach(tab => {
+    tab.addEventListener('click', () => {
+      // use the built-in showBlock3Tab to switch views
+      showBlock3Tab(tab.dataset.tab);
+    });
+  });
 }
 
 /* Fullscreen Button & YouTube Popup */
