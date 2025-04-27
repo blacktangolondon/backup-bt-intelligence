@@ -3,7 +3,7 @@
 // Handles dashboard updates (Blocks 1–4), tab events, fullscreen, and YouTube popup.
 
 import { renderBarChart, renderPieChart, destroyChartIfExists } from "./charts.js";
-import futuresMap from "./futuresMap.json" assert { type: "json" };
+import futuresMap from "./futuresMap.js";
 
 // Helper: parseGap value.
 export function parseGap(val) {
