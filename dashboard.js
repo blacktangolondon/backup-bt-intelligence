@@ -33,7 +33,7 @@ export const futuresRightLabels= [
   "MATH","STATS","TECH"
 ];
 export const fxLeftLabels      = [
-  "SCORE","TREND","GAP TO PEAK / TO VALLEY","APPROACH","KEY AREA","LIMIT","POTENTIAL EXTENSION"
+  "SCORE","TREND","APPROACH","GAP TO PEAK / TO VALLEY","KEY AREA","LIMIT","POTENTIAL EXTENSION"  
 ];
 export const fxRightLabels     = [
   "AVERAGE DAILY VOLATILITY","FX VOLATILITY RATIO","30 DAYS PROJECTION","LONG TERM - MACRO",
