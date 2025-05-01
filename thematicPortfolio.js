@@ -1,3 +1,4 @@
+// thematicPortfolio.js
 import { parseGap } from "./dashboard.js";
 
 // field mapping from table headers to object properties
@@ -19,11 +20,13 @@ export function initThematicPortfolio() {
   const sidebar = document.getElementById('sidebar-list');
   if (!sidebar) return;
   sidebar.addEventListener('click', e => {
-    const li = e.target.closest('li'); if (!li) return;
+    const li = e.target.closest('li');
+    if (!li) return;
     if (li.textContent.trim().toUpperCase() === 'PORTFOLIO IDEAS') {
       document.getElementById('main-content').style.display = 'none';
       document.getElementById('portfolio-builder-template').style.display = 'none';
-      const tpl = document.getElementById('thematic-portfolio-template'); tpl.style.display = 'block';
+      const tpl = document.getElementById('thematic-portfolio-template');
+      tpl.style.display = 'block';
       loadThematicPortfolio();
     }
   });
@@ -127,12 +130,25 @@ function loadThematicPortfolio() {
   `;
 
   // Tab switching
-  c.querySelectorAll('.portfolio-tab').forEach(btn=>btn.addEventListener('click',()=>{
-    c.querySelectorAll('.portfolio-tab').forEach(b=>b.classList.remove('active'));
-    c.querySelectorAll('.portfolio-tab-content').forEach(sec=>sec.classList.remove('active'));
-    btn.classList.add('active');
-    c.querySelector(`.portfolio-tab-content[data-category="${btn.dataset.target}"]`).classList.add('active');
-  }));
+  c.querySelectorAll('.portfolio-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      c.querySelectorAll('.portfolio-tab').forEach(b => b.classList.remove('active'));
+      c.querySelectorAll('.portfolio-tab-content').forEach(sec => sec.classList.remove('active'));
+      btn.classList.add('active');
+      c.querySelector(`.portfolio-tab-content[data-category="${btn.dataset.target}"]`).classList.add('active');
+    });
+  });
+
+  // Show friendly message if a tab has no sections
+  c.querySelectorAll('.portfolio-tab-content').forEach(content => {
+    if (!content.querySelector('.thematic-portfolio-section')) {
+      content.innerHTML = `
+        <div class="no-ideas">
+          <p>No instruments match these criteria.</p>
+        </div>
+      `;
+    }
+  });
 }
 
 function renderSection(title, headers, rows) {
@@ -144,13 +160,19 @@ function renderSection(title, headers, rows) {
     <h2>${title}</h2>
     <div class="thematic-portfolio-table-container">
       <table class="thematic-portfolio-table">
-        <thead><tr>${allHeaders.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
-        <tbody>${rows.map(r=>
-          `<tr>` +
-            headers.map(h=>`<td>${r[headerKeyMap[h]]}</td>`).join('') +
-            `<td class="full-analysis"><a href="${base}?instrument=${encodeURIComponent(r.instrument)}" target="_blank">🔗</a></td>` +
-          `</tr>`
-        ).join('')}</tbody>
+        <thead>
+          <tr>${allHeaders.map(h => `<th>${h}</th>`).join('')}</tr>
+        </thead>
+        <tbody>
+          ${rows.map(r =>
+            `<tr>` +
+              headers.map(h => `<td>${r[headerKeyMap[h]]}</td>`).join('') +
+              `<td class="full-analysis">
+                <a href="${base}?instrument=${encodeURIComponent(r.instrument)}" target="_blank">🔗</a>
+              </td>` +
+            `</tr>`
+          ).join('')}
+        </tbody>
       </table>
     </div>
   </div>
