@@ -61,6 +61,18 @@ export function initEventHandlers(groupedData, pricesData) {
     }
   });
 
+  // Portfolio Ideas → open instrument in new tab (delegated)
+  document.addEventListener('click', (e) => {
+    if (e.target && e.target.classList.contains('clickable-idea')) {
+      const instrument = e.target.dataset.instrument;
+      const base = window.location.origin + window.location.pathname;
+      window.open(
+        `${base}?instrument=${encodeURIComponent(instrument)}`,
+        '_blank'
+      );
+    }
+  });
+
   // Fullscreen button event.
   const fsButton = document.getElementById("fullscreen-button");
   if (fsButton) {
@@ -115,13 +127,4 @@ export function initEventHandlers(groupedData, pricesData) {
       $("#sidebar-list .instrument-item").show();
     });
   }
-
-  // Portfolio Ideas → open instrument in new tab
-  document.querySelectorAll('.clickable-idea').forEach(cell => {
-    cell.addEventListener('click', e => {
-      const instrument = e.currentTarget.dataset.instrument;
-      const base = window.location.origin + window.location.pathname;
-      window.open(`${base}?instrument=${encodeURIComponent(instrument)}`, '_blank');
-    });
-  });
 }
