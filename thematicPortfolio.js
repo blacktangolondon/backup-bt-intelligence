@@ -19,13 +19,11 @@ export function initThematicPortfolio() {
   const sidebar = document.getElementById('sidebar-list');
   if (!sidebar) return;
   sidebar.addEventListener('click', e => {
-    const li = e.target.closest('li');
-    if (!li) return;
+    const li = e.target.closest('li'); if (!li) return;
     if (li.textContent.trim().toUpperCase() === 'PORTFOLIO IDEAS') {
       document.getElementById('main-content').style.display = 'none';
       document.getElementById('portfolio-builder-template').style.display = 'none';
-      const tpl = document.getElementById('thematic-portfolio-template');
-      tpl.style.display = 'block';
+      const tpl = document.getElementById('thematic-portfolio-template'); tpl.style.display = 'block';
       loadThematicPortfolio();
     }
   });
@@ -133,26 +131,25 @@ function loadThematicPortfolio() {
     c.querySelectorAll('.portfolio-tab').forEach(b=>b.classList.remove('active'));
     c.querySelectorAll('.portfolio-tab-content').forEach(sec=>sec.classList.remove('active'));
     btn.classList.add('active');
-    c.querySelector(`.portfolio-tab-content[data-category=\"${btn.dataset.target}\"]`).classList.add('active');
+    c.querySelector(`.portfolio-tab-content[data-category="${btn.dataset.target}"]`).classList.add('active');
   }));
 }
 
 function renderSection(title, headers, rows) {
   if (!rows || rows.length === 0) return '';
+  const base = window.location.origin + window.location.pathname;
+  const allHeaders = [...headers, 'FULL ANALYSIS'];
   return `
   <div class="thematic-portfolio-section">
     <h2>${title}</h2>
     <div class="thematic-portfolio-table-container">
       <table class="thematic-portfolio-table">
-        <thead><tr>${headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
+        <thead><tr>${allHeaders.map(h=>`<th>${h}</th>`).join('')}</tr></thead>
         <tbody>${rows.map(r=>
-          `<tr>${headers.map(h=> {
-            const cellValue = r[headerKeyMap[h]];
-            if (h === 'Instrument') {
-              return `<td class="clickable-idea" data-instrument="${cellValue}">${cellValue}</td>`;
-            }
-            return `<td>${cellValue}</td>`;
-          }).join('')}</tr>`
+          `<tr>` +
+            headers.map(h=>`<td>${r[headerKeyMap[h]]}</td>`).join('') +
+            `<td class="full-analysis"><a href="${base}?instrument=${encodeURIComponent(r.instrument)}" target="_blank">🔗</a></td>` +
+          `</tr>`
         ).join('')}</tbody>
       </table>
     </div>
