@@ -1,4 +1,3 @@
-// events.js
 import {
   updateChart,
   updateSymbolOverview,
@@ -12,12 +11,12 @@ export function initEventHandlers(groupedData, pricesData) {
   // Sidebar instrument click events.
   document.addEventListener('click', (e) => {
     if (e.target && e.target.classList.contains('instrument-item')) {
-    // Switch back to main dashboard
-    document.getElementById('main-content').style.display = 'grid';
-    document.getElementById('portfolio-builder-template').style.display = 'none';
-    document.getElementById('thematic-portfolio-template').style.display = 'none';
+      // Switch back to main dashboard
+      document.getElementById('main-content').style.display = 'grid';
+      document.getElementById('portfolio-builder-template').style.display = 'none';
+      document.getElementById('thematic-portfolio-template').style.display = 'none';
 
-          // clear previous selection
+      // clear previous selection
       document.querySelectorAll('#sidebar li.selected')
         .forEach(item => item.classList.remove('selected'));
       // highlight new one
@@ -116,4 +115,13 @@ export function initEventHandlers(groupedData, pricesData) {
       $("#sidebar-list .instrument-item").show();
     });
   }
+
+  // Portfolio Ideas → open instrument in new tab
+  document.querySelectorAll('.clickable-idea').forEach(cell => {
+    cell.addEventListener('click', e => {
+      const instrument = e.currentTarget.dataset.instrument;
+      const base = window.location.origin + window.location.pathname;
+      window.open(`${base}?instrument=${encodeURIComponent(instrument)}`, '_blank');
+    });
+  });
 }
