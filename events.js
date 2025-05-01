@@ -12,7 +12,12 @@ export function initEventHandlers(groupedData, pricesData) {
   // Sidebar instrument click events.
   document.addEventListener('click', (e) => {
     if (e.target && e.target.classList.contains('instrument-item')) {
-      // clear previous selection
+    // Switch back to main dashboard
+    document.getElementById('main-content').style.display = 'grid';
+    document.getElementById('portfolio-builder-template').style.display = 'none';
+    document.getElementById('thematic-portfolio-template').style.display = 'none';
+
+          // clear previous selection
       document.querySelectorAll('#sidebar li.selected')
         .forEach(item => item.classList.remove('selected'));
       // highlight new one
