@@ -46,20 +46,7 @@ async function initializeTrendScore() {
     // 4) TrendScore (Block 3) tabs
     initBlock3Tabs();
 
-    // 5) Default dashboard view
-    const defaultInstrument = Object.keys(window.stocksFullData)[0] || "AMZN";
-    if (window.stocksFullData[defaultInstrument]) {
-      updateChart(defaultInstrument, window.stocksFullData);
-      updateSymbolOverview(defaultInstrument, window.stocksFullData);
-      updateBlock3(defaultInstrument, window.stocksFullData);
-      updateBlock4(
-        defaultInstrument,
-        window.stocksFullData,
-        window.pricesData.stockPrices
-      );
-    }
-
-    // 6) Global event handlers (sidebar clicks, fullscreen, etc.)
+    // 5) Global event handlers (sidebar clicks, fullscreen, etc.)
     initEventHandlers(
       {
         STOCKS:  window.stocksFullData,
@@ -74,6 +61,32 @@ async function initializeTrendScore() {
         fxPrices:      window.pricesData.fxPrices
       }
     );
+
+    // 6) Auto-select via URL parameter or default
+    const params = new URLSearchParams(window.location.search);
+    const instParam = params.get('instrument');
+    if (instParam) {
+      const sidebarItem = [...document.querySelectorAll('.instrument-item')]
+        .find(li => li.textContent.trim() === instParam);
+      if (sidebarItem) {
+        // Trigger the same dashboard selection logic via click
+        sidebarItem.click();
+        return;
+      }
+    }
+
+    // 7) Default dashboard view
+    const defaultInstrument = Object.keys(window.stocksFullData)[0] || "AMZN";
+    if (window.stocksFullData[defaultInstrument]) {
+      updateChart(defaultInstrument, window.stocksFullData);
+      updateSymbolOverview(defaultInstrument, window.stocksFullData);
+      updateBlock3(defaultInstrument, window.stocksFullData);
+      updateBlock4(
+        defaultInstrument,
+        window.stocksFullData,
+        window.pricesData.stockPrices
+      );
+    }
   } catch (error) {
     console.error("Error initializing TrendScore:", error);
   }
