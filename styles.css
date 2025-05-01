@@ -337,7 +337,6 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
 }
 
 
-
 /* Two-section layout for Portfolio Builder page */
 #portfolio-builder-container {
   display: flex;
@@ -430,22 +429,20 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
 .thematic-portfolio-table tr:nth-child(even) {
   background-color: rgba(255, 165, 0, 0.1);
 }
-.portfolio-charts {
-  margin-top: 25px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+
+/* No-results friendly messaging for empty Portfolio Ideas tabs */
+.no-ideas {
+  padding: 2rem;
+  text-align: center;
+  color: #bbb;
+  font-style: italic;
+  border: 1px dashed #555;
+  border-radius: 0.5rem;
+  background: #0a1827;
+  margin: 20px 0;
 }
-.portfolio-chart {
-  background: #001122;
-  border: 1px solid #112233;
-  border-radius: 4px;
-  padding: 10px;
-  flex: 1 1 300px;
-  max-height: 300px;
-}
-.portfolio-chart canvas {
-  max-height: 250px;
+.no-ideas p {
+  margin: 0;
 }
 
 /* Thematic Portfolio Tab Navigation */
