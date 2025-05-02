@@ -1,5 +1,3 @@
-// portfolioBuilder.js
-
 import {
   leftLabels,
   rightLabels,
@@ -100,7 +98,6 @@ function openFilterSelector() {
   else if (assetType==='FX') metrics = Object.keys(filterMappingFX);
   else metrics = Object.keys(filterMappingStocks);
 
-  // Exclude already selected
   metrics.forEach(m => {
     if (m==='Asset Class'|| !portfolioFilters.some(f=>f.filterName===m)) available.push(m);
   });
@@ -150,7 +147,7 @@ function updatePortfolioSteps() {
   steps.appendChild(p);
 }
 
-// Apply filters and render using original logic
+// Apply filters and render using updated logic
 function generatePortfolioNew() {
   if (portfolioFilters.length === 0 || portfolioFilters[0].filterName !== 'Asset Class') {
     alert('Please add the Asset Class filter as your first filter.');
@@ -176,11 +173,9 @@ function generatePortfolioNew() {
   }
 
   let results = [];
-  // iterate through each instrument
   for (const instrument in dataObj) {
     const info = dataObj[instrument];
     let include = true;
-    // apply each filter after Asset Class
     for (let i = 1; i < portfolioFilters.length; i++) {
       const filt = portfolioFilters[i];
       const map = mapping[filt.filterName];
@@ -206,6 +201,9 @@ function generatePortfolioNew() {
     return;
   }
 
+  // Base URL for analysis links
+  const base = window.location.origin + window.location.pathname;
+
   // build table
   const table = document.createElement('table');
   const thead = table.createTHead();
@@ -214,6 +212,7 @@ function generatePortfolioNew() {
   portfolioFilters.slice(1).forEach(f => {
     headerRow.insertCell().textContent = f.filterName;
   });
+  headerRow.insertCell().textContent = 'FULL ANALYSIS';
 
   const tbody = table.createTBody();
   results.forEach(r => {
@@ -221,11 +220,18 @@ function generatePortfolioNew() {
     tr.insertCell().textContent = r.instrument;
     portfolioFilters.slice(1).forEach(f => {
       const map = mapping[f.filterName];
-      let rawVal = map.source === 'left'
+      const rawVal = map.source === 'left'
         ? r.info.summaryLeft[map.index]
         : r.info.summaryRight[map.index];
       tr.insertCell().textContent = rawVal || '';
     });
+    // Full Analysis link
+    const fullCell = tr.insertCell();
+    const link = document.createElement('a');
+    link.href = `${base}?instrument=${encodeURIComponent(r.instrument)}`;
+    link.target = '_blank';
+    link.textContent = '🔗';
+    fullCell.appendChild(link);
   });
 
   resDiv.appendChild(table);
