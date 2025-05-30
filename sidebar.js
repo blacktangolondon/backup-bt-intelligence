@@ -22,7 +22,19 @@ export async function generateSidebarContent() {
 
   // Prepare grouping structures
   const data = {
-    EQUITIES: { 'NYSE': [], 'NASDAQ': [], 'FTSE MIB': [], 'DAX40': [] },
+    EQUITIES: { 
+      'NYSE': [], 
+      'NASDAQ': [], 
+      'FTSE MIB': [], 
+      'DAX40': [], 
+      'BOLSA DE MADRID': [],
+      'SIX': [], 
+      'WIENER BOERSE': [],
+      'CANADIAN SECURITIES EXCHANGE': [], 
+      'NASDAQ COPENHAGEN': [], 
+      'NASDAQ HELSINKI': [], 
+      'NASDAQ STOCKHOLM': [] 
+    },
     ETF:      { 'EURONEXT': [] },
     FUTURES:  [],
     FX:       { 'MAJORS': [], 'MINORS': [] }
