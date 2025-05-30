@@ -44,7 +44,9 @@ export async function generateSidebarContent() {
     const name = ticker;
     switch ((asset_class || '').toLowerCase()) {
       case 'equity': {
-        const ex = (exchange || '').toUpperCase();
+      let ex = (exchange || '').toUpperCase();
+      // map BME ⇒ BOLSA DE MADRID
+      if (ex === 'BME') ex = 'BOLSA DE MADRID';
         if (data.EQUITIES[ex]) data.EQUITIES[ex].push(name);
         break;
       }
