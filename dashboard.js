@@ -43,7 +43,9 @@ export const fxRightLabels     = [
 /* Block 1: TradingView Advanced Chart */
 function updateChartGeneric(instrumentName, groupData) {
   const info   = groupData[instrumentName];
-  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
+  const symbol = (
+    (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN"
+  ).replace(/-/g, '_');
   const block1 = document.getElementById("block1");
   const container = block1.querySelector(".tradingview-widget-container");
   container.innerHTML = `<div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>`;
@@ -77,7 +79,9 @@ export function updateChart(instrumentName, groupData) {
 /* Block 2: Symbol Overview */
 function updateSymbolOverviewGeneric(instrumentName, groupData) {
   const info   = groupData[instrumentName];
-  const symbol = (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN";
+  const symbol = (
+    (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN"
+  ).replace(/-/g, '_');
   const block2 = document.getElementById("block2");
 
   let container = block2.querySelector("#symbol-info-container");
@@ -131,7 +135,6 @@ export function updateSymbolOverview(instrumentName, groupData) {
   updateSymbolOverviewGeneric(instrumentName, groupData);
 }
 
-/* Block 3: TrendScore Table and Technical Analysis */
 /* Block 3: TrendScore Table and Technical Analysis */
 function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, rightLabelArr, tradingViewUpdater) {
   const trendScoreContainer = document.getElementById('block3-trendscore');
@@ -215,12 +218,11 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
   }, 300);
 }
 
-
-
-
 function updateBlock3TradingViewGeneric(instrumentName, groupData) {
   const info   = groupData[instrumentName];
-  const symbol = (info && info.tvSymbol) ? info.tvSymbol : 'NASDAQ:AMZN';
+  const symbol = (
+    (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN"
+  ).replace(/-/g, '_');
   const tvContainer = document.getElementById('block3-tradingview');
   tvContainer.innerHTML = '';
   const widgetDiv = document.createElement('div');
@@ -228,7 +230,8 @@ function updateBlock3TradingViewGeneric(instrumentName, groupData) {
   widgetDiv.innerHTML = `<div class="tradingview-widget-container__widget"></div>
     <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"></a></div>`;
   tvContainer.appendChild(widgetDiv);
-  const script = document.createElement('script'); script.type = 'text/javascript';
+  const script = document.createElement('script');
+  script.type  = 'text/javascript';
   script.src   = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js';
   script.async = true;
   script.textContent = `{
@@ -264,8 +267,13 @@ export function showBlock3Tab(tabName) {
   const tvDiv    = document.getElementById('block3-tradingview');
   trendBtn?.classList.remove('active-tab'); tvBtn?.classList.remove('active-tab');
   trendDiv && (trendDiv.style.display='none'); tvDiv && (tvDiv.style.display='none');
-  if (tabName==='trendscore') { trendBtn?.classList.add('active-tab'); trendDiv && (trendDiv.style.display='block'); }
-  else { tvBtn?.classList.add('active-tab'); tvDiv && (tvDiv.style.display='block'); }
+  if (tabName==='trendscore') {
+    trendBtn?.classList.add('active-tab');
+    trendDiv && (trendDiv.style.display='block');
+  } else {
+    tvBtn?.classList.add('active-tab');
+    tvDiv && (tvDiv.style.display='block');
+  }
 }
 
 /* Block 4: Correlation Analysis */
