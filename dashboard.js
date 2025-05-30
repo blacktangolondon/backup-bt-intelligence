@@ -63,7 +63,7 @@ function updateChartGeneric(instrumentName, groupData) {
     "withdateranges": true,
     "hide_side_toolbar": false,
     "allow_symbol_change": false,
-    "backgroundColor": "#001122",
+    "backgroundColor": "#000000",
     "details": true,
     "calendar": false,
     "support_host": "https://www.tradingview.com"
