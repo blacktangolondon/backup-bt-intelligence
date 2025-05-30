@@ -1,6 +1,6 @@
 /* General Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { display: flex; font-family: Arial, sans-serif; background-color: #001122; }
+body { display: flex; font-family: Arial, sans-serif; background-color: #000000; }
 
 /* Loading message style */
 .loading-message {
@@ -24,7 +24,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
 
 /* Sidebar Styling */
 #sidebar {
-  background-color: #001122;
+  background-color: #000000;
   color: white;
   width: 13.33%;
   min-width: 250px;
@@ -38,6 +38,17 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
 }
 #collapse-btn { padding: 10px; text-align: center; cursor: pointer; background-color: #334455; }
 #collapse-btn:hover { background-color: #556677; }
+
+/* Titolo della sidebar */
+#sidebar-title {
+  width: 100%;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
 /* New search box styling – replaced the single input with a container */
 #sidebar-search-container {
   position: relative;
@@ -61,8 +72,8 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
 }
 #sidebar ul { list-style: none; padding: 10px; }
 #sidebar ul li { padding: 10px; cursor: pointer; }
-.sub-list li:nth-child(odd) { background-color: #001122; }
-.sub-list li:nth-child(even) { background-color: #002244; }
+.sub-list li:nth-child(odd) { background-color: #000000; }
+.sub-list li:nth-child(even) { background-color: #222222; }
 #sidebar li.selected { color: #FFA500; }
 #sidebar ul li:not(.expandable):hover { background-color: #334455; }
 .expandable:hover { background-color: transparent; }
@@ -82,7 +93,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
   flex-grow: 1;
   width: 80%;
   max-width: 80vw;
-  background-color: #001122;
+  background-color: #000000;
   padding: 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -98,7 +109,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
   width: 80%;
   max-width: 1200px;
   margin: 10px auto;
-  background: #001122;
+  background: #000000;
   padding: 20px;
   display: none;
 }
@@ -109,7 +120,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
   width: 80%;
   max-width: 1200px;
   margin: 10px auto;
-  background: #001122;
+  background: #000000;
   padding: 20px;
   display: none;
 }
@@ -125,7 +136,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
 #block1, #block2, #block3, #block4 {
   width: 100%;
   height: 100%;
-  background-color: #001122;
+  background-color: #000000;
   border: 1px solid #444444;
   padding: 0;
   overflow: visible;
@@ -152,8 +163,8 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
 #block3-trendscore th:nth-child(2), #block3-trendscore td:nth-child(2) {
   border-right: 1px solid #444444;
 }
-#block3-trendscore tr:nth-child(odd) { background-color: #001122; }
-#block3-trendscore tr:nth-child(even) { background-color: #002244; }
+#block3-trendscore tr:nth-child(odd) { background-color: #000000; }
+#block3-trendscore tr:nth-child(even) { background-color: #222222; }
 #block3-tabs {
   display: flex;
   background-color: #334455;
@@ -205,11 +216,10 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
   margin: 0 1px;
 }
 
-/* TradingView widget */
+/* TradingView widget override */
+.tradingview-widget-container,
 .tradingview-widget-container__widget {
-  height: 100% !important;
-  margin-bottom: 0;
-  padding-bottom: 0;
+  background-color: #000000 !important;
 }
 
 /* YouTube Popup */
@@ -220,7 +230,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
   left: 50px;
   width: 320px;
   height: 240px;
-  background-color: #000;
+  background-color: #000000;
   border: 1px solid #444444;
   z-index: 1000;
   padding: 10px;
@@ -247,7 +257,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
   width: 90%;
   max-width: 1200px;
   margin: 10px auto;
-  background: #001122;
+  background: #000000;
   padding: 20px;
   position: relative;
 }
@@ -266,7 +276,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
   color: #FFA500;
 }
 .filter-step {
-  background: #002244;
+  background: #222222;
   border: 1px solid #444444;
   border-radius: 4px;
   padding: 10px;
@@ -281,7 +291,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
   padding: 4px;
   font-size: 14px;
   border: 1px solid #444444;
-  background: #001122;
+  background: #000000;
   color: #ffffff;
   border-radius: 3px;
 }
@@ -315,7 +325,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
 #portfolio-results table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #001122;
+  background-color: #000000;
   border: 1px solid #112233;
   border-radius: 4px;
   overflow: hidden;
@@ -336,7 +346,6 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
   background-color: rgba(255, 165, 0, 0.1);
 }
 
-
 /* Two-section layout for Portfolio Builder page */
 #portfolio-builder-container {
   display: flex;
@@ -348,7 +357,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
   width: 40%;
   padding: 20px;
   border: 1px solid #444444;
-  background-color: #001122;
+  background-color: #000000;
   border-radius: 8px;
   flex-shrink: 0;
 }
@@ -356,7 +365,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
   width: 60%;
   padding: 20px;
   border: 1px solid #444444;
-  background-color: #001122;
+  background-color: #000000;
   border-radius: 8px;
   overflow-y: auto;
   max-height: 600px;
@@ -367,7 +376,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
 .filter-selector {
   margin: 10px auto;
   text-align: center;
-  background-color: #002244;
+  background-color: #222222;
   border: 1px solid #444444;
   border-radius: 4px;
   padding: 8px;
@@ -375,7 +384,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
 .filter-selector select,
 .filter-selector input,
 .filter-selector button {
-  background-color: #001122;
+  background-color: #000000;
   color: #cccccc;
   border: 1px solid #444444;
   border-radius: 3px;
@@ -384,7 +393,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
   margin: 0 5px;
 }
 .filter-selector select option {
-  background-color: #001122;
+  background-color: #000000;
   color: #cccccc;
 }
 .filter-selector button:hover {
@@ -412,9 +421,9 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
 .thematic-portfolio-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #001122;
+  background-color: #000000;
 }
-.thematic-portfolio-table th, 
+.thematic-portfolio-table th,
 .thematic-portfolio-table td {
   padding: 14px;
   text-align: center;
@@ -449,7 +458,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
 .thematic-portfolio-nav {
   position: sticky;
   top: 0;
-  background-color: #001122;
+  background-color: #000000;
   z-index: 100;
   padding: 10px 0;
   border-bottom: 1px solid #112233;
@@ -474,7 +483,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #001122;
 }
 .thematic-portfolio-nav button.active-tab {
   background: #FFA500;
-  color: #001122;
+  color: #000000;
   font-weight: bold;
 }
 .portfolio-tab-content {
