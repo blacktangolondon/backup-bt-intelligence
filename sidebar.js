@@ -36,7 +36,7 @@ export async function generateSidebarContent() {
       'NASDAQ STOCKHOLM': [] 
     },
     ETF:      { 'EURONEXT': [] },
-    FUTURES:  [],
+    FUTURES:  { 'EQUITY INDICES': [], 'ENERGY': [], 'METALS': [], 'INTEREST RATES': [],'AGRICULTURE': [] },
     FX:       { 'MAJORS': [], 'MINORS': [] }
   };
 
