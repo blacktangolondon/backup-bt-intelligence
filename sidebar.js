@@ -36,7 +36,7 @@ export async function generateSidebarContent() {
       'NASDAQ STOCKHOLM': [] 
     },
     ETF:      { 'EURONEXT': [] },
-    FUTURES:  { 'EQUITY INDICES': [], 'ENERGY': [], 'METALS': [], 'INTEREST RATES': [],'AGRICULTURE': [] },
+    FUTURES:  { 'EQUITY INDICES': [], 'ENERGY': [], 'METALS': [], 'INTEREST RATES': [], 'AGRICULTURE': [] },
     FX:       { 'MAJORS': [], 'MINORS': [] }
   };
 
@@ -44,10 +44,12 @@ export async function generateSidebarContent() {
     const name = ticker;
     switch ((asset_class || '').toLowerCase()) {
       case 'equity': {
-      let ex = (exchange || '').toUpperCase();
-      // map BME ⇒ BOLSA DE MADRID
-      if (ex === 'BME') ex = 'BOLSA DE MADRID';
-        if (data.EQUITIES[ex]) data.EQUITIES[ex].push(name);
+        let ex = (exchange || '').toUpperCase();
+        // map BME ⇒ BOLSA DE MADRID
+        if (ex === 'BME') ex = 'BOLSA DE MADRID';
+        if (data.EQUITIES[ex]) {
+          data.EQUITIES[ex].push(name);
+        }
         break;
       }
       case 'etf': {
@@ -56,7 +58,26 @@ export async function generateSidebarContent() {
       }
       case 'future':
       case 'futures': {
-        data.FUTURES.push(name);
+        // Determine category based on ticker
+        const key = (ticker || '').toUpperCase();
+        let category;
+        if (/(ES|NQ|DAX|FTSE|CAC|SMI|NKY|HSI)/.test(key)) {
+          category = 'EQUITY INDICES';
+        } else if (/(OIL|GAS|NG|CL|BRN|BRT)/.test(key)) {
+          category = 'ENERGY';
+        } else if (/(GOLD|SILVER|COPPER|PLATINUM|PALLADIUM)/.test(key)) {
+          category = 'METALS';
+        } else if (/(TY|US|GE|EU|UL|TU|FV|FF)/.test(key)) {
+          category = 'INTEREST RATES';
+        } else if (/(CORN|SOY|WHEAT|COFFEE|SUGAR|COCOA|COTTON|OATS|RICE)/.test(key)) {
+          category = 'AGRICULTURE';
+        } else {
+          category = 'EQUITY INDICES';  // fallback
+        }
+        // Push into the right bucket
+        if (data.FUTURES[category]) {
+          data.FUTURES[category].push(name);
+        }
         break;
       }
       case 'fx': {
