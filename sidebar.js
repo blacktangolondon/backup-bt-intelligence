@@ -23,33 +23,51 @@ export async function generateSidebarContent() {
   // Prepare grouping structures
   const data = {
     EQUITIES: { 
-      'NYSE': [], 
-      'NASDAQ': [], 
-      'FTSE MIB': [], 
-      'DAX40': [], 
-      'BOLSA DE MADRID': [],
-      'SIX': [], 
-      'WIENER BOERSE': [],
-      'CANADIAN SECURITIES EXCHANGE': [], 
-      'NASDAQ COPENHAGEN': [], 
-      'NASDAQ HELSINKI': [], 
-      'NASDAQ STOCKHOLM': [] 
+      'NYSE': [], 'NASDAQ': [], 'FTSE MIB': [], 'DAX40': [], 'BOLSA DE MADRID': [],
+      'SIX': [], 'WIENER BOERSE': [], 'CANADIAN SECURITIES EXCHANGE': [],
+      'NASDAQ COPENHAGEN': [], 'NASDAQ HELSINKI': [], 'NASDAQ STOCKHOLM': []
     },
     ETF:      { 'EURONEXT': [] },
-    FUTURES:  { 'EQUITY INDICES': [], 'ENERGY': [], 'METALS': [], 'INTEREST RATES': [], 'AGRICULTURE': [] },
+    FUTURES:  {
+      'EQUITY INDICES': [],
+      'ENERGY':         [],
+      'METALS':         [],
+      'INTEREST RATES': [],
+      'AGRICULTURE':    []
+    },
     FX:       { 'MAJORS': [], 'MINORS': [] }
   };
 
-  instruments.forEach(({ ticker, asset_class, exchange }) => {
-    const name = ticker;
-    switch ((asset_class || '').toLowerCase()) {
+  // Helper: classify a future code if no JSON category
+  function classifyFutureByCode(code) {
+    const sym = code.split(/=|:/)[0].toUpperCase();
+    if (['ES','NQ','YM','RTY','NKY','HSI','ASX','SX5E','FTMIB','CAC'].includes(sym)) {
+      return 'EQUITY INDICES';
+    } else if (['CL','BZ','RB','HO','NG'].includes(sym)) {
+      return 'ENERGY';
+    } else if (['GC','SI','HG','PL','PA'].includes(sym)) {
+      return 'METALS';
+    } else if (['ZB','ZN','ZF','ZT','GE','FV','TU','TY','FF'].includes(sym)) {
+      return 'INTEREST RATES';
+    } else if (['ZC','ZW','ZS','CC','SB','CT','LE','LH','ZM','ZO','ZR'].includes(sym)) {
+      return 'AGRICULTURE';
+    } else {
+      return 'EQUITY INDICES';
+    }
+  }
+
+  instruments.forEach(inst => {
+    const name     = inst.ticker;
+    const cls      = (inst.asset_class||'').toLowerCase();
+    const exch     = inst.exchange;
+    const rawCat   = inst.category;
+    const corrCode = inst.correlation_ticker;
+
+    switch (cls) {
       case 'equity': {
-        let ex = (exchange || '').toUpperCase();
-        // map BME ⇒ BOLSA DE MADRID
+        let ex = (exch||'').toUpperCase();
         if (ex === 'BME') ex = 'BOLSA DE MADRID';
-        if (data.EQUITIES[ex]) {
-          data.EQUITIES[ex].push(name);
-        }
+        if (data.EQUITIES[ex]) data.EQUITIES[ex].push(name);
         break;
       }
       case 'etf': {
@@ -58,30 +76,15 @@ export async function generateSidebarContent() {
       }
       case 'future':
       case 'futures': {
-        // Determine category based on ticker
-        const key = (ticker || '').toUpperCase();
-        let category;
-        if (/(ES|NQ|DAX|FTSE|CAC|SMI|NKY|HSI)/.test(key)) {
-          category = 'EQUITY INDICES';
-        } else if (/(OIL|GAS|NG|CL|BRN|BRT)/.test(key)) {
-          category = 'ENERGY';
-        } else if (/(GOLD|SILVER|COPPER|PLATINUM|PALLADIUM)/.test(key)) {
-          category = 'METALS';
-        } else if (/(TY|US|GE|EU|UL|TU|FV|FF)/.test(key)) {
-          category = 'INTEREST RATES';
-        } else if (/(CORN|SOY|WHEAT|COFFEE|SUGAR|COCOA|COTTON|OATS|RICE)/.test(key)) {
-          category = 'AGRICULTURE';
-        } else {
-          category = 'EQUITY INDICES';  // fallback
-        }
-        // Push into the right bucket
-        if (data.FUTURES[category]) {
-          data.FUTURES[category].push(name);
-        }
+        const cat = (typeof rawCat==='string' && data.FUTURES[rawCat.toUpperCase()])
+          ? rawCat.toUpperCase()
+          : null;
+        const bucket = cat || classifyFutureByCode(corrCode||'');
+        data.FUTURES[bucket].push(name);
         break;
       }
       case 'fx': {
-        const fxCat = (exchange || '').toUpperCase() === 'MAJORS' ? 'MAJORS' : 'MINORS';
+        const fxCat = (exch||'').toUpperCase()==='MAJORS' ? 'MAJORS' : 'MINORS';
         data.FX[fxCat].push(name);
         break;
       }
@@ -90,7 +93,7 @@ export async function generateSidebarContent() {
 
   // Utility: create expandable category with nested subcategories or direct list
   function addCategory(title, content) {
-    const li = document.createElement('li');
+    const li     = document.createElement('li');
     li.classList.add('expandable');
     const toggle = document.createElement('div');
     toggle.classList.add('toggle-btn');
@@ -110,7 +113,7 @@ export async function generateSidebarContent() {
     } else {
       for (const [subName, arr] of Object.entries(content)) {
         if (!arr.length) continue;
-        const subLi = document.createElement('li');
+        const subLi     = document.createElement('li');
         subLi.classList.add('expandable');
         const subToggle = document.createElement('div');
         subToggle.classList.add('toggle-btn');
@@ -119,10 +122,10 @@ export async function generateSidebarContent() {
 
         const instUl = document.createElement('ul');
         instUl.classList.add('sub-list');
-        arr.sort().forEach(item => {
+        arr.sort().forEach(it => {
           const instLi = document.createElement('li');
           instLi.classList.add('instrument-item');
-          instLi.textContent = item;
+          instLi.textContent = it;
           instUl.appendChild(instLi);
         });
         subLi.appendChild(instUl);
@@ -149,12 +152,10 @@ export async function generateSidebarContent() {
   addCategory('FUTURES',  data.FUTURES);
   addCategory('FX',       data.FX);
 
-  // Add Portfolio Builder and Portfolio Ideas at bottom in uppercase
-  const pbLi = document.createElement('li');
-  pbLi.textContent = 'PORTFOLIO BUILDER';
-  sidebarList.appendChild(pbLi);
-
-  const piLi = document.createElement('li');
-  piLi.textContent = 'PORTFOLIO IDEAS';
-  sidebarList.appendChild(piLi);
+  // Add Portfolio Builder and Portfolio Ideas at bottom
+  ['PORTFOLIO BUILDER','PORTFOLIO IDEAS'].forEach(txt => {
+    const li = document.createElement('li');
+    li.textContent = txt;
+    sidebarList.appendChild(li);
+  });
 }
