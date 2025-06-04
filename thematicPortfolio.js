@@ -68,7 +68,7 @@ function loadThematicPortfolio() {
   // New “Value Investing” filter: P/E < 15, P/B < 2, Div Yield ≥ 2%
   const valueStocks = stocksData.filter(d =>
     d.pe       !== null && d.pe       < 50 &&
-    d.pb       !== null && d.pb       < 2 &&
+    d.pb       !== null && d.pb       < 50 &&
     d.divYield !== null && d.divYield >= 0.02
   );
 
