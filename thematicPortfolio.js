@@ -3,21 +3,21 @@ import { parseGap } from "./dashboard.js";
 
 // field mapping from table headers to object properties
 const headerKeyMap = {
-  "Instrument":    "instrument",
-  "Score":         "score",
-  "Trend":         "trend",
-  "Approach":      "approach",
-  "Gap to Peak":   "gap",
-  "Key Area":      "keyArea",
-  "Correlation":   "corr",
-  "Volatility":    "vol",
-  "Bullish Alpha": "bullish",
-  "Bearish Alpha": "bearish",
-  "Alpha Strength":"alpha",
+  "Instrument":     "instrument",
+  "Score":          "score",
+  "Trend":          "trend",
+  "Approach":       "approach",
+  "Gap to Peak":    "gap",
+  "Key Area":       "keyArea",
+  "Correlation":    "corr",
+  "Volatility":     "vol",
+  "Bullish Alpha":  "bullish",
+  "Bearish Alpha":  "bearish",
+  "Alpha Strength": "alpha",
   // New columns for Value Investing
-  "P/E":           "pe",
-  "P/B":           "pb",
-  "Div Yield":     "divYield"
+  "P/E":            "pe",
+  "P/B":            "pb",
+  "Div Yield":      "divYield"
 };
 
 export function initThematicPortfolio() {
@@ -53,10 +53,10 @@ function loadThematicPortfolio() {
     bearish:    parseFloat(info.summaryRight[3]),
     alpha:      parseFloat(info.summaryRight[4]),
     region:     info.region,
-    // New fields for Value Investing
-    pe:         info.pe_ratio   != null ? parseFloat(info.pe_ratio)   : null,
-    pb:         info.pb_ratio   != null ? parseFloat(info.pb_ratio)   : null,
-    divYield:   info.div_yield  != null ? parseFloat(info.div_yield)  : null
+    // Pull P/E, P/B, Div Yield from summaryRight indices:
+    pe:         info.summaryRight[5] != null ? parseFloat(info.summaryRight[5]) : null,
+    pb:         info.summaryRight[6] != null ? parseFloat(info.summaryRight[6]) : null,
+    divYield:   info.summaryRight[7] != null ? parseFloat(info.summaryRight[7]) : null
   }));
 
   // Existing stock filters
@@ -124,10 +124,11 @@ function loadThematicPortfolio() {
   </div>
   <div class="thematic-portfolio-contents">
     <div class="portfolio-tab-content active" data-category="stocks">
-      ${renderSection('Value Investing',        ['Instrument','P/E','P/B','Div Yield','Score','Trend','Approach','Gap to Peak','Key Area'], stk1)}
-      ${renderSection('Low S&P500 Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak','Key Area'], stk2)}
-      ${renderSection('Low Volatility',         ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak','Key Area'], stk3)}
-      ${renderSection('Trend Plus',             ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength','Trend','Approach','Gap to Peak','Key Area'], stk4)}
+      ${renderSection('Trend Following',         ['Instrument','Score','Trend','Approach','Gap to Peak','Key Area'], stk1)}
+      ${renderSection('Low S&P500 Correlation',  ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak','Key Area'], stk2)}
+      ${renderSection('Low Volatility',          ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak','Key Area'], stk3)}
+      ${renderSection('Trend Plus',              ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength','Trend','Approach','Gap to Peak','Key Area'], stk4)}
+      ${renderSection('Value Investing',         ['Instrument','P/E','P/B','Div Yield','Score','Trend','Approach','Gap to Peak','Key Area'], valueStocks)}
     </div>
     <div class="portfolio-tab-content" data-category="etfs">
       ${renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], etf1)}
