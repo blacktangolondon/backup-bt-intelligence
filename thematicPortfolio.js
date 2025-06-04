@@ -124,7 +124,6 @@ function loadThematicPortfolio() {
   </div>
   <div class="thematic-portfolio-contents">
     <div class="portfolio-tab-content active" data-category="stocks">
-      ${renderSection('Value Investing',        ['Instrument','P/E','P/B','Div Yield','Score','Trend','Approach','Gap to Peak','Key Area'], valueStocks)}
       ${renderSection('Low S&P500 Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak','Key Area'], stk2)}
       ${renderSection('Low Volatility',         ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak','Key Area'], stk3)}
       ${renderSection('Trend Plus',             ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength','Trend','Approach','Gap to Peak','Key Area'], stk4)}
