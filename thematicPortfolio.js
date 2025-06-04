@@ -3,21 +3,35 @@ import { parseGap } from "./dashboard.js";
 
 // field mapping from table headers to object properties
 const headerKeyMap = {
-  "Instrument":     "instrument",
-  "Score":          "score",
-  "Trend":          "trend",
-  "Approach":       "approach",
-  "Gap to Peak":    "gap",
-  "Key Area":       "keyArea",
-  "Correlation":    "corr",
-  "Volatility":     "vol",
-  "Bullish Alpha":  "bullish",
-  "Bearish Alpha":  "bearish",
-  "Alpha Strength": "alpha",
-  // New columns for Value Investing
-  "P/E":            "pe",
-  "P/B":            "pb",
-  "Div Yield":      "divYield"
+  "Instrument":       "instrument",
+  "Score":            "score",
+  "Trend":            "trend",
+  "Approach":         "approach",
+  "Gap to Peak":      "gap",
+  "Key Area":         "keyArea",
+  "Correlation":      "corr",
+  "Volatility":       "vol",
+  "Bullish Alpha":    "bullish",
+  "Bearish Alpha":    "bearish",
+  "Alpha Strength":   "alpha",
+  // Value Investing
+  "P/E":              "pe",
+  "P/B":              "pb",
+  "Div Yield":        "divYield",
+  // Growth Investing
+  "Rev Growth 1Y (%)": "revGrowth",
+  "PEG":               "peg",
+  // Dividend Growth
+  "Payout Ratio":      "payoutRat",
+  "3Y Div Growth (%)": "divGrowth3y",
+  // Quality
+  "ROE (%)":           "roe",
+  "D/E Ratio":         "deRatio",
+  // Momentum
+  "6M Return (%)":     "return6m",
+  "12M Return (%)":    "return12m",
+  // Low Volatility / Defensive
+  "Beta":              "beta"
 };
 
 export function initThematicPortfolio() {
@@ -56,19 +70,62 @@ function loadThematicPortfolio() {
     // Pull P/E, P/B, Div Yield from summaryRight indices:
     pe:         info.summaryRight[5] != null ? parseFloat(info.summaryRight[5]) : null,
     pb:         info.summaryRight[6] != null ? parseFloat(info.summaryRight[6]) : null,
-    divYield:   info.summaryRight[7] != null ? parseFloat(info.summaryRight[7]) : null
+    divYield:   info.summaryRight[7] != null ? parseFloat(info.summaryRight[7]) : null,
+    // Placeholder fields for new strategies (if available in instruments.json or injected elsewhere)
+    revGrowth:   info.revGrowth != null ? parseFloat(info.revGrowth) : null,      // Revenue growth 1Y (%)
+    peg:         info.peg != null ? parseFloat(info.peg) : null,                  // PEG ratio
+    payoutRat:   info.payoutRat != null ? parseFloat(info.payoutRat) : null,      // Dividend payout ratio
+    divGrowth3y: info.divGrowth3y != null ? parseFloat(info.divGrowth3y) : null,  // 3Y dividend growth (%)
+    roe:         info.roe != null ? parseFloat(info.roe) : null,                  // Return on Equity (%)
+    deRatio:     info.deRatio != null ? parseFloat(info.deRatio) : null,          // Debt/Equity ratio
+    return6m:    info.return6m != null ? parseFloat(info.return6m) : null,        // 6-month return (%)
+    return12m:   info.return12m != null ? parseFloat(info.return12m) : null,      // 12-month return (%)
+    beta:        info.beta != null ? parseFloat(info.beta) : null                 // Beta
   }));
 
-  // Existing stock filters
+  // Existing stock filters (unused when Trend Following is removed)
   const stk1 = stocksData.filter(d => d.score === 100);
   const stk2 = stk1.filter(d => d.corr < 0.1);
   const stk3 = stk1.filter(d => d.vol < 1);
   const stk4 = stk1.filter(d => d.bullish > 1 && d.bearish < 1 && d.alpha > 1);
 
-  // New “Value Investing” filter: P/E < 15, P/B < 2, Div Yield ≥ 2%
+  // Value Investing: P/E < 15, P/B < 2, Div Yield ≥ 2%
   const valueStocks = stocksData.filter(d =>
-    d.pe       !== null && d.pe       < 15 &&
-    d.pb       !== null && d.pb       < 2 &&
+    d.pe !== null && d.pe < 15 &&
+    d.pb !== null && d.pb < 2 &&
+    d.divYield !== null && d.divYield >= 2
+  );
+
+  // Growth Investing: Rev Growth ≥ 20%, PEG ≤ 1.2, Score ≥ 75
+  const growthStocks = stocksData.filter(d =>
+    d.revGrowth !== null && d.revGrowth >= 20 &&
+    d.peg !== null && d.peg <= 1.2 &&
+    d.score >= 75
+  );
+
+  // Dividend Growth: Div Yield ≥ 2%, Payout Ratio ≤ 0.6, 3Y Div Growth ≥ 5%
+  const divGrowthStocks = stocksData.filter(d =>
+    d.divYield !== null && d.divYield >= 2 &&
+    d.payoutRat !== null && d.payoutRat <= 0.6 &&
+    d.divGrowth3y !== null && d.divGrowth3y >= 5
+  );
+
+  // Quality (High ROE & Low Debt): ROE ≥ 15%, D/E ≤ 0.5
+  const qualityStocks = stocksData.filter(d =>
+    d.roe !== null && d.roe >= 15 &&
+    d.deRatio !== null && d.deRatio <= 0.5
+  );
+
+  // Momentum: 12M Return ≥ 25%, 6M Return ≥ 15%
+  const momentumStocks = stocksData.filter(d =>
+    d.return12m !== null && d.return12m >= 25 &&
+    d.return6m !== null && d.return6m >= 15
+  );
+
+  // Low Volatility / Defensive: Volatility ≤ 0.5, Beta ≤ 0.8, Div Yield ≥ 2%
+  const defensiveStocks = stocksData.filter(d =>
+    d.vol !== null && d.vol <= 0.5 &&
+    d.beta !== null && d.beta <= 0.8 &&
     d.divYield !== null && d.divYield >= 2
   );
 
@@ -124,11 +181,36 @@ function loadThematicPortfolio() {
   </div>
   <div class="thematic-portfolio-contents">
     <div class="portfolio-tab-content active" data-category="stocks">
-      ${renderSection('Trend Following',         ['Instrument','Score','Trend','Approach','Gap to Peak','Key Area'], stk1)}
-      ${renderSection('Low S&P500 Correlation',  ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak','Key Area'], stk2)}
-      ${renderSection('Low Volatility',          ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak','Key Area'], stk3)}
-      ${renderSection('Trend Plus',              ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength','Trend','Approach','Gap to Peak','Key Area'], stk4)}
-      ${renderSection('Value Investing',         ['Instrument','P/E','P/B','Div Yield','Score','Trend','Approach','Gap to Peak','Key Area'], valueStocks)}
+      ${renderSection(
+        'Value Investing',
+        ['Instrument','P/E','P/B','Div Yield','Score','Trend','Approach','Gap to Peak','Key Area'],
+        valueStocks
+      )}
+      ${renderSection(
+        'Growth Investing',
+        ['Instrument','Rev Growth 1Y (%)','PEG','Score','Trend','Approach','Gap to Peak','Key Area'],
+        growthStocks
+      )}
+      ${renderSection(
+        'Dividend Growth',
+        ['Instrument','Div Yield','Payout Ratio','3Y Div Growth (%)','Score','Trend','Approach'],
+        divGrowthStocks
+      )}
+      ${renderSection(
+        'Quality (High ROE & Low Debt)',
+        ['Instrument','ROE (%)','D/E Ratio','Score','Trend','Approach','Gap to Peak'],
+        qualityStocks
+      )}
+      ${renderSection(
+        'Momentum',
+        ['Instrument','6M Return (%)','12M Return (%)','Score','Trend','Approach','Gap to Peak','Key Area'],
+        momentumStocks
+      )}
+      ${renderSection(
+        'Low Volatility / Defensive',
+        ['Instrument','Volatility','Beta','Div Yield','Score','Trend','Approach','Gap to Peak','Key Area'],
+        defensiveStocks
+      )}
     </div>
     <div class="portfolio-tab-content" data-category="etfs">
       ${renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], etf1)}
