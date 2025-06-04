@@ -3,20 +3,25 @@ import { parseGap } from "./dashboard.js";
 
 // field mapping from table headers to object properties
 const headerKeyMap = {
-  "Instrument":     "instrument",
-  "Score":          "score",
-  "Trend":          "trend",
-  "Approach":       "approach",
-  "Gap to Peak":    "gap",
-  "Key Area":       "keyArea",
-  "Correlation":    "corr",
-  "Volatility":     "vol",
-  "Bullish Alpha":  "bullish",
-  "Bearish Alpha":  "bearish",
-  "Alpha Strength": "alpha",
-  "P/E":            "pe",
-  "P/B":            "pb",
-  "Div Yield":      "divYield"
+  "Instrument":      "instrument",
+  "Score":           "score",
+  "Trend":           "trend",
+  "Approach":        "approach",
+  "Gap to Peak":     "gap",
+  "Key Area":        "keyArea",
+  "Correlation":     "corr",
+  "Volatility":      "vol",
+  "Bullish Alpha":   "bullish",
+  "Bearish Alpha":   "bearish",
+  "Alpha Strength":  "alpha",
+  // New columns for Value & Quality & Growth & Dividend
+  "P/E":             "pe",
+  "P/B":             "pb",
+  "Div Yield":       "divYield",
+  "ROE":             "roe",
+  "D/E":             "deRatio",
+  "Rev Growth":      "revGrowth",
+  "Payout Ratio":    "payoutRatio"
 };
 
 export function initThematicPortfolio() {
@@ -40,43 +45,56 @@ function loadThematicPortfolio() {
 
   // Prepare data sets
   const stocksData = Object.entries(window.stocksFullData).map(([inst, info]) => ({
-    instrument: inst,
-    score:      parseFloat(info.summaryLeft[0]),
-    trend:      info.summaryLeft[1],
-    approach:   info.summaryLeft[2],
-    gap:        parseGap(info.summaryLeft[3]),
-    keyArea:    info.summaryLeft[4],
-    corr:       parseFloat(info.summaryRight[0]),
-    vol:        parseFloat(info.summaryRight[1]),
-    bullish:    parseFloat(info.summaryRight[2]),
-    bearish:    parseFloat(info.summaryRight[3]),
-    alpha:      parseFloat(info.summaryRight[4]),
-    pe:         info.pe_ratio   != null ? parseFloat(info.pe_ratio)   : null,
-    pb:         info.pb_ratio   != null ? parseFloat(info.pb_ratio)   : null,
-    divYield:   info.div_yield  != null ? parseFloat(info.div_yield)  : null
+    instrument:  inst,
+    score:       parseFloat(info.summaryLeft[0]),
+    trend:       info.summaryLeft[1],
+    approach:    info.summaryLeft[2],
+    gap:         parseGap(info.summaryLeft[3]),
+    keyArea:     info.summaryLeft[4],
+    corr:        parseFloat(info.summaryRight[0]),
+    vol:         parseFloat(info.summaryRight[1]),
+    bullish:     parseFloat(info.summaryRight[2]),
+    bearish:     parseFloat(info.summaryRight[3]),
+    alpha:       parseFloat(info.summaryRight[4]),
+    region:      info.region,
+    // Pull P/E, P/B, Div Yield from summaryRight indices:
+    pe:          info.summaryRight[5]   != null ? parseFloat(info.summaryRight[5])   : null,
+    pb:          info.summaryRight[6]   != null ? parseFloat(info.summaryRight[6])   : null,
+    divYield:    info.summaryRight[7]   != null ? parseFloat(info.summaryRight[7])   : null,
+    // Pull Quality/Growth metrics from the record
+    roe:         info.roe            != null ? parseFloat(info.roe)            : null,
+    deRatio:     info.de_ratio       != null ? parseFloat(info.de_ratio)       : null,
+    revGrowth:   info.rev_growth     != null ? parseFloat(info.rev_growth)     : null,
+    payoutRatio: info.payout_ratio   != null ? parseFloat(info.payout_ratio)   : null
   }));
 
-  // 1) Trend Following: score == 100
-  const trendFollowing = stocksData.filter(d => d.score === 100);
-
-  // 2) Low S&P500 Correlation: score == 100 and corr < 0.1
-  const lowCorrelation = trendFollowing.filter(d => d.corr < 0.1);
-
-  // 3) Low Volatility: score == 100 and vol < 1
-  const lowVolatility = trendFollowing.filter(d => d.vol < 1);
-
-  // 4) Trend Plus (Momentum): score == 100 and bullish > 1 and bearish < 1 and alpha > 1
-  const trendPlus = trendFollowing.filter(d =>
-    d.bullish  > 1 &&
-    d.bearish  < 1 &&
-    d.alpha    > 1
-  );
-
-  // 5) Value Investing: P/E < 15, P/B < 2, Div Yield ≥ 2%
-  const valueInvesting = stocksData.filter(d =>
+  // Value Investing: P/E < 15, P/B < 2, Div Yield ≥ 2%
+  const valueStocks = stocksData.filter(d =>
     d.pe       !== null && d.pe       < 15 &&
     d.pb       !== null && d.pb       < 2 &&
     d.divYield !== null && d.divYield >= 2
+  );
+
+  // Quality: ROE ≥ 15%, D/E < 1
+  const qualityStocks = stocksData.filter(d =>
+    d.roe      !== null && d.roe      >= 15 &&
+    d.deRatio  !== null && d.deRatio  < 1
+  );
+
+  // Growth: Rev Growth ≥ 15%
+  const growthStocks = stocksData.filter(d =>
+    d.revGrowth !== null && d.revGrowth >= 15
+  );
+
+  // Dividend Income: Div Yield ≥ 3%, Payout Ratio < 0.75
+  const dividendStocks = stocksData.filter(d =>
+    d.divYield    !== null && d.divYield    >= 3 &&
+    d.payoutRatio !== null && d.payoutRatio < 0.75
+  );
+
+  // Low Volatility (score == 100 and vol < 1)
+  const lowVolStocks = stocksData.filter(d =>
+    d.score === 100 && d.vol < 1
   );
 
   // ETF data
@@ -131,25 +149,25 @@ function loadThematicPortfolio() {
   </div>
   <div class="thematic-portfolio-contents">
     <div class="portfolio-tab-content active" data-category="stocks">
-      ${renderSection('Trend Following',        ['Instrument','Score','Trend','Approach','Gap to Peak','Key Area'], trendFollowing)}
-      ${renderSection('Low S&P500 Correlation', ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak','Key Area'], lowCorrelation)}
-      ${renderSection('Low Volatility',         ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak','Key Area'], lowVolatility)}
-      ${renderSection('Trend Plus',             ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength','Trend','Approach','Gap to Peak','Key Area'], trendPlus)}
-      ${renderSection('Value Investing',        ['Instrument','P/E','P/B','Div Yield','Score','Trend','Approach','Gap to Peak','Key Area'], valueInvesting)}
+      ${renderSection('Value Investing',   ['Instrument','P/E','P/B','Div Yield','Score','Trend','Approach','Gap to Peak','Key Area'], valueStocks)}
+      ${renderSection('Quality',           ['Instrument','ROE','D/E','Score','Trend','Approach','Gap to Peak','Key Area'], qualityStocks)}
+      ${renderSection('Growth',            ['Instrument','Rev Growth','Score','Trend','Approach','Gap to Peak','Key Area'], growthStocks)}
+      ${renderSection('Dividend Income',   ['Instrument','Div Yield','Payout Ratio','Score','Trend','Approach','Gap to Peak','Key Area'], dividendStocks)}
+      ${renderSection('Low Volatility',     ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak','Key Area'], lowVolStocks)}
     </div>
     <div class="portfolio-tab-content" data-category="etfs">
-      ${renderSection('Trend Following',    ['Instrument','Score','Trend','Approach','Gap to Peak'], etf1)}
-      ${renderSection('Low Correlation',    ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak'], etf2)}
-      ${renderSection('Low Volatility',     ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak'], etf3)}
-      ${renderSection('Trend Plus',         ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength'], etf4)}
+      ${renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], etf1)}
+      ${renderSection('Low Correlation',  ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak'], etf2)}
+      ${renderSection('Low Volatility',   ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak'], etf3)}
+      ${renderSection('Trend Plus',       ['Instrument','Score','Bullish Alpha','Bearish Alpha','Alpha Strength'], etf4)}
     </div>
     <div class="portfolio-tab-content" data-category="futures">
-      ${renderSection('Trend Following',    ['Instrument','Score','Trend','Approach','Gap to Peak'], fut1)}
-      ${renderSection('Low Correlation',    ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak'], fut2)}
-      ${renderSection('Low Volatility',     ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak'], fut3)}
+      ${renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], fut1)}
+      ${renderSection('Low Correlation',  ['Instrument','Score','Correlation','Trend','Approach','Gap to Peak'], fut2)}
+      ${renderSection('Low Volatility',   ['Instrument','Score','Volatility','Trend','Approach','Gap to Peak'], fut3)}
     </div>
     <div class="portfolio-tab-content" data-category="fx">
-      ${renderSection('Trend Following',    ['Instrument','Score','Trend','Approach','Gap to Peak'], fx1)}
+      ${renderSection('Trend Following', ['Instrument','Score','Trend','Approach','Gap to Peak'], fx1)}
     </div>
   </div>
   `;
