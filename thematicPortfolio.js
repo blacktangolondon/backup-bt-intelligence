@@ -69,7 +69,7 @@ function loadThematicPortfolio() {
   const valueStocks = stocksData.filter(d =>
     d.pe       !== null && d.pe       < 50 &&
     d.pb       !== null && d.pb       < 50 &&
-    d.divYield !== null && d.divYield >= 0.02
+    d.divYield !== null && d.divYield >= 0
   );
 
   // ETF data
