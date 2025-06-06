@@ -8,7 +8,7 @@
 //   3) Momentum             (score === 100)
 //   4) Low Volatility       (score === 100)
 //   5) Low Correlation      (score === 100)
-// -----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------- 
 
 import { parseGap } from "./dashboard.js";
 
@@ -53,7 +53,7 @@ export function initThematicPortfolio() {
 
       const tpl = document.getElementById("thematic-portfolio-template");
       tpl.style.display = "block";
-      loadThematicPortfolio();          // async
+      loadThematicPortfolio();
     }
   });
 }
@@ -149,12 +149,12 @@ async function loadThematicPortfolio() {
       d.alpha > 1
   );
 
-  // 4) Low Volatility  (score === 100)  – già ok
+  // 4) Low Volatility  (score === 100)
   const lowVolStocks = stocksData.filter(
     (d) => d.vol < 1 && d.score === 100
   );
 
-  // 5) Low Correlation (score === 100)  – già ok
+  // 5) Low Correlation (score === 100)
   const lowCorrStocks = stocksData.filter(
     (d) => d.corr < 0 && d.score === 100
   );
@@ -172,13 +172,22 @@ async function loadThematicPortfolio() {
     vol:        parseFloat(info.summaryRight[1]),
     bullish:    parseFloat(info.summaryRight[2]),
     bearish:    parseFloat(info.summaryRight[3]),
-    alpha:      parseFloat(info.summaryRight[4])
+    alpha:      parseFloat(info.summaryRight[4]),
+    // assume ETF fundamentals (if provided) live in etfFullData
+    divYield:   info.div_yield         != null ? parseFloat(info.div_yield)         : null,
+    payout_ratio: info.payout_ratio    != null ? parseFloat(info.payout_ratio)      : null
   }));
   const etfTrend     = etfData.filter((d) => d.score === 100);
   const etfLowCorr   = etfTrend.filter((d) => d.corr < 0.1);
   const etfLowVol    = etfTrend.filter((d) => d.vol < 1);
   const etfTrendPlus = etfTrend.filter(
     (d) => d.bullish > 1 && d.bearish < 1 && d.alpha > 1
+  );
+
+  // New ETF portfolios
+  const etfMomentum = etfTrendPlus; // same as Trend Plus
+  const etfHighDividend = etfTrend.filter(
+    (d) => d.divYield !== null && d.divYield >= 3
   );
 
   const futData = Object.entries(window.futuresFullData).map(
@@ -246,7 +255,7 @@ async function loadThematicPortfolio() {
         )}
       </div>
 
-      <!-- ETFS, FUTURES, FX identici … -->
+      <!-- ETFS ------------------------------------------------------------- -->
       <div class="portfolio-tab-content" data-category="etfs">
         ${renderSection(
           "Trend Following",
@@ -264,12 +273,18 @@ async function loadThematicPortfolio() {
           etfLowVol
         )}
         ${renderSection(
-          "Trend Plus",
-          ["Instrument", "Score", "Bullish Alpha", "Bearish Alpha", "Alpha Strength"],
-          etfTrendPlus
+          "Momentum ETFs",
+          ["Instrument", "Score", "Bullish Alpha", "Bearish Alpha", "Alpha Strength", "Gap to Peak", "Key Area"],
+          etfMomentum
+        )}
+        ${renderSection(
+          "High‐Dividend ETFs",
+          ["Instrument", "Div Yield", "Payout Ratio", "Score", "Gap to Peak", "Key Area"],
+          etfHighDividend
         )}
       </div>
 
+      <!-- FUTURES --------------------------------------------------------- -->
       <div class="portfolio-tab-content" data-category="futures">
         ${renderSection(
           "Trend Following",
@@ -288,6 +303,7 @@ async function loadThematicPortfolio() {
         )}
       </div>
 
+      <!-- FX -------------------------------------------------------------- -->
       <div class="portfolio-tab-content" data-category="fx">
         ${renderSection(
           "Trend Following",
@@ -323,7 +339,7 @@ async function loadThematicPortfolio() {
 }
 
 /* -------------------------------------------------------------------------- */
-/* 4. Helper – renderSection                                                  */
+/* Helper – renderSection                                                      */
 /* -------------------------------------------------------------------------- */
 function renderSection(title, headers, rows) {
   if (!rows || rows.length === 0) return "";
