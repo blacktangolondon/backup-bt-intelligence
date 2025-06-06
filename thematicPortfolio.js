@@ -8,7 +8,7 @@
 //   3) Momentum             (score === 100)
 //   4) Low Volatility       (score === 100)
 //   5) Low Correlation      (score === 100)
-// ----------------------------------------------------------------------------- 
+// -----------------------------------------------------------------------------
 
 import { parseGap } from "./dashboard.js";
 
@@ -16,94 +16,153 @@ import { parseGap } from "./dashboard.js";
 /* 1. Header ⇄ key mapping                                                    */
 /* -------------------------------------------------------------------------- */
 const headerKeyMap = {
-  Instrument: "instrument",
-  "P/E": "pe",
-  "P/B": "pb",
-  "Div Yield": "divYield",
-  ROE: "roe",
-  "D/E": "de",
-  "Volatility": "vol",
-  Score: "score",
-  Trend: "trend",
-  Approach: "approach",
-  Correlation: "corr",
-  "Gap to Peak": "gap",
-  "Key Area": "keyArea",
-  "Bullish Alpha": "bullish",
-  "Bearish Alpha": "bearish",
+  "Instrument":     "instrument",
+  "Score":          "score",
+  "Trend":          "trend",
+  "Approach":       "approach",
+  "Gap to Peak":    "gap",
+  "Key Area":       "keyArea",
+  "Correlation":    "corr",
+  "Volatility":     "vol",
+  "Bullish Alpha":  "bullish",
+  "Bearish Alpha":  "bearish",
   "Alpha Strength": "alpha",
-  "MAX Drawdown": "maxDD",
-  "High Limit": "highLimit",
-  "Low Limit": "lowLimit",
-  "Upper Band": "upperBand",
-  "Lower Band": "lowerBand",
-  "Momentum": "mom",
-  "SDR Momentum": "sdrMom",
-  "ADv Momentum": "advMom",
+  "P/E":            "pe",
+  "P/B":            "pb",
+  "Div Yield":      "divYield",
+  "ROE":            "returnOnEquity",
+  "D/E":            "debtToEquity",
+  "Payout Ratio":   "payout_ratio",
+  "β":              "beta"
 };
 
 /* -------------------------------------------------------------------------- */
-/* 2. Data preparation                                                         */
+/* 2. Entry point                                                             */
 /* -------------------------------------------------------------------------- */
-// Defensive defaults: if any dataset is undefined or null, treat as empty object
-const stocksDataSource = window.stocksFullData || {};
-const etfDataSource = window.etfFullData || {};
-const futuresDataSource = window.futuresFullData || {};
-const fxDataSource = window.fxFullData || {};
+export function initThematicPortfolio() {
+  const sidebar = document.getElementById("sidebar-list");
+  if (!sidebar) return;
 
-const stockData = Object.entries(stocksDataSource).map(
-  ([inst, info]) => ({
-    instrument: inst,
-    pe:       info.fundamentals?.pe ?? null,
-    pb:       info.fundamentals?.pb ?? null,
-    divYield: info.fundamentals?.divYield ?? null,
-    roe:      info.fundamentals?.roe ?? null,
-    de:       info.fundamentals?.de ?? null,
-    score:    parseFloat(info.summaryLeft[0]),
-    trend:    info.summaryLeft[1],
-    approach: info.summaryLeft[2],
-    gap:      parseGap(info.summaryLeft[3]),
-    corr:     parseFloat(info.summaryRight[0]),
-    keyArea:  info.summaryRight[1],
-    bullish:  parseFloat(info.summaryLeft[1]),
-    bearish:  parseFloat(info.summaryLeft[2]),
-    alpha:    parseFloat(info.summaryLeft[3]),
-    maxDD:    parseFloat(info.summaryRight[2]),
-    highLimit: parseFloat(info.summaryRight[3]),
-    lowLimit:  parseFloat(info.summaryRight[4]),
-    upperBand: parseFloat(info.summaryRight[5]),
-    lowerBand: parseFloat(info.summaryRight[6]),
-    mom:       parseFloat(info.summaryLeft[4]),
-    sdrMom:    parseFloat(info.summaryLeft[5]),
-    advMom:    parseFloat(info.summaryLeft[6]),
-  })
-);
+  sidebar.addEventListener("click", (e) => {
+    const li = e.target.closest("li");
+    if (!li) return;
 
-// Filtri per STOCKS
-const valueStocks = stockData.filter(
-  (d) =>
-    d.pe !== null &&
-    d.pb !== null &&
-    d.divYield !== null &&
-    d.roe !== null &&
-    d.de !== null
-);
+    if (li.textContent.trim().toUpperCase() === "PORTFOLIO IDEAS") {
+      document.getElementById("main-content").style.display = "none";
+      document.getElementById("portfolio-builder-template").style.display = "none";
 
-const dividendDefensiveStocks = stockData.filter(
-  (d) => d.score === 100 && d.divYield !== null
-);
-
-const momentumStocks = stockData.filter((d) => d.score === 100);
-
-const lowVolStocks = stockData.filter((d) => d.score === 100);
-
-const lowCorrStocks = stockData.filter((d) => d.score === 100);
+      const tpl = document.getElementById("thematic-portfolio-template");
+      tpl.style.display = "block";
+      loadThematicPortfolio();          // async
+    }
+  });
+}
 
 /* -------------------------------------------------------------------------- */
-/* 3. ETF / Futures / FX (immutati)                                           */
+/* 3. Build page                                                              */
 /* -------------------------------------------------------------------------- */
-const etfTrend = Object.entries(etfDataSource).map(
-  ([inst, info]) => ({
+async function loadThematicPortfolio() {
+  const c = document.getElementById("thematic-portfolio-template");
+
+  /* ------------------------------------------------------------------ */
+  /* 0. Merge fondamentali (una sola volta)                             */
+  /* ------------------------------------------------------------------ */
+  if (!window.__fundamentalsMerged__) {
+    try {
+      const res = await fetch("./instruments.json");
+      const instruments = await res.json();
+      const byTicker = Object.fromEntries(instruments.map((o) => [o.ticker.trim(), o]));
+
+      for (const [tic, rec] of Object.entries(window.stocksFullData)) {
+        const f = byTicker[tic.trim()];
+        if (!f) continue;
+        Object.assign(rec, {
+          pe_ratio:         f.pe_ratio,
+          pb_ratio:         f.pb_ratio,
+          div_yield:        f.div_yield,
+          return_on_equity: f.return_on_equity,
+          debt_to_equity:   f.debt_to_equity,
+          payout_ratio:     f.payout_ratio,
+          beta:             f.beta
+        });
+      }
+      window.__fundamentalsMerged__ = true;
+    } catch (err) {
+      console.error("Merge fundamentals failed:", err);
+    }
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* 1. STOCKS dataset                                                  */
+  /* ------------------------------------------------------------------ */
+  const stocksData = Object.entries(window.stocksFullData).map(
+    ([inst, info]) => ({
+      instrument:       inst,
+      score:            parseFloat(info.summaryLeft[0]),
+      trend:            info.summaryLeft[1],
+      approach:         info.summaryLeft[2],
+      gap:              parseGap(info.summaryLeft[3]),
+      keyArea:          info.summaryLeft[4],
+      corr:             parseFloat(info.summaryRight[0]),
+      vol:              parseFloat(info.summaryRight[1]),
+      bullish:          parseFloat(info.summaryRight[2]),
+      bearish:          parseFloat(info.summaryRight[3]),
+      alpha:            parseFloat(info.summaryRight[4]),
+      pe:               info.pe_ratio        != null ? parseFloat(info.pe_ratio)        : null,
+      pb:               info.pb_ratio        != null ? parseFloat(info.pb_ratio)        : null,
+      divYield:         info.div_yield       != null ? parseFloat(info.div_yield)       : null,
+      returnOnEquity:   info.return_on_equity!= null ? parseFloat(info.return_on_equity): null,
+      debtToEquity:     info.debt_to_equity  != null ? parseFloat(info.debt_to_equity)  : null,
+      payout_ratio:     info.payout_ratio    != null ? parseFloat(info.payout_ratio)    : null,
+      beta:             info.beta            != null ? parseFloat(info.beta)            : null
+    })
+  );
+
+  /* ------------------------------------------------------------------ */
+  /* 2. STOCKS thematic filters                                         */
+  /* ------------------------------------------------------------------ */
+  // 1) Value Investing
+  const valueStocks = stocksData.filter(
+    (d) =>
+      d.pe !== null && d.pe < 15 &&
+      d.pb !== null && d.pb < 2 &&
+      d.divYield !== null && d.divYield >= 2 &&
+      d.debtToEquity !== null && d.debtToEquity < 50 &&
+      d.returnOnEquity !== null && d.returnOnEquity > 0.15
+  );
+
+  // 2) Dividend Defensive (score === 100)
+  const dividendDefensiveStocks = stocksData.filter(
+    (d) =>
+      d.score === 100 &&
+      d.divYield !== null && d.divYield >= 3 &&
+      d.payout_ratio !== null && d.payout_ratio < 0.6 &&
+      d.beta !== null && d.beta < 1
+  );
+
+  // 3) Momentum (score === 100)
+  const momentumStocks = stocksData.filter(
+    (d) =>
+      d.score === 100 &&
+      d.bullish > 1 &&
+      d.bearish < 1 &&
+      d.alpha > 1
+  );
+
+  // 4) Low Volatility  (score === 100)  – già ok
+  const lowVolStocks = stocksData.filter(
+    (d) => d.vol < 1 && d.score === 100
+  );
+
+  // 5) Low Correlation (score === 100)  – già ok
+  const lowCorrStocks = stocksData.filter(
+    (d) => d.corr < 0 && d.score === 100
+  );
+
+  /* ------------------------------------------------------------------ */
+  /* 3. ETF / Futures / FX (immutati)                                   */
+  /* ------------------------------------------------------------------ */
+  const etfData = Object.entries(window.etfFullData).map(([inst, info]) => ({
     instrument: inst,
     score:      parseFloat(info.summaryLeft[0]),
     trend:      info.summaryLeft[1],
@@ -111,72 +170,53 @@ const etfTrend = Object.entries(etfDataSource).map(
     gap:        parseGap(info.summaryLeft[3]),
     corr:       parseFloat(info.summaryRight[0]),
     vol:        parseFloat(info.summaryRight[1]),
-    divYield:   info.fundamentals?.divYield ?? null,
-    bullish:    parseFloat(info.summaryLeft[1]),
-    bearish:    parseFloat(info.summaryLeft[2]),
-    alpha:      parseFloat(info.summaryLeft[3]),
-  })
-);
+    bullish:    parseFloat(info.summaryRight[2]),
+    bearish:    parseFloat(info.summaryRight[3]),
+    alpha:      parseFloat(info.summaryRight[4])
+  }));
+  const etfTrend     = etfData.filter((d) => d.score === 100);
+  const etfLowCorr   = etfTrend.filter((d) => d.corr < 0.1);
+  const etfLowVol    = etfTrend.filter((d) => d.vol < 1);
+  const etfTrendPlus = etfTrend.filter(
+    (d) => d.bullish > 1 && d.bearish < 1 && d.alpha > 1
+  );
 
-// ETF sogli
-const etfLowCorr      = etfTrend.filter((d) => d.corr < 0.1);
-const etfLowVol       = etfTrend.filter((d) => d.vol < 1);
-const etfTrendPlus    = etfTrend.filter(
-  (d) => d.bullish > 1 && d.bearish < 1 && d.alpha > 1
-);
+  const futData = Object.entries(window.futuresFullData).map(
+    ([inst, info]) => ({
+      instrument: inst,
+      score:      parseFloat(info.summaryLeft[0]),
+      trend:      info.summaryLeft[1],
+      approach:   info.summaryLeft[2],
+      gap:        parseGap(info.summaryLeft[3]),
+      corr:       parseFloat(info.summaryRight[0]),
+      vol:        parseFloat(info.summaryRight[1])
+    })
+  );
+  const futTrend   = futData.filter((d) => Math.abs(d.score) === 100);
+  const futLowCorr = futTrend.filter((d) => d.corr < 0.1);
+  const futLowVol  = futTrend.filter((d) => d.vol < 1);
 
-// New ETF portfolios
-const etfMomentum     = etfTrendPlus; // same as Trend Plus
-const etfHighDividend = etfTrend.filter(
-  (d) => d.divYield !== null && d.divYield >= 3
-);
-
-const futData = Object.entries(futuresDataSource).map(
-  ([inst, info]) => ({
+  const fxData = Object.entries(window.fxFullData).map(([inst, info]) => ({
     instrument: inst,
     score:      parseFloat(info.summaryLeft[0]),
     trend:      info.summaryLeft[1],
-    approach:   info.summaryLeft[2],
-    gap:        parseGap(info.summaryLeft[3]),
-    corr:       parseFloat(info.summaryRight[0]),
-    maxDD:      parseFloat(info.summaryRight[2]),
-    highLimit:  parseFloat(info.summaryRight[3]),
-    lowLimit:   parseFloat(info.summaryRight[4]),
-    upperBand:  parseFloat(info.summaryRight[5]),
-    lowerBand:  parseFloat(info.summaryRight[6]),
-  })
-);
+    approach:   info.summaryLeft[3],
+    gap:        parseGap(info.summaryLeft[2])
+  }));
+  const fxTrend = fxData.filter((d) => d.score >= 75 || d.score <= -75);
 
-const fxData = Object.entries(fxDataSource).map(
-  ([inst, info]) => ({
-    instrument: inst,
-    score:      parseFloat(info.summaryLeft[0]),
-    trend:      info.summaryLeft[1],
-    approach:   info.summaryLeft[2],
-    gap:        parseGap(info.summaryLeft[3]),
-    corr:       parseFloat(info.summaryRight[0]),
-    maxDD:      parseFloat(info.summaryRight[2]),
-    highLimit:  parseFloat(info.summaryRight[3]),
-    lowLimit:   parseFloat(info.summaryRight[4]),
-    upperBand:  parseFloat(info.summaryRight[5]),
-    lowerBand:  parseFloat(info.summaryRight[6]),
-  })
-);
-
-/* -------------------------------------------------------------------------- */
-/* 4. Build HTML                                                               */
-/* -------------------------------------------------------------------------- */
-export function initThematicPortfolio() {
-  document.getElementById("app").innerHTML = `
-    <div class="portfolio-tabs">
+  /* ------------------------------------------------------------------ */
+  /* 4. Render HTML                                                     */
+  /* ------------------------------------------------------------------ */
+  c.innerHTML = `
+    <div class="thematic-portfolio-nav">
       <button class="portfolio-tab active" data-target="stocks">STOCKS</button>
       <button class="portfolio-tab" data-target="etfs">ETFS</button>
       <button class="portfolio-tab" data-target="futures">FUTURES</button>
       <button class="portfolio-tab" data-target="fx">FX</button>
     </div>
-    
-    <div class="portfolio-tab-content-container">
-    
+
+    <div class="thematic-portfolio-contents">
       <!-- STOCKS ----------------------------------------------------------- -->
       <div class="portfolio-tab-content active" data-category="stocks">
         ${renderSection(
@@ -191,7 +231,7 @@ export function initThematicPortfolio() {
         )}
         ${renderSection(
           "Momentum",
-          ["Instrument", "Score", "Trend", "Approach", "Gap to Peak", "Key Area"],
+          ["Instrument", "Score", "Bullish Alpha", "Bearish Alpha", "Alpha Strength", "Gap to Peak", "Key Area"],
           momentumStocks
         )}
         ${renderSection(
@@ -205,8 +245,8 @@ export function initThematicPortfolio() {
           lowCorrStocks
         )}
       </div>
-    
-      <!-- ETFS ------------------------------------------------------------- -->
+
+      <!-- ETFS, FUTURES, FX identici … -->
       <div class="portfolio-tab-content" data-category="etfs">
         ${renderSection(
           "Trend Following",
@@ -215,88 +255,78 @@ export function initThematicPortfolio() {
         )}
         ${renderSection(
           "Low Correlation",
-          ["Instrument", "Correlation", "Score", "Gap to Peak"],
+          ["Instrument", "Score", "Correlation", "Trend", "Approach", "Gap to Peak"],
           etfLowCorr
         )}
         ${renderSection(
           "Low Volatility",
-          ["Instrument", "Volatility", "Score", "Gap to Peak"],
+          ["Instrument", "Score", "Volatility", "Trend", "Approach", "Gap to Peak"],
           etfLowVol
         )}
         ${renderSection(
-          "Momentum ETFs",
-          ["Instrument", "Score", "Bullish Alpha", "Bearish Alpha", "Alpha Strength", "Gap to Peak"],
-          etfMomentum
-        )}
-        ${renderSection(
-          "High-Dividend ETFs",
-          ["Instrument", "Div Yield", "Score", "Gap to Peak"],
-          etfHighDividend
+          "Trend Plus",
+          ["Instrument", "Score", "Bullish Alpha", "Bearish Alpha", "Alpha Strength"],
+          etfTrendPlus
         )}
       </div>
-    
-      <!-- FUTURES ---------------------------------------------------------- -->
+
       <div class="portfolio-tab-content" data-category="futures">
         ${renderSection(
-          "Trend Following Futures",
+          "Trend Following",
           ["Instrument", "Score", "Trend", "Approach", "Gap to Peak"],
-          futData
+          futTrend
         )}
         ${renderSection(
-          "High Volatility Futures",
-          ["Instrument", "Max Drawdown", "High Limit", "Low Limit", "Upper Band", "Lower Band"],
-          futData.filter((d) => d.maxDD !== null && d.maxDD > 10)
+          "Low Correlation",
+          ["Instrument", "Score", "Correlation", "Trend", "Approach", "Gap to Peak"],
+          futLowCorr
+        )}
+        ${renderSection(
+          "Low Volatility",
+          ["Instrument", "Score", "Volatility", "Trend", "Approach", "Gap to Peak"],
+          futLowVol
         )}
       </div>
-    
-      <!-- FX --------------------------------------------------------------- -->
+
       <div class="portfolio-tab-content" data-category="fx">
         ${renderSection(
-          "FX Trend Following",
+          "Trend Following",
           ["Instrument", "Score", "Trend", "Approach", "Gap to Peak"],
-          fxData
-        )}
-        ${renderSection(
-          "FX High Volatility",
-          ["Instrument", "Max Drawdown", "High Limit", "Low Limit", "Upper Band", "Lower Band"],
-          fxData.filter((d) => d.maxDD !== null && d.maxDD > 10)
+          fxTrend
         )}
       </div>
-    
     </div>
-    
-    <div id="footer">Data provided by YourDataProvider</div>
   `;
 
-  /* Tab switching logic */
-  const tabs = document.querySelectorAll(".portfolio-tab");
-  const contents = document.querySelectorAll(".portfolio-tab-content");
-  tabs.forEach((tab) =>
-    tab.addEventListener("click", () => {
-      tabs.forEach((t) => t.classList.remove("active"));
-      tab.classList.add("active");
-      const target = tab.getAttribute("data-target");
-      contents.forEach((c) =>
-        c.getAttribute("data-category") === target
-          ? c.classList.add("active")
-          : c.classList.remove("active")
-      );
-    })
-  );
+  /* ------------------------------------------------------------------ */
+  /* 5. Tab switching + fallback                                        */
+  /* ------------------------------------------------------------------ */
+  c.querySelectorAll(".portfolio-tab").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      c.querySelectorAll(".portfolio-tab").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      c.querySelectorAll(".portfolio-tab-content").forEach((sec) => sec.classList.remove("active"));
+      c.querySelector(`.portfolio-tab-content[data-category="${btn.dataset.target}"]`).classList.add("active");
+    });
+  });
+
+  c.querySelectorAll(".portfolio-tab-content").forEach((content) => {
+    if (!content.querySelector(".thematic-portfolio-section")) {
+      content.innerHTML = `
+        <div class="no-ideas">
+          <p>No instruments match these criteria.</p>
+        </div>
+      `;
+    }
+  });
 }
 
 /* -------------------------------------------------------------------------- */
-/* Helper – renderSection                                                      */
+/* 4. Helper – renderSection                                                  */
 /* -------------------------------------------------------------------------- */
 function renderSection(title, headers, rows) {
-  if (!rows || rows.length === 0) {
-    return `
-      <div class="thematic-portfolio-section">
-        <h2>${title}</h2>
-        <div class="no-instruments">No instruments match these criteria.</div>
-      </div>
-    `;
-  }
+  if (!rows || rows.length === 0) return "";
 
   const baseURL = window.location.origin + window.location.pathname;
   const fullHeaders = [...headers, "FULL ANALYSIS"];
