@@ -45,7 +45,13 @@ const headerKeyMap = {
 /* -------------------------------------------------------------------------- */
 /* 2. Data preparation                                                         */
 /* -------------------------------------------------------------------------- */
-const stockData = Object.entries(window.stocksFullData).map(
+// Defensive defaults: if any dataset is undefined or null, treat as empty object
+const stocksDataSource = window.stocksFullData || {};
+const etfDataSource = window.etfFullData || {};
+const futuresDataSource = window.futuresFullData || {};
+const fxDataSource = window.fxFullData || {};
+
+const stockData = Object.entries(stocksDataSource).map(
   ([inst, info]) => ({
     instrument: inst,
     pe:       info.fundamentals?.pe ?? null,
@@ -96,7 +102,7 @@ const lowCorrStocks = stockData.filter((d) => d.score === 100);
 /* -------------------------------------------------------------------------- */
 /* 3. ETF / Futures / FX (immutati)                                           */
 /* -------------------------------------------------------------------------- */
-const etfTrend = Object.entries(window.etfFullData).map(
+const etfTrend = Object.entries(etfDataSource).map(
   ([inst, info]) => ({
     instrument: inst,
     score:      parseFloat(info.summaryLeft[0]),
@@ -125,7 +131,7 @@ const etfHighDividend = etfTrend.filter(
   (d) => d.divYield !== null && d.divYield >= 3
 );
 
-const futData = Object.entries(window.futuresFullData).map(
+const futData = Object.entries(futuresDataSource).map(
   ([inst, info]) => ({
     instrument: inst,
     score:      parseFloat(info.summaryLeft[0]),
@@ -141,7 +147,7 @@ const futData = Object.entries(window.futuresFullData).map(
   })
 );
 
-const fxData = Object.entries(window.fxFullData).map(
+const fxData = Object.entries(fxDataSource).map(
   ([inst, info]) => ({
     instrument: inst,
     score:      parseFloat(info.summaryLeft[0]),
