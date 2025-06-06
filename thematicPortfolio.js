@@ -1,17 +1,15 @@
 // thematicPortfolio.js
 // -----------------------------------------------------------------------------
-// Pagina “Portfolio Ideas” con tab STOCKS / ETFS / FUTURES / FX.
-// STOCKS mostra sei portafogli tematici; per Value e Quality ora carichiamo
-// P/E, P/B, ROE, ecc. da instruments.json in un’unica fetch lazy-loaded.
+// Pagina “Portfolio Ideas” aggiornata: 5 portafogli STOCKS (Value, Momentum,
+// Dividend Defensive, Low Volatility, Low Correlation) + ETF / Futures / FX.
 // -----------------------------------------------------------------------------
 
 import { parseGap } from "./dashboard.js";
 
 /* -------------------------------------------------------------------------- */
-/* 1. Header-to-key mapping                                                   */
+/* 1. Header ⇄ key mapping                                                    */
 /* -------------------------------------------------------------------------- */
 const headerKeyMap = {
-  // Comuni
   "Instrument":     "instrument",
   "Score":          "score",
   "Trend":          "trend",
@@ -23,7 +21,6 @@ const headerKeyMap = {
   "Bullish Alpha":  "bullish",
   "Bearish Alpha":  "bearish",
   "Alpha Strength": "alpha",
-  // Fondamentali
   "P/E":            "pe",
   "P/B":            "pb",
   "Div Yield":      "divYield",
@@ -34,7 +31,7 @@ const headerKeyMap = {
 };
 
 /* -------------------------------------------------------------------------- */
-/* 2. Entry point pubblico                                                    */
+/* 2. Entry point                                                             */
 /* -------------------------------------------------------------------------- */
 export function initThematicPortfolio() {
   const sidebar = document.getElementById("sidebar-list");
@@ -50,31 +47,29 @@ export function initThematicPortfolio() {
 
       const tpl = document.getElementById("thematic-portfolio-template");
       tpl.style.display = "block";
-      loadThematicPortfolio();          // async – non serve await
+      loadThematicPortfolio();          // async
     }
   });
 }
 
 /* -------------------------------------------------------------------------- */
-/* 3. Costruisce l’intera pagina                                              */
+/* 3. Build page                                                              */
 /* -------------------------------------------------------------------------- */
 async function loadThematicPortfolio() {
   const c = document.getElementById("thematic-portfolio-template");
 
-  /* ---------------------------------------------------------------------- */
-  /* 0. Merge dei fondamentali                                              */
-  /* ---------------------------------------------------------------------- */
+  /* ------------------------------------------------------------------ */
+  /* 0. Merge fondamentali in window.stocksFullData (una sola volta)    */
+  /* ------------------------------------------------------------------ */
   if (!window.__fundamentalsMerged__) {
     try {
       const res = await fetch("./instruments.json");
-      const instruments = await res.json();                 // array di obj
-      const byTicker = Object.fromEntries(
-        instruments.map((o) => [o.ticker.trim(), o])
-      );
+      const instruments = await res.json();
+      const byTicker = Object.fromEntries(instruments.map((o) => [o.ticker.trim(), o]));
 
       for (const [tic, rec] of Object.entries(window.stocksFullData)) {
         const f = byTicker[tic.trim()];
-        if (!f) continue;                                   // ticker assente
+        if (!f) continue;
         Object.assign(rec, {
           pe_ratio:         f.pe_ratio,
           pb_ratio:         f.pb_ratio,
@@ -85,15 +80,15 @@ async function loadThematicPortfolio() {
           beta:             f.beta
         });
       }
-      window.__fundamentalsMerged__ = true;                 // fatto
+      window.__fundamentalsMerged__ = true;
     } catch (err) {
       console.error("Merge fundamentals failed:", err);
     }
   }
 
-  /* ---------------------------------------------------------------------- */
-  /* 1. Dataset STOCKS                                                     */
-  /* ---------------------------------------------------------------------- */
+  /* ------------------------------------------------------------------ */
+  /* 1. STOCKS dataset                                                  */
+  /* ------------------------------------------------------------------ */
   const stocksData = Object.entries(window.stocksFullData).map(
     ([inst, info]) => ({
       instrument:       inst,
@@ -117,48 +112,46 @@ async function loadThematicPortfolio() {
     })
   );
 
-  /* ---------------------------------------------------------------------- */
-  /* 2. Filtri tematici STOCKS                                              */
-  /* ---------------------------------------------------------------------- */
+  /* ------------------------------------------------------------------ */
+  /* 2. STOCKS thematic filters                                         */
+  /* ------------------------------------------------------------------ */
+  // Value Investing
   const valueStocks = stocksData.filter(
     (d) =>
-      d.pe !== null &&
-      d.pe < 15 &&
-      d.pb !== null &&
-      d.pb < 2 &&
-      d.divYield !== null &&
-      d.divYield >= 3
+      d.pe !== null && d.pe < 15 &&
+      d.pb !== null && d.pb < 2 &&
+      d.divYield !== null && d.divYield >= 2 &&
+      d.debtToEquity !== null && d.debtToEquity < 50 &&
+      d.returnOnEquity !== null && d.returnOnEquity > 0.15
   );
 
+  // Momentum (immutato)
   const momentumStocks = stocksData.filter(
     (d) => d.bullish > 1 && d.bearish < 1 && d.alpha > 1
   );
 
-  const qualityStocks = stocksData.filter(
-    (d) =>
-      d.returnOnEquity !== null &&
-      d.returnOnEquity > 0.15 &&
-      d.debtToEquity !== null &&
-      d.debtToEquity < 50
-  );
-
-  const lowVolStocks = stocksData.filter((d) => d.vol < 1);
-
-  const lowCorrStocks = stocksData.filter((d) => d.corr < 0.1);
-
+  // Dividend Defensive
   const dividendDefensiveStocks = stocksData.filter(
     (d) =>
-      d.divYield !== null &&
-      d.divYield > 3 &&
-      d.payout_ratio !== null &&
-      d.payout_ratio < 0.6 &&
-      d.beta !== null &&
-      d.beta < 1
+      d.divYield !== null && d.divYield >= 3 &&
+      d.payout_ratio !== null && d.payout_ratio < 0.6 &&
+      d.beta !== null && d.beta < 1 &&
+      d.score > 50
   );
 
-  /* ---------------------------------------------------------------------- */
-  /* 3. ETFs, Futures, FX (immutati)                                        */
-  /* ---------------------------------------------------------------------- */
+  // Low Volatility
+  const lowVolStocks = stocksData.filter(
+    (d) => d.vol < 1 && d.score === 100
+  );
+
+  // Low Correlation
+  const lowCorrStocks = stocksData.filter(
+    (d) => d.corr < 0 && d.score === 100
+  );
+
+  /* ------------------------------------------------------------------ */
+  /* 3. ETF / Futures / FX (immutati)                                   */
+  /* ------------------------------------------------------------------ */
   const etfData = Object.entries(window.etfFullData).map(([inst, info]) => ({
     instrument: inst,
     score:      parseFloat(info.summaryLeft[0]),
@@ -171,9 +164,9 @@ async function loadThematicPortfolio() {
     bearish:    parseFloat(info.summaryRight[3]),
     alpha:      parseFloat(info.summaryRight[4])
   }));
-  const etfTrend   = etfData.filter((d) => d.score === 100);
-  const etfLowCorr = etfTrend.filter((d) => d.corr < 0.1);
-  const etfLowVol  = etfTrend.filter((d) => d.vol < 1);
+  const etfTrend     = etfData.filter((d) => d.score === 100);
+  const etfLowCorr   = etfTrend.filter((d) => d.corr < 0.1);
+  const etfLowVol    = etfTrend.filter((d) => d.vol < 1);
   const etfTrendPlus = etfTrend.filter(
     (d) => d.bullish > 1 && d.bearish < 1 && d.alpha > 1
   );
@@ -202,9 +195,9 @@ async function loadThematicPortfolio() {
   }));
   const fxTrend = fxData.filter((d) => d.score >= 75 || d.score <= -75);
 
-  /* ---------------------------------------------------------------------- */
-  /* 4. Render HTML                                                         */
-  /* ---------------------------------------------------------------------- */
+  /* ------------------------------------------------------------------ */
+  /* 4. Render HTML                                                     */
+  /* ------------------------------------------------------------------ */
   c.innerHTML = `
     <div class="thematic-portfolio-nav">
       <button class="portfolio-tab active" data-target="stocks">STOCKS</button>
@@ -218,33 +211,28 @@ async function loadThematicPortfolio() {
       <div class="portfolio-tab-content active" data-category="stocks">
         ${renderSection(
           "Value Investing",
-          ["Instrument", "P/E", "P/B", "Div Yield", "Score", "Trend", "Approach", "Gap to Peak", "Key Area"],
+          ["Instrument", "P/E", "P/B", "Div Yield", "ROE", "D/E"],
           valueStocks
         )}
         ${renderSection(
           "Momentum",
-          ["Instrument", "Score", "Bullish Alpha", "Bearish Alpha", "Alpha Strength", "Trend", "Approach", "Gap to Peak", "Key Area"],
+          ["Instrument", "Score", "Bullish Alpha", "Bearish Alpha", "Alpha Strength"],
           momentumStocks
         )}
         ${renderSection(
-          "Quality",
-          ["Instrument", "ROE", "D/E", "Score", "Trend", "Approach", "Gap to Peak", "Key Area"],
-          qualityStocks
+          "Dividend Defensive",
+          ["Instrument", "Div Yield", "Payout Ratio", "β", "Score", "Gap to Peak", "Key Area"],
+          dividendDefensiveStocks
         )}
         ${renderSection(
           "Low Volatility",
-          ["Instrument", "Score", "Volatility", "Trend", "Approach", "Gap to Peak", "Key Area"],
+          ["Instrument", "Volatility", "Score", "Gap to Peak", "Key Area"],
           lowVolStocks
         )}
         ${renderSection(
           "Low Correlation",
-          ["Instrument", "Score", "Correlation", "Trend", "Approach", "Gap to Peak", "Key Area"],
+          ["Instrument", "Correlation", "Score", "Gap to Peak", "Key Area"],
           lowCorrStocks
-        )}
-        ${renderSection(
-          "Dividend-Growth / Defensive",
-          ["Instrument", "Div Yield", "Payout Ratio", "β", "Score", "Trend", "Approach", "Gap to Peak", "Key Area"],
-          dividendDefensiveStocks
         )}
       </div>
 
@@ -302,9 +290,9 @@ async function loadThematicPortfolio() {
     </div>
   `;
 
-  /* ---------------------------------------------------------------------- */
-  /* 5. Gestione tab + fallback “no-ideas”                                   */
-  /* ---------------------------------------------------------------------- */
+  /* ------------------------------------------------------------------ */
+  /* 5. Tab switching + fallback                                        */
+  /* ------------------------------------------------------------------ */
   c.querySelectorAll(".portfolio-tab").forEach((btn) => {
     btn.addEventListener("click", () => {
       c.querySelectorAll(".portfolio-tab").forEach((b) => b.classList.remove("active"));
@@ -333,7 +321,7 @@ function renderSection(title, headers, rows) {
   if (!rows || rows.length === 0) return "";
 
   const baseURL = window.location.origin + window.location.pathname;
-  const allHeaders = [...headers, "FULL ANALYSIS"];
+  const fullHeaders = [...headers, "FULL ANALYSIS"];
 
   return `
     <div class="thematic-portfolio-section">
@@ -341,7 +329,7 @@ function renderSection(title, headers, rows) {
       <div class="thematic-portfolio-table-container">
         <table class="thematic-portfolio-table">
           <thead>
-            <tr>${allHeaders.map((h) => `<th>${h}</th>`).join("")}</tr>
+            <tr>${fullHeaders.map((h) => `<th>${h}</th>`).join("")}</tr>
           </thead>
           <tbody>
             ${rows
@@ -351,7 +339,7 @@ function renderSection(title, headers, rows) {
                   headers
                     .map((h) => `<td>${r[headerKeyMap[h]] ?? "-"}</td>`)
                     .join("") +
-                  `<td class="full-analysis"><a href="${baseURL}?instrument=${encodeURIComponent(
+                  `<td><a href="${baseURL}?instrument=${encodeURIComponent(
                     r.instrument
                   )}" target="_blank">🔗</a></td>` +
                   `</tr>`
