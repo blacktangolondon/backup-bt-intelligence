@@ -1,7 +1,14 @@
 // thematicPortfolio.js
 // -----------------------------------------------------------------------------
-// Pagina “Portfolio Ideas” aggiornata: 5 portafogli STOCKS (Value, Momentum,
-// Dividend Defensive, Low Volatility, Low Correlation) + ETF / Futures / FX.
+// Pagina “Portfolio Ideas” con tab STOCKS / ETFS / FUTURES / FX.
+//
+// STOCKS → 5 portafogli in quest’ordine:
+//   1) Value Investing
+//   2) Dividend Defensive
+//   3) Momentum  (colonne: Instrument, Score, Bullish Alpha, Bearish Alpha,
+//                 Alpha Strength, Gap to Peak, Key Area, FULL ANALYSIS)
+//   4) Low Volatility
+//   5) Low Correlation
 // -----------------------------------------------------------------------------
 
 import { parseGap } from "./dashboard.js";
@@ -59,7 +66,7 @@ async function loadThematicPortfolio() {
   const c = document.getElementById("thematic-portfolio-template");
 
   /* ------------------------------------------------------------------ */
-  /* 0. Merge fondamentali in window.stocksFullData (una sola volta)    */
+  /* 0. Merge fondamentali (una sola volta)                             */
   /* ------------------------------------------------------------------ */
   if (!window.__fundamentalsMerged__) {
     try {
@@ -115,7 +122,7 @@ async function loadThematicPortfolio() {
   /* ------------------------------------------------------------------ */
   /* 2. STOCKS thematic filters                                         */
   /* ------------------------------------------------------------------ */
-  // Value Investing
+  // 1) Value Investing
   const valueStocks = stocksData.filter(
     (d) =>
       d.pe !== null && d.pe < 15 &&
@@ -125,12 +132,7 @@ async function loadThematicPortfolio() {
       d.returnOnEquity !== null && d.returnOnEquity > 0.15
   );
 
-  // Momentum (immutato)
-  const momentumStocks = stocksData.filter(
-    (d) => d.bullish > 1 && d.bearish < 1 && d.alpha > 1
-  );
-
-  // Dividend Defensive
+  // 2) Dividend Defensive
   const dividendDefensiveStocks = stocksData.filter(
     (d) =>
       d.divYield !== null && d.divYield >= 3 &&
@@ -139,12 +141,17 @@ async function loadThematicPortfolio() {
       d.score > 50
   );
 
-  // Low Volatility
+  // 3) Momentum
+  const momentumStocks = stocksData.filter(
+    (d) => d.bullish > 1 && d.bearish < 1 && d.alpha > 1
+  );
+
+  // 4) Low Volatility
   const lowVolStocks = stocksData.filter(
     (d) => d.vol < 1 && d.score === 100
   );
 
-  // Low Correlation
+  // 5) Low Correlation
   const lowCorrStocks = stocksData.filter(
     (d) => d.corr < 0 && d.score === 100
   );
@@ -215,14 +222,14 @@ async function loadThematicPortfolio() {
           valueStocks
         )}
         ${renderSection(
-          "Momentum",
-          ["Instrument", "Score", "Bullish Alpha", "Bearish Alpha", "Alpha Strength"],
-          momentumStocks
-        )}
-        ${renderSection(
           "Dividend Defensive",
           ["Instrument", "Div Yield", "Payout Ratio", "β", "Score", "Gap to Peak", "Key Area"],
           dividendDefensiveStocks
+        )}
+        ${renderSection(
+          "Momentum",
+          ["Instrument", "Score", "Bullish Alpha", "Bearish Alpha", "Alpha Strength", "Gap to Peak", "Key Area"],
+          momentumStocks
         )}
         ${renderSection(
           "Low Volatility",
