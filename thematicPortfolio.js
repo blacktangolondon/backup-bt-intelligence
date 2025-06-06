@@ -1,14 +1,13 @@
 // thematicPortfolio.js
 // -----------------------------------------------------------------------------
-// Pagina “Portfolio Ideas” con tab STOCKS / ETFS / FUTURES / FX.
+// Pagina “Portfolio Ideas” – STOCKS, ETFS, FUTURES, FX
 //
-// STOCKS → 5 portafogli in quest’ordine:
+// STOCKS (ordine):
 //   1) Value Investing
-//   2) Dividend Defensive
-//   3) Momentum  (colonne: Instrument, Score, Bullish Alpha, Bearish Alpha,
-//                 Alpha Strength, Gap to Peak, Key Area, FULL ANALYSIS)
-//   4) Low Volatility
-//   5) Low Correlation
+//   2) Dividend Defensive   (score === 100)
+//   3) Momentum             (score === 100)
+//   4) Low Volatility       (score === 100)
+//   5) Low Correlation      (score === 100)
 // -----------------------------------------------------------------------------
 
 import { parseGap } from "./dashboard.js";
@@ -132,26 +131,30 @@ async function loadThematicPortfolio() {
       d.returnOnEquity !== null && d.returnOnEquity > 0.15
   );
 
-  // 2) Dividend Defensive
+  // 2) Dividend Defensive (score === 100)
   const dividendDefensiveStocks = stocksData.filter(
     (d) =>
+      d.score === 100 &&
       d.divYield !== null && d.divYield >= 3 &&
       d.payout_ratio !== null && d.payout_ratio < 0.6 &&
-      d.beta !== null && d.beta < 1 &&
-      d.score > 50
+      d.beta !== null && d.beta < 1
   );
 
-  // 3) Momentum
+  // 3) Momentum (score === 100)
   const momentumStocks = stocksData.filter(
-    (d) => d.bullish > 1 && d.bearish < 1 && d.alpha > 1
+    (d) =>
+      d.score === 100 &&
+      d.bullish > 1 &&
+      d.bearish < 1 &&
+      d.alpha > 1
   );
 
-  // 4) Low Volatility
+  // 4) Low Volatility  (score === 100)  – già ok
   const lowVolStocks = stocksData.filter(
     (d) => d.vol < 1 && d.score === 100
   );
 
-  // 5) Low Correlation
+  // 5) Low Correlation (score === 100)  – già ok
   const lowCorrStocks = stocksData.filter(
     (d) => d.corr < 0 && d.score === 100
   );
@@ -243,7 +246,7 @@ async function loadThematicPortfolio() {
         )}
       </div>
 
-      <!-- ETFS ------------------------------------------------------------- -->
+      <!-- ETFS, FUTURES, FX identici … -->
       <div class="portfolio-tab-content" data-category="etfs">
         ${renderSection(
           "Trend Following",
@@ -267,7 +270,6 @@ async function loadThematicPortfolio() {
         )}
       </div>
 
-      <!-- FUTURES ---------------------------------------------------------- -->
       <div class="portfolio-tab-content" data-category="futures">
         ${renderSection(
           "Trend Following",
@@ -286,7 +288,6 @@ async function loadThematicPortfolio() {
         )}
       </div>
 
-      <!-- FX --------------------------------------------------------------- -->
       <div class="portfolio-tab-content" data-category="fx">
         ${renderSection(
           "Trend Following",
