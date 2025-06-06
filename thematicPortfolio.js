@@ -160,7 +160,7 @@ const fxData = Object.entries(window.fxFullData).map(
 /* -------------------------------------------------------------------------- */
 /* 4. Build HTML                                                               */
 /* -------------------------------------------------------------------------- */
-export function buildThematicPortfolio() {
+export function initThematicPortfolio() {
   document.getElementById("app").innerHTML = `
     <div class="portfolio-tabs">
       <button class="portfolio-tab active" data-target="stocks">STOCKS</button>
