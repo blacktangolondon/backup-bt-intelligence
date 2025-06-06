@@ -174,18 +174,18 @@ async function loadThematicPortfolio() {
     bearish:    parseFloat(info.summaryRight[3]),
     alpha:      parseFloat(info.summaryRight[4]),
     // assume ETF fundamentals (if provided) live in etfFullData
-    divYield:   info.div_yield         != null ? parseFloat(info.div_yield)         : null,
-    payout_ratio: info.payout_ratio    != null ? parseFloat(info.payout_ratio)      : null
+    divYield:     info.div_yield      != null ? parseFloat(info.div_yield)      : null,
+    payout_ratio: info.payout_ratio   != null ? parseFloat(info.payout_ratio)   : null
   }));
-  const etfTrend     = etfData.filter((d) => d.score === 100);
-  const etfLowCorr   = etfTrend.filter((d) => d.corr < 0.1);
-  const etfLowVol    = etfTrend.filter((d) => d.vol < 1);
-  const etfTrendPlus = etfTrend.filter(
+  const etfTrend        = etfData.filter((d) => d.score === 100);
+  const etfLowCorr      = etfTrend.filter((d) => d.corr < 0.1);
+  const etfLowVol       = etfTrend.filter((d) => d.vol < 1);
+  const etfTrendPlus    = etfTrend.filter(
     (d) => d.bullish > 1 && d.bearish < 1 && d.alpha > 1
   );
 
   // New ETF portfolios
-  const etfMomentum = etfTrendPlus; // same as Trend Plus
+  const etfMomentum     = etfTrendPlus; // same as Trend Plus
   const etfHighDividend = etfTrend.filter(
     (d) => d.divYield !== null && d.divYield >= 3
   );
@@ -278,7 +278,7 @@ async function loadThematicPortfolio() {
           etfMomentum
         )}
         ${renderSection(
-          "High‐Dividend ETFs",
+          "High-Dividend ETFs",
           ["Instrument", "Div Yield", "Payout Ratio", "Score", "Gap to Peak", "Key Area"],
           etfHighDividend
         )}
