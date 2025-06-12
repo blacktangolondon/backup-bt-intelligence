@@ -12,8 +12,8 @@ import {
 
 // Filter mappings for each asset class
 const filterMappingStocks = {
-  // Composite Scores
-  "Trend Score":            { field: "final_score" },
+  // Composite Scores (Trend Score)
+  "Trend Score":            { source: "left",  index: 0 },
   // Valuation & Fundamentals
   "P/E Ratio":              { source: "right", index: 5 },
   "P/B Ratio":              { field: "pb_ratio" },
@@ -273,16 +273,4 @@ function generatePortfolioNew() {
           ? r.info.summaryLeft[map.index]
           : r.info.summaryRight[map.index];
       } else {
-        val = r.info[map.field];
-      }
-      tr.insertCell().textContent = val != null ? val.toString() : '';
-    });
-    const cell = tr.insertCell();
-    const link = document.createElement('a');
-    link.href = `${window.location.origin + window.location.pathname}?instrument=${encodeURIComponent(r.instrument)}`;
-    link.target = '_blank';
-    link.textContent = '🔗';
-    cell.appendChild(link);
-  });
-  resDiv.appendChild(table);
-}
+        val = r
