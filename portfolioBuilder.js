@@ -13,7 +13,7 @@ import {
 // Filter mappings for each asset class
 const filterMappingStocks = {
   // Composite Scores
-  "Trend Score":            { source: "left",  index: 1 },
+  "Trend Score":            { field: "final_score" },
   // Valuation & Fundamentals
   "P/E Ratio":              { source: "right", index: 5 },
   "P/B Ratio":              { field: "pb_ratio" },
@@ -35,7 +35,7 @@ const filterMappingStocks = {
   "Gap to Peak":            { source: "left",  index: 3 }
 };
 
-// ETF filters (same as Stocks but limited)
+// ETF filters
 const filterMappingETFs = {};
 [
   "Trend Score",
@@ -49,7 +49,7 @@ const filterMappingETFs = {};
   filterMappingETFs[key] = filterMappingStocks[key];
 });
 
-// Futures & FX share the same filter set as ETFs
+// Futures & FX use same filters as ETFs
 const filterMappingFutures = { ...filterMappingETFs };
 const filterMappingFX      = { ...filterMappingETFs };
 
@@ -230,17 +230,16 @@ function generatePortfolioNew() {
       const map  = mapping[filt.filterName];
       if (!map) continue;
 
-      // Determine the numeric value
+      // Determine numeric value
       let num;
       if (map.source) {
         const raw = map.source === 'left'
           ? info.summaryLeft[map.index]
           : info.summaryRight[map.index];
-        num = parseFloat(raw.replace? raw.replace('%','') : raw);
+        num = parseFloat(typeof raw === 'string' ? raw.replace('%','') : raw);
       } else {
         num = parseFloat(info[map.field]);
       }
-
       if (isNaN(num)) { include = false; break; }
       if (filt.operator === '>=' && num < +filt.value) { include = false; break; }
       if (filt.operator === '<=' && num > +filt.value) { include = false; break; }
@@ -260,11 +259,8 @@ function generatePortfolioNew() {
   const thead = table.createTHead();
   const headerRow = thead.insertRow();
   headerRow.insertCell().textContent = 'Instrument';
-  portfolioFilters.slice(1).forEach(f =>
-    headerRow.insertCell().textContent = f.filterName
-  );
+  portfolioFilters.slice(1).forEach(f => headerRow.insertCell().textContent = f.filterName);
   headerRow.insertCell().textContent = 'FULL ANALYSIS';
-
   const tbody = table.createTBody();
   results.forEach(r => {
     const tr = tbody.insertRow();
@@ -273,10 +269,9 @@ function generatePortfolioNew() {
       const map = mapping[f.filterName];
       let val;
       if (map.source) {
-        const raw = map.source === 'left'
+        val = map.source === 'left'
           ? r.info.summaryLeft[map.index]
           : r.info.summaryRight[map.index];
-        val = raw;
       } else {
         val = r.info[map.field];
       }
@@ -284,11 +279,10 @@ function generatePortfolioNew() {
     });
     const cell = tr.insertCell();
     const link = document.createElement('a');
-    link.href   = `${window.location.origin + window.location.pathname}?instrument=${encodeURIComponent(r.instrument)}`;
+    link.href = `${window.location.origin + window.location.pathname}?instrument=${encodeURIComponent(r.instrument)}`;
     link.target = '_blank';
     link.textContent = '🔗';
     cell.appendChild(link);
   });
-
   resDiv.appendChild(table);
 }
