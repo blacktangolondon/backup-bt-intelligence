@@ -11,40 +11,34 @@ import {
 } from "./dashboard.js";
 
 // Filter mappings for each asset class
-// NOTE: field names should match those in your data objects
 const filterMappingStocks = {
-  // Composite Scores
-  "Trend Score":          { field: "final_score" },
-  // Valuation & Fundamentals
-  "P/E Ratio":            { field: "pe_ratio" },
-  "P/B Ratio":            { field: "pb_ratio" },
-  "EPS":                  { field: "eps" },
-  "Dividend Yield":       { field: "div_yield" },
-  "Return on Equity":     { field: "return_on_equity" },
-  "Debt to Equity":       { field: "debt_to_equity" },
-  "Revenue Growth":       { field: "revenue_growth" },
-  "Payout Ratio":         { field: "payout_ratio" },
-  // Market/Risk Metrics
-  "Beta":                 { field: "beta" },
-  "S&P500 Correlation":   { field: "sp500_correlation" },
-  "S&P500 Volatility Ratio": { field: "sp500_volatility_ratio" },
-  // Alpha & Projection
-  "Alpha Strength":       { field: "alpha_strength" },
-  "Bullish Alpha":        { field: "bullish_alpha" },
-  "Bearish Alpha":        { field: "bearish_alpha" },
-  // Price Extremes & Gaps
-  "Gap to Peak":          { field: "gap_to_peak" }
+  "Score": { source: "left", index: 0 },
+  "Gap to Peak": { source: "left", index: 3 },
+  "S&P500 Correlation": { source: "right", index: 0 },
+  "S&P500 Volatility Ratio": { source: "right", index: 1 },
+  "Bullish Alpha": { source: "right", index: 2 },
+  "Bearish Alpha": { source: "right", index: 3 },
+  "Alpha Strength": { source: "right", index: 4 }
 };
-
-// ETF filters
-const filterMappingETFs = {};
-["Trend Score","Alpha Strength","Bullish Alpha","Bearish Alpha",
- "S&P500 Correlation","S&P500 Volatility Ratio","Gap to Peak"]
-.forEach(key => { filterMappingETFs[key] = filterMappingStocks[key]; });
-
-// Futures & FX use the same filters as ETFs
-const filterMappingFutures = { ...filterMappingETFs };
-const filterMappingFX      = { ...filterMappingETFs };
+const filterMappingETFs = { ...filterMappingStocks };
+const filterMappingFutures = {
+  "Score": { source: "left", index: 0 },
+  "Gap to Peak": { source: "left", index: 3 },
+  "S&P500 Correlation": { source: "right", index: 0 },
+  "S&P500 Volatility Ratio": { source: "right", index: 1 },
+  "Alpha Strength": { source: "right", index: 2 }
+};
+const filterMappingFX = {
+  "Score": { source: "left", index: 0 },
+  "Gap to Peak": { source: "left", index: 2 },
+  "AVERAGE DAILY VOLATILITY": { source: "right", index: 0 },
+  "FX Volatility Ratio": { source: "right", index: 1 },
+  "30 DAYS PROJECTION": { source: "right", index: 2 },
+  "LONG TERM - MACRO": { source: "right", index: 3 },
+  "MEDIUM TERM - MATH": { source: "right", index: 4 },
+  "MEDIUM TERM - STATS": { source: "right", index: 5 },
+  "SHORT TERM - TECH": { source: "right", index: 6 }
+};
 
 // State
 let portfolioFilters = [];
@@ -100,13 +94,12 @@ function openFilterSelector() {
   const assetType = portfolioFilters[0]?.value;
   let metrics;
   if (!assetType) metrics = ['Asset Class'];
-  else if (assetType==='ETFS')     metrics = Object.keys(filterMappingETFs);
   else if (assetType==='FUTURES') metrics = Object.keys(filterMappingFutures);
-  else if (assetType==='FX')      metrics = Object.keys(filterMappingFX);
-  else /* STOCKS */               metrics = Object.keys(filterMappingStocks);
+  else if (assetType==='FX') metrics = Object.keys(filterMappingFX);
+  else metrics = Object.keys(filterMappingStocks);
 
   metrics.forEach(m => {
-    if (m==='Asset Class' || !portfolioFilters.some(f=>f.filterName===m)) available.push(m);
+    if (m==='Asset Class'|| !portfolioFilters.some(f=>f.filterName===m)) available.push(m);
   });
 
   const div = document.createElement('div'); div.className='filter-selector';
@@ -125,7 +118,7 @@ function openFilterSelector() {
         const o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o);
       }); inpDiv.appendChild(sel);
     } else {
-      const op=document.createElement('select');['>=','<='].forEach(o=>{const x=document.createElement('option');x.value=o;x.textContent=o;op.appendChild(x);});
+      const op=document.createElement('select');['≥','≤'].forEach(o=>{const x=document.createElement('option');x.value=o;x.textContent=o;op.appendChild(x);});
       const num=document.createElement('input');num.type='number';num.placeholder='Value';
       inpDiv.appendChild(op);inpDiv.appendChild(num);
     }
@@ -154,7 +147,7 @@ function updatePortfolioSteps() {
   steps.appendChild(p);
 }
 
-// Apply filters and render
+// Apply filters and render using updated logic
 function generatePortfolioNew() {
   if (portfolioFilters.length === 0 || portfolioFilters[0].filterName !== 'Asset Class') {
     alert('Please add the Asset Class filter as your first filter.');
@@ -179,7 +172,7 @@ function generatePortfolioNew() {
     return;
   }
 
-  const results = [];
+  let results = [];
   for (const instrument in dataObj) {
     const info = dataObj[instrument];
     let include = true;
@@ -187,27 +180,38 @@ function generatePortfolioNew() {
       const filt = portfolioFilters[i];
       const map = mapping[filt.filterName];
       if (!map) continue;
-      const rawVal = parseFloat(info[map.field]);
-      if (isNaN(rawVal)) { include = false; break; }
-      if (filt.operator === '>=' && rawVal < parseFloat(filt.value)) { include = false; break; }
-      if (filt.operator === '<=' && rawVal > parseFloat(filt.value)) { include = false; break; }
+      const rawVal = map.source === 'left'
+        ? info.summaryLeft[map.index]
+        : info.summaryRight[map.index];
+      const num = parseFloat(rawVal.replace('%',''));
+      if (isNaN(num)) { include = false; break; }
+      if (filt.operator === '≥' && num < parseFloat(filt.value)) { include = false; break; }
+      if (filt.operator === '≤' && num > parseFloat(filt.value)) { include = false; break; }
     }
-    if (include) results.push({ instrument, info });
+    if (include) {
+      results.push({ instrument, info });
+    }
   }
 
   const resDiv = document.getElementById('portfolio-results');
   resDiv.innerHTML = '';
+
   if (results.length === 0) {
     resDiv.textContent = 'No instruments meet this criteria.';
     return;
   }
+
+  // Base URL for analysis links
+  const base = window.location.origin + window.location.pathname;
 
   // build table
   const table = document.createElement('table');
   const thead = table.createTHead();
   const headerRow = thead.insertRow();
   headerRow.insertCell().textContent = 'Instrument';
-  portfolioFilters.slice(1).forEach(f => headerRow.insertCell().textContent = f.filterName);
+  portfolioFilters.slice(1).forEach(f => {
+    headerRow.insertCell().textContent = f.filterName;
+  });
   headerRow.insertCell().textContent = 'FULL ANALYSIS';
 
   const tbody = table.createTBody();
@@ -215,14 +219,20 @@ function generatePortfolioNew() {
     const tr = tbody.insertRow();
     tr.insertCell().textContent = r.instrument;
     portfolioFilters.slice(1).forEach(f => {
-      const val = r.info[mapping[f.filterName].field];
-      tr.insertCell().textContent = (val != null ? val.toString() : '');
+      const map = mapping[f.filterName];
+      const rawVal = map.source === 'left'
+        ? r.info.summaryLeft[map.index]
+        : r.info.summaryRight[map.index];
+      tr.insertCell().textContent = rawVal || '';
     });
-    const cell = tr.insertCell();
+    // Full Analysis link
+    const fullCell = tr.insertCell();
     const link = document.createElement('a');
-    link.href = `${window.location.origin + window.location.pathname}?instrument=${encodeURIComponent(r.instrument)}`;
-    link.target = '_blank'; link.textContent = '🔗';
-    cell.appendChild(link);
+    link.href = `${base}?instrument=${encodeURIComponent(r.instrument)}`;
+    link.target = '_blank';
+    link.textContent = '🔗';
+    fullCell.appendChild(link);
   });
+
   resDiv.appendChild(table);
 }
