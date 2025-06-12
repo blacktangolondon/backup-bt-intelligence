@@ -12,7 +12,7 @@ import {
 
 // Filter mappings for each asset class
 const filterMappingStocks = {
-  "Final Score":     { source: "left",  index: 0 },      // final_score
+  "Trend Score":     { source: "left",  index: 0 },      // final_score
   "P/E Ratio":       { source: "right", index: 5 },      // pe_ratio
   "P/B Ratio":       { source: "data",  key:   "pb_ratio" },
   "EPS":             { source: "right", index: 6 },      // eps
@@ -33,7 +33,7 @@ const filterMappingStocks = {
 
 // ETF filters (subset of Stocks)
 const filterMappingETFs = {
-  "Final Score":     filterMappingStocks["Final Score"],
+  "Trend Score":     filterMappingStocks["Final Score"],
   "P/E Ratio":       filterMappingStocks["P/E Ratio"],
   "P/B Ratio":       filterMappingStocks["P/B Ratio"],
   "EPS":             filterMappingStocks["EPS"],
@@ -48,7 +48,7 @@ const filterMappingETFs = {
 
 // Futures filters
 const filterMappingFutures = {
-  "Final Score":           { source: "left",  index: 0 }, // final_score
+  "Trend Score":           { source: "left",  index: 0 }, // final_score
   "P/E Ratio":             { source: "data",  key:   "pe_ratio" },
   "P/B Ratio":             { source: "data",  key:   "pb_ratio" },
   "EPS":                   { source: "data",  key:   "eps" },
@@ -64,7 +64,7 @@ const filterMappingFutures = {
 
 // FX filters (similar to Futures)
 const filterMappingFX = {
-  "Final Score":           { source: "left",  index: 0 },
+  "Trend Score":           { source: "left",  index: 0 },
   "P/E Ratio":             { source: "data",  key:   "pe_ratio" },
   "P/B Ratio":             { source: "data",  key:   "pb_ratio" },
   "EPS":                   { source: "data",  key:   "eps" },
