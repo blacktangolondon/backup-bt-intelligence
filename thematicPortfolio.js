@@ -11,7 +11,7 @@
 // -----------------------------------------------------------------------------
 
 import { parseGap } from "./dashboard.js";
-import { loadCSVData } from "./csvLoader.js";  // Needed for Sector Rotation calculation
+import { loadCSVData } from "./csvLoader.js";  // Added to load weekly prices for Sector Rotation
 
 /* -------------------------------------------------------------------------- */
 /* 1. Header ⇄ key mapping                                                    */
@@ -35,7 +35,7 @@ const headerKeyMap = {
   "D/E":            "debtToEquity",
   "Payout Ratio":   "payout_ratio",
   "β":              "beta",
-  "3-Month Return": "return3m"
+  "3-Month Return": "return3m"  // Mapped for Sector Rotation
 };
 
 /* -------------------------------------------------------------------------- */
@@ -48,14 +48,12 @@ export function initThematicPortfolio() {
   sidebar.addEventListener("click", (e) => {
     const li = e.target.closest("li");
     if (!li) return;
-
     if (li.textContent.trim().toUpperCase() === "PORTFOLIO IDEAS") {
       document.getElementById("main-content").style.display = "none";
       document.getElementById("portfolio-builder-template").style.display = "none";
-
       const tpl = document.getElementById("thematic-portfolio-template");
       tpl.style.display = "block";
-      loadThematicPortfolio();
+      loadThematicPortfolio();  // async
     }
   });
 }
@@ -66,9 +64,7 @@ export function initThematicPortfolio() {
 async function loadThematicPortfolio() {
   const c = document.getElementById("thematic-portfolio-template");
 
-  // ------------------------------------------------------------------
-  // Load weekly price series for ETFs
-  // ------------------------------------------------------------------
+  // Load weekly ETF prices for Sector Rotation
   const { etfPrices } = await loadCSVData();
 
   /* ------------------------------------------------------------------ */
@@ -78,10 +74,7 @@ async function loadThematicPortfolio() {
     try {
       const res = await fetch("./instruments.json");
       const instruments = await res.json();
-      const byTicker = Object.fromEntries(
-        instruments.map(o => [o.ticker.trim(), o])
-      );
-
+      const byTicker = Object.fromEntries(instruments.map(o => [o.ticker.trim(), o]));
       for (const [tic, rec] of Object.entries(window.stocksFullData)) {
         const f = byTicker[tic.trim()];
         if (!f) continue;
@@ -104,28 +97,26 @@ async function loadThematicPortfolio() {
   /* ------------------------------------------------------------------ */
   /* 1. STOCKS dataset                                                  */
   /* ------------------------------------------------------------------ */
-  const stocksData = Object.entries(window.stocksFullData).map(
-    ([inst, info]) => ({
-      instrument:     inst,
-      score:          parseFloat(info.summaryLeft[0]),
-      trend:          info.summaryLeft[1],
-      approach:       info.summaryLeft[2],
-      gap:            parseGap(info.summaryLeft[3]),
-      keyArea:        info.summaryLeft[4],
-      corr:           parseFloat(info.summaryRight[0]),
-      vol:            parseFloat(info.summaryRight[1]),
-      bullish:        parseFloat(info.summaryRight[2]),
-      bearish:        parseFloat(info.summaryRight[3]),
-      alpha:          parseFloat(info.summaryRight[4]),
-      pe:             info.pe_ratio        != null ? parseFloat(info.pe_ratio)        : null,
-      pb:             info.pb_ratio        != null ? parseFloat(info.pb_ratio)        : null,
-      divYield:       info.div_yield       != null ? parseFloat(info.div_yield)       : null,
-      returnOnEquity: info.return_on_equity!= null ? parseFloat(info.return_on_equity): null,
-      debtToEquity:   info.debt_to_equity  != null ? parseFloat(info.debt_to_equity)  : null,
-      payout_ratio:   info.payout_ratio    != null ? parseFloat(info.payout_ratio)    : null,
-      beta:           info.beta            != null ? parseFloat(info.beta)            : null
-    })
-  );
+  const stocksData = Object.entries(window.stocksFullData).map(([inst, info]) => ({
+    instrument:       inst,
+    score:            parseFloat(info.summaryLeft[0]),
+    trend:            info.summaryLeft[1],
+    approach:         info.summaryLeft[2],
+    gap:              parseGap(info.summaryLeft[3]),
+    keyArea:          info.summaryLeft[4],
+    corr:             parseFloat(info.summaryRight[0]),
+    vol:              parseFloat(info.summaryRight[1]),
+    bullish:          parseFloat(info.summaryRight[2]),
+    bearish:          parseFloat(info.summaryRight[3]),
+    alpha:            parseFloat(info.summaryRight[4]),
+    pe:               info.pe_ratio         != null ? parseFloat(info.pe_ratio)        : null,
+    pb:               info.pb_ratio         != null ? parseFloat(info.pb_ratio)        : null,
+    divYield:         info.div_yield        != null ? parseFloat(info.div_yield)       : null,
+    returnOnEquity:   info.return_on_equity != null ? parseFloat(info.return_on_equity): null,
+    debtToEquity:     info.debt_to_equity   != null ? parseFloat(info.debt_to_equity)  : null,
+    payout_ratio:     info.payout_ratio     != null ? parseFloat(info.payout_ratio)    : null,
+    beta:             info.beta             != null ? parseFloat(info.beta)            : null
+  }));
 
   /* ------------------------------------------------------------------ */
   /* 2. STOCKS thematic filters                                         */
@@ -133,16 +124,13 @@ async function loadThematicPortfolio() {
   const valueStocks = stocksData.filter(d =>
     d.pe !== null && d.pe < 15 &&
     d.pb !== null && d.pb < 2 &&
-    d.divYield !== null && d.divYield >= 2 &&
-    d.debtToEquity !== null && d.debtToEquity < 50 &&
-    d.returnOnEquity !== null && d.returnOnEquity > 0.15
+    d.divYield >= 2 &&
+    d.debtToEquity < 50 &&
+    d.returnOnEquity > 0.15
   );
 
   const dividendDefensiveStocks = stocksData.filter(d =>
-    d.score === 100 &&
-    d.divYield >= 3 &&
-    d.payout_ratio < 0.6 &&
-    d.beta < 1
+    d.score === 100 && d.divYield >= 3 && d.payout_ratio < 0.6 && d.beta < 1
   );
 
   const momentumStocks = stocksData.filter(d =>
@@ -150,7 +138,6 @@ async function loadThematicPortfolio() {
   );
 
   const lowVolStocks = stocksData.filter(d => d.vol < 1 && d.score === 100);
-
   const lowCorrStocks = stocksData.filter(d => d.corr < 0 && d.score === 100);
 
   /* ------------------------------------------------------------------ */
@@ -174,11 +161,9 @@ async function loadThematicPortfolio() {
   const etfLowCorr   = etfTrend.filter(d => d.corr < 0.1);
   const etfLowVol    = etfTrend.filter(d => d.vol < 1);
   const etfTrendPlus = etfTrend.filter(d => d.bullish > 1 && d.bearish < 1 && d.alpha > 1);
-
-  // 6) Low Drawdown
   const etfLowDrawdown = etfData.filter(d => d.gap < 5 && d.vol < 1);
 
-  // 7) Sector Rotation (Top 3 by 3-month return)
+  // Sector Rotation: compute 3-month return (13 weeks back)
   etfData.forEach(d => {
     const hist = etfPrices[d.instrument] || [];
     const n = hist.length;
@@ -263,22 +248,17 @@ async function loadThematicPortfolio() {
   /* ------------------------------------------------------------------ */
   /* 5. Tab switching + fallback                                        */
   /* ------------------------------------------------------------------ */
-  c.querySelectorAll(".portfolio-tab").forEach((btn) => {
+  c.querySelectorAll(".portfolio-tab").forEach(btn => {
     btn.addEventListener("click", () => {
-      c.querySelectorAll(".portfolio-tab").forEach((b) => b.classList.remove("active"));
+      c.querySelectorAll(".portfolio-tab").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      c.querySelectorAll(".portfolio-tab-content").forEach((sec) => sec.classList.remove("active"));
+      c.querySelectorAll(".portfolio-tab-content").forEach(sec => sec.classList.remove("active"));
       c.querySelector(`.portfolio-tab-content[data-category="${btn.dataset.target}"]`).classList.add("active");
     });
   });
-
-  c.querySelectorAll(".portfolio-tab-content").forEach((content) => {
+  c.querySelectorAll(".portfolio-tab-content").forEach(content => {
     if (!content.querySelector(".thematic-portfolio-section")) {
-      content.innerHTML = `
-        <div class="no-ideas">
-          <p>No instruments match these criteria.</p>
-        </div>
-      `;
+      content.innerHTML = `<div class="no-ideas"><p>No instruments match these criteria.</p></div>`;
     }
   });
 }
@@ -298,15 +278,15 @@ function renderSection(title, headers, rows) {
       <div class="thematic-portfolio-table-container">
         <table class="thematic-portfolio-table">
           <thead>
-            <tr>${fullHeaders.map((h) => `<th>${h}</th>`).join("")}</tr>
+            <tr>${fullHeaders.map(h => `<th>${h}</th>`).join("")}</tr>
           </thead>
           <tbody>
-            ${rows.map((r) =>
-              `<tr>` +
-              headers.map((h) => `<td>${r[headerKeyMap[h]] ?? "-"}</td>`).join("") +
-              `<td><a href="${baseURL}?instrument=${encodeURIComponent(r.instrument)}" target="_blank">🔗</a></td>` +
-              `</tr>`
-            ).join("")}
+            ${rows.map(r => `
+              <tr>
+                ${headers.map(h => `<td>${r[headerKeyMap[h]] ?? "-"}</td>`).join("")}
+                <td><a href="${baseURL}?instrument=${encodeURIComponent(r.instrument)}" target="_blank">🔗</a></td>
+              </tr>
+            `).join("")}
           </tbody>
         </table>
       </div>
