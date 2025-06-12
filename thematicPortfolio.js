@@ -274,7 +274,7 @@ async function loadThematicPortfolio() {
           etfTrendPlus
         )}
         ${renderSection(
-          "Low Drawdown (<5% & Volatility <1)",
+          "Low Drawdown",
           ["Instrument", "Gap to Peak", "Volatility"],
           etfLowDrawdown
         )}
