@@ -33,8 +33,7 @@ const headerKeyMap = {
   "ROE":            "returnOnEquity",
   "D/E":            "debtToEquity",
   "Payout Ratio":   "payout_ratio",
-  "β":              "beta",
-  "Return":         "returnValue"      // ← ADD mapping for computed returns
+  "β":              "beta"
 };
 
 /* -------------------------------------------------------------------------- */
@@ -150,12 +149,12 @@ async function loadThematicPortfolio() {
       d.alpha > 1
   );
 
-  // 4) Low Volatility  (score === 100)  – già ok
+  // 4) Low Volatility  (score === 100)
   const lowVolStocks = stocksData.filter(
     (d) => d.vol < 1 && d.score === 100
   );
 
-  // 5) Low Correlation (score === 100)  – già ok
+  // 5) Low Correlation (score === 100)
   const lowCorrStocks = stocksData.filter(
     (d) => d.corr < 0 && d.score === 100
   );
@@ -175,7 +174,6 @@ async function loadThematicPortfolio() {
     bearish:    parseFloat(info.summaryRight[3]),
     alpha:      parseFloat(info.summaryRight[4])
   }));
-
   const etfTrend     = etfData.filter((d) => d.score === 100);
   const etfLowCorr   = etfTrend.filter((d) => d.corr < 0.1);
   const etfLowVol    = etfTrend.filter((d) => d.vol < 1);
@@ -183,36 +181,10 @@ async function loadThematicPortfolio() {
     (d) => d.bullish > 1 && d.bearish < 1 && d.alpha > 1
   );
 
-  // --- BEGIN: Compute and filter ETFs that outperform SPY ---
-  // Assume window.pricesData.etfPrices is defined as { ticker: [closing prices …] }
-  const allEtfPrices = window.pricesData?.etfPrices || {};
-
-  // Compute SPY’s total return
-  const spyPrices = allEtfPrices["SPY"];
-  let spyReturn = null;
-  if (Array.isArray(spyPrices) && spyPrices.length > 1) {
-    const firstSP = spyPrices[0];
-    const lastSP = spyPrices[spyPrices.length - 1];
-    spyReturn = (lastSP - firstSP) / firstSP;
-  }
-
-  // Attach returnValue to each ETF
-  const etfDataWithReturn = etfData.map((d) => {
-    const prices = allEtfPrices[d.instrument];
-    let ret = null;
-    if (Array.isArray(prices) && prices.length > 1) {
-      const firstP = prices[0];
-      const lastP = prices[prices.length - 1];
-      ret = (lastP - firstP) / firstP;
-    }
-    return { ...d, returnValue: ret };
-  });
-
-  // Filter ETFs that outperform SPY
-  const etfOutperformSPY = etfDataWithReturn.filter(
-    (d) => d.returnValue !== null && spyReturn !== null && d.returnValue > spyReturn
+  // 6) Low Drawdown (Gap < 5% AND Volatility < 1)
+  const etfLowDrawdown = etfData.filter(
+    (d) => d.gap < 5 && d.vol < 1
   );
-  // --- END: Compute and filter ETFs that outperform SPY ---
 
   const futData = Object.entries(window.futuresFullData).map(
     ([inst, info]) => ({
@@ -279,7 +251,7 @@ async function loadThematicPortfolio() {
         )}
       </div>
 
-      <!-- ETFS ------------------------------------------------------------- -->
+      <!-- ETFS ------------------------------------------------------------ -->
       <div class="portfolio-tab-content" data-category="etfs">
         ${renderSection(
           "Trend Following",
@@ -302,9 +274,9 @@ async function loadThematicPortfolio() {
           etfTrendPlus
         )}
         ${renderSection(
-          "Outperforming SPY",
-          ["Instrument", "Return"],
-          etfOutperformSPY
+          "Low Drawdown (<5% & Volatility <1)",
+          ["Instrument", "Gap to Peak", "Volatility"],
+          etfLowDrawdown
         )}
       </div>
 
@@ -328,7 +300,7 @@ async function loadThematicPortfolio() {
       </div>
 
       <!-- FX -------------------------------------------------------------- -->
-      <div class="portfolio-tab-content" data-category="fx">
+      <div class="portfolio-tab-content" data-category="fx"> 
         ${renderSection(
           "Trend Following",
           ["Instrument", "Score", "Trend", "Approach", "Gap to Peak"],
