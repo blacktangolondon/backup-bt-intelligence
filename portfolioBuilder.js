@@ -11,10 +11,10 @@ import {
 } from "./dashboard.js";
 
 // Filter mappings for each asset class
-// NOTE: source/index values should align with how your summaryLeft/summaryRight arrays or raw info fields are structured.
+// NOTE: field names should match those in your data objects
 const filterMappingStocks = {
   // Composite Scores
-  "Final Score":          { field: "final_score" },
+  "Trend Score":          { field: "final_score" },
   // Valuation & Fundamentals
   "P/E Ratio":            { field: "pe_ratio" },
   "P/B Ratio":            { field: "pb_ratio" },
@@ -32,20 +32,17 @@ const filterMappingStocks = {
   "Alpha Strength":       { field: "alpha_strength" },
   "Bullish Alpha":        { field: "bullish_alpha" },
   "Bearish Alpha":        { field: "bearish_alpha" },
-  "30-Day Projection":    { field: "projection_30" },
   // Price Extremes & Gaps
   "Gap to Peak":          { field: "gap_to_peak" }
 };
 
-// ETFs: subset of stocks mapping
+// ETF filters
 const filterMappingETFs = {};
-["Final Score","P/E Ratio","P/B Ratio","EPS","Dividend Yield",
- "Alpha Strength","Bullish Alpha","Bearish Alpha","S&P500 Correlation",
- "S&P500 Volatility Ratio","Gap to Peak"].forEach(key => {
-  filterMappingETFs[key] = filterMappingStocks[key];
-});
+["Trend Score","Alpha Strength","Bullish Alpha","Bearish Alpha",
+ "S&P500 Correlation","S&P500 Volatility Ratio","Gap to Peak"]
+.forEach(key => { filterMappingETFs[key] = filterMappingStocks[key]; });
 
-// FX & Futures: same filters as ETFs
+// Futures & FX use the same filters as ETFs
 const filterMappingFutures = { ...filterMappingETFs };
 const filterMappingFX      = { ...filterMappingETFs };
 
@@ -128,7 +125,7 @@ function openFilterSelector() {
         const o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o);
       }); inpDiv.appendChild(sel);
     } else {
-      const op=document.createElement('select');['≥','≤'].forEach(o=>{const x=document.createElement('option');x.value=o;x.textContent=o;op.appendChild(x);});
+      const op=document.createElement('select');['>=','<='].forEach(o=>{const x=document.createElement('option');x.value=o;x.textContent=o;op.appendChild(x);});
       const num=document.createElement('input');num.type='number';num.placeholder='Value';
       inpDiv.appendChild(op);inpDiv.appendChild(num);
     }
@@ -192,8 +189,8 @@ function generatePortfolioNew() {
       if (!map) continue;
       const rawVal = parseFloat(info[map.field]);
       if (isNaN(rawVal)) { include = false; break; }
-      if (filt.operator === '≥' && rawVal < parseFloat(filt.value)) { include = false; break; }
-      if (filt.operator === '≤' && rawVal > parseFloat(filt.value)) { include = false; break; }
+      if (filt.operator === '>=' && rawVal < parseFloat(filt.value)) { include = false; break; }
+      if (filt.operator === '<=' && rawVal > parseFloat(filt.value)) { include = false; break; }
     }
     if (include) results.push({ instrument, info });
   }
