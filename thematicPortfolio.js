@@ -195,8 +195,8 @@ async function loadThematicPortfolio() {
     instrument: inst,
     score:      parseFloat(info.summaryLeft[0]),
     trend:      info.summaryLeft[1],
-    approach:   info.summaryLeft[2],           // corrected to index 2
-    gap:        parseGap(info.summaryLeft[3])  // corrected to index 3
+    approach:   info.summaryLeft[2],
+    gap:        parseGap(info.summaryLeft[3])
   }));
   const fxTrend = fxData.filter(d => d.score >= 75 || d.score <= -75);
 
@@ -233,9 +233,9 @@ async function loadThematicPortfolio() {
 
       <!-- FUTURES -->
       <div class="portfolio-tab-content" data-category="futures">
-        ${renderSection("Trend Following",      ["Instrument","Score","Trend","Approach","Gap to Peak"], futTrend)}
-        ${renderSection("Low Correlation",      ["Instrument","Score","Correlation","Trend","Approach","Gap to Peak"], futLowCorr)}
-        ${renderSection("Low Volatility",       ["Instrument","Score","Volatility","Trend","Approach","Gap to Peak"], futLowVol)}
+        ${renderSection("Trend Following",      ["Instrument","Score","Trend","Approach"], futTrend)}
+        ${renderSection("Low Correlation",      ["Instrument","Score","Correlation","Trend","Approach"], futLowCorr)}
+        ${renderSection("Low Volatility",       ["Instrument","Score","Volatility","Trend","Approach"], futLowVol)}
       </div>
 
       <!-- FX -->
