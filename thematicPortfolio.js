@@ -141,7 +141,7 @@ async function loadThematicPortfolio() {
   const lowCorrStocks = stocksData.filter(d => d.corr < 0 && d.score === 100);
 
   /* ------------------------------------------------------------------ */
-  /* 3. ETF / Futures / FX (unchanged)                                  */
+  /* 3. ETF / Futures / FX (updated for FX mapping)                     */
   /* ------------------------------------------------------------------ */
   const etfData = Object.entries(window.etfFullData).map(([inst, info]) => ({
     instrument: inst,
@@ -195,8 +195,8 @@ async function loadThematicPortfolio() {
     instrument: inst,
     score:      parseFloat(info.summaryLeft[0]),
     trend:      info.summaryLeft[1],
-    approach:   info.summaryLeft[3],
-    gap:        parseGap(info.summaryLeft[2])
+    approach:   info.summaryLeft[2],           // corrected to index 2
+    gap:        parseGap(info.summaryLeft[3])  // corrected to index 3
   }));
   const fxTrend = fxData.filter(d => d.score >= 75 || d.score <= -75);
 
@@ -240,7 +240,7 @@ async function loadThematicPortfolio() {
 
       <!-- FX -->
       <div class="portfolio-tab-content" data-category="fx">
-        ${renderSection("Trend Following",      ["Instrument","Score","Trend","Approach","Gap to Peak"], fxTrend)}
+        ${renderSection("Trend Following",      ["Instrument","Score","Trend","Approach"], fxTrend)}
       </div>
     </div>
   `;
