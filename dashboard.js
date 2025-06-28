@@ -26,7 +26,7 @@ export const etfRightLabels    = [
   "ALPHA STRENGHT","1 YEAR HIGH","1 YEAR LOW","TICKER"
 ];
 export const futuresLeftLabels = [
-  "SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","LIMIT","POTENTIAL EXTENSION"
+  "SCORE","TREND","APPROACH","GAP TO PEAK / TO VALLEY","KEY AREA","LIMIT","POTENTIAL EXTENSION"
 ];
 export const futuresRightLabels= [
   "S&P500 CORRELATION","S&P500 VOLATILITY RATIO","ALPHA STRENGHT","MID TERM PRICE % PROJECTION",
@@ -173,8 +173,8 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
 
       // Value cell (left)
       const td2 = document.createElement('td');
-      // Special 0% case for GAP TO PEAK
-      if (leftLabelArr[i] === 'GAP TO PEAK' && (val === '-' || parseFloat(val) === 0)) {
+      // Special 0% case for GAP TO PEAK / TO VALLEY
+      if ((leftLabelArr[i] === 'GAP TO PEAK' || leftLabelArr[i] === 'GAP TO PEAK / TO VALLEY') && (val === '-' || parseFloat(val) === 0)) {
         td2.textContent = '0%';
       } else {
         td2.textContent = val;
