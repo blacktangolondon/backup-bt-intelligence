@@ -33,8 +33,14 @@ const filterMappingStocks = {
 };
 
 const filterMappingETFs    = {};
-[ "Trend Score","Alpha Strength","Bullish Alpha","Bearish Alpha",
-  "S&P500 Correlation","S&P500 Volatility Ratio","Gap to Peak"
+[
+  "Trend Score",
+  "Alpha Strength",
+  "Bullish Alpha",
+  "Bearish Alpha",
+  "S&P500 Correlation",
+  "S&P500 Volatility Ratio",
+  "Gap to Peak"
 ].forEach(k => filterMappingETFs[k] = filterMappingStocks[k]);
 
 const filterMappingFutures = { ...filterMappingETFs };
@@ -152,13 +158,13 @@ function openFilterSelector() {
   document.getElementById('portfolio_builder1').appendChild(div);
 
   const nameSel = div.querySelector('.filter-name');
-  const inpDiv  = div.querySelector('.input-container');
+  const inpDiv = div.querySelector('.input-container');
 
   function renderInputs() {
     inpDiv.innerHTML = '';
     if (nameSel.value === 'Asset Class') {
       const sel = document.createElement('select');
-      ['STOCKS','ETFS','FUTURES','FX'].forEach(v => {
+      ['STOCKS', 'ETFS', 'FUTURES', 'FX'].forEach(v => {
         const o = document.createElement('option');
         o.value = v; o.textContent = v;
         sel.appendChild(o);
@@ -166,7 +172,7 @@ function openFilterSelector() {
       inpDiv.appendChild(sel);
     } else {
       const op = document.createElement('select');
-      ['>=','<='].forEach(sym => {
+      ['>=', '<='].forEach(sym => {
         const x = document.createElement('option');
         x.value = sym; x.textContent = sym;
         op.appendChild(x);
@@ -188,7 +194,7 @@ function openFilterSelector() {
       f.value = inpDiv.querySelector('select').value;
     } else {
       f.operator = inpDiv.querySelector('select').value;
-      f.value    = inpDiv.querySelector('input').value;
+      f.value = inpDiv.querySelector('input').value;
     }
     portfolioFilters.push(f);
     updatePortfolioSteps();
@@ -234,21 +240,21 @@ function generatePortfolioNew() {
   let dataObj, mapping, priceBucket;
 
   if (asset === 'STOCKS') {
-    dataObj      = window.stocksFullData;
-    mapping      = filterMappingStocks;
-    priceBucket  = window.pricesData.stockPrices;
+    dataObj     = window.stocksFullData;
+    mapping     = filterMappingStocks;
+    priceBucket = window.pricesData.stockPrices;
   } else if (asset === 'ETFS') {
-    dataObj      = window.etfFullData;
-    mapping      = filterMappingETFs;
-    priceBucket  = window.pricesData.etfPrices;
+    dataObj     = window.etfFullData;
+    mapping     = filterMappingETFs;
+    priceBucket = window.pricesData.etfPrices;
   } else if (asset === 'FUTURES') {
-    dataObj      = window.futuresFullData;
-    mapping      = filterMappingFutures;
-    priceBucket  = window.pricesData.futuresPrices;
+    dataObj     = window.futuresFullData;
+    mapping     = filterMappingFutures;
+    priceBucket = window.pricesData.futuresPrices;
   } else if (asset === 'FX') {
-    dataObj      = window.fxFullData;
-    mapping      = filterMappingFX;
-    priceBucket  = window.pricesData.fxPrices;
+    dataObj     = window.fxFullData;
+    mapping     = filterMappingFX;
+    priceBucket = window.pricesData.fxPrices;
   } else {
     alert('Invalid asset class.');
     return;
@@ -261,16 +267,14 @@ function generatePortfolioNew() {
     let ok = true;
     for (let i = 1; i < portfolioFilters.length; i++) {
       const filt = portfolioFilters[i];
-      const map  = mapping[filt.filterName];
+      const map = mapping[filt.filterName];
       if (!map) continue;
       let num;
       if (map.source) {
         const raw = map.source === 'left'
           ? info.summaryLeft[map.index]
           : info.summaryRight[map.index];
-        num = parseFloat(typeof raw === 'string'
-             ? raw.replace('%','')
-             : raw);
+        num = parseFloat(typeof raw === 'string' ? raw.replace('%', '') : raw);
       } else {
         num = parseFloat(info[map.field]);
       }
@@ -315,7 +319,7 @@ function generatePortfolioNew() {
     });
     const cell = row.insertCell();
     const a = document.createElement('a');
-    a.href   = `${window.location.pathname}?instrument=${encodeURIComponent(r.instrument)}`;
+    a.href = `${window.location.pathname}?instrument=${encodeURIComponent(r.instrument)}`;
     a.target = '_blank';
     a.textContent = '🔗';
     cell.appendChild(a);
@@ -333,36 +337,36 @@ function generatePortfolioAnalysis(results, mapping, priceBucket) {
   const div = document.getElementById('portfolio-analysis');
   div.innerHTML = '';
 
-  // 1) Helper: compute simple returns
+  // Helper: compute simple returns
   const calcReturns = prices => {
     const ret = [];
     for (let i = 1; i < prices.length; i++) {
-      ret.push((prices[i] - prices[i-1]) / prices[i-1]);
+      ret.push((prices[i] - prices[i - 1]) / prices[i - 1]);
     }
     return ret;
   };
 
-  // 2) Helper: Pearson correlation
+  // Helper: Pearson correlation
   const corrCoeff = (x, y) => {
     const n = Math.min(x.length, y.length);
     if (n < 2) return null;
-    let sumX=0, sumY=0, sumXY=0, sumX2=0, sumY2=0;
+    let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0, sumY2 = 0;
     for (let i = 0; i < n; i++) {
-      sumX  += x[i];
-      sumY  += y[i];
-      sumXY += x[i]*y[i];
-      sumX2 += x[i]*x[i];
-      sumY2 += y[i]*y[i];
+      sumX += x[i];
+      sumY += y[i];
+      sumXY += x[i] * y[i];
+      sumX2 += x[i] * x[i];
+      sumY2 += y[i] * y[i];
     }
-    const num = n*sumXY - sumX*sumY;
+    const num = n * sumXY - sumX * sumY;
     const den = Math.sqrt(
-      (n*sumX2 - sumX*sumX) *
-      (n*sumY2 - sumY*sumY)
+      (n * sumX2 - sumX * sumX) *
+      (n * sumY2 - sumY * sumY)
     );
-    return den !== 0 ? num/den : null;
+    return den !== 0 ? num / den : null;
   };
 
-  // 3) Portfolio Correlation
+  // Portfolio Correlation
   const retsMap = {};
   results.forEach(r => {
     const pr = priceBucket[r.instrument];
@@ -373,53 +377,53 @@ function generatePortfolioAnalysis(results, mapping, priceBucket) {
   const tickers = Object.keys(retsMap);
   const pairCorrs = [];
   for (let i = 0; i < tickers.length; i++) {
-    for (let j = i+1; j < tickers.length; j++) {
+    for (let j = i + 1; j < tickers.length; j++) {
       const c = corrCoeff(retsMap[tickers[i]], retsMap[tickers[j]]);
       if (c != null) pairCorrs.push(c);
     }
   }
   const avgPairCorr = pairCorrs.length
-    ? pairCorrs.reduce((a,b)=>a+b,0)/pairCorrs.length
+    ? pairCorrs.reduce((a, b) => a + b, 0) / pairCorrs.length
     : null;
 
-  // 4) S&P 500 Correlation
-  const spVals = results.map(r=>{
+  // S&P 500 Correlation
+  const spVals = results.map(r => {
     const raw = r.info.summaryRight[0];
-    return parseFloat(typeof raw==='string'?raw.replace('%',''):raw);
-  }).filter(v=>!isNaN(v));
+    return parseFloat(typeof raw === 'string' ? raw.replace('%', '') : raw);
+  }).filter(v => !isNaN(v));
   const avgSP = spVals.length
-    ? spVals.reduce((a,b)=>a+b,0)/spVals.length
+    ? spVals.reduce((a, b) => a + b, 0) / spVals.length
     : null;
 
-  // 5) Portfolio “value” per selected filter
-  const filterMetrics = portfolioFilters.slice(1).map(f=>{
+  // Portfolio “value” per selected filter
+  const filterMetrics = portfolioFilters.slice(1).map(f => {
     const map = mapping[f.filterName];
     if (!map) return null;
-    const vals = results.map(r=>{
+    const vals = results.map(r => {
       if (map.source) {
-        const raw = map.source==='left'
+        const raw = map.source === 'left'
           ? r.info.summaryLeft[map.index]
           : r.info.summaryRight[map.index];
-        return parseFloat(typeof raw==='string'?raw.replace('%',''):raw);
+        return parseFloat(typeof raw === 'string' ? raw.replace('%', '') : raw);
       } else {
         return parseFloat(r.info[map.field]);
       }
-    }).filter(v=>!isNaN(v));
+    }).filter(v => !isNaN(v));
     if (!vals.length) return null;
-    const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
+    const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
 
     // detect “%”
-    const sampleInfo = results.find(r=>{
+    const sampleInfo = results.find(r => {
       const v = map.source
-        ? (map.source==='left'
-           ? r.info.summaryLeft[map.index]
-           : r.info.summaryRight[map.index])
+        ? (map.source === 'left'
+          ? r.info.summaryLeft[map.index]
+          : r.info.summaryRight[map.index])
         : r.info[map.field];
       return v != null;
     });
     const hasPct = sampleInfo && map.source &&
       String(
-        map.source==='left'
+        map.source === 'left'
           ? sampleInfo.info?.summaryLeft?.[map.index]
           : sampleInfo.info?.summaryRight?.[map.index]
       ).includes('%');
@@ -428,11 +432,11 @@ function generatePortfolioAnalysis(results, mapping, priceBucket) {
       name: f.filterName,
       value: hasPct ? avg.toFixed(2) + '%' : avg.toFixed(2)
     };
-  }).filter(x=>x);
+  }).filter(x => x);
 
   // Render analysis table
   const tbl = document.createElement('table');
-  const tb  = tbl.createTBody();
+  const tb = tbl.createTBody();
 
   if (avgPairCorr != null) {
     const row = tb.insertRow();
