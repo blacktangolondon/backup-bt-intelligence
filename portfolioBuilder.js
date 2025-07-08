@@ -10,12 +10,11 @@ import {
   parseGap
 } from "./dashboard.js";
 
+// ───────────────────────────────────────────────────────────────────────────────
 // Filter mappings for each asset class
+// ───────────────────────────────────────────────────────────────────────────────
 const filterMappingStocks = {
-  // Composite Score (renamed Trend Score)
   "Trend Score":            { source: "left",  index: 0 },
-
-  // Valuation & Fundamentals
   "P/E Ratio":              { source: "right", index: 5 },
   "P/B Ratio":              { source: "right", index: 6 },
   "EPS":                    { source: "right", index: 7 },
@@ -24,43 +23,29 @@ const filterMappingStocks = {
   "Debt to Equity":         { field: "debt_to_equity" },
   "Revenue Growth":         { field: "revenue_growth" },
   "Payout Ratio":           { field: "payout_ratio" },
-
-  // Market/Risk Metrics
   "Beta":                   { field: "beta" },
   "S&P500 Correlation":     { source: "right", index: 0 },
   "S&P500 Volatility Ratio":{ source: "right", index: 1 },
-
-  // Alpha & Projection
   "Alpha Strength":         { source: "right", index: 4 },
   "Bullish Alpha":          { source: "right", index: 2 },
   "Bearish Alpha":          { source: "right", index: 3 },
-
-  // Price Extremes & Gaps
   "Gap to Peak":            { source: "left",  index: 3 }
 };
+const filterMappingETFs     = {};
+[ "Trend Score","Alpha Strength","Bullish Alpha","Bearish Alpha",
+  "S&P500 Correlation","S&P500 Volatility Ratio","Gap to Peak"
+].forEach(k=> filterMappingETFs[k] = filterMappingStocks[k]);
+const filterMappingFutures  = { ...filterMappingETFs };
+const filterMappingFX       = { ...filterMappingETFs };
 
-// ETF filters (subset of Stocks)
-const filterMappingETFs = {};
-[
-  "Trend Score",
-  "Alpha Strength",
-  "Bullish Alpha",
-  "Bearish Alpha",
-  "S&P500 Correlation",
-  "S&P500 Volatility Ratio",
-  "Gap to Peak"
-].forEach(key => {
-  filterMappingETFs[key] = filterMappingStocks[key];
-});
-
-// Futures & FX use the same filters as ETFs
-const filterMappingFutures = { ...filterMappingETFs };
-const filterMappingFX      = { ...filterMappingETFs };
-
+// ───────────────────────────────────────────────────────────────────────────────
 // State
+// ───────────────────────────────────────────────────────────────────────────────
 let portfolioFilters = [];
 
-// Initialize builder
+// ───────────────────────────────────────────────────────────────────────────────
+// Entry point: wire up sidebar
+// ───────────────────────────────────────────────────────────────────────────────
 export function initPortfolioBuilder() {
   const sidebarList = document.getElementById('sidebar-list');
   if (!sidebarList) return;
@@ -77,29 +62,39 @@ export function initPortfolioBuilder() {
   });
 }
 
-// Build UI
+// ───────────────────────────────────────────────────────────────────────────────
+// Build the filter UI + results + analysis container
+// ───────────────────────────────────────────────────────────────────────────────
 function loadPortfolioBuilder() {
   portfolioFilters = [];
   const c = document.getElementById('portfolio-builder-template');
   c.innerHTML = `
     <div id="portfolio-builder-page">
-      <div id="portfolio-builder-container">
-        <div id="portfolio_builder1">
+      <div id="portfolio-builder-container" style="display:flex; gap:20px;">
+        <!-- left column -->
+        <div id="portfolio_builder1" style="flex:1; max-width:300px;">
           <div id="portfolio-builder-steps">
             <p class="portfolio-builder-instruction">
               <button class="add-filter-btn">+</button> Add filters
             </p>
           </div>
-          <div id="portfolio-builder-actions">
+          <div id="portfolio-builder-actions" style="margin-top:10px;">
             <button id="generate-portfolio-btn">GENERATE PORTFOLIO</button>
           </div>
         </div>
-        <div id="portfolio_builder2"><div id="portfolio-results"></div></div>
+        <!-- right column -->
+        <div id="portfolio_builder2" style="flex:2;">
+          <div id="portfolio-results"></div>
+          <div id="portfolio-analysis-container" style="margin-top:30px;">
+            <h3>PORTFOLIO ANALYSIS</h3>
+            <div id="portfolio-analysis"></div>
+          </div>
+        </div>
       </div>
     </div>
   `;
   c.addEventListener('click', e => {
-    if (e.target.matches('.add-filter-btn')) openFilterSelector();
+    if (e.target.matches('.add-filter-btn'))       openFilterSelector();
     if (e.target.matches('#generate-portfolio-btn')) generatePortfolioNew();
     if (e.target.matches('.remove-filter-btn')) {
       const i = +e.target.dataset.index;
@@ -109,7 +104,9 @@ function loadPortfolioBuilder() {
   });
 }
 
-// Add a filter
+// ───────────────────────────────────────────────────────────────────────────────
+// “Add filter” popup
+// ───────────────────────────────────────────────────────────────────────────────
 function openFilterSelector() {
   const available = [];
   const assetType = portfolioFilters[0]?.value;
@@ -145,7 +142,6 @@ function openFilterSelector() {
 
   const nameSel = div.querySelector('.filter-name');
   const inpDiv  = div.querySelector('.input-container');
-
   function renderInputs() {
     inpDiv.innerHTML = '';
     if (nameSel.value === 'Asset Class') {
@@ -169,7 +165,6 @@ function openFilterSelector() {
       inpDiv.appendChild(num);
     }
   }
-
   nameSel.addEventListener('change', renderInputs);
   renderInputs();
 
@@ -187,15 +182,18 @@ function openFilterSelector() {
   });
 }
 
-// Show selected filters
+// ───────────────────────────────────────────────────────────────────────────────
+// Redraw “pill” list of filters
+// ───────────────────────────────────────────────────────────────────────────────
 function updatePortfolioSteps() {
   const steps = document.getElementById('portfolio-builder-steps');
   steps.innerHTML = '';
   portfolioFilters.forEach((f, i) => {
     const d = document.createElement('div');
     d.className = 'filter-step';
-    const text = f.filterName +
-      (f.filterName === 'Asset Class' ? `: ${f.value}` : ` ${f.operator} ${f.value}`);
+    const text = f.filterName === 'Asset Class'
+      ? `${f.filterName}: ${f.value}`
+      : `${f.filterName} ${f.operator} ${f.value}`;
     d.innerHTML = `<span>${text}</span>
                    <button class="remove-filter-btn" data-index="${i}">✕</button>`;
     steps.appendChild(d);
@@ -206,99 +204,226 @@ function updatePortfolioSteps() {
   steps.appendChild(p);
 }
 
-// Apply filters and render
+// ───────────────────────────────────────────────────────────────────────────────
+// Apply filters, build table & run analysis
+// ───────────────────────────────────────────────────────────────────────────────
 function generatePortfolioNew() {
   if (portfolioFilters.length === 0 || portfolioFilters[0].filterName !== 'Asset Class') {
     alert('Please add the Asset Class filter as your first filter.');
     return;
   }
   const asset = portfolioFilters[0].value;
-  let dataObj, mapping;
+  let dataObj, mapping, priceBucket;
   if (asset === 'STOCKS') {
     dataObj = window.stocksFullData;
     mapping = filterMappingStocks;
+    priceBucket = window.pricesData.stockPrices;
   } else if (asset === 'ETFS') {
     dataObj = window.etfFullData;
     mapping = filterMappingETFs;
+    priceBucket = window.pricesData.etfPrices;
   } else if (asset === 'FUTURES') {
     dataObj = window.futuresFullData;
     mapping = filterMappingFutures;
+    priceBucket = window.pricesData.futuresPrices;
   } else if (asset === 'FX') {
     dataObj = window.fxFullData;
     mapping = filterMappingFX;
+    priceBucket = window.pricesData.fxPrices;
   } else {
     alert('Invalid asset class.');
     return;
   }
 
+  // Filter instruments
   const results = [];
-  for (const instrument in dataObj) {
-    const info = dataObj[instrument];
-    let include = true;
+  for (const inst in dataObj) {
+    const info = dataObj[inst];
+    let ok = true;
     for (let i = 1; i < portfolioFilters.length; i++) {
       const filt = portfolioFilters[i];
       const map  = mapping[filt.filterName];
       if (!map) continue;
-
-      // Determine numeric value
       let num;
       if (map.source) {
         const raw = map.source === 'left'
           ? info.summaryLeft[map.index]
           : info.summaryRight[map.index];
-        num = parseFloat(
-          typeof raw === 'string' ? raw.replace('%','') : raw
-        );
+        num = parseFloat(typeof raw === 'string'
+             ? raw.replace('%','')
+             : raw);
       } else {
         num = parseFloat(info[map.field]);
       }
-      if (isNaN(num)) { include = false; break; }
-      if (filt.operator === '>=' && num < +filt.value) { include = false; break; }
-      if (filt.operator === '<=' && num > +filt.value) { include = false; break; }
+      if (isNaN(num)) { ok = false; break; }
+      if (filt.operator === '>=' && num < +filt.value) { ok = false; break; }
+      if (filt.operator === '<=' && num > +filt.value) { ok = false; break; }
     }
-    if (include) results.push({ instrument, info });
+    if (ok) results.push({ instrument: inst, info });
   }
 
+  // Render table
   const resDiv = document.getElementById('portfolio-results');
   resDiv.innerHTML = '';
   if (!results.length) {
     resDiv.textContent = 'No instruments meet this criteria.';
+    document.getElementById('portfolio-analysis').innerHTML = '';
     return;
   }
-
-  // Build results table
-  const table = document.createElement('table');
-  const thead = table.createTHead();
-  const headerRow = thead.insertRow();
-  headerRow.insertCell().textContent = 'Instrument';
-  portfolioFilters.slice(1).forEach(f =>
-    headerRow.insertCell().textContent = f.filterName
-  );
-  headerRow.insertCell().textContent = 'FULL ANALYSIS';
-
-  const tbody = table.createTBody();
+  const tbl = document.createElement('table');
+  const hdr = tbl.createTHead().insertRow();
+  hdr.insertCell().textContent = 'Instrument';
+  portfolioFilters.slice(1).forEach(f => hdr.insertCell().textContent = f.filterName);
+  hdr.insertCell().textContent = 'FULL ANALYSIS';
+  const body = tbl.createTBody();
   results.forEach(r => {
-    const tr = tbody.insertRow();
-    tr.insertCell().textContent = r.instrument;
+    const row = body.insertRow();
+    row.insertCell().textContent = r.instrument;
     portfolioFilters.slice(1).forEach(f => {
       const map = mapping[f.filterName];
-      let val;
+      let v;
       if (map.source) {
-        val = map.source === 'left'
+        v = map.source === 'left'
           ? r.info.summaryLeft[map.index]
           : r.info.summaryRight[map.index];
       } else {
-        val = r.info[map.field];
+        v = r.info[map.field];
       }
-      tr.insertCell().textContent = val != null ? val.toString() : '';
+      row.insertCell().textContent = v != null ? v.toString() : '';
     });
-    const cell = tr.insertCell();
-    const link = document.createElement('a');
-    link.href   = `${window.location.origin + window.location.pathname}?instrument=${encodeURIComponent(r.instrument)}`;
-    link.target = '_blank';
-    link.textContent = '🔗';
-    cell.appendChild(link);
+    const cell = row.insertCell();
+    const a = document.createElement('a');
+    a.href   = `${window.location.pathname}?instrument=${encodeURIComponent(r.instrument)}`;
+    a.target = '_blank';
+    a.textContent = '🔗';
+    cell.appendChild(a);
   });
+  resDiv.appendChild(tbl);
 
-  resDiv.appendChild(table);
+  // Run analysis
+  generatePortfolioAnalysis(results, mapping, priceBucket);
+}
+
+// ───────────────────────────────────────────────────────────────────────────────
+// Compute portfolio‐level stats & render
+// ───────────────────────────────────────────────────────────────────────────────
+function generatePortfolioAnalysis(results, mapping, priceBucket) {
+  const div = document.getElementById('portfolio-analysis');
+  div.innerHTML = '';
+
+  // Helper: compute log‐returns or simple returns
+  const calcReturns = prices => {
+    const ret = [];
+    for (let i = 1; i < prices.length; i++) {
+      ret.push((prices[i] - prices[i-1]) / prices[i-1]);
+    }
+    return ret;
+  };
+
+  // Helper: Pearson corr via sums
+  const corrCoeff = (x, y) => {
+    const n = Math.min(x.length, y.length);
+    if (n < 2) return null;
+    let sumX=0, sumY=0, sumXY=0, sumX2=0, sumY2=0;
+    for (let i = 0; i < n; i++) {
+      sumX  += x[i];
+      sumY  += y[i];
+      sumXY += x[i]*y[i];
+      sumX2 += x[i]*x[i];
+      sumY2 += y[i]*y[i];
+    }
+    const num = n*sumXY - sumX*sumY;
+    const den = Math.sqrt(
+      (n*sumX2 - sumX*sumX) *
+      (n*sumY2 - sumY*sumY)
+    );
+    return den !== 0 ? num/den : null;
+  };
+
+  // 1) Portfolio Correlation: average of pairwise corr of returns
+  const retsMap = {};
+  results.forEach(r => {
+    const pr = priceBucket[r.instrument];
+    if (Array.isArray(pr) && pr.length > 1) {
+      retsMap[r.instrument] = calcReturns(pr);
+    }
+  });
+  const tickers = Object.keys(retsMap);
+  const pairCorrs = [];
+  for (let i = 0; i < tickers.length; i++) {
+    for (let j = i+1; j < tickers.length; j++) {
+      const c = corrCoeff(retsMap[tickers[i]], retsMap[tickers[j]]);
+      if (c != null) pairCorrs.push(c);
+    }
+  }
+  const avgPairCorr = pairCorrs.length
+    ? pairCorrs.reduce((a,b)=>a+b,0)/pairCorrs.length
+    : null;
+
+  // 2) Portfolio vs S&P500: average of each summaryRight[0]
+  const spVals = results.map(r=>{
+    const raw = r.info.summaryRight[0];
+    return parseFloat(typeof raw==='string'?raw.replace('%',''):raw);
+  }).filter(v=>!isNaN(v));
+  const avgSP = spVals.length
+    ? spVals.reduce((a,b)=>a+b,0)/spVals.length
+    : null;
+
+  // 3) Portfolio “value” per selected filter
+  const filterMetrics = portfolioFilters.slice(1).map(f=>{
+    const map = mapping[f.filterName];
+    if (!map) return null;
+    const vals = results.map(r=>{
+      if (map.source) {
+        const raw = map.source==='left'
+          ? r.info.summaryLeft[map.index]
+          : r.info.summaryRight[map.index];
+        return parseFloat(typeof raw==='string'?raw.replace('%',''):raw);
+      } else {
+        return parseFloat(r.info[map.field]);
+      }
+    }).filter(v=>!isNaN(v));
+    if (!vals.length) return null;
+    const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
+    // detect “%”
+    const sample = results.find(r=>{
+      const v = map.source
+        ? (map.source==='left'
+           ? r.info.summaryLeft[map.index]
+           : r.info.summaryRight[map.index])
+        : r.info[map.field];
+      return v != null;
+    });
+    const hasPct = typeof sample !== 'undefined' &&
+      (map.source
+        ? String(map.source==='left'
+            ? sample.info?.summaryLeft?.[map.index]
+            : sample.info?.summaryRight?.[map.index]
+          ).includes('%')
+        : false);
+    return {
+      name: f.filterName,
+      value: hasPct ? avg.toFixed(2) + '%' : avg.toFixed(2)
+    };
+  }).filter(x=>x);
+
+  // Render table
+  const tbl = document.createElement('table');
+  const tb  = tbl.createTBody();
+  if (avgPairCorr != null) {
+    const row = tb.insertRow();
+    row.insertCell().textContent = 'Portfolio Correlation';
+    row.insertCell().textContent = avgPairCorr.toFixed(2);
+  }
+  if (avgSP != null) {
+    const row = tb.insertRow();
+    row.insertCell().textContent = 'S&P 500 Correlation';
+    row.insertCell().textContent = avgSP.toFixed(2);
+  }
+  filterMetrics.forEach(m=>{
+    const row = tb.insertRow();
+    row.insertCell().textContent = `${m.name} (Portfolio)`;
+    row.insertCell().textContent = m.value;
+  });
+  div.appendChild(tbl);
 }
