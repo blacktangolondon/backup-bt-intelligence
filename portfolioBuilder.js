@@ -14,29 +14,31 @@ import {
 // Filter mappings for each asset class
 // ───────────────────────────────────────────────────────────────────────────────
 const filterMappingStocks = {
-  "Trend Score":            { source: "left",  index: 0 },
-  "P/E Ratio":              { source: "right", index: 5 },
-  "P/B Ratio":              { source: "right", index: 6 },
-  "EPS":                    { source: "right", index: 7 },
-  "Dividend Yield":         { source: "right", index: 8 },
-  "Return on Equity":       { field: "return_on_equity" },
-  "Debt to Equity":         { field: "debt_to_equity" },
-  "Revenue Growth":         { field: "revenue_growth" },
-  "Payout Ratio":           { field: "payout_ratio" },
-  "Beta":                   { field: "beta" },
-  "S&P500 Correlation":     { source: "right", index: 0 },
-  "S&P500 Volatility Ratio":{ source: "right", index: 1 },
-  "Alpha Strength":         { source: "right", index: 4 },
-  "Bullish Alpha":          { source: "right", index: 2 },
-  "Bearish Alpha":          { source: "right", index: 3 },
-  "Gap to Peak":            { source: "left",  index: 3 }
+  "Trend Score":             { source: "left",  index: 0 },
+  "P/E Ratio":               { source: "right", index: 5 },
+  "P/B Ratio":               { source: "right", index: 6 },
+  "EPS":                     { source: "right", index: 7 },
+  "Dividend Yield":          { source: "right", index: 8 },
+  "Return on Equity":        { field: "return_on_equity" },
+  "Debt to Equity":          { field: "debt_to_equity" },
+  "Revenue Growth":          { field: "revenue_growth" },
+  "Payout Ratio":            { field: "payout_ratio" },
+  "Beta":                    { field: "beta" },
+  "S&P500 Correlation":      { source: "right", index: 0 },
+  "S&P500 Volatility Ratio": { source: "right", index: 1 },
+  "Alpha Strength":          { source: "right", index: 4 },
+  "Bullish Alpha":           { source: "right", index: 2 },
+  "Bearish Alpha":           { source: "right", index: 3 },
+  "Gap to Peak":             { source: "left",  index: 3 }
 };
-const filterMappingETFs     = {};
+
+const filterMappingETFs    = {};
 [ "Trend Score","Alpha Strength","Bullish Alpha","Bearish Alpha",
   "S&P500 Correlation","S&P500 Volatility Ratio","Gap to Peak"
-].forEach(k=> filterMappingETFs[k] = filterMappingStocks[k]);
-const filterMappingFutures  = { ...filterMappingETFs };
-const filterMappingFX       = { ...filterMappingETFs };
+].forEach(k => filterMappingETFs[k] = filterMappingStocks[k]);
+
+const filterMappingFutures = { ...filterMappingETFs };
+const filterMappingFX      = { ...filterMappingETFs };
 
 // ───────────────────────────────────────────────────────────────────────────────
 // State
@@ -71,7 +73,7 @@ function loadPortfolioBuilder() {
   c.innerHTML = `
     <div id="portfolio-builder-page">
       <div id="portfolio-builder-container" style="display:flex; gap:20px;">
-        <!-- left column -->
+        <!-- left column: filters + button + analysis -->
         <div id="portfolio_builder1" style="flex:1; max-width:300px;">
           <div id="portfolio-builder-steps">
             <p class="portfolio-builder-instruction">
@@ -81,21 +83,29 @@ function loadPortfolioBuilder() {
           <div id="portfolio-builder-actions" style="margin-top:10px;">
             <button id="generate-portfolio-btn">GENERATE PORTFOLIO</button>
           </div>
-        </div>
-        <!-- right column -->
-        <div id="portfolio_builder2" style="flex:2;">
-          <div id="portfolio-results"></div>
+
+          <!-- PORTFOLIO ANALYSIS PANEL -->
           <div id="portfolio-analysis-container" style="margin-top:30px;">
             <h3>PORTFOLIO ANALYSIS</h3>
             <div id="portfolio-analysis"></div>
           </div>
         </div>
+
+        <!-- right column: just the results table -->
+        <div id="portfolio_builder2" style="flex:2;">
+          <div id="portfolio-results"></div>
+        </div>
       </div>
     </div>
   `;
+
   c.addEventListener('click', e => {
-    if (e.target.matches('.add-filter-btn'))       openFilterSelector();
-    if (e.target.matches('#generate-portfolio-btn')) generatePortfolioNew();
+    if (e.target.matches('.add-filter-btn')) {
+      openFilterSelector();
+    }
+    if (e.target.matches('#generate-portfolio-btn')) {
+      generatePortfolioNew();
+    }
     if (e.target.matches('.remove-filter-btn')) {
       const i = +e.target.dataset.index;
       portfolioFilters.splice(i, 1);
@@ -111,6 +121,7 @@ function openFilterSelector() {
   const available = [];
   const assetType = portfolioFilters[0]?.value;
   let metrics;
+
   if (!assetType) {
     metrics = ['Asset Class'];
   } else if (assetType === 'ETFS') {
@@ -142,6 +153,7 @@ function openFilterSelector() {
 
   const nameSel = div.querySelector('.filter-name');
   const inpDiv  = div.querySelector('.input-container');
+
   function renderInputs() {
     inpDiv.innerHTML = '';
     if (nameSel.value === 'Asset Class') {
@@ -160,11 +172,13 @@ function openFilterSelector() {
         op.appendChild(x);
       });
       const num = document.createElement('input');
-      num.type = 'number'; num.placeholder = 'Value';
+      num.type = 'number';
+      num.placeholder = 'Value';
       inpDiv.appendChild(op);
       inpDiv.appendChild(num);
     }
   }
+
   nameSel.addEventListener('change', renderInputs);
   renderInputs();
 
@@ -191,11 +205,13 @@ function updatePortfolioSteps() {
   portfolioFilters.forEach((f, i) => {
     const d = document.createElement('div');
     d.className = 'filter-step';
-    const text = f.filterName === 'Asset Class'
+    const text = (f.filterName === 'Asset Class')
       ? `${f.filterName}: ${f.value}`
       : `${f.filterName} ${f.operator} ${f.value}`;
-    d.innerHTML = `<span>${text}</span>
-                   <button class="remove-filter-btn" data-index="${i}">✕</button>`;
+    d.innerHTML = `
+      <span>${text}</span>
+      <button class="remove-filter-btn" data-index="${i}">✕</button>
+    `;
     steps.appendChild(d);
   });
   const p = document.createElement('p');
@@ -208,28 +224,31 @@ function updatePortfolioSteps() {
 // Apply filters, build table & run analysis
 // ───────────────────────────────────────────────────────────────────────────────
 function generatePortfolioNew() {
+  // Ensure first filter is Asset Class
   if (portfolioFilters.length === 0 || portfolioFilters[0].filterName !== 'Asset Class') {
     alert('Please add the Asset Class filter as your first filter.');
     return;
   }
+
   const asset = portfolioFilters[0].value;
   let dataObj, mapping, priceBucket;
+
   if (asset === 'STOCKS') {
-    dataObj = window.stocksFullData;
-    mapping = filterMappingStocks;
-    priceBucket = window.pricesData.stockPrices;
+    dataObj      = window.stocksFullData;
+    mapping      = filterMappingStocks;
+    priceBucket  = window.pricesData.stockPrices;
   } else if (asset === 'ETFS') {
-    dataObj = window.etfFullData;
-    mapping = filterMappingETFs;
-    priceBucket = window.pricesData.etfPrices;
+    dataObj      = window.etfFullData;
+    mapping      = filterMappingETFs;
+    priceBucket  = window.pricesData.etfPrices;
   } else if (asset === 'FUTURES') {
-    dataObj = window.futuresFullData;
-    mapping = filterMappingFutures;
-    priceBucket = window.pricesData.futuresPrices;
+    dataObj      = window.futuresFullData;
+    mapping      = filterMappingFutures;
+    priceBucket  = window.pricesData.futuresPrices;
   } else if (asset === 'FX') {
-    dataObj = window.fxFullData;
-    mapping = filterMappingFX;
-    priceBucket = window.pricesData.fxPrices;
+    dataObj      = window.fxFullData;
+    mapping      = filterMappingFX;
+    priceBucket  = window.pricesData.fxPrices;
   } else {
     alert('Invalid asset class.');
     return;
@@ -262,7 +281,7 @@ function generatePortfolioNew() {
     if (ok) results.push({ instrument: inst, info });
   }
 
-  // Render table
+  // Render results table
   const resDiv = document.getElementById('portfolio-results');
   resDiv.innerHTML = '';
   if (!results.length) {
@@ -273,8 +292,11 @@ function generatePortfolioNew() {
   const tbl = document.createElement('table');
   const hdr = tbl.createTHead().insertRow();
   hdr.insertCell().textContent = 'Instrument';
-  portfolioFilters.slice(1).forEach(f => hdr.insertCell().textContent = f.filterName);
+  portfolioFilters.slice(1).forEach(f =>
+    hdr.insertCell().textContent = f.filterName
+  );
   hdr.insertCell().textContent = 'FULL ANALYSIS';
+
   const body = tbl.createTBody();
   results.forEach(r => {
     const row = body.insertRow();
@@ -311,7 +333,7 @@ function generatePortfolioAnalysis(results, mapping, priceBucket) {
   const div = document.getElementById('portfolio-analysis');
   div.innerHTML = '';
 
-  // Helper: compute log‐returns or simple returns
+  // 1) Helper: compute simple returns
   const calcReturns = prices => {
     const ret = [];
     for (let i = 1; i < prices.length; i++) {
@@ -320,7 +342,7 @@ function generatePortfolioAnalysis(results, mapping, priceBucket) {
     return ret;
   };
 
-  // Helper: Pearson corr via sums
+  // 2) Helper: Pearson correlation
   const corrCoeff = (x, y) => {
     const n = Math.min(x.length, y.length);
     if (n < 2) return null;
@@ -340,7 +362,7 @@ function generatePortfolioAnalysis(results, mapping, priceBucket) {
     return den !== 0 ? num/den : null;
   };
 
-  // 1) Portfolio Correlation: average of pairwise corr of returns
+  // 3) Portfolio Correlation
   const retsMap = {};
   results.forEach(r => {
     const pr = priceBucket[r.instrument];
@@ -360,7 +382,7 @@ function generatePortfolioAnalysis(results, mapping, priceBucket) {
     ? pairCorrs.reduce((a,b)=>a+b,0)/pairCorrs.length
     : null;
 
-  // 2) Portfolio vs S&P500: average of each summaryRight[0]
+  // 4) S&P 500 Correlation
   const spVals = results.map(r=>{
     const raw = r.info.summaryRight[0];
     return parseFloat(typeof raw==='string'?raw.replace('%',''):raw);
@@ -369,7 +391,7 @@ function generatePortfolioAnalysis(results, mapping, priceBucket) {
     ? spVals.reduce((a,b)=>a+b,0)/spVals.length
     : null;
 
-  // 3) Portfolio “value” per selected filter
+  // 5) Portfolio “value” per selected filter
   const filterMetrics = portfolioFilters.slice(1).map(f=>{
     const map = mapping[f.filterName];
     if (!map) return null;
@@ -385,8 +407,9 @@ function generatePortfolioAnalysis(results, mapping, priceBucket) {
     }).filter(v=>!isNaN(v));
     if (!vals.length) return null;
     const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
+
     // detect “%”
-    const sample = results.find(r=>{
+    const sampleInfo = results.find(r=>{
       const v = map.source
         ? (map.source==='left'
            ? r.info.summaryLeft[map.index]
@@ -394,22 +417,23 @@ function generatePortfolioAnalysis(results, mapping, priceBucket) {
         : r.info[map.field];
       return v != null;
     });
-    const hasPct = typeof sample !== 'undefined' &&
-      (map.source
-        ? String(map.source==='left'
-            ? sample.info?.summaryLeft?.[map.index]
-            : sample.info?.summaryRight?.[map.index]
-          ).includes('%')
-        : false);
+    const hasPct = sampleInfo && map.source &&
+      String(
+        map.source==='left'
+          ? sampleInfo.info?.summaryLeft?.[map.index]
+          : sampleInfo.info?.summaryRight?.[map.index]
+      ).includes('%');
+
     return {
       name: f.filterName,
       value: hasPct ? avg.toFixed(2) + '%' : avg.toFixed(2)
     };
   }).filter(x=>x);
 
-  // Render table
+  // Render analysis table
   const tbl = document.createElement('table');
   const tb  = tbl.createTBody();
+
   if (avgPairCorr != null) {
     const row = tb.insertRow();
     row.insertCell().textContent = 'Portfolio Correlation';
@@ -420,10 +444,11 @@ function generatePortfolioAnalysis(results, mapping, priceBucket) {
     row.insertCell().textContent = 'S&P 500 Correlation';
     row.insertCell().textContent = avgSP.toFixed(2);
   }
-  filterMetrics.forEach(m=>{
+  filterMetrics.forEach(m => {
     const row = tb.insertRow();
     row.insertCell().textContent = `${m.name} (Portfolio)`;
     row.insertCell().textContent = m.value;
   });
+
   div.appendChild(tbl);
 }
