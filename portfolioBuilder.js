@@ -262,7 +262,8 @@ function generatePortfolioNew() {
   });
   const summaryDiv = document.createElement('div');
   summaryDiv.id = 'portfolio-summary';
-  let summaryHtml = `<h2 style=\"color: white;\">PORTFOLIO ANALYSIS</h2>`<table class="summary-table">
+  let summaryHtml = `<h2 style="color: white;">PORTFOLIO ANALYSIS</h2><table class="summary-table">`
+
     <tr><th>Count</th><td>${count}</td></tr>`;
   portfolioFilters.slice(1).forEach((filt, i) => {
     summaryHtml += `<tr>
