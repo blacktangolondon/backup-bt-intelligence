@@ -12,10 +12,7 @@ import {
 
 // Filter mappings for each asset class
 const filterMappingStocks = {
-  // Composite Score (renamed Trend Score)
   "Trend Score":            { source: "left",  index: 0 },
-
-  // Valuation & Fundamentals
   "P/E Ratio":              { source: "right", index: 5 },
   "P/B Ratio":              { source: "right", index: 6 },
   "EPS":                    { source: "right", index: 7 },
@@ -24,43 +21,29 @@ const filterMappingStocks = {
   "Debt to Equity":         { field: "debt_to_equity" },
   "Revenue Growth":         { field: "revenue_growth" },
   "Payout Ratio":           { field: "payout_ratio" },
-
-  // Market/Risk Metrics
   "Beta":                   { field: "beta" },
   "S&P500 Correlation":     { source: "right", index: 0 },
   "S&P500 Volatility Ratio":{ source: "right", index: 1 },
-
-  // Alpha & Projection
   "Alpha Strength":         { source: "right", index: 4 },
   "Bullish Alpha":          { source: "right", index: 2 },
   "Bearish Alpha":          { source: "right", index: 3 },
-
-  // Price Extremes & Gaps
   "Gap to Peak":            { source: "left",  index: 3 }
 };
 
-// ETF filters (subset of Stocks)
 const filterMappingETFs = {};
 [
-  "Trend Score",
-  "Alpha Strength",
-  "Bullish Alpha",
-  "Bearish Alpha",
-  "S&P500 Correlation",
-  "S&P500 Volatility Ratio",
-  "Gap to Peak"
+  "Trend Score","Alpha Strength","Bullish Alpha",
+  "Bearish Alpha","S&P500 Correlation",
+  "S&P500 Volatility Ratio","Gap to Peak"
 ].forEach(key => {
   filterMappingETFs[key] = filterMappingStocks[key];
 });
 
-// Futures & FX use the same filters as ETFs
 const filterMappingFutures = { ...filterMappingETFs };
 const filterMappingFX      = { ...filterMappingETFs };
 
-// State
 let portfolioFilters = [];
 
-// Initialize builder
 export function initPortfolioBuilder() {
   const sidebarList = document.getElementById('sidebar-list');
   if (!sidebarList) return;
@@ -77,7 +60,6 @@ export function initPortfolioBuilder() {
   });
 }
 
-// Build UI
 function loadPortfolioBuilder() {
   portfolioFilters = [];
   const c = document.getElementById('portfolio-builder-template');
@@ -102,14 +84,12 @@ function loadPortfolioBuilder() {
     if (e.target.matches('.add-filter-btn')) openFilterSelector();
     if (e.target.matches('#generate-portfolio-btn')) generatePortfolioNew();
     if (e.target.matches('.remove-filter-btn')) {
-      const i = +e.target.dataset.index;
-      portfolioFilters.splice(i, 1);
+      portfolioFilters.splice(+e.target.dataset.index, 1);
       updatePortfolioSteps();
     }
   });
 }
 
-// Add a filter
 function openFilterSelector() {
   const available = [];
   const assetType = portfolioFilters[0]?.value;
@@ -125,7 +105,6 @@ function openFilterSelector() {
   } else {
     metrics = Object.keys(filterMappingStocks);
   }
-
   metrics.forEach(m => {
     if (m === 'Asset Class' || !portfolioFilters.some(f => f.filterName === m)) {
       available.push(m);
@@ -145,7 +124,6 @@ function openFilterSelector() {
 
   const nameSel = div.querySelector('.filter-name');
   const inpDiv  = div.querySelector('.input-container');
-
   function renderInputs() {
     inpDiv.innerHTML = '';
     if (nameSel.value === 'Asset Class') {
@@ -172,7 +150,6 @@ function openFilterSelector() {
 
   nameSel.addEventListener('change', renderInputs);
   renderInputs();
-
   div.querySelector('.apply-filter-btn').addEventListener('click', () => {
     const f = { filterName: nameSel.value };
     if (f.filterName === 'Asset Class') {
@@ -187,7 +164,6 @@ function openFilterSelector() {
   });
 }
 
-// Show selected filters
 function updatePortfolioSteps() {
   const steps = document.getElementById('portfolio-builder-steps');
   steps.innerHTML = '';
@@ -206,7 +182,6 @@ function updatePortfolioSteps() {
   steps.appendChild(p);
 }
 
-// Apply filters, compute summary, portfolio correlation, and render
 function generatePortfolioNew() {
   if (portfolioFilters.length === 0 || portfolioFilters[0].filterName !== 'Asset Class') {
     alert('Please add the Asset Class filter as your first filter.');
@@ -231,7 +206,7 @@ function generatePortfolioNew() {
     return;
   }
 
-  // run filters
+  // Apply filters
   const results = [];
   for (const instrument in dataObj) {
     const info = dataObj[instrument];
@@ -246,16 +221,17 @@ function generatePortfolioNew() {
         const raw = map.source === 'left'
           ? info.summaryLeft[map.index]
           : info.summaryRight[map.index];
-        num = parseFloat(typeof raw === 'string'
-          ? raw.replace('%','')
-          : raw);
+        num = parseFloat(typeof raw === 'string' ? raw.replace('%','') : raw);
       } else {
         num = parseFloat(info[map.field]);
       }
       if (isNaN(num) ||
           (filt.operator === '>=' && num < +filt.value) ||
           (filt.operator === '<=' && num > +filt.value)
-      ) { include = false; break; }
+      ) {
+        include = false;
+        break;
+      }
     }
     if (include) results.push({ instrument, info });
   }
@@ -283,15 +259,20 @@ function generatePortfolioNew() {
       }
       return isNaN(v) ? 0 : v;
     });
-    const sum = vals.reduce((a, b) => a + b, 0);
-    return count ? sum / count : 0;
+    return vals.reduce((a, b) => a + b, 0) / count;
   });
 
   // ——— PORTFOLIO CORRELATION ———
-  // expects window.historicalReturns[instrument] === array of equal-length returns
-  const returnsMatrix = results.map(r => window.historicalReturns[r.instrument] || []);
-  const avgCorr = computeAvgCorrelation(returnsMatrix);
+  // Collect only valid, same-length return series
+  const allSeries = results
+    .map(r => window.historicalReturns?.[r.instrument])
+    .filter(arr => Array.isArray(arr) && arr.length > 1);
+  const sameLength = allSeries.every(a => a.length === allSeries[0].length);
+  const avgCorr = (allSeries.length > 1 && sameLength)
+    ? computeAvgCorrelation(allSeries)
+    : 0;
 
+  // Render summary
   const summaryDiv = document.createElement('div');
   summaryDiv.id = 'portfolio-summary';
   let summaryHtml = `<table class="summary-table">
@@ -350,28 +331,25 @@ function generatePortfolioNew() {
 // Helper: compute average off-diagonal correlation
 function computeAvgCorrelation(matrix) {
   const n = matrix.length;
-  if (n < 2) return 0;
   const T = matrix[0].length;
   const means = matrix.map(arr => arr.reduce((a,b) => a+b, 0) / T);
 
-  let sumCorr = 0, pairs = 0;
+  let sum = 0, countPairs = 0;
   for (let i = 0; i < n; i++) {
-    for (let j = i + 1; j < n; j++) {
+    for (let j = i+1; j < n; j++) {
       let cov = 0, varI = 0, varJ = 0;
       for (let t = 0; t < T; t++) {
         const di = matrix[i][t] - means[i];
         const dj = matrix[j][t] - means[j];
         cov += di * dj;
-        varI += di * di;
-        varJ += dj * dj;
+        varI += di*di;
+        varJ += dj*dj;
       }
       cov /= (T - 1);
-      const stdI = Math.sqrt(varI / (T - 1));
-      const stdJ = Math.sqrt(varJ / (T - 1));
-      const corrIJ = stdI && stdJ ? cov / (stdI * stdJ) : 0;
-      sumCorr += corrIJ;
-      pairs++;
+      const corr = cov / (Math.sqrt(varI/(T-1)) * Math.sqrt(varJ/(T-1))) || 0;
+      sum += corr;
+      countPairs++;
     }
   }
-  return pairs ? sumCorr / pairs : 0;
+  return countPairs ? sum / countPairs : 0;
 }
