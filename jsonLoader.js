@@ -1,9 +1,9 @@
-// jsonLoader.js 27-4-2025 (updated 2025-07-09)
-// -------------------------------
-// Load instruments.json and prices.json, then bind both to window.
+// jsonLoader.js 27-4-2025
+// ----------------
+// Load instruments.json and bucket each item by asset class,
+// preserving the full `tvSymbol` from the JSON instead of overwriting it.
 
 export async function loadJSONData() {
-  // 1) Fetch instruments
   const resp = await fetch('instruments.json');
   const entries = await resp.json();
 
@@ -16,36 +16,37 @@ export async function loadJSONData() {
     const bucket = {
       equity:  stocksFullData,
       etf:     etfFullData,
-      future:  futuresFullData,
+      future: futuresFullData,
       fx:      fxFullData
     }[item.asset_class];
     if (!bucket) return;
 
     let summaryLeft, summaryRight;
     if (item.asset_class === 'future' || item.asset_class === 'fx') {
-      // 7 columns for futures/FX, convert UP/DOWN to BULLISH/BEARISH
+      // 7 columns for futures and FX, matching futuresLeftLabels and futuresRightLabels
+      // Convert stats from UP/DOWN to BULLISH/BEARISH
       const statsLabel = item.stats.replace(/UP/g, 'BULLISH').replace(/DOWN/g, 'BEARISH');
 
       summaryLeft = [
-        String(item.final_score),
-        item.trend,
-        item.approach,
-        String(item.gap_to_peak),
-        item.key_area,
-        String(item.limit),
-        String(item.extension)
+        String(item.final_score),         // SCORE
+        item.trend,                       // TREND
+        item.approach,                    // APPROACH
+        String(item.gap_to_peak),         // GAP TO PEAK
+        item.key_area,                    // KEY AREA
+        String(item.limit),               // LIMIT
+        String(item.extension)            // POTENTIAL EXTENSION
       ];
       summaryRight = [
-        String(item.sp500_correlation),
-        String(item.sp500_volatility_ratio),
-        String(item.alpha_strength),
-        String(item.projection_30),
-        item.math,
-        statsLabel,
-        item.tech
+        String(item.sp500_correlation),     // S&P500 CORRELATION
+        String(item.sp500_volatility_ratio),// S&P500 VOLATILITY RATIO
+        String(item.alpha_strength),        // ALPHA STRENGTH
+        String(item.projection_30),         // 30 DAYS PROJECTION
+        item.math,                          // MATH
+        statsLabel,                         // STATS (converted to BULLISH/BEARISH)
+        item.tech                           // TECH
       ];
     } else {
-      // 9 columns for equity/ETF
+      // 9 columns for equity, ETF
       summaryLeft = [
         String(item.final_score),
         item.trend,
@@ -70,6 +71,7 @@ export async function loadJSONData() {
       ];
     }
 
+    // Preserve the TV-style symbol built upstream
     bucket[item.ticker] = {
       summaryLeft,
       summaryRight,
@@ -77,22 +79,5 @@ export async function loadJSONData() {
     };
   });
 
-  // 2) Fetch prices
-  const pricesResp = await fetch('prices.json');
-  const pricesData = await pricesResp.json();
-  // Expecting shape: { stockPrices: {...}, etfPrices: {...}, futuresPrices: {...}, fxPrices: {...} }
-  window.pricesData = pricesData;
-
-  // 3) Bind the instrument buckets globally as well
-  window.stocksFullData  = stocksFullData;
-  window.etfFullData     = etfFullData;
-  window.futuresFullData = futuresFullData;
-  window.fxFullData      = fxFullData;
-
   return { stocksFullData, etfFullData, futuresFullData, fxFullData };
 }
-
-// Immediately kick off loading on import
-loadJSONData().catch(err => {
-  console.error('Error loading JSON data:', err);
-});
