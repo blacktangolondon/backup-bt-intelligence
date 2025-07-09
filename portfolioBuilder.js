@@ -261,6 +261,10 @@ function generatePortfolioNew() {
     return vals.reduce((a, b) => a + b, 0) / count;
   });
   const summaryDiv = document.createElement('div');
+  // match right-panel card background
+  summaryDiv.style.background = getComputedStyle(document.documentElement).getPropertyValue('--card-bg') || '#fff';
+  summaryDiv.style.padding = '1em';
+  summaryDiv.style.borderRadius = '6px';
   summaryDiv.id = 'portfolio-summary';
   let summaryHtml = `<h2 style="color: white;">PORTFOLIO ANALYSIS</h2>
 <table class="summary-table">
