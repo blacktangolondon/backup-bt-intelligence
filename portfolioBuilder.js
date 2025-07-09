@@ -172,12 +172,12 @@ function updatePortfolioSteps() {
     d.className = 'filter-step';
     const text = f.filterName +
       (f.filterName === 'Asset Class' ? `: ${f.value}` : ` ${f.operator} ${f.value}`);
-    d.innerHTML = `<span>${text}</span>\n                   <button class=\"remove-filter-btn\" data-index=\"${i}\">✕</button>`;
+    d.innerHTML = `<span>${text}</span> <button class="remove-filter-btn" data-index="${i}">✕</button>`;
     steps.appendChild(d);
   });
   const p = document.createElement('p');
   p.className = 'portfolio-builder-instruction';
-  p.innerHTML = `<button class=\"add-filter-btn\">+</button> Add another filter`;
+  p.innerHTML = `<button class="add-filter-btn">+</button> Add another filter`;
   steps.appendChild(p);
 }
 
@@ -205,7 +205,6 @@ function generatePortfolioNew() {
     return;
   }
 
-  // Apply filters
   const results = [];
   for (const instrument in dataObj) {
     const info = dataObj[instrument];
@@ -214,20 +213,14 @@ function generatePortfolioNew() {
       const filt = portfolioFilters[i];
       const map  = mapping[filt.filterName];
       if (!map) continue;
-
       let num;
       if (map.source) {
-        const raw = map.source === 'left'
-          ? info.summaryLeft[map.index]
-          : info.summaryRight[map.index];
+        const raw = map.source === 'left' ? info.summaryLeft[map.index] : info.summaryRight[map.index];
         num = parseFloat(typeof raw === 'string' ? raw.replace('%','') : raw);
       } else {
         num = parseFloat(info[map.field]);
       }
-      if (isNaN(num) ||
-          (filt.operator === '>=' && num < +filt.value) ||
-          (filt.operator === '<=' && num > +filt.value)
-      ) {
+      if (isNaN(num) || (filt.operator === '>=' && num < +filt.value) || (filt.operator === '<=' && num > +filt.value)) {
         include = false;
         break;
       }
@@ -249,9 +242,7 @@ function generatePortfolioNew() {
     const vals = results.map(r => {
       let v;
       if (map.source) {
-        const raw = map.source === 'left'
-          ? r.info.summaryLeft[map.index]
-          : r.info.summaryRight[map.index];
+        const raw = map.source === 'left' ? r.info.summaryLeft[map.index] : r.info.summaryRight[map.index];
         v = parseFloat(typeof raw === 'string' ? raw.replace('%','') : raw);
       } else {
         v = parseFloat(r.info[map.field]);
@@ -259,32 +250,13 @@ function generatePortfolioNew() {
       return isNaN(v) ? 0 : v;
     });
     return vals.reduce((a, b) => a + b, 0) / count;
-  });
+p  });
   const summaryDiv = document.createElement('div');
-  // match right-panel card background
-  summaryDiv.style.background = getComputedStyle(document.documentElement).getPropertyValue('--card-bg') || '#fff';
-  summaryDiv.style.padding = '1em';
-  summaryDiv.style.borderRadius = '6px';
   summaryDiv.id = 'portfolio-summary';
-  let summaryHtml = `<h2 style="color: white;">PORTFOLIO ANALYSIS</h2>
-<table class="summary-table">
-  <tr><th>Count</th><td>${count}</td></tr>`;
-
-  // add average rows
+  let summaryHtml = `<h2>PORTFOLIO ANALYSIS</h2><table class="summary-table">
+    <tr><th>Count</th><td>${count}</td></tr>`;
   portfolioFilters.slice(1).forEach((filt, i) => {
-    summaryHtml += `
-    <tr>
-      <th>Avg ${filt.filterName}</th>
-      <td>${averages[i].toFixed(2)}</td>
-    </tr>`;
-  });
-  summaryHtml += `
-</table>`;
-  portfolioFilters.slice(1).forEach((filt, i) => {
-    summaryHtml += `<tr>
-      <th>Avg ${filt.filterName}</th>
-      <td>${averages[i].toFixed(2)}</td>
-    </tr>`;
+    summaryHtml += `<tr><th>Avg ${filt.filterName}</th><td>${averages[i].toFixed(2)}</td></tr>`;
   });
   summaryHtml += '</table>';
   summaryDiv.innerHTML = summaryHtml;
@@ -292,7 +264,6 @@ function generatePortfolioNew() {
 
   // ——— INSTRUMENT LIST ———
   const listTitle = document.createElement('h2');
-  listTitle.style.color = 'white';
   listTitle.textContent = 'INSTRUMENT LIST';
   resDiv.appendChild(listTitle);
 
@@ -301,34 +272,23 @@ function generatePortfolioNew() {
   const thead = table.createTHead();
   const headerRow = thead.insertRow();
   headerRow.insertCell().textContent = 'Instrument';
-  portfolioFilters.slice(1).forEach(f =>
-    headerRow.insertCell().textContent = f.filterName
-  );
+  portfolioFilters.slice(1).forEach(f => headerRow.insertCell().textContent = f.filterName);
   headerRow.insertCell().textContent = 'FULL ANALYSIS';
-
   const tbody = table.createTBody();
   results.forEach(r => {
     const tr = tbody.insertRow();
     tr.insertCell().textContent = r.instrument;
     portfolioFilters.slice(1).forEach(f => {
       const map = mapping[f.filterName];
-      let val;
-      if (map.source) {
-        val = map.source === 'left'
-          ? r.info.summaryLeft[map.index]
-          : r.info.summaryRight[map.index];
-      } else {
-        val = r.info[map.field];
-      }
+      let val = map.source === 'left' ? r.info.summaryLeft[map.index] : map.source === 'right' ? r.info.summaryRight[map.index] : r.info[map.field];
       tr.insertCell().textContent = val != null ? val.toString() : '';
     });
     const cell = tr.insertCell();
     const link = document.createElement('a');
-    link.href   = `${window.location.origin + window.location.pathname}?instrument=${encodeURIComponent(r.instrument)}`;
+    link.href = `${window.location.origin + window.location.pathname}?instrument=${encodeURIComponent(r.instrument)}`;
     link.target = '_blank';
     link.textContent = '🔗';
     cell.appendChild(link);
   });
-
   resDiv.appendChild(table);
 }
