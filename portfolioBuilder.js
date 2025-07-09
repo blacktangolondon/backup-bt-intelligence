@@ -106,7 +106,13 @@ function openFilterSelector() {
     metrics = Object.keys(filterMappingStocks);
   }
   metrics.forEach(m => {
-    if (m === 'Asset Class' || !portfolioFilters.some(f => f.filterName === m)) {
+    if (m === 'Asset Class') {
+      // only allow one Asset Class filter
+      if (!portfolioFilters.some(f => f.filterName === 'Asset Class')) {
+        available.push(m);
+      }
+    } else {
+      // allow duplicate metric filters
       available.push(m);
     }
   });
@@ -248,10 +254,9 @@ function generatePortfolioNew() {
     const vals = results.map(r => {
       let v;
       if (map.source) {
-        const raw = map.source === 'left'
-          ? r.info.summaryLeft[map.index]
-          : r.info.summaryRight[map.index];
-        v = parseFloat(typeof raw === 'string' ? raw.replace('%','') : raw);
+        v = parseFloat(
+          typeof raw === 'string' ? raw.replace('%','') : raw
+        );
       } else {
         v = parseFloat(r.info[map.field]);
       }
@@ -263,7 +268,7 @@ function generatePortfolioNew() {
   const summaryDiv = document.createElement('div');
   summaryDiv.id = 'portfolio-summary';
 
-  // match detailed table styling: use no extra class & <td> cells
+  // match detailed table styling: no extra class & <td> cells
   let summaryHtml = `
     <h2 style="color:white">PORTFOLIO ANALYSIS</h2>
     <table>`
