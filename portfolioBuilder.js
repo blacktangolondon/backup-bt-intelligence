@@ -248,11 +248,10 @@ function generatePortfolioNew() {
     const vals = results.map(r => {
       let v;
       if (map.source) {
-        v = parseFloat(
-          typeof (map.source === 'left' ? r.info.summaryLeft[map.index] : r.info.summaryRight[map.index]) === 'string'
-            ? (map.source === 'left' ? r.info.summaryLeft[map.index] : r.info.summaryRight[map.index]).replace('%','')
-            : (map.source === 'left' ? r.info.summaryLeft[map.index] : r.info.summaryRight[map.index])
-        );
+        const raw = map.source === 'left'
+          ? r.info.summaryLeft[map.index]
+          : r.info.summaryRight[map.index];
+        v = parseFloat(typeof raw === 'string' ? raw.replace('%','') : raw);
       } else {
         v = parseFloat(r.info[map.field]);
       }
@@ -263,16 +262,21 @@ function generatePortfolioNew() {
 
   const summaryDiv = document.createElement('div');
   summaryDiv.id = 'portfolio-summary';
-  let summaryHtml = `<h2 style="color:white">PORTFOLIO ANALYSIS</h2>
-    <table class="summary-table">
-      <tr><th>Count</th><td>${count}</td></tr>`;
+
+  // match detailed table styling: use no extra class & <td> cells
+  let summaryHtml = `
+    <h2 style="color:white">PORTFOLIO ANALYSIS</h2>
+    <table>`
+    + `<tr><td>Count</td><td>${count}</td></tr>`;
+
   portfolioFilters.slice(1).forEach((filt, i) => {
     summaryHtml += `
       <tr>
-        <th>Avg ${filt.filterName}</th>
+        <td>Avg ${filt.filterName}</td>
         <td>${averages[i].toFixed(2)}</td>
       </tr>`;
   });
+
   summaryHtml += `
     </table>`;
   summaryDiv.innerHTML = summaryHtml;
