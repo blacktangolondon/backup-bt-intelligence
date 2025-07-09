@@ -172,13 +172,12 @@ function updatePortfolioSteps() {
     d.className = 'filter-step';
     const text = f.filterName +
       (f.filterName === 'Asset Class' ? `: ${f.value}` : ` ${f.operator} ${f.value}`);
-    d.innerHTML = `<span>${text}</span>
-                   <button class="remove-filter-btn" data-index="${i}">✕</button>`;
+    d.innerHTML = `<span>${text}</span>\n                   <button class=\"remove-filter-btn\" data-index=\"${i}\">✕</button>`;
     steps.appendChild(d);
   });
   const p = document.createElement('p');
   p.className = 'portfolio-builder-instruction';
-  p.innerHTML = `<button class="add-filter-btn">+</button> Add another filter`;
+  p.innerHTML = `<button class=\"add-filter-btn\">+</button> Add another filter`;
   steps.appendChild(p);
 }
 
@@ -243,7 +242,7 @@ function generatePortfolioNew() {
     return;
   }
 
-  // ——— SUMMARY TABLE ———
+  // ——— PORTFOLIO ANALYSIS ———
   const count = results.length;
   const averages = portfolioFilters.slice(1).map(filt => {
     const map = mapping[filt.filterName];
@@ -261,21 +260,9 @@ function generatePortfolioNew() {
     });
     return vals.reduce((a, b) => a + b, 0) / count;
   });
-
-  // ——— PORTFOLIO CORRELATION (30-week lookback) ———
-  const lookback = 30;
-  const rawSeries = results
-    .map(r => window.historicalReturns?.[r.instrument] || [])
-    .filter(arr => Array.isArray(arr) && arr.length >= lookback);
-  const allSeries = rawSeries.map(arr => arr.slice(-lookback));
-  const avgCorr = allSeries.length > 1
-    ? computeAvgCorrelation(allSeries)
-    : 0;
-
-  // Render summary (unchanged)
   const summaryDiv = document.createElement('div');
   summaryDiv.id = 'portfolio-summary';
-  let summaryHtml = `<table class="summary-table">
+  let summaryHtml = `<h2>PORTFOLIO ANALYSIS</h2><table class="summary-table">
     <tr><th>Count</th><td>${count}</td></tr>`;
   portfolioFilters.slice(1).forEach((filt, i) => {
     summaryHtml += `<tr>
@@ -283,13 +270,14 @@ function generatePortfolioNew() {
       <td>${averages[i].toFixed(2)}</td>
     </tr>`;
   });
-  summaryHtml += `<tr>
-      <th>Avg Correlation</th>
-      <td>${avgCorr.toFixed(2)}</td>
-    </tr>`;
   summaryHtml += '</table>';
   summaryDiv.innerHTML = summaryHtml;
   resDiv.appendChild(summaryDiv);
+
+  // ——— INSTRUMENT LIST ———
+  const listTitle = document.createElement('h2');
+  listTitle.textContent = 'INSTRUMENT LIST';
+  resDiv.appendChild(listTitle);
 
   // ——— DETAILED RESULTS TABLE ———
   const table = document.createElement('table');
@@ -326,30 +314,4 @@ function generatePortfolioNew() {
   });
 
   resDiv.appendChild(table);
-}
-
-// Helper: compute average off-diagonal correlation
-function computeAvgCorrelation(matrix) {
-  const n = matrix.length;
-  const T = matrix[0].length;
-  const means = matrix.map(arr => arr.reduce((a,b) => a+b, 0) / T);
-
-  let sum = 0, countPairs = 0;
-  for (let i = 0; i < n; i++) {
-    for (let j = i+1; j < n; j++) {
-      let cov = 0, varI = 0, varJ = 0;
-      for (let t = 0; t < T; t++) {
-        const di = matrix[i][t] - means[i];
-        const dj = matrix[j][t] - means[j];
-        cov += di * dj;
-        varI += di*di;
-        varJ += dj*dj;
-      }
-      cov /= (T - 1);
-      const corr = cov / (Math.sqrt(varI/(T-1)) * Math.sqrt(varJ/(T-1))) || 0;
-      sum += corr;
-      countPairs++;
-    }
-  }
-  return countPairs ? sum / countPairs : 0;
 }
