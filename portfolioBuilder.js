@@ -215,12 +215,18 @@ function generatePortfolioNew() {
       if (!map) continue;
       let num;
       if (map.source) {
-        const raw = map.source === 'left' ? info.summaryLeft[map.index] : info.summaryRight[map.index];
+        const raw = map.source === 'left'
+          ? info.summaryLeft[map.index]
+          : info.summaryRight[map.index];
         num = parseFloat(typeof raw === 'string' ? raw.replace('%','') : raw);
       } else {
         num = parseFloat(info[map.field]);
       }
-      if (isNaN(num) || (filt.operator === '>=' && num < +filt.value) || (filt.operator === '<=' && num > +filt.value)) {
+      if (
+        isNaN(num) ||
+        (filt.operator === '>=' && num < +filt.value) ||
+        (filt.operator === '<=' && num > +filt.value)
+      ) {
         include = false;
         break;
       }
@@ -242,28 +248,39 @@ function generatePortfolioNew() {
     const vals = results.map(r => {
       let v;
       if (map.source) {
-        const raw = map.source === 'left' ? r.info.summaryLeft[map.index] : r.info.summaryRight[map.index];
-        v = parseFloat(typeof raw === 'string' ? raw.replace('%','') : raw);
+        v = parseFloat(
+          typeof (map.source === 'left' ? r.info.summaryLeft[map.index] : r.info.summaryRight[map.index]) === 'string'
+            ? (map.source === 'left' ? r.info.summaryLeft[map.index] : r.info.summaryRight[map.index]).replace('%','')
+            : (map.source === 'left' ? r.info.summaryLeft[map.index] : r.info.summaryRight[map.index])
+        );
       } else {
         v = parseFloat(r.info[map.field]);
       }
       return isNaN(v) ? 0 : v;
     });
     return vals.reduce((a, b) => a + b, 0) / count;
-p  });
+  });
+
   const summaryDiv = document.createElement('div');
   summaryDiv.id = 'portfolio-summary';
-  let summaryHtml = `<h2>PORTFOLIO ANALYSIS</h2><table class="summary-table">
-    <tr><th>Count</th><td>${count}</td></tr>`;
+  let summaryHtml = `<h2 style="color:white">PORTFOLIO ANALYSIS</h2>
+    <table class="summary-table">
+      <tr><th>Count</th><td>${count}</td></tr>`;
   portfolioFilters.slice(1).forEach((filt, i) => {
-    summaryHtml += `<tr><th>Avg ${filt.filterName}</th><td>${averages[i].toFixed(2)}</td></tr>`;
+    summaryHtml += `
+      <tr>
+        <th>Avg ${filt.filterName}</th>
+        <td>${averages[i].toFixed(2)}</td>
+      </tr>`;
   });
-  summaryHtml += '</table>';
+  summaryHtml += `
+    </table>`;
   summaryDiv.innerHTML = summaryHtml;
   resDiv.appendChild(summaryDiv);
 
   // ——— INSTRUMENT LIST ———
   const listTitle = document.createElement('h2');
+  listTitle.style.color = 'white';
   listTitle.textContent = 'INSTRUMENT LIST';
   resDiv.appendChild(listTitle);
 
@@ -272,15 +289,25 @@ p  });
   const thead = table.createTHead();
   const headerRow = thead.insertRow();
   headerRow.insertCell().textContent = 'Instrument';
-  portfolioFilters.slice(1).forEach(f => headerRow.insertCell().textContent = f.filterName);
+  portfolioFilters.slice(1).forEach(f =>
+    headerRow.insertCell().textContent = f.filterName
+  );
   headerRow.insertCell().textContent = 'FULL ANALYSIS';
+
   const tbody = table.createTBody();
   results.forEach(r => {
     const tr = tbody.insertRow();
     tr.insertCell().textContent = r.instrument;
     portfolioFilters.slice(1).forEach(f => {
       const map = mapping[f.filterName];
-      let val = map.source === 'left' ? r.info.summaryLeft[map.index] : map.source === 'right' ? r.info.summaryRight[map.index] : r.info[map.field];
+      let val;
+      if (map.source) {
+        val = map.source === 'left'
+          ? r.info.summaryLeft[map.index]
+          : r.info.summaryRight[map.index];
+      } else {
+        val = r.info[map.field];
+      }
       tr.insertCell().textContent = val != null ? val.toString() : '';
     });
     const cell = tr.insertCell();
@@ -290,5 +317,6 @@ p  });
     link.textContent = '🔗';
     cell.appendChild(link);
   });
+
   resDiv.appendChild(table);
 }
