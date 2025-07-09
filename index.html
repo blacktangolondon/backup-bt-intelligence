@@ -13,7 +13,7 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 
-  <!-- Lightweight-Charts (for block4) -->
+    <!-- Lightweight-Charts (for block4) -->
   <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 <body>
@@ -33,10 +33,10 @@
     <div id="block1">
       <div class="tradingview-widget-container"></div>
       <button id="fullscreen-button" class="external-fullscreen-btn">
-        <span class="arrow">↖</span>
-        <span class="arrow">↗</span><br>
-        <span class="arrow">↙</span>
-        <span class="arrow">↘</span>
+        <span class="arrow">&#8598;</span>
+        <span class="arrow">&#8599;</span><br>
+        <span class="arrow">&#8601;</span>
+        <span class="arrow">&#8600;</span>
       </button>
     </div>
     <!-- Block2: Symbol Overview -->
@@ -76,9 +76,6 @@
               allowfullscreen></iframe>
     </div>
   </div>
-
-  <!-- Load JSON data (instruments + prices) before bootstrapping main.js -->
-  <script type="module" src="jsonLoader.js"></script>
 
   <!-- Your application entry point (module) -->
   <script type="module" src="main.js"></script>
