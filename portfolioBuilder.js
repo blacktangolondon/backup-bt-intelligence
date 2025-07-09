@@ -206,7 +206,7 @@ function updatePortfolioSteps() {
   steps.appendChild(p);
 }
 
-// Apply filters and render
+// Apply filters, compute summary, and render
 function generatePortfolioNew() {
   if (portfolioFilters.length === 0 || portfolioFilters[0].filterName !== 'Asset Class') {
     alert('Please add the Asset Class filter as your first filter.');
@@ -231,6 +231,7 @@ function generatePortfolioNew() {
     return;
   }
 
+  // run filters
   const results = [];
   for (const instrument in dataObj) {
     const info = dataObj[instrument];
@@ -240,21 +241,21 @@ function generatePortfolioNew() {
       const map  = mapping[filt.filterName];
       if (!map) continue;
 
-      // Determine numeric value
       let num;
       if (map.source) {
         const raw = map.source === 'left'
           ? info.summaryLeft[map.index]
           : info.summaryRight[map.index];
-        num = parseFloat(
-          typeof raw === 'string' ? raw.replace('%','') : raw
-        );
+        num = parseFloat(typeof raw === 'string'
+          ? raw.replace('%','')
+          : raw);
       } else {
         num = parseFloat(info[map.field]);
       }
-      if (isNaN(num)) { include = false; break; }
-      if (filt.operator === '>=' && num < +filt.value) { include = false; break; }
-      if (filt.operator === '<=' && num > +filt.value) { include = false; break; }
+      if (isNaN(num) ||
+          (filt.operator === '>=' && num < +filt.value) ||
+          (filt.operator === '<=' && num > +filt.value)
+      ) { include = false; break; }
     }
     if (include) results.push({ instrument, info });
   }
@@ -266,7 +267,41 @@ function generatePortfolioNew() {
     return;
   }
 
-  // Build results table
+  // ——— SUMMARY TABLE ———
+  const count = results.length;
+  const averages = portfolioFilters.slice(1).map(filt => {
+    const map = mapping[filt.filterName];
+    const vals = results.map(r => {
+      let v;
+      if (map.source) {
+        const raw = map.source === 'left'
+          ? r.info.summaryLeft[map.index]
+          : r.info.summaryRight[map.index];
+        v = parseFloat(typeof raw === 'string' ? raw.replace('%','') : raw);
+      } else {
+        v = parseFloat(r.info[map.field]);
+      }
+      return isNaN(v) ? 0 : v;
+    });
+    const sum = vals.reduce((a, b) => a + b, 0);
+    return count ? sum / count : 0;
+  });
+
+  const summaryDiv = document.createElement('div');
+  summaryDiv.id = 'portfolio-summary';
+  let summaryHtml = `<table class="summary-table">
+    <tr><th>Count</th><td>${count}</td></tr>`;
+  portfolioFilters.slice(1).forEach((filt, i) => {
+    summaryHtml += `<tr>
+      <th>Avg ${filt.filterName}</th>
+      <td>${averages[i].toFixed(2)}</td>
+    </tr>`;
+  });
+  summaryHtml += '</table>';
+  summaryDiv.innerHTML = summaryHtml;
+  resDiv.appendChild(summaryDiv);
+
+  // ——— DETAILED RESULTS TABLE ———
   const table = document.createElement('table');
   const thead = table.createTHead();
   const headerRow = thead.insertRow();
