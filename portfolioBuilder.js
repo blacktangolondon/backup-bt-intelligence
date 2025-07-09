@@ -262,17 +262,17 @@ function generatePortfolioNew() {
     return vals.reduce((a, b) => a + b, 0) / count;
   });
 
-  // ——— PORTFOLIO CORRELATION ———
-  // Collect only valid, same-length return series
-  const allSeries = results
-    .map(r => window.historicalReturns?.[r.instrument])
-    .filter(arr => Array.isArray(arr) && arr.length > 1);
-  const sameLength = allSeries.every(a => a.length === allSeries[0].length);
-  const avgCorr = (allSeries.length > 1 && sameLength)
+  // ——— PORTFOLIO CORRELATION (30-week lookback) ———
+  const lookback = 30;
+  const rawSeries = results
+    .map(r => window.historicalReturns?.[r.instrument] || [])
+    .filter(arr => Array.isArray(arr) && arr.length >= lookback);
+  const allSeries = rawSeries.map(arr => arr.slice(-lookback));
+  const avgCorr = allSeries.length > 1
     ? computeAvgCorrelation(allSeries)
     : 0;
 
-  // Render summary
+  // Render summary (unchanged)
   const summaryDiv = document.createElement('div');
   summaryDiv.id = 'portfolio-summary';
   let summaryHtml = `<table class="summary-table">
