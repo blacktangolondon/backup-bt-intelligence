@@ -206,7 +206,7 @@ function updatePortfolioSteps() {
   steps.appendChild(p);
 }
 
-// Apply filters, compute summary, and render
+// Apply filters, compute summary, portfolio correlation, and render
 function generatePortfolioNew() {
   if (portfolioFilters.length === 0 || portfolioFilters[0].filterName !== 'Asset Class') {
     alert('Please add the Asset Class filter as your first filter.');
@@ -287,6 +287,11 @@ function generatePortfolioNew() {
     return count ? sum / count : 0;
   });
 
+  // ——— PORTFOLIO CORRELATION ———
+  // expects window.historicalReturns[instrument] === array of equal-length returns
+  const returnsMatrix = results.map(r => window.historicalReturns[r.instrument] || []);
+  const avgCorr = computeAvgCorrelation(returnsMatrix);
+
   const summaryDiv = document.createElement('div');
   summaryDiv.id = 'portfolio-summary';
   let summaryHtml = `<table class="summary-table">
@@ -297,6 +302,10 @@ function generatePortfolioNew() {
       <td>${averages[i].toFixed(2)}</td>
     </tr>`;
   });
+  summaryHtml += `<tr>
+      <th>Avg Correlation</th>
+      <td>${avgCorr.toFixed(2)}</td>
+    </tr>`;
   summaryHtml += '</table>';
   summaryDiv.innerHTML = summaryHtml;
   resDiv.appendChild(summaryDiv);
@@ -336,4 +345,33 @@ function generatePortfolioNew() {
   });
 
   resDiv.appendChild(table);
+}
+
+// Helper: compute average off-diagonal correlation
+function computeAvgCorrelation(matrix) {
+  const n = matrix.length;
+  if (n < 2) return 0;
+  const T = matrix[0].length;
+  const means = matrix.map(arr => arr.reduce((a,b) => a+b, 0) / T);
+
+  let sumCorr = 0, pairs = 0;
+  for (let i = 0; i < n; i++) {
+    for (let j = i + 1; j < n; j++) {
+      let cov = 0, varI = 0, varJ = 0;
+      for (let t = 0; t < T; t++) {
+        const di = matrix[i][t] - means[i];
+        const dj = matrix[j][t] - means[j];
+        cov += di * dj;
+        varI += di * di;
+        varJ += dj * dj;
+      }
+      cov /= (T - 1);
+      const stdI = Math.sqrt(varI / (T - 1));
+      const stdJ = Math.sqrt(varJ / (T - 1));
+      const corrIJ = stdI && stdJ ? cov / (stdI * stdJ) : 0;
+      sumCorr += corrIJ;
+      pairs++;
+    }
+  }
+  return pairs ? sumCorr / pairs : 0;
 }
