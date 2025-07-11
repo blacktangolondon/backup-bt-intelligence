@@ -20,6 +20,17 @@ export async function generateSidebarContent() {
     return;
   }
 
+  // Load spreads.json
+  let spreadsList = [];
+  try {
+    const resp = await fetch('./spreads.json');
+    const spreadsObj = await resp.json();
+    spreadsList = Object.keys(spreadsObj);
+  } catch (err) {
+    console.error('Failed to load spreads.json', err);
+    // continue without spread section
+  }
+
   // Prepare grouping structures
   const data = {
     EQUITIES: { 
@@ -151,6 +162,11 @@ export async function generateSidebarContent() {
   addCategory('ETF',      data.ETF);
   addCategory('FUTURES',  data.FUTURES);
   addCategory('FX',       data.FX);
+
+  // Render spreads section
+  if (spreadsList.length) {
+    addCategory('SPREAD', spreadsList);
+  }
 
   // Add Portfolio Builder and Portfolio Ideas at bottom
   ['PORTFOLIO BUILDER','PORTFOLIO IDEAS'].forEach(txt => {
