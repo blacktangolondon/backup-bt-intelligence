@@ -278,14 +278,31 @@ export function showBlock3Tab(tabName) {
 }
 
 /* Block 4: Correlation Analysis */
-function pearsonCorrelation(x,y) {
-  const n=x.length; if(y.length!==n||n===0) return 0;
-  // x and y are now arrays of numbers (returns)
-  const mx=x.reduce((a,b)=>a+b,0)/n, my=y.reduce((a,b)=>a+b,0)/n;
-  let num=0, dx2=0, dy2=0;
-  for(let i=0;i<n;i++){ const dx=x[i]-mx, dy=y[i]-my; num+=dx*dy; dx2+=dx*dx; dy2+=dy*dy; }
-  return (dx2===0||dy2===0)?0:(num/Math.sqrt(dx2*dy2));
+function pearsonCorrelation(x, y) {
+  // Ensure x and y are arrays and not empty
+  if (!Array.isArray(x) || !Array.isArray(y) || x.length === 0 || y.length === 0) return 0;
+
+  const n = Math.min(x.length, y.length); // Use the length of the shorter array
+  if (n === 0) return 0; // If one array is empty after min, no correlation
+
+  // Slice to ensure same length for calculation
+  const xSliced = x.slice(0, n);
+  const ySliced = y.slice(0, n);
+
+  const mx = xSliced.reduce((a, b) => a + b, 0) / n;
+  const my = ySliced.reduce((a, b) => a + b, 0) / n;
+
+  let num = 0, dx2 = 0, dy2 = 0;
+  for (let i = 0; i < n; i++) {
+    const dx = xSliced[i] - mx;
+    const dy = ySliced[i] - my;
+    num += dx * dy;
+    dx2 += dx * dx;
+    dy2 += dy * dy;
+  }
+  return (dx2 === 0 || dy2 === 0) ? 0 : (num / Math.sqrt(dx2 * dy2));
 }
+
 function drawMostCorrelatedChart(top10) {
   const block4=document.getElementById('block4'); block4.innerHTML='<canvas id="correlationChart"></canvas>';
   const ctx=document.getElementById('correlationChart').getContext('2d');
@@ -318,7 +335,7 @@ function getCorrelationListForCategory(inst, returnsData) {
   if (!data || !data.length) return [];
 
   return Object.keys(returnsData) // Iterate over all instruments in the provided returnsData object
-    .filter(n => n !== inst && returnsData[n] && returnsData[n].length === data.length) // Filter out self and ensure same length
+    .filter(n => n !== inst && returnsData[n] && returnsData[n].length > 0) // Only filter out self and empty arrays
     .map(n => [n, pearsonCorrelation(data, returnsData[n])]) // Pass arrays of returns to pearsonCorrelation
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10);
