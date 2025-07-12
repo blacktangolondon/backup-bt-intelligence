@@ -435,7 +435,7 @@ export function updateYouTubePlayer() {
  * This function now consolidates all instrument click logic (spreads vs. others).
  * @param {object} allGroupData - An object containing all full data groups (stocks, etfs, futures, fx, spreads).
  * @param {object} allPricesData - An object containing all raw price history data (stockPrices, etfPrices, etc.).
- * @param {object} allReturnsData - An object containing all historical returns data (stockReturns, etfReturns, etc.).
+ * @param {object} allReturnsData - The flat object containing all historical returns data (instrument -> returns array).
  */
 export function initEventHandlers(allGroupData, allPricesData, allReturnsData) {
   console.log('initEventHandlers called - adding general dashboard event listeners...');
@@ -463,29 +463,29 @@ export function initEventHandlers(allGroupData, allPricesData, allReturnsData) {
 
         let groupData = null;
         let pricesData = null; // Raw prices
-        let returnsData = null; // Calculated returns
+        let returnsData = allReturnsData; // Now allReturnsData IS the flat map
         let options = {}; // Options for updateBlock3
 
         // Identify which category the instrument belongs to
         if (allGroupData.STOCKS && key in allGroupData.STOCKS) {
           groupData = allGroupData.STOCKS;
           pricesData = allPricesData.stockPrices;
-          returnsData = allReturnsData.stockReturns; // Use stockReturns for correlation
+          // returnsData is already assigned to allReturnsData (flat map)
           options = {}; // Default for stocks
         } else if (allGroupData.ETFS && key in allGroupData.ETFS) {
           groupData = allGroupData.ETFS;
           pricesData = allPricesData.etfPrices;
-          returnsData = allReturnsData.etfReturns; // Use etfReturns for correlation
+          // returnsData is already assigned to allReturnsData (flat map)
           options = { isETF: true };
         } else if (allGroupData.FUTURES && key in allGroupData.FUTURES) {
           groupData = allGroupData.FUTURES;
           pricesData = allPricesData.futuresPrices;
-          returnsData = allReturnsData.futuresReturns; // Use futuresReturns for correlation
+          // returnsData is already assigned to allReturnsData (flat map)
           options = { isFutures: true };
         } else if (allGroupData.FX && key in allGroupData.FX) {
           groupData = allGroupData.FX;
           pricesData = allPricesData.fxPrices;
-          returnsData = allReturnsData.fxReturns; // Use fxReturns for correlation
+          // returnsData is already assigned to allReturnsData (flat map)
           options = { isFX: true };
         }
 
@@ -500,7 +500,7 @@ export function initEventHandlers(allGroupData, allPricesData, allReturnsData) {
           updateChart(key, groupData);
           updateSymbolOverview(key, groupData);
           updateBlock3(key, groupData, options);
-          updateBlock4(key, groupData, returnsData); // Pass returnsData to updateBlock4
+          updateBlock4(key, groupData, returnsData); // Pass returnsData (which is the flat map) to updateBlock4
         } else {
           console.warn(`No full data found for instrument: ${key} in any known category.`);
           // Optionally, display a user-friendly message on the dashboard here.
