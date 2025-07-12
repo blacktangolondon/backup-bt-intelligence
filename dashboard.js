@@ -167,7 +167,7 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
       }
       // Convert STATS cell from UP/DOWN into BULLISH/BEARISH for all asset classes
       if (leftLabelArr[i] === 'STATS') {
-        if (val === 'MEDIUM TERM UP')   val = 'MEDIUM TERM BULLISH';
+        if (val === 'MEDIUM TERM UP')    val = 'MEDIUM TERM BULLISH';
         else if (val === 'MEDIUM TERM DOWN') val = 'MEDIUM TERM BEARISH';
       }
 
@@ -189,8 +189,8 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
       let rightVal;
       if (leftLabelArr === etfLeftLabels) {
         // ETFs have one fewer left column, so summaryRight indices shift:
-        if (i === 5)       rightVal = info.summaryRight[7];             // 1 YEAR HIGH
-        else if (i === 6)  rightVal = info.summaryRight[8];             // 1 YEAR LOW
+        if (i === 5)        rightVal = info.summaryRight[7];       // 1 YEAR HIGH
+        else if (i === 6)  rightVal = info.summaryRight[8];       // 1 YEAR LOW
         else if (i === 7)  rightVal = info.ticker || info.tvSymbol;     // ISSUER - TICKER
         else               rightVal = info.summaryRight[i];
       } else {
@@ -377,4 +377,24 @@ export function openYouTubePopup() {
 export function updateYouTubePlayer() {
   document.getElementById('youtube-iframe').src =
     document.getElementById('youtube-url').value.trim();
+}
+
+// FIX: Added the missing initEventHandlers function and exported it.
+// This function is expected to initialize global event listeners for the dashboard.
+export function initEventHandlers() {
+  // Add any general event listeners that apply to the dashboard here.
+  // For example, if you have a common 'click' listener for elements
+  // or need to attach handlers to dynamically loaded content that
+  // isn't covered by more specific init functions (like initBlock3Tabs).
+
+  // Currently, it's an empty function to resolve the import error,
+  // but you can add functionality here as needed.
+  console.log('initEventHandlers called - adding general dashboard event listeners...');
+
+  // Example (uncomment if needed):
+  // document.addEventListener('keydown', (event) => {
+  //   if (event.key === 'Escape') {
+  //     // Handle escape key presses, e.g., close popups
+  //   }
+  // });
 }
