@@ -91,13 +91,8 @@ async function initializeTrendScore() {
         futuresPrices: window.pricesData.futuresPrices,
         fxPrices:      window.pricesData.fxPrices
       },
-      // Also pass historicalReturns for Block 4
-      {
-        stockReturns: window.historicalReturns, // Assuming historicalReturns is flattened as instrument -> returns array
-        etfReturns: window.historicalReturns,
-        futuresReturns: window.historicalReturns,
-        fxReturns: window.historicalReturns
-      }
+      // Pass the flat returns-map directly as the third argument
+      window.historicalReturns
     );
 
     // 6) REMOVED: The redundant "Add event listener to sidebar instrument items" block is now handled by initEventHandlers in dashboard.js
@@ -124,11 +119,11 @@ async function initializeTrendScore() {
       updateChart(defaultInstrument, window.stocksFullData);
       updateSymbolOverview(defaultInstrument, window.stocksFullData);
       updateBlock3(defaultInstrument, window.stocksFullData);
-      // Pass the correct returns data for the default instrument
+      // Pass the same flat historicalReturns object to updateBlock4
       updateBlock4(
         defaultInstrument,
         window.stocksFullData,
-        window.historicalReturns // Pass the entire historicalReturns object
+        window.historicalReturns
       );
     }
   } catch (error) {
