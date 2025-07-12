@@ -1,6 +1,6 @@
 /**
  * main.js
- * Entry point for PHASE1.
+ * Entry point for PHASE1, now including SPREAD support.
  */
 import { loadJSONData } from "./jsonLoader.js";
 import { loadCSVData } from "./csvLoader.js";
@@ -11,13 +11,11 @@ import {
   updateBlock3,
   updateBlock4,
   initBlock3Tabs,
-  updateFullscreenButton,
-  openYouTubePopup,
-  updateYouTubePlayer
+  initEventHandlers
 } from "./dashboard.js";
-import { initEventHandlers } from "./events.js";
 import { initPortfolioBuilder } from "./portfolioBuilder.js";
 import { initThematicPortfolio } from "./thematicPortfolio.js";
+import { showSpread } from "./spreadView.js";  // NEW: lightweight-charts renderer for SPREAD
 
 async function initializeTrendScore() {
   try {
@@ -39,25 +37,20 @@ async function initializeTrendScore() {
 
     // ——— New: build historicalReturns for correlation ———
     window.historicalReturns = {};
-    // Helper to turn a price array into day-over-day return array
     function computeReturns(priceArray) {
       return priceArray.map((p, i, arr) =>
         i === 0 ? 0 : (p.close / arr[i - 1].close) - 1
       );
     }
-    // Stocks
     for (const [sym, prices] of Object.entries(window.pricesData.stockPrices)) {
       window.historicalReturns[sym] = computeReturns(prices);
     }
-    // ETFs
     for (const [sym, prices] of Object.entries(window.pricesData.etfPrices)) {
       window.historicalReturns[sym] = computeReturns(prices);
     }
-    // Futures
     for (const [sym, prices] of Object.entries(window.pricesData.futuresPrices)) {
       window.historicalReturns[sym] = computeReturns(prices);
     }
-    // FX
     for (const [sym, prices] of Object.entries(window.pricesData.fxPrices)) {
       window.historicalReturns[sym] = computeReturns(prices);
     }
@@ -70,7 +63,7 @@ async function initializeTrendScore() {
     // 4) TrendScore (Block 3) tabs
     initBlock3Tabs();
 
-    // 5) Global event handlers (sidebar clicks, fullscreen, etc.)
+    // 5) Global event handlers (sidebar clicks for stocks/etfs/etc, fullscreen, etc.)
     initEventHandlers(
       {
         STOCKS:  window.stocksFullData,
@@ -86,7 +79,27 @@ async function initializeTrendScore() {
       }
     );
 
-    // 6) Auto-select via URL parameter or default
+    // 6) SPREAD clicks: hide blocks 1–4, show block5, and render chart
+    document.querySelectorAll('.instrument-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const key = el.textContent.trim();
+        if (key.includes('/')) {
+          // hide Blocks 1–4
+          [1, 2, 3, 4].forEach(n => {
+            const blk = document.getElementById(`block${n}`);
+            if (blk) blk.style.display = 'none';
+          });
+          // show Spread block5
+          const spreadBlock = document.getElementById('block5');
+          if (spreadBlock) spreadBlock.style.display = 'block';
+
+          // render
+          showSpread(key);
+        }
+      });
+    });
+
+    // 7) Auto-select via URL parameter or default
     const params = new URLSearchParams(window.location.search);
     const instParam = params.get('instrument');
     if (instParam) {
@@ -98,9 +111,13 @@ async function initializeTrendScore() {
       }
     }
 
-    // 7) Default dashboard view
+    // 8) Default dashboard view (first stock)
     const defaultInstrument = Object.keys(window.stocksFullData)[0] || "AMZN";
     if (window.stocksFullData[defaultInstrument]) {
+      // ensure spreads block is hidden
+      const spreadBlock = document.getElementById('block5');
+      if (spreadBlock) spreadBlock.style.display = 'none';
+
       updateChart(defaultInstrument, window.stocksFullData);
       updateSymbolOverview(defaultInstrument, window.stocksFullData);
       updateBlock3(defaultInstrument, window.stocksFullData);
