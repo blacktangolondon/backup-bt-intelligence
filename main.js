@@ -26,7 +26,16 @@ async function initializeTrendScore() {
     window.futuresFullData = jsonData.futuresFullData;
     window.fxFullData      = jsonData.fxFullData;
     // Ensure spreads data is also loaded globally, assuming loadJSONData provides it.
-    window.spreadsFullData = jsonData.spreadsFullData; // <--- ASSUMPTION: jsonData now includes spreadsFullData
+    // If jsonLoader.js doesn't fetch spreads.json, do it separately here.
+    try {
+      const resp = await fetch('./spreads.json');
+      window.spreadsFullData = resp.ok ? await resp.json() : {};
+      console.log('Loaded spreadsFullData:', window.spreadsFullData); // Verify spreads data
+    } catch (e) {
+      console.error('Failed to load spreads.json:', e);
+      window.spreadsFullData = {};
+    }
+
 
     // 2) Load price history from CSVs for Block 4
     const csvData = await loadCSVData();
