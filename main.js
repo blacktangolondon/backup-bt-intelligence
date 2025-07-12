@@ -49,18 +49,25 @@ async function initializeTrendScore() {
     // Populate historicalReturns for all categories
     // Ensure pricesData structures are consistent (e.g., objects with 'close' for historical data)
     for (const instrument in window.pricesData.stockPrices) {
-      window.historicalReturns[instrument] = computeReturns(window.pricesData.stockPrices[instrument]);
+      if (window.pricesData.stockPrices.hasOwnProperty(instrument)) {
+        window.historicalReturns[instrument] = computeReturns(window.pricesData.stockPrices[instrument]);
+      }
     }
     for (const instrument in window.pricesData.etfPrices) {
-      window.historicalReturns[instrument] = computeReturns(window.pricesData.etfPrices[instrument]);
+      if (window.pricesData.etfPrices.hasOwnProperty(instrument)) {
+        window.historicalReturns[instrument] = computeReturns(window.pricesData.etfPrices[instrument]);
+      }
     }
     for (const instrument in window.pricesData.futuresPrices) {
-      window.historicalReturns[instrument] = computeReturns(window.pricesData.futuresPrices[instrument]);
+      if (window.pricesData.futuresPrices.hasOwnProperty(instrument)) {
+        window.historicalReturns[instrument] = computeReturns(window.pricesData.futuresPrices[instrument]);
+      }
     }
     for (const instrument in window.pricesData.fxPrices) {
-      window.historicalReturns[instrument] = computeReturns(window.pricesData.fxPrices[instrument]);
+      if (window.pricesData.fxPrices.hasOwnProperty(instrument)) {
+        window.historicalReturns[instrument] = computeReturns(window.pricesData.fxPrices[instrument]);
+      }
     }
-
 
     // 3) Generate sidebar content
     await generateSidebarContent();
@@ -83,6 +90,13 @@ async function initializeTrendScore() {
         etfPrices:     window.pricesData.etfPrices,
         futuresPrices: window.pricesData.futuresPrices,
         fxPrices:      window.pricesData.fxPrices
+      },
+      // Also pass historicalReturns for Block 4
+      {
+        stockReturns: window.historicalReturns, // Assuming historicalReturns is flattened as instrument -> returns array
+        etfReturns: window.historicalReturns,
+        futuresReturns: window.historicalReturns,
+        fxReturns: window.historicalReturns
       }
     );
 
@@ -110,10 +124,11 @@ async function initializeTrendScore() {
       updateChart(defaultInstrument, window.stocksFullData);
       updateSymbolOverview(defaultInstrument, window.stocksFullData);
       updateBlock3(defaultInstrument, window.stocksFullData);
+      // Pass the correct returns data for the default instrument
       updateBlock4(
         defaultInstrument,
         window.stocksFullData,
-        window.pricesData.stockPrices
+        window.historicalReturns // Pass the entire historicalReturns object
       );
     }
   } catch (error) {
