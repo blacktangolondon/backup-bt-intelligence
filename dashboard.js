@@ -4,6 +4,7 @@
 
 import { renderBarChart, renderPieChart, destroyChartIfExists } from "./charts.js";
 import futuresMap from "./futuresMap.js";
+import { showSpread } from "./spreadView.js"; // <--- NEW: Import showSpread here
 
 // Helper: parseGap value.
 export function parseGap(val) {
@@ -33,7 +34,7 @@ export const futuresRightLabels= [
   "MATH","STATS","TECH"
 ];
 export const fxLeftLabels      = [
-  "SCORE","TREND","APPROACH","GAP TO PEAK / TO VALLEY","KEY AREA","LIMIT","POTENTIAL EXTENSION"  
+  "SCORE","TREND","APPROACH","GAP TO PEAK / TO VALLEY","KEY AREA","LIMIT","POTENTIAL EXTENSION"
 ];
 export const fxRightLabels     = [
   "S&P500 CORRELATION","S&P500 VOLATILITY RATIO","ALPHA STRENGHT","MID TERM PRICE % PROJECTION",
@@ -189,10 +190,10 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
       let rightVal;
       if (leftLabelArr === etfLeftLabels) {
         // ETFs have one fewer left column, so summaryRight indices shift:
-        if (i === 5)        rightVal = info.summaryRight[7];       // 1 YEAR HIGH
-        else if (i === 6)  rightVal = info.summaryRight[8];       // 1 YEAR LOW
+        if (i === 5)     rightVal = info.summaryRight[7];      // 1 YEAR HIGH
+        else if (i === 6)  rightVal = info.summaryRight[8];      // 1 YEAR LOW
         else if (i === 7)  rightVal = info.ticker || info.tvSymbol;     // ISSUER - TICKER
-        else               rightVal = info.summaryRight[i];
+        else           rightVal = info.summaryRight[i];
       } else {
         rightVal = info.summaryRight[i];
       }
@@ -279,9 +280,10 @@ export function showBlock3Tab(tabName) {
 /* Block 4: Correlation Analysis */
 function pearsonCorrelation(x,y) {
   const n=x.length; if(y.length!==n||n===0) return 0;
-  const mx=x.reduce((a,b)=>a+b,0)/n, my=y.reduce((a,b)=>a+b,0)/n;
+  // Assuming x and y contain objects with a 'close' property
+  const mx=x.reduce((a,b)=>a+b.close,0)/n, my=y.reduce((a,b)=>a+b.close,0)/n;
   let num=0, dx2=0, dy2=0;
-  for(let i=0;i<n;i++){ const dx=x[i]-mx, dy=y[i]-my; num+=dx*dy; dx2+=dx*dx; dy2+=dy*dy; }
+  for(let i=0;i<n;i++){ const dx=x[i].close-mx, dy=y[i].close-my; num+=dx*dy; dx2+=dx*dx; dy2+=dy*dy; }
   return (dx2===0||dy2===0)?0:(num/Math.sqrt(dx2*dy2));
 }
 function drawMostCorrelatedChart(top10) {
@@ -307,13 +309,17 @@ function drawMostCorrelatedChart(top10) {
   });
 }
 function getCorrelationListForCategory(inst,prices) {
-  const data=prices[inst]; if(!data||!data.length) return [];
+  // prices here is expected to be an object mapping instrumentName to an array of price objects (e.g., [{close: X}, {close: Y}])
+  const data = prices[inst];
+  if (!data || !data.length) return [];
+
   return Object.keys(prices)
-    .filter(n=>n!==inst)
-    .map(n=>[n, pearsonCorrelation(data, prices[n])])
-    .sort((a,b)=>b[1]-a[1])
-    .slice(0,10);
+    .filter(n => n !== inst)
+    .map(n => [n, pearsonCorrelation(data, prices[n])])
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10);
 }
+
 
 export function updateBlock4(instrumentName, groupData, groupPrices) {
   const blk = document.getElementById('block4');
@@ -379,22 +385,81 @@ export function updateYouTubePlayer() {
     document.getElementById('youtube-url').value.trim();
 }
 
-// FIX: Added the missing initEventHandlers function and exported it.
-// This function is expected to initialize global event listeners for the dashboard.
-export function initEventHandlers() {
-  // Add any general event listeners that apply to the dashboard here.
-  // For example, if you have a common 'click' listener for elements
-  // or need to attach handlers to dynamically loaded content that
-  // isn't covered by more specific init functions (like initBlock3Tabs).
-
-  // Currently, it's an empty function to resolve the import error,
-  // but you can add functionality here as needed.
+/**
+ * Initializes global event handlers, specifically for sidebar instrument clicks.
+ * This function now consolidates all instrument click logic (spreads vs. others).
+ * @param {object} allGroupData - An object containing all full data groups (stocks, etfs, futures, fx, spreads).
+ * @param {object} allPricesData - An object containing all price history data (stockPrices, etfPrices, etc.).
+ */
+export function initEventHandlers(allGroupData, allPricesData) {
   console.log('initEventHandlers called - adding general dashboard event listeners...');
 
-  // Example (uncomment if needed):
-  // document.addEventListener('keydown', (event) => {
-  //   if (event.key === 'Escape') {
-  //     // Handle escape key presses, e.g., close popups
-  //   }
-  // });
+  // Event listener for sidebar instrument items (consolidated logic)
+  document.querySelectorAll('.instrument-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const key = item.textContent.trim();
+
+      // Hide all blocks first to ensure a clean display
+      document.querySelectorAll('.content-block').forEach(blk => {
+        if (blk) blk.style.display = 'none';
+      });
+
+      // --- Determine if it's a spread or another instrument type ---
+      if (allGroupData.SPREADS && key in allGroupData.SPREADS) {
+        // It's a spread: show Block 5 and render spread chart
+        const spreadBlock = document.getElementById('block5');
+        if (spreadBlock) spreadBlock.style.display = 'block';
+        showSpread(key); // Call the spread chart rendering function
+      } else {
+        // It's a non-spread instrument: ensure Block 5 is hidden and show Blocks 1-4
+        const spreadBlock = document.getElementById('block5');
+        if (spreadBlock) spreadBlock.style.display = 'none';
+
+        let groupData = null;
+        let pricesData = null;
+        let options = {}; // Options for updateBlock3
+
+        // Identify which category the instrument belongs to
+        if (allGroupData.STOCKS && key in allGroupData.STOCKS) {
+          groupData = allGroupData.STOCKS;
+          pricesData = allPricesData.stockPrices;
+          options = {}; // Default for stocks
+        } else if (allGroupData.ETFS && key in allGroupData.ETFS) {
+          groupData = allGroupData.ETFS;
+          pricesData = allPricesData.etfPrices;
+          options = { isETF: true };
+        } else if (allGroupData.FUTURES && key in allGroupData.FUTURES) {
+          groupData = allGroupData.FUTURES;
+          pricesData = allPricesData.futuresPrices;
+          options = { isFutures: true };
+        } else if (allGroupData.FX && key in allGroupData.FX) {
+          groupData = allGroupData.FX;
+          pricesData = allPricesData.fxPrices;
+          options = { isFX: true };
+        }
+
+        if (groupData) {
+          // Show Blocks 1, 2, 3, 4 for the selected instrument
+          document.getElementById('block1').style.display = 'block';
+          document.getElementById('block2').style.display = 'block';
+          document.getElementById('block3').style.display = 'block';
+          document.getElementById('block4').style.display = 'block';
+
+          // Update content for non-spread blocks
+          updateChart(key, groupData);
+          updateSymbolOverview(key, groupData);
+          updateBlock3(key, groupData, options);
+          updateBlock4(key, groupData, pricesData);
+        } else {
+          console.warn(`No full data found for instrument: ${key} in any known category.`);
+          // Optionally, display a user-friendly message on the dashboard here.
+        }
+      }
+    });
+  });
+
+  // You can add other general event listeners here (e.g., fullscreen, YouTube popup)
+  // For example, if updateFullscreenButton, openYouTubePopup, updateYouTubePlayer
+  // are meant to be triggered by buttons with specific IDs, their event listeners
+  // could be attached here or in a dedicated function called by initEventHandlers.
 }
