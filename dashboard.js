@@ -280,10 +280,10 @@ export function showBlock3Tab(tabName) {
 /* Block 4: Correlation Analysis */
 function pearsonCorrelation(x,y) {
   const n=x.length; if(y.length!==n||n===0) return 0;
-  // Assuming x and y contain objects with a 'close' property
-  const mx=x.reduce((a,b)=>a+b.close,0)/n, my=y.reduce((a,b)=>a+b.close,0)/n;
+  // x and y are now arrays of numbers (returns)
+  const mx=x.reduce((a,b)=>a+b,0)/n, my=y.reduce((a,b)=>a+b,0)/n;
   let num=0, dx2=0, dy2=0;
-  for(let i=0;i<n;i++){ const dx=x[i].close-mx, dy=y[i].close-my; num+=dx*dy; dx2+=dx*dx; dy2+=dy*dy; }
+  for(let i=0;i<n;i++){ const dx=x[i]-mx, dy=y[i]-my; num+=dx*dy; dx2+=dx*dx; dy2+=dy*dy; }
   return (dx2===0||dy2===0)?0:(num/Math.sqrt(dx2*dy2));
 }
 function drawMostCorrelatedChart(top10) {
@@ -308,20 +308,30 @@ function drawMostCorrelatedChart(top10) {
     }
   });
 }
-function getCorrelationListForCategory(inst,prices) {
-  // prices here is expected to be an object mapping instrumentName to an array of price objects (e.g., [{close: X}, {close: Y}])
-  const data = prices[inst];
+/**
+ * Gets a list of instruments most correlated to the given instrument within its category.
+ * @param {string} inst - The instrument key (e.g., "AMZN").
+ * @param {object} returnsData - An object where keys are instrument names and values are arrays of historical returns.
+ */
+function getCorrelationListForCategory(inst, returnsData) {
+  const data = returnsData[inst]; // This will be the array of returns for the selected instrument
   if (!data || !data.length) return [];
 
-  return Object.keys(prices)
-    .filter(n => n !== inst)
-    .map(n => [n, pearsonCorrelation(data, prices[n])])
+  return Object.keys(returnsData) // Iterate over all instruments in the provided returnsData object
+    .filter(n => n !== inst && returnsData[n] && returnsData[n].length === data.length) // Filter out self and ensure same length
+    .map(n => [n, pearsonCorrelation(data, returnsData[n])]) // Pass arrays of returns to pearsonCorrelation
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10);
 }
 
 
-export function updateBlock4(instrumentName, groupData, groupPrices) {
+/**
+ * Updates Block 4 with correlation analysis.
+ * @param {string} instrumentName - The name of the currently selected instrument.
+ * @param {object} groupData - The full data object for the instrument's group (e.g., stocksFullData).
+ * @param {object} groupReturns - The object containing historical returns for instruments in this category.
+ */
+export function updateBlock4(instrumentName, groupData, groupReturns) {
   const blk = document.getElementById('block4');
   blk.innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
   setTimeout(() => {
@@ -329,20 +339,38 @@ export function updateBlock4(instrumentName, groupData, groupPrices) {
 
     // 1) grab tvSymbol, then map via futuresMap if a future
     const info = groupData[instrumentName];
-    const tvSym = info && info.tvSymbol ? info.tvSymbol : '';
-    let lookupKey = futuresMap[tvSym] ||
-                    (tvSym.includes(':') ? tvSym.split(':')[1] : instrumentName);
+    // The lookup key needs to align with the keys in `groupReturns` (window.historicalReturns)
+    // which are directly the instrument names (e.g., "AMZN", "EURUSD").
+    let lookupKey = instrumentName; // Use instrumentName directly as the key for historicalReturns
 
-    // 2) fallback to prefix/substring matches if key not found
-    if (!(lookupKey in groupPrices)) {
-      let match = Object.keys(groupPrices).find(k => k.split('.')[0] === lookupKey);
-      if (!match) match = Object.keys(groupPrices).find(k => k.startsWith(lookupKey));
-      if (!match) match = Object.keys(groupPrices).find(k => k.includes(lookupKey));
+    // If there's a specific mapping or transformation for the key to match
+    // the historicalReturns keys, apply it here.
+    // For futures, futuresMap might still be relevant if historicalReturns keys
+    // for futures are different from sidebar names.
+    if (groupData === window.futuresFullData) { // Check if it's a futures instrument
+        const tvSym = info && info.tvSymbol ? info.tvSymbol : '';
+        const mappedFuturesKey = futuresMap[tvSym];
+        if (mappedFuturesKey) {
+            lookupKey = mappedFuturesKey;
+        } else {
+            // Fallback for futures if not found in map, try derived from tvSymbol
+            lookupKey = tvSym.includes(':') ? tvSym.split(':')[1] : instrumentName;
+        }
+    }
+
+
+    // 2) The fallback logic for prefix/substring matches is typically for raw price data.
+    // If historicalReturns is consistently keyed by instrument name or mapped futures keys,
+    // this fallback might not be strictly necessary, but keep for robustness if keys vary.
+    if (!(lookupKey in groupReturns)) {
+      let match = Object.keys(groupReturns).find(k => k.split('.')[0] === lookupKey);
+      if (!match) match = Object.keys(groupReturns).find(k => k.startsWith(lookupKey));
+      if (!match) match = Object.keys(groupReturns).find(k => k.includes(lookupKey));
       if (match) lookupKey = match;
     }
 
     // 3) compute correlations
-    const cor = getCorrelationListForCategory(lookupKey, groupPrices);
+    const cor = getCorrelationListForCategory(lookupKey, groupReturns); // Pass groupReturns
 
     if (!cor.length) {
       blk.innerHTML = `<p style="color:white;">No correlation data found for ${instrumentName}</p>`;
@@ -389,9 +417,10 @@ export function updateYouTubePlayer() {
  * Initializes global event handlers, specifically for sidebar instrument clicks.
  * This function now consolidates all instrument click logic (spreads vs. others).
  * @param {object} allGroupData - An object containing all full data groups (stocks, etfs, futures, fx, spreads).
- * @param {object} allPricesData - An object containing all price history data (stockPrices, etfPrices, etc.).
+ * @param {object} allPricesData - An object containing all raw price history data (stockPrices, etfPrices, etc.).
+ * @param {object} allReturnsData - An object containing all historical returns data (stockReturns, etfReturns, etc.).
  */
-export function initEventHandlers(allGroupData, allPricesData) {
+export function initEventHandlers(allGroupData, allPricesData, allReturnsData) {
   console.log('initEventHandlers called - adding general dashboard event listeners...');
 
   // Event listener for sidebar instrument items (consolidated logic)
@@ -416,25 +445,30 @@ export function initEventHandlers(allGroupData, allPricesData) {
         if (spreadBlock) spreadBlock.style.display = 'none';
 
         let groupData = null;
-        let pricesData = null;
+        let pricesData = null; // Raw prices
+        let returnsData = null; // Calculated returns
         let options = {}; // Options for updateBlock3
 
         // Identify which category the instrument belongs to
         if (allGroupData.STOCKS && key in allGroupData.STOCKS) {
           groupData = allGroupData.STOCKS;
           pricesData = allPricesData.stockPrices;
+          returnsData = allReturnsData.stockReturns; // Use stockReturns for correlation
           options = {}; // Default for stocks
         } else if (allGroupData.ETFS && key in allGroupData.ETFS) {
           groupData = allGroupData.ETFS;
           pricesData = allPricesData.etfPrices;
+          returnsData = allReturnsData.etfReturns; // Use etfReturns for correlation
           options = { isETF: true };
         } else if (allGroupData.FUTURES && key in allGroupData.FUTURES) {
           groupData = allGroupData.FUTURES;
           pricesData = allPricesData.futuresPrices;
+          returnsData = allReturnsData.futuresReturns; // Use futuresReturns for correlation
           options = { isFutures: true };
         } else if (allGroupData.FX && key in allGroupData.FX) {
           groupData = allGroupData.FX;
           pricesData = allPricesData.fxPrices;
+          returnsData = allReturnsData.fxReturns; // Use fxReturns for correlation
           options = { isFX: true };
         }
 
@@ -449,7 +483,7 @@ export function initEventHandlers(allGroupData, allPricesData) {
           updateChart(key, groupData);
           updateSymbolOverview(key, groupData);
           updateBlock3(key, groupData, options);
-          updateBlock4(key, groupData, pricesData);
+          updateBlock4(key, groupData, returnsData); // Pass returnsData to updateBlock4
         } else {
           console.warn(`No full data found for instrument: ${key} in any known category.`);
           // Optionally, display a user-friendly message on the dashboard here.
@@ -459,7 +493,4 @@ export function initEventHandlers(allGroupData, allPricesData) {
   });
 
   // You can add other general event listeners here (e.g., fullscreen, YouTube popup)
-  // For example, if updateFullscreenButton, openYouTubePopup, updateYouTubePlayer
-  // are meant to be triggered by buttons with specific IDs, their event listeners
-  // could be attached here or in a dedicated function called by initEventHandlers.
 }
