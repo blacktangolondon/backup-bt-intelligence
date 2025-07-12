@@ -15,7 +15,7 @@ import {
 } from "./dashboard.js";
 import { initPortfolioBuilder } from "./portfolioBuilder.js";
 import { initThematicPortfolio } from "./thematicPortfolio.js";
-import { showSpread } from "./spreadView.js";  // NEW: lightweight-charts renderer for SPREAD
+import { showSpread } from "./spreadView.js";  // <-- New import for spreads
 
 async function initializeTrendScore() {
   try {
@@ -93,7 +93,7 @@ async function initializeTrendScore() {
           const spreadBlock = document.getElementById('block5');
           if (spreadBlock) spreadBlock.style.display = 'block';
 
-          // render
+          // render the spread chart
           showSpread(key);
         }
       });
