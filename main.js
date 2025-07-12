@@ -11,11 +11,11 @@ import {
   updateBlock3,
   updateBlock4,
   initBlock3Tabs,
-  initEventHandlers
+  initEventHandlers // Now receives data parameters
 } from "./dashboard.js";
 import { initPortfolioBuilder } from "./portfolioBuilder.js";
 import { initThematicPortfolio } from "./thematicPortfolio.js";
-import { showSpread } from "./spreadView.js";  // <-- New import for spreads
+// No longer directly import showSpread here as dashboard.js will handle it
 
 async function initializeTrendScore() {
   try {
@@ -26,7 +26,6 @@ async function initializeTrendScore() {
     window.futuresFullData = jsonData.futuresFullData;
     window.fxFullData      = jsonData.fxFullData;
     // Ensure spreads data is also loaded globally, assuming loadJSONData provides it.
-    // If not, you might need to add a separate fetch('./spreads.json') here.
     window.spreadsFullData = jsonData.spreadsFullData; // <--- ASSUMPTION: jsonData now includes spreadsFullData
 
     // 2) Load price history from CSVs for Block 4
@@ -41,20 +40,27 @@ async function initializeTrendScore() {
     // ——— New: build historicalReturns for correlation ———
     window.historicalReturns = {};
     function computeReturns(priceArray) {
-      return priceArray.map((_, i, arr) => (i > 0 ? (arr[i] - arr[i - 1]) / arr[i - 1] : 0));
+      // Assuming priceArray elements are objects with a 'close' property
+      return priceArray.map((p, i, arr) =>
+        i === 0 ? 0 : (p.close / arr[i - 1].close) - 1
+      );
     }
 
     // Populate historicalReturns for all categories
-    for (const category in window.pricesData) {
-      if (window.pricesData.hasOwnProperty(category)) {
-        window.historicalReturns[category] = {};
-        for (const instrument in window.pricesData[category]) {
-          if (window.pricesData[category].hasOwnProperty(instrument)) {
-            window.historicalReturns[category][instrument] = computeReturns(window.pricesData[category][instrument]);
-          }
-        }
-      }
+    // Ensure pricesData structures are consistent (e.g., objects with 'close' for historical data)
+    for (const instrument in window.pricesData.stockPrices) {
+      window.historicalReturns[instrument] = computeReturns(window.pricesData.stockPrices[instrument]);
     }
+    for (const instrument in window.pricesData.etfPrices) {
+      window.historicalReturns[instrument] = computeReturns(window.pricesData.etfPrices[instrument]);
+    }
+    for (const instrument in window.pricesData.futuresPrices) {
+      window.historicalReturns[instrument] = computeReturns(window.pricesData.futuresPrices[instrument]);
+    }
+    for (const instrument in window.pricesData.fxPrices) {
+      window.historicalReturns[instrument] = computeReturns(window.pricesData.fxPrices[instrument]);
+    }
+
 
     // 3) Generate sidebar content
     await generateSidebarContent();
@@ -63,71 +69,24 @@ async function initializeTrendScore() {
     initBlock3Tabs();
 
     // 5) Initialize other global event handlers (e.g., fullscreen, YouTube popup)
-    initEventHandlers();
+    // Pass ALL necessary data for the click handlers to initEventHandlers
+    initEventHandlers(
+      { // groupData: collection of all full data objects
+        STOCKS:  window.stocksFullData,
+        ETFS:    window.etfFullData,
+        FUTURES: window.futuresFullData,
+        FX:      window.fxFullData,
+        SPREADS: window.spreadsFullData // Pass spreads data
+      },
+      { // pricesData: collection of all price history data objects
+        stockPrices:   window.pricesData.stockPrices,
+        etfPrices:     window.pricesData.etfPrices,
+        futuresPrices: window.pricesData.futuresPrices,
+        fxPrices:      window.pricesData.fxPrices
+      }
+    );
 
-    // 6) Add event listener to sidebar instrument items
-    document.querySelectorAll('.instrument-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const key = item.textContent.trim();
-
-        // Hide all blocks first to ensure a clean display
-        document.querySelectorAll('.content-block').forEach(blk => {
-          if (blk) blk.style.display = 'none';
-        });
-
-        // Determine if it's a spread or another instrument type
-        if (window.spreadsFullData && key in window.spreadsFullData) {
-          // If it's a spread, show only Block 5 (Spread Chart)
-          const spreadBlock = document.getElementById('block5');
-          if (spreadBlock) spreadBlock.style.display = 'block';
-          showSpread(key); // Call the spread chart rendering function
-        } else {
-          // It's a non-spread instrument (stock, ETF, future, FX)
-          // Ensure Block 5 (spread chart) is hidden
-          const spreadBlock = document.getElementById('block5');
-          if (spreadBlock) spreadBlock.style.display = 'none';
-
-          // Determine which data group the instrument belongs to
-          let groupData = null;
-          let pricesData = null;
-          let options = {}; // Options for updateBlock3
-
-          if (window.stocksFullData && key in window.stocksFullData) {
-            groupData = window.stocksFullData;
-            pricesData = window.pricesData.stockPrices;
-            options = {}; // Default for stocks
-          } else if (window.etfFullData && key in window.etfFullData) {
-            groupData = window.etfFullData;
-            pricesData = window.pricesData.etfPrices;
-            options = { isETF: true };
-          } else if (window.futuresFullData && key in window.futuresFullData) {
-            groupData = window.futuresFullData;
-            pricesData = window.pricesData.futuresPrices;
-            options = { isFutures: true };
-          } else if (window.fxFullData && key in window.fxFullData) {
-            groupData = window.fxFullData;
-            pricesData = window.pricesData.fxPrices;
-            options = { isFX: true };
-          }
-
-          if (groupData) {
-            // Show Blocks 1, 2, 3, 4 for the selected instrument
-            document.getElementById('block1').style.display = 'block';
-            document.getElementById('block2').style.display = 'block';
-            document.getElementById('block3').style.display = 'block';
-            document.getElementById('block4').style.display = 'block';
-
-            updateChart(key, groupData);
-            updateSymbolOverview(key, groupData);
-            updateBlock3(key, groupData, options);
-            updateBlock4(key, groupData, pricesData);
-          } else {
-            console.warn(`No full data found for instrument: ${key} in any known category.`);
-            // You might want to display a user-friendly message on the dashboard here.
-          }
-        }
-      });
-    });
+    // 6) REMOVED: The redundant "Add event listener to sidebar instrument items" block is now handled by initEventHandlers in dashboard.js
 
     // 7) Auto-select via URL parameter or default
     const params = new URLSearchParams(window.location.search);
@@ -136,7 +95,7 @@ async function initializeTrendScore() {
       const sidebarItem = [...document.querySelectorAll('.instrument-item')]
         .find(li => li.textContent.trim() === instParam);
       if (sidebarItem) {
-        sidebarItem.click();
+        sidebarItem.click(); // This will now trigger the consolidated handler in initEventHandlers
         return;
       }
     }
