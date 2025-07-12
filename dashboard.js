@@ -4,7 +4,7 @@
 
 import { renderBarChart, renderPieChart, destroyChartIfExists } from "./charts.js";
 import futuresMap from "./futuresMap.js";
-import { showSpread } from "./spreadView.js"; // <--- NEW: Import showSpread here
+import { showSpread } from "./spreadView.js";
 
 // Helper: parseGap value.
 export function parseGap(val) {
@@ -360,6 +360,10 @@ export function updateBlock4(instrumentName, groupData, groupReturns) {
     // which are directly the instrument names (e.g., "AMZN", "EURUSD").
     let lookupKey = instrumentName; // Use instrumentName directly as the key for historicalReturns
 
+    // Debugging line (add this if you want to see the lookupKey)
+    console.log(`Debug - Instrument: ${instrumentName}, Lookup Key: ${lookupKey}, Returns Data Exists in groupReturns: ${lookupKey in groupReturns}, Length of Returns Data for lookupKey: ${groupReturns[lookupKey] ? groupReturns[lookupKey].length : 'N/A'}`);
+
+
     // If there's a specific mapping or transformation for the key to match
     // the historicalReturns keys, apply it here.
     // For futures, futuresMap might still be relevant if historicalReturns keys
@@ -451,6 +455,7 @@ export function initEventHandlers(allGroupData, allPricesData, allReturnsData) {
       });
 
       // --- Determine if it's a spread or another instrument type ---
+      // Check allGroupData.SPREADS for existence and if the key is in it.
       if (allGroupData.SPREADS && key in allGroupData.SPREADS) {
         // It's a spread: show Block 5 and render spread chart
         const spreadBlock = document.getElementById('block5');
@@ -463,29 +468,25 @@ export function initEventHandlers(allGroupData, allPricesData, allReturnsData) {
 
         let groupData = null;
         let pricesData = null; // Raw prices
-        let returnsData = allReturnsData; // Now allReturnsData IS the flat map
+        let returnsData = allReturnsData; // allReturnsData IS the flat map from main.js
         let options = {}; // Options for updateBlock3
 
         // Identify which category the instrument belongs to
         if (allGroupData.STOCKS && key in allGroupData.STOCKS) {
           groupData = allGroupData.STOCKS;
           pricesData = allPricesData.stockPrices;
-          // returnsData is already assigned to allReturnsData (flat map)
           options = {}; // Default for stocks
         } else if (allGroupData.ETFS && key in allGroupData.ETFS) {
           groupData = allGroupData.ETFS;
           pricesData = allPricesData.etfPrices;
-          // returnsData is already assigned to allReturnsData (flat map)
           options = { isETF: true };
         } else if (allGroupData.FUTURES && key in allGroupData.FUTURES) {
           groupData = allGroupData.FUTURES;
           pricesData = allPricesData.futuresPrices;
-          // returnsData is already assigned to allReturnsData (flat map)
           options = { isFutures: true };
         } else if (allGroupData.FX && key in allGroupData.FX) {
           groupData = allGroupData.FX;
           pricesData = allPricesData.fxPrices;
-          // returnsData is already assigned to allReturnsData (flat map)
           options = { isFX: true };
         }
 
