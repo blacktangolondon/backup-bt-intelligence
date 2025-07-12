@@ -25,6 +25,9 @@ async function initializeTrendScore() {
     window.etfFullData     = jsonData.etfFullData;
     window.futuresFullData = jsonData.futuresFullData;
     window.fxFullData      = jsonData.fxFullData;
+    // Ensure spreads data is also loaded globally, assuming loadJSONData provides it.
+    // If not, you might need to add a separate fetch('./spreads.json') here.
+    window.spreadsFullData = jsonData.spreadsFullData; // <--- ASSUMPTION: jsonData now includes spreadsFullData
 
     // 2) Load price history from CSVs for Block 4
     const csvData = await loadCSVData();
@@ -38,63 +41,90 @@ async function initializeTrendScore() {
     // ——— New: build historicalReturns for correlation ———
     window.historicalReturns = {};
     function computeReturns(priceArray) {
-      return priceArray.map((p, i, arr) =>
-        i === 0 ? 0 : (p.close / arr[i - 1].close) - 1
-      );
-    }
-    for (const [sym, prices] of Object.entries(window.pricesData.stockPrices)) {
-      window.historicalReturns[sym] = computeReturns(prices);
-    }
-    for (const [sym, prices] of Object.entries(window.pricesData.etfPrices)) {
-      window.historicalReturns[sym] = computeReturns(prices);
-    }
-    for (const [sym, prices] of Object.entries(window.pricesData.futuresPrices)) {
-      window.historicalReturns[sym] = computeReturns(prices);
-    }
-    for (const [sym, prices] of Object.entries(window.pricesData.fxPrices)) {
-      window.historicalReturns[sym] = computeReturns(prices);
+      return priceArray.map((_, i, arr) => (i > 0 ? (arr[i] - arr[i - 1]) / arr[i - 1] : 0));
     }
 
-    // 3) Sidebar, Portfolio Builder & Thematic Portfolio
+    // Populate historicalReturns for all categories
+    for (const category in window.pricesData) {
+      if (window.pricesData.hasOwnProperty(category)) {
+        window.historicalReturns[category] = {};
+        for (const instrument in window.pricesData[category]) {
+          if (window.pricesData[category].hasOwnProperty(instrument)) {
+            window.historicalReturns[category][instrument] = computeReturns(window.pricesData[category][instrument]);
+          }
+        }
+      }
+    }
+
+    // 3) Generate sidebar content
     await generateSidebarContent();
-    initPortfolioBuilder();
-    initThematicPortfolio();
 
-    // 4) TrendScore (Block 3) tabs
+    // 4) Initialize Block 3 tabs
     initBlock3Tabs();
 
-    // 5) Global event handlers (sidebar clicks for stocks/etfs/etc, fullscreen, etc.)
-    initEventHandlers(
-      {
-        STOCKS:  window.stocksFullData,
-        ETFS:    window.etfFullData,
-        FUTURES: window.futuresFullData,
-        FX:      window.fxFullData
-      },
-      {
-        stockPrices:   window.pricesData.stockPrices,
-        etfPrices:     window.pricesData.etfPrices,
-        futuresPrices: window.pricesData.futuresPrices,
-        fxPrices:      window.pricesData.fxPrices
-      }
-    );
+    // 5) Initialize other global event handlers (e.g., fullscreen, YouTube popup)
+    initEventHandlers();
 
-    // 6) SPREAD clicks: hide blocks 1–4, show block5, and render chart
-    document.querySelectorAll('.instrument-item').forEach(el => {
-      el.addEventListener('click', () => {
-        const key = el.textContent.trim();
-        if (key.includes('/')) {
-          // hide Blocks 1–4
-          [1, 2, 3, 4].forEach(n => {
-            const blk = document.getElementById(`block${n}`);
-            if (blk) blk.style.display = 'none';
-          });
-          // show Spread block5
+    // 6) Add event listener to sidebar instrument items
+    document.querySelectorAll('.instrument-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const key = item.textContent.trim();
+
+        // Hide all blocks first to ensure a clean display
+        document.querySelectorAll('.content-block').forEach(blk => {
+          if (blk) blk.style.display = 'none';
+        });
+
+        // Determine if it's a spread or another instrument type
+        if (window.spreadsFullData && key in window.spreadsFullData) {
+          // If it's a spread, show only Block 5 (Spread Chart)
           const spreadBlock = document.getElementById('block5');
           if (spreadBlock) spreadBlock.style.display = 'block';
+          showSpread(key); // Call the spread chart rendering function
+        } else {
+          // It's a non-spread instrument (stock, ETF, future, FX)
+          // Ensure Block 5 (spread chart) is hidden
+          const spreadBlock = document.getElementById('block5');
+          if (spreadBlock) spreadBlock.style.display = 'none';
 
-          // render the spread chart
-          showSpread(key);
+          // Determine which data group the instrument belongs to
+          let groupData = null;
+          let pricesData = null;
+          let options = {}; // Options for updateBlock3
+
+          if (window.stocksFullData && key in window.stocksFullData) {
+            groupData = window.stocksFullData;
+            pricesData = window.pricesData.stockPrices;
+            options = {}; // Default for stocks
+          } else if (window.etfFullData && key in window.etfFullData) {
+            groupData = window.etfFullData;
+            pricesData = window.pricesData.etfPrices;
+            options = { isETF: true };
+          } else if (window.futuresFullData && key in window.futuresFullData) {
+            groupData = window.futuresFullData;
+            pricesData = window.pricesData.futuresPrices;
+            options = { isFutures: true };
+          } else if (window.fxFullData && key in window.fxFullData) {
+            groupData = window.fxFullData;
+            pricesData = window.pricesData.fxPrices;
+            options = { isFX: true };
+          }
+
+          if (groupData) {
+            // Show Blocks 1, 2, 3, 4 for the selected instrument
+            document.getElementById('block1').style.display = 'block';
+            document.getElementById('block2').style.display = 'block';
+            document.getElementById('block3').style.display = 'block';
+            document.getElementById('block4').style.display = 'block';
+
+            updateChart(key, groupData);
+            updateSymbolOverview(key, groupData);
+            updateBlock3(key, groupData, options);
+            updateBlock4(key, groupData, pricesData);
+          } else {
+            console.warn(`No full data found for instrument: ${key} in any known category.`);
+            // You might want to display a user-friendly message on the dashboard here.
+          }
         }
       });
     });
@@ -114,7 +144,7 @@ async function initializeTrendScore() {
     // 8) Default dashboard view (first stock)
     const defaultInstrument = Object.keys(window.stocksFullData)[0] || "AMZN";
     if (window.stocksFullData[defaultInstrument]) {
-      // ensure spreads block is hidden
+      // ensure spreads block is hidden on default view
       const spreadBlock = document.getElementById('block5');
       if (spreadBlock) spreadBlock.style.display = 'none';
 
@@ -132,4 +162,5 @@ async function initializeTrendScore() {
   }
 }
 
-initializeTrendScore();
+// Ensure the DOM is fully loaded before initializing
+document.addEventListener('DOMContentLoaded', initializeTrendScore);
