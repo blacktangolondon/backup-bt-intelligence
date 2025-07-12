@@ -1,5 +1,4 @@
 // spreadView.js
-import { createChart } from 'lightweight-charts';
 
 /**
  * Renders a Spread chart (ratio, lower & upper channels) into #spread-chart.
@@ -33,8 +32,8 @@ export async function showSpread(spreadKey) {
   const container = document.getElementById('spread-chart');
   container.innerHTML = '';
 
-  // 4) create new chart
-  const chart = createChart(container, {
+  // 4) create new chart using the global
+  const chart = window.LightweightCharts.createChart(container, {
     width: container.clientWidth,
     height: container.clientHeight,
     layout: {
