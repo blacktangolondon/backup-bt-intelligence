@@ -1,3 +1,4 @@
+// main.js
 /**
  * main.js
  * Entry point for PHASE1, now including SPREAD support.
@@ -11,11 +12,11 @@ import {
   updateBlock3,
   updateBlock4,
   initBlock3Tabs,
-  initEventHandlers // Now receives data parameters
+  initEventHandlers
 } from "./dashboard.js";
 import { initPortfolioBuilder } from "./portfolioBuilder.js";
 import { initThematicPortfolio } from "./thematicPortfolio.js";
-// No longer directly import showSpread here as dashboard.js will handle it
+// No longer directly import showSpread here as dashboard.js will handle it (via a unified event handler)
 
 async function initializeTrendScore() {
   try {
@@ -25,17 +26,16 @@ async function initializeTrendScore() {
     window.etfFullData     = jsonData.etfFullData;
     window.futuresFullData = jsonData.futuresFullData;
     window.fxFullData      = jsonData.fxFullData;
-    // Ensure spreads data is also loaded globally, assuming loadJSONData provides it.
-    // If jsonLoader.js doesn't fetch spreads.json, do it separately here.
+
+    // --- CRITICAL FIX: Load spreadsFullData explicitly ---
     try {
       const resp = await fetch('./spreads.json');
       window.spreadsFullData = resp.ok ? await resp.json() : {};
-      console.log('Loaded spreadsFullData:', window.spreadsFullData); // Verify spreads data
+      console.log('Loaded spreadsFullData:', window.spreadsFullData);
     } catch (e) {
       console.error('Failed to load spreads.json:', e);
       window.spreadsFullData = {};
     }
-
 
     // 2) Load price history from CSVs for Block 4
     const csvData = await loadCSVData();
@@ -46,37 +46,44 @@ async function initializeTrendScore() {
       fxPrices:      csvData.fxPrices
     };
 
+    // --- DEBUG: Verify pricesData is populated ---
+    console.log('window.pricesData after CSV load:', window.pricesData);
+    if (Object.keys(window.pricesData.stockPrices).length === 0) {
+        console.warn('No stock prices loaded. Check stock_prices.csv.');
+    }
+
+
     // ——— New: build historicalReturns for correlation ———
     window.historicalReturns = {};
     function computeReturns(priceArray) {
-      // Assuming priceArray elements are objects with a 'close' property
+      // Ensure priceArray has enough elements for returns calculation
+      if (!Array.isArray(priceArray) || priceArray.length < 2) {
+          return []; // Not enough data for returns
+      }
       return priceArray.map((p, i, arr) =>
         i === 0 ? 0 : (p.close / arr[i - 1].close) - 1
       );
     }
 
-    // Populate historicalReturns for all categories
-    // Ensure pricesData structures are consistent (e.g., objects with 'close' for historical data)
-    for (const instrument in window.pricesData.stockPrices) {
-      if (window.pricesData.stockPrices.hasOwnProperty(instrument)) {
-        window.historicalReturns[instrument] = computeReturns(window.pricesData.stockPrices[instrument]);
-      }
+    for (const [sym, prices] of Object.entries(window.pricesData.stockPrices)) {
+      window.historicalReturns[sym] = computeReturns(prices);
     }
-    for (const instrument in window.pricesData.etfPrices) {
-      if (window.pricesData.etfPrices.hasOwnProperty(instrument)) {
-        window.historicalReturns[instrument] = computeReturns(window.pricesData.etfPrices[instrument]);
-      }
+    for (const [sym, prices] of Object.entries(window.pricesData.etfPrices)) {
+      window.historicalReturns[sym] = computeReturns(prices);
     }
-    for (const instrument in window.pricesData.futuresPrices) {
-      if (window.pricesData.futuresPrices.hasOwnProperty(instrument)) {
-        window.historicalReturns[instrument] = computeReturns(window.pricesData.futuresPrices[instrument]);
-      }
+    for (const [sym, prices] of Object.entries(window.pricesData.futuresPrices)) {
+      window.historicalReturns[sym] = computeReturns(prices);
     }
-    for (const instrument in window.pricesData.fxPrices) {
-      if (window.pricesData.fxPrices.hasOwnProperty(instrument)) {
-        window.historicalReturns[instrument] = computeReturns(window.pricesData.fxPrices[instrument]);
-      }
+    for (const [sym, prices] of Object.entries(window.pricesData.fxPrices)) {
+      window.historicalReturns[sym] = computeReturns(prices);
     }
+
+    // --- DEBUG: Verify historicalReturns is populated ---
+    console.log('window.historicalReturns after computation:', window.historicalReturns);
+    if (Object.keys(window.historicalReturns).length === 0) {
+        console.error('window.historicalReturns is empty. Correlation will not work.');
+    }
+
 
     // 3) Generate sidebar content
     await generateSidebarContent();
@@ -84,27 +91,27 @@ async function initializeTrendScore() {
     // 4) Initialize Block 3 tabs
     initBlock3Tabs();
 
-    // 5) Initialize other global event handlers (e.g., fullscreen, YouTube popup)
-    // Pass ALL necessary data for the click handlers to initEventHandlers
+    // 5) Global event handlers (sidebar clicks for stocks/etfs/etc, fullscreen, etc.)
+    // --- CRITICAL FIX: Pass window.historicalReturns as the third argument ---
     initEventHandlers(
-      { // groupData: collection of all full data objects
+      { // allGroupData
         STOCKS:  window.stocksFullData,
         ETFS:    window.etfFullData,
         FUTURES: window.futuresFullData,
         FX:      window.fxFullData,
-        SPREADS: window.spreadsFullData // Pass spreads data
+        SPREADS: window.spreadsFullData // Pass spreads data correctly
       },
-      { // pricesData: collection of all price history data objects
+      { // allPricesData
         stockPrices:   window.pricesData.stockPrices,
         etfPrices:     window.pricesData.etfPrices,
         futuresPrices: window.pricesData.futuresPrices,
         fxPrices:      window.pricesData.fxPrices
       },
-      // Pass the flat returns-map directly as the third argument
-      window.historicalReturns
+      window.historicalReturns // Pass the flat historicalReturns map directly
     );
 
-    // 6) REMOVED: The redundant "Add event listener to sidebar instrument items" block is now handled by initEventHandlers in dashboard.js
+    // 6) REMOVED: The redundant "Add event listener to sidebar instrument items" block for spreads
+    // This logic is now unified within initEventHandlers in dashboard.js
 
     // 7) Auto-select via URL parameter or default
     const params = new URLSearchParams(window.location.search);
@@ -113,7 +120,7 @@ async function initializeTrendScore() {
       const sidebarItem = [...document.querySelectorAll('.instrument-item')]
         .find(li => li.textContent.trim() === instParam);
       if (sidebarItem) {
-        sidebarItem.click(); // This will now trigger the consolidated handler in initEventHandlers
+        sidebarItem.click();
         return;
       }
     }
@@ -121,18 +128,18 @@ async function initializeTrendScore() {
     // 8) Default dashboard view (first stock)
     const defaultInstrument = Object.keys(window.stocksFullData)[0] || "AMZN";
     if (window.stocksFullData[defaultInstrument]) {
-      // ensure spreads block is hidden on default view
+      // ensure spreads block is hidden
       const spreadBlock = document.getElementById('block5');
       if (spreadBlock) spreadBlock.style.display = 'none';
 
       updateChart(defaultInstrument, window.stocksFullData);
       updateSymbolOverview(defaultInstrument, window.stocksFullData);
       updateBlock3(defaultInstrument, window.stocksFullData);
-      // Pass the same flat historicalReturns object to updateBlock4
+      // --- CRITICAL FIX: Pass window.historicalReturns here too ---
       updateBlock4(
         defaultInstrument,
         window.stocksFullData,
-        window.historicalReturns
+        window.historicalReturns // Use historicalReturns, not pricesData.stockPrices
       );
     }
   } catch (error) {
