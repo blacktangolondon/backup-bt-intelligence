@@ -126,10 +126,10 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 }
 
 /* Wrap Block1 for full screen button */
-#block1-wrapper { 
-  position: relative; 
-  width: 100%; 
-  height: 100%; 
+#block1-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 /* Dashboard Blocks */
@@ -254,9 +254,10 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 
 /* --- SPREAD Chart Block --- */
 #block5 {
-  grid-column: 1 / -1;
-  width: 100%;
-  height: calc(((80vw - 20px) * 9) / 32);
+  grid-column: 1 / -1;      /* span full width */
+  grid-row:    1 / -1;      /* span both rows */
+  width:       100%;        /* full within that area */
+  height:      100%;        /* full within that area */
   background-color: #000000;
   border: 1px solid #444444;
 }
@@ -437,14 +438,6 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   background-color: #000000;
 }
 .thematic-portfolio-table th,
-.thematic-portfolio-table td {
-  padding: 14px;
-  text-align: center;
-  border: 1px solid #112233;
-  color: white;
-  font-size: 14px;
-}
-.thematic-portfolio-table	th,
 .thematic-portfolio-table td {
   padding: 14px;
   text-align: center;
