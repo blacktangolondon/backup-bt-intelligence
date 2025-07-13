@@ -55,6 +55,7 @@ export async function showSpread(spreadKey) {
       borderColor: 'rgba(255,255,255,0.2)',
     },
     rightPriceScale: {
+      visible: false,
       borderColor: 'rgba(255,255,255,0.2)',
     },
     leftPriceScale: {
