@@ -55,11 +55,11 @@ export async function showSpread(spreadKey) {
       borderColor: 'rgba(255,255,255,0.2)',
     },
     rightPriceScale: {
-      visible: false,
+      visible: false,                     // hide right Y-axis
       borderColor: 'rgba(255,255,255,0.2)',
     },
     leftPriceScale: {
-      visible: false,
+      visible: false,                     // hide left Y-axis
     },
     crosshair: {
       mode: LightweightCharts.CrosshairMode.Normal,
