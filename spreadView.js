@@ -1,6 +1,6 @@
 // spreadView.js
 // Renders a Spread chart (ratio, lower & upper channels) into #spread-chart
-// using the global LightweightCharts object loaded via the standalone script.
+// using the global LightweightCharts standalone IIFE build.
 
 /**
  * Fetches spreads.json and draws the selected spread.
@@ -38,13 +38,13 @@ export async function showSpread(spreadKey) {
   }
   container.innerHTML = ''; // Clear previous chart if any
 
-  // 4) Create the chart using the global LightweightCharts object directly
-  const chart = LightweightCharts.createChart(container, {
+  // 4) Create the chart using the global LightweightCharts object
+  const chart = window.LightweightCharts.createChart(container, {
     width: container.clientWidth,
     height: container.clientHeight,
     layout: {
-      backgroundColor: 'rgb(19, 23, 34)',
-      textColor:       'rgba(255, 152, 0, 1)',
+      background: { type: 'solid', color: 'rgb(19, 23, 34)' },
+      textColor: 'rgba(255, 152, 0, 1)',
     },
     grid: {
       vertLines: { color: 'rgba(255,255,255,0.1)' },
@@ -65,7 +65,7 @@ export async function showSpread(spreadKey) {
     },
   });
 
-  // apply a watermark to indicate the spread
+  // apply a watermark to indicate the spread (optional)
   chart.applyOptions({
     watermark: {
       visible: true,
@@ -77,24 +77,33 @@ export async function showSpread(spreadKey) {
     },
   });
 
-  // 5) Add three line series
-  const ratioLine = chart.addLineSeries({
-    color: 'rgba(255, 152, 0, 1)',
-    lineWidth: 2,
-    title: 'Spread Ratio',
-  });
-  const lowerLine = chart.addLineSeries({
-    color: 'rgba(0, 150, 136, 0.7)',
-    lineWidth: 1,
-    lineStyle: LightweightCharts.LineStyle.Dotted,
-    title: 'Lower Channel',
-  });
-  const upperLine = chart.addLineSeries({
-    color: 'rgba(255, 82, 82, 0.7)',
-    lineWidth: 1,
-    lineStyle: LightweightCharts.LineStyle.Dotted,
-    title: 'Upper Channel',
-  });
+  // 5) Add three line series using the v5 IIFE API
+  const ratioLine = chart.addSeries(
+    window.LightweightCharts.LineSeries,
+    {
+      color: 'rgba(255, 152, 0, 1)', // Orange for the main ratio line
+      lineWidth: 2,
+      title: 'Spread Ratio',
+    }
+  );
+  const lowerLine = chart.addSeries(
+    window.LightweightCharts.LineSeries,
+    {
+      color: 'rgba(0, 150, 136, 0.7)', // Green for lower channel
+      lineWidth: 1,
+      lineStyle: LightweightCharts.LineStyle.Dotted, // Dotted style
+      title: 'Lower Channel',
+    }
+  );
+  const upperLine = chart.addSeries(
+    window.LightweightCharts.LineSeries,
+    {
+      color: 'rgba(255, 82, 82, 0.7)', // Red for upper channel
+      lineWidth: 1,
+      lineStyle: LightweightCharts.LineStyle.Dotted, // Dotted style
+      title: 'Upper Channel',
+    }
+  );
 
   // 6) Set the data for each series
   ratioLine.setData(ratioSeries);
@@ -106,7 +115,7 @@ export async function showSpread(spreadKey) {
 
   // 8) Observe resizes for responsiveness
   const resizeObserver = new ResizeObserver(entries => {
-    if (entries.length === 0 || entries[0].target.id !== 'spread-chart') {
+    if (!entries.length || entries[0].target.id !== 'spread-chart') {
       return;
     }
     const { width, height } = entries[0].contentRect;
