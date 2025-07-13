@@ -25,9 +25,6 @@ export async function showSpread(spreadKey) {
   const lowerSeries = [];
   const upperSeries = [];
   rawData.forEach((entry, idx) => {
-    // Assuming entry is [ratio, lowerChannel, upperChannel]
-    // Use an appropriate time value, e.g., index or a proper timestamp if available in your data
-    // For now, using index (idx) as time. If your data has actual dates/timestamps, use those.
     ratioSeries.push({ time: idx, value: entry[0] });
     lowerSeries.push({ time: idx, value: entry[1] });
     upperSeries.push({ time: idx, value: entry[2] });
@@ -41,8 +38,8 @@ export async function showSpread(spreadKey) {
   }
   container.innerHTML = ''; // Clear previous chart if any
 
-  // 4) Create the chart using the global LightweightCharts object
-  const chart = window.LightweightCharts.createChart(container, {
+  // 4) Create the chart using the global LightweightCharts object directly
+  const chart = LightweightCharts.createChart(container, {
     width: container.clientWidth,
     height: container.clientHeight,
     layout: {
@@ -82,20 +79,20 @@ export async function showSpread(spreadKey) {
 
   // 5) Add three line series
   const ratioLine = chart.addLineSeries({
-    color: 'rgba(255, 152, 0, 1)', // Orange for the main ratio line
+    color: 'rgba(255, 152, 0, 1)',
     lineWidth: 2,
     title: 'Spread Ratio',
   });
   const lowerLine = chart.addLineSeries({
-    color: 'rgba(0, 150, 136, 0.7)', // Green for lower channel
+    color: 'rgba(0, 150, 136, 0.7)',
     lineWidth: 1,
-    lineStyle: LightweightCharts.LineStyle.Dotted, // Dotted style
+    lineStyle: LightweightCharts.LineStyle.Dotted,
     title: 'Lower Channel',
   });
   const upperLine = chart.addLineSeries({
-    color: 'rgba(255, 82, 82, 0.7)', // Red for upper channel
+    color: 'rgba(255, 82, 82, 0.7)',
     lineWidth: 1,
-    lineStyle: LightweightCharts.LineStyle.Dotted, // Dotted style
+    lineStyle: LightweightCharts.LineStyle.Dotted,
     title: 'Upper Channel',
   });
 
