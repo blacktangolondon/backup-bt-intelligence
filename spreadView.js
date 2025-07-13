@@ -42,74 +42,61 @@ export async function showSpread(spreadKey) {
   container.innerHTML = ''; // Clear previous chart if any
 
   // 4) Create the chart using the global LightweightCharts object
-  const chart = window.LightweightCharts.createChart(container, { // CRITICAL FIX: Use window.LightweightCharts
+  const chart = window.LightweightCharts.createChart(container, {
     width: container.clientWidth,
     height: container.clientHeight,
     layout: {
-      background: { type: 'solid', color: 'rgb(19, 23, 34)' }, // Darker background to match dashboard
-      textColor: 'rgba(255, 152, 0, 1)', // Orange text for visibility
+      backgroundColor: 'rgb(19, 23, 34)',
+      textColor:       'rgba(255, 152, 0, 1)',
     },
     grid: {
-      vertLines:   { color: 'rgba(255, 255, 255, 0.1)' }, // Lighter grid lines for dark background
-      horzLines:   { color: 'rgba(255, 255, 255, 0.1)' },
+      vertLines: { color: 'rgba(255,255,255,0.1)' },
+      horzLines: { color: 'rgba(255,255,255,0.1)' },
     },
     timeScale: {
       timeVisible: true,
-      borderColor: 'rgba(255, 255, 255, 0.2)',
-      // alignLabels: true, // Optional: Align labels for better readability
+      borderColor: 'rgba(255,255,255,0.2)',
     },
     rightPriceScale: {
-        borderColor: 'rgba(255, 255, 255, 0.2)',
+      borderColor: 'rgba(255,255,255,0.2)',
     },
     leftPriceScale: {
-        visible: false, // Usually not needed for a single spread chart
+      visible: false,
     },
     crosshair: {
-        mode: LightweightCharts.CrosshairMode.Normal,
-    },
-    // Watermark to indicate the spread (optional)
-    watermark: {
-        visible: true,
-        fontSize: 24,
-        horzAlign: 'left',
-        vertAlign: 'top',
-        color: 'rgba(255, 152, 0, 0.2)',
-        text: `Spread: ${spreadKey}`,
+      mode: LightweightCharts.CrosshairMode.Normal,
     },
   });
 
-  // Optional: Add a legend if needed
-  // chart.applyOptions({
-  //   paneProperties: {
-  //     legend: {
-  //       visible: true,
-  //       position: 'top-left',
-  //       fontSize: 12,
-  //       fontFamily: 'Arial',
-  //     },
-  //   },
-  // });
-
+  // apply a watermark to indicate the spread
+  chart.applyOptions({
+    watermark: {
+      visible: true,
+      fontSize: 24,
+      horzAlign: 'left',
+      vertAlign: 'top',
+      color: 'rgba(255,152,0,0.2)',
+      text: `Spread: ${spreadKey}`,
+    },
+  });
 
   // 5) Add three line series
   const ratioLine = chart.addLineSeries({
-      color: 'rgba(255, 152, 0, 1)', // Orange for the main ratio line
-      lineWidth: 2,
-      title: 'Spread Ratio',
-      // priceLineVisible: true, // Show a horizontal line for the last price
-      // lastValueVisible: true, // Show the last value on the price scale
+    color: 'rgba(255, 152, 0, 1)', // Orange for the main ratio line
+    lineWidth: 2,
+    title: 'Spread Ratio',
   });
   const lowerLine = chart.addLineSeries({
-      color: 'rgba(0, 150, 136, 0.7)', // Green for lower channel
-      lineWidth: 1,
-      lineStyle: LightweightCharts.LineStyle.Dotted, // Dotted style
-      title: 'Lower Channel',
+    color: 'rgba(0, 150, 136, 0.7)', // Green for lower channel
+    lineWidth: 1,
+    lineStyle: LightweightCharts.LineStyle.Dotted, // Dotted style
+    title: 'Lower Channel',
   });
   const upperLine = chart.addLineSeries({
-      color: 'rgba(255, 82, 82, 0.7)', // Red for upper channel
-      lineWidth: 1,
-      lineStyle: LightweightCharts.LineStyle.Dotted, // Dotted style
-      title: 'Upper Channel',
+    color: 'rgba(255, 82, 82, 0.7)', // Red for upper channel
+    lineWidth: 1,
+    lineStyle: LightweightCharts.LineStyle.Dotted, // Dotted style
+    title: 'Upper Channel',
   });
 
   // 6) Set the data for each series
@@ -120,7 +107,7 @@ export async function showSpread(spreadKey) {
   // 7) Fit the time scale so all points are visible
   chart.timeScale().fitContent();
 
-  // Resize observer for responsiveness (already in place in your previous code logic)
+  // 8) Observe resizes for responsiveness
   const resizeObserver = new ResizeObserver(entries => {
     if (entries.length === 0 || entries[0].target.id !== 'spread-chart') {
       return;
@@ -129,8 +116,4 @@ export async function showSpread(spreadKey) {
     chart.resize(width, height);
   });
   resizeObserver.observe(container);
-
-  // Clean up observer when the chart is no longer needed (e.g., when block5 is hidden)
-  // This part would typically be handled by a cleanup function if charts are frequently created/destroyed.
-  // For now, it will simply observe the container.
 }
