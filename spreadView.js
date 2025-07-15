@@ -56,7 +56,7 @@ export async function showSpread(spreadKey) {
     width: container.clientWidth,
     height: container.clientHeight,
     layout: {
-      background: { type: 'solid', color: 'rgb(19, 23, 34)' },
+      background: { type: 'solid', color: 'black' },
       textColor: 'rgba(255, 152, 0, 1)',
     },
     grid: {
