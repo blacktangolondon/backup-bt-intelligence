@@ -14,15 +14,36 @@ export async function showSpread(spreadKey) {
     return;
   }
   const spreads = await resp.json();
-
-  // 2) Get the data for selected spread
-  const seriesData = spreads[spreadKey];
-  if (!seriesData) {
-    console.error(`Spread ${spreadKey} not found in JSON`);
+  const rawData = spreads[spreadKey];
+  if (!rawData) {
+    console.error(`No data for spread ${spreadKey}`);
     return;
   }
 
-  // 3) Clear previous chart
+  // 2) Transform into five series arrays:
+  //    [ date, ratio, lower1, lower2, upper1, upper2 ]
+  const ratioSeries  = [];
+  const lower1Series = [];
+  const lower2Series = [];
+  const upper1Series = [];
+  const upper2Series = [];
+
+  rawData.forEach(entry => {
+    const date   = entry[0]; // "YYYY-MM-DD"
+    const ratio  = entry[1];
+    const l1     = entry[2];
+    const l2     = entry[3];
+    const u1     = entry[4];
+    const u2     = entry[5];
+
+    ratioSeries.push ({ time: date, value: ratio  });
+    lower1Series.push({ time: date, value: l1     });
+    lower2Series.push({ time: date, value: l2     });
+    upper1Series.push({ time: date, value: u1     });
+    upper2Series.push({ time: date, value: u2     });
+  });
+
+  // 3) Get the container and clear it
   const container = document.getElementById('spread-chart');
   if (!container) {
     console.error('#spread-chart container not found');
@@ -30,52 +51,107 @@ export async function showSpread(spreadKey) {
   }
   container.innerHTML = '';
 
-  // 4) Create the chart
+  // 4) Create the chart using the global LightweightCharts object
   const chart = window.LightweightCharts.createChart(container, {
     width: container.clientWidth,
     height: container.clientHeight,
-    layout: { backgroundColor: '#ffffff', textColor: '#000000' },
-    grid: { vertLines: { visible: false }, horzLines: { visible: true } },
-    rightPriceScale: { scaleMargins: { top: 0.1, bottom: 0.1 } },
-    timeScale: { timeVisible: true, secondsVisible: false },
+    layout: {
+      background: { type: 'solid', color: 'rgb(19, 23, 34)' },
+      textColor: 'rgba(255, 152, 0, 1)',
+    },
+    grid: {
+      vertLines: { color: 'rgba(255,255,255,0.1)' },
+      horzLines: { color: 'rgba(255,255,255,0.1)' },
+    },
+    timeScale: {
+      timeVisible: true,
+      borderColor: 'rgba(255,255,255,0.2)',
+    },
+    rightPriceScale: {
+      borderColor: 'rgba(255,255,255,0.2)',
+    },
+    leftPriceScale: {
+      visible: true,
+    },
+    crosshair: {
+      mode: window.LightweightCharts.CrosshairMode.Normal,
+    },
   });
 
-  // 5) Watermark for context
+  // 5) Optional watermark
   chart.applyOptions({
     watermark: {
       visible: true,
       fontSize: 24,
       horzAlign: 'left',
       vertAlign: 'top',
-      color: 'rgba(0,0,0,0.1)',
+      color: 'rgba(255,152,0,0.2)',
       text: `Spread: ${spreadKey}`,
     },
   });
 
-  // 6) Prepare series arrays for all 5 lines
-  const ratioSeries = seriesData.map(d => ({ time: d[0], value: d[1] }));
-  const lower1Series = seriesData.map(d => ({ time: d[0], value: d[2] }));
-  const lower2Series = seriesData.map(d => ({ time: d[0], value: d[3] }));
-  const upper1Series = seriesData.map(d => ({ time: d[0], value: d[4] }));
-  const upper2Series = seriesData.map(d => ({ time: d[0], value: d[5] }));
+  // 6) Add five line series; make channel lines thicker and disable their last-price lines
+  const ratioLine = chart.addSeries(
+    window.LightweightCharts.LineSeries,
+    {
+      color: 'rgba(255, 152, 0, 1)',
+      lineWidth: 2,
+      title: 'Ratio',
+    }
+  );
+  const lower1Line = chart.addSeries(
+    window.LightweightCharts.LineSeries,
+    {
+      color: 'rgba(0, 150, 136, 0.7)',
+      lineWidth: 2,
+      lineStyle: window.LightweightCharts.LineStyle.Dotted,
+      lastValueVisible: false,
+      priceLineVisible: false,
+      title: 'Lower 1σ',
+    }
+  );
+  const lower2Line = chart.addSeries(
+    window.LightweightCharts.LineSeries,
+    {
+      color: 'rgba(0, 150, 136, 0.4)',
+      lineWidth: 2,
+      lineStyle: window.LightweightCharts.LineStyle.Dotted,
+      lastValueVisible: false,
+      priceLineVisible: false,
+      title: 'Lower 2σ',
+    }
+  );
+  const upper1Line = chart.addSeries(
+    window.LightweightCharts.LineSeries,
+    {
+      color: 'rgba(255, 82, 82, 0.7)',
+      lineWidth: 2,
+      lineStyle: window.LightweightCharts.LineStyle.Dotted,
+      lastValueVisible: false,
+      priceLineVisible: false,
+      title: 'Upper 1σ',
+    }
+  );
+  const upper2Line = chart.addSeries(
+    window.LightweightCharts.LineSeries,
+    {
+      color: 'rgba(255, 82, 82, 0.4)',
+      lineWidth: 2,
+      lineStyle: window.LightweightCharts.LineStyle.Dotted,
+      lastValueVisible: false,
+      priceLineVisible: false,
+      title: 'Upper 2σ',
+    }
+  );
 
-  // 7) Add five line series to the chart
-  const ratioLine = chart.addLineSeries({ title: 'Ratio', lineWidth: 2 });
+  // 7) Set the data for each series
   ratioLine.setData(ratioSeries);
-
-  const lower1Line = chart.addLineSeries({ title: 'Lower σ', lineWidth: 1 });
   lower1Line.setData(lower1Series);
-
-  const lower2Line = chart.addLineSeries({ title: 'Lower 2σ', lineWidth: 1 });
   lower2Line.setData(lower2Series);
-
-  const upper1Line = chart.addLineSeries({ title: 'Upper σ', lineWidth: 1 });
   upper1Line.setData(upper1Series);
-
-  const upper2Line = chart.addLineSeries({ title: 'Upper 2σ', lineWidth: 1 });
   upper2Line.setData(upper2Series);
 
-  // 8) Fit the time scale and handle resizing
+  // 8) Fit the time scale and observe resizes
   chart.timeScale().fitContent();
   new ResizeObserver(entries => {
     if (!entries.length || entries[0].target.id !== 'spread-chart') return;
