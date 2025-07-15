@@ -29,12 +29,18 @@ export async function showSpread(spreadKey) {
   const upper2Series = [];
 
   rawData.forEach(entry => {
-    const [date, ratio, l1, l2, u1, u2] = entry;
-    ratioSeries .push({ time: date, value: ratio });
-    lower1Series.push({ time: date, value: l1    });
-    lower2Series.push({ time: date, value: l2    });
-    upper1Series.push({ time: date, value: u1    });
-    upper2Series.push({ time: date, value: u2    });
+    const date   = entry[0]; // "YYYY-MM-DD"
+    const ratio  = entry[1];
+    const l1     = entry[2];
+    const l2     = entry[3];
+    const u1     = entry[4];
+    const u2     = entry[5];
+
+    ratioSeries.push ({ time: date, value: ratio  });
+    lower1Series.push({ time: date, value: l1     });
+    lower2Series.push({ time: date, value: l2     });
+    upper1Series.push({ time: date, value: u1     });
+    upper2Series.push({ time: date, value: u2     });
   });
 
   // 3) Get the container and clear it
@@ -45,7 +51,7 @@ export async function showSpread(spreadKey) {
   }
   container.innerHTML = '';
 
-  // 4) Create the chart
+  // 4) Create the chart using the global LightweightCharts object
   const chart = window.LightweightCharts.createChart(container, {
     width: container.clientWidth,
     height: container.clientHeight,
@@ -61,12 +67,18 @@ export async function showSpread(spreadKey) {
       timeVisible: true,
       borderColor: 'rgba(255,255,255,0.2)',
     },
-    rightPriceScale: { borderColor: 'rgba(255,255,255,0.2)' },
-    leftPriceScale: { visible: true },
-    crosshair: { mode: window.LightweightCharts.CrosshairMode.Normal },
+    rightPriceScale: {
+      borderColor: 'rgba(255,255,255,0.2)',
+    },
+    leftPriceScale: {
+      visible: true,
+    },
+    crosshair: {
+      mode: window.LightweightCharts.CrosshairMode.Normal,
+    },
   });
 
-  // 5) Watermark
+  // 5) Optional watermark
   chart.applyOptions({
     watermark: {
       visible: true,
@@ -78,46 +90,19 @@ export async function showSpread(spreadKey) {
     },
   });
 
-  // 6) Add baseline series for shading
-  const upperFill = chart.addBaselineSeries({
-    baseLineVisible: false,
-    topLineColor:    'rgba(0,0,0,0)',
-    bottomLineColor: 'rgba(0,0,0,0)',
-    topFillColor1:   'rgba(255,82,82,0.2)',
-    topFillColor2:   'rgba(255,82,82,0.2)',
-    bottomFillColor1:'rgba(0,0,0,0)',
-    bottomFillColor2:'rgba(0,0,0,0)',
-  });
-  const lowerFill = chart.addBaselineSeries({
-    baseLineVisible: false,
-    topLineColor:    'rgba(0,0,0,0)',
-    bottomLineColor: 'rgba(0,0,0,0)',
-    topFillColor1:   'rgba(0,150,136,0.2)',
-    topFillColor2:   'rgba(0,150,136,0.2)',
-    bottomFillColor1:'rgba(0,0,0,0)',
-    bottomFillColor2:'rgba(0,0,0,0)',
-  });
-
-  upperFill.setData(rawData.map(([date,,,,u2], i) => ({
-    time: date,
-    value: u2,
-    baseValue: rawData[i][4]
-  })));
-  lowerFill.setData(rawData.map(([date,_,l1,l2]) => ({
-    time: date,
-    value: l1,
-    baseValue: l2
-  })));
-
-  // 7) Add five line series (channel lines thicker, no last-price lines on channels)
+  // 6) Add five line series; make channel lines thicker and disable their last-price lines
   const ratioLine = chart.addSeries(
     window.LightweightCharts.LineSeries,
-    { color: 'rgba(255,152,0,1)', lineWidth: 2, title: 'Ratio' }
+    {
+      color: 'rgba(255, 152, 0, 1)',
+      lineWidth: 2,
+      title: 'Ratio',
+    }
   );
   const lower1Line = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
-      color: 'rgba(0,150,136,0.7)',
+      color: 'rgba(0, 150, 136, 0.7)',
       lineWidth: 2,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
@@ -128,7 +113,7 @@ export async function showSpread(spreadKey) {
   const lower2Line = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
-      color: 'rgba(0,150,136,0.4)',
+      color: 'rgba(0, 150, 136, 0.4)',
       lineWidth: 2,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
@@ -139,7 +124,7 @@ export async function showSpread(spreadKey) {
   const upper1Line = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
-      color: 'rgba(255,82,82,0.7)',
+      color: 'rgba(255, 82, 82, 0.7)',
       lineWidth: 2,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
@@ -150,7 +135,7 @@ export async function showSpread(spreadKey) {
   const upper2Line = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
-      color: 'rgba(255,82,82,0.4)',
+      color: 'rgba(255, 82, 82, 0.4)',
       lineWidth: 2,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
@@ -159,14 +144,14 @@ export async function showSpread(spreadKey) {
     }
   );
 
-  // 8) Set the data for each series
-  ratioLine .setData(ratioSeries);
+  // 7) Set the data for each series
+  ratioLine.setData(ratioSeries);
   lower1Line.setData(lower1Series);
   lower2Line.setData(lower2Series);
   upper1Line.setData(upper1Series);
   upper2Line.setData(upper2Series);
 
-  // 9) Fit content & observe resizes
+  // 8) Fit the time scale and observe resizes
   chart.timeScale().fitContent();
   new ResizeObserver(entries => {
     if (!entries.length || entries[0].target.id !== 'spread-chart') return;
