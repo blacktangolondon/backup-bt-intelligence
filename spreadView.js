@@ -56,7 +56,7 @@ export async function showSpread(spreadKey) {
     width: container.clientWidth,
     height: container.clientHeight,
     layout: {
-      background: { type: 'solid', color: 'black' },
+      background: { type: 'solid', color: 'rgb(19, 23, 34)' },
       textColor: 'rgba(255, 152, 0, 1)',
     },
     grid: {
@@ -90,57 +90,63 @@ export async function showSpread(spreadKey) {
     },
   });
 
-  // 6) Add five line series; make channel lines much thicker (6px) and disable their last-price lines
+  // 6) Add five line series
+  //    - Ratio on right scale, renamed to "Spread Ratio"
+  //    - Channels on left scale, much thicker, no price lines
   const ratioLine = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(255, 152, 0, 1)',
       lineWidth: 2,
-      title: 'Ratio',
+      title: 'Spread Ratio',
     }
   );
   const lower1Line = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(0, 150, 136, 0.7)',
-      lineWidth: 4,
+      lineWidth: 6,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
       priceLineVisible: false,
-      title: 'Lower 1',
+      priceScaleId: 'left',
+      title: 'Lower 1σ',
     }
   );
   const lower2Line = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(0, 150, 136, 0.4)',
-      lineWidth: 4,
+      lineWidth: 6,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
       priceLineVisible: false,
-      title: 'Lower 2',
+      priceScaleId: 'left',
+      title: 'Lower 2σ',
     }
   );
   const upper1Line = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(255, 82, 82, 0.7)',
-      lineWidth: 4,
+      lineWidth: 6,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
       priceLineVisible: false,
-      title: 'Upper 1',
+      priceScaleId: 'left',
+      title: 'Upper 1σ',
     }
   );
   const upper2Line = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(255, 82, 82, 0.4)',
-      lineWidth: 4,
+      lineWidth: 6,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
       priceLineVisible: false,
-      title: 'Upper 2',
+      priceScaleId: 'left',
+      title: 'Upper 2σ',
     }
   );
 
