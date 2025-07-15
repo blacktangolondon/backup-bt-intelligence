@@ -1,5 +1,5 @@
 // spreadView.js
-// Renders a Spread chart (ratio, lower & upper channels) into #spread-chart
+// Renders a Spread chart (ratio and channel lines) into #spread-chart
 // using the global LightweightCharts standalone IIFE build.
 
 /**
@@ -36,11 +36,11 @@ export async function showSpread(spreadKey) {
     const u1     = entry[4];
     const u2     = entry[5];
 
-    ratioSeries.push ({ time: date, value: ratio  });
-    lower1Series.push({ time: date, value: l1     });
-    lower2Series.push({ time: date, value: l2     });
-    upper1Series.push({ time: date, value: u1     });
-    upper2Series.push({ time: date, value: u2     });
+    ratioSeries .push({ time: date, value: ratio });
+    lower1Series.push({ time: date, value: l1    });
+    lower2Series.push({ time: date, value: l2    });
+    upper1Series.push({ time: date, value: u1    });
+    upper2Series.push({ time: date, value: u2    });
   });
 
   // 3) Get the container and clear it
@@ -56,7 +56,7 @@ export async function showSpread(spreadKey) {
     width: container.clientWidth,
     height: container.clientHeight,
     layout: {
-      background: { type: 'solid', color: 'rgb(19, 23, 34)' },
+      background: { type: 'solid', color: 'black' },
       textColor: 'rgba(255, 152, 0, 1)',
     },
     grid: {
@@ -90,68 +90,46 @@ export async function showSpread(spreadKey) {
     },
   });
 
-  // 6) Add five line series
-  //    - Ratio on right scale, renamed to "Spread Ratio"
-  //    - Channels on left scale, much thicker, no price lines
+  // 6) Add series
+  //    - Ratio on right axis: show only its last-price label
   const ratioLine = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(255, 152, 0, 1)',
       lineWidth: 2,
-      title: 'Spread Ratio',
-    }
-  );
-  const lower1Line = chart.addSeries(
-    window.LightweightCharts.LineSeries,
-    {
-      color: 'rgba(0, 150, 136, 0.7)',
-      lineWidth: 6,
-      lineStyle: window.LightweightCharts.LineStyle.Dotted,
-      lastValueVisible: false,
-      priceLineVisible: false,
-      priceScaleId: 'left',
-      title: 'Lower 1σ',
-    }
-  );
-  const lower2Line = chart.addSeries(
-    window.LightweightCharts.LineSeries,
-    {
-      color: 'rgba(0, 150, 136, 0.4)',
-      lineWidth: 6,
-      lineStyle: window.LightweightCharts.LineStyle.Dotted,
-      lastValueVisible: false,
-      priceLineVisible: false,
-      priceScaleId: 'left',
-      title: 'Lower 2σ',
-    }
-  );
-  const upper1Line = chart.addSeries(
-    window.LightweightCharts.LineSeries,
-    {
-      color: 'rgba(255, 82, 82, 0.7)',
-      lineWidth: 6,
-      lineStyle: window.LightweightCharts.LineStyle.Dotted,
-      lastValueVisible: false,
-      priceLineVisible: false,
-      priceScaleId: 'left',
-      title: 'Upper 1σ',
-    }
-  );
-  const upper2Line = chart.addSeries(
-    window.LightweightCharts.LineSeries,
-    {
-      color: 'rgba(255, 82, 82, 0.4)',
-      lineWidth: 6,
-      lineStyle: window.LightweightCharts.LineStyle.Dotted,
-      lastValueVisible: false,
-      priceLineVisible: false,
-      priceScaleId: 'left',
-      title: 'Upper 2σ',
+      lastValueVisible: true,
+      priceLineVisible: true,
+      priceScaleId: 'right',
     }
   );
 
+  //    - Channel lines on left axis: width=4px, no labels or titles
+  const channelOpts = {
+    lineWidth: 4,
+    lineStyle: window.LightweightCharts.LineStyle.Dotted,
+    lastValueVisible: false,
+    priceLineVisible: false,
+    priceScaleId: 'left',
+  };
+  const lower1Line = chart.addSeries(window.LightweightCharts.LineSeries, {
+    color: 'rgba(0, 150, 136, 0.7)',
+    ...channelOpts
+  });
+  const lower2Line = chart.addSeries(window.LightweightCharts.LineSeries, {
+    color: 'rgba(0, 150, 136, 0.4)',
+    ...channelOpts
+  });
+  const upper1Line = chart.addSeries(window.LightweightCharts.LineSeries, {
+    color: 'rgba(255, 82, 82, 0.7)',
+    ...channelOpts
+  });
+  const upper2Line = chart.addSeries(window.LightweightCharts.LineSeries, {
+    color: 'rgba(255, 82, 82, 0.4)',
+    ...channelOpts
+  });
+
   // 7) Set the data for each series
-  ratioLine.setData(ratioSeries);
+  ratioLine .setData(ratioSeries);
   lower1Line.setData(lower1Series);
   lower2Line.setData(lower2Series);
   upper1Line.setData(upper1Series);
@@ -165,3 +143,4 @@ export async function showSpread(spreadKey) {
     chart.resize(width, height);
   }).observe(container);
 }
+
