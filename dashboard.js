@@ -1,6 +1,6 @@
 // dashboard.js
 // ----------------
-// Handles dashboard updates (Blocks 1–4), tab events, fullscreen, and YouTube popup.
+// Handles dashboard updates (Blocks 1–4), tab events, fullscreen, YouTube popup, and global event handlers.
 
 import { renderBarChart, renderPieChart, destroyChartIfExists } from "./charts.js";
 import futuresMap from "./futuresMap.js";
@@ -41,12 +41,11 @@ export const fxRightLabels     = [
   "MATH","STATS","TECH"
 ];
 
+
 /* Block 1: TradingView Advanced Chart */
 function updateChartGeneric(instrumentName, groupData) {
   const info   = groupData[instrumentName];
-  const symbol = (
-    (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN"
-  ).replace(/-/g, '_');
+  const symbol = ((info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN").replace(/-/g, '_');
   const block1 = document.getElementById("block1");
   const container = block1.querySelector(".tradingview-widget-container");
   container.innerHTML = `<div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>`;
@@ -77,12 +76,11 @@ export function updateChart(instrumentName, groupData) {
   updateChartGeneric(instrumentName, groupData);
 }
 
+
 /* Block 2: Symbol Overview */
 function updateSymbolOverviewGeneric(instrumentName, groupData) {
   const info   = groupData[instrumentName];
-  const symbol = (
-    (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN"
-  ).replace(/-/g, '_');
+  const symbol = ((info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN").replace(/-/g, '_');
   const block2 = document.getElementById("block2");
 
   let container = block2.querySelector("#symbol-info-container");
@@ -136,6 +134,7 @@ export function updateSymbolOverview(instrumentName, groupData) {
   updateSymbolOverviewGeneric(instrumentName, groupData);
 }
 
+
 /* Block 3: TrendScore Table and Technical Analysis */
 function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, rightLabelArr, tradingViewUpdater) {
   const trendScoreContainer = document.getElementById("block3-trendscore");
@@ -164,14 +163,14 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
         val = info.summaryLeft[i] || "";
       }
       if (leftLabelArr[i] === "STATS") {
-        if (val === "MEDIUM TERM UP") val = "MEDIUM TERM BULLISH";
+        if (val === "MEDIUM TERM UP")    val = "MEDIUM TERM BULLISH";
         else if (val === "MEDIUM TERM DOWN") val = "MEDIUM TERM BEARISH";
       }
 
       const td2 = document.createElement("td");
       if (
         (leftLabelArr[i] === "GAP TO PEAK" ||
-          leftLabelArr[i] === "GAP TO PEAK / TO VALLEY") &&
+         leftLabelArr[i] === "GAP TO PEAK / TO VALLEY") &&
         (val === "-" || parseFloat(val) === 0)
       ) {
         td2.textContent = "0%";
@@ -185,10 +184,10 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
       const td4 = document.createElement("td");
       let rightVal;
       if (leftLabelArr === etfLeftLabels) {
-        if (i === 5) rightVal = info.summaryRight[7];
-        else if (i === 6) rightVal = info.summaryRight[8];
-        else if (i === 7) rightVal = info.ticker || info.tvSymbol;
-        else rightVal = info.summaryRight[i];
+        if (i === 5)     rightVal = info.summaryRight[7];
+        else if (i === 6)  rightVal = info.summaryRight[8];
+        else if (i === 7)  rightVal = info.ticker || info.tvSymbol;
+        else             rightVal = info.summaryRight[i];
       } else {
         rightVal = info.summaryRight[i];
       }
@@ -197,23 +196,19 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
       tr.append(td1, td2, td3, td4);
       table.appendChild(tr);
     }
-
     trendScoreContainer.appendChild(table);
 
     if (
       groupData === window.futuresFullData ||
-      ["CAC 40", "FTSE MIB"].includes(instrumentName)
+      ["CAC 40","FTSE MIB"].includes(instrumentName)
     ) {
       document.getElementById("block3-tabs").style.display = "none";
       document.getElementById("block3-content").style.height = "100%";
       document.getElementById("block3-tradingview").innerHTML = "";
-      [...table.rows].forEach(
-        (r) => (r.style.height = `${100 / table.rows.length}%`)
-      );
+      [...table.rows].forEach(r => r.style.height = `${100/table.rows.length}%`);
     } else {
       document.getElementById("block3-tabs").style.display = "flex";
-      document.getElementById("block3-content").style.height =
-        "calc(100% - 30px)";
+      document.getElementById("block3-content").style.height = "calc(100% - 30px)";
       tradingViewUpdater(instrumentName);
     }
     showBlock3Tab("trendscore");
@@ -221,10 +216,8 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
 }
 
 function updateBlock3TradingViewGeneric(instrumentName, groupData) {
-  const info = groupData[instrumentName];
-  const symbol = (
-    (info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN"
-  ).replace(/-/g, "_");
+  const info   = groupData[instrumentName];
+  const symbol = ((info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN").replace(/-/g, '_');
   const tvContainer = document.getElementById("block3-tradingview");
   tvContainer.innerHTML = "";
   const widgetDiv = document.createElement("div");
@@ -233,9 +226,8 @@ function updateBlock3TradingViewGeneric(instrumentName, groupData) {
     <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"></a></div>`;
   tvContainer.appendChild(widgetDiv);
   const script = document.createElement("script");
-  script.type = "text/javascript";
-  script.src =
-    "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
+  script.type  = "text/javascript";
+  script.src   = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
   script.async = true;
   script.textContent = `{
     "interval":"1D","width":"100%","height":"100%","isTransparent":true,
@@ -249,40 +241,25 @@ export function updateBlock3(instrumentName, groupData, options = {}) {
   let rowCount, leftArr, rightArr, tvUpdater;
   if (options.isETF) {
     rowCount = 8; leftArr = etfLeftLabels; rightArr = etfRightLabels;
-    tvUpdater = (inst) =>
-      updateBlock3TradingViewGeneric(inst, window.etfFullData);
+    tvUpdater = inst => updateBlock3TradingViewGeneric(inst, window.etfFullData);
   } else if (options.isFutures) {
     rowCount = 7; leftArr = futuresLeftLabels; rightArr = futuresRightLabels;
-    tvUpdater = (inst) =>
-      updateBlock3TradingViewGeneric(inst, window.futuresFullData);
+    tvUpdater = inst => updateBlock3TradingViewGeneric(inst, window.futuresFullData);
   } else if (options.isFX) {
     rowCount = 7; leftArr = fxLeftLabels; rightArr = fxRightLabels;
-    tvUpdater = (inst) =>
-      updateBlock3TradingViewGeneric(inst, window.fxFullData);
+    tvUpdater = inst => updateBlock3TradingViewGeneric(inst, window.fxFullData);
   } else {
     rowCount = 9; leftArr = leftLabels; rightArr = rightLabels;
-    tvUpdater = (inst) =>
-      updateBlock3TradingViewGeneric(inst, window.stocksFullData);
+    tvUpdater = inst => updateBlock3TradingViewGeneric(inst, window.stocksFullData);
   }
-  updateBlock3Generic(
-    instrumentName,
-    groupData,
-    rowCount,
-    leftArr,
-    rightArr,
-    tvUpdater
-  );
+  updateBlock3Generic(instrumentName, groupData, rowCount, leftArr, rightArr, tvUpdater);
 }
 
 export function showBlock3Tab(tabName) {
-  const trendBtn = document.querySelector(
-    '#block3-tabs button[data-tab="trendscore"]'
-  );
-  const tvBtn = document.querySelector(
-    '#block3-tabs button[data-tab="tradingview"]'
-  );
+  const trendBtn = document.querySelector('#block3-tabs button[data-tab="trendscore"]');
+  const tvBtn    = document.querySelector('#block3-tabs button[data-tab="tradingview"]');
   const trendDiv = document.getElementById("block3-trendscore");
-  const tvDiv = document.getElementById("block3-tradingview");
+  const tvDiv    = document.getElementById("block3-tradingview");
   trendBtn?.classList.remove("active-tab");
   tvBtn?.classList.remove("active-tab");
   trendDiv && (trendDiv.style.display = "none");
@@ -296,12 +273,11 @@ export function showBlock3Tab(tabName) {
   }
 }
 
+
 /* Block 4: Correlation Analysis */
 function pearsonCorrelation(x, y) {
-  if (!Array.isArray(x) || !Array.isArray(y) || x.length === 0 || y.length === 0)
-    return 0;
+  if (!Array.isArray(x) || !Array.isArray(y) || x.length === 0 || y.length === 0) return 0;
   const n = Math.min(x.length, y.length);
-  if (n === 0) return 0;
   const xS = x.slice(0, n), yS = y.slice(0, n);
   const mx = xS.reduce((a, b) => a + b, 0) / n;
   const my = yS.reduce((a, b) => a + b, 0) / n;
@@ -322,13 +298,7 @@ function drawMostCorrelatedChart(top10) {
   const labels = top10.map(i => i[0]), dataArr = top10.map(i => i[1]);
   new Chart(ctx, {
     type: "bar",
-    data: {
-      labels,
-      datasets: [{
-        label: "CORRELATION",
-        data: dataArr
-      }]
-    },
+    data: { labels, datasets: [{ label: "CORRELATION", data: dataArr }] },
     options: {
       responsive: true,
       maintainAspectRatio: false,
@@ -360,9 +330,6 @@ function getCorrelationListForCategory(inst, returnsData) {
     .slice(0, 10);
 }
 
-/**
- * Updates Block 4 with correlation analysis.
- */
 export function updateBlock4(instrumentName, groupData, groupReturns) {
   const blk = document.getElementById("block4");
   blk.innerHTML = '<div class="loading-message"><span>CALCULATING...</span></div>';
@@ -370,27 +337,23 @@ export function updateBlock4(instrumentName, groupData, groupReturns) {
     blk.innerHTML = "";
 
     const info = groupData[instrumentName];
-    // Determine lookup key: prefer the code from tvSymbol if present
     let lookupKey = instrumentName;
+
     if (info && info.tvSymbol && info.tvSymbol.includes(":")) {
       const code = info.tvSymbol.split(":")[1];
       if (code in groupReturns) {
         lookupKey = code;
       } else {
-        // fallback: find any key containing that code
-        const match = Object.keys(groupReturns).find(
-          k => k === code || k.includes(code)
-        );
+        const match = Object.keys(groupReturns).find(k => k.includes(code));
         if (match) lookupKey = match;
       }
     }
-    // futuresMap override for futures
+
     if (groupData === window.futuresFullData) {
       const tv = info.tvSymbol || "";
       if (futuresMap[tv]) lookupKey = futuresMap[tv];
     }
 
-    // final fallback scanning
     if (!(lookupKey in groupReturns)) {
       const alt = Object.keys(groupReturns).find(
         k => k.startsWith(lookupKey) || k.includes(lookupKey)
@@ -398,7 +361,6 @@ export function updateBlock4(instrumentName, groupData, groupReturns) {
       if (alt) lookupKey = alt;
     }
 
-    // no data?
     if (!Array.isArray(groupReturns[lookupKey]) || !groupReturns[lookupKey].length) {
       blk.innerHTML = `<p style="color:white;">No correlation data found for ${instrumentName}</p>`;
       return;
@@ -414,6 +376,7 @@ export function updateBlock4(instrumentName, groupData, groupReturns) {
   }, 300);
 }
 
+
 /* Block3 Tab Event */
 export function initBlock3Tabs() {
   document.querySelectorAll('#block3-tabs button').forEach(tab => {
@@ -423,6 +386,7 @@ export function initBlock3Tabs() {
   });
 }
 
+
 /* Fullscreen Button & YouTube Popup */
 export function updateFullscreenButton() {
   const btn = document.getElementById("fullscreen-button");
@@ -431,6 +395,7 @@ export function updateFullscreenButton() {
     ? `<span class="arrow">&#8598;</span><span class="arrow">&#8599;</span><br><span class="arrow">&#8601;</span><span class="arrow">&#8600;</span>`
     : `<span class="arrow">&#8598;</span><span class="arrow">&#8599;</span><br><span class="arrow">&#8601;</span><span class="arrow">&#8600;</span>`;
 }
+
 export function openYouTubePopup() {
   const yt = document.getElementById("youtube-popup");
   if (!yt) return;
@@ -439,7 +404,53 @@ export function openYouTubePopup() {
     $('#youtube-popup').draggable({ handle: '#youtube-popup-header' });
   }
 }
+
 export function updateYouTubePlayer() {
   document.getElementById("youtube-iframe").src =
     document.getElementById("youtube-url").value.trim();
+}
+
+
+/* Global Event Handlers (formerly initEventHandlers) */
+export function initEventHandlers(allGroupData, allPricesData, allReturnsData) {
+  // Sidebar instrument clicks (includes spreads and others)
+  document.querySelectorAll('.instrument-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const key = item.textContent.trim();
+
+      // hide everything first
+      document.querySelectorAll('.content-block').forEach(b => b.style.display = 'none');
+
+      // handle spreads
+      if (allGroupData.SPREADS && key in allGroupData.SPREADS) {
+        document.getElementById('block5').style.display = 'block';
+        showSpread(key);
+        return;
+      }
+
+      // non-spreads: show blocks 1–4
+      ['block1','block2','block3','block4'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'block';
+      });
+
+      let groupData, options;
+      if (allGroupData.STOCKS[key]) {
+        groupData = allGroupData.STOCKS; options = {};
+      } else if (allGroupData.ETFS[key]) {
+        groupData = allGroupData.ETFS; options = { isETF: true };
+      } else if (allGroupData.FUTURES[key]) {
+        groupData = allGroupData.FUTURES; options = { isFutures: true };
+      } else if (allGroupData.FX[key]) {
+        groupData = allGroupData.FX; options = { isFX: true };
+      }
+
+      updateChart(key, groupData);
+      updateSymbolOverview(key, groupData);
+      updateBlock3(key, groupData, options);
+      updateBlock4(key, groupData, allReturnsData);
+    });
+  });
+
+  // Other handlers (fullscreen, YouTube popup) can go here...
 }
