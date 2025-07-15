@@ -56,12 +56,15 @@ async function initializeTrendScore() {
     // ——— New: build historicalReturns for correlation ———
     window.historicalReturns = {};
     function computeReturns(priceArray) {
-      // Ensure priceArray has enough elements for returns calculation
+      // Ensure priceArray is an array of numbers with at least two points
       if (!Array.isArray(priceArray) || priceArray.length < 2) {
-          return []; // Not enough data for returns
+        return [];
       }
-      return priceArray.map((p, i, arr) =>
-        i === 0 ? 0 : (p.close / arr[i - 1].close) - 1
+      // For i > 0: (current / previous) - 1
+      return priceArray.map((price, idx, arr) =>
+        idx === 0
+          ? 0
+          : price / arr[idx - 1] - 1
       );
     }
 
