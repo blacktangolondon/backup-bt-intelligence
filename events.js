@@ -7,7 +7,7 @@ import {
   openYouTubePopup
 } from "./dashboard.js";
 
-export function initEventHandlers(groupedData, pricesData) {
+export function initEventHandlers(groupedData, pricesData, returnsData) {
   // Sidebar instrument click events.
   document.addEventListener('click', (e) => {
     if (e.target && e.target.classList.contains('instrument-item')) {
@@ -28,31 +28,31 @@ export function initEventHandlers(groupedData, pricesData) {
         updateChart(instrumentName, groupedData.STOCKS);
         updateSymbolOverview(instrumentName, groupedData.STOCKS);
         updateBlock3(instrumentName, groupedData.STOCKS);
-        updateBlock4(instrumentName, groupedData.STOCKS, pricesData.stockPrices);
+        updateBlock4(instrumentName, groupedData.STOCKS, returnsData);
 
       } else if (groupedData.ETFS && groupedData.ETFS[instrumentName]) {
         updateChart(instrumentName, groupedData.ETFS);
         updateSymbolOverview(instrumentName, groupedData.ETFS);
         updateBlock3(instrumentName, groupedData.ETFS, { isETF: true });
-        updateBlock4(instrumentName, groupedData.ETFS, pricesData.etfPrices);
+        updateBlock4(instrumentName, groupedData.ETFS, returnsData);
 
       } else if (groupedData.FUTURES && groupedData.FUTURES[instrumentName]) {
         updateChart(instrumentName, groupedData.FUTURES);
         updateSymbolOverview(instrumentName, groupedData.FUTURES);
         updateBlock3(instrumentName, groupedData.FUTURES, { isFutures: true });
-        updateBlock4(instrumentName, groupedData.FUTURES, pricesData.futuresPrices);
+        updateBlock4(instrumentName, groupedData.FUTURES, returnsData);
 
       } else if (groupedData.FX && groupedData.FX[instrumentName]) {
         updateChart(instrumentName, groupedData.FX);
         updateSymbolOverview(instrumentName, groupedData.FX);
         updateBlock3(instrumentName, groupedData.FX, { isFX: true });
-        updateBlock4(instrumentName, groupedData.FX, pricesData.fxPrices);
+        updateBlock4(instrumentName, groupedData.FX, returnsData);
 
       } else if (groupedData.CRYPTO && groupedData.CRYPTO[instrumentName]) {
         updateChart(instrumentName, groupedData.CRYPTO);
         updateSymbolOverview(instrumentName, groupedData.CRYPTO);
         updateBlock3(instrumentName, groupedData.CRYPTO);
-        updateBlock4(instrumentName, groupedData.CRYPTO, {});
+        updateBlock4(instrumentName, groupedData.CRYPTO, returnsData);
 
       } else {
         // fallback if none matched
