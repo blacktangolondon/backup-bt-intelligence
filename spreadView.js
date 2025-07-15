@@ -103,44 +103,44 @@ export async function showSpread(spreadKey) {
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(0, 150, 136, 0.7)',
-      lineWidth: 6,
+      lineWidth: 4,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
       priceLineVisible: false,
-      title: 'Lower 1σ',
+      title: 'Lower 1',
     }
   );
   const lower2Line = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(0, 150, 136, 0.4)',
-      lineWidth: 6,
+      lineWidth: 4,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
       priceLineVisible: false,
-      title: 'Lower 2σ',
+      title: 'Lower 2',
     }
   );
   const upper1Line = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(255, 82, 82, 0.7)',
-      lineWidth: 6,
+      lineWidth: 4,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
       priceLineVisible: false,
-      title: 'Upper 1σ',
+      title: 'Upper 1',
     }
   );
   const upper2Line = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(255, 82, 82, 0.4)',
-      lineWidth: 6,
+      lineWidth: 4,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
       priceLineVisible: false,
-      title: 'Upper 2σ',
+      title: 'Upper 2',
     }
   );
 
