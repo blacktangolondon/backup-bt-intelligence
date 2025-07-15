@@ -298,7 +298,8 @@ function drawMostCorrelatedChart(top10) {
   const labels = top10.map(i => i[0]), dataArr = top10.map(i => i[1]);
   new Chart(ctx, {
     type: "bar",
-    data: { labels, datasets: [{ label: "CORRELATION", data: dataArr }] },
+    data: { labels, datasets: [{ label: "CORRELATION", data: dataArr, backgroundColor: 'orange', borderColor: 'orange', borderWidth: 1
+ }] },
     options: {
       responsive: true,
       maintainAspectRatio: false,
