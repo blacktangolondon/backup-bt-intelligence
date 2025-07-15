@@ -90,7 +90,7 @@ export async function showSpread(spreadKey) {
     },
   });
 
-  // 6) Add five line series; make channel lines thicker and disable their last-price lines
+  // 6) Add five line series; make channel lines much thicker (6px) and disable their last-price lines
   const ratioLine = chart.addSeries(
     window.LightweightCharts.LineSeries,
     {
@@ -103,7 +103,7 @@ export async function showSpread(spreadKey) {
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(0, 150, 136, 0.7)',
-      lineWidth: 2,
+      lineWidth: 6,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
       priceLineVisible: false,
@@ -114,7 +114,7 @@ export async function showSpread(spreadKey) {
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(0, 150, 136, 0.4)',
-      lineWidth: 2,
+      lineWidth: 6,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
       priceLineVisible: false,
@@ -125,7 +125,7 @@ export async function showSpread(spreadKey) {
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(255, 82, 82, 0.7)',
-      lineWidth: 2,
+      lineWidth: 6,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
       priceLineVisible: false,
@@ -136,7 +136,7 @@ export async function showSpread(spreadKey) {
     window.LightweightCharts.LineSeries,
     {
       color: 'rgba(255, 82, 82, 0.4)',
-      lineWidth: 2,
+      lineWidth: 6,
       lineStyle: window.LightweightCharts.LineStyle.Dotted,
       lastValueVisible: false,
       priceLineVisible: false,
