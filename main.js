@@ -11,11 +11,12 @@ import {
   updateSymbolOverview,
   updateBlock3,
   updateBlock4,
-  initBlock3Tabs,
-  initEventHandlers
+  initBlock3Tabs
 } from "./dashboard.js";
 import { initPortfolioBuilder } from "./portfolioBuilder.js";
 import { initThematicPortfolio } from "./thematicPortfolio.js";
+import { initEventHandlers } from "./events.js";
+
 // No longer directly import showSpread here as dashboard.js will handle it (via a unified event handler)
 
 async function initializeTrendScore() {
@@ -49,9 +50,8 @@ async function initializeTrendScore() {
     // --- DEBUG: Verify pricesData is populated ---
     console.log('window.pricesData after CSV load:', window.pricesData);
     if (Object.keys(window.pricesData.stockPrices).length === 0) {
-        console.warn('No stock prices loaded. Check stock_prices.csv.');
+      console.warn('No stock prices loaded. Check stock_prices.csv.');
     }
-
 
     // ——— New: build historicalReturns for correlation ———
     window.historicalReturns = {};
@@ -84,9 +84,8 @@ async function initializeTrendScore() {
     // --- DEBUG: Verify historicalReturns is populated ---
     console.log('window.historicalReturns after computation:', window.historicalReturns);
     if (Object.keys(window.historicalReturns).length === 0) {
-        console.error('window.historicalReturns is empty. Correlation will not work.');
+      console.error('window.historicalReturns is empty. Correlation will not work.');
     }
-
 
     // 3) Generate sidebar content
     await generateSidebarContent();
@@ -113,8 +112,9 @@ async function initializeTrendScore() {
       window.historicalReturns // Pass the flat historicalReturns map directly
     );
 
-    // 6) REMOVED: The redundant "Add event listener to sidebar instrument items" block for spreads
-    // This logic is now unified within initEventHandlers in dashboard.js
+    // 6) Initialize Portfolio Builder & Portfolio Ideas
+    initPortfolioBuilder();
+    initThematicPortfolio();
 
     // 7) Auto-select via URL parameter or default
     const params = new URLSearchParams(window.location.search);
