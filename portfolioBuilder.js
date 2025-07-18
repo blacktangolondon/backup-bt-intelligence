@@ -12,7 +12,7 @@ import {
   parseGap
 } from "./dashboard.js";
 
-// Additional boolean filters: price versus key areas
+// Boolean filters: price versus key areas
 const priceKeyAreaFilters = [
   "Price < Key Area 1",
   "Price < Key Area 2",
@@ -20,37 +20,38 @@ const priceKeyAreaFilters = [
   "Price > Key Area 2"
 ];
 
-// Filter mappings for each asset class
+// Dynamically find which index in summaryLeft holds your “Key Areas” string.
+// Falls back to index 4 if no label matches.
+const keyAreaLabelIndex = leftLabels.findIndex(lbl =>
+  /key area/i.test(lbl)
+);
+const keyAreaIdx = keyAreaLabelIndex >= 0 ? keyAreaLabelIndex : 4;
+
+// Numeric filter mappings
 const filterMappingStocks = {
-  "Trend Score":            { source: "left",  index: 0 },
-  "P/E Ratio":              { source: "right", index: 5 },
-  "P/B Ratio":              { source: "right", index: 6 },
-  "EPS":                    { source: "right", index: 7 },
-  "Dividend Yield":         { source: "right", index: 8 },
-  "Return on Equity":       { field: "return_on_equity" },
-  "Debt to Equity":         { field: "debt_to_equity" },
-  "Revenue Growth":         { field: "revenue_growth" },
-  "Payout Ratio":           { field: "payout_ratio" },
-  "Beta":                   { field: "beta" },
-  "S&P500 Correlation":     { source: "right", index: 0 },
-  "S&P500 Volatility Ratio":{ source: "right", index: 1 },
-  "Alpha Strength":         { source: "right", index: 4 },
-  "Bullish Alpha":          { source: "right", index: 2 },
-  "Bearish Alpha":          { source: "right", index: 3 },
-  "Gap to Peak":            { source: "left",  index: 3 }
+  "Trend Score":             { source: "left",  index: 0 },
+  "Gap to Peak":             { source: "left",  index: 3 },
+  "P/E Ratio":               { source: "right", index: 5 },
+  "P/B Ratio":               { source: "right", index: 6 },
+  "EPS":                     { source: "right", index: 7 },
+  "Dividend Yield":          { source: "right", index: 8 },
+  "S&P500 Correlation":      { source: "right", index: 0 },
+  "S&P500 Volatility Ratio": { source: "right", index: 1 },
+  "Bullish Alpha":           { source: "right", index: 2 },
+  "Bearish Alpha":           { source: "right", index: 3 },
+  "Alpha Strength":          { source: "right", index: 4 },
+  "Return on Equity":        { field: "return_on_equity" },
+  "Debt to Equity":          { field: "debt_to_equity" },
+  "Revenue Growth":          { field: "revenue_growth" },
+  "Payout Ratio":            { field: "payout_ratio" },
+  "Beta":                    { field: "beta" }
 };
 
-const filterMappingETFs = {};
-[
-  "Trend Score","Alpha Strength","Bullish Alpha",
-  "Bearish Alpha","S&P500 Correlation",
-  "S&P500 Volatility Ratio","Gap to Peak"
-].forEach(key => {
-  filterMappingETFs[key] = filterMappingStocks[key];
-});
-
-const filterMappingFutures = { ...filterMappingETFs };
-const filterMappingFX      = { ...filterMappingETFs };
+const filterMappingETFs     = {};
+["Trend Score","Gap to Peak","S&P500 Correlation","S&P500 Volatility Ratio","Bullish Alpha","Bearish Alpha","Alpha Strength"]
+  .forEach(key => filterMappingETFs[key] = filterMappingStocks[key]);
+const filterMappingFutures  = { ...filterMappingETFs };
+const filterMappingFX       = { ...filterMappingETFs };
 
 let portfolioFilters = [];
 
@@ -91,10 +92,11 @@ function loadPortfolioBuilder() {
   `;
 
   container.addEventListener('click', e => {
-    if (e.target.matches('.add-filter-btn')) openFilterSelector();
+    if (e.target.matches('.add-filter-btn'))        openFilterSelector();
     if (e.target.matches('#generate-portfolio-btn')) generatePortfolioNew();
     if (e.target.matches('.remove-filter-btn')) {
-      portfolioFilters.splice(+e.target.dataset.index, 1);
+      const idx = +e.target.dataset.index;
+      portfolioFilters.splice(idx, 1);
       updatePortfolioSteps();
     }
   });
@@ -102,23 +104,17 @@ function loadPortfolioBuilder() {
 
 function openFilterSelector() {
   const assetType = portfolioFilters[0]?.value;
-  // start with Asset Class if none chosen
   let metrics = !assetType
     ? ['Asset Class']
-    : assetType === 'ETFS'
-      ? Object.keys(filterMappingETFs)
-      : assetType === 'FUTURES'
-        ? Object.keys(filterMappingFutures)
-        : assetType === 'FX'
-          ? Object.keys(filterMappingFX)
-          : Object.keys(filterMappingStocks);
+    : assetType === 'ETFS'   ? Object.keys(filterMappingETFs)
+    : assetType === 'FUTURES'? Object.keys(filterMappingFutures)
+    : assetType === 'FX'     ? Object.keys(filterMappingFX)
+    : Object.keys(filterMappingStocks);
 
-  // after Asset Class is chosen, add key-area boolean filters
   if (assetType) {
     metrics = [...metrics, ...priceKeyAreaFilters];
   }
 
-  // only include metrics not already picked (Asset Class only once)
   const available = metrics.filter(m =>
     m === 'Asset Class'
       ? !portfolioFilters.some(f => f.filterName === 'Asset Class')
@@ -151,9 +147,8 @@ function openFilterSelector() {
       inpDiv.append(sel);
 
     } else if (priceKeyAreaFilters.includes(nameSel.value)) {
-      const chk = document.createElement('input'); chk.type = 'checkbox';
-      const lbl = document.createElement('label'); lbl.textContent = 'True';
-      inpDiv.append(chk, lbl);
+      // No extra input needed
+      inpDiv.textContent = nameSel.value;
 
     } else {
       const op = document.createElement('select');
@@ -176,7 +171,7 @@ function openFilterSelector() {
     if (filt.filterName === 'Asset Class') {
       filt.value = inpDiv.querySelector('select').value;
     } else if (priceKeyAreaFilters.includes(filt.filterName)) {
-      filt.value = inpDiv.querySelector('input[type="checkbox"]').checked;
+      filt.value = true;  // selecting implies “true”
     } else {
       filt.operator = inpDiv.querySelector('select').value;
       filt.value    = inpDiv.querySelector('input').value;
@@ -193,7 +188,6 @@ function updatePortfolioSteps() {
   portfolioFilters.forEach((f, i) => {
     const div = document.createElement('div');
     div.className = 'filter-step';
-
     let txt;
     if (f.filterName === 'Asset Class') {
       txt = `Asset Class: ${f.value}`;
@@ -202,15 +196,12 @@ function updatePortfolioSteps() {
     } else {
       txt = `${f.filterName} ${f.operator} ${f.value}`;
     }
-
     div.innerHTML = `
       <span>${txt}</span>
       <button class="remove-filter-btn" data-index="${i}">✕</button>
     `;
     steps.append(div);
   });
-
-  // add the "Add another filter" prompt
   const p = document.createElement('p');
   p.className = 'portfolio-builder-instruction';
   p.innerHTML = `<button class="add-filter-btn">+</button> Add another filter`;
@@ -218,35 +209,33 @@ function updatePortfolioSteps() {
 }
 
 function generatePortfolioNew() {
-  // require first filter to be Asset Class
   if (!portfolioFilters.length || portfolioFilters[0].filterName !== 'Asset Class') {
-    alert('Please add the Asset Class filter as your first filter.');
+    alert('Please add the Asset Class filter first.');
     return;
   }
 
   const asset = portfolioFilters[0].value;
   let dataObj, mapping, priceKey;
-
   switch (asset) {
     case 'STOCKS':
-      dataObj   = window.stocksFullData;
-      mapping   = filterMappingStocks;
-      priceKey  = 'stockPrices';
+      dataObj  = window.stocksFullData;
+      mapping  = filterMappingStocks;
+      priceKey = 'stockPrices';
       break;
     case 'ETFS':
-      dataObj   = window.etfFullData;
-      mapping   = filterMappingETFs;
-      priceKey  = 'etfPrices';
+      dataObj  = window.etfFullData;
+      mapping  = filterMappingETFs;
+      priceKey = 'etfPrices';
       break;
     case 'FUTURES':
-      dataObj   = window.futuresFullData;
-      mapping   = filterMappingFutures;
-      priceKey  = 'futuresPrices';
+      dataObj  = window.futuresFullData;
+      mapping  = filterMappingFutures;
+      priceKey = 'futuresPrices';
       break;
     case 'FX':
-      dataObj   = window.fxFullData;
-      mapping   = filterMappingFX;
-      priceKey  = 'fxPrices';
+      dataObj  = window.fxFullData;
+      mapping  = filterMappingFX;
+      priceKey = 'fxPrices';
       break;
     default:
       alert('Invalid asset class.');
@@ -255,7 +244,6 @@ function generatePortfolioNew() {
 
   const results = [];
 
-  // filter loop
   for (const inst in dataObj) {
     const info = dataObj[inst];
     let include = true;
@@ -263,12 +251,12 @@ function generatePortfolioNew() {
     for (let i = 1; i < portfolioFilters.length; i++) {
       const f = portfolioFilters[i];
 
-      // boolean price vs key-area filters
+      // Handle key-area boolean filters
       if (priceKeyAreaFilters.includes(f.filterName)) {
         const prices = window.pricesData[priceKey][inst] || [];
         const price  = prices[prices.length - 1] || 0;
-        const [ka1, ka2] = (info.summaryLeft[4] || '').split('/')
-                          .map(s => parseFloat(s.trim()));
+        const rawKA  = info.summaryLeft[keyAreaIdx] || "";
+        const [ka1, ka2] = rawKA.split("/").map(s => parseFloat(s.trim()) || 0);
 
         let ok;
         switch (f.filterName) {
@@ -277,25 +265,28 @@ function generatePortfolioNew() {
           case 'Price > Key Area 1': ok = price > ka1; break;
           case 'Price > Key Area 2': ok = price > ka2; break;
         }
+
+        console.debug(`Filter(${f.filterName}) ${inst}: price=${price}, KA1=${ka1}, KA2=${ka2} → ${ok}`);
         if (!ok) { include = false; break; }
         continue;
       }
 
-      // numeric filters
+      // Numeric filters
       const map = mapping[f.filterName];
       if (!map) continue;
 
-      let num;
-      if (map.source) {
-        const raw = map.source === 'left'
-          ? info.summaryLeft[map.index]
-          : info.summaryRight[map.index];
-        num = parseFloat(typeof raw === 'string'
-          ? raw.replace('%','')
-          : raw);
+      let raw, num;
+      if (map.source === "left") {
+        raw = info.summaryLeft[map.index];
+      } else if (map.source === "right") {
+        raw = info.summaryRight[map.index];
       } else {
-        num = parseFloat(info[map.field]);
+        raw = info[map.field];
       }
+
+      num = parseFloat(
+        typeof raw === "string" ? raw.replace(/[%\,]/g, "") : raw
+      );
 
       if (
         isNaN(num) ||
@@ -312,31 +303,28 @@ function generatePortfolioNew() {
     }
   }
 
-  // render results
-  const resDiv = document.getElementById('portfolio-results');
-  resDiv.innerHTML = '';
+  // Render results
+  const out = document.getElementById('portfolio-results');
+  out.innerHTML = "";
   if (!results.length) {
-    resDiv.textContent = 'No instruments meet this criteria.';
+    out.textContent = 'No instruments meet this criteria.';
     return;
   }
 
-  // ——— PORTFOLIO ANALYSIS ———
+  // Portfolio Analysis Summary
   const count = results.length;
   const averages = portfolioFilters.slice(1).map((f, idx) => {
     if (priceKeyAreaFilters.includes(f.filterName)) return null;
     const map = mapping[f.filterName];
     const vals = results.map(r => {
-      let v;
-      if (map.source) {
-        const raw = map.source === 'left'
-          ? r.info.summaryLeft[map.index]
-          : r.info.summaryRight[map.index];
-        v = parseFloat(typeof raw === 'string'
-          ? raw.replace('%','')
-          : raw);
-      } else {
-        v = parseFloat(r.info[map.field]);
-      }
+      let raw, v;
+      if (map.source === "left")      raw = r.info.summaryLeft[map.index];
+      else if (map.source === "right") raw = r.info.summaryRight[map.index];
+      else                             raw = r.info[map.field];
+
+      v = parseFloat(
+        typeof raw === "string" ? raw.replace(/[%\,]/g, "") : raw
+      );
       return isNaN(v) ? 0 : v;
     });
     return vals.reduce((a, b) => a + b, 0) / count;
@@ -344,8 +332,7 @@ function generatePortfolioNew() {
 
   const summaryDiv = document.createElement('div');
   summaryDiv.id = 'portfolio-summary';
-
-  let html = `
+  let summaryHTML = `
     <h2 style="color:white">PORTFOLIO ANALYSIS</h2>
     <table>
       <tr><td>Count</td><td>${count}</td></tr>
@@ -358,17 +345,15 @@ function generatePortfolioNew() {
       }).join('')}
     </table>
   `;
+  summaryDiv.innerHTML = summaryHTML;
+  out.appendChild(summaryDiv);
 
-  summaryDiv.innerHTML = html;
-  resDiv.appendChild(summaryDiv);
-
-  // ——— INSTRUMENT LIST ———
+  // Detailed Instrument Table
   const listTitle = document.createElement('h2');
   listTitle.style.color = 'white';
   listTitle.textContent = 'INSTRUMENT LIST';
-  resDiv.appendChild(listTitle);
+  out.appendChild(listTitle);
 
-  // ——— DETAILED RESULTS TABLE ———
   const table = document.createElement('table');
   const thead = table.createTHead();
   const headerRow = thead.insertRow();
@@ -376,7 +361,7 @@ function generatePortfolioNew() {
   portfolioFilters.slice(1).forEach(f =>
     headerRow.insertCell().textContent = f.filterName
   );
-  headerRow.insertCell().textContent = 'FULL ANALYSIS';
+  headerRow.insertCell().textContent = 'Link';
 
   const tbody = table.createTBody();
   results.forEach(r => {
@@ -384,41 +369,41 @@ function generatePortfolioNew() {
     tr.insertCell().textContent = r.instrument;
 
     portfolioFilters.slice(1).forEach(f => {
-      const map = mapping[f.filterName];
-      let val;
+      const cell = tr.insertCell();
       if (priceKeyAreaFilters.includes(f.filterName)) {
-        // boolean flags: show “Yes”/“No”
+        // Display Yes/No for boolean filters
         const prices = window.pricesData[priceKey][r.instrument] || [];
         const price  = prices[prices.length - 1] || 0;
-        const [ka1, ka2] = (r.info.summaryLeft[4]||'').split('/')
-                          .map(s => parseFloat(s.trim()));
+        const rawKA  = r.info.summaryLeft[keyAreaIdx] || "";
+        const [ka1, ka2] = rawKA.split("/").map(s => parseFloat(s.trim()) || 0);
+
+        let val;
         switch (f.filterName) {
           case 'Price < Key Area 1': val = price < ka1; break;
           case 'Price < Key Area 2': val = price < ka2; break;
           case 'Price > Key Area 1': val = price > ka1; break;
           case 'Price > Key Area 2': val = price > ka2; break;
         }
-        tr.insertCell().textContent = val ? 'Yes' : 'No';
+        cell.textContent = val ? 'Yes' : 'No';
 
       } else {
-        if (map.source) {
-          val = map.source === 'left'
-            ? r.info.summaryLeft[map.index]
-            : r.info.summaryRight[map.index];
-        } else {
-          val = r.info[map.field];
-        }
-        tr.insertCell().textContent = val != null ? val.toString() : '';
+        const map = mapping[f.filterName];
+        let raw, text;
+        if (map.source === "left")      raw = r.info.summaryLeft[map.index];
+        else if (map.source === "right") raw = r.info.summaryRight[map.index];
+        else                             raw = r.info[map.field];
+        text = raw != null ? raw.toString() : '';
+        cell.textContent = text;
       }
     });
 
-    const cell = tr.insertCell();
-    const link = document.createElement('a');
-    link.href   = `${window.location.origin + window.location.pathname}?instrument=${encodeURIComponent(r.instrument)}`;
-    link.target = '_blank';
-    link.textContent = '🔗';
-    cell.appendChild(link);
+    const linkCell = tr.insertCell();
+    const a = document.createElement('a');
+    a.href   = `${window.location.origin + window.location.pathname}?instrument=${encodeURIComponent(r.instrument)}`;
+    a.target = '_blank';
+    a.textContent = '🔗';
+    linkCell.appendChild(a);
   });
 
-  resDiv.appendChild(table);
+  out.appendChild(table);
 }
