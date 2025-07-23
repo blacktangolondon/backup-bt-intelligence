@@ -11,6 +11,12 @@ export function parseGap(val) {
   return (val === "-" || isNaN(parseFloat(val))) ? 0 : parseFloat(val);
 }
 
+// Helper: format FX key area to 4 decimals
+function formatFxKeyArea(str) {
+  if (!str) return str;
+  return str.replace(/-?\d+(\.\d+)?/g, n => (+n).toFixed(4));
+}
+
 // Label arrays for Block 3
 export const leftLabels        = [
   "SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MICRO","MATH","STATS","TECH"
@@ -40,7 +46,6 @@ export const fxRightLabels     = [
   "S&P500 CORRELATION","S&P500 VOLATILITY RATIO","ALPHA STRENGHT","MID TERM PRICE % PROJECTION",
   "MATH","STATS","TECH"
 ];
-
 
 /* Block 1: TradingView Advanced Chart */
 function updateChartGeneric(instrumentName, groupData) {
@@ -76,7 +81,6 @@ export function updateChart(instrumentName, groupData) {
   updateChartGeneric(instrumentName, groupData);
 }
 
-
 /* Block 2: Symbol Overview */
 function updateSymbolOverviewGeneric(instrumentName, groupData) {
   const info   = groupData[instrumentName];
@@ -96,9 +100,7 @@ function updateSymbolOverviewGeneric(instrumentName, groupData) {
   script.src   = "https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js";
   script.async = true;
   script.textContent = `{
-    "symbols": [
-      [ "${symbol}|1D" ]
-    ],
+    "symbols": [ [ "${symbol}|1D" ] ],
     "chartOnly": false,
     "width": "100%",
     "height": "100%",
@@ -134,7 +136,6 @@ export function updateSymbolOverview(instrumentName, groupData) {
   updateSymbolOverviewGeneric(instrumentName, groupData);
 }
 
-
 /* Block 3: TrendScore Table and Technical Analysis */
 function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, rightLabelArr, tradingViewUpdater) {
   const trendScoreContainer = document.getElementById("block3-trendscore");
@@ -148,6 +149,8 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
       showBlock3Tab("trendscore");
       return;
     }
+
+    const isFxTable = (leftLabelArr === fxLeftLabels);
 
     const table = document.createElement("table");
     for (let i = 0; i < rowCount; i++) {
@@ -165,6 +168,11 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
       if (leftLabelArr[i] === "STATS") {
         if (val === "MEDIUM TERM UP")    val = "MEDIUM TERM BULLISH";
         else if (val === "MEDIUM TERM DOWN") val = "MEDIUM TERM BEARISH";
+      }
+
+      // FX: format KEY AREA to 4 decimals
+      if (isFxTable && leftLabelArr[i] === "KEY AREA") {
+        val = formatFxKeyArea(val);
       }
 
       const td2 = document.createElement("td");
@@ -187,7 +195,7 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
         if (i === 5)     rightVal = info.summaryRight[7];
         else if (i === 6)  rightVal = info.summaryRight[8];
         else if (i === 7)  rightVal = info.ticker || info.tvSymbol;
-        else             rightVal = info.summaryRight[i];
+        else               rightVal = info.summaryRight[i];
       } else {
         rightVal = info.summaryRight[i];
       }
@@ -273,7 +281,6 @@ export function showBlock3Tab(tabName) {
   }
 }
 
-
 /* Block 4: Correlation Analysis */
 function pearsonCorrelation(x, y) {
   if (!Array.isArray(x) || !Array.isArray(y) || x.length === 0 || y.length === 0) return 0;
@@ -298,8 +305,16 @@ function drawMostCorrelatedChart(top10) {
   const labels = top10.map(i => i[0]), dataArr = top10.map(i => i[1]);
   new Chart(ctx, {
     type: "bar",
-    data: { labels, datasets: [{ label: "CORRELATION", data: dataArr, backgroundColor: 'orange', borderColor: 'orange', borderWidth: 1
- }] },
+    data: {
+      labels,
+      datasets: [{
+        label: "CORRELATION",
+        data: dataArr,
+        backgroundColor: 'orange',
+        borderColor: 'orange',
+        borderWidth: 1
+      }]
+    },
     options: {
       responsive: true,
       maintainAspectRatio: false,
@@ -377,7 +392,6 @@ export function updateBlock4(instrumentName, groupData, groupReturns) {
   }, 300);
 }
 
-
 /* Block3 Tab Event */
 export function initBlock3Tabs() {
   document.querySelectorAll('#block3-tabs button').forEach(tab => {
@@ -386,7 +400,6 @@ export function initBlock3Tabs() {
     });
   });
 }
-
 
 /* Fullscreen Button & YouTube Popup */
 export function updateFullscreenButton() {
@@ -411,12 +424,16 @@ export function updateYouTubePlayer() {
     document.getElementById("youtube-url").value.trim();
 }
 
-
 /* Global Event Handlers (formerly initEventHandlers) */
 export function initEventHandlers(allGroupData, allPricesData, allReturnsData) {
   // Sidebar instrument clicks (includes spreads and others)
   document.querySelectorAll('.instrument-item').forEach(item => {
     item.addEventListener('click', () => {
+      // Always switch back to main dashboard from portfolio views
+      document.getElementById('main-content').style.display = 'grid';
+      document.getElementById('portfolio-builder-template').style.display = 'none';
+      document.getElementById('thematic-portfolio-template').style.display = 'none';
+
       const key = item.textContent.trim();
 
       // hide everything first
@@ -452,6 +469,4 @@ export function initEventHandlers(allGroupData, allPricesData, allReturnsData) {
       updateBlock4(key, groupData, allReturnsData);
     });
   });
-
-  // Other handlers (fullscreen, YouTube popup) can go here...
 }
