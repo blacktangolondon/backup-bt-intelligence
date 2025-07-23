@@ -143,4 +143,3 @@ export async function showSpread(spreadKey) {
     chart.resize(width, height);
   }).observe(container);
 }
-
