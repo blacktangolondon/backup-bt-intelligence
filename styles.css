@@ -335,6 +335,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   margin-top: 20px;
   clear: both;
   width: 100%;
+  color: #ffffff; /* ensure plain text messages are visible */
 }
 #portfolio-results table {
   width: 100%;
@@ -413,6 +414,10 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 .filter-selector button:hover {
   background-color: #334455;
 }
+.filter-selector span { color: #ffffff; } /* ensure (boolean) is visible */
+
+/* Make instruction text visible */
+.portfolio-builder-instruction { color: #ffffff; }
 
 /* Thematic Portfolio Styles */
 .thematic-portfolio-section {
