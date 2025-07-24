@@ -50,14 +50,36 @@ export async function showSpread(spreadKey) {
     return;
   }
   container.innerHTML = '';
+  container.style.position = 'relative'; // for the floating title
 
-  // 4) Create the chart using the global LightweightCharts object
+  // 3a) Add floating title block
+  const friendly = getFriendlyLabel(spreadKey);
+  const LEFT_OFFSET_PX = 70; // push away from Y-axis
+  const titleDiv = document.createElement('div');
+  titleDiv.style.position      = 'absolute';
+  titleDiv.style.top           = '8px';
+  titleDiv.style.left          = LEFT_OFFSET_PX + 'px';
+  titleDiv.style.zIndex        = '5';
+  titleDiv.style.pointerEvents = 'none';
+  titleDiv.style.lineHeight    = '1.2';
+
+  titleDiv.innerHTML = `
+    <div style="font-size:16px;font-weight:bold;color:#FFA500;">
+      ${friendly}
+    </div>
+    <div style="font-size:11px;color:#FFA500;opacity:0.7;letter-spacing:0.5px;">
+      BT-intelligence&nbsp;&nbsp;&nbsp;www.blacktangocapital.com
+    </div>
+  `;
+  container.appendChild(titleDiv);
+
+  // 4) Create the chart with a single shared right-hand price scale
   const chart = window.LightweightCharts.createChart(container, {
-    width: container.clientWidth,
+    width:  container.clientWidth,
     height: container.clientHeight,
     layout: {
       background: { type: 'solid', color: 'black' },
-      textColor: 'rgba(255, 152, 0, 1)',
+      textColor:  'rgba(255, 152, 0, 1)',
     },
     grid: {
       vertLines: { color: 'rgba(255,255,255,0.1)' },
@@ -68,74 +90,60 @@ export async function showSpread(spreadKey) {
       borderColor: 'rgba(255,255,255,0.2)',
     },
     rightPriceScale: {
+      visible: true,
       borderColor: 'rgba(255,255,255,0.2)',
     },
     leftPriceScale: {
-      visible: true,
+      visible: false,
     },
     crosshair: {
       mode: window.LightweightCharts.CrosshairMode.Normal,
     },
-  });
-
-  // 5) Optional watermark
-  chart.applyOptions({
     watermark: {
-      visible: true,
-      fontSize: 24,
-      horzAlign: 'left',
-      vertAlign: 'top',
-      color: 'rgba(255,152,0,0.2)',
-      text: `Spread: ${spreadKey}`,
+      visible: false,
     },
   });
 
-  // 6) Add series
-  //    - Ratio on right axis: show only its last-price label
-  const ratioLine = chart.addSeries(
-    window.LightweightCharts.LineSeries,
-    {
-      color: 'rgba(255, 152, 0, 1)',
-      lineWidth: 2,
-      lastValueVisible: true,
-      priceLineVisible: true,
-      priceScaleId: 'right',
-    }
-  );
+  // 5) Add all five series to the single scale
+  const ratioLine = chart.addSeries(window.LightweightCharts.LineSeries, {
+    color:            'rgba(255, 152, 0, 1)',
+    lineWidth:        2,
+    lastValueVisible: true,
+    priceLineVisible: true,
+  });
 
-  //    - Channel lines on left axis: width=4px, no labels or titles
   const channelOpts = {
-    lineWidth: 4,
-    lineStyle: window.LightweightCharts.LineStyle.Dotted,
+    lineWidth:        4,
+    lineStyle:        window.LightweightCharts.LineStyle.Dotted,
     lastValueVisible: false,
     priceLineVisible: false,
-    priceScaleId: 'left',
   };
+
   const lower1Line = chart.addSeries(window.LightweightCharts.LineSeries, {
     color: 'rgba(0, 150, 136, 0.7)',
-    ...channelOpts
+    ...channelOpts,
   });
   const lower2Line = chart.addSeries(window.LightweightCharts.LineSeries, {
     color: 'rgba(0, 150, 136, 0.4)',
-    ...channelOpts
+    ...channelOpts,
   });
   const upper1Line = chart.addSeries(window.LightweightCharts.LineSeries, {
     color: 'rgba(255, 82, 82, 0.7)',
-    ...channelOpts
+    ...channelOpts,
   });
   const upper2Line = chart.addSeries(window.LightweightCharts.LineSeries, {
     color: 'rgba(255, 82, 82, 0.4)',
-    ...channelOpts
+    ...channelOpts,
   });
 
-  // 7) Set the data for each series
+  // 6) Set data on each series
   ratioLine .setData(ratioSeries);
   lower1Line.setData(lower1Series);
   lower2Line.setData(lower2Series);
   upper1Line.setData(upper1Series);
   upper2Line.setData(upper2Series);
 
-  // 8) Fit the time scale and observe resizes
+  // 7) Fit the time scale and handle resize
   chart.timeScale().fitContent();
   new ResizeObserver(entries => {
     if (!entries.length || entries[0].target.id !== 'spread-chart') return;
@@ -143,3 +151,96 @@ export async function showSpread(spreadKey) {
     chart.resize(width, height);
   }).observe(container);
 }
+
+/* -----------------------------------------------------------------------------
+   Helpers to produce a human-friendly title
+----------------------------------------------------------------------------- */
+
+function getFriendlyLabel(pair) {
+  if (LABEL_MAP[pair]) return LABEL_MAP[pair];
+  if (isCalendarPair(pair)) return prettyCalendar(pair);
+  return pair;
+}
+
+function isCalendarPair(pair) {
+  return /^[A-Z]+[FGHJKMNQUVXZ]\d{2}\/[A-Z]+[FGHJKMNQUVXZ]\d{2}$/.test(pair);
+}
+
+function prettyCalendar(pair) {
+  const [a, b] = pair.split('/');
+  return `${legToText(a)} / ${legToText(b)} (${pair})`;
+}
+function legToText(leg) {
+  const m = leg.match(/^([A-Z]+)([FGHJKMNQUVXZ])(\d{2})$/);
+  if (!m) return leg;
+  const [, root, mCode, yy] = m;
+  const rootName = ROOT_NAME[root] || root;
+  return `${rootName} ${MONTH_CODE[mCode]} 20${yy}`;
+}
+
+// Month codes
+const MONTH_CODE = {
+  F:'Jan', G:'Feb', H:'Mar', J:'Apr', K:'May', M:'Jun',
+  N:'Jul', Q:'Aug', U:'Sep', V:'Oct', X:'Nov', Z:'Dec'
+};
+
+// Futures root friendly names
+const ROOT_NAME = {
+  ES : 'E-mini S&P 500',
+  NQ : 'E-mini Nasdaq 100',
+  YM : 'Dow Jones 30 (Mini)',
+  RTY: 'Russell 2000 (Mini)',
+  ZB : 'US 30Y Bond',
+  ZN : 'US 10Y Note',
+  ZF : 'US 5Y Note',
+  ZT : 'US 2Y Note',
+  CL : 'WTI Crude Oil',
+  RB : 'RBOB Gasoline',
+  HO : 'Heating Oil',
+  NG : 'Natural Gas',
+  GC : 'Gold',
+  SI : 'Silver',
+  HG : 'Copper',
+  ZC : 'Corn',
+  ZW : 'Wheat',
+  ZS : 'Soybeans',
+  LE : 'Live Cattle',
+  HE : 'Lean Hogs'
+};
+
+// Friendly labels for non-calendar pairs
+const LABEL_MAP = {
+  // ── RELATIVE VALUE
+  'FTSE100/EU50'          : 'FTSE 100 / Euro Stoxx 50',
+  'FTSE100/CAC40'         : 'FTSE 100 / CAC 40',
+  'CAC40/EU50'            : 'CAC 40 / Euro Stoxx 50',
+  'DAX40/EU50'            : 'DAX 40 / Euro Stoxx 50',
+  'DOW30/S&P500'          : 'Dow Jones 30 / S&P 500',
+  'DOW30/NASDAQ100'       : 'Dow Jones 30 / Nasdaq 100',
+  'DOW30/RUSSELL2000'     : 'Dow Jones 30 / Russell 2000',
+  'NASDAQ100/S&P500'      : 'Nasdaq 100 / S&P 500',
+  'NASDAQ100/RUSSELL2000' : 'Nasdaq 100 / Russell 2000',
+  'S&P500/RUSSELL2000'    : 'S&P 500 / Russell 2000',
+  'GOLD/SILVER'           : 'Gold / Silver',
+  'GOLD/PLATINUM'         : 'Gold / Platinum',
+  'PLATINUM/SILVER'       : 'Platinum / Silver',
+  'WTI/BRENT'             : 'WTI Crude / Brent Crude',
+  'BRENT/WTI'             : 'Brent Crude / WTI Crude',
+  'CORN/WHEAT'            : 'Corn / Wheat',
+  'SOYBEANS/CORN'         : 'Soybeans / Corn',
+  'BITCOIN/ETHEREUM'      : 'Bitcoin / Ethereum',
+  // ── EQUITY NEUTRAL
+  'V/MA'                  : 'Visa / Mastercard',
+  'KO/PEP'                : 'Coca‑Cola / PepsiCo',
+  'MSFT/ADBE'             : 'Microsoft / Adobe',
+  'META/GOOGL'            : 'Meta / Alphabet',
+  'NVDA/AMD'              : 'Nvidia / AMD',
+  'JPM/BAC'               : 'JPMorgan / Bank of America',
+  'XOM/CVX'               : 'Exxon Mobil / Chevron',
+  'BRK.A/BRK.B'           : 'Berkshire Hathaway A / B',
+  'SHEL.A/SHEL.B'         : 'Shell A / Shell B',
+  'TSM/ASML'              : 'TSMC / ASML',
+  // ── FIXED INCOME
+  'ZT/ZN'                 : '2Y Note / 10Y Note (ZT / ZN)',
+  'ZF/UB'                 : '5Y Note / Ultra Bond (ZF / UB)'
+};
