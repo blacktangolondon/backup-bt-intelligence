@@ -553,3 +553,16 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
     font-size: 10px;
   }
 }
+
+/* Spread title overlay */
+#block5 { position: relative; }  /* ensure positioning context */
+.chart-title {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  color: #FFA500;
+  font-size: 16px;
+  font-weight: bold;
+  z-index: 5;
+  pointer-events: none;
+}
