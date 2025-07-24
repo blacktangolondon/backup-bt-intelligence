@@ -14,9 +14,11 @@ body {
     "module1 module3"
     "module2 module3";
   grid-template-columns: 2fr 3fr;
+  grid-template-rows: 1fr 1fr;      /* ← add this */
   grid-gap: 20px;
   height: 100vh;
 }
+
 
 /* Module placements */
 #module1 { grid-area: module1; }
