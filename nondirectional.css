@@ -123,24 +123,28 @@ body {
   background: #2a2a2a;
 }
 
-/* Module 3: Performance visuals */
+/* --- MODULE 3: PERFORMANCE VISUALS --- */
 #module3 {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 2fr 1fr;   /* 2/3 height for the big chart, 1/3 for the little ones */
+  grid-gap: 16px;
   height: 100%;
+  overflow: hidden;              /* prevents page scroll */
 }
+
+/* Top‑row: equity curve */
 #equityChart {
-  flex: 2;                   /* takes up most of module3 */
   width: 100%;
-  height: 0 !important;      /* allow flex to drive height */
-  margin-bottom: 16px;
+  height: 100%;                  /* fills that 2fr row */
 }
+
+/* Bottom‑row: two side‑by‑side charts */
 .bottom-charts {
-  display: flex;
-  flex: 1;                   /* fill the rest of module3 */
-  gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 12px;
 }
 .bottom-charts canvas {
-  flex: 1;
-  height: 100% !important;   /* fill bottom‑charts container */
+  width: 100%;
+  height: 100%;                  /* each fills its grid cell */
 }
