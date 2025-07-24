@@ -38,7 +38,7 @@
   // 5) By‑Spread Breakdown
   const bySpread = {};
   trades.forEach(t => {
-    const key = t.key; // your spread name
+    const key = t.spread; // your spread name
     bySpread[key] = bySpread[key] || [];
     bySpread[key].push(ret(t));
   });
