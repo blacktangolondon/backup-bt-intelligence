@@ -3,7 +3,7 @@
   const resp = await fetch('./non_directional_stats.json');
   const stats = await resp.json();
 
-  // Module 1: aggregate summary
+  // Module 1: aggregate summary (top‑left)
   const agg = stats.aggregate;
   document.getElementById('module1').innerHTML = `
     <h2>Portfolio Summary</h2>
@@ -15,28 +15,9 @@
     <p>Max Win: ${agg.max_profit.toFixed(4)} &nbsp; Max Loss: ${agg.max_loss.toFixed(4)}</p>
   `;
 
-  // Module 2: per‑spread table
-  const per = stats.per_spread;
-  const rows = Object.entries(per)
-    .map(([k,v]) => `
-      <tr>
-        <td>${k}</td>
-        <td>${v.trades}</td>
-        <td>${v.win_rate_pct.toFixed(1)}%</td>
-        <td>${v.total_pnl.toFixed(4)}</td>
-      </tr>`)
-    .join('');
-  document.getElementById('module2').innerHTML = `
-    <h2>By Spread</h2>
-    <table>
-      <thead><tr><th>Spread</th><th>Trades</th><th>Win %</th><th>PnL</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>
-  `;
-
-  // Module 3: equity curve chart
+  // Module 2: performance chart (bottom‑left)
   const canvas = document.createElement('canvas');
-  document.getElementById('module3').appendChild(canvas);
+  document.getElementById('module2').appendChild(canvas);
   new Chart(canvas.getContext('2d'), {
     type: 'line',
     data: {
@@ -59,4 +40,23 @@
       animation: false
     }
   });
+
+  // Module 3: per‑spread table (right, full height)
+  const per = stats.per_spread;
+  const rows = Object.entries(per)
+    .map(([k,v]) => `
+      <tr>
+        <td>${k}</td>
+        <td>${v.trades}</td>
+        <td>${v.win_rate_pct.toFixed(1)}%</td>
+        <td>${v.total_pnl.toFixed(4)}</td>
+      </tr>`)
+    .join('');
+  document.getElementById('module3').innerHTML = `
+    <h2>By Spread</h2>
+    <table>
+      <thead><tr><th>Spread</th><th>Trades</th><th>Win %</th><th>PnL</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `;
 })();
