@@ -1,8 +1,3 @@
-// ─── Global Chart.js font defaults ───
-Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
-Chart.defaults.font.size   = 12;     // tick labels, legend labels, etc.
-Chart.defaults.font.weight = 'normal';
-
 (async function() {
   const resp = await fetch('non_directional_stats.json');
   if (!resp.ok) {
@@ -20,12 +15,12 @@ Chart.defaults.font.weight = 'normal';
   }
 
   // 2) Compute Portfolio KPIs (all %‐based)
-  const rets   = trades.map(ret);
-  const total  = rets.length;
-  const wins   = rets.filter(r => r > 0).length;
+  const rets    = trades.map(ret);
+  const total   = rets.length;
+  const wins    = rets.filter(r => r > 0).length;
   const winRate = (wins / total) * 100;
-  const avgRet = rets.reduce((a, b) => a + b, 0) / total;
-  const maxWin = Math.max(...rets);
+  const avgRet  = rets.reduce((a, b) => a + b, 0) / total;
+  const maxWin  = Math.max(...rets);
   const maxLoss = Math.min(...rets);
 
   // 3) Max Drawdown on cumulative (compounded) curve
@@ -58,11 +53,11 @@ Chart.defaults.font.weight = 'normal';
     bySpread[key].push(ret(t));
   });
   const tableData = Object.entries(bySpread).map(([key, arr]) => {
-    const wins  = arr.filter(r => r > 0).length;
-    const avg   = arr.reduce((a, b) => a + b, 0) / arr.length || 0;
+    const wins = arr.filter(r => r > 0).length;
+    const avg  = arr.reduce((a, b) => a + b, 0) / arr.length || 0;
     return {
       key,
-      trades: arr.length,
+      trades:   arr.length,
       win_rate: ((wins / arr.length) * 100).toFixed(1) + '%',
       avg_ret:  (avg * 100).toFixed(1) + '%',
       max_win:  (Math.max(...arr) * 100).toFixed(1) + '%',
@@ -136,14 +131,16 @@ function renderModule3(cum, rets) {
             title: {
               display: true,
               text: 'Cumulative Return (%)',
-              font: { size: 14 } // axis title larger
+              font: { size: 14 }
             },
             ticks: {
-              callback: v => v.toFixed(1) + '%'
+              callback: v => v.toFixed(1) + '%',
+              font: { size: 12 }    // <— explicit tick size
             }
           },
           x: {
-            display: false
+            display: false,
+            ticks: { font: { size: 12 } }
           }
         },
         plugins: {
@@ -166,25 +163,31 @@ function renderModule3(cum, rets) {
           label: 'Return per Trade',
           data: rets.map(v => v * 100),
           backgroundColor: rets.map(v =>
-            v >= 0
-              ? 'rgba(0,200,0,0.6)'
-              : 'rgba(200,0,0,0.6)'
+            v >= 0 ? 'rgba(0,200,0,0.6)' : 'rgba(200,0,0,0.6)'
           )
         }]
       },
       options: {
         plugins: {
-          legend: { display: false }
+          legend: {
+            display: false,
+            labels: { font: { size: 12 } }
+          }
         },
         scales: {
           x: {
-            display: false
+            display: false,
+            ticks: { font: { size: 12 } }
           },
           y: {
             title: {
               display: true,
               text: 'Return (%)',
               font: { size: 14 }
+            },
+            ticks: {
+              callback: v => v.toFixed(0) + '%',
+              font: { size: 12 }    // <— explicit tick size
             }
           }
         }
