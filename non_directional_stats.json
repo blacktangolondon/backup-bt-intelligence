@@ -1,0 +1,748 @@
+{
+  "aggregate": {
+    "period_start": "2023-07-31",
+    "period_end": "2025-07-24",
+    "trades": 55,
+    "wins": 49,
+    "losses": 6,
+    "win_rate_pct": 89.1,
+    "total_pnl": 51.3699,
+    "avg_pnl": 0.934,
+    "max_profit": 18.7345,
+    "max_loss": -0.0124
+  },
+  "per_spread": {
+    "FTSE100/EU50": {
+      "trades": 2,
+      "wins": 2,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.2705,
+      "avg_pnl": 0.1352,
+      "max_profit": 0.1482,
+      "max_loss": 0.1222
+    },
+    "FTSE100/CAC40": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "CAC40/EU50": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "DAX40/EU50": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "DOW30/S&P500": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "DOW30/NASDAQ100": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.2027,
+      "avg_pnl": 0.2027,
+      "max_profit": 0.2027,
+      "max_loss": 0.2027
+    },
+    "DOW30/RUSSELL2000": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 1.3433,
+      "avg_pnl": 1.3433,
+      "max_profit": 1.3433,
+      "max_loss": 1.3433
+    },
+    "NASDAQ100/S&P500": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.156,
+      "avg_pnl": 0.156,
+      "max_profit": 0.156,
+      "max_loss": 0.156
+    },
+    "NASDAQ100/RUSSELL2000": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "S&P500/RUSSELL2000": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "GOLD/SILVER": {
+      "trades": 2,
+      "wins": 2,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 27.6611,
+      "avg_pnl": 13.8305,
+      "max_profit": 15.0354,
+      "max_loss": 12.6257
+    },
+    "GOLD/PLATINUM": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.0321,
+      "avg_pnl": 0.0321,
+      "max_profit": 0.0321,
+      "max_loss": 0.0321
+    },
+    "PLATINUM/SILVER": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 1.4802,
+      "avg_pnl": 1.4802,
+      "max_profit": 1.4802,
+      "max_loss": 1.4802
+    },
+    "WTI/BRENT": {
+      "trades": 4,
+      "wins": 4,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.1274,
+      "avg_pnl": 0.0318,
+      "max_profit": 0.0347,
+      "max_loss": 0.0286
+    },
+    "CORN/WHEAT": {
+      "trades": 2,
+      "wins": 2,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.2527,
+      "avg_pnl": 0.1264,
+      "max_profit": 0.128,
+      "max_loss": 0.1247
+    },
+    "SOYBEANS/CORN": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "BITCOIN/ETHEREUM": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "BRENT/WTI": {
+      "trades": 4,
+      "wins": 4,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.1409,
+      "avg_pnl": 0.0352,
+      "max_profit": 0.0389,
+      "max_loss": 0.0306
+    },
+    "V/MA": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.0518,
+      "avg_pnl": 0.0518,
+      "max_profit": 0.0518,
+      "max_loss": 0.0518
+    },
+    "KO/PEP": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "MSFT/ADBE": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "META/GOOGL": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "NVDA/AMD": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "JPM/BAC": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.4057,
+      "avg_pnl": 0.4057,
+      "max_profit": 0.4057,
+      "max_loss": 0.4057
+    },
+    "XOM/CVX": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.0732,
+      "avg_pnl": 0.0732,
+      "max_profit": 0.0732,
+      "max_loss": 0.0732
+    },
+    "BRK.A/BRK.B": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 18.7345,
+      "avg_pnl": 18.7345,
+      "max_profit": 18.7345,
+      "max_loss": 18.7345
+    },
+    "SHEL.A/SHEL.B": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "TSM/ASML": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "ZT/ZN": {
+      "trades": 3,
+      "wins": 3,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.0722,
+      "avg_pnl": 0.0241,
+      "max_profit": 0.0245,
+      "max_loss": 0.0233
+    },
+    "ZF/UB": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.0698,
+      "avg_pnl": 0.0698,
+      "max_profit": 0.0698,
+      "max_loss": 0.0698
+    },
+    "HEQ25/HEV25": {
+      "trades": 3,
+      "wins": 3,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.1204,
+      "avg_pnl": 0.0401,
+      "max_profit": 0.0438,
+      "max_loss": 0.037
+    },
+    "ZFU25/ZFZ25": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "HGN25/HGQ25": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.006,
+      "avg_pnl": 0.006,
+      "max_profit": 0.006,
+      "max_loss": 0.006
+    },
+    "YMU25/YMZ25": {
+      "trades": 2,
+      "wins": 2,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.0049,
+      "avg_pnl": 0.0025,
+      "max_profit": 0.0028,
+      "max_loss": 0.0021
+    },
+    "NQU25/NQZ25": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "RTYU25/RTYZ25": {
+      "trades": 4,
+      "wins": 3,
+      "losses": 1,
+      "win_rate_pct": 75.0,
+      "total_pnl": 0.0092,
+      "avg_pnl": 0.0023,
+      "max_profit": 0.0036,
+      "max_loss": 0.0
+    },
+    "RBQ25/RBU25": {
+      "trades": 2,
+      "wins": 2,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.0119,
+      "avg_pnl": 0.006,
+      "max_profit": 0.0062,
+      "max_loss": 0.0057
+    },
+    "ZTU25/ZTZ25": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.0016,
+      "avg_pnl": 0.0016,
+      "max_profit": 0.0016,
+      "max_loss": 0.0016
+    },
+    "HON25/HOQ25": {
+      "trades": 2,
+      "wins": 0,
+      "losses": 2,
+      "win_rate_pct": 0.0,
+      "total_pnl": -0.0134,
+      "avg_pnl": -0.0067,
+      "max_profit": -0.0009,
+      "max_loss": -0.0124
+    },
+    "ZNU25/ZNZ25": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.0017,
+      "avg_pnl": 0.0017,
+      "max_profit": 0.0017,
+      "max_loss": 0.0017
+    },
+    "ZBU25/ZBZ25": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "ESU25/ESZ25": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.003,
+      "avg_pnl": 0.003,
+      "max_profit": 0.003,
+      "max_loss": 0.003
+    },
+    "CLQ25/CLU25": {
+      "trades": 1,
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.0042,
+      "avg_pnl": 0.0042,
+      "max_profit": 0.0042,
+      "max_loss": 0.0042
+    },
+    "SIN25/SIQ25": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0.0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "ZSN25/ZSQ25": {
+      "trades": 3,
+      "wins": 3,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.0242,
+      "avg_pnl": 0.0081,
+      "max_profit": 0.0085,
+      "max_loss": 0.0074
+    },
+    "NGQ25/NGU25": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate_pct": 0.0,
+      "total_pnl": -0.0071,
+      "avg_pnl": -0.0071,
+      "max_profit": -0.0071,
+      "max_loss": -0.0071
+    },
+    "LEQ25/LEV25": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    },
+    "GCN25/GCQ25": {
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate_pct": 0.0,
+      "total_pnl": -0.0008,
+      "avg_pnl": -0.0008,
+      "max_profit": -0.0008,
+      "max_loss": -0.0008
+    },
+    "ZWN25/ZWU25": {
+      "trades": 2,
+      "wins": 2,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.0221,
+      "avg_pnl": 0.011,
+      "max_profit": 0.0169,
+      "max_loss": 0.0052
+    },
+    "ZCN25/ZCU25": {
+      "trades": 2,
+      "wins": 2,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "total_pnl": 0.1078,
+      "avg_pnl": 0.0539,
+      "max_profit": 0.0594,
+      "max_loss": 0.0485
+    },
+    "_groups": {
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "total_pnl": 0,
+      "avg_pnl": 0.0,
+      "max_profit": 0.0,
+      "max_loss": 0.0
+    }
+  },
+  "equity_curve": [
+    {
+      "date": "2023-10-25",
+      "cumulative_pnl": 0.0318
+    },
+    {
+      "date": "2023-10-25",
+      "cumulative_pnl": 0.066
+    },
+    {
+      "date": "2023-10-26",
+      "cumulative_pnl": 0.1144
+    },
+    {
+      "date": "2023-11-29",
+      "cumulative_pnl": 0.2627
+    },
+    {
+      "date": "2023-11-29",
+      "cumulative_pnl": 0.2871
+    },
+    {
+      "date": "2023-12-05",
+      "cumulative_pnl": 0.3568
+    },
+    {
+      "date": "2024-01-25",
+      "cumulative_pnl": 19.0913
+    },
+    {
+      "date": "2024-02-20",
+      "cumulative_pnl": 19.1238
+    },
+    {
+      "date": "2024-02-20",
+      "cumulative_pnl": 19.161
+    },
+    {
+      "date": "2024-06-14",
+      "cumulative_pnl": 19.2832
+    },
+    {
+      "date": "2024-06-24",
+      "cumulative_pnl": 19.4112
+    },
+    {
+      "date": "2024-07-10",
+      "cumulative_pnl": 19.4281
+    },
+    {
+      "date": "2024-07-24",
+      "cumulative_pnl": 19.5841
+    },
+    {
+      "date": "2024-07-26",
+      "cumulative_pnl": 19.7868
+    },
+    {
+      "date": "2024-08-01",
+      "cumulative_pnl": 19.7898
+    },
+    {
+      "date": "2024-08-05",
+      "cumulative_pnl": 34.8252
+    },
+    {
+      "date": "2024-09-03",
+      "cumulative_pnl": 34.869
+    },
+    {
+      "date": "2024-10-28",
+      "cumulative_pnl": 34.8923
+    },
+    {
+      "date": "2024-11-05",
+      "cumulative_pnl": 34.8956
+    },
+    {
+      "date": "2024-11-15",
+      "cumulative_pnl": 34.9687
+    },
+    {
+      "date": "2024-12-10",
+      "cumulative_pnl": 34.9744
+    },
+    {
+      "date": "2025-01-06",
+      "cumulative_pnl": 35.0263
+    },
+    {
+      "date": "2025-01-14",
+      "cumulative_pnl": 35.0284
+    },
+    {
+      "date": "2025-01-22",
+      "cumulative_pnl": 35.0654
+    },
+    {
+      "date": "2025-02-18",
+      "cumulative_pnl": 35.0728
+    },
+    {
+      "date": "2025-02-26",
+      "cumulative_pnl": 35.0973
+    },
+    {
+      "date": "2025-03-14",
+      "cumulative_pnl": 35.1001
+    },
+    {
+      "date": "2025-04-01",
+      "cumulative_pnl": 35.1036
+    },
+    {
+      "date": "2025-04-07",
+      "cumulative_pnl": 35.1099
+    },
+    {
+      "date": "2025-05-12",
+      "cumulative_pnl": 35.1693
+    },
+    {
+      "date": "2025-05-13",
+      "cumulative_pnl": 35.1717
+    },
+    {
+      "date": "2025-05-15",
+      "cumulative_pnl": 35.1732
+    },
+    {
+      "date": "2025-05-19",
+      "cumulative_pnl": 35.2121
+    },
+    {
+      "date": "2025-05-20",
+      "cumulative_pnl": 35.2468
+    },
+    {
+      "date": "2025-06-06",
+      "cumulative_pnl": 35.3715
+    },
+    {
+      "date": "2025-06-09",
+      "cumulative_pnl": 47.9972
+    },
+    {
+      "date": "2025-06-10",
+      "cumulative_pnl": 49.3405
+    },
+    {
+      "date": "2025-06-13",
+      "cumulative_pnl": 49.349
+    },
+    {
+      "date": "2025-06-26",
+      "cumulative_pnl": 49.3366
+    },
+    {
+      "date": "2025-06-30",
+      "cumulative_pnl": 49.3357
+    },
+    {
+      "date": "2025-07-08",
+      "cumulative_pnl": 49.3439
+    },
+    {
+      "date": "2025-07-14",
+      "cumulative_pnl": 49.3491
+    },
+    {
+      "date": "2025-07-15",
+      "cumulative_pnl": 49.3887
+    },
+    {
+      "date": "2025-07-16",
+      "cumulative_pnl": 49.3904
+    },
+    {
+      "date": "2025-07-22",
+      "cumulative_pnl": 49.3946
+    },
+    {
+      "date": "2025-07-23",
+      "cumulative_pnl": 49.4231
+    },
+    {
+      "date": "2025-07-23",
+      "cumulative_pnl": 49.4537
+    },
+    {
+      "date": "2025-07-23",
+      "cumulative_pnl": 49.8594
+    },
+    {
+      "date": "2025-07-23",
+      "cumulative_pnl": 49.8654
+    },
+    {
+      "date": "2025-07-23",
+      "cumulative_pnl": 49.8654
+    },
+    {
+      "date": "2025-07-23",
+      "cumulative_pnl": 49.8654
+    },
+    {
+      "date": "2025-07-23",
+      "cumulative_pnl": 49.8646
+    },
+    {
+      "date": "2025-07-24",
+      "cumulative_pnl": 49.8968
+    },
+    {
+      "date": "2025-07-24",
+      "cumulative_pnl": 51.377
+    },
+    {
+      "date": "2025-07-24",
+      "cumulative_pnl": 51.3699
+    }
+  ]
+}
