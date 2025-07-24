@@ -1,14 +1,20 @@
 /* Base resets */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+/* Body styling */
 body {
   background: #111;
   color: #ddd;
   font-family: sans-serif;
-  padding: 20px;
 }
 
 /* Layout grid */
@@ -18,9 +24,9 @@ body {
     "module1 module3"
     "module2 module3";
   grid-template-columns: 2fr 3fr;
-  grid-template-rows: 1fr 1fr;          /* ← split rows equally */
-  grid-gap: 20px;
-  height: 100vh;
+  grid-template-rows: 1fr 1fr;    /* split rows equally */
+  gap: 20px;
+  height: 100vh;                  /* full viewport height */
 }
 
 /* Module placements */
@@ -34,6 +40,13 @@ body {
   grid-area: module3;
   display: flex;
   flex-direction: column;
+}
+
+/* Internal scrolling if content overflows */
+#module1,
+#module2,
+#module3 {
+  overflow: auto;
 }
 
 /* Make Module 1 & Module 2 fill their cells */
@@ -85,8 +98,8 @@ body {
 }
 /* flex‑fill & internal scroll */
 .table-wrapper {
-  flex: 1;              /* ← fill remaining height in module2 */
-  overflow-y: auto;     /* ← scroll inside here */
+  flex: 1;              /* fill remaining height in module2 */
+  overflow-y: auto;     /* scroll inside here */
 }
 .table-wrapper table {
   width: 100%;
@@ -110,7 +123,7 @@ body {
   background: #2a2a2a;
 }
 
-/* Module 3 (Performance visuals) */
+/* Module 3: Performance visuals */
 #module3 {
   display: flex;
   flex-direction: column;
