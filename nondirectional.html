@@ -1,17 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Non‑Directional Strategies Statistics</title>
-  <link rel="stylesheet" href="nondirectional.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Non‑Directional Strategies Dashboard</title>
+  <link rel="stylesheet" href="nondirectional.css" />
 </head>
 <body>
   <div id="container">
-    <div id="module1" class="panel"></div>
-    <div id="module2" class="panel"></div>
-    <div id="module3" class="panel"></div>
+    <!-- Module 1: Portfolio KPI Cards -->
+    <section id="module1" class="card-grid"></section>
+
+    <!-- Module 2: By‑Spread Breakdown Table -->
+    <section id="module2" class="card table-card">
+      <h2>By‑Spread Breakdown</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Spread</th>
+              <th>Trades</th>
+              <th>Win %</th>
+              <th>Avg PnL</th>
+              <th>Max Win</th>
+              <th>Max Loss</th>
+              <th>Avg Dur (days)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Module 3: Performance Visuals -->
+    <section id="module3" class="card charts-card">
+      <h2>Performance Visuals</h2>
+      <canvas id="equityChart"></canvas>
+      <div class="bottom-charts">
+        <canvas id="returnsChart"></canvas>
+        <canvas id="durationChart"></canvas>
+      </div>
+    </section>
   </div>
+
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Your wiring logic -->
   <script src="nondirectional.js"></script>
 </body>
 </html>
