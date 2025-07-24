@@ -192,10 +192,10 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
       const td4 = document.createElement("td");
       let rightVal;
       if (leftLabelArr === etfLeftLabels) {
-        if (i === 5)     rightVal = info.summaryRight[7];
-        else if (i === 6)  rightVal = info.summaryRight[8];
-        else if (i === 7)  rightVal = info.ticker || info.tvSymbol;
-        else               rightVal = info.summaryRight[i];
+        if (i === 5)      rightVal = info.summaryRight[7];
+        else if (i === 6) rightVal = info.summaryRight[8];
+        else if (i === 7) rightVal = info.ticker || info.tvSymbol;
+        else              rightVal = info.summaryRight[i];
       } else {
         rightVal = info.summaryRight[i];
       }
