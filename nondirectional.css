@@ -24,37 +24,30 @@ body {
     "module1 module3"
     "module2 module3";
   grid-template-columns: 2fr 3fr;
-  grid-template-rows: 1fr 1fr;    /* split rows equally */
+  grid-template-rows: 1fr 1fr;
   gap: 20px;
-  height: 100vh;                  /* full viewport height */
+  height: 100vh;
 }
 
 /* Module placements */
-#module1 {
-  grid-area: module1;
-}
-#module2 {
-  grid-area: module2;
-}
+#module1 { grid-area: module1; }
+#module2 { grid-area: module2; }
 #module3 {
   grid-area: module3;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: 2fr 1fr;   /* big top row, smaller bottom row */
+  gap: 16px;
+  height: 100%;
+  min-height: 0;                 /* allow inner rows to shrink */
 }
 
-/* Internal scrolling if content overflows */
-#module1,
-#module2,
-#module3 {
-  overflow: auto;
-}
-
-/* Make Module 1 & Module 2 fill their cells */
+/* Internal scrolling if module content overflows */
 #module1,
 #module2 {
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: auto;
 }
 
 /* Card styling */
@@ -96,10 +89,9 @@ body {
   margin-bottom: 8px;
   color: #FFA500;
 }
-/* flex‑fill & internal scroll */
 .table-wrapper {
-  flex: 1;              /* fill remaining height in module2 */
-  overflow-y: auto;     /* scroll inside here */
+  flex: 1;
+  overflow-y: auto;
 }
 .table-wrapper table {
   width: 100%;
@@ -123,28 +115,24 @@ body {
   background: #2a2a2a;
 }
 
-/* --- MODULE 3: PERFORMANCE VISUALS --- */
-#module3 {
-  display: grid;
-  grid-template-rows: 2fr 1fr;   /* 2/3 height for the big chart, 1/3 for the little ones */
-  grid-gap: 16px;
-  height: 100%;
-  overflow: hidden;              /* prevents page scroll */
-}
+/* Module 3: Performance visuals */
 
-/* Top‑row: equity curve */
+/* Equity chart in the top 2fr row */
 #equityChart {
   width: 100%;
-  height: 100%;                  /* fills that 2fr row */
+  height: 100%;
+  min-height: 0;  /* allow Chart.js to size it */
 }
 
-/* Bottom‑row: two side‑by‑side charts */
+/* Bottom row: two charts side by side */
 .bottom-charts {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 12px;
+  gap: 12px;
+  overflow: auto;    /* scroll if the two charts overflow vertically */
+  min-height: 0;     /* allow the grid row to shrink */
 }
 .bottom-charts canvas {
   width: 100%;
-  height: 100%;                  /* each fills its grid cell */
+  height: 100%;
 }
