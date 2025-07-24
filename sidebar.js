@@ -13,22 +13,20 @@ export async function generateSidebarContent() {
   sidebarList.innerHTML = '';
 
   // ───────────────────────────────────────
-  // Display aliases (visual only)
+  // Pairs to hide (won't appear/click)
   // ───────────────────────────────────────
-  const DISPLAY_ALIAS = {
-    RUSSELL2000: 'RUSSELL'
-  };
-  function prettyName(name) {
-    return DISPLAY_ALIAS[name] || name;
-  }
-  function prettyPair(pair) {
-    // simple replace for any alias keys
-    let out = pair;
-    for (const [orig, alias] of Object.entries(DISPLAY_ALIAS)) {
-      out = out.replace(orig, alias);
-    }
-    return out;
-  }
+  const HIDDEN_PAIRS = new Set([
+    "SHEL.A/SHEL.B",
+    "ESU25/ESZ25","GCN25/GCQ25","HGN25/HGQ25","HON25/HOQ25",
+    "NGQ25/NGU25","NQU25/NQZ25","RBQ25/RBU25","RTYU25/RTYZ25",
+    "SIN25/SIQ25","YMU25/YMZ25","ZBU25/ZBZ25","ZFU25/ZFZ25",
+    "ZNU25/ZNZ25","ZSN25/ZSQ25","ZTU25/ZTZ25","ZWN25/ZWU25"
+  ]);
+
+  // No aliases – use the real keys so clicks match exactly
+  const DISPLAY_ALIAS = {};
+  const prettyName = name => name;
+  const prettyPair = pair => pair;
 
   // ───────────────────────────────────────
   // Load instruments.json
@@ -64,6 +62,8 @@ export async function generateSidebarContent() {
       Object.values(prettyMap).forEach(k => nonDirectionalGroups[k] = []);
 
       for (const [pairName, grpKey] of Object.entries(spreadsObj._groups)) {
+        if (HIDDEN_PAIRS.has(pairName)) continue; // skip hidden pairs
+
         const prettyGroup = prettyMap[grpKey] || grpKey.toUpperCase();
         if (!nonDirectionalGroups[prettyGroup]) nonDirectionalGroups[prettyGroup] = [];
         nonDirectionalGroups[prettyGroup].push(pairName);
@@ -74,8 +74,9 @@ export async function generateSidebarContent() {
         nonDirectionalGroups[k].sort();
       }
     } else {
-      // fallback: one flat list
-      const spreadsList = Object.keys(spreadsObj || {}).filter(k => k !== '_groups');
+      // fallback: one flat list (filter hidden ones)
+      const spreadsList = Object.keys(spreadsObj || {})
+        .filter(k => k !== '_groups' && !HIDDEN_PAIRS.has(k));
       nonDirectionalGroups = { 'RELATIVE VALUE ARBITRAGE': spreadsList.sort() };
     }
   } catch (err) {
@@ -233,7 +234,6 @@ export async function generateSidebarContent() {
       prettyND[bucket] = pairs.map(p => p); // keep original list
     }
 
-    // We need a custom add because inner arrays, not objects
     const liND = document.createElement('li');
     liND.classList.add('expandable');
     const toggleND = document.createElement('div');
@@ -256,6 +256,7 @@ export async function generateSidebarContent() {
       const instUl = document.createElement('ul');
       instUl.classList.add('sub-list');
       arr.sort().forEach(pair => {
+        if (HIDDEN_PAIRS.has(pair)) return; // double safety
         const instLi = document.createElement('li');
         instLi.classList.add('instrument-item');
         instLi.dataset.pair = pair;                      // real pair key
