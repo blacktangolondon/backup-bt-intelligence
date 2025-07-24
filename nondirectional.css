@@ -87,29 +87,24 @@ body {
   background: #2a2a2a;
 }
 
-/* Make module3 flex and stretch to fill its grid area */
-#module3 {
-  grid-area: module3;
+/* Module 3: charts */
+.charts-card {
   display: flex;
   flex-direction: column;
-  height: 100%;       /* ensure it fills the row height */
 }
-
-/* Equity chart takes up the bulk of the space */
+.charts-card h2 {
+  margin-bottom: 12px;
+  color: #FFA500;
+}
 #equityChart {
-  flex: 2;            /* twice as tall as the bottom row */
-  width: 100%;
-  height: 0 !important; /* allow flex to drive the height */
+  flex: 1;
   margin-bottom: 16px;
 }
-
-/* Bottom two charts share the remaining space */
 .bottom-charts {
   display: flex;
-  flex: 1;            /* take the rest of the height */
   gap: 12px;
 }
 .bottom-charts canvas {
   flex: 1;
-  height: 100% !important; /* fill the bottom‑charts container */
+  height: 200px !important;
 }
