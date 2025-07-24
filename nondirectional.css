@@ -35,10 +35,37 @@ body {
 #module3 {
   grid-area: module3;
   display: grid;
-  grid-template-rows: 2fr 1fr; /* 2/3 height for equity, 1/3 for histogram */
+  /* 3 rows: heading / big chart / small chart */
+  grid-template-rows: auto 2fr 1fr;
   gap: 16px;
   height: 100%;
-  min-height: 0;              /* allow rows to shrink */
+  min-height: 0;
+}
+
+/* Pin each child into its row */
+#module3 > h2 {
+  grid-row: 1;
+  padding: 0 16px;    /* if you want to keep some spacing */
+}
+#equityChart {
+  grid-row: 2;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+.bottom-charts {
+  grid-row: 3;
+  display: flex;
+  align-items: stretch;
+  overflow: auto;
+  min-height: 0;
+}
+
+/* Ensure the single canvas fills its container */
+.bottom-charts canvas {
+  flex: 1;
+  width: 100%;
+  height: 100%;
 }
 
 /* Modules 1 & 2 scroll internally */
@@ -113,26 +140,4 @@ body {
 }
 .table-wrapper tr:hover {
   background: #2a2a2a;
-}
-
-/* Module 3: Performance visuals */
-
-/* Top: cumulative PnL chart */
-#equityChart {
-  width: 100%;
-  height: 100%;
-  min-height: 0;
-}
-
-/* Bottom: PnL histogram */
-.bottom-charts {
-  display: flex;
-  align-items: stretch;
-  overflow: auto;
-  min-height: 0;
-}
-.bottom-charts canvas {
-  flex: 1;
-  width: 100%;
-  height: 100%;
 }
