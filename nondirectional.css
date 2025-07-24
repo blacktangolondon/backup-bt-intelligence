@@ -20,11 +20,14 @@ body {
 #module2 { grid-area: mod2; overflow: auto; }
 #module3 { grid-area: mod3; position: relative; }
 
+/* panels */
 .panel {
   background: rgba(255,255,255,0.05);
   padding: 12px;
   border-radius: 8px;
 }
+
+/* tables */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -34,6 +37,10 @@ th, td {
   text-align: left;
   border-bottom: 1px solid rgba(255,255,255,0.2);
 }
-th {
-  font-weight: bold;
+th { font-weight: bold; }
+
+/* make the Chart.js canvas fill module3 */
+#module3 canvas {
+  width: 100%  !important;
+  height: 100% !important;
 }
