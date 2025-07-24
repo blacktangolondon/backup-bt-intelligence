@@ -1,0 +1,33 @@
+/* nondirectional.css */
+body {
+  margin: 0;
+  background: #000;
+  color: #FFA500;
+  font-family: sans-serif;
+}
+#container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 16px;
+  padding: 16px;
+  height: 100vh;
+}
+.panel {
+  background: rgba(255,255,255,0.05);
+  padding: 12px;
+  border-radius: 8px;
+  overflow: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 4px 8px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+th {
+  font-weight: bold;
+}
