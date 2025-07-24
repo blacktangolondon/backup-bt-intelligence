@@ -1,5 +1,9 @@
 /* Base resets */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 body {
   background: #111;
   color: #ddd;
@@ -14,16 +18,31 @@ body {
     "module1 module3"
     "module2 module3";
   grid-template-columns: 2fr 3fr;
-  grid-template-rows: 1fr 1fr;      /* ← add this */
+  grid-template-rows: 1fr 1fr;          /* ← split rows equally */
   grid-gap: 20px;
   height: 100vh;
 }
 
-
 /* Module placements */
-#module1 { grid-area: module1; }
-#module2 { grid-area: module2; }
-#module3 { grid-area: module3; display: flex; flex-direction: column; }
+#module1 {
+  grid-area: module1;
+}
+#module2 {
+  grid-area: module2;
+}
+#module3 {
+  grid-area: module3;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Make Module 1 & Module 2 fill their cells */
+#module1,
+#module2 {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
 /* Card styling */
 .card {
@@ -64,15 +83,17 @@ body {
   margin-bottom: 8px;
   color: #FFA500;
 }
+/* flex‑fill & internal scroll */
 .table-wrapper {
-  max-height: calc(100% - 32px);
-  overflow-y: auto;
+  flex: 1;              /* ← fill remaining height in module2 */
+  overflow-y: auto;     /* ← scroll inside here */
 }
 .table-wrapper table {
   width: 100%;
   border-collapse: collapse;
 }
-.table-wrapper th, .table-wrapper td {
+.table-wrapper th,
+.table-wrapper td {
   padding: 6px 8px;
   text-align: right;
   font-size: 12px;
@@ -89,24 +110,24 @@ body {
   background: #2a2a2a;
 }
 
-/* Module 3: charts */
-.charts-card {
+/* Module 3 (Performance visuals) */
+#module3 {
   display: flex;
   flex-direction: column;
-}
-.charts-card h2 {
-  margin-bottom: 12px;
-  color: #FFA500;
+  height: 100%;
 }
 #equityChart {
-  flex: 1;
+  flex: 2;                   /* takes up most of module3 */
+  width: 100%;
+  height: 0 !important;      /* allow flex to drive height */
   margin-bottom: 16px;
 }
 .bottom-charts {
   display: flex;
+  flex: 1;                   /* fill the rest of module3 */
   gap: 12px;
 }
 .bottom-charts canvas {
   flex: 1;
-  height: 200px !important;
+  height: 100% !important;   /* fill bottom‑charts container */
 }
