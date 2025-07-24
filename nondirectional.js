@@ -21,8 +21,9 @@ function renderModule1(kpis) {
     { label: 'Avg PnL / Trade',   value: kpis.avg_pnl_per_trade.toFixed(4) },
     { label: 'Max Win / Max Loss',value: `${kpis.max_win.toFixed(4)} / ${kpis.max_loss.toFixed(4)}` },
     { label: 'Max Drawdown',      value: kpis.max_drawdown.toFixed(4) },
-    { label: 'Avg Duration (d)',  value: kpis.avg_duration_days.toFixed(1) },
+    // we dropped Avg Duration from the UI
   ];
+  container.innerHTML = '';  // clear any old cards
   cards.forEach(c => {
     const card = document.createElement('div');
     card.className = 'kpi-card';
@@ -37,6 +38,7 @@ function renderModule1(kpis) {
 // Module 2: By‑Spread Table
 function renderModule2(list) {
   const tbody = document.querySelector('#module2 tbody');
+  tbody.innerHTML = '';  // clear old rows
   list.forEach(s => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
@@ -46,19 +48,18 @@ function renderModule2(list) {
       <td>${s.avg_pnl.toFixed(4)}</td>
       <td>${s.max_win.toFixed(4)}</td>
       <td>${s.max_loss.toFixed(4)}</td>
-      <td>${s.avg_duration_days}</td>
+      <!-- removed duration cell to match your table header -->
     `;
     tbody.appendChild(tr);
   });
 }
 
-// Module 3: Charts
+// Module 3: Charts (only 2 charts now)
 function renderModule3(kpis, trades) {
   // 1) Cumulative PnL curve + drawdown shading
   const ctxE = document.getElementById('equityChart').getContext('2d');
   const labels = trades.map(t => t.exit_date);
   const cumPnls = trades.map(t => t.cum_pnl);
-  // compute drawdown %
   let peak = cumPnls[0] || 0;
   const dd = cumPnls.map(v => {
     peak = Math.max(peak, v);
@@ -74,6 +75,7 @@ function renderModule3(kpis, trades) {
           data: cumPnls,
           borderColor: '#FFA500',
           fill: false,
+          yAxisID: 'A'
         },
         {
           label: 'Drawdown %',
@@ -94,8 +96,8 @@ function renderModule3(kpis, trades) {
     }
   });
 
-  // 2) Histogram of returns
-  const ctxR = document.getElementById('returnsChart').getContext('2d');
+  // 2) PnL histogram
+  const ctxR = document.getElementById('pnlChart').getContext('2d');
   const returns = trades.map(t => t.pnl);
   new Chart(ctxR, {
     type: 'bar',
@@ -104,28 +106,12 @@ function renderModule3(kpis, trades) {
       datasets:[{
         label: 'PnL per Trade',
         data: returns,
-        backgroundColor: returns.map(v=>v>=0?'rgba(0,200,0,0.6)':'rgba(200,0,0,0.6)')
+        backgroundColor: returns.map(v=> v>=0 ? 'rgba(0,200,0,0.6)' : 'rgba(200,0,0,0.6)')
       }]
     },
     options: {
       plugins:{ legend:{display:false} },
       scales:{ x:{display:false}, y:{title:{ display:true, text:'PnL'}} }
-    }
-  });
-
-  // 3) Duration distribution
-  const ctxD = document.getElementById('durationChart').getContext('2d');
-  const durs = trades.map(t=>t.duration);
-  // bucket durations: 0–10, 10–30, 30–60, 60+
-  const bins = [0,10,30,60,Infinity];
-  const labelsD = ['0–10','10–30','30–60','60+'];
-  const counts = labelsD.map((_,i)=> durs.filter(d=>d>bins[i]&&d<=bins[i+1]).length );
-  new Chart(ctxD, {
-    type: 'bar',
-    data: { labels: labelsD, datasets:[{ data: counts, label:'Trades', backgroundColor:'#FFA500' }] },
-    options: {
-      plugins:{ legend:{display:false} },
-      scales:{ y:{title:{ display:true, text:'# Trades'}} }
     }
   });
 }
