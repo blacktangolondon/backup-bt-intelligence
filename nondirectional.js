@@ -1,117 +1,142 @@
-// Fetch the JSON and wire up all three modules
 (async function() {
   const resp = await fetch('non_directional_stats.json');
-  if (!resp.ok) {
-    console.error('Failed to load stats JSON');
-    return;
-  }
+  if (!resp.ok) { console.error('JSON load failed'); return; }
   const stats = await resp.json();
+  const trades = stats.trades;
 
-  renderModule1(stats.portfolio_kpis);
-  renderModule2(stats.by_spread);
-  renderModule3(stats.portfolio_kpis, stats.trades);
+  // 1) Helper: per‑trade percent return
+  function ret(t) {
+    return t.type === 'long'
+      ? (t.exit - t.entry) / t.entry
+      : (t.entry - t.exit) / t.entry;
+  }
+
+  // 2) Compute Portfolio KPIs (all %‐based)
+  const rets = trades.map(ret);
+  const total = rets.length;
+  const wins = rets.filter(r => r > 0).length;
+  const winRate = (wins / total) * 100;
+  const avgRet = rets.reduce((a,b) => a + b, 0) / total;
+  const maxWin = Math.max(...rets);
+  const maxLoss = Math.min(...rets);
+
+  // 3) Max Drawdown on cumulated (compounded) curve
+  const cum = [];
+  trades.forEach((t,i) => {
+    const prev = i ? cum[i-1] : 0;
+    cum[i] = (1 + prev) * (1 + ret(t)) - 1;
+  });
+  let peak = 0, mdd = 0;
+  cum.forEach(v => {
+    peak = Math.max(peak, v);
+    mdd  = Math.max(mdd, peak - v);
+  });
+
+  // 4) Render Module 1
+  renderModule1({ total, winRate, avgRet, maxWin, maxLoss, maxDrawdown: mdd });
+
+  // 5) By‑Spread Breakdown
+  const bySpread = {};
+  trades.forEach(t => {
+    const key = t.key; // your spread name
+    bySpread[key] = bySpread[key] || [];
+    bySpread[key].push(ret(t));
+  });
+  const tableData = Object.entries(bySpread).map(([key, arr]) => {
+    const wins = arr.filter(r=>r>0).length;
+    const avg = arr.reduce((a,b)=>a+b,0)/arr.length || 0;
+    return {
+      key,
+      trades: arr.length,
+      win_rate: ((wins/arr.length)*100).toFixed(1) + '%',
+      avg_ret: (avg*100).toFixed(1) + '%',
+      max_win: (Math.max(...arr)*100).toFixed(1) + '%',
+      max_loss: (Math.min(...arr)*100).toFixed(1) + '%'
+    };
+  });
+  renderModule2(tableData);
+
+  // 6) Module 3: Charts
+  renderModule3(cum, rets);
 })();
 
-// Module 1: KPI Cards
-function renderModule1(kpis) {
-  const container = document.getElementById('module1');
-  const cards = [
-    { label: 'Total Trades',      value: kpis.total_trades },
-    { label: 'Win Rate %',        value: kpis.win_rate_pct.toFixed(1) },
-    { label: 'Avg PnL / Trade',   value: kpis.avg_pnl_per_trade.toFixed(4) },
-    { label: 'Max Win / Max Loss',value: `${kpis.max_win.toFixed(4)} / ${kpis.max_loss.toFixed(4)}` },
-    { label: 'Max Drawdown',      value: kpis.max_drawdown.toFixed(4) },
-    // we dropped Avg Duration from the UI
-  ];
-  container.innerHTML = '';  // clear any old cards
-  cards.forEach(c => {
-    const card = document.createElement('div');
-    card.className = 'kpi-card';
-    card.innerHTML = `
-      <div class="kpi-value">${c.value}</div>
-      <div class="kpi-label">${c.label}</div>
-    `;
-    container.appendChild(card);
+// --- UI renderers below ---
+
+function renderModule1({total, winRate, avgRet, maxWin, maxLoss, maxDrawdown}) {
+  const cont = document.getElementById('module1');
+  cont.innerHTML = '';
+  [
+    {label:'Total Trades', value: total},
+    {label:'Win %',        value: winRate.toFixed(1) + '%'},
+    {label:'Avg Return',   value: (avgRet*100).toFixed(1) + '%'},
+    {label:'Max Win',      value: (maxWin*100).toFixed(1) + '%'},
+    {label:'Max Loss',     value: (maxLoss*100).toFixed(1) + '%'},
+    {label:'Max Drawdown', value: (maxDrawdown*100).toFixed(1) + '%'},
+  ].forEach(c => {
+    const d = document.createElement('div');
+    d.className = 'kpi-card';
+    d.innerHTML = `<div class="kpi-value">${c.value}</div><div class="kpi-label">${c.label}</div>`;
+    cont.appendChild(d);
   });
 }
 
-// Module 2: By‑Spread Table
-function renderModule2(list) {
+function renderModule2(data) {
   const tbody = document.querySelector('#module2 tbody');
-  tbody.innerHTML = '';  // clear old rows
-  list.forEach(s => {
+  tbody.innerHTML = '';
+  data.forEach(r => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td>${s.key}</td>
-      <td>${s.trades}</td>
-      <td>${s.win_rate}%</td>
-      <td>${s.avg_pnl.toFixed(4)}</td>
-      <td>${s.max_win.toFixed(4)}</td>
-      <td>${s.max_loss.toFixed(4)}</td>
-      <!-- removed duration cell to match your table header -->
+      <td>${r.key}</td>
+      <td>${r.trades}</td>
+      <td>${r.win_rate}</td>
+      <td>${r.avg_ret}</td>
+      <td>${r.max_win}</td>
+      <td>${r.max_loss}</td>
     `;
     tbody.appendChild(tr);
   });
 }
 
-// Module 3: Charts (only 2 charts now)
-function renderModule3(kpis, trades) {
-  // 1) Cumulative PnL curve + drawdown shading
-  const ctxE = document.getElementById('equityChart').getContext('2d');
-  const labels = trades.map(t => t.exit_date);
-  const cumPnls = trades.map(t => t.cum_pnl);
-  let peak = cumPnls[0] || 0;
-  const dd = cumPnls.map(v => {
-    peak = Math.max(peak, v);
-    return ((peak - v)/Math.max(1, peak))*100;
-  });
-  new Chart(ctxE, {
+function renderModule3(cum, rets) {
+  // Equity curve (%)
+  new Chart(document.getElementById('equityChart').getContext('2d'), {
     type: 'line',
     data: {
-      labels,
-      datasets: [
-        {
-          label: 'Cumulative PnL',
-          data: cumPnls,
-          borderColor: '#FFA500',
-          fill: false,
-          yAxisID: 'A'
-        },
-        {
-          label: 'Drawdown %',
-          data: dd,
-          borderColor: 'rgba(255,0,0,0.3)',
-          backgroundColor: 'rgba(255,0,0,0.2)',
-          fill: true,
-          yAxisID: 'B'
-        }
-      ]
+      labels: cum.map((_,i)=>i+1),
+      datasets: [{
+        label: 'Cumulative Return',
+        data: cum.map(v=>v*100),
+        borderColor: '#FFA500',
+        fill: false
+      }]
     },
     options: {
       scales: {
-        A: { type: 'linear', position: 'left', title: { display:true, text: 'PnL' } },
-        B: { type: 'linear', position: 'right', title: { display:true, text: 'Drawdown %' }, grid: { drawOnChartArea: false } }
-      },
-      interaction: { mode: 'index', intersect: false }
+        y: { title: {display:true, text:'Cumulative Return (%)'}, ticks:{ callback:v=>v.toFixed(1)+'%' } },
+        x: { display:false }
+      }
     }
   });
 
-  // 2) PnL histogram
-  const ctxR = document.getElementById('pnlChart').getContext('2d');
-  const returns = trades.map(t => t.pnl);
-  new Chart(ctxR, {
+  // Histogram (%)
+  new Chart(document.getElementById('pnlChart').getContext('2d'), {
     type: 'bar',
     data: {
-      labels: returns.map((_,i)=>i+1),
-      datasets:[{
-        label: 'PnL per Trade',
-        data: returns,
-        backgroundColor: returns.map(v=> v>=0 ? 'rgba(0,200,0,0.6)' : 'rgba(200,0,0,0.6)')
+      labels: rets.map((_,i)=>i+1),
+      datasets: [{
+        label: 'Return per Trade',
+        data: rets.map(v=>v*100),
+        backgroundColor: rets.map(v=> v>=0
+          ? 'rgba(0,200,0,0.6)'
+          : 'rgba(200,0,0,0.6)')
       }]
     },
     options: {
       plugins:{ legend:{display:false} },
-      scales:{ x:{display:false}, y:{title:{ display:true, text:'PnL'}} }
+      scales:{
+        x:{ display:false },
+        y:{ title:{display:true, text:'Return (%)'} }
+      }
     }
   });
 }
