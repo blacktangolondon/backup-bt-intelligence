@@ -1,46 +1,110 @@
-/* nondirectional.css */
+/* Base resets */
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  margin: 0;
-  background: #000;
-  color: #FFA500;
+  background: #111;
+  color: #ddd;
   font-family: sans-serif;
+  padding: 20px;
 }
+
+/* Layout grid */
 #container {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-rows: auto 1fr;
   grid-template-areas:
-    "mod1 mod3"
-    "mod2 mod3";
-  gap: 16px;
-  padding: 16px;
+    "module1 module3"
+    "module2 module3";
+  grid-template-columns: 2fr 3fr;
+  grid-gap: 20px;
   height: 100vh;
 }
-#module1 { grid-area: mod1; }
-#module2 { grid-area: mod2; overflow: auto; }
-#module3 { grid-area: mod3; position: relative; }
 
-/* panels */
-.panel {
-  background: rgba(255,255,255,0.05);
-  padding: 12px;
-  border-radius: 8px;
+/* Module placements */
+#module1 { grid-area: module1; }
+#module2 { grid-area: module2; }
+#module3 { grid-area: module3; display: flex; flex-direction: column; }
+
+/* Card styling */
+.card {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  padding: 16px;
 }
 
-/* tables */
-table {
+/* Module 1: KPI grid (2×3) */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 12px;
+}
+.kpi-card {
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 4px;
+  padding: 12px;
+  text-align: center;
+}
+.kpi-value {
+  font-size: 24px;
+  color: #FFA500;
+  font-weight: bold;
+}
+.kpi-label {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+/* Module 2: table */
+.table-card h2 {
+  margin-bottom: 8px;
+  color: #FFA500;
+}
+.table-wrapper {
+  max-height: calc(100% - 32px);
+  overflow-y: auto;
+}
+.table-wrapper table {
   width: 100%;
   border-collapse: collapse;
 }
-th, td {
-  padding: 4px 8px;
-  text-align: left;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+.table-wrapper th, .table-wrapper td {
+  padding: 6px 8px;
+  text-align: right;
+  font-size: 12px;
+  border-bottom: 1px solid #333;
 }
-th { font-weight: bold; }
+.table-wrapper th:first-child,
+.table-wrapper td:first-child {
+  text-align: left;
+}
+.table-wrapper tr:nth-child(even) {
+  background: #1a1a1a;
+}
+.table-wrapper tr:hover {
+  background: #2a2a2a;
+}
 
-/* make the Chart.js canvas fill module3 */
-#module3 canvas {
-  width: 100%  !important;
-  height: 100% !important;
+/* Module 3: charts */
+.charts-card {
+  display: flex;
+  flex-direction: column;
+}
+.charts-card h2 {
+  margin-bottom: 12px;
+  color: #FFA500;
+}
+#equityChart {
+  flex: 1;
+  margin-bottom: 16px;
+}
+.bottom-charts {
+  display: flex;
+  gap: 12px;
+}
+.bottom-charts canvas {
+  flex: 1;
+  height: 200px !important;
 }
