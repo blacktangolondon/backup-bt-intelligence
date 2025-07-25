@@ -115,10 +115,9 @@ function renderModule2(trades) {
     .slice()
     .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
-      // calculate pct movement
-      const pct = ((t.exit - t.entry) / t.entry * 100).toFixed(2) + '%';
-      // direction comes straight from t.type ('long' or 'short')
-      const dir = t.type === 'long' ? 'Long' : 'Short';
+      // Use your ret() helper to get the true % return
+      const movement = (ret(t) * 100).toFixed(2) + '%';
+      const dir      = t.type === 'long' ? 'Long' : 'Short';
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
@@ -127,12 +126,13 @@ function renderModule2(trades) {
         <td>${t.exit_date}</td>
         <td>${t.entry.toFixed(4)}</td>
         <td>${t.exit.toFixed(4)}</td>
-        <td>${dir}</td>               
-        <td>${pct}</td>
+        <td>${dir}</td>
+        <td>${movement}</td>
       `;
       tbody.appendChild(tr);
     });
 }
+
 
 
 
