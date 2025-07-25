@@ -6,7 +6,10 @@ Chart.defaults.font.weight = 'normal';
 (async function() {
   // 1) Load stats & trades
   const resp   = await fetch('non_directional_stats.json');
-  if (!resp.ok) { console.error('JSON load failed'); return; }
+  if (!resp.ok) {
+    console.error('JSON load failed');
+    return;
+  }
   const stats  = await resp.json();
   const trades = stats.trades;
 
@@ -17,59 +20,82 @@ Chart.defaults.font.weight = 'normal';
       : (t.entry - t.exit) / t.entry;
   }
 
-  // 3) Compute Portfolio KPIs
-  const rets    = trades.map(ret);
-  const total   = rets.length;
-  const wins    = rets.filter(r => r > 0).length;
-  const winRate = (wins / total) * 100;
-  const avgRet  = rets.reduce((a, b) => a + b, 0) / total;
-  const maxWin  = Math.max(...rets);
-  const maxLoss = Math.min(...rets);
+  // 3) Build percent returns array
+  const rets = trades.map(ret);
 
-  // 4) Max Drawdown on compounded curve
+  // 4) Compute win rate %
+  const winPct = (rets.filter(r => r > 0).length / rets.length) * 100;
+
+  // 5) Compute median duration (in days)
+  const durations = trades
+    .map(t => {
+      const ms = new Date(t.exit_date) - new Date(t.entry_date);
+      return ms / (1000 * 60 * 60 * 24);
+    })
+    .sort((a, b) => a - b);
+  const mid = Math.floor(durations.length / 2);
+  const medDur = durations.length % 2 === 1
+    ? durations[mid]
+    : (durations[mid - 1] + durations[mid]) / 2;
+
+  // 6) Compute Period string
+  const entryDates = trades.map(t => new Date(t.entry_date));
+  const exitDates  = trades.map(t => new Date(t.exit_date));
+  const startDate = new Date(Math.min(...entryDates));
+  const endDate   = new Date(Math.max(...exitDates));
+  const fmt = d => d.toLocaleString('default', { month: 'short', year: 'numeric' });
+  const period = `${fmt(startDate)} – ${fmt(endDate)}`;
+
+  // 7) Compute max win, max loss, and max drawdown
+  const maxWinPct  = Math.max(...rets) * 100;
+  const maxLossPct = Math.min(...rets) * 100;
+
+  // cumulative series for drawdown
   const cum = [];
   trades.forEach((t, i) => {
     const prev = i ? cum[i - 1] : 0;
     cum[i] = (1 + prev) * (1 + ret(t)) - 1;
   });
-  let peak = 0, mdd = 0;
+  let peak = 0;
+  let mdd  = 0;
   cum.forEach(v => {
     peak = Math.max(peak, v);
     mdd  = Math.max(mdd, peak - v);
   });
+  const maxDrawdownPct = mdd * 100;
 
-  // 5) Render Module 1
+  // 8) Render Module 1 with new KPIs
   renderModule1({
-    total,
-    winRate,
-    avgRet,
-    maxWin,
-    maxLoss,
-    maxDrawdown: mdd
+    period,
+    winPct,
+    medDur,
+    maxWinPct,
+    maxLossPct,
+    maxDrawdownPct
   });
 
-  // 6) Render Module 2 (Historical Trades)
+  // 9) Render Module 2 (Historical Trades)
   renderModule2(trades);
 
-  // 7) Render Module 3 (Equity Curve)
+  // 10) Render Module 3 (Equity Curve)
   renderModule3(cum);
 
-  // 8) Render Module 4 (New Strategies Alert)
+  // 11) Render Module 4 (New Strategies Alert)
   renderModule4();
 })();
 
-// ——— UI renderers ———
+// ——— UI renderers below ———
 
-function renderModule1({ total, winRate, avgRet, maxWin, maxLoss, maxDrawdown }) {
+function renderModule1({ period, winPct, medDur, maxWinPct, maxLossPct, maxDrawdownPct }) {
   const cont = document.getElementById('module1');
   cont.innerHTML = '';
   [
-    { label: 'Total Trades',  value: total },
-    { label: 'Win %',         value: winRate.toFixed(1) + '%' },
-    { label: 'Avg Return',    value: (avgRet * 100).toFixed(1) + '%' },
-    { label: 'Max Win',       value: (maxWin * 100).toFixed(1) + '%' },
-    { label: 'Max Loss',      value: (maxLoss * 100).toFixed(1) + '%' },
-    { label: 'Max Drawdown',  value: (maxDrawdown * 100).toFixed(1) + '%' }
+    { label: 'Period',           value: period },
+    { label: 'Win %',            value: winPct.toFixed(1) + '%' },
+    { label: 'Median Duration',  value: medDur.toFixed(0) + ' days' },
+    { label: 'Max Win',          value: maxWinPct.toFixed(1) + '%' },
+    { label: 'Max Loss',         value: maxLossPct.toFixed(1) + '%' },
+    { label: 'Max Drawdown',     value: maxDrawdownPct.toFixed(1) + '%' }
   ].forEach(c => {
     const d = document.createElement('div');
     d.className = 'kpi-card';
@@ -134,15 +160,12 @@ function renderModule3(cum) {
           x: { display: false }
         },
         plugins: {
-          legend: {
-            display: false  // ← here
-          }
+          legend: { display: false }
         }
       }
     }
   );
 }
-
 
 async function renderModule4() {
   try {
