@@ -1,11 +1,4 @@
-// ─── Global helper so everyone can use it ───
-function ret(t) {
-  return t.type === 'long'
-    ? (t.exit - t.entry) / t.entry
-    : (t.entry - t.exit) / t.entry;
-}
-
-// ─── Chart.js defaults ───
+// ─── Global Chart.js font defaults ───
 Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
@@ -13,51 +6,61 @@ Chart.defaults.font.weight = 'normal';
 (async function() {
   // 1) Load stats & trades
   const resp   = await fetch('non_directional_stats.json');
-  if (!resp.ok) { console.error('JSON load failed'); return; }
+  if (!resp.ok) {
+    console.error('JSON load failed');
+    return;
+  }
   const stats  = await resp.json();
   const trades = stats.trades;
 
-  // 2) Percent returns array
+  // 2) Helper: per‑trade percent return
+  function ret(t) {
+    return t.type === 'long'
+      ? (t.exit - t.entry) / t.entry
+      : (t.entry - t.exit) / t.entry;
+  }
+
+  // 3) Build percent‐return array
   const rets = trades.map(ret);
 
-  // 3) Win %
+  // 4) Compute win rate %
   const winPct = (rets.filter(r => r > 0).length / rets.length) * 100;
 
-  // 4) Median duration (days)
+  // 5) Compute median duration (in days)
   const durations = trades
-    .map(t => (new Date(t.exit_date) - new Date(t.entry_date)) / (1000*60*60*24))
-    .sort((a,b)=>a-b);
-  const mid = Math.floor(durations.length/2);
-  const medDur = durations.length % 2
+    .map(t => (new Date(t.exit_date) - new Date(t.entry_date)) / (1000 * 60 * 60 * 24))
+    .sort((a, b) => a - b);
+  const mid = Math.floor(durations.length / 2);
+  const medDur = durations.length % 2 === 1
     ? durations[mid]
-    : (durations[mid-1] + durations[mid]) / 2;
+    : (durations[mid - 1] + durations[mid]) / 2;
 
-  // 5) Period string
+  // 6) Compute Period string
   const entryDates = trades.map(t => new Date(t.entry_date));
   const exitDates  = trades.map(t => new Date(t.exit_date));
-  const startDate  = new Date(Math.min(...entryDates));
-  const endDate    = new Date(Math.max(...exitDates));
-  const fmt = d => d.toLocaleString('default',{ month:'short', year:'numeric' });
-  const period = `${fmt(startDate)} – ${fmt(endDate)}`;
+  const startDate = new Date(Math.min(...entryDates));
+  const endDate   = new Date(Math.max(...exitDates));
+  const fmt = d => d.toLocaleString('default', { month: 'short', year: 'numeric' });
+  const period = `${fmt(startDate)} – ${fmt(endDate)}`;
 
-  // 6) Max Win/Loss %
+  // 7) Compute max win, max loss, and geometric max drawdown
   const maxWinPct  = Math.max(...rets) * 100;
   const maxLossPct = Math.min(...rets) * 100;
 
-  // 7) Cumulative series for drawdown
-  const cum = [];
-  trades.forEach((t,i) => {
-    const prev = i ? cum[i-1] : 0;
-    cum[i] = (1 + prev) * (1 + ret(t)) - 1;
+  // build geometric series for drawdown only
+  const geomCum = [];
+  trades.forEach((t, i) => {
+    const prev = i ? geomCum[i - 1] : 0;
+    geomCum[i] = (1 + prev) * (1 + ret(t)) - 1;
   });
   let peak = 0, mdd = 0;
-  cum.forEach(v => {
-    peak = Math.max(peak, v);
-    mdd  = Math.max(mdd, peak - v);
+  geomCum.forEach(x => {
+    peak = Math.max(peak, x);
+    mdd  = Math.max(mdd, peak - x);
   });
   const maxDrawdownPct = mdd * 100;
 
-  // 8) Render Module 1
+  // 8) Render Module 1 with KPIs
   renderModule1({
     period,
     winPct,
@@ -67,28 +70,28 @@ Chart.defaults.font.weight = 'normal';
     maxDrawdownPct
   });
 
-  // 9) Render Historical Report
+  // 9) Render Module 2 (Historical Trades)
   renderModule2(trades);
 
-  // 10) Render Equity Curve
-  renderModule3(cum);
+  // 10) Render Module 3 (Arithmetic Equity Curve)
+  renderModule3(rets);
 
-  // 11) Render New Strategies Alert
+  // 11) Render Module 4 (New Strategies Alert)
   renderModule4();
 })();
 
-// ——— UI renderers ———
+// ——— UI renderers below ———
 
 function renderModule1({ period, winPct, medDur, maxWinPct, maxLossPct, maxDrawdownPct }) {
   const cont = document.getElementById('module1');
   cont.innerHTML = '';
   [
-    { label:'Period',          value: period },
-    { label:'Win %',           value: winPct.toFixed(1) + '%' },
-    { label:'Median Duration', value: medDur.toFixed(0) + ' days' },
-    { label:'Max Win',         value: maxWinPct.toFixed(1) + '%' },
-    { label:'Max Loss',        value: maxLossPct.toFixed(1) + '%' },
-    { label:'Max Drawdown',    value: maxDrawdownPct.toFixed(1) + '%' }
+    { label: 'Period',          value: period },
+    { label: 'Win %',           value: winPct.toFixed(1) + '%' },
+    { label: 'Median Duration', value: medDur.toFixed(0) + ' days' },
+    { label: 'Max Win',         value: maxWinPct.toFixed(1) + '%' },
+    { label: 'Max Loss',        value: maxLossPct.toFixed(1) + '%' },
+    { label: 'Max Drawdown',    value: maxDrawdownPct.toFixed(1) + '%' }
   ].forEach(c => {
     const d = document.createElement('div');
     d.className = 'kpi-card';
@@ -106,10 +109,11 @@ function renderModule2(trades) {
 
   trades
     .slice()
-    .sort((a,b)=> new Date(a.exit_date) - new Date(b.exit_date))
+    .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
       const movement = (ret(t) * 100).toFixed(2) + '%';
       const dir      = t.type === 'long' ? 'Long' : 'Short';
+
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${t.spread}</td>
@@ -124,16 +128,24 @@ function renderModule2(trades) {
     });
 }
 
-function renderModule3(cum) {
+function renderModule3(rets) {
+  // build arithmetic cumulative series
+  const cum = [];
+  let sum = 0;
+  rets.forEach(r => {
+    sum += r;
+    cum.push(sum);
+  });
+
   new Chart(
     document.getElementById('equityChart').getContext('2d'),
     {
       type: 'line',
       data: {
-        labels: cum.map((_,i)=>i+1),
+        labels: cum.map((_, i) => i + 1),
         datasets: [{
           label: 'Cumulative Return',
-          data: cum.map(v=>v*100),
+          data: cum.map(v => v * 100),
           borderColor: '#FFA500',
           fill: false
         }]
@@ -150,7 +162,9 @@ function renderModule3(cum) {
               text: 'Cumulative Return (%)',
               font: { size: 14 }
             },
-            ticks: { callback: v=>v.toFixed(1)+'%' }
+            ticks: {
+              callback: v => v.toFixed(1) + '%'
+            }
           },
           x: { display: false }
         },
@@ -167,9 +181,10 @@ async function renderModule4() {
     const resp = await fetch('spreads.json');
     if (!resp.ok) throw new Error('spreads.json load failed');
     const data = await resp.json();
+
     const alerts = Object.entries(data)
       .map(([spread, series]) => {
-        const [ , price, , lower2, , upper2 ] = series[series.length-1];
+        const [ , price, , lower2, , upper2 ] = series[series.length - 1];
         if (price < lower2 || price > upper2) {
           return {
             spread,
