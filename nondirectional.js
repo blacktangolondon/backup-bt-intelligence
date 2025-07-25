@@ -118,14 +118,16 @@ function renderModule3(cum) {
       options: {
         scales: {
           y: {
-            beginAtZero: true,           // ← ensures y‑axis starts at 0
+            beginAtZero: true,
+            min: 0,                     // ← force the scale to start at 0
             title: {
               display: true,
               text: 'Cumulative Return (%)',
               font: { size: 14 }
             },
             ticks: {
-              callback: v => v.toFixed(1) + '%'
+              callback: v => v.toFixed(1) + '%',
+              font: { size: 12 }
             }
           },
           x: {
