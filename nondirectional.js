@@ -138,8 +138,8 @@ function renderModule3(cum) {
           }
         },
         plugins: {
-          legend: {
-            labels: { font: { size: 12 } }
+          legend: {legend: { display: false } 
+            
           }
         }
       }
