@@ -122,6 +122,9 @@ body {
   text-align: right;
   font-size: 12px;
   border-bottom: 1px solid #333;
+
+  /* prevent wrapping of long values (dates, numbers, etc.) */
+  white-space: nowrap;
 }
 .table-wrapper th:first-child,
 .table-wrapper td:first-child {
@@ -133,6 +136,7 @@ body {
 .table-wrapper tr:hover {
   background: #2a2a2a;
 }
+
 
 /* ─── WebKit (Chrome, Edge, Safari) ─── */
 ::-webkit-scrollbar {
