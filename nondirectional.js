@@ -118,6 +118,7 @@ function renderModule3(cum) {
       options: {
         scales: {
           y: {
+            beginAtZero: true,           // ← ensures y‑axis starts at 0
             title: {
               display: true,
               text: 'Cumulative Return (%)',
@@ -140,6 +141,7 @@ function renderModule3(cum) {
     }
   );
 }
+
 
 async function renderModule4() {
   try {
