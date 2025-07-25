@@ -115,7 +115,7 @@ function renderModule2(trades) {
     .slice()
     .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
-      // Use your ret() helper to get the true % return
+      // true % P&L (positive on wins, even if short)
       const movement = (ret(t) * 100).toFixed(2) + '%';
       const dir      = t.type === 'long' ? 'Long' : 'Short';
 
@@ -132,6 +132,7 @@ function renderModule2(trades) {
       tbody.appendChild(tr);
     });
 }
+
 
 
 
