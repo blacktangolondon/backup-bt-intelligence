@@ -1,10 +1,12 @@
+// ─── Global Chart.js font defaults ───
+Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
+Chart.defaults.font.size   = 12;
+Chart.defaults.font.weight = 'normal';
+
 (async function() {
   // 1) Load stats & trades
-  const resp = await fetch('non_directional_stats.json');
-  if (!resp.ok) {
-    console.error('JSON load failed');
-    return;
-  }
+  const resp   = await fetch('non_directional_stats.json');
+  if (!resp.ok) { console.error('JSON load failed'); return; }
   const stats  = await resp.json();
   const trades = stats.trades;
 
@@ -46,28 +48,10 @@
     maxDrawdown: mdd
   });
 
-  // 6) Render Module 2
-  const bySpread = {};
-  trades.forEach(t => {
-    const key = t.spread;
-    bySpread[key] = bySpread[key] || [];
-    bySpread[key].push(ret(t));
-  });
-  const tableData = Object.entries(bySpread).map(([key, arr]) => {
-    const wins = arr.filter(r => r > 0).length;
-    const avg  = arr.reduce((a, b) => a + b, 0) / arr.length || 0;
-    return {
-      key,
-      trades:   arr.length,
-      win_rate: ((wins / arr.length) * 100).toFixed(1) + '%',
-      avg_ret:  (avg * 100).toFixed(1) + '%',
-      max_win:  (Math.max(...arr) * 100).toFixed(1) + '%',
-      max_loss: (Math.min(...arr) * 100).toFixed(1) + '%'
-    };
-  });
-  renderModule2(tableData);
+  // 6) Render Module 2 (Historical Trades)
+  renderModule2(trades);
 
-  // 7) Render Module 3 (only equity curve)
+  // 7) Render Module 3 (Equity Curve)
   renderModule3(cum);
 
   // 8) Render Module 4 (New Strategies Alert)
@@ -80,12 +64,12 @@ function renderModule1({ total, winRate, avgRet, maxWin, maxLoss, maxDrawdown })
   const cont = document.getElementById('module1');
   cont.innerHTML = '';
   [
-    { label: 'Total Trades', value: total },
-    { label: 'Win %',        value: winRate.toFixed(1) + '%' },
-    { label: 'Avg Return',   value: (avgRet * 100).toFixed(1) + '%' },
-    { label: 'Max Win',      value: (maxWin * 100).toFixed(1) + '%' },
-    { label: 'Max Loss',     value: (maxLoss * 100).toFixed(1) + '%' },
-    { label: 'Max Drawdown', value: (maxDrawdown * 100).toFixed(1) + '%' }
+    { label: 'Total Trades',  value: total },
+    { label: 'Win %',         value: winRate.toFixed(1) + '%' },
+    { label: 'Avg Return',    value: (avgRet * 100).toFixed(1) + '%' },
+    { label: 'Max Win',       value: (maxWin * 100).toFixed(1) + '%' },
+    { label: 'Max Loss',      value: (maxLoss * 100).toFixed(1) + '%' },
+    { label: 'Max Drawdown',  value: (maxDrawdown * 100).toFixed(1) + '%' }
   ].forEach(c => {
     const d = document.createElement('div');
     d.className = 'kpi-card';
@@ -97,21 +81,24 @@ function renderModule1({ total, winRate, avgRet, maxWin, maxLoss, maxDrawdown })
   });
 }
 
-function renderModule2(data) {
+function renderModule2(trades) {
   const tbody = document.querySelector('#module2 tbody');
   tbody.innerHTML = '';
-  data.forEach(r => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${r.key}</td>
-      <td>${r.trades}</td>
-      <td>${r.win_rate}</td>
-      <td>${r.avg_ret}</td>
-      <td>${r.max_win}</td>
-      <td>${r.max_loss}</td>
-    `;
-    tbody.appendChild(tr);
-  });
+  trades
+    .slice()
+    .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
+    .forEach(t => {
+      const retPct = ((t.exit - t.entry) / t.entry * 100).toFixed(2) + '%';
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${t.exit_date}</td>
+        <td>${t.spread}</td>
+        <td>${t.entry.toFixed(4)}</td>
+        <td>${t.exit.toFixed(4)}</td>
+        <td>${retPct}</td>
+      `;
+      tbody.appendChild(tr);
+    });
 }
 
 function renderModule3(cum) {
@@ -137,13 +124,11 @@ function renderModule3(cum) {
               font: { size: 14 }
             },
             ticks: {
-              callback: v => v.toFixed(1) + '%',
-              font: { size: 12 }
+              callback: v => v.toFixed(1) + '%'
             }
           },
           x: {
-            display: false,
-            ticks: { font: { size: 12 } }
+            display: false
           }
         },
         plugins: {
