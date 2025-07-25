@@ -133,3 +133,28 @@ body {
 .table-wrapper tr:hover {
   background: #2a2a2a;
 }
+
+/* ─── WebKit (Chrome, Edge, Safari) ─── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1e1e1e;      /* same as your module bg */
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;         /* a tad lighter for contrast */
+  border-radius: 4px;
+  border: 2px solid #1e1e1e;/* gives it an “inset” look */
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ─── Firefox ─── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #333 #1e1e1e;
+}
+
