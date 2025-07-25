@@ -116,10 +116,8 @@ function renderModule3(cum) {
         }]
       },
       options: {
-        maintainAspectRatio: false,      // allow full vertical fill
-        layout: {
-          padding: { bottom: 20 }      // room for the 0% line
-        },
+        maintainAspectRatio: false,
+        layout: { padding: { bottom: 20 } },
         scales: {
           y: {
             beginAtZero: true,
@@ -133,19 +131,18 @@ function renderModule3(cum) {
               callback: v => v.toFixed(1) + '%'
             }
           },
-          x: {
-            display: false
-          }
+          x: { display: false }
         },
         plugins: {
-          legend: {legend: { display: false } 
-            
+          legend: {
+            display: false  // ← here
           }
         }
       }
     }
   );
 }
+
 
 async function renderModule4() {
   try {
