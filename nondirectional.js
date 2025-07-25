@@ -110,22 +110,27 @@ function renderModule1({ period, winPct, medDur, maxWinPct, maxLossPct, maxDrawd
 function renderModule2(trades) {
   const tbody = document.querySelector('#module2 tbody');
   tbody.innerHTML = '';
+
   trades
     .slice()
     .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
-      const retPct = ((t.exit - t.entry) / t.entry * 100).toFixed(2) + '%';
+      // calculate percent movement for the spread trade
+      const pct = ((t.exit - t.entry) / t.entry * 100).toFixed(2) + '%';
+
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${t.exit_date}</td>
         <td>${t.spread}</td>
+        <td>${t.entry_date}</td>
+        <td>${t.exit_date}</td>
         <td>${t.entry.toFixed(4)}</td>
         <td>${t.exit.toFixed(4)}</td>
-        <td>${retPct}</td>
+        <td>${pct}</td>
       `;
       tbody.appendChild(tr);
     });
 }
+
 
 function renderModule3(cum) {
   new Chart(
