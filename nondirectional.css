@@ -22,7 +22,7 @@ body {
   display: grid;
   grid-template-areas:
     "module1 module3"
-    "module2 module4";
+    "module4 module2";
   grid-template-columns: 2fr 3fr;
   grid-template-rows: 1fr 1fr;
   gap: 20px;
