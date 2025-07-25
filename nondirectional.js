@@ -102,15 +102,22 @@ function renderModule2(trades) {
 }
 
 function renderModule3(cum) {
+  // build chart data so that zero is explicitly included
+  const dataPts  = cum.map(v => v * 100);
+  const labels   = cum.map((_, i) => i + 1);
+  // insert a leading zero point
+  dataPts.unshift(0);
+  labels.unshift('');
+
   new Chart(
     document.getElementById('equityChart').getContext('2d'),
     {
       type: 'line',
       data: {
-        labels: cum.map((_, i) => i + 1),
+        labels: labels,
         datasets: [{
           label: 'Cumulative Return',
-          data: cum.map(v => v * 100),
+          data: dataPts,
           borderColor: '#FFA500',
           fill: false
         }]
@@ -119,15 +126,14 @@ function renderModule3(cum) {
         scales: {
           y: {
             beginAtZero: true,
-            min: 0,                     // ← force the scale to start at 0
+            min: 0,
             title: {
               display: true,
               text: 'Cumulative Return (%)',
               font: { size: 14 }
             },
             ticks: {
-              callback: v => v.toFixed(1) + '%',
-              font: { size: 12 }
+              callback: v => v.toFixed(1) + '%'
             }
           },
           x: {
@@ -138,12 +144,14 @@ function renderModule3(cum) {
           legend: {
             labels: { font: { size: 12 } }
           }
+        },
+        layout: {
+          padding: { bottom: 12 }
         }
       }
     }
   );
 }
-
 
 async function renderModule4() {
   try {
