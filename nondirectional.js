@@ -3,6 +3,13 @@ Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
+// ——— Helper at top‑level so every renderModule can use it ———
+function ret(t) {
+  return t.type === 'long'
+    ? (t.exit - t.entry) / t.entry
+    : (t.entry - t.exit) / t.entry;
+}
+
 (async function() {
   // 1) Load stats & trades
   const resp   = await fetch('non_directional_stats.json');
@@ -13,20 +20,13 @@ Chart.defaults.font.weight = 'normal';
   const stats  = await resp.json();
   const trades = stats.trades;
 
-  // 2) Helper: per‑trade percent return
-  function ret(t) {
-    return t.type === 'long'
-      ? (t.exit - t.entry) / t.entry
-      : (t.entry - t.exit) / t.entry;
-  }
-
-  // 3) Build percent‐return array
+  // 2) Build percent‐return array
   const rets = trades.map(ret);
 
-  // 4) Compute win rate %
+  // 3) Compute win rate %
   const winPct = (rets.filter(r => r > 0).length / rets.length) * 100;
 
-  // 5) Compute median duration (in days)
+  // 4) Compute median duration (in days)
   const durations = trades
     .map(t => (new Date(t.exit_date) - new Date(t.entry_date)) / (1000 * 60 * 60 * 24))
     .sort((a, b) => a - b);
@@ -35,7 +35,7 @@ Chart.defaults.font.weight = 'normal';
     ? durations[mid]
     : (durations[mid - 1] + durations[mid]) / 2;
 
-  // 6) Compute Period string
+  // 5) Compute Period string
   const entryDates = trades.map(t => new Date(t.entry_date));
   const exitDates  = trades.map(t => new Date(t.exit_date));
   const startDate = new Date(Math.min(...entryDates));
@@ -43,11 +43,11 @@ Chart.defaults.font.weight = 'normal';
   const fmt = d => d.toLocaleString('default', { month: 'short', year: 'numeric' });
   const period = `${fmt(startDate)} – ${fmt(endDate)}`;
 
-  // 7) Compute max win, max loss, and geometric max drawdown
+  // 6) Compute max win & loss
   const maxWinPct  = Math.max(...rets) * 100;
   const maxLossPct = Math.min(...rets) * 100;
 
-  // build geometric series for drawdown only
+  // 7) Geometric series for drawdown
   const geomCum = [];
   trades.forEach((t, i) => {
     const prev = i ? geomCum[i - 1] : 0;
@@ -60,28 +60,14 @@ Chart.defaults.font.weight = 'normal';
   });
   const maxDrawdownPct = mdd * 100;
 
-  // 8) Render Module 1 with KPIs
-  renderModule1({
-    period,
-    winPct,
-    medDur,
-    maxWinPct,
-    maxLossPct,
-    maxDrawdownPct
-  });
-
-  // 9) Render Module 2 (Historical Trades)
+  // 8) Render everything
+  renderModule1({ period, winPct, medDur, maxWinPct, maxLossPct, maxDrawdownPct });
   renderModule2(trades);
-
-  // 10) Render Module 3 (Arithmetic Equity Curve)
   renderModule3(rets);
-
-  // 11) Render Module 4 (New Strategies Alert)
   renderModule4();
 })();
 
-// ——— UI renderers below ———
-
+// ——— Module 1 —–––
 function renderModule1({ period, winPct, medDur, maxWinPct, maxLossPct, maxDrawdownPct }) {
   const cont = document.getElementById('module1');
   cont.innerHTML = '';
@@ -103,6 +89,7 @@ function renderModule1({ period, winPct, medDur, maxWinPct, maxLossPct, maxDrawd
   });
 }
 
+// —––– Module 2 — Historical Report
 function renderModule2(trades) {
   const tbody = document.querySelector('#module2 tbody');
   tbody.innerHTML = '';
@@ -128,13 +115,14 @@ function renderModule2(trades) {
     });
 }
 
+// —––– Module 3 — Arithmetic Equity Curve
 function renderModule3(rets) {
-  // build arithmetic cumulative series
+  // build simple cumulative returns
   const cum = [];
   let sum = 0;
   rets.forEach(r => {
     sum += r;
-    cum.push(sum);
+    cum.push(sum * 100);
   });
 
   new Chart(
@@ -145,7 +133,7 @@ function renderModule3(rets) {
         labels: cum.map((_, i) => i + 1),
         datasets: [{
           label: 'Cumulative Return',
-          data: cum.map(v => v * 100),
+          data: cum,
           borderColor: '#FFA500',
           fill: false
         }]
@@ -162,20 +150,17 @@ function renderModule3(rets) {
               text: 'Cumulative Return (%)',
               font: { size: 14 }
             },
-            ticks: {
-              callback: v => v.toFixed(1) + '%'
-            }
+            ticks: { callback: v => v.toFixed(1) + '%' }
           },
           x: { display: false }
         },
-        plugins: {
-          legend: { display: false }
-        }
+        plugins: { legend: { display: false } }
       }
     }
   );
 }
 
+// —––– Module 4 — New Strategies Alert
 async function renderModule4() {
   try {
     const resp = await fetch('spreads.json');
