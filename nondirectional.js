@@ -23,19 +23,12 @@ function ret(t) {
   // 2) Build percent‐return array
   const rets = trades.map(ret);
 
-  // 3) Compute win rate %
-  const winPct = (rets.filter(r => r > 0).length / rets.length) * 100;
-
-  // 4) Compute median duration (in days)
+  // 3) Compute durations (in days)
   const durations = trades
     .map(t => (new Date(t.exit_date) - new Date(t.entry_date)) / (1000 * 60 * 60 * 24))
     .sort((a, b) => a - b);
-  const mid = Math.floor(durations.length / 2);
-  const medDur = durations.length % 2 === 1
-    ? durations[mid]
-    : (durations[mid - 1] + durations[mid]) / 2;
 
-  // 5) Compute Period string
+  // 4) Compute period string
   const entryDates = trades.map(t => new Date(t.entry_date));
   const exitDates  = trades.map(t => new Date(t.exit_date));
   const startDate = new Date(Math.min(...entryDates));
@@ -43,41 +36,34 @@ function ret(t) {
   const fmt = d => d.toLocaleString('default', { month: 'short', year: 'numeric' });
   const period = `${fmt(startDate)} – ${fmt(endDate)}`;
 
-  // 6) Compute max win & loss
-  const maxWinPct  = Math.max(...rets) * 100;
-  const maxLossPct = Math.min(...rets) * 100;
+  // 5) Compute metrics
+  const numTrades    = trades.length;
+  const mid          = Math.floor(durations.length / 2);
+  const medDur       = durations.length % 2 === 1
+    ? durations[mid]
+    : (durations[mid - 1] + durations[mid]) / 2;
+  const quickestDur  = Math.min(...durations);
+  const maxWinPct    = Math.max(...rets) * 100;
+  const maxLossPct   = Math.min(...rets) * 100;
 
-  // 7) Geometric series for drawdown
-  const geomCum = [];
-  trades.forEach((t, i) => {
-    const prev = i ? geomCum[i - 1] : 0;
-    geomCum[i] = (1 + prev) * (1 + ret(t)) - 1;
-  });
-  let peak = 0, mdd = 0;
-  geomCum.forEach(x => {
-    peak = Math.max(peak, x);
-    mdd  = Math.max(mdd, peak - x);
-  });
-  const maxDrawdownPct = mdd * 100;
-
-  // 8) Render everything
-  renderModule1({ period, winPct, medDur, maxWinPct, maxLossPct, maxDrawdownPct });
+  // 6) Render everything
+  renderModule1({ period, numTrades, medDur, quickestDur, maxWinPct, maxLossPct });
   renderModule2(trades);
   renderModule3(rets);
   renderModule4();
 })();
 
-// ——— Module 1 —–––
-function renderModule1({ period, winPct, medDur, maxWinPct, maxLossPct, maxDrawdownPct }) {
+// ——— Module 1 — Portfolio KPI Cards —–––
+function renderModule1({ period, numTrades, medDur, quickestDur, maxWinPct, maxLossPct }) {
   const cont = document.getElementById('module1');
   cont.innerHTML = '';
   [
-    { label: 'Period',          value: period },
-    { label: 'Win %',           value: winPct.toFixed(1) + '%' },
-    { label: 'Median Duration', value: medDur.toFixed(0) + ' days' },
-    { label: 'Max Win',         value: maxWinPct.toFixed(1) + '%' },
-    { label: 'Max Loss',        value: maxLossPct.toFixed(1) + '%' },
-    { label: 'Max Drawdown',    value: maxDrawdownPct.toFixed(1) + '%' }
+    { label: 'Period',           value: period },
+    { label: '# Trades',         value: numTrades },
+    { label: 'Median Duration',  value: medDur.toFixed(0)  + ' days' },
+    { label: 'Quickest Trade',   value: quickestDur.toFixed(0) + ' days' },
+    { label: 'Max Loss',         value: maxLossPct.toFixed(1)  + '%' },
+    { label: 'Max Win',          value: maxWinPct.toFixed(1)  + '%' }
   ].forEach(c => {
     const d = document.createElement('div');
     d.className = 'kpi-card';
@@ -117,7 +103,6 @@ function renderModule2(trades) {
 
 // —––– Module 3 — Arithmetic Equity Curve
 function renderModule3(rets) {
-  // build simple cumulative returns
   const cum = [];
   let sum = 0;
   rets.forEach(r => {
@@ -160,7 +145,7 @@ function renderModule3(rets) {
   );
 }
 
-// —––– Module 4 — New Strategies Alert
+// —––– Module 4 — New Strategies Alert (±1σ)
 async function renderModule4() {
   try {
     const resp = await fetch('spreads.json');
@@ -169,7 +154,7 @@ async function renderModule4() {
 
     const alerts = Object.entries(data)
       .map(([spread, series]) => {
-        const [ , price, , lower1, , upper1 ] = series[series.length - 1];
+        const [ , price, lower1, , upper1 ] = series[series.length - 1];
         if (price < lower1 || price > upper1) {
           return {
             spread,
