@@ -169,14 +169,14 @@ async function renderModule4() {
 
     const alerts = Object.entries(data)
       .map(([spread, series]) => {
-        const [ , price, , lower2, , upper2 ] = series[series.length - 1];
-        if (price < lower2 || price > upper2) {
+        const [ , price, , lower1, , upper1 ] = series[series.length - 1];
+        if (price < lower1 || price > upper1) {
           return {
             spread,
             price,
-            lower2,
-            upper2,
-            signal: price < lower2 ? 'Long' : 'Short'
+            lower1,
+            upper1,
+            signal: price < lower1 ? 'Long' : 'Short'
           };
         }
       })
@@ -189,8 +189,8 @@ async function renderModule4() {
       tr.innerHTML = `
         <td>${a.spread}</td>
         <td>${a.price.toFixed(4)}</td>
-        <td>${a.lower2.toFixed(4)}</td>
-        <td>${a.upper2.toFixed(4)}</td>
+        <td>${a.lower1.toFixed(4)}</td>
+        <td>${a.upper1.toFixed(4)}</td>
         <td>${a.signal}</td>
       `;
       tbody.appendChild(tr);
