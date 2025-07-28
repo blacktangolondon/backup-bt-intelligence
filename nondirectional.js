@@ -4,10 +4,9 @@ Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
 // ——— Helper at top‑level so every renderModule can use it ———
+// Now returns t.pnl (fraction of account) instead of (exit-entry)/entry
 function ret(t) {
-  return t.type === 'long'
-    ? (t.exit - t.entry) / t.entry
-    : (t.entry - t.exit) / t.entry;
+  return t.pnl;
 }
 
 (async function() {
@@ -20,7 +19,7 @@ function ret(t) {
   const stats  = await resp.json();
   const trades = stats.trades;
 
-  // 2) Build percent‐return array
+  // 2) Build percent‐return array (already fractions, so *100 later)
   const rets = trades.map(ret);
 
   // 3) Compute durations (in days)
@@ -84,7 +83,8 @@ function renderModule2(trades) {
     .slice()
     .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
-      const movement = (ret(t) * 100).toFixed(2) + '%';
+      // Now show P&L% from t.pnl
+      const movement = (t.pnl * 100).toFixed(2) + '%';
       const dir      = t.type === 'long' ? 'Long' : 'Short';
 
       const tr = document.createElement('tr');
@@ -107,7 +107,7 @@ function renderModule3(rets) {
   let sum = 0;
   rets.forEach(r => {
     sum += r;
-    cum.push(sum * 100);
+    cum.push(sum * 100);  // cumulative percent of account
   });
 
   new Chart(
