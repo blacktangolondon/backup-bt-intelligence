@@ -4,25 +4,25 @@
       "start": "2023-09-13",
       "end": "2025-05-12"
     },
-    "total_trades": 198,
-    "wins": 141,
-    "losses": 57,
-    "win_rate_pct": 71.2,
-    "total_pnl": 0.5888,
-    "avg_pnl_per_trade": 0.003,
-    "max_win": 0.0297,
-    "max_loss": -0.0747,
-    "max_drawdown": 0.2335,
-    "avg_duration_days": 49.9
+    "total_trades": 220,
+    "wins": 160,
+    "losses": 60,
+    "win_rate_pct": 72.7,
+    "total_pnl": 0.8399,
+    "avg_pnl_per_trade": 0.0038,
+    "max_win": 0.041,
+    "max_loss": -0.0448,
+    "max_drawdown": 0.1886,
+    "avg_duration_days": 47.1
   },
   "by_spread": [
     {
       "key": "FTSE100/EU50",
       "trades": 7,
-      "wins": 5,
-      "losses": 2,
-      "win_rate_pct": 71.4,
-      "avg_pnl": 0.0021,
+      "wins": 4,
+      "losses": 3,
+      "win_rate_pct": 57.1,
+      "avg_pnl": 0.0019,
       "max_win": 0.0144,
       "max_loss": -0.0264,
       "avg_duration_days": 46.7
@@ -89,9 +89,9 @@
       "losses": 2,
       "win_rate_pct": 71.4,
       "avg_pnl": 0.0031,
-      "max_win": 0.0188,
+      "max_win": 0.0189,
       "max_loss": -0.0296,
-      "avg_duration_days": 59.0
+      "avg_duration_days": 58.6
     },
     {
       "key": "NASDAQ100/S&P500",
@@ -99,10 +99,10 @@
       "wins": 7,
       "losses": 1,
       "win_rate_pct": 87.5,
-      "avg_pnl": 0.0079,
+      "avg_pnl": 0.0082,
       "max_win": 0.0171,
-      "max_loss": -0.0062,
-      "avg_duration_days": 49.8
+      "max_loss": -0.0095,
+      "avg_duration_days": 50.2
     },
     {
       "key": "NASDAQ100/RUSSELL2000",
@@ -110,21 +110,21 @@
       "wins": 4,
       "losses": 0,
       "win_rate_pct": 100.0,
-      "avg_pnl": 0.0132,
+      "avg_pnl": 0.0133,
       "max_win": 0.0156,
       "max_loss": 0.0093,
       "avg_duration_days": 29.5
     },
     {
       "key": "S&P500/RUSSELL2000",
-      "trades": 4,
-      "wins": 4,
+      "trades": 5,
+      "wins": 5,
       "losses": 0,
       "win_rate_pct": 100.0,
-      "avg_pnl": 0.0136,
+      "avg_pnl": 0.0141,
       "max_win": 0.0176,
       "max_loss": 0.0068,
-      "avg_duration_days": 45.2
+      "avg_duration_days": 40.2
     },
     {
       "key": "GOLD/SILVER",
@@ -132,7 +132,7 @@
       "wins": 4,
       "losses": 2,
       "win_rate_pct": 66.7,
-      "avg_pnl": 0.0001,
+      "avg_pnl": -0.0001,
       "max_win": 0.0092,
       "max_loss": -0.0258,
       "avg_duration_days": 48.2
@@ -143,9 +143,9 @@
       "wins": 1,
       "losses": 1,
       "win_rate_pct": 50.0,
-      "avg_pnl": -0.0136,
+      "avg_pnl": -0.0138,
       "max_win": 0.0023,
-      "max_loss": -0.0295,
+      "max_loss": -0.0299,
       "avg_duration_days": 55.0
     },
     {
@@ -156,7 +156,7 @@
       "win_rate_pct": 33.3,
       "avg_pnl": -0.0098,
       "max_win": 0.0053,
-      "max_loss": -0.0245,
+      "max_loss": -0.0244,
       "avg_duration_days": 76.3
     },
     {
@@ -176,7 +176,7 @@
       "wins": 5,
       "losses": 2,
       "win_rate_pct": 71.4,
-      "avg_pnl": -0.0002,
+      "avg_pnl": -0.0,
       "max_win": 0.0239,
       "max_loss": -0.0448,
       "avg_duration_days": 66.0
@@ -187,7 +187,7 @@
       "wins": 2,
       "losses": 2,
       "win_rate_pct": 50.0,
-      "avg_pnl": 0.0003,
+      "avg_pnl": 0.0006,
       "max_win": 0.012,
       "max_loss": -0.0154,
       "avg_duration_days": 61.0
@@ -198,9 +198,9 @@
       "wins": 1,
       "losses": 1,
       "win_rate_pct": 50.0,
-      "avg_pnl": -0.0019,
+      "avg_pnl": -0.0017,
       "max_win": 0.0075,
-      "max_loss": -0.0113,
+      "max_loss": -0.0108,
       "avg_duration_days": 22.5
     },
     {
@@ -220,10 +220,43 @@
       "wins": 3,
       "losses": 2,
       "win_rate_pct": 60.0,
-      "avg_pnl": 0.0077,
-      "max_win": 0.0152,
-      "max_loss": -0.0043,
-      "avg_duration_days": 44.2
+      "avg_pnl": 0.0082,
+      "max_win": 0.0154,
+      "max_loss": -0.0019,
+      "avg_duration_days": 44.8
+    },
+    {
+      "key": "JPM/BAC",
+      "trades": 5,
+      "wins": 3,
+      "losses": 2,
+      "win_rate_pct": 60.0,
+      "avg_pnl": -0.0004,
+      "max_win": 0.0158,
+      "max_loss": -0.0237,
+      "avg_duration_days": 50.8
+    },
+    {
+      "key": "GM/F",
+      "trades": 2,
+      "wins": 1,
+      "losses": 1,
+      "win_rate_pct": 50.0,
+      "avg_pnl": -0.0046,
+      "max_win": 0.003,
+      "max_loss": -0.0122,
+      "avg_duration_days": 54.0
+    },
+    {
+      "key": "TSLA/RIVN",
+      "trades": 1,
+      "wins": 0,
+      "losses": 1,
+      "win_rate_pct": 0.0,
+      "avg_pnl": -0.0135,
+      "max_win": -0.0135,
+      "max_loss": -0.0135,
+      "avg_duration_days": 120.0
     },
     {
       "key": "AAPL/MSFT",
@@ -231,9 +264,9 @@
       "wins": 2,
       "losses": 3,
       "win_rate_pct": 40.0,
-      "avg_pnl": -0.0061,
-      "max_win": 0.0092,
-      "max_loss": -0.026,
+      "avg_pnl": -0.0062,
+      "max_win": 0.0091,
+      "max_loss": -0.0267,
       "avg_duration_days": 94.4
     },
     {
@@ -248,39 +281,6 @@
       "avg_duration_days": 0.0
     },
     {
-      "key": "GOOGL/META",
-      "trades": 1,
-      "wins": 1,
-      "losses": 0,
-      "win_rate_pct": 100.0,
-      "avg_pnl": 0.0032,
-      "max_win": 0.0032,
-      "max_loss": 0.0032,
-      "avg_duration_days": 84.0
-    },
-    {
-      "key": "JPM/BAC",
-      "trades": 5,
-      "wins": 3,
-      "losses": 2,
-      "win_rate_pct": 60.0,
-      "avg_pnl": -0.0003,
-      "max_win": 0.0159,
-      "max_loss": -0.0237,
-      "avg_duration_days": 50.2
-    },
-    {
-      "key": "XOM/CVX",
-      "trades": 7,
-      "wins": 5,
-      "losses": 2,
-      "win_rate_pct": 71.4,
-      "avg_pnl": 0.0095,
-      "max_win": 0.0273,
-      "max_loss": -0.0058,
-      "avg_duration_days": 46.9
-    },
-    {
       "key": "KO/PEP",
       "trades": 0,
       "wins": 0,
@@ -292,103 +292,125 @@
       "avg_duration_days": 0.0
     },
     {
-      "key": "TSLA/F",
-      "trades": 3,
-      "wins": 0,
-      "losses": 3,
-      "win_rate_pct": 0.0,
-      "avg_pnl": -0.0116,
-      "max_win": -0.0002,
-      "max_loss": -0.0244,
-      "avg_duration_days": 102.3
-    },
-    {
-      "key": "ASML/TSM",
-      "trades": 0,
-      "wins": 0,
-      "losses": 0,
-      "win_rate_pct": 0.0,
-      "avg_pnl": 0.0,
-      "max_win": 0.0,
-      "max_loss": 0.0,
-      "avg_duration_days": 0.0
-    },
-    {
-      "key": "DIS/CMCSA",
+      "key": "PG/CL",
       "trades": 4,
-      "wins": 3,
-      "losses": 1,
-      "win_rate_pct": 75.0,
-      "avg_pnl": 0.0036,
-      "max_win": 0.0146,
-      "max_loss": -0.0238,
-      "avg_duration_days": 61.8
-    },
-    {
-      "key": "CAT/DE",
-      "trades": 4,
-      "wins": 1,
-      "losses": 3,
-      "win_rate_pct": 25.0,
-      "avg_pnl": -0.025,
-      "max_win": 0.003,
-      "max_loss": -0.0747,
-      "avg_duration_days": 168.5
-    },
-    {
-      "key": "AMZN/NFLX",
-      "trades": 0,
-      "wins": 0,
-      "losses": 0,
-      "win_rate_pct": 0.0,
-      "avg_pnl": 0.0,
-      "max_win": 0.0,
-      "max_loss": 0.0,
-      "avg_duration_days": 0.0
-    },
-    {
-      "key": "JNJ/PFE",
-      "trades": 3,
       "wins": 2,
-      "losses": 1,
-      "win_rate_pct": 66.7,
-      "avg_pnl": -0.0015,
-      "max_win": 0.0132,
-      "max_loss": -0.019,
-      "avg_duration_days": 81.7
+      "losses": 2,
+      "win_rate_pct": 50.0,
+      "avg_pnl": -0.0074,
+      "max_win": 0.0055,
+      "max_loss": -0.0362,
+      "avg_duration_days": 84.8
     },
     {
-      "key": "BA/LMT",
-      "trades": 4,
-      "wins": 1,
-      "losses": 3,
-      "win_rate_pct": 25.0,
-      "avg_pnl": -0.0149,
-      "max_win": 0.0018,
-      "max_loss": -0.0366,
-      "avg_duration_days": 87.2
-    },
-    {
-      "key": "V/MA",
-      "trades": 3,
-      "wins": 0,
-      "losses": 3,
-      "win_rate_pct": 0.0,
-      "avg_pnl": -0.0145,
-      "max_win": -0.0061,
-      "max_loss": -0.0263,
-      "avg_duration_days": 137.3
-    },
-    {
-      "key": "NFLX/DIS",
+      "key": "HSBA.L/BARC.L",
       "trades": 1,
       "wins": 1,
       "losses": 0,
       "win_rate_pct": 100.0,
+      "avg_pnl": 0.0049,
+      "max_win": 0.0049,
+      "max_loss": 0.0049,
+      "avg_duration_days": 119.0
+    },
+    {
+      "key": "LLOY.L/NWG.L",
+      "trades": 2,
+      "wins": 1,
+      "losses": 1,
+      "win_rate_pct": 50.0,
+      "avg_pnl": -0.0043,
+      "max_win": 0.0044,
+      "max_loss": -0.0129,
+      "avg_duration_days": 98.5
+    },
+    {
+      "key": "ULVR.L/RKT.L",
+      "trades": 5,
+      "wins": 2,
+      "losses": 3,
+      "win_rate_pct": 40.0,
+      "avg_pnl": -0.0085,
+      "max_win": 0.0141,
+      "max_loss": -0.0321,
+      "avg_duration_days": 64.2
+    },
+    {
+      "key": "BATS.L/IMB.L",
+      "trades": 3,
+      "wins": 2,
+      "losses": 1,
+      "win_rate_pct": 66.7,
+      "avg_pnl": -0.0066,
+      "max_win": 0.0078,
+      "max_loss": -0.0295,
+      "avg_duration_days": 65.3
+    },
+    {
+      "key": "BNP.PA/ACA.PA",
+      "trades": 8,
+      "wins": 6,
+      "losses": 2,
+      "win_rate_pct": 75.0,
       "avg_pnl": 0.005,
-      "max_win": 0.005,
-      "max_loss": 0.005,
-      "avg_duration_days": 49.0
+      "max_win": 0.0209,
+      "max_loss": -0.0223,
+      "avg_duration_days": 53.6
+    },
+    {
+      "key": "DBK.DE/CBK.DE",
+      "trades": 9,
+      "wins": 8,
+      "losses": 1,
+      "win_rate_pct": 88.9,
+      "avg_pnl": 0.0118,
+      "max_win": 0.0283,
+      "max_loss": -0.0101,
+      "avg_duration_days": 47.7
+    },
+    {
+      "key": "VOW.DE/BMW.DE",
+      "trades": 12,
+      "wins": 9,
+      "losses": 3,
+      "win_rate_pct": 75.0,
+      "avg_pnl": 0.0076,
+      "max_win": 0.041,
+      "max_loss": -0.0235,
+      "avg_duration_days": 31.6
+    },
+    {
+      "key": "NESN.SW/ULVR.L",
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "avg_pnl": 0.0,
+      "max_win": 0.0,
+      "max_loss": 0.0,
+      "avg_duration_days": 0.0
+    },
+    {
+      "key": "MC.PA/CFR.SW",
+      "trades": 0,
+      "wins": 0,
+      "losses": 0,
+      "win_rate_pct": 0.0,
+      "avg_pnl": 0.0,
+      "max_win": 0.0,
+      "max_loss": 0.0,
+      "avg_duration_days": 0.0
+    },
+    {
+      "key": "SIE.DE/SU.PA",
+      "trades": 4,
+      "wins": 1,
+      "losses": 3,
+      "win_rate_pct": 25.0,
+      "avg_pnl": -0.0096,
+      "max_win": 0.0167,
+      "max_loss": -0.0277,
+      "avg_duration_days": 126.2
     },
     {
       "key": "ZN/ZF",
@@ -429,7 +451,7 @@
       "wins": 6,
       "losses": 2,
       "win_rate_pct": 75.0,
-      "avg_pnl": 0.0047,
+      "avg_pnl": 0.0045,
       "max_win": 0.0196,
       "max_loss": -0.0268,
       "avg_duration_days": 41.2
@@ -440,7 +462,7 @@
       "wins": 3,
       "losses": 3,
       "win_rate_pct": 50.0,
-      "avg_pnl": -0.002,
+      "avg_pnl": -0.0025,
       "max_win": 0.0174,
       "max_loss": -0.0268,
       "avg_duration_days": 59.2
@@ -462,7 +484,7 @@
       "wins": 4,
       "losses": 0,
       "win_rate_pct": 100.0,
-      "avg_pnl": 0.0093,
+      "avg_pnl": 0.0092,
       "max_win": 0.0174,
       "max_loss": 0.0058,
       "avg_duration_days": 53.8
@@ -544,7 +566,7 @@
       "exit": 1.6574,
       "pnl": 0.0144,
       "duration": 36,
-      "cum_pnl": 0.0142
+      "cum_pnl": 0.0141
     },
     {
       "spread": "FTSE100/EU50",
@@ -552,10 +574,10 @@
       "exit_date": "2025-07-28",
       "type": "short",
       "entry": 1.7057,
-      "exit": 1.6912,
-      "pnl": 0.0002,
+      "exit": 1.6949,
+      "pnl": -0.0007,
       "duration": 6,
-      "cum_pnl": 0.0144
+      "cum_pnl": 0.0135
     },
     {
       "spread": "FTSE100/CAC40",
@@ -566,7 +588,7 @@
       "exit": 1.0214,
       "pnl": 0.0011,
       "duration": 68,
-      "cum_pnl": 0.0155
+      "cum_pnl": 0.0146
     },
     {
       "spread": "FTSE100/CAC40",
@@ -577,7 +599,7 @@
       "exit": 1.0591,
       "pnl": 0.0023,
       "duration": 119,
-      "cum_pnl": 0.0178
+      "cum_pnl": 0.0169
     },
     {
       "spread": "FTSE100/CAC40",
@@ -588,7 +610,7 @@
       "exit": 1.0701,
       "pnl": 0.0052,
       "duration": 56,
-      "cum_pnl": 0.023
+      "cum_pnl": 0.0221
     },
     {
       "spread": "FTSE100/CAC40",
@@ -599,7 +621,7 @@
       "exit": 1.0992,
       "pnl": 0.0044,
       "duration": 51,
-      "cum_pnl": 0.0274
+      "cum_pnl": 0.0265
     },
     {
       "spread": "DOW30/S&P500",
@@ -610,7 +632,7 @@
       "exit": 7.6089,
       "pnl": 0.0112,
       "duration": 59,
-      "cum_pnl": 0.0386
+      "cum_pnl": 0.0377
     },
     {
       "spread": "DOW30/S&P500",
@@ -621,7 +643,7 @@
       "exit": 7.4945,
       "pnl": 0.0015,
       "duration": 61,
-      "cum_pnl": 0.0401
+      "cum_pnl": 0.0393
     },
     {
       "spread": "DOW30/S&P500",
@@ -632,7 +654,7 @@
       "exit": 7.1588,
       "pnl": 0.013,
       "duration": 43,
-      "cum_pnl": 0.0531
+      "cum_pnl": 0.0522
     },
     {
       "spread": "DOW30/NASDAQ100",
@@ -643,7 +665,7 @@
       "exit": 1.926,
       "pnl": -0.0289,
       "duration": 33,
-      "cum_pnl": 0.0242
+      "cum_pnl": 0.0233
     },
     {
       "spread": "DOW30/NASDAQ100",
@@ -654,7 +676,7 @@
       "exit": 2.1336,
       "pnl": 0.0141,
       "duration": 17,
-      "cum_pnl": 0.0383
+      "cum_pnl": 0.0374
     },
     {
       "spread": "DOW30/NASDAQ100",
@@ -663,20 +685,20 @@
       "type": "short",
       "entry": 2.157,
       "exit": 1.988,
-      "pnl": 0.0122,
+      "pnl": 0.0121,
       "duration": 64,
-      "cum_pnl": 0.0505
+      "cum_pnl": 0.0495
     },
     {
       "spread": "DOW30/RUSSELL2000",
-      "entry_date": "2023-07-28",
+      "entry_date": "2023-07-31",
       "exit_date": "2023-09-13",
       "type": "long",
-      "entry": 17.8948,
+      "entry": 17.7515,
       "exit": 18.7825,
       "pnl": 0.0109,
-      "duration": 47,
-      "cum_pnl": 0.0614
+      "duration": 44,
+      "cum_pnl": 0.0604
     },
     {
       "spread": "DOW30/RUSSELL2000",
@@ -685,9 +707,9 @@
       "type": "short",
       "entry": 19.5791,
       "exit": 18.6194,
-      "pnl": 0.0092,
+      "pnl": 0.0093,
       "duration": 62,
-      "cum_pnl": 0.0706
+      "cum_pnl": 0.0698
     },
     {
       "spread": "DOW30/RUSSELL2000",
@@ -696,9 +718,9 @@
       "type": "short",
       "entry": 19.6942,
       "exit": 18.8084,
-      "pnl": 0.0188,
+      "pnl": 0.0189,
       "duration": 13,
-      "cum_pnl": 0.0894
+      "cum_pnl": 0.0887
     },
     {
       "spread": "DOW30/RUSSELL2000",
@@ -707,9 +729,9 @@
       "type": "long",
       "entry": 18.3865,
       "exit": 19.4632,
-      "pnl": 0.0113,
+      "pnl": 0.0112,
       "duration": 56,
-      "cum_pnl": 0.1007
+      "cum_pnl": 0.0999
     },
     {
       "spread": "DOW30/RUSSELL2000",
@@ -718,9 +740,9 @@
       "type": "long",
       "entry": 18.6554,
       "exit": 19.6695,
-      "pnl": -0.0026,
+      "pnl": -0.0027,
       "duration": 137,
-      "cum_pnl": 0.0981
+      "cum_pnl": 0.0973
     },
     {
       "spread": "DOW30/RUSSELL2000",
@@ -728,10 +750,10 @@
       "exit_date": "2025-04-08",
       "type": "short",
       "entry": 20.5453,
-      "exit": 21.3784,
+      "exit": 21.3794,
       "pnl": -0.0296,
       "duration": 36,
-      "cum_pnl": 0.0685
+      "cum_pnl": 0.0677
     },
     {
       "spread": "DOW30/RUSSELL2000",
@@ -740,9 +762,9 @@
       "type": "short",
       "entry": 21.2259,
       "exit": 19.8788,
-      "pnl": 0.0038,
+      "pnl": 0.0037,
       "duration": 62,
-      "cum_pnl": 0.0723
+      "cum_pnl": 0.0714
     },
     {
       "spread": "NASDAQ100/S&P500",
@@ -753,7 +775,7 @@
       "exit": 3.4753,
       "pnl": 0.0094,
       "duration": 58,
-      "cum_pnl": 0.0817
+      "cum_pnl": 0.0809
     },
     {
       "spread": "NASDAQ100/S&P500",
@@ -764,7 +786,7 @@
       "exit": 3.4802,
       "pnl": 0.0068,
       "duration": 57,
-      "cum_pnl": 0.0884
+      "cum_pnl": 0.0876
     },
     {
       "spread": "NASDAQ100/S&P500",
@@ -775,7 +797,7 @@
       "exit": 3.5069,
       "pnl": 0.0093,
       "duration": 42,
-      "cum_pnl": 0.0977
+      "cum_pnl": 0.0969
     },
     {
       "spread": "NASDAQ100/S&P500",
@@ -786,7 +808,7 @@
       "exit": 3.5245,
       "pnl": 0.0171,
       "duration": 12,
-      "cum_pnl": 0.1148
+      "cum_pnl": 0.114
     },
     {
       "spread": "NASDAQ100/S&P500",
@@ -797,7 +819,7 @@
       "exit": 3.5503,
       "pnl": 0.0042,
       "duration": 94,
-      "cum_pnl": 0.119
+      "cum_pnl": 0.1181
     },
     {
       "spread": "NASDAQ100/S&P500",
@@ -806,31 +828,31 @@
       "type": "short",
       "entry": 3.6379,
       "exit": 3.514,
-      "pnl": 0.0152,
+      "pnl": 0.0153,
       "duration": 42,
-      "cum_pnl": 0.1342
+      "cum_pnl": 0.1334
     },
     {
       "spread": "NASDAQ100/S&P500",
       "entry_date": "2025-03-10",
-      "exit_date": "2025-05-12",
+      "exit_date": "2025-05-13",
       "type": "long",
       "entry": 3.4608,
-      "exit": 3.5708,
-      "pnl": 0.0073,
-      "duration": 63,
-      "cum_pnl": 0.1415
+      "exit": 3.601,
+      "pnl": 0.0132,
+      "duration": 64,
+      "cum_pnl": 0.1466
     },
     {
       "spread": "NASDAQ100/S&P500",
       "entry_date": "2025-06-25",
-      "exit_date": "2025-07-25",
+      "exit_date": "2025-07-28",
       "type": "short",
       "entry": 3.6502,
-      "exit": 3.6428,
-      "pnl": -0.0062,
-      "duration": 30,
-      "cum_pnl": 0.1353
+      "exit": 3.6522,
+      "pnl": -0.0095,
+      "duration": 33,
+      "cum_pnl": 0.1372
     },
     {
       "spread": "NASDAQ100/RUSSELL2000",
@@ -839,9 +861,9 @@
       "type": "short",
       "entry": 9.1063,
       "exit": 8.4163,
-      "pnl": 0.0144,
+      "pnl": 0.0145,
       "duration": 24,
-      "cum_pnl": 0.1497
+      "cum_pnl": 0.1516
     },
     {
       "spread": "NASDAQ100/RUSSELL2000",
@@ -852,7 +874,7 @@
       "exit": 9.0113,
       "pnl": 0.0093,
       "duration": 33,
-      "cum_pnl": 0.1591
+      "cum_pnl": 0.161
     },
     {
       "spread": "NASDAQ100/RUSSELL2000",
@@ -863,7 +885,7 @@
       "exit": 9.1266,
       "pnl": 0.0156,
       "duration": 19,
-      "cum_pnl": 0.1747
+      "cum_pnl": 0.1766
     },
     {
       "spread": "NASDAQ100/RUSSELL2000",
@@ -874,7 +896,7 @@
       "exit": 9.5045,
       "pnl": 0.0136,
       "duration": 42,
-      "cum_pnl": 0.1883
+      "cum_pnl": 0.1902
     },
     {
       "spread": "S&P500/RUSSELL2000",
@@ -883,9 +905,20 @@
       "type": "short",
       "entry": 2.5891,
       "exit": 2.4281,
-      "pnl": 0.0141,
+      "pnl": 0.0142,
       "duration": 24,
-      "cum_pnl": 0.2024
+      "cum_pnl": 0.2044
+    },
+    {
+      "spread": "S&P500/RUSSELL2000",
+      "entry_date": "2023-12-27",
+      "exit_date": "2024-01-16",
+      "type": "long",
+      "entry": 2.3142,
+      "exit": 2.4729,
+      "pnl": 0.0158,
+      "duration": 20,
+      "cum_pnl": 0.2202
     },
     {
       "spread": "S&P500/RUSSELL2000",
@@ -896,7 +929,7 @@
       "exit": 2.5035,
       "pnl": 0.0176,
       "duration": 32,
-      "cum_pnl": 0.22
+      "cum_pnl": 0.2378
     },
     {
       "spread": "S&P500/RUSSELL2000",
@@ -907,7 +940,7 @@
       "exit": 2.5917,
       "pnl": 0.0159,
       "duration": 18,
-      "cum_pnl": 0.2359
+      "cum_pnl": 0.2537
     },
     {
       "spread": "S&P500/RUSSELL2000",
@@ -918,7 +951,7 @@
       "exit": 2.739,
       "pnl": 0.0068,
       "duration": 107,
-      "cum_pnl": 0.2427
+      "cum_pnl": 0.2605
     },
     {
       "spread": "GOLD/SILVER",
@@ -929,7 +962,7 @@
       "exit": 84.3331,
       "pnl": 0.0009,
       "duration": 76,
-      "cum_pnl": 0.2436
+      "cum_pnl": 0.2614
     },
     {
       "spread": "GOLD/SILVER",
@@ -940,7 +973,7 @@
       "exit": 88.7022,
       "pnl": 0.0092,
       "duration": 80,
-      "cum_pnl": 0.2528
+      "cum_pnl": 0.2706
     },
     {
       "spread": "GOLD/SILVER",
@@ -951,7 +984,7 @@
       "exit": 89.0974,
       "pnl": 0.0089,
       "duration": 62,
-      "cum_pnl": 0.2617
+      "cum_pnl": 0.2795
     },
     {
       "spread": "GOLD/SILVER",
@@ -959,10 +992,10 @@
       "exit_date": "2025-04-21",
       "type": "short",
       "entry": 97.2554,
-      "exit": 103.9311,
+      "exit": 103.9334,
       "pnl": -0.0258,
       "duration": 18,
-      "cum_pnl": 0.2359
+      "cum_pnl": 0.2537
     },
     {
       "spread": "GOLD/SILVER",
@@ -973,7 +1006,7 @@
       "exit": 90.8226,
       "pnl": 0.008,
       "duration": 48,
-      "cum_pnl": 0.2439
+      "cum_pnl": 0.2617
     },
     {
       "spread": "GOLD/SILVER",
@@ -981,10 +1014,10 @@
       "exit_date": "2025-07-28",
       "type": "long",
       "entry": 86.4122,
-      "exit": 87.2015,
-      "pnl": -0.0004,
+      "exit": 86.8504,
+      "pnl": -0.0016,
       "duration": 5,
-      "cum_pnl": 0.2435
+      "cum_pnl": 0.2601
     },
     {
       "spread": "GOLD/PLATINUM",
@@ -995,7 +1028,7 @@
       "exit": 2.9555,
       "pnl": 0.0023,
       "duration": 63,
-      "cum_pnl": 0.2457
+      "cum_pnl": 0.2623
     },
     {
       "spread": "GOLD/PLATINUM",
@@ -1003,10 +1036,10 @@
       "exit_date": "2025-07-28",
       "type": "long",
       "entry": 2.6399,
-      "exit": 2.3119,
-      "pnl": -0.0295,
+      "exit": 2.3039,
+      "pnl": -0.0299,
       "duration": 47,
-      "cum_pnl": 0.2162
+      "cum_pnl": 0.2324
     },
     {
       "spread": "PLATINUM/SILVER",
@@ -1017,7 +1050,7 @@
       "exit": 36.6068,
       "pnl": 0.0053,
       "duration": 81,
-      "cum_pnl": 0.2215
+      "cum_pnl": 0.2377
     },
     {
       "spread": "PLATINUM/SILVER",
@@ -1028,7 +1061,7 @@
       "exit": 32.1589,
       "pnl": -0.0101,
       "duration": 101,
-      "cum_pnl": 0.2114
+      "cum_pnl": 0.2276
     },
     {
       "spread": "PLATINUM/SILVER",
@@ -1036,10 +1069,10 @@
       "exit_date": "2025-07-28",
       "type": "short",
       "entry": 34.7868,
-      "exit": 37.7188,
-      "pnl": -0.0245,
+      "exit": 37.6965,
+      "pnl": -0.0244,
       "duration": 47,
-      "cum_pnl": 0.1869
+      "cum_pnl": 0.2031
     },
     {
       "spread": "WTI/BRENT",
@@ -1050,7 +1083,7 @@
       "exit": 0.945,
       "pnl": 0.0164,
       "duration": 21,
-      "cum_pnl": 0.2032
+      "cum_pnl": 0.2195
     },
     {
       "spread": "WTI/BRENT",
@@ -1061,7 +1094,7 @@
       "exit": 0.9785,
       "pnl": -0.0287,
       "duration": 32,
-      "cum_pnl": 0.1745
+      "cum_pnl": 0.1908
     },
     {
       "spread": "WTI/BRENT",
@@ -1072,7 +1105,7 @@
       "exit": 0.9474,
       "pnl": 0.0134,
       "duration": 22,
-      "cum_pnl": 0.188
+      "cum_pnl": 0.2042
     },
     {
       "spread": "WTI/BRENT",
@@ -1083,7 +1116,7 @@
       "exit": 0.9505,
       "pnl": 0.0202,
       "duration": 1,
-      "cum_pnl": 0.2082
+      "cum_pnl": 0.2244
     },
     {
       "spread": "WTI/BRENT",
@@ -1094,7 +1127,7 @@
       "exit": 0.9238,
       "pnl": -0.0227,
       "duration": 3,
-      "cum_pnl": 0.1855
+      "cum_pnl": 0.2018
     },
     {
       "spread": "WTI/BRENT",
@@ -1105,7 +1138,7 @@
       "exit": 0.9238,
       "pnl": -0.0271,
       "duration": 24,
-      "cum_pnl": 0.1584
+      "cum_pnl": 0.1747
     },
     {
       "spread": "WTI/BRENT",
@@ -1116,7 +1149,7 @@
       "exit": 0.9495,
       "pnl": 0.0079,
       "duration": 53,
-      "cum_pnl": 0.1663
+      "cum_pnl": 0.1826
     },
     {
       "spread": "WTI/BRENT",
@@ -1127,7 +1160,7 @@
       "exit": 0.9572,
       "pnl": 0.0296,
       "duration": 7,
-      "cum_pnl": 0.1959
+      "cum_pnl": 0.2122
     },
     {
       "spread": "WTI/BRENT",
@@ -1138,7 +1171,7 @@
       "exit": 0.9515,
       "pnl": 0.0157,
       "duration": 20,
-      "cum_pnl": 0.2116
+      "cum_pnl": 0.2279
     },
     {
       "spread": "WTI/BRENT",
@@ -1149,7 +1182,7 @@
       "exit": 0.95,
       "pnl": 0.0173,
       "duration": 13,
-      "cum_pnl": 0.229
+      "cum_pnl": 0.2452
     },
     {
       "spread": "WTI/BRENT",
@@ -1160,7 +1193,7 @@
       "exit": 0.9458,
       "pnl": 0.0224,
       "duration": 21,
-      "cum_pnl": 0.2514
+      "cum_pnl": 0.2677
     },
     {
       "spread": "WTI/BRENT",
@@ -1171,7 +1204,7 @@
       "exit": 0.9538,
       "pnl": 0.0187,
       "duration": 4,
-      "cum_pnl": 0.2701
+      "cum_pnl": 0.2863
     },
     {
       "spread": "WTI/BRENT",
@@ -1182,7 +1215,7 @@
       "exit": 0.9522,
       "pnl": 0.0172,
       "duration": 6,
-      "cum_pnl": 0.2873
+      "cum_pnl": 0.3035
     },
     {
       "spread": "WTI/BRENT",
@@ -1193,7 +1226,7 @@
       "exit": 0.9561,
       "pnl": 0.0176,
       "duration": 12,
-      "cum_pnl": 0.3048
+      "cum_pnl": 0.3211
     },
     {
       "spread": "WTI/BRENT",
@@ -1204,7 +1237,7 @@
       "exit": 0.9531,
       "pnl": 0.0158,
       "duration": 20,
-      "cum_pnl": 0.3206
+      "cum_pnl": 0.3369
     },
     {
       "spread": "WTI/BRENT",
@@ -1215,7 +1248,7 @@
       "exit": 0.9564,
       "pnl": 0.018,
       "duration": 5,
-      "cum_pnl": 0.3386
+      "cum_pnl": 0.3549
     },
     {
       "spread": "WTI/BRENT",
@@ -1226,7 +1259,7 @@
       "exit": 0.9274,
       "pnl": -0.0235,
       "duration": 7,
-      "cum_pnl": 0.3151
+      "cum_pnl": 0.3314
     },
     {
       "spread": "WTI/BRENT",
@@ -1237,7 +1270,7 @@
       "exit": 0.9811,
       "pnl": -0.0239,
       "duration": 9,
-      "cum_pnl": 0.2912
+      "cum_pnl": 0.3075
     },
     {
       "spread": "WTI/BRENT",
@@ -1248,7 +1281,7 @@
       "exit": 0.9524,
       "pnl": 0.0143,
       "duration": 37,
-      "cum_pnl": 0.3055
+      "cum_pnl": 0.3218
     },
     {
       "spread": "CORN/WHEAT",
@@ -1259,7 +1292,7 @@
       "exit": 0.7547,
       "pnl": 0.0004,
       "duration": 98,
-      "cum_pnl": 0.3058
+      "cum_pnl": 0.3221
     },
     {
       "spread": "CORN/WHEAT",
@@ -1270,7 +1303,7 @@
       "exit": 0.8019,
       "pnl": 0.0239,
       "duration": 14,
-      "cum_pnl": 0.3298
+      "cum_pnl": 0.346
     },
     {
       "spread": "CORN/WHEAT",
@@ -1281,7 +1314,7 @@
       "exit": 0.7846,
       "pnl": 0.0108,
       "duration": 46,
-      "cum_pnl": 0.3406
+      "cum_pnl": 0.3568
     },
     {
       "spread": "CORN/WHEAT",
@@ -1292,7 +1325,7 @@
       "exit": 0.7902,
       "pnl": -0.0079,
       "duration": 139,
-      "cum_pnl": 0.3327
+      "cum_pnl": 0.3489
     },
     {
       "spread": "CORN/WHEAT",
@@ -1303,7 +1336,7 @@
       "exit": 0.9138,
       "pnl": -0.0448,
       "duration": 109,
-      "cum_pnl": 0.2879
+      "cum_pnl": 0.3042
     },
     {
       "spread": "CORN/WHEAT",
@@ -1314,7 +1347,7 @@
       "exit": 0.7977,
       "pnl": 0.0108,
       "duration": 38,
-      "cum_pnl": 0.2987
+      "cum_pnl": 0.315
     },
     {
       "spread": "CORN/WHEAT",
@@ -1322,10 +1355,10 @@
       "exit_date": "2025-07-28",
       "type": "long",
       "entry": 0.7401,
-      "exit": 0.7782,
-      "pnl": 0.0056,
+      "exit": 0.7816,
+      "pnl": 0.0066,
       "duration": 18,
-      "cum_pnl": 0.3043
+      "cum_pnl": 0.3216
     },
     {
       "spread": "SOYBEANS/CORN",
@@ -1336,7 +1369,7 @@
       "exit": 2.8088,
       "pnl": 0.012,
       "duration": 26,
-      "cum_pnl": 0.3164
+      "cum_pnl": 0.3336
     },
     {
       "spread": "SOYBEANS/CORN",
@@ -1347,7 +1380,7 @@
       "exit": 2.5373,
       "pnl": 0.0116,
       "duration": 48,
-      "cum_pnl": 0.328
+      "cum_pnl": 0.3452
     },
     {
       "spread": "SOYBEANS/CORN",
@@ -1358,7 +1391,7 @@
       "exit": 2.3247,
       "pnl": -0.0154,
       "duration": 129,
-      "cum_pnl": 0.3125
+      "cum_pnl": 0.3298
     },
     {
       "spread": "SOYBEANS/CORN",
@@ -1366,10 +1399,10 @@
       "exit_date": "2025-07-28",
       "type": "short",
       "entry": 2.489,
-      "exit": 2.4428,
-      "pnl": -0.0071,
+      "exit": 2.4261,
+      "pnl": -0.0058,
       "duration": 41,
-      "cum_pnl": 0.3055
+      "cum_pnl": 0.324
     },
     {
       "spread": "BITCOIN/ETHEREUM",
@@ -1380,7 +1413,7 @@
       "exit": 40.5419,
       "pnl": 0.0075,
       "duration": 34,
-      "cum_pnl": 0.3129
+      "cum_pnl": 0.3315
     },
     {
       "spread": "BITCOIN/ETHEREUM",
@@ -1388,10 +1421,10 @@
       "exit_date": "2025-07-28",
       "type": "long",
       "entry": 34.3104,
-      "exit": 30.5913,
-      "pnl": -0.0113,
+      "exit": 30.8314,
+      "pnl": -0.0108,
       "duration": 11,
-      "cum_pnl": 0.3017
+      "cum_pnl": 0.3207
     },
     {
       "spread": "BRENT/WTI",
@@ -1402,7 +1435,7 @@
       "exit": 1.0582,
       "pnl": 0.0162,
       "duration": 21,
-      "cum_pnl": 0.3178
+      "cum_pnl": 0.3368
     },
     {
       "spread": "BRENT/WTI",
@@ -1413,7 +1446,7 @@
       "exit": 1.0213,
       "pnl": -0.0287,
       "duration": 32,
-      "cum_pnl": 0.2891
+      "cum_pnl": 0.3081
     },
     {
       "spread": "BRENT/WTI",
@@ -1424,7 +1457,7 @@
       "exit": 1.0555,
       "pnl": 0.0134,
       "duration": 22,
-      "cum_pnl": 0.3025
+      "cum_pnl": 0.3215
     },
     {
       "spread": "BRENT/WTI",
@@ -1435,7 +1468,7 @@
       "exit": 1.0521,
       "pnl": 0.0203,
       "duration": 1,
-      "cum_pnl": 0.3228
+      "cum_pnl": 0.3418
     },
     {
       "spread": "BRENT/WTI",
@@ -1446,7 +1479,7 @@
       "exit": 1.082,
       "pnl": -0.0227,
       "duration": 3,
-      "cum_pnl": 0.3001
+      "cum_pnl": 0.3191
     },
     {
       "spread": "BRENT/WTI",
@@ -1457,7 +1490,7 @@
       "exit": 1.0819,
       "pnl": -0.0271,
       "duration": 24,
-      "cum_pnl": 0.2731
+      "cum_pnl": 0.292
     },
     {
       "spread": "BRENT/WTI",
@@ -1468,7 +1501,7 @@
       "exit": 1.0532,
       "pnl": 0.008,
       "duration": 53,
-      "cum_pnl": 0.2811
+      "cum_pnl": 0.3
     },
     {
       "spread": "BRENT/WTI",
@@ -1479,7 +1512,7 @@
       "exit": 1.0448,
       "pnl": 0.0297,
       "duration": 7,
-      "cum_pnl": 0.3108
+      "cum_pnl": 0.3298
     },
     {
       "spread": "BRENT/WTI",
@@ -1490,7 +1523,7 @@
       "exit": 1.051,
       "pnl": 0.016,
       "duration": 20,
-      "cum_pnl": 0.3268
+      "cum_pnl": 0.3457
     },
     {
       "spread": "BRENT/WTI",
@@ -1501,7 +1534,7 @@
       "exit": 1.0526,
       "pnl": 0.0153,
       "duration": 22,
-      "cum_pnl": 0.3421
+      "cum_pnl": 0.361
     },
     {
       "spread": "BRENT/WTI",
@@ -1512,7 +1545,7 @@
       "exit": 1.0573,
       "pnl": 0.0223,
       "duration": 21,
-      "cum_pnl": 0.3644
+      "cum_pnl": 0.3834
     },
     {
       "spread": "BRENT/WTI",
@@ -1523,7 +1556,7 @@
       "exit": 1.0485,
       "pnl": 0.0188,
       "duration": 4,
-      "cum_pnl": 0.3832
+      "cum_pnl": 0.4022
     },
     {
       "spread": "BRENT/WTI",
@@ -1534,7 +1567,7 @@
       "exit": 1.0502,
       "pnl": 0.017,
       "duration": 6,
-      "cum_pnl": 0.4002
+      "cum_pnl": 0.4192
     },
     {
       "spread": "BRENT/WTI",
@@ -1545,7 +1578,7 @@
       "exit": 1.046,
       "pnl": 0.0176,
       "duration": 12,
-      "cum_pnl": 0.4178
+      "cum_pnl": 0.4368
     },
     {
       "spread": "BRENT/WTI",
@@ -1556,7 +1589,7 @@
       "exit": 1.0492,
       "pnl": 0.0156,
       "duration": 20,
-      "cum_pnl": 0.4334
+      "cum_pnl": 0.4524
     },
     {
       "spread": "BRENT/WTI",
@@ -1567,7 +1600,7 @@
       "exit": 1.0456,
       "pnl": 0.0182,
       "duration": 5,
-      "cum_pnl": 0.4516
+      "cum_pnl": 0.4706
     },
     {
       "spread": "BRENT/WTI",
@@ -1578,7 +1611,7 @@
       "exit": 1.0777,
       "pnl": -0.0235,
       "duration": 7,
-      "cum_pnl": 0.4281
+      "cum_pnl": 0.447
     },
     {
       "spread": "BRENT/WTI",
@@ -1589,7 +1622,7 @@
       "exit": 1.0188,
       "pnl": -0.0239,
       "duration": 9,
-      "cum_pnl": 0.4041
+      "cum_pnl": 0.4231
     },
     {
       "spread": "BRENT/WTI",
@@ -1600,7 +1633,7 @@
       "exit": 1.05,
       "pnl": 0.0143,
       "duration": 37,
-      "cum_pnl": 0.4185
+      "cum_pnl": 0.4375
     },
     {
       "spread": "COPPER/ALUMINIUM",
@@ -1611,7 +1644,7 @@
       "exit": 0.0018,
       "pnl": 0.0142,
       "duration": 17,
-      "cum_pnl": 0.4326
+      "cum_pnl": 0.4516
     },
     {
       "spread": "COPPER/ALUMINIUM",
@@ -1620,9 +1653,9 @@
       "type": "long",
       "entry": 0.0016,
       "exit": 0.0019,
-      "pnl": -0.0015,
+      "pnl": -0.0016,
       "duration": 146,
-      "cum_pnl": 0.4312
+      "cum_pnl": 0.45
     },
     {
       "spread": "COPPER/ALUMINIUM",
@@ -1631,9 +1664,9 @@
       "type": "short",
       "entry": 0.0021,
       "exit": 0.0019,
-      "pnl": 0.0152,
+      "pnl": 0.0154,
       "duration": 14,
-      "cum_pnl": 0.4464
+      "cum_pnl": 0.4654
     },
     {
       "spread": "COPPER/ALUMINIUM",
@@ -1642,86 +1675,20 @@
       "type": "short",
       "entry": 0.002,
       "exit": 0.0019,
-      "pnl": 0.0147,
+      "pnl": 0.0149,
       "duration": 27,
-      "cum_pnl": 0.4611
+      "cum_pnl": 0.4803
     },
     {
       "spread": "COPPER/ALUMINIUM",
       "entry_date": "2025-07-08",
-      "exit_date": "2025-07-25",
+      "exit_date": "2025-07-28",
       "type": "short",
       "entry": 0.0023,
-      "exit": 0.0023,
-      "pnl": -0.0043,
-      "duration": 17,
-      "cum_pnl": 0.4567
-    },
-    {
-      "spread": "AAPL/MSFT",
-      "entry_date": "2023-07-28",
-      "exit_date": "2023-10-25",
-      "type": "short",
-      "entry": 0.5787,
-      "exit": 0.5022,
-      "pnl": 0.0003,
-      "duration": 89,
-      "cum_pnl": 0.457
-    },
-    {
-      "spread": "AAPL/MSFT",
-      "entry_date": "2024-02-09",
-      "exit_date": "2024-07-12",
-      "type": "long",
-      "entry": 0.4491,
-      "exit": 0.5083,
-      "pnl": -0.0131,
-      "duration": 154,
-      "cum_pnl": 0.444
-    },
-    {
-      "spread": "AAPL/MSFT",
-      "entry_date": "2024-10-18",
-      "exit_date": "2025-01-22",
-      "type": "short",
-      "entry": 0.562,
-      "exit": 0.5016,
-      "pnl": -0.0009,
-      "duration": 96,
-      "cum_pnl": 0.4431
-    },
-    {
-      "spread": "AAPL/MSFT",
-      "entry_date": "2025-01-30",
-      "exit_date": "2025-04-08",
-      "type": "short",
-      "entry": 0.5725,
-      "exit": 0.4863,
-      "pnl": 0.0092,
-      "duration": 68,
-      "cum_pnl": 0.4523
-    },
-    {
-      "spread": "AAPL/MSFT",
-      "entry_date": "2025-05-21",
-      "exit_date": "2025-07-25",
-      "type": "long",
-      "entry": 0.4465,
-      "exit": 0.4163,
-      "pnl": -0.026,
-      "duration": 65,
-      "cum_pnl": 0.4263
-    },
-    {
-      "spread": "GOOGL/META",
-      "entry_date": "2024-02-02",
-      "exit_date": "2024-04-26",
-      "type": "long",
-      "entry": 0.2998,
-      "exit": 0.3879,
-      "pnl": 0.0032,
-      "duration": 84,
-      "cum_pnl": 0.4295
+      "exit": 0.0022,
+      "pnl": -0.0019,
+      "duration": 20,
+      "cum_pnl": 0.4784
     },
     {
       "spread": "JPM/BAC",
@@ -1730,9 +1697,9 @@
       "type": "short",
       "entry": 5.5079,
       "exit": 5.0317,
-      "pnl": 0.0113,
+      "pnl": 0.0112,
       "duration": 31,
-      "cum_pnl": 0.4408
+      "cum_pnl": 0.4896
     },
     {
       "spread": "JPM/BAC",
@@ -1743,7 +1710,7 @@
       "exit": 5.4263,
       "pnl": 0.0105,
       "duration": 62,
-      "cum_pnl": 0.4513
+      "cum_pnl": 0.5001
     },
     {
       "spread": "JPM/BAC",
@@ -1752,9 +1719,9 @@
       "type": "long",
       "entry": 5.223,
       "exit": 5.7401,
-      "pnl": 0.0159,
+      "pnl": 0.0158,
       "duration": 48,
-      "cum_pnl": 0.4672
+      "cum_pnl": 0.5159
     },
     {
       "spread": "JPM/BAC",
@@ -1762,340 +1729,637 @@
       "exit_date": "2025-04-11",
       "type": "short",
       "entry": 6.1443,
-      "exit": 6.5181,
+      "exit": 6.5168,
       "pnl": -0.0237,
       "duration": 8,
-      "cum_pnl": 0.4434
+      "cum_pnl": 0.4922
     },
     {
       "spread": "JPM/BAC",
       "entry_date": "2025-04-14",
-      "exit_date": "2025-07-25",
+      "exit_date": "2025-07-28",
       "type": "short",
       "entry": 6.4009,
-      "exit": 6.1635,
-      "pnl": -0.0156,
+      "exit": 6.1558,
+      "pnl": -0.0159,
+      "duration": 105,
+      "cum_pnl": 0.4762
+    },
+    {
+      "spread": "GM/F",
+      "entry_date": "2024-11-25",
+      "exit_date": "2025-03-07",
+      "type": "short",
+      "entry": 5.2807,
+      "exit": 4.7919,
+      "pnl": -0.0122,
       "duration": 102,
-      "cum_pnl": 0.4279
+      "cum_pnl": 0.464
     },
     {
-      "spread": "XOM/CVX",
-      "entry_date": "2023-07-28",
-      "exit_date": "2023-09-12",
+      "spread": "GM/F",
+      "entry_date": "2025-07-22",
+      "exit_date": "2025-07-28",
       "type": "long",
-      "entry": 0.6556,
-      "exit": 0.7043,
-      "pnl": 0.0117,
-      "duration": 46,
-      "cum_pnl": 0.4396
+      "entry": 4.3691,
+      "exit": 4.6829,
+      "pnl": 0.003,
+      "duration": 6,
+      "cum_pnl": 0.467
     },
     {
-      "spread": "XOM/CVX",
-      "entry_date": "2023-10-06",
-      "exit_date": "2023-10-27",
-      "type": "long",
-      "entry": 0.6606,
-      "exit": 0.7312,
-      "pnl": 0.0273,
-      "duration": 21,
-      "cum_pnl": 0.4668
-    },
-    {
-      "spread": "XOM/CVX",
-      "entry_date": "2024-02-02",
-      "exit_date": "2024-03-06",
-      "type": "long",
-      "entry": 0.6698,
-      "exit": 0.7198,
-      "pnl": 0.0154,
-      "duration": 33,
-      "cum_pnl": 0.4822
-    },
-    {
-      "spread": "XOM/CVX",
-      "entry_date": "2024-04-12",
-      "exit_date": "2024-04-26",
-      "type": "short",
-      "entry": 0.7572,
-      "exit": 0.7111,
-      "pnl": 0.0179,
-      "duration": 14,
-      "cum_pnl": 0.5001
-    },
-    {
-      "spread": "XOM/CVX",
-      "entry_date": "2024-08-02",
-      "exit_date": "2024-11-26",
-      "type": "short",
-      "entry": 0.7868,
-      "exit": 0.7258,
-      "pnl": -0.0054,
-      "duration": 116,
-      "cum_pnl": 0.4947
-    },
-    {
-      "spread": "XOM/CVX",
-      "entry_date": "2025-01-10",
-      "exit_date": "2025-04-11",
-      "type": "long",
-      "entry": 0.6957,
-      "exit": 0.7605,
-      "pnl": 0.0054,
-      "duration": 91,
-      "cum_pnl": 0.5001
-    },
-    {
-      "spread": "XOM/CVX",
-      "entry_date": "2025-07-18",
-      "exit_date": "2025-07-25",
-      "type": "long",
-      "entry": 0.7183,
-      "exit": 0.713,
-      "pnl": -0.0058,
-      "duration": 7,
-      "cum_pnl": 0.4943
-    },
-    {
-      "spread": "TSLA/F",
-      "entry_date": "2024-04-03",
-      "exit_date": "2024-11-07",
-      "type": "long",
-      "entry": 12.3355,
-      "exit": 27.0903,
-      "pnl": -0.0102,
-      "duration": 218,
-      "cum_pnl": 0.4841
-    },
-    {
-      "spread": "TSLA/F",
-      "entry_date": "2024-12-05",
-      "exit_date": "2024-12-16",
-      "type": "short",
-      "entry": 35.3918,
-      "exit": 44.1595,
-      "pnl": -0.0244,
-      "duration": 11,
-      "cum_pnl": 0.4598
-    },
-    {
-      "spread": "TSLA/F",
-      "entry_date": "2024-12-17",
-      "exit_date": "2025-03-05",
-      "type": "short",
-      "entry": 48.1304,
-      "exit": 28.9223,
-      "pnl": -0.0002,
-      "duration": 78,
-      "cum_pnl": 0.4596
-    },
-    {
-      "spread": "DIS/CMCSA",
-      "entry_date": "2024-02-16",
-      "exit_date": "2024-07-15",
-      "type": "short",
-      "entry": 2.7061,
-      "exit": 2.4877,
-      "pnl": -0.0238,
-      "duration": 150,
-      "cum_pnl": 0.4358
-    },
-    {
-      "spread": "DIS/CMCSA",
-      "entry_date": "2024-10-31",
-      "exit_date": "2024-11-27",
-      "type": "long",
-      "entry": 2.2029,
-      "exit": 2.7632,
-      "pnl": 0.0146,
-      "duration": 27,
-      "cum_pnl": 0.4504
-    },
-    {
-      "spread": "DIS/CMCSA",
-      "entry_date": "2025-01-30",
+      "spread": "TSLA/RIVN",
+      "entry_date": "2024-11-06",
       "exit_date": "2025-03-06",
       "type": "short",
-      "entry": 3.4114,
-      "exit": 2.9068,
-      "pnl": 0.0094,
-      "duration": 35,
-      "cum_pnl": 0.4598
-    },
-    {
-      "spread": "DIS/CMCSA",
-      "entry_date": "2025-04-03",
-      "exit_date": "2025-05-08",
-      "type": "long",
-      "entry": 2.4871,
-      "exit": 3.0719,
-      "pnl": 0.014,
-      "duration": 35,
-      "cum_pnl": 0.4738
-    },
-    {
-      "spread": "CAT/DE",
-      "entry_date": "2023-07-28",
-      "exit_date": "2024-02-02",
-      "type": "long",
-      "entry": 0.6097,
-      "exit": 0.8026,
-      "pnl": -0.0203,
-      "duration": 189,
+      "entry": 29.7147,
+      "exit": 23.8849,
+      "pnl": -0.0135,
+      "duration": 120,
       "cum_pnl": 0.4535
     },
     {
-      "spread": "CAT/DE",
-      "entry_date": "2024-02-27",
-      "exit_date": "2024-11-06",
+      "spread": "AAPL/MSFT",
+      "entry_date": "2023-07-31",
+      "exit_date": "2023-10-25",
       "type": "short",
-      "entry": 0.9084,
-      "exit": 1.0198,
-      "pnl": -0.0747,
-      "duration": 253,
-      "cum_pnl": 0.3788
+      "entry": 0.5848,
+      "exit": 0.5022,
+      "pnl": 0.0008,
+      "duration": 86,
+      "cum_pnl": 0.4543
     },
     {
-      "spread": "CAT/DE",
-      "entry_date": "2024-11-07",
-      "exit_date": "2025-01-30",
-      "type": "short",
-      "entry": 0.9928,
-      "exit": 0.7812,
-      "pnl": 0.003,
-      "duration": 84,
-      "cum_pnl": 0.3818
-    },
-    {
-      "spread": "CAT/DE",
-      "entry_date": "2025-02-19",
-      "exit_date": "2025-07-17",
+      "spread": "AAPL/MSFT",
+      "entry_date": "2024-02-09",
+      "exit_date": "2024-07-12",
       "type": "long",
-      "entry": 0.6931,
-      "exit": 0.8376,
-      "pnl": -0.0079,
-      "duration": 148,
-      "cum_pnl": 0.3739
+      "entry": 0.4491,
+      "exit": 0.5083,
+      "pnl": -0.013,
+      "duration": 154,
+      "cum_pnl": 0.4414
     },
     {
-      "spread": "JNJ/PFE",
-      "entry_date": "2023-12-13",
-      "exit_date": "2024-05-02",
+      "spread": "AAPL/MSFT",
+      "entry_date": "2024-10-18",
+      "exit_date": "2025-01-22",
       "type": "short",
-      "entry": 5.8436,
-      "exit": 5.4123,
-      "pnl": -0.019,
-      "duration": 141,
-      "cum_pnl": 0.3549
+      "entry": 0.562,
+      "exit": 0.5016,
+      "pnl": -0.001,
+      "duration": 96,
+      "cum_pnl": 0.4403
     },
     {
-      "spread": "JNJ/PFE",
-      "entry_date": "2025-01-02",
-      "exit_date": "2025-02-11",
+      "spread": "AAPL/MSFT",
+      "entry_date": "2025-01-30",
+      "exit_date": "2025-04-08",
+      "type": "short",
+      "entry": 0.5725,
+      "exit": 0.4863,
+      "pnl": 0.0091,
+      "duration": 68,
+      "cum_pnl": 0.4494
+    },
+    {
+      "spread": "AAPL/MSFT",
+      "entry_date": "2025-05-21",
+      "exit_date": "2025-07-28",
       "type": "long",
-      "entry": 5.4123,
-      "exit": 6.1156,
-      "pnl": 0.0132,
-      "duration": 40,
-      "cum_pnl": 0.3682
+      "entry": 0.4465,
+      "exit": 0.4165,
+      "pnl": -0.0267,
+      "duration": 68,
+      "cum_pnl": 0.4227
     },
     {
-      "spread": "JNJ/PFE",
-      "entry_date": "2025-04-08",
-      "exit_date": "2025-06-11",
+      "spread": "PG/CL",
+      "entry_date": "2023-08-08",
+      "exit_date": "2023-12-05",
       "type": "short",
-      "entry": 6.8681,
-      "exit": 6.3423,
-      "pnl": 0.0013,
-      "duration": 64,
-      "cum_pnl": 0.3695
+      "entry": 2.058,
+      "exit": 1.8893,
+      "pnl": -0.0002,
+      "duration": 119,
+      "cum_pnl": 0.4226
     },
     {
-      "spread": "BA/LMT",
-      "entry_date": "2023-12-05",
-      "exit_date": "2024-03-12",
+      "spread": "PG/CL",
+      "entry_date": "2024-06-20",
+      "exit_date": "2024-08-27",
+      "type": "long",
+      "entry": 1.7294,
+      "exit": 1.6083,
+      "pnl": -0.0362,
+      "duration": 68,
+      "cum_pnl": 0.3863
+    },
+    {
+      "spread": "PG/CL",
+      "entry_date": "2024-08-28",
+      "exit_date": "2024-11-08",
+      "type": "long",
+      "entry": 1.5981,
+      "exit": 1.8117,
+      "pnl": 0.0015,
+      "duration": 72,
+      "cum_pnl": 0.3878
+    },
+    {
+      "spread": "PG/CL",
+      "entry_date": "2025-01-31",
+      "exit_date": "2025-04-21",
       "type": "short",
-      "entry": 0.5247,
-      "exit": 0.4236,
-      "pnl": 0.0018,
-      "duration": 98,
-      "cum_pnl": 0.3712
+      "entry": 1.9145,
+      "exit": 1.7503,
+      "pnl": 0.0055,
+      "duration": 80,
+      "cum_pnl": 0.3933
     },
     {
-      "spread": "BA/LMT",
-      "entry_date": "2024-08-02",
+      "spread": "HSBA.L/BARC.L",
+      "entry_date": "2023-10-25",
+      "exit_date": "2024-02-21",
+      "type": "short",
+      "entry": 4.6172,
+      "exit": 3.6237,
+      "pnl": 0.0049,
+      "duration": 119,
+      "cum_pnl": 0.3982
+    },
+    {
+      "spread": "LLOY.L/NWG.L",
+      "entry_date": "2023-10-30",
+      "exit_date": "2024-01-25",
+      "type": "short",
+      "entry": 0.2247,
+      "exit": 0.1906,
+      "pnl": 0.0044,
+      "duration": 87,
+      "cum_pnl": 0.4026
+    },
+    {
+      "spread": "LLOY.L/NWG.L",
+      "entry_date": "2024-11-08",
+      "exit_date": "2025-02-26",
+      "type": "long",
+      "entry": 0.1394,
+      "exit": 0.1537,
+      "pnl": -0.0129,
+      "duration": 110,
+      "cum_pnl": 0.3896
+    },
+    {
+      "spread": "ULVR.L/RKT.L",
+      "entry_date": "2024-01-18",
+      "exit_date": "2024-03-15",
+      "type": "long",
+      "entry": 0.666,
+      "exit": 0.8584,
+      "pnl": 0.0141,
+      "duration": 57,
+      "cum_pnl": 0.4037
+    },
+    {
+      "spread": "ULVR.L/RKT.L",
+      "entry_date": "2024-06-11",
+      "exit_date": "2024-07-29",
+      "type": "short",
+      "entry": 0.9929,
+      "exit": 1.1305,
+      "pnl": -0.0321,
+      "duration": 48,
+      "cum_pnl": 0.3716
+    },
+    {
+      "spread": "ULVR.L/RKT.L",
+      "entry_date": "2024-07-30",
+      "exit_date": "2025-01-03",
+      "type": "short",
+      "entry": 1.1402,
+      "exit": 0.9367,
+      "pnl": -0.0194,
+      "duration": 157,
+      "cum_pnl": 0.3522
+    },
+    {
+      "spread": "ULVR.L/RKT.L",
+      "entry_date": "2025-02-18",
+      "exit_date": "2025-04-11",
+      "type": "long",
+      "entry": 0.813,
+      "exit": 0.9801,
+      "pnl": 0.0104,
+      "duration": 52,
+      "cum_pnl": 0.3626
+    },
+    {
+      "spread": "ULVR.L/RKT.L",
+      "entry_date": "2025-07-21",
+      "exit_date": "2025-07-28",
+      "type": "long",
+      "entry": 0.8746,
+      "exit": 0.7873,
+      "pnl": -0.0157,
+      "duration": 7,
+      "cum_pnl": 0.3469
+    },
+    {
+      "spread": "BATS.L/IMB.L",
+      "entry_date": "2023-09-12",
+      "exit_date": "2023-11-17",
+      "type": "short",
+      "entry": 1.514,
+      "exit": 1.3615,
+      "pnl": 0.0078,
+      "duration": 66,
+      "cum_pnl": 0.3548
+    },
+    {
+      "spread": "BATS.L/IMB.L",
+      "entry_date": "2023-12-06",
+      "exit_date": "2024-02-27",
+      "type": "long",
+      "entry": 1.2335,
+      "exit": 1.3661,
+      "pnl": 0.002,
+      "duration": 83,
+      "cum_pnl": 0.3568
+    },
+    {
+      "spread": "BATS.L/IMB.L",
+      "entry_date": "2025-06-11",
+      "exit_date": "2025-07-28",
+      "type": "short",
+      "entry": 1.2421,
+      "exit": 1.3462,
+      "pnl": -0.0295,
+      "duration": 47,
+      "cum_pnl": 0.3273
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "entry_date": "2023-08-11",
+      "exit_date": "2023-10-30",
+      "type": "short",
+      "entry": 5.1558,
+      "exit": 4.7819,
+      "pnl": 0.0033,
+      "duration": 80,
+      "cum_pnl": 0.3305
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "entry_date": "2024-02-01",
+      "exit_date": "2024-03-26",
+      "type": "long",
+      "entry": 4.3894,
+      "exit": 4.7377,
+      "pnl": 0.006,
+      "duration": 54,
+      "cum_pnl": 0.3365
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "entry_date": "2024-05-21",
+      "exit_date": "2024-07-01",
+      "type": "long",
+      "entry": 4.3322,
+      "exit": 4.7076,
+      "pnl": 0.01,
+      "duration": 41,
+      "cum_pnl": 0.3465
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "entry_date": "2024-08-01",
+      "exit_date": "2024-10-18",
+      "type": "long",
+      "entry": 4.3994,
+      "exit": 4.6294,
+      "pnl": -0.0006,
+      "duration": 78,
+      "cum_pnl": 0.3459
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "entry_date": "2024-11-22",
+      "exit_date": "2025-02-04",
+      "type": "long",
+      "entry": 4.3617,
+      "exit": 4.6067,
+      "pnl": 0.0032,
+      "duration": 74,
+      "cum_pnl": 0.3492
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "entry_date": "2025-03-18",
+      "exit_date": "2025-04-03",
+      "type": "short",
+      "entry": 4.7744,
+      "exit": 4.4748,
+      "pnl": 0.0198,
+      "duration": 16,
+      "cum_pnl": 0.3689
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "entry_date": "2025-04-09",
+      "exit_date": "2025-05-02",
+      "type": "long",
+      "entry": 4.2591,
+      "exit": 4.6265,
+      "pnl": 0.0209,
+      "duration": 23,
+      "cum_pnl": 0.3898
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "entry_date": "2025-05-26",
+      "exit_date": "2025-07-28",
+      "type": "short",
+      "entry": 4.7316,
+      "exit": 4.8146,
+      "pnl": -0.0223,
+      "duration": 63,
+      "cum_pnl": 0.3674
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "entry_date": "2023-08-09",
+      "exit_date": "2023-12-08",
+      "type": "long",
+      "entry": 0.9874,
+      "exit": 1.073,
+      "pnl": -0.0101,
+      "duration": 121,
+      "cum_pnl": 0.3574
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "entry_date": "2023-12-15",
+      "exit_date": "2024-01-12",
+      "type": "short",
+      "entry": 1.1596,
+      "exit": 1.0617,
+      "pnl": 0.0134,
+      "duration": 28,
+      "cum_pnl": 0.3708
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "entry_date": "2024-01-25",
+      "exit_date": "2024-05-17",
+      "type": "short",
+      "entry": 1.1456,
+      "exit": 1.0111,
+      "pnl": 0.0065,
+      "duration": 113,
+      "cum_pnl": 0.3773
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "entry_date": "2024-07-24",
+      "exit_date": "2024-08-07",
+      "type": "long",
+      "entry": 0.9373,
+      "exit": 1.0274,
+      "pnl": 0.0152,
+      "duration": 14,
+      "cum_pnl": 0.3925
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "entry_date": "2024-08-19",
+      "exit_date": "2024-09-11",
+      "type": "short",
+      "entry": 1.1075,
+      "exit": 0.9557,
+      "pnl": 0.0283,
+      "duration": 23,
+      "cum_pnl": 0.4208
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "entry_date": "2024-11-27",
+      "exit_date": "2025-02-05",
+      "type": "short",
+      "entry": 1.0845,
+      "exit": 0.9696,
+      "pnl": 0.0105,
+      "duration": 70,
+      "cum_pnl": 0.4313
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "entry_date": "2025-04-07",
+      "exit_date": "2025-04-25",
+      "type": "long",
+      "entry": 0.8781,
+      "exit": 0.98,
+      "pnl": 0.0158,
+      "duration": 18,
+      "cum_pnl": 0.4471
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "entry_date": "2025-06-05",
+      "exit_date": "2025-06-27",
+      "type": "long",
+      "entry": 0.8775,
+      "exit": 0.9555,
+      "pnl": 0.0123,
+      "duration": 22,
+      "cum_pnl": 0.4594
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "entry_date": "2025-07-04",
+      "exit_date": "2025-07-24",
+      "type": "long",
+      "entry": 0.8715,
+      "exit": 0.9556,
+      "pnl": 0.0142,
+      "duration": 20,
+      "cum_pnl": 0.4736
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "entry_date": "2023-08-11",
+      "exit_date": "2023-09-06",
+      "type": "short",
+      "entry": 1.3711,
+      "exit": 1.2819,
+      "pnl": 0.019,
+      "duration": 26,
+      "cum_pnl": 0.4926
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "entry_date": "2023-10-23",
+      "exit_date": "2024-01-23",
+      "type": "long",
+      "entry": 1.2217,
+      "exit": 1.343,
+      "pnl": 0.0104,
+      "duration": 92,
+      "cum_pnl": 0.503
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "entry_date": "2024-01-24",
+      "exit_date": "2024-03-01",
+      "type": "short",
+      "entry": 1.364,
+      "exit": 1.2741,
+      "pnl": 0.0152,
+      "duration": 37,
+      "cum_pnl": 0.5182
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "entry_date": "2024-03-13",
+      "exit_date": "2024-03-19",
+      "type": "long",
+      "entry": 1.2184,
+      "exit": 1.2901,
+      "pnl": 0.0172,
+      "duration": 6,
+      "cum_pnl": 0.5354
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "entry_date": "2024-05-13",
+      "exit_date": "2024-05-16",
+      "type": "short",
+      "entry": 1.3473,
+      "exit": 1.4124,
+      "pnl": -0.0227,
+      "duration": 3,
+      "cum_pnl": 0.5127
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "entry_date": "2024-05-17",
+      "exit_date": "2024-06-19",
+      "type": "short",
+      "entry": 1.4622,
+      "exit": 1.2717,
+      "pnl": 0.0122,
+      "duration": 33,
+      "cum_pnl": 0.5249
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "entry_date": "2024-08-30",
+      "exit_date": "2024-09-10",
+      "type": "long",
+      "entry": 1.205,
+      "exit": 1.3547,
+      "pnl": 0.041,
+      "duration": 11,
+      "cum_pnl": 0.5659
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "entry_date": "2024-09-12",
+      "exit_date": "2024-09-30",
+      "type": "short",
+      "entry": 1.346,
+      "exit": 1.2667,
+      "pnl": 0.015,
+      "duration": 18,
+      "cum_pnl": 0.5808
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "entry_date": "2024-11-29",
+      "exit_date": "2024-12-06",
+      "type": "long",
+      "entry": 1.1911,
+      "exit": 1.1205,
+      "pnl": -0.0235,
+      "duration": 7,
+      "cum_pnl": 0.5573
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "entry_date": "2024-12-09",
+      "exit_date": "2025-01-23",
+      "type": "long",
+      "entry": 1.1004,
+      "exit": 1.2704,
+      "pnl": 0.0098,
+      "duration": 45,
+      "cum_pnl": 0.5671
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "entry_date": "2025-03-07",
+      "exit_date": "2025-05-28",
+      "type": "short",
+      "entry": 1.3274,
+      "exit": 1.2315,
+      "pnl": 0.0062,
+      "duration": 82,
+      "cum_pnl": 0.5733
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "entry_date": "2025-07-09",
+      "exit_date": "2025-07-28",
+      "type": "long",
+      "entry": 1.1646,
+      "exit": 1.1546,
+      "pnl": -0.0087,
+      "duration": 19,
+      "cum_pnl": 0.5646
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "entry_date": "2023-10-24",
+      "exit_date": "2023-11-09",
+      "type": "short",
+      "entry": 0.9141,
+      "exit": 0.8142,
+      "pnl": 0.0167,
+      "duration": 16,
+      "cum_pnl": 0.5813
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "entry_date": "2023-11-29",
+      "exit_date": "2024-02-22",
+      "type": "short",
+      "entry": 0.9144,
+      "exit": 0.8292,
+      "pnl": -0.0003,
+      "duration": 85,
+      "cum_pnl": 0.581
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "entry_date": "2024-05-16",
       "exit_date": "2025-01-28",
       "type": "long",
-      "entry": 0.3097,
-      "exit": 0.3886,
-      "pnl": -0.0226,
-      "duration": 179,
-      "cum_pnl": 0.3486
+      "entry": 0.7516,
+      "exit": 0.8824,
+      "pnl": -0.027,
+      "duration": 257,
+      "cum_pnl": 0.554
     },
     {
-      "spread": "BA/LMT",
-      "entry_date": "2025-05-13",
-      "exit_date": "2025-07-22",
+      "spread": "SIE.DE/SU.PA",
+      "entry_date": "2025-03-03",
+      "exit_date": "2025-07-28",
       "type": "short",
-      "entry": 0.4424,
-      "exit": 0.5309,
-      "pnl": -0.0366,
-      "duration": 70,
-      "cum_pnl": 0.312
-    },
-    {
-      "spread": "BA/LMT",
-      "entry_date": "2025-07-23",
-      "exit_date": "2025-07-25",
-      "type": "short",
-      "entry": 0.5577,
-      "exit": 0.5534,
-      "pnl": -0.0021,
-      "duration": 2,
-      "cum_pnl": 0.3099
-    },
-    {
-      "spread": "V/MA",
-      "entry_date": "2023-10-26",
-      "exit_date": "2024-02-13",
-      "type": "short",
-      "entry": 0.6344,
-      "exit": 0.599,
-      "pnl": -0.0061,
-      "duration": 110,
-      "cum_pnl": 0.3038
-    },
-    {
-      "spread": "V/MA",
-      "entry_date": "2024-07-31",
-      "exit_date": "2025-01-06",
-      "type": "long",
-      "entry": 0.5729,
-      "exit": 0.6115,
-      "pnl": -0.0109,
-      "duration": 159,
-      "cum_pnl": 0.2929
-    },
-    {
-      "spread": "V/MA",
-      "entry_date": "2025-03-04",
-      "exit_date": "2025-07-25",
-      "type": "short",
-      "entry": 0.6346,
-      "exit": 0.6283,
-      "pnl": -0.0263,
-      "duration": 143,
-      "cum_pnl": 0.2666
-    },
-    {
-      "spread": "NFLX/DIS",
-      "entry_date": "2025-04-22",
-      "exit_date": "2025-06-10",
-      "type": "short",
-      "entry": 12.0843,
-      "exit": 10.1375,
-      "pnl": 0.005,
-      "duration": 49,
-      "cum_pnl": 0.2716
+      "entry": 0.9839,
+      "exit": 0.9576,
+      "pnl": -0.0277,
+      "duration": 147,
+      "cum_pnl": 0.5263
     },
     {
       "spread": "ZN/ZF",
@@ -2106,7 +2370,7 @@
       "exit": 1.0333,
       "pnl": 0.0168,
       "duration": 9,
-      "cum_pnl": 0.2884
+      "cum_pnl": 0.5431
     },
     {
       "spread": "ZN/ZF",
@@ -2117,7 +2381,7 @@
       "exit": 1.0337,
       "pnl": 0.0056,
       "duration": 64,
-      "cum_pnl": 0.294
+      "cum_pnl": 0.5487
     },
     {
       "spread": "ZN/ZF",
@@ -2128,7 +2392,7 @@
       "exit": 1.0315,
       "pnl": 0.0139,
       "duration": 35,
-      "cum_pnl": 0.3078
+      "cum_pnl": 0.5626
     },
     {
       "spread": "ZN/ZF",
@@ -2137,9 +2401,9 @@
       "type": "short",
       "entry": 1.0385,
       "exit": 1.0323,
-      "pnl": 0.0166,
+      "pnl": 0.0167,
       "duration": 7,
-      "cum_pnl": 0.3245
+      "cum_pnl": 0.5792
     },
     {
       "spread": "ZN/ZF",
@@ -2150,7 +2414,7 @@
       "exit": 1.0326,
       "pnl": 0.0166,
       "duration": 20,
-      "cum_pnl": 0.341
+      "cum_pnl": 0.5958
     },
     {
       "spread": "ZN/ZF",
@@ -2161,7 +2425,7 @@
       "exit": 1.0288,
       "pnl": 0.0227,
       "duration": 11,
-      "cum_pnl": 0.3637
+      "cum_pnl": 0.6185
     },
     {
       "spread": "ZN/ZF",
@@ -2172,7 +2436,7 @@
       "exit": 1.0282,
       "pnl": 0.0051,
       "duration": 92,
-      "cum_pnl": 0.3688
+      "cum_pnl": 0.6235
     },
     {
       "spread": "ZN/ZF",
@@ -2181,9 +2445,9 @@
       "type": "long",
       "entry": 1.0225,
       "exit": 1.0295,
-      "pnl": 0.0057,
+      "pnl": 0.0058,
       "duration": 64,
-      "cum_pnl": 0.3746
+      "cum_pnl": 0.6293
     },
     {
       "spread": "ZN/ZF",
@@ -2192,9 +2456,9 @@
       "type": "long",
       "entry": 1.0217,
       "exit": 1.0281,
-      "pnl": 0.0141,
+      "pnl": 0.0142,
       "duration": 18,
-      "cum_pnl": 0.3887
+      "cum_pnl": 0.6435
     },
     {
       "spread": "ZN/ZF",
@@ -2205,7 +2469,7 @@
       "exit": 1.0278,
       "pnl": 0.0125,
       "duration": 28,
-      "cum_pnl": 0.4012
+      "cum_pnl": 0.656
     },
     {
       "spread": "ZF/ZT",
@@ -2214,9 +2478,9 @@
       "type": "short",
       "entry": 1.0515,
       "exit": 1.0435,
-      "pnl": 0.0185,
+      "pnl": 0.0186,
       "duration": 13,
-      "cum_pnl": 0.4197
+      "cum_pnl": 0.6745
     },
     {
       "spread": "ZF/ZT",
@@ -2227,7 +2491,7 @@
       "exit": 1.046,
       "pnl": 0.0072,
       "duration": 68,
-      "cum_pnl": 0.4269
+      "cum_pnl": 0.6817
     },
     {
       "spread": "ZF/ZT",
@@ -2238,7 +2502,7 @@
       "exit": 1.0441,
       "pnl": 0.0059,
       "duration": 62,
-      "cum_pnl": 0.4328
+      "cum_pnl": 0.6876
     },
     {
       "spread": "ZF/ZT",
@@ -2249,7 +2513,7 @@
       "exit": 1.0442,
       "pnl": 0.006,
       "duration": 57,
-      "cum_pnl": 0.4388
+      "cum_pnl": 0.6936
     },
     {
       "spread": "ZF/ZT",
@@ -2260,7 +2524,7 @@
       "exit": 1.0575,
       "pnl": -0.0225,
       "duration": 2,
-      "cum_pnl": 0.4163
+      "cum_pnl": 0.6711
     },
     {
       "spread": "ZF/ZT",
@@ -2271,7 +2535,7 @@
       "exit": 1.0428,
       "pnl": 0.0022,
       "duration": 84,
-      "cum_pnl": 0.4185
+      "cum_pnl": 0.6733
     },
     {
       "spread": "ZF/ZT",
@@ -2282,7 +2546,7 @@
       "exit": 1.0437,
       "pnl": 0.0032,
       "duration": 72,
-      "cum_pnl": 0.4218
+      "cum_pnl": 0.6765
     },
     {
       "spread": "ZF/ZT",
@@ -2293,7 +2557,7 @@
       "exit": 1.0403,
       "pnl": 0.0253,
       "duration": 5,
-      "cum_pnl": 0.4471
+      "cum_pnl": 0.7019
     },
     {
       "spread": "ZN/ZT",
@@ -2302,9 +2566,9 @@
       "type": "short",
       "entry": 1.0932,
       "exit": 1.0782,
-      "pnl": 0.0174,
+      "pnl": 0.0175,
       "duration": 13,
-      "cum_pnl": 0.4645
+      "cum_pnl": 0.7193
     },
     {
       "spread": "ZN/ZT",
@@ -2315,7 +2579,7 @@
       "exit": 1.052,
       "pnl": -0.0264,
       "duration": 21,
-      "cum_pnl": 0.4381
+      "cum_pnl": 0.6929
     },
     {
       "spread": "ZN/ZT",
@@ -2326,7 +2590,7 @@
       "exit": 1.0791,
       "pnl": 0.0092,
       "duration": 42,
-      "cum_pnl": 0.4473
+      "cum_pnl": 0.7021
     },
     {
       "spread": "ZN/ZT",
@@ -2337,7 +2601,7 @@
       "exit": 1.0755,
       "pnl": 0.0091,
       "duration": 61,
-      "cum_pnl": 0.4564
+      "cum_pnl": 0.7112
     },
     {
       "spread": "ZN/ZT",
@@ -2348,7 +2612,7 @@
       "exit": 1.077,
       "pnl": 0.0113,
       "duration": 30,
-      "cum_pnl": 0.4678
+      "cum_pnl": 0.7225
     },
     {
       "spread": "ZN/ZT",
@@ -2359,7 +2623,7 @@
       "exit": 1.0782,
       "pnl": 0.0188,
       "duration": 6,
-      "cum_pnl": 0.4866
+      "cum_pnl": 0.7414
     },
     {
       "spread": "ZN/ZT",
@@ -2370,7 +2634,7 @@
       "exit": 1.1019,
       "pnl": -0.0225,
       "duration": 2,
-      "cum_pnl": 0.4641
+      "cum_pnl": 0.7189
     },
     {
       "spread": "ZN/ZT",
@@ -2381,7 +2645,7 @@
       "exit": 1.0743,
       "pnl": 0.0017,
       "duration": 84,
-      "cum_pnl": 0.4658
+      "cum_pnl": 0.7206
     },
     {
       "spread": "ZN/ZT",
@@ -2392,7 +2656,7 @@
       "exit": 1.0752,
       "pnl": 0.0048,
       "duration": 69,
-      "cum_pnl": 0.4706
+      "cum_pnl": 0.7254
     },
     {
       "spread": "ZN/ZT",
@@ -2403,7 +2667,7 @@
       "exit": 1.0725,
       "pnl": 0.0175,
       "duration": 4,
-      "cum_pnl": 0.4881
+      "cum_pnl": 0.7429
     },
     {
       "spread": "UB/ZT",
@@ -2414,7 +2678,7 @@
       "exit": 1.1247,
       "pnl": -0.0268,
       "duration": 23,
-      "cum_pnl": 0.4612
+      "cum_pnl": 0.716
     },
     {
       "spread": "UB/ZT",
@@ -2425,7 +2689,7 @@
       "exit": 1.2402,
       "pnl": 0.0087,
       "duration": 47,
-      "cum_pnl": 0.47
+      "cum_pnl": 0.7248
     },
     {
       "spread": "UB/ZT",
@@ -2436,7 +2700,7 @@
       "exit": 1.224,
       "pnl": 0.0131,
       "duration": 35,
-      "cum_pnl": 0.4831
+      "cum_pnl": 0.7379
     },
     {
       "spread": "UB/ZT",
@@ -2447,7 +2711,7 @@
       "exit": 1.2159,
       "pnl": 0.0196,
       "duration": 12,
-      "cum_pnl": 0.5027
+      "cum_pnl": 0.7575
     },
     {
       "spread": "UB/ZT",
@@ -2458,7 +2722,7 @@
       "exit": 1.1885,
       "pnl": 0.0021,
       "duration": 104,
-      "cum_pnl": 0.5048
+      "cum_pnl": 0.7596
     },
     {
       "spread": "UB/ZT",
@@ -2469,7 +2733,7 @@
       "exit": 1.1829,
       "pnl": 0.0177,
       "duration": 13,
-      "cum_pnl": 0.5225
+      "cum_pnl": 0.7773
     },
     {
       "spread": "UB/ZT",
@@ -2480,7 +2744,7 @@
       "exit": 1.1841,
       "pnl": 0.0117,
       "duration": 28,
-      "cum_pnl": 0.5342
+      "cum_pnl": 0.789
     },
     {
       "spread": "UB/ZT",
@@ -2488,10 +2752,10 @@
       "exit_date": "2025-07-28",
       "type": "long",
       "entry": 1.0984,
-      "exit": 1.1261,
-      "pnl": -0.0083,
+      "exit": 1.1192,
+      "pnl": -0.0103,
       "duration": 68,
-      "cum_pnl": 0.5259
+      "cum_pnl": 0.7787
     },
     {
       "spread": "UB/ZF",
@@ -2502,7 +2766,7 @@
       "exit": 1.0821,
       "pnl": -0.0268,
       "duration": 23,
-      "cum_pnl": 0.4991
+      "cum_pnl": 0.7519
     },
     {
       "spread": "UB/ZF",
@@ -2513,7 +2777,7 @@
       "exit": 1.1832,
       "pnl": 0.0084,
       "duration": 46,
-      "cum_pnl": 0.5075
+      "cum_pnl": 0.7603
     },
     {
       "spread": "UB/ZF",
@@ -2524,7 +2788,7 @@
       "exit": 1.1738,
       "pnl": 0.0131,
       "duration": 32,
-      "cum_pnl": 0.5205
+      "cum_pnl": 0.7733
     },
     {
       "spread": "UB/ZF",
@@ -2535,7 +2799,7 @@
       "exit": 1.1532,
       "pnl": 0.0174,
       "duration": 17,
-      "cum_pnl": 0.5379
+      "cum_pnl": 0.7907
     },
     {
       "spread": "UB/ZF",
@@ -2546,7 +2810,7 @@
       "exit": 1.1243,
       "pnl": -0.0019,
       "duration": 139,
-      "cum_pnl": 0.536
+      "cum_pnl": 0.7888
     },
     {
       "spread": "UB/ZF",
@@ -2554,10 +2818,10 @@
       "exit_date": "2025-07-28",
       "type": "long",
       "entry": 1.0771,
-      "exit": 1.0773,
-      "pnl": -0.0224,
+      "exit": 1.0717,
+      "pnl": -0.0248,
       "duration": 98,
-      "cum_pnl": 0.5137
+      "cum_pnl": 0.764
     },
     {
       "spread": "HYG/LQD",
@@ -2566,9 +2830,9 @@
       "type": "short",
       "entry": 0.7239,
       "exit": 0.7115,
-      "pnl": 0.0051,
+      "pnl": 0.0052,
       "duration": 56,
-      "cum_pnl": 0.5188
+      "cum_pnl": 0.7692
     },
     {
       "spread": "HYG/LQD",
@@ -2579,7 +2843,7 @@
       "exit": 0.7152,
       "pnl": 0.009,
       "duration": 57,
-      "cum_pnl": 0.5278
+      "cum_pnl": 0.7781
     },
     {
       "spread": "HYG/LQD",
@@ -2588,9 +2852,9 @@
       "type": "long",
       "entry": 0.7025,
       "exit": 0.7277,
-      "pnl": 0.0061,
+      "pnl": 0.006,
       "duration": 87,
-      "cum_pnl": 0.5339
+      "cum_pnl": 0.7842
     },
     {
       "spread": "HYG/LQD",
@@ -2601,7 +2865,7 @@
       "exit": 0.7305,
       "pnl": 0.0031,
       "duration": 54,
-      "cum_pnl": 0.537
+      "cum_pnl": 0.7873
     },
     {
       "spread": "HYG/LQD",
@@ -2612,7 +2876,7 @@
       "exit": 0.7331,
       "pnl": 0.0151,
       "duration": 19,
-      "cum_pnl": 0.5521
+      "cum_pnl": 0.8024
     },
     {
       "spread": "HYG/ZB",
@@ -2623,7 +2887,7 @@
       "exit": 0.6352,
       "pnl": 0.0078,
       "duration": 47,
-      "cum_pnl": 0.5599
+      "cum_pnl": 0.8102
     },
     {
       "spread": "HYG/ZB",
@@ -2634,7 +2898,7 @@
       "exit": 0.6697,
       "pnl": 0.006,
       "duration": 80,
-      "cum_pnl": 0.5659
+      "cum_pnl": 0.8162
     },
     {
       "spread": "HYG/ZB",
@@ -2645,7 +2909,7 @@
       "exit": 0.6795,
       "pnl": 0.0058,
       "duration": 49,
-      "cum_pnl": 0.5717
+      "cum_pnl": 0.822
     },
     {
       "spread": "HYG/ZB",
@@ -2656,7 +2920,7 @@
       "exit": 0.6989,
       "pnl": 0.0174,
       "duration": 39,
-      "cum_pnl": 0.5891
+      "cum_pnl": 0.8394
     }
   ]
 }
