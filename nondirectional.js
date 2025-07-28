@@ -4,7 +4,6 @@ Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
 // ——— Helper at top‑level so every renderModule can use it ———
-// Now returns t.pnl (fraction of account) instead of (exit-entry)/entry
 function ret(t) {
   return t.pnl;
 }
@@ -30,39 +29,48 @@ function ret(t) {
   // 4) Compute period string
   const entryDates = trades.map(t => new Date(t.entry_date));
   const exitDates  = trades.map(t => new Date(t.exit_date));
-  const startDate = new Date(Math.min(...entryDates));
-  const endDate   = new Date(Math.max(...exitDates));
+  const startDate  = new Date(Math.min(...entryDates));
+  const endDate    = new Date(Math.max(...exitDates));
   const fmt = d => d.toLocaleString('default', { month: 'short', year: 'numeric' });
   const period = `${fmt(startDate)} – ${fmt(endDate)}`;
 
   // 5) Compute metrics
-  const numTrades    = trades.length;
-  const mid          = Math.floor(durations.length / 2);
-  const medDur       = durations.length % 2 === 1
+  const numTrades   = trades.length;
+  const mid         = Math.floor(durations.length / 2);
+  const medDur      = durations.length % 2 === 1
     ? durations[mid]
     : (durations[mid - 1] + durations[mid]) / 2;
-  const quickestDur  = Math.min(...durations);
-  const maxWinPct    = Math.max(...rets) * 100;
-  const maxLossPct   = Math.min(...rets) * 100;
+  const quickestDur = Math.min(...durations);
+
+  // pull max‑drawdown from stats
+  const maxDrawdown = stats.portfolio_kpis.max_drawdown * 100;
+
+  // compute Sortino
+  const avgRet     = rets.reduce((sum, r) => sum + r, 0) / rets.length;
+  const downsideRs = rets.filter(r => r < 0);
+  const downsideSD = downsideRs.length
+    ? Math.sqrt(downsideRs.reduce((sum, r) => sum + r*r, 0) / downsideRs.length)
+    : 0;
+  const sortino    = downsideSD > 0 ? avgRet / downsideSD : 0;
 
   // 6) Render everything
-  renderModule1({ period, numTrades, medDur, quickestDur, maxWinPct, maxLossPct });
+  renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino });
   renderModule2(trades);
   renderModule3(rets);
   renderModule4();
 })();
 
 // ——— Module 1 — Portfolio KPI Cards —–––
-function renderModule1({ period, numTrades, medDur, quickestDur, maxWinPct, maxLossPct }) {
+function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino }) {
   const cont = document.getElementById('module1');
   cont.innerHTML = '';
   [
     { label: 'Period',           value: period },
     { label: '# Trades',         value: numTrades },
-    { label: 'Median Duration',  value: medDur.toFixed(0)  + ' days' },
+    { label: 'Median Duration',  value: medDur.toFixed(0)    + ' days' },
     { label: 'Quickest Trade',   value: quickestDur.toFixed(0) + ' days' },
-    { label: 'Max Loss',         value: maxLossPct.toFixed(1)  + '%' },
-    { label: 'Max Win',          value: maxWinPct.toFixed(1)  + '%' }
+    { label: 'Max Drawdown',     value: maxDrawdown.toFixed(1) + '%' },
+    { label: 'Sortino Ratio',    value: sortino.toFixed(2)     }
   ].forEach(c => {
     const d = document.createElement('div');
     d.className = 'kpi-card';
@@ -83,7 +91,6 @@ function renderModule2(trades) {
     .slice()
     .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
-      // Now show P&L% from t.pnl
       const movement = (t.pnl * 100).toFixed(2) + '%';
       const dir      = t.type === 'long' ? 'Long' : 'Short';
 
@@ -104,10 +111,10 @@ function renderModule2(trades) {
 // —––– Module 3 — Arithmetic Equity Curve
 function renderModule3(rets) {
   const cum = [];
-  let sum = 0;
+  let sum   = 0;
   rets.forEach(r => {
     sum += r;
-    cum.push(sum * 100);  // cumulative percent of account
+    cum.push(sum * 100);
   });
 
   new Chart(
@@ -151,9 +158,8 @@ async function renderModule4() {
     const resp = await fetch('spreads.json');
     const data = await resp.json();
 
-    // only keep entries where the value is actually an array of rows
     const alerts = Object.entries(data)
-      .filter(([spread, series]) => Array.isArray(series))
+      .filter(([_, series]) => Array.isArray(series))
       .map(([spread, series]) => {
         const lastRow = series[series.length - 1];
         const [, price, lower1, , upper1] = lastRow;
