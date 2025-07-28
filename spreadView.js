@@ -73,7 +73,7 @@ export async function showSpread(spreadKey) {
   `;
   container.appendChild(titleDiv);
 
-  // 4) Create the chart with a single shared right-hand price scale
+  // 4) Create the chart …
   const chart = window.LightweightCharts.createChart(container, {
     width:  container.clientWidth,
     height: container.clientHeight,
@@ -93,68 +93,48 @@ export async function showSpread(spreadKey) {
       visible: true,
       borderColor: 'rgba(255,255,255,0.2)',
     },
-    leftPriceScale: {
-      visible: false,
-    },
-    crosshair: {
-      mode: window.LightweightCharts.CrosshairMode.Normal,
-    },
-    watermark: {
-      visible: false,
-    },
+    leftPriceScale: { visible: false },
+    crosshair: { mode: window.LightweightCharts.CrosshairMode.Normal },
+    watermark: { visible: false },
   });
 
-  // 5) Add all five series to the single scale
+  // 5) Add series…
   const ratioLine = chart.addSeries(window.LightweightCharts.LineSeries, {
     color:            'rgba(255, 152, 0, 1)',
     lineWidth:        2,
     lastValueVisible: true,
     priceLineVisible: true,
   });
-
   const channelOpts = {
     lineWidth:        4,
     lineStyle:        window.LightweightCharts.LineStyle.Dotted,
     lastValueVisible: false,
     priceLineVisible: false,
   };
+  const lower1Line = chart.addSeries(window.LightweightCharts.LineSeries, { color:'rgba(0,150,136,0.7)', ...channelOpts });
+  const lower2Line = chart.addSeries(window.LightweightCharts.LineSeries, { color:'rgba(0,150,136,0.4)', ...channelOpts });
+  const upper1Line = chart.addSeries(window.LightweightCharts.LineSeries, { color:'rgba(255,82,82,0.7)', ...channelOpts });
+  const upper2Line = chart.addSeries(window.LightweightCharts.LineSeries, { color:'rgba(255,82,82,0.4)', ...channelOpts });
 
-  const lower1Line = chart.addSeries(window.LightweightCharts.LineSeries, {
-    color: 'rgba(0, 150, 136, 0.7)',
-    ...channelOpts,
-  });
-  const lower2Line = chart.addSeries(window.LightweightCharts.LineSeries, {
-    color: 'rgba(0, 150, 136, 0.4)',
-    ...channelOpts,
-  });
-  const upper1Line = chart.addSeries(window.LightweightCharts.LineSeries, {
-    color: 'rgba(255, 82, 82, 0.7)',
-    ...channelOpts,
-  });
-  const upper2Line = chart.addSeries(window.LightweightCharts.LineSeries, {
-    color: 'rgba(255, 82, 82, 0.4)',
-    ...channelOpts,
-  });
-
-  // 6) Set data on each series
+  // 6) Set data
   ratioLine .setData(ratioSeries);
   lower1Line.setData(lower1Series);
   lower2Line.setData(lower2Series);
   upper1Line.setData(upper1Series);
   upper2Line.setData(upper2Series);
 
-  // 7) Fit the time scale and handle resize
+  // 7) Fit & resize
   chart.timeScale().fitContent();
   new ResizeObserver(entries => {
-    if (!entries.length || entries[0].target.id !== 'spread-chart') return;
+    if (entries[0]?.target?.id !== 'spread-chart') return;
     const { width, height } = entries[0].contentRect;
     chart.resize(width, height);
   }).observe(container);
 }
 
-/* -----------------------------------------------------------------------------
-   Helpers to produce a human-friendly title
------------------------------------------------------------------------------ */
+// ----------------------------------------------------------------------------
+// Helpers to produce a human-friendly title
+// ----------------------------------------------------------------------------
 
 function getFriendlyLabel(pair) {
   if (LABEL_MAP[pair]) return LABEL_MAP[pair];
@@ -167,80 +147,78 @@ function isCalendarPair(pair) {
 }
 
 function prettyCalendar(pair) {
-  const [a, b] = pair.split('/');
-  return `${legToText(a)} / ${legToText(b)} (${pair})`;
+  const [a,b] = pair.split('/');
+  return `${legToText(a)} / ${legToText(b)}`;
 }
 function legToText(leg) {
   const m = leg.match(/^([A-Z]+)([FGHJKMNQUVXZ])(\d{2})$/);
   if (!m) return leg;
   const [, root, mCode, yy] = m;
   const rootName = ROOT_NAME[root] || root;
-  return `${rootName} ${MONTH_CODE[mCode]} 20${yy}`;
+  return `${rootName} ${MONTH_NAME[mCode]} 20${yy}`;
 }
 
-// Month codes
-const MONTH_CODE = {
+const MONTH_NAME = {
   F:'Jan', G:'Feb', H:'Mar', J:'Apr', K:'May', M:'Jun',
   N:'Jul', Q:'Aug', U:'Sep', V:'Oct', X:'Nov', Z:'Dec'
 };
 
-// Futures root friendly names
 const ROOT_NAME = {
-  ES : 'E-mini S&P 500',
-  NQ : 'E-mini Nasdaq 100',
-  YM : 'Dow Jones 30 (Mini)',
-  RTY: 'Russell 2000 (Mini)',
-  ZB : 'US 30Y Bond',
-  ZN : 'US 10Y Note',
-  ZF : 'US 5Y Note',
-  ZT : 'US 2Y Note',
-  CL : 'WTI Crude Oil',
-  RB : 'RBOB Gasoline',
-  HO : 'Heating Oil',
-  NG : 'Natural Gas',
-  GC : 'Gold',
-  SI : 'Silver',
-  HG : 'Copper',
-  ZC : 'Corn',
-  ZW : 'Wheat',
-  ZS : 'Soybeans',
-  LE : 'Live Cattle',
-  HE : 'Lean Hogs'
+  ES:'E-mini S&P 500', NQ:'E-mini Nasdaq 100', YM:'Dow Jones 30 (Mini)',
+  RTY:'Russell 2000 (Mini)', ZB:'US 30Y Bond', ZN:'US 10Y Note',
+  ZF:'US 5Y Note', ZT:'US 2Y Note', CL:'WTI Crude Oil', RB:'RBOB Gasoline',
+  HO:'Heating Oil', NG:'Natural Gas', GC:'Gold', SI:'Silver', HG:'Copper',
+  ZC:'Corn', ZW:'Wheat', ZS:'Soybeans', LE:'Live Cattle', HE:'Lean Hogs'
 };
 
-// Friendly labels for non-calendar pairs
+// ──────────────────────────────────────────────────────────────────────────────
+// Very important: update this map with every single A/B you want a friendly name for
+// ──────────────────────────────────────────────────────────────────────────────
 const LABEL_MAP = {
   // ── RELATIVE VALUE
-  'FTSE100/EU50'          : 'FTSE 100 / Euro Stoxx 50',
-  'FTSE100/CAC40'         : 'FTSE 100 / CAC 40',
-  'CAC40/EU50'            : 'CAC 40 / Euro Stoxx 50',
-  'DAX40/EU50'            : 'DAX 40 / Euro Stoxx 50',
-  'DOW30/S&P500'          : 'Dow Jones 30 / S&P 500',
-  'DOW30/NASDAQ100'       : 'Dow Jones 30 / Nasdaq 100',
-  'DOW30/RUSSELL2000'     : 'Dow Jones 30 / Russell 2000',
-  'NASDAQ100/S&P500'      : 'Nasdaq 100 / S&P 500',
-  'NASDAQ100/RUSSELL2000' : 'Nasdaq 100 / Russell 2000',
-  'S&P500/RUSSELL2000'    : 'S&P 500 / Russell 2000',
-  'GOLD/SILVER'           : 'Gold / Silver',
-  'GOLD/PLATINUM'         : 'Gold / Platinum',
-  'PLATINUM/SILVER'       : 'Platinum / Silver',
-  'WTI/BRENT'             : 'WTI Crude / Brent Crude',
-  'BRENT/WTI'             : 'Brent Crude / WTI Crude',
-  'CORN/WHEAT'            : 'Corn / Wheat',
-  'SOYBEANS/CORN'         : 'Soybeans / Corn',
-  'BITCOIN/ETHEREUM'      : 'Bitcoin / Ethereum',
+  'FTSE100/EU50'         : 'FTSE 100 / Euro Stoxx 50',
+  'FTSE100/CAC40'        : 'FTSE 100 / CAC 40',
+  'CAC40/EU50'           : 'CAC 40 / Euro Stoxx 50',
+  'DAX40/EU50'           : 'DAX 40 / Euro Stoxx 50',
+  'DOW30/S&P500'         : 'Dow Jones 30 / S&P 500',
+  'DOW30/NASDAQ100'      : 'Dow Jones 30 / Nasdaq 100',
+  'DOW30/RUSSELL2000'    : 'Dow Jones 30 / Russell 2000',
+  'NASDAQ100/S&P500'     : 'Nasdaq 100 / S&P 500',
+  'NASDAQ100/RUSSELL2000': 'Nasdaq 100 / Russell 2000',
+  'S&P500/RUSSELL2000'   : 'S&P 500 / Russell 2000',
+  'GOLD/SILVER'          : 'Gold / Silver',
+  'GOLD/PLATINUM'        : 'Gold / Platinum',
+  'PLATINUM/SILVER'      : 'Platinum / Silver',
+  'WTI/BRENT'            : 'WTI Crude / Brent Crude',
+  'BRENT/WTI'            : 'Brent Crude / WTI Crude',
+  'CORN/WHEAT'           : 'Corn / Wheat',
+  'SOYBEANS/CORN'        : 'Soybeans / Corn',
+  'BITCOIN/ETHEREUM'     : 'Bitcoin / Ethereum',
+  'COPPER/ALUMINIUM'     : 'Copper / Aluminium',
+
   // ── EQUITY NEUTRAL
-  'V/MA'                  : 'Visa / Mastercard',
-  'KO/PEP'                : 'Coca‑Cola / PepsiCo',
-  'MSFT/ADBE'             : 'Microsoft / Adobe',
-  'META/GOOGL'            : 'Meta / Alphabet',
-  'NVDA/AMD'              : 'Nvidia / AMD',
-  'JPM/BAC'               : 'JPMorgan / Bank of America',
-  'XOM/CVX'               : 'Exxon Mobil / Chevron',
-  'BRK.A/BRK.B'           : 'Berkshire Hathaway A / B',
-  'SHEL.A/SHEL.B'         : 'Shell A / Shell B',
-  'TSM/ASML'              : 'TSMC / ASML',
+  'AAPL/MSFT'            : 'Apple / Microsoft',
+  'NVDA/AMD'             : 'Nvidia / AMD',
+  'GOOGL/META'           : 'Google (Alphabet) / Meta',
+  'JPM/BAC'              : 'JPMorgan / Bank of America',
+  'XOM/CVX'              : 'Exxon Mobil / Chevron',
+  'KO/PEP'               : 'Coca‑Cola / PepsiCo',
+  'TSLA/F'               : 'Tesla / Ford',
+  'ASML/TSM'             : 'ASML / TSMC',
+  'DIS/CMCSA'            : 'Disney / Comcast',
+  'CAT/DE'               : 'Caterpillar / Deere',
+  'AMZN/NFLX'            : 'Amazon / Netflix',
+  'JNJ/PFE'              : 'Johnson & Johnson / Pfizer',
+  'BA/LMT'               : 'Boeing / Lockheed Martin',
+  'V/MA'                 : 'Visa / Mastercard',
+  'NFLX/DIS'             : 'Netflix / Disney',
+
   // ── FIXED INCOME
-  'ZT/ZN'                 : '2Y Note / 10Y Note (ZT / ZN)',
-  'ZF/UB'                 : '5Y Note / Ultra Bond (ZF / UB)'
+  'ZN/ZF'                : '10Y Note / 5Y Note',
+  'ZF/ZT'                : '5Y Note / 2Y Note',
+  'ZN/ZT'                : '10Y Note / 2Y Note',
+  'UB/ZT'                : 'Ultra Bond / 2Y Note',
+  'UB/ZF'                : 'Ultra Bond / 5Y Note',
+  'HYG/LQD'              : 'High‑Yield ETF / Investment‑Grade ETF',
+  'HYG/ZB'               : 'High‑Yield ETF / 30Y Bond Futures'
 };
