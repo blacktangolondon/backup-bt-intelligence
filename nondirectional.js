@@ -149,12 +149,14 @@ function renderModule3(rets) {
 async function renderModule4() {
   try {
     const resp = await fetch('spreads.json');
-    if (!resp.ok) throw new Error('spreads.json load failed');
     const data = await resp.json();
 
+    // only keep entries where the value is actually an array of rows
     const alerts = Object.entries(data)
+      .filter(([spread, series]) => Array.isArray(series))
       .map(([spread, series]) => {
-        const [ , price, lower1, , upper1 ] = series[series.length - 1];
+        const lastRow = series[series.length - 1];
+        const [, price, lower1, , upper1] = lastRow;
         if (price < lower1 || price > upper1) {
           return {
             spread,
@@ -180,7 +182,8 @@ async function renderModule4() {
       `;
       tbody.appendChild(tr);
     });
-  } catch (err) {
+  }
+  catch(err) {
     console.error(err);
   }
 }
