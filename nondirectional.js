@@ -87,26 +87,41 @@ function renderModule2(trades) {
   const tbody = document.querySelector('#module2 tbody');
   tbody.innerHTML = '';
 
+  // (Rebuild the header row to match your new order:)
+  const thead = document.querySelector('#module2 thead tr');
+  thead.innerHTML = `
+    <th>Spread</th>
+    <th>Signal</th>
+    <th>Open Date</th>
+    <th>Close Date</th>
+    <th>Open Price</th>
+    <th>Close Price</th>
+    <th>Take Profit</th>
+    <th>Stop Loss</th>
+    <th>P&L</th>
+  `;
+
   trades
     .slice()
     .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
-      const movement = (t.pnl * 100).toFixed(2) + '%';
-      const dir      = t.type === 'long' ? 'Long' : 'Short';
-
+      const pnlPct = (t.pnl * 100).toFixed(2) + '%';
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${t.spread}</td>
+        <td>${t.type === 'long' ? 'Long' : 'Short'}</td>
         <td>${t.entry_date}</td>
         <td>${t.exit_date}</td>
         <td>${t.entry.toFixed(4)}</td>
         <td>${t.exit.toFixed(4)}</td>
-        <td>${dir}</td>
-        <td>${movement}</td>
+        <td>${t.take_profit.toFixed(4)}</td>
+        <td>${t.stop_loss.toFixed(4)}</td>
+        <td>${pnlPct}</td>
       `;
       tbody.appendChild(tr);
     });
 }
+
 
 // —––– Module 3 — Arithmetic Equity Curve
 function renderModule3(rets) {
