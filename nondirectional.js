@@ -175,45 +175,53 @@ async function renderModule4() {
     const alerts = Object.entries(data)
       .filter(([_, series]) => Array.isArray(series))
       .map(([spread, series]) => {
-        const lastRow = series[series.length - 1];
-        const [, price, lower1, , upper1] = lastRow;
-        if (price < lower1 || price > upper1) {
-          const signal = price < lower1 ? 'Long' : 'Short';
-          const trend  = (lower1 + upper1) / 2;
-          const dist   = Math.abs(price - trend);
-          const stop   = signal === 'Long'
-            ? price - dist
-            : price + dist;
-          return {
-            spread,
-            signal,
-            openPrice:  price,  // ← renamed here
-            takeProfit: trend,
-            stopLoss:   stop
-          };
+        // find the very first signal bar (entry)
+        let entryBar = null;
+        for (const row of series) {
+          const [, price, lower1, , upper1] = row;
+          if (price < lower1 || price > upper1) {
+            entryBar = row;
+            break;
+          }
         }
+        if (!entryBar) return;  // no current signal
+
+        // unpack entry
+        const [, openPrice, openL1, , openU1] = entryBar;
+        const signal = openPrice < openL1 ? 'Long' : 'Short';
+
+        // for TP/SL keep using the *last* row as before:
+        const lastRow = series[series.length - 1];
+        const [, , , , currU1] = lastRow;
+        const currL1 = lastRow[2];
+        const trend  = (currL1 + currU1) / 2;
+        const dist   = Math.abs(lastRow[1] - trend);
+        const stop   = signal === 'Long'
+          ? lastRow[1] - dist
+          : lastRow[1] + dist;
+
+        return { spread, signal, openPrice, takeProfit: trend, stopLoss: stop };
       })
       .filter(Boolean);
-
-    const tbody = document.querySelector('#module4 tbody');
-    tbody.innerHTML = '';
 
     // rewrite header row
     const thead = document.querySelector('#module4 thead tr');
     thead.innerHTML = `
       <th>Spread</th>
       <th>Signal</th>
-      <th>Open Price</th>   <!-- ← updated label -->
+      <th>Open Price</th>
       <th>Take Profit</th>
       <th>Stop Loss</th>
     `;
 
+    const tbody = document.querySelector('#module4 tbody');
+    tbody.innerHTML = '';
     alerts.forEach(a => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${a.spread}</td>
         <td>${a.signal}</td>
-        <td>${a.openPrice.toFixed(4)}</td>  <!-- ← use openPrice -->
+        <td>${a.openPrice.toFixed(4)}</td>
         <td>${a.takeProfit.toFixed(4)}</td>
         <td>${a.stopLoss.toFixed(4)}</td>
       `;
