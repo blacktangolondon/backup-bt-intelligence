@@ -166,32 +166,44 @@ function renderModule3(rets) {
   );
 }
 
-// —––– Module 4 — New Strategies Alert (live open_trades.json) —–––
-// —––– Module 4 — New Strategies Alert (via non_directional_stats.json) —–––
+// —––– Module 4 — New Strategies Alert (live spreads.json) —–––
 async function renderModule4() {
   try {
-    // 1) fetch the same stats file your Historical Report uses
-    const resp   = await fetch('non_directional_stats.json');
-    const stats  = await resp.json();
+    const resp = await fetch('spreads.json');
+    const data = await resp.json();
 
-    // 2) grab the openTrades array (it may be empty)
-    const trades = stats.openTrades || [];
+    // for each spread, look at last row
+    const alerts = Object.entries(data)
+      .filter(([_, series]) => Array.isArray(series))
+      .map(([spread, series]) => {
+        const last = series[series.length - 1];
+        const [ , price, lower1, , upper1 ] = last;
+        if (price < lower1 || price > upper1) {
+          const signal = price < lower1 ? 'Long' : 'Short';
+          // now compute trend & TP/SL just once
+          const trend = (lower1 + upper1) / 2;
+          const dist  = Math.abs(price - trend);
+          const tp    = trend;
+          const sl    = signal === 'Long' ? price - dist : price + dist;
+          return { spread, signal, price, takeProfit: tp, stopLoss: sl };
+        }
+      })
+      .filter(Boolean);
 
-    // 3) render each live signal
     const tbody = document.querySelector('#module4 tbody');
     tbody.innerHTML = '';
-    trades.forEach(t => {
+    alerts.forEach(a => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${t.spread}</td>
-        <td>${t.signal}</td>
-        <td>${t.entry.toFixed(4)}</td>
-        <td>${t.take_profit.toFixed(4)}</td>
-        <td>${t.stop_loss.toFixed(4)}</td>
+        <td>${a.spread}</td>
+        <td>${a.signal}</td>
+        <td>${a.price.toFixed(4)}</td>
+        <td>${a.takeProfit.toFixed(4)}</td>
+        <td>${a.stopLoss.toFixed(4)}</td>
       `;
       tbody.appendChild(tr);
     });
   } catch(err) {
-    console.error('Module 4 render error:', err);
+    console.error(err);
   }
 }
