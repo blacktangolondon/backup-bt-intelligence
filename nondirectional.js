@@ -57,7 +57,7 @@ function ret(t) {
   renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino });
   renderModule2(trades);
   renderModule3(rets);
-  renderModule4();
+  renderModule4();   // <-- this is the only module we swapped out
 })();
 
 // ——— Module 1 — Portfolio KPI Cards —–––
@@ -87,7 +87,7 @@ function renderModule2(trades) {
   const tbody = document.querySelector('#module2 tbody');
   tbody.innerHTML = '';
 
-  // Rebuild the header row to match your new order:
+  // rebuild header (if you also reordered columns)
   const thead = document.querySelector('#module2 thead tr');
   thead.innerHTML = `
     <th>Spread</th>
@@ -105,24 +105,17 @@ function renderModule2(trades) {
     .slice()
     .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
-      // guard every numeric field
-      const entry    = (t.entry       ?? 0).toFixed(4);
-      const exit     = (t.exit        ?? 0).toFixed(4);
-      const tp       = (t.take_profit ?? 0).toFixed(4);
-      const sl       = (t.stop_loss   ?? 0).toFixed(4);
-      const pnlPct   = ((t.pnl ?? 0) * 100).toFixed(2) + '%';
-      const signal   = t.type === 'long' ? 'Long' : 'Short';
-
+      const pnlPct = (t.pnl * 100).toFixed(2) + '%';
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${t.spread}</td>
-        <td>${signal}</td>
+        <td>${t.type === 'long' ? 'Long' : 'Short'}</td>
         <td>${t.entry_date}</td>
         <td>${t.exit_date}</td>
-        <td>${entry}</td>
-        <td>${exit}</td>
-        <td>${tp}</td>
-        <td>${sl}</td>
+        <td>${t.entry.toFixed(4)}</td>
+        <td>${t.exit.toFixed(4)}</td>
+        <td>${t.take_profit.toFixed(4)}</td>
+        <td>${t.stop_loss.toFixed(4)}</td>
         <td>${pnlPct}</td>
       `;
       tbody.appendChild(tr);
@@ -176,27 +169,24 @@ function renderModule3(rets) {
 // —––– Module 4 — New Strategies Alert (saved TP/SL) —–––
 async function renderModule4() {
   try {
-    // 1) Load the backtest output (which now must include take_profit & stop_loss)
+    // load your backtest JSON
     const resp  = await fetch('non_directional_stats.json');
     if (!resp.ok) throw new Error('Failed to load stats');
     const stats = await resp.json();
     const trades = stats.trades;
 
-    // 2) Filter only the currently open signals.
-    //    Here I’m assuming you mark open trades by exit_date being today,
-    //    or you could filter by having no exit_date yet.
+    // pick today’s exits (or however you mark open alerts)
     const today = new Date().toISOString().slice(0,10);
     const alerts = trades
-      .filter(t => t.exit_date === today)    // <-- adjust as needed
+      .filter(t => t.exit_date === today)
       .map(t => ({
         spread:     t.spread,
         signal:     t.type === 'long' ? 'Long' : 'Short',
-        price:      parseFloat(t.exit.toFixed(4)),
-        takeProfit: parseFloat(t.take_profit.toFixed(4)),
-        stopLoss:   parseFloat(t.stop_loss.toFixed(4))
+        price:      t.exit,            // exit price
+        takeProfit: t.take_profit,
+        stopLoss:   t.stop_loss
       }));
 
-    // 3) Render
     const tbody = document.querySelector('#module4 tbody');
     tbody.innerHTML = '';
     alerts.forEach(a => {
@@ -215,4 +205,3 @@ async function renderModule4() {
     console.error(err);
   }
 }
-
