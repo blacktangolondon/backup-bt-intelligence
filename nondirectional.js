@@ -57,7 +57,7 @@ function ret(t) {
   renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino });
   renderModule2(trades);
   renderModule3(rets);
-  renderModule4();   // <-- this is the only module we swapped out
+  renderModule4();   // back to spreads.json
 })();
 
 // ——— Module 1 — Portfolio KPI Cards —–––
@@ -87,7 +87,7 @@ function renderModule2(trades) {
   const tbody = document.querySelector('#module2 tbody');
   tbody.innerHTML = '';
 
-  // rebuild header (if you also reordered columns)
+  // rebuild header
   const thead = document.querySelector('#module2 thead tr');
   thead.innerHTML = `
     <th>Spread</th>
@@ -166,26 +166,29 @@ function renderModule3(rets) {
   );
 }
 
-// —––– Module 4 — New Strategies Alert (saved TP/SL) —–––
+// —––– Module 4 — New Strategies Alert (live spreads.json) —–––
 async function renderModule4() {
   try {
-    // load your backtest JSON
-    const resp  = await fetch('non_directional_stats.json');
-    if (!resp.ok) throw new Error('Failed to load stats');
-    const stats = await resp.json();
-    const trades = stats.trades;
+    const resp = await fetch('spreads.json');
+    const data = await resp.json();
 
-    // pick today’s exits (or however you mark open alerts)
-    const today = new Date().toISOString().slice(0,10);
-    const alerts = trades
-      .filter(t => t.exit_date === today)
-      .map(t => ({
-        spread:     t.spread,
-        signal:     t.type === 'long' ? 'Long' : 'Short',
-        price:      t.exit,            // exit price
-        takeProfit: t.take_profit,
-        stopLoss:   t.stop_loss
-      }));
+    // for each spread, look at last row
+    const alerts = Object.entries(data)
+      .filter(([_, series]) => Array.isArray(series))
+      .map(([spread, series]) => {
+        const last = series[series.length - 1];
+        const [ , price, lower1, , upper1 ] = last;
+        if (price < lower1 || price > upper1) {
+          const signal = price < lower1 ? 'Long' : 'Short';
+          // now compute trend & TP/SL just once
+          const trend = (lower1 + upper1) / 2;
+          const dist  = Math.abs(price - trend);
+          const tp    = trend;
+          const sl    = signal === 'Long' ? price - dist : price + dist;
+          return { spread, signal, price, takeProfit: tp, stopLoss: sl };
+        }
+      })
+      .filter(Boolean);
 
     const tbody = document.querySelector('#module4 tbody');
     tbody.innerHTML = '';
@@ -200,8 +203,7 @@ async function renderModule4() {
       `;
       tbody.appendChild(tr);
     });
-  }
-  catch(err) {
+  } catch(err) {
     console.error(err);
   }
 }
