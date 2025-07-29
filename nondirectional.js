@@ -173,35 +173,30 @@ function renderModule3(rets) {
   );
 }
 
-// —––– Module 4 — New Strategies Alert (±1σ)
+// —––– Module 4 — New Strategies Alert (saved TP/SL) —–––
 async function renderModule4() {
   try {
-    const resp = await fetch('spreads.json');
-    const data = await resp.json();
+    // 1) Load the backtest output (which now must include take_profit & stop_loss)
+    const resp  = await fetch('non_directional_stats.json');
+    if (!resp.ok) throw new Error('Failed to load stats');
+    const stats = await resp.json();
+    const trades = stats.trades;
 
-    const alerts = Object.entries(data)
-      .filter(([_, series]) => Array.isArray(series))
-      .map(([spread, series]) => {
-        const lastRow = series[series.length - 1];
-        const [, price, lower1, , upper1] = lastRow;
-        if (price < lower1 || price > upper1) {
-          const signal = price < lower1 ? 'Long' : 'Short';
-          const trend  = (lower1 + upper1) / 2;
-          const dist   = Math.abs(price - trend);
-          const stop   = signal === 'Long'
-            ? price - dist
-            : price + dist;
-          return {
-            spread,
-            signal,
-            price,
-            takeProfit: trend,
-            stopLoss: stop
-          };
-        }
-      })
-      .filter(Boolean);
+    // 2) Filter only the currently open signals.
+    //    Here I’m assuming you mark open trades by exit_date being today,
+    //    or you could filter by having no exit_date yet.
+    const today = new Date().toISOString().slice(0,10);
+    const alerts = trades
+      .filter(t => t.exit_date === today)    // <-- adjust as needed
+      .map(t => ({
+        spread:     t.spread,
+        signal:     t.type === 'long' ? 'Long' : 'Short',
+        price:      parseFloat(t.exit.toFixed(4)),
+        takeProfit: parseFloat(t.take_profit.toFixed(4)),
+        stopLoss:   parseFloat(t.stop_loss.toFixed(4))
+      }));
 
+    // 3) Render
     const tbody = document.querySelector('#module4 tbody');
     tbody.innerHTML = '';
     alerts.forEach(a => {
@@ -220,3 +215,4 @@ async function renderModule4() {
     console.error(err);
   }
 }
+
