@@ -152,7 +152,7 @@ function renderModule3(rets) {
   );
 }
 
-// —––– Module 4 — New Strategies Alert (±1σ)
+// —––– Module 4 — New Strategies Alert (±1σ) with reordered columns —–––
 async function renderModule4() {
   try {
     const resp = await fetch('spreads.json');
@@ -164,12 +164,18 @@ async function renderModule4() {
         const lastRow = series[series.length - 1];
         const [, price, lower1, , upper1] = lastRow;
         if (price < lower1 || price > upper1) {
+          const signal = price < lower1 ? 'Long' : 'Short';
+          const trend  = (lower1 + upper1) / 2;
+          const dist   = Math.abs(price - trend);
+          const stop   = signal === 'Long'
+            ? price - dist
+            : price + dist;
           return {
             spread,
+            signal,
             price,
-            lower1,
-            upper1,
-            signal: price < lower1 ? 'Long' : 'Short'
+            takeProfit: trend,
+            stopLoss: stop
           };
         }
       })
@@ -181,10 +187,10 @@ async function renderModule4() {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${a.spread}</td>
-        <td>${a.price.toFixed(4)}</td>
-        <td>${a.lower1.toFixed(4)}</td>
-        <td>${a.upper1.toFixed(4)}</td>
         <td>${a.signal}</td>
+        <td>${a.price.toFixed(4)}</td>
+        <td>${a.takeProfit.toFixed(4)}</td>
+        <td>${a.stopLoss.toFixed(4)}</td>
       `;
       tbody.appendChild(tr);
     });
