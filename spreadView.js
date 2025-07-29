@@ -212,7 +212,7 @@ const LABEL_MAP = {
   'BA/LMT'               : 'Boeing / Lockheed Martin',
   'V/MA'                 : 'Visa / Mastercard',
   'NFLX/DIS'             : 'Netflix / Disney',
-  'BAT.L/IMB.L'             : 'British American Tobacco / Imperial Brands',
+  'F/GM'                 : 'Ford / General Motors',
 
   // ── FIXED INCOME
   'ZN/ZF'                : '10Y Note / 5Y Note',
