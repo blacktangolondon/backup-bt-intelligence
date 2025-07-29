@@ -167,13 +167,17 @@ function renderModule3(rets) {
 }
 
 // —––– Module 4 — New Strategies Alert (live open_trades.json) —–––
+// —––– Module 4 — New Strategies Alert (via non_directional_stats.json) —–––
 async function renderModule4() {
   try {
-    // 1) fetch the array of open‑trade objects
-    const resp = await fetch('open_trades.json');
-    const trades = await resp.json();
+    // 1) fetch the same stats file your Historical Report uses
+    const resp   = await fetch('non_directional_stats.json');
+    const stats  = await resp.json();
 
-    // 2) render each one directly
+    // 2) grab the openTrades array (it may be empty)
+    const trades = stats.openTrades || [];
+
+    // 3) render each live signal
     const tbody = document.querySelector('#module4 tbody');
     tbody.innerHTML = '';
     trades.forEach(t => {
