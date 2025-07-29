@@ -166,44 +166,28 @@ function renderModule3(rets) {
   );
 }
 
-// —––– Module 4 — New Strategies Alert (live spreads.json) —–––
+// —––– Module 4 — New Strategies Alert (live open_trades.json) —–––
 async function renderModule4() {
   try {
-    const resp = await fetch('spreads.json');
-    const data = await resp.json();
+    // 1) fetch the array of open‑trade objects
+    const resp = await fetch('open_trades.json');
+    const trades = await resp.json();
 
-    // for each spread, look at last row
-    const alerts = Object.entries(data)
-      .filter(([_, series]) => Array.isArray(series))
-      .map(([spread, series]) => {
-        const last = series[series.length - 1];
-        const [ , price, lower1, , upper1 ] = last;
-        if (price < lower1 || price > upper1) {
-          const signal = price < lower1 ? 'Long' : 'Short';
-          // now compute trend & TP/SL just once
-          const trend = (lower1 + upper1) / 2;
-          const dist  = Math.abs(price - trend);
-          const tp    = trend;
-          const sl    = signal === 'Long' ? price - dist : price + dist;
-          return { spread, signal, price, takeProfit: tp, stopLoss: sl };
-        }
-      })
-      .filter(Boolean);
-
+    // 2) render each one directly
     const tbody = document.querySelector('#module4 tbody');
     tbody.innerHTML = '';
-    alerts.forEach(a => {
+    trades.forEach(t => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${a.spread}</td>
-        <td>${a.signal}</td>
-        <td>${a.price.toFixed(4)}</td>
-        <td>${a.takeProfit.toFixed(4)}</td>
-        <td>${a.stopLoss.toFixed(4)}</td>
+        <td>${t.spread}</td>
+        <td>${t.signal}</td>
+        <td>${t.entry.toFixed(4)}</td>
+        <td>${t.take_profit.toFixed(4)}</td>
+        <td>${t.stop_loss.toFixed(4)}</td>
       `;
       tbody.appendChild(tr);
     });
   } catch(err) {
-    console.error(err);
+    console.error('Module 4 render error:', err);
   }
 }
