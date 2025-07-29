@@ -169,9 +169,14 @@ function renderModule3(rets) {
 // —––– Module 4 — New Strategies Alert (via non_directional_stats.json) —–––
 async function renderModule4() {
   try {
-    const stats  = await fetch('non_directional_stats.json').then(r => r.json());
+    // fetch the same stats JSON your Historical Report uses
+    const statsResp = await fetch('non_directional_stats.json');
+    if (!statsResp.ok) throw new Error('Failed to load stats');
+
+    const stats  = await statsResp.json();
     const trades = stats.openTrades || [];
 
+    // repopulate the table
     const tbody = document.querySelector('#module4 tbody');
     tbody.innerHTML = '';
     trades.forEach(t => {
@@ -179,9 +184,9 @@ async function renderModule4() {
       tr.innerHTML = `
         <td>${t.spread}</td>
         <td>${t.signal}</td>
-        <td>${t.entry.toFixed(4)}</td>
-        <td>${t.take_profit.toFixed(4)}</td>
-        <td>${t.stop_loss.toFixed(4)}</td>
+        <td>${t.entry.toFixed(4)}</td>        <!-- Open Price -->
+        <td>${t.take_profit.toFixed(4)}</td>  <!-- Take Profit -->
+        <td>${t.stop_loss.toFixed(4)}</td>    <!-- Stop Loss -->
       `;
       tbody.appendChild(tr);
     });
@@ -189,3 +194,4 @@ async function renderModule4() {
     console.error('Module 4 render error:', err);
   }
 }
+
