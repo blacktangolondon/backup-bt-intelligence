@@ -69,7 +69,7 @@ function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, so
     { label: '# Trades',         value: numTrades },
     { label: 'Median Duration',  value: medDur.toFixed(0)    + ' days' },
     { label: 'Quickest Trade',   value: quickestDur.toFixed(0) + ' days' },
-    { label: 'Max Drawdown',     value: maxDrawdown.toFixed(1) + '%' },
+    { label: 'Max Drawdown',     value: maxDrawdown.toFixed(1) + '%' },
     { label: 'Sortino Ratio',    value: sortino.toFixed(2)     }
   ].forEach(c => {
     const d = document.createElement('div');
@@ -172,29 +172,21 @@ async function renderModule4() {
     const resp = await fetch('spreads.json');
     const data = await resp.json();
 
+    // for each spread, look at last row
     const alerts = Object.entries(data)
       .filter(([_, series]) => Array.isArray(series))
       .map(([spread, series]) => {
-        // find the first bar where we crossed the channel
-        const entryBar = series.find(bar => {
-          const [, price, lower1, , upper1] = bar;
-          return price < lower1 || price > upper1;
-        });
-        if (!entryBar) return;
-
-        // pull openPrice & bounds from that bar
-        const [, openPrice, lower1, , upper1] = entryBar;
-        const signal = openPrice < lower1 ? 'Long' : 'Short';
-
-        // compute TP/SL off that same bar
-        const mid     = (lower1 + upper1) / 2;
-        const halfWid = Math.abs(openPrice - mid);
-        const takeProfit = mid;
-        const stopLoss   = signal === 'Long'
-          ? openPrice - halfWid
-          : openPrice + halfWid;
-
-        return { spread, signal, openPrice, takeProfit, stopLoss };
+        const last = series[series.length - 1];
+        const [ , price, lower1, , upper1 ] = last;
+        if (price < lower1 || price > upper1) {
+          const signal = price < lower1 ? 'Long' : 'Short';
+          // now compute trend & TP/SL just once
+          const trend = (lower1 + upper1) / 2;
+          const dist  = Math.abs(price - trend);
+          const tp    = trend;
+          const sl    = signal === 'Long' ? price - dist : price + dist;
+          return { spread, signal, price, takeProfit: tp, stopLoss: sl };
+        }
       })
       .filter(Boolean);
 
@@ -205,13 +197,13 @@ async function renderModule4() {
       tr.innerHTML = `
         <td>${a.spread}</td>
         <td>${a.signal}</td>
-        <td>${a.openPrice.toFixed(4)}</td>
+        <td>${a.price.toFixed(4)}</td>
         <td>${a.takeProfit.toFixed(4)}</td>
         <td>${a.stopLoss.toFixed(4)}</td>
       `;
       tbody.appendChild(tr);
     });
   } catch(err) {
-    console.error('Module 4 render error:', err);
+    console.error(err);
   }
 }
