@@ -15,10 +15,11 @@ function ret(t) {
     console.error('JSON load failed');
     return;
   }
-  const stats  = await resp.json();
-  const trades = stats.trades;
+  const stats      = await resp.json();
+  const trades     = stats.trades;
+  const openCount  = (stats.openTrades || []).length;  // ← number of live positions
 
-  // 2) Build percent‐return array (already fractions, so *100 later)
+  // 2) Build percent‑return array (already fractions, so *100 later)
   const rets = trades.map(ret);
 
   // 3) Compute durations (in days)
@@ -54,23 +55,25 @@ function ret(t) {
   const sortino    = downsideSD > 0 ? avgRet / downsideSD : 0;
 
   // 6) Render everything
-  renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino });
+  renderModule1({ period, numTrades, openCount, medDur, quickestDur, maxDrawdown, sortino });
   renderModule2(trades);
   renderModule3(rets);
-  renderModule4();   // back to spreads.json
+  renderModule4();
 })();
 
 // ——— Module 1 — Portfolio KPI Cards —–––
-function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino }) {
+function renderModule1({ period, numTrades, openCount, medDur, quickestDur, maxDrawdown, sortino }) {
   const cont = document.getElementById('module1');
   cont.innerHTML = '';
+
   [
-    { label: 'Period',           value: period },
-    { label: '# Trades',         value: numTrades },
-    { label: 'Median Duration',  value: medDur.toFixed(0)    + ' days' },
-    { label: 'Quickest Trade',   value: quickestDur.toFixed(0) + ' days' },
-    { label: 'Max Drawdown',     value: maxDrawdown.toFixed(1) + '%' },
-    { label: 'Sortino Ratio',    value: sortino.toFixed(2)     }
+    { label: 'Period',            value: period },
+    { label: '# Trades',          value: numTrades },
+    { label: 'Open Trades',       value: openCount },
+    { label: 'Median Duration',   value: medDur.toFixed(0)    + ' days' },
+    { label: 'Quickest Trade',    value: quickestDur.toFixed(0) + ' days' },
+    { label: 'Max Drawdown',      value: maxDrawdown.toFixed(1) + '%' },
+    { label: 'Sortino Ratio',     value: sortino.toFixed(2)     }
   ].forEach(c => {
     const d = document.createElement('div');
     d.className = 'kpi-card';
@@ -82,7 +85,7 @@ function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, so
   });
 }
 
-// —––– Module 2 — Historical Report
+// —––– Module 2 — Historical Report —–––
 function renderModule2(trades) {
   const tbody = document.querySelector('#module2 tbody');
   tbody.innerHTML = '';
@@ -122,7 +125,7 @@ function renderModule2(trades) {
     });
 }
 
-// —––– Module 3 — Arithmetic Equity Curve
+// —––– Module 3 — Arithmetic Equity Curve —–––
 function renderModule3(rets) {
   const cum = [];
   let sum   = 0;
@@ -166,6 +169,7 @@ function renderModule3(rets) {
   );
 }
 
+// —––– Module 4 remains unchanged —–––
 async function renderModule4() {
   try {
     const resp = await fetch('spreads.json');
@@ -192,8 +196,8 @@ async function renderModule4() {
           entry:       price,
           takeProfit:  mid,
           stopLoss:    signal === 'Long'
-                          ? price - half
-                          : price + half
+                         ? price - half
+                         : price + half
         };
       })
       .filter(Boolean);
