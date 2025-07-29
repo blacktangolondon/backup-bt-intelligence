@@ -1,4 +1,5 @@
-// ─── Global Chart.js font defaults ───
+You said:
+"// ─── Global Chart.js font defaults ───
 Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
@@ -33,7 +34,7 @@ function ret(t) {
   const startDate  = new Date(Math.min(...entryDates));
   const endDate    = new Date(Math.max(...exitDates));
   const fmt = d => d.toLocaleString('default', { month: 'short', year: 'numeric' });
-  const period = `${fmt(startDate)} – ${fmt(endDate)}`;
+  const period = ${fmt(startDate)} – ${fmt(endDate)};
 
   // 5) Compute metrics
   const numTrades   = trades.length;
@@ -67,20 +68,20 @@ function renderModule1({ period, numTrades, openCount, medDur, quickestDur, maxD
   cont.innerHTML = '';
 
   [
-    { label: 'Period',          value: period },
-    { label: '# Trades',        value: numTrades },
-    { label: 'Open Trades',     value: openCount },
-    { label: 'Median Duration', value: medDur.toFixed(0)    + ' days' },
-    { label: 'Quickest Trade',  value: quickestDur.toFixed(0) + ' days' },
-    { label: 'Max Drawdown',    value: maxDrawdown.toFixed(1) + '%' },
-    { label: 'Sortino Ratio',   value: sortino.toFixed(2)     }
+    { label: 'Period',            value: period },
+    { label: '# Trades',          value: numTrades },
+    { label: 'Open Trades',       value: openCount },
+    { label: 'Median Duration',   value: medDur.toFixed(0)    + ' days' },
+    { label: 'Quickest Trade',    value: quickestDur.toFixed(0) + ' days' },
+    { label: 'Max Drawdown',      value: maxDrawdown.toFixed(1) + '%' },
+    { label: 'Sortino Ratio',     value: sortino.toFixed(2)     }
   ].forEach(c => {
     const d = document.createElement('div');
     d.className = 'kpi-card';
-    d.innerHTML = `
+    d.innerHTML = 
       <div class="kpi-value">${c.value}</div>
       <div class="kpi-label">${c.label}</div>
-    `;
+    ;
     cont.appendChild(d);
   });
 }
@@ -92,7 +93,7 @@ function renderModule2(trades) {
 
   // rebuild header
   const thead = document.querySelector('#module2 thead tr');
-  thead.innerHTML = `
+  thead.innerHTML = 
     <th>Spread</th>
     <th>Signal</th>
     <th>Open Date</th>
@@ -102,7 +103,7 @@ function renderModule2(trades) {
     <th>Take Profit</th>
     <th>Stop Loss</th>
     <th>P&L</th>
-  `;
+  ;
 
   trades
     .slice()
@@ -110,7 +111,7 @@ function renderModule2(trades) {
     .forEach(t => {
       const pnlPct = (t.pnl * 100).toFixed(2) + '%';
       const tr = document.createElement('tr');
-      tr.innerHTML = `
+      tr.innerHTML = 
         <td>${t.spread}</td>
         <td>${t.type === 'long' ? 'Long' : 'Short'}</td>
         <td>${t.entry_date}</td>
@@ -120,7 +121,7 @@ function renderModule2(trades) {
         <td>${t.take_profit.toFixed(4)}</td>
         <td>${t.stop_loss.toFixed(4)}</td>
         <td>${pnlPct}</td>
-      `;
+      ;
       tbody.appendChild(tr);
     });
 }
@@ -196,8 +197,8 @@ async function renderModule4() {
           entry:       price,
           takeProfit:  mid,
           stopLoss:    signal === 'Long'
-                           ? price - half
-                           : price + half
+                         ? price - half
+                         : price + half
         };
       })
       .filter(Boolean);
@@ -206,13 +207,13 @@ async function renderModule4() {
     tbody.innerHTML = '';
     alerts.forEach(a => {
       const tr = document.createElement('tr');
-      tr.innerHTML = `
+      tr.innerHTML = 
         <td>${a.spread}</td>
         <td>${a.signal}</td>
         <td>${a.entry.toFixed(4)}</td>
         <td>${a.takeProfit.toFixed(4)}</td>
         <td>${a.stopLoss.toFixed(4)}</td>
-      `;
+      ;
       tbody.appendChild(tr);
     });
   } catch (err) {
