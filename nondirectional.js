@@ -166,32 +166,44 @@ function renderModule3(rets) {
   );
 }
 
-// —––– Module 4 — New Strategies Alert (via non_directional_stats.json) —–––
+// —––– Module 4 — New Strategies Alert (live spreads.json) —–––
 async function renderModule4() {
   try {
-    // fetch the same stats JSON your Historical Report uses
-    const statsResp = await fetch('non_directional_stats.json');
-    if (!statsResp.ok) throw new Error('Failed to load stats');
+    const resp = await fetch('spreads.json');
+    const data = await resp.json();
 
-    const stats  = await statsResp.json();
-    const trades = stats.openTrades || [];
+    // for each spread, look at last row
+    const alerts = Object.entries(data)
+      .filter(([_, series]) => Array.isArray(series))
+      .map(([spread, series]) => {
+        const last = series[series.length - 1];
+        const [ , price, lower1, , upper1 ] = last;
+        if (price < lower1 || price > upper1) {
+          const signal = price < lower1 ? 'Long' : 'Short';
+          // now compute trend & TP/SL just once
+          const trend = (lower1 + upper1) / 2;
+          const dist  = Math.abs(price - trend);
+          const tp    = trend;
+          const sl    = signal === 'Long' ? price - dist : price + dist;
+          return { spread, signal, price, takeProfit: tp, stopLoss: sl };
+        }
+      })
+      .filter(Boolean);
 
-    // repopulate the table
     const tbody = document.querySelector('#module4 tbody');
     tbody.innerHTML = '';
-    trades.forEach(t => {
+    alerts.forEach(a => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${t.spread}</td>
-        <td>${t.signal}</td>
-        <td>${t.entry.toFixed(4)}</td>        <!-- Open Price -->
-        <td>${t.take_profit.toFixed(4)}</td>  <!-- Take Profit -->
-        <td>${t.stop_loss.toFixed(4)}</td>    <!-- Stop Loss -->
+        <td>${a.spread}</td>
+        <td>${a.signal}</td>
+        <td>${a.price.toFixed(4)}</td>
+        <td>${a.takeProfit.toFixed(4)}</td>
+        <td>${a.stopLoss.toFixed(4)}</td>
       `;
       tbody.appendChild(tr);
     });
   } catch(err) {
-    console.error('Module 4 render error:', err);
+    console.error(err);
   }
 }
-
