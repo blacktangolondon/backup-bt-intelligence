@@ -137,7 +137,6 @@ body {
   background: #2a2a2a;
 }
 
-
 /* ─── WebKit (Chrome, Edge, Safari) ─── */
 ::-webkit-scrollbar {
   width: 8px;
@@ -162,3 +161,12 @@ body {
   scrollbar-color: #333 #1e1e1e;
 }
 
+/* ─── Sticky headers for tables in Module 2 & Module 4 ─── */
+#module2 thead th,
+#module4 thead th {
+  position: sticky;
+  top: 0;
+  background: #111;
+  z-index: 2;
+  border-bottom: 1px solid #333;
+}
