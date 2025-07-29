@@ -166,44 +166,61 @@ function renderModule3(rets) {
   );
 }
 
-// —––– Module 4 — New Strategies Alert (live spreads.json) —–––
+// —––– Module 4 — New Strategies Alert (±1σ)
 async function renderModule4() {
   try {
     const resp = await fetch('spreads.json');
     const data = await resp.json();
 
-    // for each spread, look at last row
     const alerts = Object.entries(data)
       .filter(([_, series]) => Array.isArray(series))
       .map(([spread, series]) => {
-        const last = series[series.length - 1];
-        const [ , price, lower1, , upper1 ] = last;
+        const lastRow = series[series.length - 1];
+        const [, price, lower1, , upper1] = lastRow;
         if (price < lower1 || price > upper1) {
           const signal = price < lower1 ? 'Long' : 'Short';
-          // now compute trend & TP/SL just once
-          const trend = (lower1 + upper1) / 2;
-          const dist  = Math.abs(price - trend);
-          const tp    = trend;
-          const sl    = signal === 'Long' ? price - dist : price + dist;
-          return { spread, signal, price, takeProfit: tp, stopLoss: sl };
+          const trend  = (lower1 + upper1) / 2;
+          const dist   = Math.abs(price - trend);
+          const stop   = signal === 'Long'
+            ? price - dist
+            : price + dist;
+          return {
+            spread,
+            signal,
+            openPrice:  price,  // ← renamed here
+            takeProfit: trend,
+            stopLoss:   stop
+          };
         }
       })
       .filter(Boolean);
 
     const tbody = document.querySelector('#module4 tbody');
     tbody.innerHTML = '';
+
+    // rewrite header row
+    const thead = document.querySelector('#module4 thead tr');
+    thead.innerHTML = `
+      <th>Spread</th>
+      <th>Signal</th>
+      <th>Open Price</th>   <!-- ← updated label -->
+      <th>Take Profit</th>
+      <th>Stop Loss</th>
+    `;
+
     alerts.forEach(a => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${a.spread}</td>
         <td>${a.signal}</td>
-        <td>${a.price.toFixed(4)}</td>
+        <td>${a.openPrice.toFixed(4)}</td>  <!-- ← use openPrice -->
         <td>${a.takeProfit.toFixed(4)}</td>
         <td>${a.stopLoss.toFixed(4)}</td>
       `;
       tbody.appendChild(tr);
     });
-  } catch(err) {
+  }
+  catch(err) {
     console.error(err);
   }
 }
