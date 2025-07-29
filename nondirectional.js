@@ -1,5 +1,4 @@
-You said:
-"// ─── Global Chart.js font defaults ───
+// ─── Global Chart.js font defaults ───
 Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
