@@ -87,7 +87,7 @@ function renderModule2(trades) {
   const tbody = document.querySelector('#module2 tbody');
   tbody.innerHTML = '';
 
-  // (Rebuild the header row to match your new order:)
+  // Rebuild the header row to match your new order:
   const thead = document.querySelector('#module2 thead tr');
   thead.innerHTML = `
     <th>Spread</th>
@@ -105,23 +105,29 @@ function renderModule2(trades) {
     .slice()
     .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
-      const pnlPct = (t.pnl * 100).toFixed(2) + '%';
+      // guard every numeric field
+      const entry    = (t.entry       ?? 0).toFixed(4);
+      const exit     = (t.exit        ?? 0).toFixed(4);
+      const tp       = (t.take_profit ?? 0).toFixed(4);
+      const sl       = (t.stop_loss   ?? 0).toFixed(4);
+      const pnlPct   = ((t.pnl ?? 0) * 100).toFixed(2) + '%';
+      const signal   = t.type === 'long' ? 'Long' : 'Short';
+
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${t.spread}</td>
-        <td>${t.type === 'long' ? 'Long' : 'Short'}</td>
+        <td>${signal}</td>
         <td>${t.entry_date}</td>
         <td>${t.exit_date}</td>
-        <td>${t.entry.toFixed(4)}</td>
-        <td>${t.exit.toFixed(4)}</td>
-        <td>${t.take_profit.toFixed(4)}</td>
-        <td>${t.stop_loss.toFixed(4)}</td>
+        <td>${entry}</td>
+        <td>${exit}</td>
+        <td>${tp}</td>
+        <td>${sl}</td>
         <td>${pnlPct}</td>
       `;
       tbody.appendChild(tr);
     });
 }
-
 
 // —––– Module 3 — Arithmetic Equity Curve
 function renderModule3(rets) {
@@ -167,7 +173,7 @@ function renderModule3(rets) {
   );
 }
 
-// —––– Module 4 — New Strategies Alert (±1σ) with reordered columns —–––
+// —––– Module 4 — New Strategies Alert (±1σ)
 async function renderModule4() {
   try {
     const resp = await fetch('spreads.json');
