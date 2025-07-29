@@ -166,27 +166,35 @@ function renderModule3(rets) {
   );
 }
 
-// —––– Module 4 — New Strategies Alert (live spreads.json) —–––
 async function renderModule4() {
   try {
     const resp = await fetch('spreads.json');
     const data = await resp.json();
 
-    // for each spread, look at last row
     const alerts = Object.entries(data)
-      .filter(([_, series]) => Array.isArray(series))
+      .filter(([_, series]) => Array.isArray(series) && series.length >= 2)
       .map(([spread, series]) => {
+        const prev = series[series.length - 2];
         const last = series[series.length - 1];
-        const [ , price, lower1, , upper1 ] = last;
-        if (price < lower1 || price > upper1) {
-          const signal = price < lower1 ? 'Long' : 'Short';
-          // now compute trend & TP/SL just once
-          const trend = (lower1 + upper1) / 2;
-          const dist  = Math.abs(price - trend);
-          const tp    = trend;
-          const sl    = signal === 'Long' ? price - dist : price + dist;
-          return { spread, signal, price, takeProfit: tp, stopLoss: sl };
-        }
+        const [, prevPrice, prevL1, , prevU1] = prev;
+        const [, price,     lower1,   , upper1] = last;
+
+        const justBrokeLong  = price < lower1  && prevPrice >= prevL1;
+        const justBrokeShort = price > upper1 && prevPrice <= prevU1;
+        if (!justBrokeLong && !justBrokeShort) return;
+
+        const signal = justBrokeLong ? 'Long' : 'Short';
+        const mid    = (lower1 + upper1) / 2;
+        const half   = Math.abs(price - mid);
+        return {
+          spread,
+          signal,
+          entry:       price,
+          takeProfit:  mid,
+          stopLoss:    signal === 'Long'
+                          ? price - half
+                          : price + half
+        };
       })
       .filter(Boolean);
 
@@ -197,13 +205,13 @@ async function renderModule4() {
       tr.innerHTML = `
         <td>${a.spread}</td>
         <td>${a.signal}</td>
-        <td>${a.price.toFixed(4)}</td>
+        <td>${a.entry.toFixed(4)}</td>
         <td>${a.takeProfit.toFixed(4)}</td>
         <td>${a.stopLoss.toFixed(4)}</td>
       `;
       tbody.appendChild(tr);
     });
-  } catch(err) {
-    console.error(err);
+  } catch (err) {
+    console.error('Module 4 render error:', err);
   }
 }
