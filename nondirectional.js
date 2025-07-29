@@ -67,13 +67,13 @@ function renderModule1({ period, numTrades, openCount, medDur, quickestDur, maxD
   cont.innerHTML = '';
 
   [
-    { label: 'Period',            value: period },
-    { label: '# Trades',          value: numTrades },
-    { label: 'Open Trades',       value: openCount },
-    { label: 'Median Duration',   value: medDur.toFixed(0)    + ' days' },
-    { label: 'Quickest Trade',    value: quickestDur.toFixed(0) + ' days' },
-    { label: 'Max Drawdown',      value: maxDrawdown.toFixed(1) + '%' },
-    { label: 'Sortino Ratio',     value: sortino.toFixed(2)     }
+    { label: 'Period',          value: period },
+    { label: '# Trades',        value: numTrades },
+    { label: 'Open Trades',     value: openCount },
+    { label: 'Median Duration', value: medDur.toFixed(0)    + ' days' },
+    { label: 'Quickest Trade',  value: quickestDur.toFixed(0) + ' days' },
+    { label: 'Max Drawdown',    value: maxDrawdown.toFixed(1) + '%' },
+    { label: 'Sortino Ratio',   value: sortino.toFixed(2)     }
   ].forEach(c => {
     const d = document.createElement('div');
     d.className = 'kpi-card';
@@ -196,8 +196,8 @@ async function renderModule4() {
           entry:       price,
           takeProfit:  mid,
           stopLoss:    signal === 'Long'
-                         ? price - half
-                         : price + half
+                           ? price - half
+                           : price + half
         };
       })
       .filter(Boolean);
