@@ -15,9 +15,8 @@ function ret(t) {
     console.error('JSON load failed');
     return;
   }
-  const stats      = await resp.json();
-  const trades     = stats.trades;
-  const openCount  = (stats.openTrades || []).length;  // ← number of live positions
+  const stats  = await resp.json();
+  const trades = stats.trades;
 
   // 2) Build percent‑return array (already fractions, so *100 later)
   const rets = trades.map(ret);
