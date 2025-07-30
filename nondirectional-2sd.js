@@ -111,7 +111,9 @@ function renderModule2(trades) {
       const pnlPct = (t.pnl * 100).toFixed(2) + '%';
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${t.spread}</td>
+        <td class="instrument-item" data-key="${t.spread}">
+         ${t.spread}
+       </td>
         <td>${t.type === 'long' ? 'Long' : 'Short'}</td>
         <td>${t.entry_date}</td>
         <td>${t.exit_date}</td>
@@ -211,7 +213,9 @@ async function renderModule4() {
     alerts.forEach(a => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${a.spread}</td>
+        <td class="instrument-item" data-key="${a.spread}">
+          ${a.spread}
+        </td>
         <td>${a.signal}</td>
         <td>${a.entry.toFixed(4)}</td>
         <td>${a.takeProfit.toFixed(4)}</td>
