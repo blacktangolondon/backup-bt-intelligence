@@ -1,3 +1,5 @@
+// nondirectional-2sd.js
+
 // ─── Global Chart.js font defaults ───
 Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
@@ -5,12 +7,13 @@ Chart.defaults.font.weight = 'normal';
 
 // ——— Helper at top‑level so every renderModule can use it ———
 function ret(t) {
+  // in non_directional_stats-2sd.json, t.pnl is the fractional return
   return t.pnl;
 }
 
 (async function() {
-  // 1) Load stats & trades
-  const resp   = await fetch('non_directional_stats.json');
+  // 1) Load stats & trades (2σ backtest output)
+  const resp   = await fetch('non_directional_stats-2sd.json');
   if (!resp.ok) {
     console.error('JSON load failed');
     return;
@@ -18,7 +21,7 @@ function ret(t) {
   const stats  = await resp.json();
   const trades = stats.trades;
 
-  // 2) Build percent‑return array (already fractions, so *100 later)
+  // 2) Build percent‑return array (fractions in t.pnl → *100 later)
   const rets = trades.map(ret);
 
   // 3) Compute durations (in days)
@@ -57,7 +60,7 @@ function ret(t) {
   renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino });
   renderModule2(trades);
   renderModule3(rets);
-  renderModule4();   // 2σ version
+  renderModule4();   // 2σ alerts
 })();
 
 // ——— Module 1 — Portfolio KPI Cards —–––
@@ -181,19 +184,25 @@ async function renderModule4() {
         const [, prevPrice, prevL1, prevL2, prevU1, prevU2] = prev;
         const [, price,     lower1, lower2, upper1, upper2] = last;
 
-        // trigger on crossing the 2σ bands
+        // trigger only on ±2σ crossings
         const justBrokeLong  = price < lower2  && prevPrice >= prevL2;
         const justBrokeShort = price > upper2  && prevPrice <= prevU2;
         if (!justBrokeLong && !justBrokeShort) return;
 
         const signal = justBrokeLong ? 'Long' : 'Short';
-        // for TP/SL, still use the trendline (mid of 1σ band)
+        // TP/SL still based on mid‑of‑1σ band
         const mid    = (lower1 + upper1) / 2;
         const half   = Math.abs(price - mid);
-        const tp     = mid;
-        const sl     = signal === 'Long' ? price - half : price + half;
 
-        return { spread, signal, entry: price, takeProfit: tp, stopLoss: sl };
+        return {
+          spread,
+          signal,
+          entry:      price,
+          takeProfit: mid,
+          stopLoss:   signal === 'Long'
+                        ? price - half
+                        : price + half
+        };
       })
       .filter(Boolean);
 
