@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Non‑Directional Strategies Dashboard</title>
+  <link rel="stylesheet" href="nondirectional.css" />
+</head>
+<body>
+  <div id="container">
+    <!-- Module 1: Portfolio KPI Cards -->
+    <section id="module1" class="card-grid"></section>
+
+    <!-- Module 2: Historical Report -->
+    <section id="module2" class="card table-card">
+      <h2>Historical Report</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Spread</th>
+              <th>Open Date</th>
+              <th>Close Date</th>
+              <th>Open Price</th>
+              <th>Close Price</th>
+              <th>Direction</th>
+              <th>% Movement</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Module 3: Performance Visuals -->
+    <section id="module3" class="card charts-card">
+      <canvas id="equityChart"></canvas>
+    </section>
+
+    <!-- Module 4: New Strategies Alert -->
+    <section id="module4" class="card table-card">
+      <h2>New Strategies Alert</h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Spread</th>
+              <th>Signal</th>
+              <th>Open Price</th>
+              <th>Take Profit</th>
+              <th>Stop Loss</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Our wiring logic -->
+  <script src="nondirectional.js"></script>
+</body>
+</html>
