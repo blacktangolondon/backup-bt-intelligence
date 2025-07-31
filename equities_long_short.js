@@ -18,7 +18,7 @@ function ret(t) {
 
 (async function() {
   // 1) Load stats & trades
-  const resp   = await fetch('non_directional_stats_equities.json');
+  const resp   = await fetch('equities_long_short_stats.json');
   if (!resp.ok) {
     console.error('JSON load failed');
     return;
