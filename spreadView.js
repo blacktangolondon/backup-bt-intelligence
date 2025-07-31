@@ -212,7 +212,21 @@ const LABEL_MAP = {
   'BA/LMT'               : 'Boeing / Lockheed Martin',
   'V/MA'                 : 'Visa / Mastercard',
   'NFLX/DIS'             : 'Netflix / Disney',
-  'F/GM'                 : 'Ford / General Motors',
+  'GM/F'                 : 'General Motors / Ford',
+  'BATS.L/IMB.L'         : 'British American Tobacco / Imperial Brands',
+  'BNP.PA/ACA.PA'        : 'BNP / Crédit Agricole',
+  'DBK.DE/CBK.DE'        : 'Deutsche Bank / Commerzbank',
+  'GS/MS'                 : 'Goldman Sachs / Morgan Stanley',
+  'HSBA.L/BARC.L'                 : 'HSBC / Barclays',
+  'LLOY.L/NWG.L'                 : 'LLoyds / Natwest',
+  'MC.PA/CFR.SW'                 : 'Louis Vuitton / Compagnie Financiere',
+  'NESN.SW/ULVR.L'                 : 'Nestlé / Unilever',
+  'PG/CL'                 : 'The Procter & Gamble Company / Colgate-Palmolive',
+   'SIE.DE/SU.PA'                 : 'Siemens / Schneider Electric',
+  'TSLA/RIVN'                 : 'Tesla / Rivian',
+  'ULVR.L/RKT.L'                 : 'Unilever / Reckitt Benckiser',
+   'VOW.DE/BMW.DE'                 : 'Volkswagen / BMW',
+  'WFC/C'                 : 'Wells Fargo / Citigroup',
 
   // ── FIXED INCOME
   'ZN/ZF'                : '10Y Note / 5Y Note',
@@ -221,5 +235,5 @@ const LABEL_MAP = {
   'UB/ZT'                : 'Ultra Bond / 2Y Note',
   'UB/ZF'                : 'Ultra Bond / 5Y Note',
   'HYG/LQD'              : 'High‑Yield ETF / Investment‑Grade ETF',
-  'HYG/ZB'               : 'High‑Yield ETF / 30Y Bond Futures'
+  'HYG/ZB'               : 'High‑Yield ETF / 30Y Bond Future'
 };
