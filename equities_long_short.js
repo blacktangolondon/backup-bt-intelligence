@@ -189,7 +189,7 @@ function renderModule3(rets) {
 // —––– Module 4 — New Strategies Alert (live spreads.json) —–––
 async function renderModule4() {
   try {
-    const resp = await fetch('spreads.json');
+    const resp = await fetch('eq_channels.json');
     const data = await resp.json();
 
     const alerts = Object.entries(data)
