@@ -5,14 +5,14 @@ Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
-// ——— Position‑sizing & fees settings ———
+// ——— Position-sizing & fees settings ———
 const ACCOUNT_SIZE   = 20000;   // your Saxo account equity in $
 const RISK_PCT       = 0.02;    // risk per trade (2%)
 const COMMISSION_PCT = 0.004;   // commission (0.4%)
 
-// ——— Helper at top‑level so every renderModule can use it ———
+// ——— Helper at top-level so every renderModule can use it ———
 function ret(t) {
-  // for Module 3: return the fractional return, matching Excel col M
+  // for Module 3: return the fractional return, matching Excel col M
   return t.returnPct;
 }
 
@@ -26,7 +26,7 @@ function ret(t) {
   const stats  = await resp.json();
   const trades = stats.trades;
 
-  // 1a) Compute net P&L and return% for each trade (Excel cols J, M)
+  // 1a) Compute net P&L and return% for each trade (Excel cols J, M)
   const riskAmt = ACCOUNT_SIZE * RISK_PCT;
   trades.forEach(t => {
     const dist      = Math.abs(t.entry - t.take_profit);
@@ -38,11 +38,11 @@ function ret(t) {
       : (t.entry - t.exit) * notional;
 
     const netPnl    = rawPnl - commission;
-    t.netPnl        = netPnl;                       // Excel col J if you ever need it
-    t.returnPct     = netPnl / ACCOUNT_SIZE;        // Excel col M
+    t.netPnl        = netPnl;                       // Excel col J if you ever need it
+    t.returnPct     = netPnl / ACCOUNT_SIZE;        // Excel col M
   });
 
-  // 1b) Build percent‑return array (fractions) for Module 3
+  // 1b) Build percent-return array (fractions) for Module 3
   const rets = trades.map(ret);
 
   // 2) Compute durations (in days) – unchanged
@@ -77,10 +77,10 @@ function ret(t) {
   renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino });
   renderModule2(trades);
   renderModule3(rets);
-  renderModule4();   // back to spreads.json
+  renderModule4();
 })();
 
-// ——— Module 1 — Portfolio KPI Cards —–––
+// —––– Module 1 — Portfolio KPI Cards —–––
 function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino }) {
   const cont = document.getElementById('module1');
   cont.innerHTML = '';
@@ -102,7 +102,7 @@ function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, so
   });
 }
 
-// —––– Module 2 — Historical Report
+// —––– Module 2 — Historical Report
 function renderModule2(trades) {
   const tbody = document.querySelector('#module2 tbody');
   tbody.innerHTML = '';
@@ -142,7 +142,7 @@ function renderModule2(trades) {
     });
 }
 
-// —––– Module 3 — Arithmetic Equity Curve
+// —––– Module 3 — Arithmetic Equity Curve
 function renderModule3(rets) {
   const cum = [];
   let sum   = 0;
@@ -186,27 +186,30 @@ function renderModule3(rets) {
   );
 }
 
-// —––– Module 4 — New Strategies Alert (live spreads.json) —–––
+// —––– Module 4 — New Strategies Alert —–––
 async function renderModule4() {
   try {
     const resp = await fetch('eq_channels.json');
     const data = await resp.json();
 
     const alerts = Object.entries(data)
+      // we need at least two days to detect a crossing
       .filter(([_, series]) => Array.isArray(series) && series.length >= 2)
       .map(([spread, series]) => {
         const prev = series[series.length - 2];
         const last = series[series.length - 1];
-        const [, prevPrice, prevL1, , prevU1] = prev;
-        const [, price,     lower1,   , upper1] = last;
+        const [, prevPrice, prevLower1, , prevUpper1] = prev;
+        const [, price,     lower1,     , upper1]     = last;
 
-        const justBrokeLong  = price < lower1  && prevPrice >= prevL1;
-        const justBrokeShort = price > upper1 && prevPrice <= prevU1;
-        if (!justBrokeLong && !justBrokeShort) return;
+        // only signal on the very first day of a crossing
+        const justBrokeLong  = (price < lower1)  && (prevPrice >= prevLower1);
+        const justBrokeShort = (price > upper1)  && (prevPrice <= prevUpper1);
+        if (!(justBrokeLong || justBrokeShort)) return;
 
         const signal = justBrokeLong ? 'Long' : 'Short';
         const mid    = (lower1 + upper1) / 2;
         const half   = Math.abs(price - mid);
+
         return {
           spread,
           signal,
@@ -233,6 +236,6 @@ async function renderModule4() {
       tbody.appendChild(tr);
     });
   } catch (err) {
-    console.error('Module 4 render error:', err);
+    console.error('Module 4 render error:', err);
   }
 }
