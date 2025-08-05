@@ -1,7 +1,7 @@
 // portfolio.js
 // Renders the Risk Profile overview and detailed portfolio tables in the same container
 
-import { clearMainContent } from './main.js'; // hypothetical helper to hide main dashboard
+
 
 function renderRiskProfiles() {
   const container = document.getElementById('portfolios-template');
