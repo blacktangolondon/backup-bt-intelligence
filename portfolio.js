@@ -31,7 +31,6 @@ function renderPortfolioPage() {
   const grid = document.createElement('div');
   grid.classList.add('portfolio-grid');
   // enforce two columns layout
-  grid.style.gridTemplateColumns = 'repeat(2, 1fr)';
 
   // Generate card for each portfolio
   portfolios.forEach(({ title, desc }) => {
