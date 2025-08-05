@@ -593,25 +593,62 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   scrollbar-color: #333333 #000000;
 }
 
-/* Portfolio Grid and Cards */
+/* ─── Portfolio Page ─── */
+.portfolio-page {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+  color: #fff;
+  text-align: center;
+}
+.portfolio-page .page-title {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+  color: #FFA500;
+}
+
+/* Grid layout */
 .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
 }
+
+/* Card styling */
 .portfolio-card {
-  background-color: #111111;
-  border: 1px solid #444444;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
-  color: #ffffff;
-  font-size: 16px;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  transition: 
+    transform 0.3s ease, 
+    box-shadow 0.3s ease, 
+    border-color 0.3s ease;
 }
 .portfolio-card:hover {
-  transform: translateY(-5px);
-  background-color: #222222;
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+  border-color: #FFA500;
+}
+
+/* Title inside card */
+.portfolio-card-title {
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+  color: #FFA500;
+}
+
+/* Description inside card */
+.portfolio-card-desc {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #ddd;
+}
+
+/* Make sure the cards’ text stays left-aligned */
+.portfolio-card h3,
+.portfolio-card p {
+  text-align: left;
 }
