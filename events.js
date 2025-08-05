@@ -43,6 +43,29 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
       return;
     }
 
+    // 1.5) Adventurous page Access buttons
+    if (
+      e.target &&
+      e.target.classList.contains('portfolio-card-btn') &&
+      document.querySelector('.page-title')?.textContent.trim() === 'Adventurous Portfolios'
+    ) {
+      const tr = e.target.closest('tr');
+      const name = tr?.querySelector('td')?.textContent.trim();
+      const linkMap = {
+        'Arbitrage (Dynamic)': './nondirectional.html',
+        'Arbitrage (Tactical)': './nondirectional-2sd.html',
+        'Long / Short Equity': './equities_long_short.html',
+        'Short Only': './nondirectional.html',
+        'Emerging Markets': './nondirectional.html'
+      };
+      const link = linkMap[name];
+      if (link) {
+        window.location.href = link;
+      }
+      return;
+    }
+    }
+
     // 2) Instrument-item click (dashboard navigation)
     if (e.target && e.target.classList.contains('instrument-item')) {
       // Hide Portfolio view
