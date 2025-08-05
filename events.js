@@ -16,13 +16,20 @@ import { showSpread } from "./spreadView.js";
  * @param {Object} returnsData - Historical returns for correlation analysis.
  */
 export function initEventHandlers(groupedData, pricesData, returnsData) {
-  // Sidebar and general click handler
+  // Global click handler for hiding Portfolio and routing
   document.addEventListener('click', (e) => {
-    // Always hide the Portfolio page on any click
-    const pf = document.getElementById('portfolios-template');
-    if (pf) pf.style.display = 'none';
+    // Detect clicks on the sidebar "Portfolio" item by its text
+    const isPortfolioLink = e.target &&
+      e.target.tagName === 'LI' &&
+      e.target.textContent.trim() === 'PORTFOLIO';
 
-    // Handle instrument-item clicks (dashboard navigation)
+    // Hide Portfolio container on all clicks except the Portfolio link itself
+    if (!isPortfolioLink) {
+      const pf = document.getElementById('portfolios-template');
+      if (pf) pf.style.display = 'none';
+    }
+
+    // ---------- Dashboard navigation ----------
     if (e.target && e.target.classList.contains('instrument-item')) {
       // Show main dashboard, hide other templates
       document.getElementById('main-content').style.display = 'grid';
@@ -94,7 +101,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
       }
     }
 
-    // Handle Portfolio Ideas clicks
+    // ---------- Portfolio Ideas handling ----------
     if (e.target && e.target.classList.contains('clickable-idea')) {
       const instrument = e.target.dataset.instrument;
       const base = window.location.origin + window.location.pathname;
@@ -102,6 +109,14 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
         `${base}?instrument=${encodeURIComponent(instrument)}`,
         '_blank'
       );
+    }
+
+    // ---------- Portfolio link handling ----------
+    if (isPortfolioLink) {
+      // Show Portfolio container and render
+      const pst = document.getElementById('portfolios-template');
+      pst.style.display = 'block';
+      renderPortfolioPage();  // ensure you’ve imported this if needed
     }
   });
 
@@ -154,4 +169,3 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
     });
   }
 }
-
