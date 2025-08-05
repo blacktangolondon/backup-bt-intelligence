@@ -1,10 +1,6 @@
 // sidebar.js
 // Group instruments into EQUITIES, ETF, FUTURES, FX with expandable submenus
-// + NON-DIRECTIONAL (Relative Value / Equity Neutral / Fixed Income) from spreads.json
-
-import { initPortfolios } from './portfolios.js';
-import { initThematicPortfolio } from './thematicPortfolio.js';
-import initPortfolioBuilder from './portfolioBuilder.js';
+// + NON-DIRECTIONAL (Relative Value / Equity Neutral / Fixed Income / Calendar) from spreads.json
 
 export async function generateSidebarContent() {
   const sidebarList = document.getElementById('sidebar-list');
@@ -27,6 +23,8 @@ export async function generateSidebarContent() {
     "ZNU25/ZNZ25","ZSN25/ZSQ25","ZTU25/ZTZ25","ZWN25/ZWU25"
   ]);
 
+  // No aliases – use the real keys so clicks match exactly
+  const DISPLAY_ALIAS = {};
   const prettyName = name => name;
   const prettyPair = pair => pair;
 
@@ -50,33 +48,40 @@ export async function generateSidebarContent() {
     const resp = await fetch('./spreads.json');
     const spreadsObj = await resp.json();
 
+    // If _groups exists, build buckets, else fallback to flat list
     if (spreadsObj && spreadsObj._groups) {
       const prettyMap = {
-        relative_value: 'RELATIVE VALUE ARBITRAGE',
-        equity_neutral: 'EQUITY NEUTRAL ARBITRAGE',
-        fixed_income:   'FIXED INCOME ARBITRAGE'
+        relative_value:   'RELATIVE VALUE ARBITRAGE',
+        equity_neutral:   'EQUITY NEUTRAL ARBITRAGE',
+        fixed_income:     'FIXED INCOME ARBITRAGE',
+        calendar:         'CALENDAR SPREAD'
       };
 
+      // init empty arrays
       nonDirectionalGroups = {};
       Object.values(prettyMap).forEach(k => nonDirectionalGroups[k] = []);
 
       for (const [pairName, grpKey] of Object.entries(spreadsObj._groups)) {
-        if (HIDDEN_PAIRS.has(pairName)) continue;
-        const prettyGroup = prettyMap[grpKey];
-        if (!prettyGroup) continue;
+        if (HIDDEN_PAIRS.has(pairName)) continue; // skip hidden pairs
+
+        const prettyGroup = prettyMap[grpKey] || grpKey.toUpperCase();
+        if (!nonDirectionalGroups[prettyGroup]) nonDirectionalGroups[prettyGroup] = [];
         nonDirectionalGroups[prettyGroup].push(pairName);
       }
 
+      // sort each bucket
       for (const k in nonDirectionalGroups) {
         nonDirectionalGroups[k].sort();
       }
     } else {
+      // fallback: one flat list (filter hidden ones)
       const spreadsList = Object.keys(spreadsObj || {})
         .filter(k => k !== '_groups' && !HIDDEN_PAIRS.has(k));
       nonDirectionalGroups = { 'RELATIVE VALUE ARBITRAGE': spreadsList.sort() };
     }
   } catch (err) {
     console.error('Failed to load spreads.json', err);
+    // continue without NON-DIRECTIONAL section
   }
 
   // ───────────────────────────────────────
@@ -99,13 +104,14 @@ export async function generateSidebarContent() {
     FX:       { 'MAJORS': [], 'MINORS': [] }
   };
 
+  // Helper: classify a future code if no JSON category
   function classifyFutureByCode(code) {
     const sym = code.split(/=|:/)[0].toUpperCase();
     if (['ES','NQ','YM','RTY','NKY','HSI','ASX','SX5E','FTMIB','CAC'].includes(sym)) {
       return 'EQUITY INDICES';
     } else if (['CL','BZ','RB','HO','NG'].includes(sym)) {
       return 'ENERGY';
-    } else if (['GC','SI','HG','PL','PA','ALI'].includes(sym)) {
+    } else if (['GC','SI','HG','PL','PA'].includes(sym)) {
       return 'METALS';
     } else if (['ZB','ZN','ZF','ZT','GE','FV','TU','TY','FF'].includes(sym)) {
       return 'INTEREST RATES';
@@ -169,8 +175,8 @@ export async function generateSidebarContent() {
       content.sort().forEach(item => {
         const instLi = document.createElement('li');
         instLi.classList.add('instrument-item');
-        instLi.dataset.key = item;
-        instLi.textContent = prettyName(item);
+        instLi.dataset.key = item;                     // real key
+        instLi.textContent = prettyName(item);         // what user sees
         subUl.appendChild(instLi);
       });
     } else {
@@ -188,8 +194,8 @@ export async function generateSidebarContent() {
         arr.sort().forEach(it => {
           const instLi = document.createElement('li');
           instLi.classList.add('instrument-item');
-          instLi.dataset.key = it;
-          instLi.textContent = prettyName(it);
+          instLi.dataset.key = it;                     // real key
+          instLi.textContent = prettyName(it);         // display alias
           instUl.appendChild(instLi);
         });
         subLi.appendChild(instUl);
@@ -222,6 +228,12 @@ export async function generateSidebarContent() {
   // Render NON-DIRECTIONAL section (if available)
   // ───────────────────────────────────────
   if (nonDirectionalGroups) {
+    // convert pair names to pretty display but keep real in data attribute
+    const prettyND = {};
+    for (const [bucket, pairs] of Object.entries(nonDirectionalGroups)) {
+      prettyND[bucket] = pairs.map(p => p); // keep original list
+    }
+
     const liND = document.createElement('li');
     liND.classList.add('expandable');
     const toggleND = document.createElement('div');
@@ -232,7 +244,7 @@ export async function generateSidebarContent() {
     const subUlND = document.createElement('ul');
     subUlND.classList.add('sub-list');
 
-    for (const [catName, arr] of Object.entries(nonDirectionalGroups)) {
+    for (const [catName, arr] of Object.entries(prettyND)) {
       if (!arr.length) continue;
       const subLi = document.createElement('li');
       subLi.classList.add('expandable');
@@ -244,11 +256,11 @@ export async function generateSidebarContent() {
       const instUl = document.createElement('ul');
       instUl.classList.add('sub-list');
       arr.sort().forEach(pair => {
-        if (HIDDEN_PAIRS.has(pair)) return;
+        if (HIDDEN_PAIRS.has(pair)) return; // double safety
         const instLi = document.createElement('li');
         instLi.classList.add('instrument-item');
-        instLi.dataset.pair = pair;
-        instLi.textContent = prettyPair(pair);
+        instLi.dataset.pair = pair;                      // real pair key
+        instLi.textContent = prettyPair(pair);           // displayed
         instUl.appendChild(instLi);
       });
       subLi.appendChild(instUl);
@@ -269,36 +281,11 @@ export async function generateSidebarContent() {
   }
 
   // ───────────────────────────────────────
-  // Add Portfolio Builder, Portfolio Ideas, and Portfolios at bottom
+  // Add Portfolio Builder and Portfolio Ideas at bottom
   // ───────────────────────────────────────
-  ['PORTFOLIO BUILDER','PORTFOLIO IDEAS','PORTFOLIOS'].forEach(txt => {
+  ['PORTFOLIO BUILDER','PORTFOLIO IDEAS'].forEach(txt => {
     const li = document.createElement('li');
     li.textContent = txt;
-
-    if (txt === 'PORTFOLIO BUILDER') {
-      li.addEventListener('click', () => {
-        document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
-        document.getElementById('portfolio-builder-template').classList.remove('hidden');
-        initPortfolioBuilder();
-      });
-    }
-
-    if (txt === 'PORTFOLIO IDEAS') {
-      li.addEventListener('click', () => {
-        document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
-        document.getElementById('thematic-portfolio-template').classList.remove('hidden');
-        initThematicPortfolio();
-      });
-    }
-
-    if (txt === 'PORTFOLIOS') {
-      li.addEventListener('click', () => {
-        document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
-        document.getElementById('portfolios-template').classList.remove('hidden');
-        initPortfolios();
-      });
-    }
-
     sidebarList.appendChild(li);
   });
 }
