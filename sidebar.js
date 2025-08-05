@@ -2,6 +2,9 @@
 // Group instruments into EQUITIES, ETF, FUTURES, FX with expandable submenus
 // + NON-DIRECTIONAL (Relative Value / Equity Neutral / Fixed Income) from spreads.json
 
+// Connect Portfolio Ideas
+import { initThematicPortfolio } from './thematicPortfolio.js';
+
 export async function generateSidebarContent() {
   const sidebarList = document.getElementById('sidebar-list');
   if (!sidebarList) {
@@ -271,6 +274,17 @@ export async function generateSidebarContent() {
   ['PORTFOLIO BUILDER','PORTFOLIO IDEAS'].forEach(txt => {
     const li = document.createElement('li');
     li.textContent = txt;
+    if (txt === 'PORTFOLIO IDEAS') {
+      li.id = 'sidebar-portfolio-ideas';
+      li.addEventListener('click', () => {
+        // Hide other main sections
+        document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
+        // Show portfolio ideas section
+        document.getElementById('portfolio-ideas').classList.remove('hidden');
+        // Initialize the thematic portfolio first layer
+        initThematicPortfolio();
+      });
+    }
     sidebarList.appendChild(li);
   });
 }
