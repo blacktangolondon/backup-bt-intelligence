@@ -615,12 +615,34 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   text-align: center;
 }
 
-.portfolio-page .portfolio-grid {
-  display: inline-grid;  /* shrink to content, then text-align will centre it */
-  grid-template-columns: repeat(2, minmax(280px, 320px));
-  gap: 30px;
-  /* remove any explicit width or margin rules you added before */
+/* ─── Portfolio: 3 columns × 2 rows, cards fill the space ─── */
+.portfolio-page {
+  /* ensure inline centring if you kept inline-grid */
+  text-align: center;
 }
+
+.portfolio-page .portfolio-grid {
+  display: inline-grid;              /* shrink-to-content, then centre via text-align */
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;               /* let rows size to content */
+  gap: 30px 40px;                     /* vertical 30px, horizontal 40px spacing */
+  max-width: 100%;                    /* allow up to full parent width */
+  width: calc(3 * 300px + 2 * 40px);  /* 3 cards at 300px + 2 gaps of 40px */
+  text-align: left;                   /* reset text-align inside grid */
+}
+
+.portfolio-card {
+  /* make cards expand to fill their grid cell */
+  width: 100%;
+  height: 100%;
+}
+
+/* Optionally bump up the min/max card widths: */
+.portfolio-page .portfolio-grid > .portfolio-card {
+  min-width: 280px;
+  max-width: 320px;
+}
+
 
 
 
