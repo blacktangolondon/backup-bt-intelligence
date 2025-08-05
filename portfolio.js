@@ -19,35 +19,19 @@ function renderPortfolioPage() {
 
   // Define portfolio levels with descriptions
   const portfolios = [
-    {
-      title: 'Very Cautious',
-      desc: 'Target returns just above bank deposit rates, with capital preservation.'
-    },
-    {
-      title: 'Cautious',
-      desc: 'Reluctant to take much, if any, risk; returns are expected to barely keep pace with inflation.'
-    },
-    {
-      title: 'Cautious to Balanced',
-      desc: 'Some loss is accepted, and one may wish to invest in other areas besides cash.'
-    },
-    {
-      title: 'Balanced',
-      desc: 'It is accepted that, to achieve growth, risks must be balanced.'
-    },
-    {
-      title: 'Balanced to Adventurous',
-      desc: 'Accepting significant risk to achieve higher returns.'
-    },
-    {
-      title: 'Adventurous',
-      desc: 'It is understood and accepted the implied risk necessary in aiming for higher returns.'
-    }
+    { title: 'Very Cautious', desc: 'Target returns just above bank deposit rates, with capital preservation.' },
+    { title: 'Cautious', desc: 'Reluctant to take much, if any, risk; returns are expected to barely keep pace with inflation.' },
+    { title: 'Cautious to Balanced', desc: 'Some loss is accepted, and one may wish to invest in other areas besides cash.' },
+    { title: 'Balanced', desc: 'It is accepted that, to achieve growth, risks must be balanced.' },
+    { title: 'Balanced to Adventurous', desc: 'Accepting significant risk to achieve higher returns.' },
+    { title: 'Adventurous', desc: 'It is understood and accepted the implied risk necessary in aiming for higher returns.' }
   ];
 
   // Create grid container
   const grid = document.createElement('div');
   grid.classList.add('portfolio-grid');
+  // enforce two columns layout
+  grid.style.gridTemplateColumns = 'repeat(2, 1fr)';
 
   // Generate card for each portfolio
   portfolios.forEach(({ title, desc }) => {
@@ -66,8 +50,14 @@ function renderPortfolioPage() {
     cardDesc.classList.add('portfolio-card-desc');
     card.appendChild(cardDesc);
 
-    // Click handler
-    card.addEventListener('click', () => {
+    // Access button
+    const btn = document.createElement('button');
+    btn.textContent = 'Access';
+    btn.classList.add('portfolio-card-btn');
+    card.appendChild(btn);
+
+    // Click handler on button
+    btn.addEventListener('click', () => {
       const slug = title.toLowerCase().replace(/ /g, '-');
       window.location.hash = `#portfolio/${slug}`;
       page.innerHTML = `<h3>${title} Portfolio</h3><p>Loading...</p>`;
