@@ -594,7 +594,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 }
 
 
-/* ─── Portfolio Page ─── */
+/* ─── Portfolio Page Styles (updated for flex layout) ─── */
 .portfolio-page {
   max-width: 1000px;
   margin: 40px auto;
@@ -609,62 +609,34 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   color: #FFA500;
 }
 
-/* ─── Centre the Portfolio grid by using inline-grid ─── */
-.portfolio-page {
-  /* keep text-align:center to centre inline-level children */
-  text-align: center;
-}
-
-/* ─── Portfolio: 3 columns × 2 rows, cards fill the space ─── */
-.portfolio-page {
-  /* ensure inline centring if you kept inline-grid */
-  text-align: center;
-}
-
+/* Flex layout: 3 columns × wrap, cards fill available space */
 .portfolio-page .portfolio-grid {
-  display: inline-grid;              /* shrink-to-content, then centre via text-align */
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: auto;               /* let rows size to content */
-  gap: 30px 40px;                     /* vertical 30px, horizontal 40px spacing */
-  max-width: 100%;                    /* allow up to full parent width */
-  width: calc(3 * 300px + 2 * 40px);  /* 3 cards at 300px + 2 gaps of 40px */
-  text-align: left;                   /* reset text-align inside grid */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;       /* center rows of cards */
+  gap: 30px 40px;               /* 30px vertical, 40px horizontal */
+  margin: 0 auto;
+  width: 100%;                  /* full width of parent */
+  box-sizing: border-box;
 }
 
-.portfolio-card {
-  /* make cards expand to fill their grid cell */
-  width: 100%;
-  height: 100%;
-}
-
-/* Optionally bump up the min/max card widths: */
-.portfolio-page .portfolio-grid > .portfolio-card {
-  min-width: 280px;
-  max-width: 320px;
-}
-
-
-
-
-/* Card styling */
-.portfolio-card {
+.portfolio-page .portfolio-grid .portfolio-card {
+  flex: 1 1 calc((100% - 2 * 40px) / 3); /* three cards per row minus gaps */
+  max-width: 360px;                       /* cap card width */
+  min-width: 260px;                       /* cap card shrink */
   background: #111;
   border: 1px solid #333;
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
-.portfolio-card:hover {
+.portfolio-page .portfolio-grid .portfolio-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.7);
   border-color: #FFA500;
 }
 
-/* Title inside card */
 .portfolio-card-title {
   font-size: 1.4rem;
   margin-bottom: 0.8rem;
@@ -672,7 +644,6 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   text-align: left;
 }
 
-/* Description inside card */
 .portfolio-card-desc {
   font-size: 0.95rem;
   line-height: 1.5;
@@ -680,7 +651,6 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   text-align: left;
 }
 
-/* Access button */
 .portfolio-card-btn {
   margin-top: 16px;
   padding: 10px 18px;
