@@ -16,13 +16,13 @@ import { showSpread } from "./spreadView.js";
  * @param {Object} returnsData - Historical returns for correlation analysis.
  */
 export function initEventHandlers(groupedData, pricesData, returnsData) {
+  // Whenever anything is clicked, first hide the Portfolio page
+  const pf = document.getElementById('portfolios-template');
+  if (pf) pf.style.display = 'none';
+
   // Sidebar instrument click events.
   document.addEventListener('click', (e) => {
     if (e.target && e.target.classList.contains('instrument-item')) {
-      // **Hide Portfolio screen when selecting an instrument**
-      const pf = document.getElementById('portfolios-template');
-      if (pf) pf.style.display = 'none';
-
       // Show main dashboard, hide other templates
       document.getElementById('main-content').style.display = 'grid';
       document.getElementById('portfolio-builder-template').style.display = 'none';
