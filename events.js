@@ -28,6 +28,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
       // Hide main dashboard
       const main = document.getElementById('main-content');
       if (main) main.style.display = 'none';
+      // Hide other templates
       const builder = document.getElementById('portfolio-builder-template');
       if (builder) builder.style.display = 'none';
       const thematic = document.getElementById('thematic-portfolio-template');
@@ -44,10 +45,9 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
 
     // 2) Instrument-item click (dashboard navigation)
     if (e.target && e.target.classList.contains('instrument-item')) {
-      // Hide Portfolio if visible
+      // Hide Portfolio view
       const pf = document.getElementById('portfolios-template');
       if (pf) pf.style.display = 'none';
-
       // Show main dashboard, hide other templates
       const main = document.getElementById('main-content');
       if (main) main.style.display = 'grid';
@@ -56,7 +56,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
       const thematic = document.getElementById('thematic-portfolio-template');
       if (thematic) thematic.style.display = 'none';
 
-      // Clear previous selection and highlight current
+      // Highlight selection
       document.querySelectorAll('#sidebar li.selected')
         .forEach(item => item.classList.remove('selected'));
       e.target.classList.add('selected');
@@ -74,13 +74,13 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
         return;
       }
 
-      // Non-spread: show blocks 1-4
-      ['block1', 'block2', 'block3', 'block4'].forEach(id => {
+      // Show blocks 1-4 for non-spreads
+      ['block1','block2','block3','block4'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'block';
       });
 
-      // Update content based on asset class
+      // Route to proper update functions
       if (groupedData.STOCKS && groupedData.STOCKS[instrumentName]) {
         updateChart(instrumentName, groupedData.STOCKS);
         updateSymbolOverview(instrumentName, groupedData.STOCKS);
@@ -112,9 +112,9 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
       return;
     }
 
-    // 3) Portfolio Ideas click (open in new tab)
+    // 3) Portfolio Ideas click (open instrument in new tab)
     if (e.target && e.target.classList.contains('clickable-idea')) {
-      // Hide Portfolio
+      // Hide Portfolio view
       const pf2 = document.getElementById('portfolios-template');
       if (pf2) pf2.style.display = 'none';
       const instrument = e.target.dataset.instrument;
@@ -126,7 +126,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
     }
   });
 
-  // Fullscreen button event
+  // Fullscreen button
   const fsButton = document.getElementById('fullscreen-button');
   if (fsButton) {
     fsButton.addEventListener('click', () => {
@@ -137,7 +137,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
     });
   }
 
-  // Refresh tabs on fullscreen change
+  // Refresh block3 tabs on fullscreen change
   document.addEventListener('fullscreenchange', () => {
     if (typeof initBlock3Tabs === 'function') initBlock3Tabs();
   });
@@ -151,7 +151,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
     });
   }
 
-  // jQuery UI Autocomplete for sidebar search
+  // Sidebar autocomplete
   if (typeof $ === 'function' && $.fn.autocomplete) {
     const instrumentNames = [];
     document.querySelectorAll('#sidebar-list .instrument-item')
