@@ -11,7 +11,7 @@ import { showSpread } from "./spreadView.js";
 import { renderPortfolioPage } from "./portfolio.js";
 
 /**
- * Initialize global event handlers for the dashboard, including spreads and Portfolio.
+ * Initialize global event handlers for the dashboard, including spreads and Portfolio navigation.
  * @param {Object} groupedData - All instruments grouped by asset class.
  * @param {Object} pricesData - Price history data for non-spread instruments.
  * @param {Object} returnsData - Historical returns for correlation analysis.
@@ -26,39 +26,47 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
       e.target.textContent.trim().toUpperCase() === 'PORTFOLIO'
     ) {
       // Hide main dashboard
-      document.getElementById('main-content').style.display = 'none';
-      document.getElementById('portfolio-builder-template').style.display = 'none';
-      document.getElementById('thematic-portfolio-template').style.display = 'none';
+      const main = document.getElementById('main-content');
+      if (main) main.style.display = 'none';
+      const builder = document.getElementById('portfolio-builder-template');
+      if (builder) builder.style.display = 'none';
+      const thematic = document.getElementById('thematic-portfolio-template');
+      if (thematic) thematic.style.display = 'none';
 
-      // Show portfolio container and render
+      // Show portfolio container and render Risk Profile view
       const pst = document.getElementById('portfolios-template');
-      pst.style.display = 'block';
-      renderPortfolioPage();
+      if (pst) {
+        pst.style.display = 'block';
+        renderPortfolioPage();
+      }
       return;
     }
 
-    // 2) Instrument-item click (dashboard)
+    // 2) Instrument-item click (dashboard navigation)
     if (e.target && e.target.classList.contains('instrument-item')) {
-      // Hide portfolio
+      // Hide Portfolio if visible
       const pf = document.getElementById('portfolios-template');
       if (pf) pf.style.display = 'none';
 
-      // Show main dashboard
-      document.getElementById('main-content').style.display = 'grid';
-      document.getElementById('portfolio-builder-template').style.display = 'none';
-      document.getElementById('thematic-portfolio-template').style.display = 'none';
+      // Show main dashboard, hide other templates
+      const main = document.getElementById('main-content');
+      if (main) main.style.display = 'grid';
+      const builder = document.getElementById('portfolio-builder-template');
+      if (builder) builder.style.display = 'none';
+      const thematic = document.getElementById('thematic-portfolio-template');
+      if (thematic) thematic.style.display = 'none';
 
-      // Highlight selected
+      // Clear previous selection and highlight current
       document.querySelectorAll('#sidebar li.selected')
         .forEach(item => item.classList.remove('selected'));
       e.target.classList.add('selected');
 
       const instrumentName = e.target.textContent.trim();
 
-      // Hide dashboard blocks
+      // Hide all dashboard blocks
       document.querySelectorAll('.content-block').forEach(b => b.style.display = 'none');
 
-      // Spread handling
+      // Handle spreads
       if (groupedData.SPREADS && groupedData.SPREADS[instrumentName]) {
         const spreadBlock = document.getElementById('block5');
         if (spreadBlock) spreadBlock.style.display = 'block';
@@ -67,12 +75,12 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
       }
 
       // Non-spread: show blocks 1-4
-      ['block1','block2','block3','block4'].forEach(id => {
+      ['block1', 'block2', 'block3', 'block4'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'block';
       });
 
-      // Update content based on asset type
+      // Update content based on asset class
       if (groupedData.STOCKS && groupedData.STOCKS[instrumentName]) {
         updateChart(instrumentName, groupedData.STOCKS);
         updateSymbolOverview(instrumentName, groupedData.STOCKS);
@@ -106,6 +114,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
 
     // 3) Portfolio Ideas click (open in new tab)
     if (e.target && e.target.classList.contains('clickable-idea')) {
+      // Hide Portfolio
       const pf2 = document.getElementById('portfolios-template');
       if (pf2) pf2.style.display = 'none';
       const instrument = e.target.dataset.instrument;
@@ -117,7 +126,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
     }
   });
 
-  // Fullscreen button
+  // Fullscreen button event
   const fsButton = document.getElementById('fullscreen-button');
   if (fsButton) {
     fsButton.addEventListener('click', () => {
@@ -128,7 +137,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
     });
   }
 
-  // Refresh tabs after full screen
+  // Refresh tabs on fullscreen change
   document.addEventListener('fullscreenchange', () => {
     if (typeof initBlock3Tabs === 'function') initBlock3Tabs();
   });
@@ -142,7 +151,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
     });
   }
 
-  // Autocomplete for sidebar search
+  // jQuery UI Autocomplete for sidebar search
   if (typeof $ === 'function' && $.fn.autocomplete) {
     const instrumentNames = [];
     document.querySelectorAll('#sidebar-list .instrument-item')
