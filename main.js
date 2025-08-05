@@ -13,8 +13,7 @@ import {
   updateBlock4,
   initBlock3Tabs
 } from "./dashboard.js";
-// <-- Changed this line to a default import:
-import initPortfolioBuilder from "./portfolioBuilder.js";
+import { initPortfolioBuilder } from "./portfolioBuilder.js";
 import { initThematicPortfolio } from "./thematicPortfolio.js";
 import { initEventHandlers } from "./events.js";
 
@@ -57,7 +56,11 @@ async function initializeTrendScore() {
     // ——— New: build historicalReturns for correlation ———
     window.historicalReturns = {};
     function computeReturns(priceArray) {
-      if (!Array.isArray(priceArray) || priceArray.length < 2) return [];
+      // Ensure priceArray is an array of numbers with at least two points
+      if (!Array.isArray(priceArray) || priceArray.length < 2) {
+        return [];
+      }
+      // For i > 0: (current / previous) - 1
       return priceArray.map((price, idx, arr) =>
         idx === 0
           ? 0
@@ -90,22 +93,23 @@ async function initializeTrendScore() {
     // 4) Initialize Block 3 tabs
     initBlock3Tabs();
 
-    // 5) Global event handlers
+    // 5) Global event handlers (sidebar clicks for stocks/etfs/etc, fullscreen, etc.)
+    // --- CRITICAL FIX: Pass window.historicalReturns as the third argument ---
     initEventHandlers(
-      {
+      { // allGroupData
         STOCKS:  window.stocksFullData,
         ETFS:    window.etfFullData,
         FUTURES: window.futuresFullData,
         FX:      window.fxFullData,
-        SPREADS: window.spreadsFullData
+        SPREADS: window.spreadsFullData // Pass spreads data correctly
       },
-      {
+      { // allPricesData
         stockPrices:   window.pricesData.stockPrices,
         etfPrices:     window.pricesData.etfPrices,
         futuresPrices: window.pricesData.futuresPrices,
         fxPrices:      window.pricesData.fxPrices
       },
-      window.historicalReturns
+      window.historicalReturns // Pass the flat historicalReturns map directly
     );
 
     // 6) Initialize Portfolio Builder & Portfolio Ideas
@@ -127,16 +131,18 @@ async function initializeTrendScore() {
     // 8) Default dashboard view (first stock)
     const defaultInstrument = Object.keys(window.stocksFullData)[0] || "AMZN";
     if (window.stocksFullData[defaultInstrument]) {
+      // ensure spreads block is hidden
       const spreadBlock = document.getElementById('block5');
       if (spreadBlock) spreadBlock.style.display = 'none';
 
       updateChart(defaultInstrument, window.stocksFullData);
       updateSymbolOverview(defaultInstrument, window.stocksFullData);
       updateBlock3(defaultInstrument, window.stocksFullData);
+      // --- CRITICAL FIX: Pass window.historicalReturns here too ---
       updateBlock4(
         defaultInstrument,
         window.stocksFullData,
-        window.historicalReturns
+        window.historicalReturns // Use historicalReturns, not pricesData.stockPrices
       );
     }
   } catch (error) {
