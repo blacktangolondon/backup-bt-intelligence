@@ -30,7 +30,6 @@ function renderPortfolioPage() {
   // Create grid container
   const grid = document.createElement('div');
   grid.classList.add('portfolio-grid');
-  // enforce two columns layout
 
   // Generate card for each portfolio
   portfolios.forEach(({ title, desc }) => {
@@ -65,6 +64,7 @@ function renderPortfolioPage() {
     grid.appendChild(card);
   });
 
+  // Append grid into the page wrapper
   page.appendChild(grid);
 }
 
