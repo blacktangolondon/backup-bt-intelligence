@@ -6,11 +6,16 @@ function renderPortfolioPage() {
   const container = document.getElementById('portfolios-template') || document.getElementById('main-content');
   container.innerHTML = '';
 
+  // Create a wrapper for styling
+  const page = document.createElement('div');
+  page.classList.add('portfolio-page');
+  container.appendChild(page);
+
   // Page title
   const pageTitle = document.createElement('h2');
   pageTitle.textContent = 'Portfolio';
   pageTitle.classList.add('page-title');
-  container.appendChild(pageTitle);
+  page.appendChild(pageTitle);
 
   // Define portfolio levels with descriptions
   const portfolios = [
@@ -63,16 +68,15 @@ function renderPortfolioPage() {
 
     // Click handler
     card.addEventListener('click', () => {
-      // Update hash and show loading placeholder
       const slug = title.toLowerCase().replace(/ /g, '-');
       window.location.hash = `#portfolio/${slug}`;
-      container.innerHTML = `<h3>${title} Portfolio</h3><p>Loading...</p>`;
+      page.innerHTML = `<h3>${title} Portfolio</h3><p>Loading...</p>`;
     });
 
     grid.appendChild(card);
   });
 
-  container.appendChild(grid);
+  page.appendChild(grid);
 }
 
 export { renderPortfolioPage };
