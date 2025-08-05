@@ -19,6 +19,11 @@ import { renderPortfolioPage } from "./portfolio.js";
 export function initEventHandlers(groupedData, pricesData, returnsData) {
   // Unified click handler for sidebar navigation and content swapping
   document.addEventListener('click', (e) => {
+    // Always hide the portfolios view unless clicking the "Portfolio" menu item
+    const _pf = document.getElementById('portfolios-template');
+    if (_pf && !(e.target && e.target.tagName === 'LI' && e.target.textContent.trim().toUpperCase() === 'PORTFOLIO')) {
+      _pf.style.display = 'none';
+    }
     // 1) Portfolio sidebar click
     if (
       e.target &&
