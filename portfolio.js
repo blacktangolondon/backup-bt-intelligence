@@ -3,23 +3,41 @@
 
 function renderPortfolioPage() {
   // Clear existing content
-  const content = document.getElementById('main-content') || document.getElementById('content');
-  content.innerHTML = '';
+  const container = document.getElementById('portfolios-template') || document.getElementById('main-content');
+  container.innerHTML = '';
 
   // Page title
-  const title = document.createElement('h2');
-  title.textContent = 'Portfolio';
-  title.classList.add('page-title');
-  content.appendChild(title);
+  const pageTitle = document.createElement('h2');
+  pageTitle.textContent = 'Portfolio';
+  pageTitle.classList.add('page-title');
+  container.appendChild(pageTitle);
 
-  // Define portfolio levels
+  // Define portfolio levels with descriptions
   const portfolios = [
-    'Very Cautious',
-    'Cautious',
-    'Cautious to Balanced',
-    'Balanced',
-    'Balanced to Adventurous',
-    'Adventurous'
+    {
+      title: 'Very Cautious',
+      desc: 'Target returns just above bank deposit rates, with capital preservation.'
+    },
+    {
+      title: 'Cautious',
+      desc: 'Reluctant to take much, if any, risk; returns are expected to barely keep pace with inflation.'
+    },
+    {
+      title: 'Cautious to Balanced',
+      desc: 'Some loss is accepted, and one may wish to invest in other areas besides cash.'
+    },
+    {
+      title: 'Balanced',
+      desc: 'It is accepted that, to achieve growth, risks must be balanced.'
+    },
+    {
+      title: 'Balanced to Adventurous',
+      desc: 'Accepting significant risk to achieve higher returns.'
+    },
+    {
+      title: 'Adventurous',
+      desc: 'It is understood and accepted the implied risk necessary in aiming for higher returns.'
+    }
   ];
 
   // Create grid container
@@ -27,20 +45,34 @@ function renderPortfolioPage() {
   grid.classList.add('portfolio-grid');
 
   // Generate card for each portfolio
-  portfolios.forEach(name => {
+  portfolios.forEach(({ title, desc }) => {
     const card = document.createElement('div');
     card.classList.add('portfolio-card');
-    card.textContent = name;
+
+    // Title element
+    const cardTitle = document.createElement('h3');
+    cardTitle.textContent = title;
+    cardTitle.classList.add('portfolio-card-title');
+    card.appendChild(cardTitle);
+
+    // Description element
+    const cardDesc = document.createElement('p');
+    cardDesc.textContent = desc;
+    cardDesc.classList.add('portfolio-card-desc');
+    card.appendChild(cardDesc);
+
+    // Click handler
     card.addEventListener('click', () => {
-      // Navigate or load details for the selected portfolio
-      window.location.hash = `#portfolio/${name.toLowerCase().replace(/ /g, '-')}`;
-      // Placeholder for future content load
-      content.innerHTML = `<h3>${name} Portfolio</h3><p>Loading...</p>`;
+      // Update hash and show loading placeholder
+      const slug = title.toLowerCase().replace(/ /g, '-');
+      window.location.hash = `#portfolio/${slug}`;
+      container.innerHTML = `<h3>${title} Portfolio</h3><p>Loading...</p>`;
     });
+
     grid.appendChild(card);
   });
 
-  content.appendChild(grid);
+  container.appendChild(grid);
 }
 
 export { renderPortfolioPage };
