@@ -3,7 +3,10 @@
 
 function renderPortfolioPage() {
   // Clear existing content
-  const container = document.getElementById('portfolios-template') || document.getElementById('main-content');
+  const container = document.getElementById('portfolios-template');
+  // hide main dashboard when showing portfolio
+  const main = document.getElementById('main-content');
+  if(main) main.style.display = 'none';
   container.innerHTML = '';
 
   // Create a wrapper for styling
@@ -13,7 +16,7 @@ function renderPortfolioPage() {
 
   // Page title
   const pageTitle = document.createElement('h2');
-  pageTitle.textContent = 'Risk Profile';
+  pageTitle.textContent = 'Portfolio';
   pageTitle.classList.add('page-title');
   page.appendChild(pageTitle);
 
