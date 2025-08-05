@@ -13,7 +13,7 @@ function renderPortfolioPage() {
 
   // Page title
   const pageTitle = document.createElement('h2');
-  pageTitle.textContent = 'Portfolio';
+  pageTitle.textContent = 'Risk Profile';
   pageTitle.classList.add('page-title');
   page.appendChild(pageTitle);
 
