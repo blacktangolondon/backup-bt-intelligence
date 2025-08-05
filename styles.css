@@ -593,3 +593,28 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   scrollbar-color: #333333 #000000;
 }
 
+
+/* show/hide helper */
+.main-section.hidden { display: none !important; }
+
+/* layer-1 grid */
+.risk-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* each card */
+.risk-profile-card {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: box-shadow .2s;
+}
+.risk-profile-card:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
