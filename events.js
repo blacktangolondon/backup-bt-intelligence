@@ -16,12 +16,13 @@ import { showSpread } from "./spreadView.js";
  * @param {Object} returnsData - Historical returns for correlation analysis.
  */
 export function initEventHandlers(groupedData, pricesData, returnsData) {
-  // Whenever anything is clicked, first hide the Portfolio page
-  const pf = document.getElementById('portfolios-template');
-  if (pf) pf.style.display = 'none';
-
-  // Sidebar instrument click events.
+  // Sidebar and general click handler
   document.addEventListener('click', (e) => {
+    // Always hide the Portfolio page on any click
+    const pf = document.getElementById('portfolios-template');
+    if (pf) pf.style.display = 'none';
+
+    // Handle instrument-item clicks (dashboard navigation)
     if (e.target && e.target.classList.contains('instrument-item')) {
       // Show main dashboard, hide other templates
       document.getElementById('main-content').style.display = 'grid';
@@ -92,10 +93,8 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
         updateBlock3(instrumentName, groupedData.STOCKS);
       }
     }
-  });
 
-  // Portfolio Ideas → open instrument in new tab
-  document.addEventListener('click', (e) => {
+    // Handle Portfolio Ideas clicks
     if (e.target && e.target.classList.contains('clickable-idea')) {
       const instrument = e.target.dataset.instrument;
       const base = window.location.origin + window.location.pathname;
@@ -155,3 +154,4 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
     });
   }
 }
+
