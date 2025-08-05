@@ -19,33 +19,6 @@ import { renderPortfolioPage } from "./portfolio.js";
 export function initEventHandlers(groupedData, pricesData, returnsData) {
   // Unified click handler for sidebar navigation and content swapping
   document.addEventListener('click', (e) => {
-    // Always hide the portfolios view unless clicking the "Portfolio" menu item
-    const _pf = document.getElementById('portfolios-template');
-    if (_pf && !(e.target && e.target.tagName === 'LI' && e.target.textContent.trim().toUpperCase() === 'PORTFOLIO')) {
-      _pf.style.display = 'none';
-    }
-    // 1) Portfolio sidebar click
-    if (
-      e.target &&
-      e.target.tagName === 'LI' &&
-      e.target.textContent.trim().toUpperCase() === 'PORTFOLIO'
-    ) {
-      // Hide main dashboard
-      const main = document.getElementById('main-content');
-      if (main) main.style.display = 'none';
-      // Hide other templates
-      const builder = document.getElementById('portfolio-builder-template');
-      if (builder) builder.style.display = 'none';
-      const thematic = document.getElementById('thematic-portfolio-template');
-      if (thematic) thematic.style.display = 'none';
-
-      // Show portfolio container and render Risk Profile view
-      const pst = document.getElementById('portfolios-template');
-      if (pst) {
-        pst.style.display = 'block';
-        renderPortfolioPage();
-      }
-      return;
     }
 
     // 1.5) Adventurous page Access buttons
