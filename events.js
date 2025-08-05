@@ -11,14 +11,18 @@ import { showSpread } from "./spreadView.js";
 
 /**
  * Initialize global event handlers for the dashboard, including spreads.
- * @param {Object} groupedData - All instruments grouped by asset class (stocks, etfs, futures, fx, spreads, crypto).
- * @param {Object} pricesData - Price history data for non-spread instruments (not used for spreads).
- * @param {Object} returnsData - Historical returns map for correlation analysis.
+ * @param {Object} groupedData - All instruments grouped by asset class.
+ * @param {Object} pricesData - Price history data for non‐spread instruments.
+ * @param {Object} returnsData - Historical returns for correlation analysis.
  */
 export function initEventHandlers(groupedData, pricesData, returnsData) {
   // Sidebar instrument click events.
   document.addEventListener('click', (e) => {
     if (e.target && e.target.classList.contains('instrument-item')) {
+      // **Hide Portfolio screen when selecting an instrument**
+      const pf = document.getElementById('portfolios-template');
+      if (pf) pf.style.display = 'none';
+
       // Show main dashboard, hide other templates
       document.getElementById('main-content').style.display = 'grid';
       document.getElementById('portfolio-builder-template').style.display = 'none';
