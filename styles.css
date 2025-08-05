@@ -609,16 +609,19 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   color: #FFA500;
 }
 
-/* Centre-fixed two-column grid */
+/* ─── Centre the Portfolio grid by using inline-grid ─── */
+.portfolio-page {
+  /* keep text-align:center to centre inline-level children */
+  text-align: center;
+}
+
 .portfolio-page .portfolio-grid {
-  display: grid;
-  /* exactly two columns at up to 320px each */
+  display: inline-grid;  /* shrink to content, then text-align will centre it */
   grid-template-columns: repeat(2, minmax(280px, 320px));
   gap: 30px;
-  /* centre the whole grid container */
-  justify-content: center;
-  margin: 0 auto;
+  /* remove any explicit width or margin rules you added before */
 }
+
 
 
 /* Card styling */
