@@ -1,6 +1,8 @@
 // sidebar.js
 // Group instruments into EQUITIES, ETF, FUTURES, FX with expandable submenus
-// + NON-DIRECTIONAL (Relative Value / Equity Neutral / Fixed Income / Calendar) from spreads.json
+// + NON-DIRECTIONAL spreads, plus new PORTFOLIO section
+
+import { renderPortfolioPage } from './portfolio.js';
 
 export async function generateSidebarContent() {
   const sidebarList = document.getElementById('sidebar-list');
@@ -23,8 +25,6 @@ export async function generateSidebarContent() {
     "ZNU25/ZNZ25","ZSN25/ZSQ25","ZTU25/ZTZ25","ZWN25/ZWU25"
   ]);
 
-  // No aliases – use the real keys so clicks match exactly
-  const DISPLAY_ALIAS = {};
   const prettyName = name => name;
   const prettyPair = pair => pair;
 
@@ -48,7 +48,6 @@ export async function generateSidebarContent() {
     const resp = await fetch('./spreads.json');
     const spreadsObj = await resp.json();
 
-    // If _groups exists, build buckets, else fallback to flat list
     if (spreadsObj && spreadsObj._groups) {
       const prettyMap = {
         relative_value:   'RELATIVE VALUE ARBITRAGE',
@@ -56,32 +55,23 @@ export async function generateSidebarContent() {
         fixed_income:     'FIXED INCOME ARBITRAGE',
         calendar:         'CALENDAR SPREAD'
       };
-
-      // init empty arrays
       nonDirectionalGroups = {};
       Object.values(prettyMap).forEach(k => nonDirectionalGroups[k] = []);
-
       for (const [pairName, grpKey] of Object.entries(spreadsObj._groups)) {
-        if (HIDDEN_PAIRS.has(pairName)) continue; // skip hidden pairs
-
+        if (HIDDEN_PAIRS.has(pairName)) continue;
         const prettyGroup = prettyMap[grpKey] || grpKey.toUpperCase();
-        if (!nonDirectionalGroups[prettyGroup]) nonDirectionalGroups[prettyGroup] = [];
         nonDirectionalGroups[prettyGroup].push(pairName);
       }
-
-      // sort each bucket
       for (const k in nonDirectionalGroups) {
         nonDirectionalGroups[k].sort();
       }
     } else {
-      // fallback: one flat list (filter hidden ones)
       const spreadsList = Object.keys(spreadsObj || {})
         .filter(k => k !== '_groups' && !HIDDEN_PAIRS.has(k));
       nonDirectionalGroups = { 'RELATIVE VALUE ARBITRAGE': spreadsList.sort() };
     }
   } catch (err) {
     console.error('Failed to load spreads.json', err);
-    // continue without NON-DIRECTIONAL section
   }
 
   // ───────────────────────────────────────
@@ -104,7 +94,6 @@ export async function generateSidebarContent() {
     FX:       { 'MAJORS': [], 'MINORS': [] }
   };
 
-  // Helper: classify a future code if no JSON category
   function classifyFutureByCode(code) {
     const sym = code.split(/=|:/)[0].toUpperCase();
     if (['ES','NQ','YM','RTY','NKY','HSI','ASX','SX5E','FTMIB','CAC'].includes(sym)) {
@@ -175,8 +164,8 @@ export async function generateSidebarContent() {
       content.sort().forEach(item => {
         const instLi = document.createElement('li');
         instLi.classList.add('instrument-item');
-        instLi.dataset.key = item;                     // real key
-        instLi.textContent = prettyName(item);         // what user sees
+        instLi.dataset.key = item;
+        instLi.textContent = prettyName(item);
         subUl.appendChild(instLi);
       });
     } else {
@@ -194,8 +183,8 @@ export async function generateSidebarContent() {
         arr.sort().forEach(it => {
           const instLi = document.createElement('li');
           instLi.classList.add('instrument-item');
-          instLi.dataset.key = it;                     // real key
-          instLi.textContent = prettyName(it);         // display alias
+          instLi.dataset.key = it;
+          instLi.textContent = prettyName(it);
           instUl.appendChild(instLi);
         });
         subLi.appendChild(instUl);
@@ -228,12 +217,6 @@ export async function generateSidebarContent() {
   // Render NON-DIRECTIONAL section (if available)
   // ───────────────────────────────────────
   if (nonDirectionalGroups) {
-    // convert pair names to pretty display but keep real in data attribute
-    const prettyND = {};
-    for (const [bucket, pairs] of Object.entries(nonDirectionalGroups)) {
-      prettyND[bucket] = pairs.map(p => p); // keep original list
-    }
-
     const liND = document.createElement('li');
     liND.classList.add('expandable');
     const toggleND = document.createElement('div');
@@ -244,7 +227,7 @@ export async function generateSidebarContent() {
     const subUlND = document.createElement('ul');
     subUlND.classList.add('sub-list');
 
-    for (const [catName, arr] of Object.entries(prettyND)) {
+    for (const [catName, arr] of Object.entries(nonDirectionalGroups)) {
       if (!arr.length) continue;
       const subLi = document.createElement('li');
       subLi.classList.add('expandable');
@@ -256,11 +239,11 @@ export async function generateSidebarContent() {
       const instUl = document.createElement('ul');
       instUl.classList.add('sub-list');
       arr.sort().forEach(pair => {
-        if (HIDDEN_PAIRS.has(pair)) return; // double safety
+        if (HIDDEN_PAIRS.has(pair)) return;
         const instLi = document.createElement('li');
         instLi.classList.add('instrument-item');
-        instLi.dataset.pair = pair;                      // real pair key
-        instLi.textContent = prettyPair(pair);           // displayed
+        instLi.dataset.pair = pair;
+        instLi.textContent = prettyPair(pair);
         instUl.appendChild(instLi);
       });
       subLi.appendChild(instUl);
@@ -279,6 +262,22 @@ export async function generateSidebarContent() {
     });
     sidebarList.appendChild(liND);
   }
+
+  // ───────────────────────────────────────
+  // Add Portfolio link
+  // ───────────────────────────────────────
+  const portfolioLi = document.createElement('li');
+  portfolioLi.textContent = 'PORTFOLIO';
+  portfolioLi.classList.add('sidebar-item');
+  portfolioLi.addEventListener('click', () => {
+    // Hide all content blocks and other main-sections
+    document.querySelectorAll('.content-block, .main-section').forEach(el => el.style.display = 'none');
+    // Show portfolio container and render
+    const pst = document.getElementById('portfolios-template');
+    pst.style.display = 'block';
+    renderPortfolioPage();
+  });
+  sidebarList.appendChild(portfolioLi);
 
   // ───────────────────────────────────────
   // Add Portfolio Builder and Portfolio Ideas at bottom
