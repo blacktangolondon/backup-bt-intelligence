@@ -63,10 +63,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
         window.location.href = link;
       }
       return;
-    }
-}
-
-    // 2) Instrument-item click (dashboard navigation)
+    }    // 2) Instrument-item click (dashboard navigation)
     if (e.target && e.target.classList.contains('instrument-item')) {
       // Hide Portfolio view
       const pf = document.getElementById('portfolios-template');
