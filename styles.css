@@ -608,14 +608,16 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   color: #FFA500;
 }
 
-/* Centre-fixed two-column grid */
 .portfolio-page .portfolio-grid {
   display: grid;
+  /* force exactly two 320px columns */
   grid-template-columns: repeat(2, 320px);
   gap: 30px;
-  max-width: calc(2 * 320px + 30px); /* two 320px columns + one 30px gap */
-  margin: 0 auto;                    /* centre the grid container */
+  /* this sets the grid block to exactly 320*2 + 30 = 670px wide */
+  max-width: calc(320px * 2 + 30px);
+  margin: 0 auto; /* center that 670px block */
 }
+
 
 /* Card styling */
 .portfolio-card {
