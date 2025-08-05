@@ -1,295 +1,417 @@
-// thematicPortfolio.js
-// -----------------------------------------------------------------------------
-// Pagina “Portfolio Ideas” – STOCKS, ETFS, FUTURES, FX
-//
-// STOCKS (ordine):
-//   1) Value Investing
-//   2) Dividend Defensive   (score === 100)
-//   3) Momentum             (score === 100)
-//   4) Low Volatility       (score === 100)
-//   5) Low Correlation      (score === 100)
-// -----------------------------------------------------------------------------
+import {
+  leftLabels,
+  rightLabels,
+  etfLeftLabels,
+  etfRightLabels,
+  futuresLeftLabels,
+  futuresRightLabels,
+  fxLeftLabels,
+  fxRightLabels,
+  parseGap
+} from "./dashboard.js";
 
-import { parseGap } from "./dashboard.js";
-import { loadCSVData } from "./csvLoader.js";  // Added to load weekly prices for Sector Rotation
-
-/* -------------------------------------------------------------------------- */
-/* 1. Header ⇄ key mapping                                                    */
-/* -------------------------------------------------------------------------- */
-const headerKeyMap = {
-  "Instrument":     "instrument",
-  "Score":          "score",
-  "Trend":          "trend",
-  "Approach":       "approach",
-  "Gap to Peak":    "gap",
-  "Key Area":       "keyArea",
-  "Correlation":    "corr",
-  "Volatility":     "vol",
-  "Bullish Alpha":  "bullish",
-  "Bearish Alpha":  "bearish",
-  "Alpha Strength": "alpha",
-  "P/E":            "pe",
-  "P/B":            "pb",
-  "Div Yield":      "divYield",
-  "ROE":            "returnOnEquity",
-  "D/E":            "debtToEquity",
-  "Payout Ratio":   "payout_ratio",
-  "β":              "beta",
-  "3-Month Return": "return3m"  // Mapped for Sector Rotation
+// ───────────────────────────────────────────────────────────
+// FILTER MAPPINGS
+// ───────────────────────────────────────────────────────────
+const channelFilters = {
+  "Price > Upper Key Area 1": { custom: true, type: "upper1" },
+  "Price > Upper Key Area 2": { custom: true, type: "upper2" },
+  "Price < Lower Key Area 1": { custom: true, type: "lower1" },
+  "Price < Lower Key Area 2": { custom: true, type: "lower2" }
 };
 
-/* -------------------------------------------------------------------------- */
-/* 2. Entry point                                                             */
-/* -------------------------------------------------------------------------- */
-export function initThematicPortfolio() {
-  const sidebar = document.getElementById("sidebar-list");
-  if (!sidebar) return;
+const filterMappingStocks = {
+  "Trend Score":             { source: "left",  index: 0 },
+  "P/E Ratio":               { source: "right", index: 5 },
+  "P/B Ratio":               { source: "right", index: 6 },
+  "EPS":                     { source: "right", index: 7 },
+  "Dividend Yield":          { source: "right", index: 8 },
+  "Return on Equity":        { field: "return_on_equity" },
+  "Debt to Equity":          { field: "debt_to_equity" },
+  "Revenue Growth":          { field: "revenue_growth" },
+  "Payout Ratio":            { field: "payout_ratio" },
+  "Beta":                    { field: "beta" },
+  "S&P500 Correlation":      { source: "right", index: 0 },
+  "S&P500 Volatility Ratio": { source: "right", index: 1 },
+  "Alpha Strength":          { source: "right", index: 4 },
+  "Bullish Alpha":           { source: "right", index: 2 },
+  "Bearish Alpha":           { source: "right", index: 3 },
+  "Gap to Peak":             { source: "left",  index: 3 },
+  ...channelFilters
+};
 
-  sidebar.addEventListener("click", (e) => {
-    const li = e.target.closest("li");
+const filterMappingETFs = {
+  "Trend Score":             filterMappingStocks["Trend Score"],
+  "Alpha Strength":          filterMappingStocks["Alpha Strength"],
+  "Bullish Alpha":           filterMappingStocks["Bullish Alpha"],
+  "Bearish Alpha":           filterMappingStocks["Bearish Alpha"],
+  "S&P500 Correlation":      filterMappingStocks["S&P500 Correlation"],
+  "S&P500 Volatility Ratio": filterMappingStocks["S&P500 Volatility Ratio"],
+  "Gap to Peak":             filterMappingStocks["Gap to Peak"],
+  ...channelFilters
+};
+
+const filterMappingFutures = { ...filterMappingETFs };
+const filterMappingFX      = { ...filterMappingETFs };
+
+let portfolioFilters = [];
+
+// ───────────────────────────────────────────────────────────
+// HELPERS
+// ───────────────────────────────────────────────────────────
+function getChannelRow(instrument, info, channels) {
+  if (!info?.tvSymbol) return null;
+  // e.g. "OMXCOP:MAERSK-B" -> "MAERSK-B"
+  const sym = info.tvSymbol.split(":").pop();
+  if (channels[sym]) return channels[sym];
+
+  // try cleaned version (remove dots/spaces)
+  const cleaned = sym.replace(/[.\s]/g, "");
+  return channels[cleaned] || null;
+}
+
+// ───────────────────────────────────────────────────────────
+// INIT
+// ───────────────────────────────────────────────────────────
+export function initPortfolioBuilder() {
+  const sidebarList = document.getElementById('sidebar-list');
+  if (!sidebarList) return;
+  sidebarList.addEventListener('click', e => {
+    const li = e.target.closest('li');
     if (!li) return;
-    if (li.textContent.trim().toUpperCase() === "PORTFOLIO IDEAS") {
-      document.getElementById("main-content").style.display = "none";
-      document.getElementById("portfolio-builder-template").style.display = "none";
-      const tpl = document.getElementById("thematic-portfolio-template");
-      tpl.style.display = "block";
-      loadThematicPortfolio();  // async
+    if (li.textContent.trim().toUpperCase() === 'PORTFOLIO BUILDER') {
+      document.getElementById('main-content').style.display = 'none';
+      document.getElementById('thematic-portfolio-template').style.display = 'none';
+      const tpl = document.getElementById('portfolio-builder-template');
+      tpl.style.display = 'block';
+      loadPortfolioBuilder();
     }
   });
 }
 
-/* -------------------------------------------------------------------------- */
-/* 3. Build page                                                              */
-/* -------------------------------------------------------------------------- */
-async function loadThematicPortfolio() {
-  const c = document.getElementById("thematic-portfolio-template");
+function loadPortfolioBuilder() {
+  portfolioFilters = [];
+  const c = document.getElementById('portfolio-builder-template');
+  c.innerHTML = `
+    <div id="portfolio-builder-page">
+      <div id="portfolio-builder-container">
+        <div id="portfolio_builder1">
+          <div id="portfolio-builder-steps">
+            <p class="portfolio-builder-instruction">
+              <button class="add-filter-btn">+</button> Add filters
+            </p>
+          </div>
+          <div id="portfolio-builder-actions">
+            <button id="generate-portfolio-btn">GENERATE PORTFOLIO</button>
+          </div>
+        </div>
+        <div id="portfolio_builder2"><div id="portfolio-results"></div></div>
+      </div>
+    </div>
+  `;
+  c.addEventListener('click', e => {
+    if (e.target.matches('.add-filter-btn')) openFilterSelector();
+    if (e.target.matches('#generate-portfolio-btn')) generatePortfolioNew();
+    if (e.target.matches('.remove-filter-btn')) {
+      portfolioFilters.splice(+e.target.dataset.index, 1);
+      updatePortfolioSteps();
+    }
+  });
+}
 
-  // Load weekly ETF prices for Sector Rotation
-  const { etfPrices } = await loadCSVData();
+// ───────────────────────────────────────────────────────────
+// FILTER UI
+// ───────────────────────────────────────────────────────────
+function openFilterSelector() {
+  const available = [];
+  const assetType = portfolioFilters[0]?.value;
+  let metrics;
+  if (!assetType) {
+    metrics = ['Asset Class'];
+  } else if (assetType === 'ETFS') {
+    metrics = Object.keys(filterMappingETFs);
+  } else if (assetType === 'FUTURES') {
+    metrics = Object.keys(filterMappingFutures);
+  } else if (assetType === 'FX') {
+    metrics = Object.keys(filterMappingFX);
+  } else {
+    metrics = Object.keys(filterMappingStocks);
+  }
+  metrics.forEach(m => {
+    if (m === 'Asset Class' || !portfolioFilters.some(f => f.filterName === m)) {
+      available.push(m);
+    }
+  });
 
-  /* ------------------------------------------------------------------ */
-  /* 0. Merge fundamentals (once)                                       */
-  /* ------------------------------------------------------------------ */
-  if (!window.__fundamentalsMerged__) {
-    try {
-      const res = await fetch("./instruments.json");
-      const instruments = await res.json();
-      const byTicker = Object.fromEntries(instruments.map(o => [o.ticker.trim(), o]));
-      for (const [tic, rec] of Object.entries(window.stocksFullData)) {
-        const f = byTicker[tic.trim()];
-        if (!f) continue;
-        Object.assign(rec, {
-          pe_ratio:         f.pe_ratio,
-          pb_ratio:         f.pb_ratio,
-          div_yield:        f.div_yield,
-          return_on_equity: f.return_on_equity,
-          debt_to_equity:   f.debt_to_equity,
-          payout_ratio:     f.payout_ratio,
-          beta:             f.beta
-        });
-      }
-      window.__fundamentalsMerged__ = true;
-    } catch (err) {
-      console.error("Merge fundamentals failed:", err);
+  const div = document.createElement('div');
+  div.className = 'filter-selector';
+  div.innerHTML = `
+    <select class="filter-name">
+      ${available.map(m => `<option>${m}</option>`).join('')}
+    </select>
+    <span class="input-container"></span>
+    <button class="apply-filter-btn">Add</button>
+  `;
+  document.getElementById('portfolio_builder1').appendChild(div);
+
+  const nameSel = div.querySelector('.filter-name');
+  const inpDiv  = div.querySelector('.input-container');
+
+  function renderInputs() {
+    inpDiv.innerHTML = '';
+    const selected = nameSel.value;
+
+    // Channel filters are boolean → no operator/value inputs
+    if (channelFilters[selected]?.custom) {
+      const span = document.createElement('span');
+      span.textContent = '(boolean)';
+      inpDiv.appendChild(span);
+      return;
+    }
+
+    if (selected === 'Asset Class') {
+      const sel = document.createElement('select');
+      ['STOCKS','ETFS','FUTURES','FX'].forEach(v => {
+        const o = document.createElement('option');
+        o.value = v; o.textContent = v;
+        sel.appendChild(o);
+      });
+      inpDiv.appendChild(sel);
+    } else {
+      const op = document.createElement('select');
+      ['>=','<='].forEach(sym => {
+        const x = document.createElement('option');
+        x.value = sym; x.textContent = sym;
+        op.appendChild(x);
+      });
+      const num = document.createElement('input');
+      num.type = 'number'; num.placeholder = 'Value';
+      inpDiv.appendChild(op);
+      inpDiv.appendChild(num);
     }
   }
 
-  /* ------------------------------------------------------------------ */
-  /* 1. STOCKS dataset                                                  */
-  /* ------------------------------------------------------------------ */
-  const stocksData = Object.entries(window.stocksFullData).map(([inst, info]) => ({
-    instrument:       inst,
-    score:            parseFloat(info.summaryLeft[0]),
-    trend:            info.summaryLeft[1],
-    approach:         info.summaryLeft[2],
-    gap:              parseGap(info.summaryLeft[3]),
-    keyArea:          info.summaryLeft[4],
-    corr:             parseFloat(info.summaryRight[0]),
-    vol:              parseFloat(info.summaryRight[1]),
-    bullish:          parseFloat(info.summaryRight[2]),
-    bearish:          parseFloat(info.summaryRight[3]),
-    alpha:            parseFloat(info.summaryRight[4]),
-    pe:               info.pe_ratio         != null ? parseFloat(info.pe_ratio)        : null,
-    pb:               info.pb_ratio         != null ? parseFloat(info.pb_ratio)        : null,
-    divYield:         info.div_yield        != null ? parseFloat(info.div_yield)       : null,
-    returnOnEquity:   info.return_on_equity != null ? parseFloat(info.return_on_equity): null,
-    debtToEquity:     info.debt_to_equity   != null ? parseFloat(info.debt_to_equity)  : null,
-    payout_ratio:     info.payout_ratio     != null ? parseFloat(info.payout_ratio)    : null,
-    beta:             info.beta             != null ? parseFloat(info.beta)            : null
-  }));
+  nameSel.addEventListener('change', renderInputs);
+  renderInputs();
 
-  /* ------------------------------------------------------------------ */
-  /* 2. STOCKS thematic filters                                         */
-  /* ------------------------------------------------------------------ */
-  const valueStocks = stocksData.filter(d =>
-    d.pe !== null && d.pe < 15 &&
-    d.pb !== null && d.pb < 2 &&
-    d.divYield >= 2 &&
-    d.debtToEquity < 50 &&
-    d.returnOnEquity > 0.15
-  );
-
-  const dividendDefensiveStocks = stocksData.filter(d =>
-    d.score === 100 && d.divYield >= 3 && d.payout_ratio < 0.6 && d.beta < 1
-  );
-
-  const momentumStocks = stocksData.filter(d =>
-    d.score === 100 && d.bullish > 1 && d.bearish < 1 && d.alpha > 1
-  );
-
-  const lowVolStocks = stocksData.filter(d => d.vol < 1 && d.score === 100);
-  const lowCorrStocks = stocksData.filter(d => d.corr < 0 && d.score === 100);
-
-  /* ------------------------------------------------------------------ */
-  /* 3. ETF / Futures / FX (updated for FX mapping)                     */
-  /* ------------------------------------------------------------------ */
-  const etfData = Object.entries(window.etfFullData).map(([inst, info]) => ({
-    instrument: inst,
-    score:      parseFloat(info.summaryLeft[0]),
-    trend:      info.summaryLeft[1],
-    approach:   info.summaryLeft[2],
-    gap:        parseGap(info.summaryLeft[3]),
-    corr:       parseFloat(info.summaryRight[0]),
-    vol:        parseFloat(info.summaryRight[1]),
-    bullish:    parseFloat(info.summaryRight[2]),
-    bearish:    parseFloat(info.summaryRight[3]),
-    alpha:      parseFloat(info.summaryRight[4]),
-    return3m:   null
-  }));
-
-  const etfTrend     = etfData.filter(d => d.score === 100);
-  const etfLowCorr   = etfTrend.filter(d => d.corr < 0.1);
-  const etfLowVol    = etfTrend.filter(d => d.vol < 1);
-  const etfTrendPlus = etfTrend.filter(d => d.bullish > 1 && d.bearish < 1 && d.alpha > 1);
-  const etfLowDrawdown = etfData.filter(d => d.gap < 5 && d.vol < 1);
-
-  // Sector Rotation: compute 3-month return (13 weeks back)
-  etfData.forEach(d => {
-    const hist = etfPrices[d.instrument] || [];
-    const n = hist.length;
-    if (n >= 14) {
-      const latest = hist[n - 1].close;
-      const past   = hist[n - 14].close;
-      d.return3m = (latest / past) - 1;
+  div.querySelector('.apply-filter-btn').addEventListener('click', () => {
+    const filterName = nameSel.value;
+    const f = { filterName };
+    if (filterName === 'Asset Class') {
+      f.value = inpDiv.querySelector('select').value;
+    } else if (channelFilters[filterName]?.custom) {
+      // boolean filter, nothing else to add
+    } else {
+      f.operator = inpDiv.querySelector('select').value;
+      f.value    = inpDiv.querySelector('input').value;
     }
-  });
-  const etfSectorRotation = etfData
-    .filter(d => d.return3m != null)
-    .sort((a, b) => b.return3m - a.return3m)
-    .slice(0, 3);
-
-  const futData = Object.entries(window.futuresFullData).map(([inst, info]) => ({
-    instrument: inst,
-    score:      parseFloat(info.summaryLeft[0]),
-    trend:      info.summaryLeft[1],
-    approach:   info.summaryLeft[2],
-    gap:        parseGap(info.summaryLeft[3]),
-    corr:       parseFloat(info.summaryRight[0]),
-    vol:        parseFloat(info.summaryRight[1])
-  }));
-  const futTrend   = futData.filter(d => Math.abs(d.score) === 100);
-  const futLowCorr = futTrend.filter(d => d.corr < 0.1);
-  const futLowVol  = futTrend.filter(d => d.vol < 1);
-
-  const fxData = Object.entries(window.fxFullData).map(([inst, info]) => ({
-    instrument: inst,
-    score:      parseFloat(info.summaryLeft[0]),
-    trend:      info.summaryLeft[1],
-    approach:   info.summaryLeft[2],
-    gap:        parseGap(info.summaryLeft[3])
-  }));
-  const fxTrend = fxData.filter(d => d.score >= 75 || d.score <= -75);
-
-  /* ------------------------------------------------------------------ */
-  /* 4. Render HTML                                                     */
-  /* ------------------------------------------------------------------ */
-  c.innerHTML = `
-    <div class="thematic-portfolio-nav">
-      <button class="portfolio-tab active" data-target="stocks">STOCKS</button>
-      <button class="portfolio-tab" data-target="etfs">ETFS</button>
-      <button class="portfolio-tab" data-target="futures">FUTURES</button>
-      <button class="portfolio-tab" data-target="fx">FX</button>
-    </div>
-
-    <div class="thematic-portfolio-contents">
-      <!-- STOCKS -->
-      <div class="portfolio-tab-content active" data-category="stocks">
-        ${renderSection("Value Investing",    ["Instrument","P/E","P/B","Div Yield","ROE","D/E"],   valueStocks)}
-        ${renderSection("Dividend Defensive", ["Instrument","Div Yield","Payout Ratio","β","Score","Gap to Peak","Key Area"], dividendDefensiveStocks)}
-        ${renderSection("Momentum",           ["Instrument","Score","Bullish Alpha","Bearish Alpha","Alpha Strength","Gap to Peak","Key Area"], momentumStocks)}
-        ${renderSection("Low Volatility",     ["Instrument","Volatility","Score","Gap to Peak","Key Area"], lowVolStocks)}
-        ${renderSection("Low Correlation",    ["Instrument","Correlation","Score","Gap to Peak","Key Area"], lowCorrStocks)}
-      </div>
-
-      <!-- ETFS -->
-      <div class="portfolio-tab-content" data-category="etfs">
-        ${renderSection("Trend Following",               ["Instrument","Score","Trend","Approach","Gap to Peak"], etfTrend)}
-        ${renderSection("Low Correlation",               ["Instrument","Score","Correlation","Trend","Approach","Gap to Peak"], etfLowCorr)}
-        ${renderSection("Low Volatility",                ["Instrument","Score","Volatility","Trend","Approach","Gap to Peak"], etfLowVol)}
-        ${renderSection("Trend Plus",                    ["Instrument","Score","Bullish Alpha","Bearish Alpha","Alpha Strength"], etfTrendPlus)}
-        ${renderSection("Low Drawdown",                  ["Instrument","Gap to Peak","Volatility"], etfLowDrawdown)}
-        ${renderSection("Sector Rotation (Top 3 3-Month Return)", ["Instrument","3-Month Return"], etfSectorRotation)}
-      </div>
-
-      <!-- FUTURES -->
-      <div class="portfolio-tab-content" data-category="futures">
-        ${renderSection("Trend Following",      ["Instrument","Score","Trend","Approach"], futTrend)}
-        ${renderSection("Low Correlation",      ["Instrument","Score","Correlation","Trend","Approach"], futLowCorr)}
-        ${renderSection("Low Volatility",       ["Instrument","Score","Volatility","Trend","Approach"], futLowVol)}
-      </div>
-
-      <!-- FX -->
-      <div class="portfolio-tab-content" data-category="fx">
-        ${renderSection("Trend Following",      ["Instrument","Score","Trend","Approach"], fxTrend)}
-      </div>
-    </div>
-  `;
-
-  /* ------------------------------------------------------------------ */
-  /* 5. Tab switching + fallback                                        */
-  /* ------------------------------------------------------------------ */
-  c.querySelectorAll(".portfolio-tab").forEach(btn => {
-    btn.addEventListener("click", () => {
-      c.querySelectorAll(".portfolio-tab").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      c.querySelectorAll(".portfolio-tab-content").forEach(sec => sec.classList.remove("active"));
-      c.querySelector(`.portfolio-tab-content[data-category="${btn.dataset.target}"]`).classList.add("active");
-    });
-  });
-  c.querySelectorAll(".portfolio-tab-content").forEach(content => {
-    if (!content.querySelector(".thematic-portfolio-section")) {
-      content.innerHTML = `<div class="no-ideas"><p>No instruments match these criteria.</p></div>`;
-    }
+    portfolioFilters.push(f);
+    updatePortfolioSteps();
+    div.remove();
   });
 }
 
-/* -------------------------------------------------------------------------- */
-/* 4. Helper – renderSection                                                  */
-/* -------------------------------------------------------------------------- */
-function renderSection(title, headers, rows) {
-  if (!rows || rows.length === 0) return "";
+function updatePortfolioSteps() {
+  const steps = document.getElementById('portfolio-builder-steps');
+  steps.innerHTML = '';
+  portfolioFilters.forEach((f, i) => {
+    const d = document.createElement('div');
+    d.className = 'filter-step';
+    const text =
+      f.filterName === 'Asset Class'
+        ? `${f.filterName}: ${f.value}`
+        : channelFilters[f.filterName]?.custom
+          ? f.filterName
+          : `${f.filterName} ${f.operator} ${f.value}`;
+    d.innerHTML = `<span>${text}</span> <button class="remove-filter-btn" data-index="${i}">✕</button>`;
+    steps.appendChild(d);
+  });
+  const p = document.createElement('p');
+  p.className = 'portfolio-builder-instruction';
+  p.innerHTML = `<button class="add-filter-btn">+</button> Add another filter`;
+  steps.appendChild(p);
+}
 
-  const baseURL = window.location.origin + window.location.pathname;
-  const fullHeaders = [...headers, "FULL ANALYSIS"];
+// ───────────────────────────────────────────────────────────
+// GENERATE PORTFOLIO
+// ───────────────────────────────────────────────────────────
+function generatePortfolioNew() {
+  if (portfolioFilters.length === 0 || portfolioFilters[0].filterName !== 'Asset Class') {
+    alert('Please add the Asset Class filter as your first filter.');
+    return;
+  }
+  const asset = portfolioFilters[0].value;
+  let dataObj, mapping;
+  if (asset === 'STOCKS') {
+    dataObj = window.stocksFullData;
+    mapping = filterMappingStocks;
+  } else if (asset === 'ETFS') {
+    dataObj = window.etfFullData;
+    mapping = filterMappingETFs;
+  } else if (asset === 'FUTURES') {
+    dataObj = window.futuresFullData;
+    mapping = filterMappingFutures;
+  } else if (asset === 'FX') {
+    dataObj = window.fxFullData;
+    mapping = filterMappingFX;
+  } else {
+    alert('Invalid asset class.');
+    return;
+  }
 
-  return `
-    <div class="thematic-portfolio-section">
-      <h2>${title}</h2>
-      <div class="thematic-portfolio-table-container">
-        <table class="thematic-portfolio-table">
-          <thead>
-            <tr>${fullHeaders.map(h => `<th>${h}</th>`).join("")}</tr>
-          </thead>
-          <tbody>
-            ${rows.map(r => `
-              <tr>
-                ${headers.map(h => `<td>${r[headerKeyMap[h]] ?? "-"}</td>`).join("")}
-                <td><a href="${baseURL}?instrument=${encodeURIComponent(r.instrument)}" target="_blank">🔗</a></td>
-              </tr>
-            `).join("")}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `;
+  const channels = window.channelsData || {};
+  const results = [];
+
+  for (const instrument in dataObj) {
+    const info = dataObj[instrument];
+    let include = true;
+
+    for (let i = 1; i < portfolioFilters.length; i++) {
+      const filt = portfolioFilters[i];
+      const map  = mapping[filt.filterName];
+      if (!map) continue;
+
+      // CHANNEL FILTERS (boolean)
+      if (map.custom) {
+        const ch = getChannelRow(instrument, info, channels);
+        if (!ch) { include = false; break; }
+
+        const lastPrice = ch.close;
+        const channelVal =
+          map.type === 'upper1' ? ch.U1 :
+          map.type === 'upper2' ? ch.U2 :
+          map.type === 'lower1' ? ch.L1 : ch.L2;
+
+        if (
+          (map.type.startsWith('upper') && !(lastPrice > channelVal)) ||
+          (map.type.startsWith('lower') && !(lastPrice < channelVal))
+        ) {
+          include = false;
+        }
+        continue;
+      }
+
+      // STANDARD NUMERIC FILTERS
+      let num;
+      if (map.source) {
+        const raw = map.source === 'left'
+          ? info.summaryLeft[map.index]
+          : info.summaryRight[map.index];
+        num = parseFloat(typeof raw === 'string' ? raw.replace('%','') : raw);
+      } else {
+        num = parseFloat(info[map.field]);
+      }
+      if (
+        isNaN(num) ||
+        (filt.operator === '>=' && num < +filt.value) ||
+        (filt.operator === '<=' && num > +filt.value)
+      ) {
+        include = false;
+        break;
+      }
+    }
+    if (include) results.push({ instrument, info });
+  }
+
+  // ─────────────────────
+  // RENDER RESULTS
+  // ─────────────────────
+  const resDiv = document.getElementById('portfolio-results');
+  resDiv.innerHTML = '';
+  if (!results.length) {
+    resDiv.textContent = 'No instruments meet this criteria.';
+    return;
+  }
+
+  // PORTFOLIO ANALYSIS
+  const count = results.length;
+  const averages = portfolioFilters.slice(1).map(filt => {
+    const map = mapping[filt.filterName];
+    if (map?.custom) return null; // skip channel booleans
+    const vals = results.map(r => {
+      let v;
+      if (map.source) {
+        const raw = map.source === 'left'
+          ? r.info.summaryLeft[map.index]
+          : r.info.summaryRight[map.index];
+        v = parseFloat(typeof raw === 'string' ? raw.replace('%','') : raw);
+      } else {
+        v = parseFloat(r.info[map.field]);
+      }
+      return isNaN(v) ? 0 : v;
+    });
+    return vals.reduce((a, b) => a + b, 0) / count;
+  });
+
+  const summaryDiv = document.createElement('div');
+  summaryDiv.id = 'portfolio-summary';
+
+  let summaryHtml = `
+    <h2 style="color:white">PORTFOLIO ANALYSIS</h2>
+    <table>
+      <tr><td>Count</td><td>${count}</td></tr>`;
+  portfolioFilters.slice(1).forEach((filt, i) => {
+    if (mapping[filt.filterName]?.custom) return;
+    summaryHtml += `
+      <tr>
+        <td>Avg ${filt.filterName}</td>
+        <td>${averages[i].toFixed(2)}</td>
+      </tr>`;
+  });
+  summaryHtml += `</table>`;
+  summaryDiv.innerHTML = summaryHtml;
+  resDiv.appendChild(summaryDiv);
+
+  // INSTRUMENT LIST
+  const listTitle = document.createElement('h2');
+  listTitle.style.color = 'white';
+  listTitle.textContent = 'INSTRUMENT LIST';
+  resDiv.appendChild(listTitle);
+
+  // DETAILED RESULTS TABLE
+  const table = document.createElement('table');
+  const thead = table.createTHead();
+  const headerRow = thead.insertRow();
+  headerRow.insertCell().textContent = 'Instrument';
+  portfolioFilters.slice(1).forEach(f =>
+    headerRow.insertCell().textContent = f.filterName
+  );
+  headerRow.insertCell().textContent = 'FULL ANALYSIS';
+
+  const tbody = table.createTBody();
+  results.forEach(r => {
+    const tr = tbody.insertRow();
+    tr.insertCell().textContent = r.instrument;
+
+    portfolioFilters.slice(1).forEach(f => {
+      const map = mapping[f.filterName];
+      let val = '';
+      if (map?.custom) {
+        const ch = getChannelRow(r.instrument, r.info, channels);
+        if (ch) {
+          const lp = ch.close;
+          const cv = map.type === 'upper1' ? ch.U1 :
+                     map.type === 'upper2' ? ch.U2 :
+                     map.type === 'lower1' ? ch.L1 : ch.L2;
+          val = (map.type.startsWith('upper') ? lp > cv : lp < cv) ? '✓' : '✗';
+        }
+      } else if (map.source) {
+        val = map.source === 'left'
+          ? r.info.summaryLeft[map.index]
+          : r.info.summaryRight[map.index];
+      } else {
+        val = r.info[map.field];
+      }
+      tr.insertCell().textContent = val != null ? val.toString() : '';
+    });
+
+    const cell = tr.insertCell();
+    const link = document.createElement('a');
+    link.href = `${window.location.origin + window.location.pathname}?instrument=${encodeURIComponent(r.instrument)}`;
+    link.target = '_blank';
+    link.textContent = '🔗';
+    cell.appendChild(link);
+  });
+
+  resDiv.appendChild(table);
 }
