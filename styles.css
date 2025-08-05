@@ -612,11 +612,14 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 /* Centre-fixed two-column grid */
 .portfolio-page .portfolio-grid {
   display: grid;
-  grid-template-columns: repeat(2, 320px);
+  /* exactly two columns at up to 320px each */
+  grid-template-columns: repeat(2, minmax(280px, 320px));
   gap: 30px;
-  max-width: calc(2 * 320px + 30px); /* two 320px columns + one 30px gap */
-  margin: 0 auto;                    /* centre the grid container */
+  /* centre the whole grid container */
+  justify-content: center;
+  margin: 0 auto;
 }
+
 
 /* Card styling */
 .portfolio-card {
