@@ -6,7 +6,7 @@ function renderPortfolioPage() {
   const container = document.getElementById('portfolios-template');
   // hide main dashboard when showing portfolio
   const main = document.getElementById('main-content');
-  if(main) main.style.display = 'none';
+  if (main) main.style.display = 'none';
   container.innerHTML = '';
 
   // Create a wrapper for styling
@@ -57,7 +57,7 @@ function renderPortfolioPage() {
     btn.classList.add('portfolio-card-btn');
     card.appendChild(btn);
 
-    // Click handler on button
+    // Click handler on button (placeholder - to be updated later)
     btn.addEventListener('click', () => {
       const slug = title.toLowerCase().replace(/ /g, '-');
       window.location.hash = `#portfolio/${slug}`;
