@@ -1,295 +1,98 @@
-// thematicPortfolio.js
-// -----------------------------------------------------------------------------
-// Pagina “Portfolio Ideas” – STOCKS, ETFS, FUTURES, FX
-//
-// STOCKS (ordine):
-//   1) Value Investing
-//   2) Dividend Defensive   (score === 100)
-//   3) Momentum             (score === 100)
-//   4) Low Volatility       (score === 100)
-//   5) Low Correlation      (score === 100)
-// -----------------------------------------------------------------------------
+/* thematicPortfolio.js
+ * -----------------------------------------------------------------------------
+ * First layer: Risk Profile Selection for Portfolio Ideas
+ * -----------------------------------------------------------------------------
+ */
 
-import { parseGap } from "./dashboard.js";
-import { loadCSVData } from "./csvLoader.js";  // Added to load weekly prices for Sector Rotation
+// Data model: six risk profiles
+const riskProfiles = [
+  {
+    id: 'very-cautious',
+    label: 'Very Cautious',
+    description: 'Capital preservation with minimal volatility.',
+  },
+  {
+    id: 'cautious',
+    label: 'Cautious',
+    description: 'Lower-risk strategies aimed at steady returns.',
+  },
+  {
+    id: 'cautious-balanced',
+    label: 'Cautious – Balanced',
+    description: 'A blend of defensive income and modest growth.',
+  },
+  {
+    id: 'balanced',
+    label: 'Balanced',
+    description: 'Equal mix of growth and income.',
+  },
+  {
+    id: 'balanced-adventurous',
+    label: 'Balanced – Adventurous',
+    description: 'Tilt toward growth with some defensive cushions.',
+  },
+  {
+    id: 'adventurous',
+    label: 'Adventurous',
+    description: 'Higher-risk, high-reward strategies.',
+  },
+];
 
-/* -------------------------------------------------------------------------- */
-/* 1. Header ⇄ key mapping                                                    */
-/* -------------------------------------------------------------------------- */
-const headerKeyMap = {
-  "Instrument":     "instrument",
-  "Score":          "score",
-  "Trend":          "trend",
-  "Approach":       "approach",
-  "Gap to Peak":    "gap",
-  "Key Area":       "keyArea",
-  "Correlation":    "corr",
-  "Volatility":     "vol",
-  "Bullish Alpha":  "bullish",
-  "Bearish Alpha":  "bearish",
-  "Alpha Strength": "alpha",
-  "P/E":            "pe",
-  "P/B":            "pb",
-  "Div Yield":      "divYield",
-  "ROE":            "returnOnEquity",
-  "D/E":            "debtToEquity",
-  "Payout Ratio":   "payout_ratio",
-  "β":              "beta",
-  "3-Month Return": "return3m"  // Mapped for Sector Rotation
-};
-
-/* -------------------------------------------------------------------------- */
-/* 2. Entry point                                                             */
-/* -------------------------------------------------------------------------- */
+// Entry point: call this on page load
 export function initThematicPortfolio() {
-  const sidebar = document.getElementById("sidebar-list");
-  if (!sidebar) return;
-
-  sidebar.addEventListener("click", (e) => {
-    const li = e.target.closest("li");
-    if (!li) return;
-    if (li.textContent.trim().toUpperCase() === "PORTFOLIO IDEAS") {
-      document.getElementById("main-content").style.display = "none";
-      document.getElementById("portfolio-builder-template").style.display = "none";
-      const tpl = document.getElementById("thematic-portfolio-template");
-      tpl.style.display = "block";
-      loadThematicPortfolio();  // async
-    }
-  });
-}
-
-/* -------------------------------------------------------------------------- */
-/* 3. Build page                                                              */
-/* -------------------------------------------------------------------------- */
-async function loadThematicPortfolio() {
-  const c = document.getElementById("thematic-portfolio-template");
-
-  // Load weekly ETF prices for Sector Rotation
-  const { etfPrices } = await loadCSVData();
-
-  /* ------------------------------------------------------------------ */
-  /* 0. Merge fundamentals (once)                                       */
-  /* ------------------------------------------------------------------ */
-  if (!window.__fundamentalsMerged__) {
-    try {
-      const res = await fetch("./instruments.json");
-      const instruments = await res.json();
-      const byTicker = Object.fromEntries(instruments.map(o => [o.ticker.trim(), o]));
-      for (const [tic, rec] of Object.entries(window.stocksFullData)) {
-        const f = byTicker[tic.trim()];
-        if (!f) continue;
-        Object.assign(rec, {
-          pe_ratio:         f.pe_ratio,
-          pb_ratio:         f.pb_ratio,
-          div_yield:        f.div_yield,
-          return_on_equity: f.return_on_equity,
-          debt_to_equity:   f.debt_to_equity,
-          payout_ratio:     f.payout_ratio,
-          beta:             f.beta
-        });
-      }
-      window.__fundamentalsMerged__ = true;
-    } catch (err) {
-      console.error("Merge fundamentals failed:", err);
-    }
+  const container = document.getElementById('portfolio-ideas');
+  if (!container) {
+    console.warn('Portfolio Ideas container not found: #portfolio-ideas');
+    return;
   }
-
-  /* ------------------------------------------------------------------ */
-  /* 1. STOCKS dataset                                                  */
-  /* ------------------------------------------------------------------ */
-  const stocksData = Object.entries(window.stocksFullData).map(([inst, info]) => ({
-    instrument:       inst,
-    score:            parseFloat(info.summaryLeft[0]),
-    trend:            info.summaryLeft[1],
-    approach:         info.summaryLeft[2],
-    gap:              parseGap(info.summaryLeft[3]),
-    keyArea:          info.summaryLeft[4],
-    corr:             parseFloat(info.summaryRight[0]),
-    vol:              parseFloat(info.summaryRight[1]),
-    bullish:          parseFloat(info.summaryRight[2]),
-    bearish:          parseFloat(info.summaryRight[3]),
-    alpha:            parseFloat(info.summaryRight[4]),
-    pe:               info.pe_ratio         != null ? parseFloat(info.pe_ratio)        : null,
-    pb:               info.pb_ratio         != null ? parseFloat(info.pb_ratio)        : null,
-    divYield:         info.div_yield        != null ? parseFloat(info.div_yield)       : null,
-    returnOnEquity:   info.return_on_equity != null ? parseFloat(info.return_on_equity): null,
-    debtToEquity:     info.debt_to_equity   != null ? parseFloat(info.debt_to_equity)  : null,
-    payout_ratio:     info.payout_ratio     != null ? parseFloat(info.payout_ratio)    : null,
-    beta:             info.beta             != null ? parseFloat(info.beta)            : null
-  }));
-
-  /* ------------------------------------------------------------------ */
-  /* 2. STOCKS thematic filters                                         */
-  /* ------------------------------------------------------------------ */
-  const valueStocks = stocksData.filter(d =>
-    d.pe !== null && d.pe < 15 &&
-    d.pb !== null && d.pb < 2 &&
-    d.divYield >= 2 &&
-    d.debtToEquity < 50 &&
-    d.returnOnEquity > 0.15
-  );
-
-  const dividendDefensiveStocks = stocksData.filter(d =>
-    d.score === 100 && d.divYield >= 3 && d.payout_ratio < 0.6 && d.beta < 1
-  );
-
-  const momentumStocks = stocksData.filter(d =>
-    d.score === 100 && d.bullish > 1 && d.bearish < 1 && d.alpha > 1
-  );
-
-  const lowVolStocks = stocksData.filter(d => d.vol < 1 && d.score === 100);
-  const lowCorrStocks = stocksData.filter(d => d.corr < 0 && d.score === 100);
-
-  /* ------------------------------------------------------------------ */
-  /* 3. ETF / Futures / FX (updated for FX mapping)                     */
-  /* ------------------------------------------------------------------ */
-  const etfData = Object.entries(window.etfFullData).map(([inst, info]) => ({
-    instrument: inst,
-    score:      parseFloat(info.summaryLeft[0]),
-    trend:      info.summaryLeft[1],
-    approach:   info.summaryLeft[2],
-    gap:        parseGap(info.summaryLeft[3]),
-    corr:       parseFloat(info.summaryRight[0]),
-    vol:        parseFloat(info.summaryRight[1]),
-    bullish:    parseFloat(info.summaryRight[2]),
-    bearish:    parseFloat(info.summaryRight[3]),
-    alpha:      parseFloat(info.summaryRight[4]),
-    return3m:   null
-  }));
-
-  const etfTrend     = etfData.filter(d => d.score === 100);
-  const etfLowCorr   = etfTrend.filter(d => d.corr < 0.1);
-  const etfLowVol    = etfTrend.filter(d => d.vol < 1);
-  const etfTrendPlus = etfTrend.filter(d => d.bullish > 1 && d.bearish < 1 && d.alpha > 1);
-  const etfLowDrawdown = etfData.filter(d => d.gap < 5 && d.vol < 1);
-
-  // Sector Rotation: compute 3-month return (13 weeks back)
-  etfData.forEach(d => {
-    const hist = etfPrices[d.instrument] || [];
-    const n = hist.length;
-    if (n >= 14) {
-      const latest = hist[n - 1].close;
-      const past   = hist[n - 14].close;
-      d.return3m = (latest / past) - 1;
-    }
-  });
-  const etfSectorRotation = etfData
-    .filter(d => d.return3m != null)
-    .sort((a, b) => b.return3m - a.return3m)
-    .slice(0, 3);
-
-  const futData = Object.entries(window.futuresFullData).map(([inst, info]) => ({
-    instrument: inst,
-    score:      parseFloat(info.summaryLeft[0]),
-    trend:      info.summaryLeft[1],
-    approach:   info.summaryLeft[2],
-    gap:        parseGap(info.summaryLeft[3]),
-    corr:       parseFloat(info.summaryRight[0]),
-    vol:        parseFloat(info.summaryRight[1])
-  }));
-  const futTrend   = futData.filter(d => Math.abs(d.score) === 100);
-  const futLowCorr = futTrend.filter(d => d.corr < 0.1);
-  const futLowVol  = futTrend.filter(d => d.vol < 1);
-
-  const fxData = Object.entries(window.fxFullData).map(([inst, info]) => ({
-    instrument: inst,
-    score:      parseFloat(info.summaryLeft[0]),
-    trend:      info.summaryLeft[1],
-    approach:   info.summaryLeft[2],
-    gap:        parseGap(info.summaryLeft[3])
-  }));
-  const fxTrend = fxData.filter(d => d.score >= 75 || d.score <= -75);
-
-  /* ------------------------------------------------------------------ */
-  /* 4. Render HTML                                                     */
-  /* ------------------------------------------------------------------ */
-  c.innerHTML = `
-    <div class="thematic-portfolio-nav">
-      <button class="portfolio-tab active" data-target="stocks">STOCKS</button>
-      <button class="portfolio-tab" data-target="etfs">ETFS</button>
-      <button class="portfolio-tab" data-target="futures">FUTURES</button>
-      <button class="portfolio-tab" data-target="fx">FX</button>
-    </div>
-
-    <div class="thematic-portfolio-contents">
-      <!-- STOCKS -->
-      <div class="portfolio-tab-content active" data-category="stocks">
-        ${renderSection("Value Investing",    ["Instrument","P/E","P/B","Div Yield","ROE","D/E"],   valueStocks)}
-        ${renderSection("Dividend Defensive", ["Instrument","Div Yield","Payout Ratio","β","Score","Gap to Peak","Key Area"], dividendDefensiveStocks)}
-        ${renderSection("Momentum",           ["Instrument","Score","Bullish Alpha","Bearish Alpha","Alpha Strength","Gap to Peak","Key Area"], momentumStocks)}
-        ${renderSection("Low Volatility",     ["Instrument","Volatility","Score","Gap to Peak","Key Area"], lowVolStocks)}
-        ${renderSection("Low Correlation",    ["Instrument","Correlation","Score","Gap to Peak","Key Area"], lowCorrStocks)}
-      </div>
-
-      <!-- ETFS -->
-      <div class="portfolio-tab-content" data-category="etfs">
-        ${renderSection("Trend Following",               ["Instrument","Score","Trend","Approach","Gap to Peak"], etfTrend)}
-        ${renderSection("Low Correlation",               ["Instrument","Score","Correlation","Trend","Approach","Gap to Peak"], etfLowCorr)}
-        ${renderSection("Low Volatility",                ["Instrument","Score","Volatility","Trend","Approach","Gap to Peak"], etfLowVol)}
-        ${renderSection("Trend Plus",                    ["Instrument","Score","Bullish Alpha","Bearish Alpha","Alpha Strength"], etfTrendPlus)}
-        ${renderSection("Low Drawdown",                  ["Instrument","Gap to Peak","Volatility"], etfLowDrawdown)}
-        ${renderSection("Sector Rotation (Top 3 3-Month Return)", ["Instrument","3-Month Return"], etfSectorRotation)}
-      </div>
-
-      <!-- FUTURES -->
-      <div class="portfolio-tab-content" data-category="futures">
-        ${renderSection("Trend Following",      ["Instrument","Score","Trend","Approach"], futTrend)}
-        ${renderSection("Low Correlation",      ["Instrument","Score","Correlation","Trend","Approach"], futLowCorr)}
-        ${renderSection("Low Volatility",       ["Instrument","Score","Volatility","Trend","Approach"], futLowVol)}
-      </div>
-
-      <!-- FX -->
-      <div class="portfolio-tab-content" data-category="fx">
-        ${renderSection("Trend Following",      ["Instrument","Score","Trend","Approach"], fxTrend)}
-      </div>
-    </div>
-  `;
-
-  /* ------------------------------------------------------------------ */
-  /* 5. Tab switching + fallback                                        */
-  /* ------------------------------------------------------------------ */
-  c.querySelectorAll(".portfolio-tab").forEach(btn => {
-    btn.addEventListener("click", () => {
-      c.querySelectorAll(".portfolio-tab").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      c.querySelectorAll(".portfolio-tab-content").forEach(sec => sec.classList.remove("active"));
-      c.querySelector(`.portfolio-tab-content[data-category="${btn.dataset.target}"]`).classList.add("active");
-    });
-  });
-  c.querySelectorAll(".portfolio-tab-content").forEach(content => {
-    if (!content.querySelector(".thematic-portfolio-section")) {
-      content.innerHTML = `<div class="no-ideas"><p>No instruments match these criteria.</p></div>`;
-    }
-  });
+  renderRiskProfileSelection(container);
 }
 
-/* -------------------------------------------------------------------------- */
-/* 4. Helper – renderSection                                                  */
-/* -------------------------------------------------------------------------- */
-function renderSection(title, headers, rows) {
-  if (!rows || rows.length === 0) return "";
+/**
+ * Renders the grid of risk profile cards (first layer)
+ * @param {HTMLElement} container
+ */
+function renderRiskProfileSelection(container) {
+  container.innerHTML = '';
 
-  const baseURL = window.location.origin + window.location.pathname;
-  const fullHeaders = [...headers, "FULL ANALYSIS"];
+  const grid = document.createElement('div');
+  grid.className = 'risk-profile-grid';
 
-  return `
-    <div class="thematic-portfolio-section">
-      <h2>${title}</h2>
-      <div class="thematic-portfolio-table-container">
-        <table class="thematic-portfolio-table">
-          <thead>
-            <tr>${fullHeaders.map(h => `<th>${h}</th>`).join("")}</tr>
-          </thead>
-          <tbody>
-            ${rows.map(r => `
-              <tr>
-                ${headers.map(h => `<td>${r[headerKeyMap[h]] ?? "-"}</td>`).join("")}
-                <td><a href="${baseURL}?instrument=${encodeURIComponent(r.instrument)}" target="_blank">🔗</a></td>
-              </tr>
-            `).join("")}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `;
+  riskProfiles.forEach(profile => {
+    const card = document.createElement('div');
+    card.className = 'risk-profile-card';
+    card.setAttribute('data-profile-id', profile.id);
+
+    const title = document.createElement('h3');
+    title.textContent = profile.label;
+    card.appendChild(title);
+
+    const desc = document.createElement('p');
+    desc.textContent = profile.description;
+    card.appendChild(desc);
+
+    card.addEventListener('click', () => {
+      handleProfileSelect(profile.id);
+    });
+
+    grid.appendChild(card);
+  });
+
+  container.appendChild(grid);
+}
+
+/**
+ * Handler when a risk profile is selected.
+ * Clears the first layer and calls next renderer (to be implemented).
+ * @param {string} profileId
+ */
+function handleProfileSelect(profileId) {
+  const container = document.getElementById('portfolio-ideas');
+  // Clear first layer
+  container.innerHTML = '';
+
+  // TODO: Render second layer (strategy listing) for chosen profile
+  // e.g. renderStrategyList(profileId, container);
+
+  console.log('Selected profile:', profileId);
 }
