@@ -1,10 +1,11 @@
-/* thematicPortfolio.js
- * -----------------------------------------------------------------------------
- * First layer: Risk Profile Selection for Portfolio Ideas
- * -----------------------------------------------------------------------------
- */
+// thematicPortfolio.js
+// -----------------------------------------------------------------------------
+// “Portfolio Ideas” – Layer 1: Risk‐Profile Selection
+// -----------------------------------------------------------------------------
 
-// Data model: six risk profiles
+/* -------------------------------------------------------------------------- */
+/* 1. Risk profiles definition                                                */
+/* -------------------------------------------------------------------------- */
 const riskProfiles = [
   {
     id: 'very-cautious',
@@ -18,7 +19,7 @@ const riskProfiles = [
   },
   {
     id: 'cautious-balanced',
-    label: 'Cautious – Balanced',
+    label: 'Cautious – Balanced',
     description: 'A blend of defensive income and modest growth.',
   },
   {
@@ -28,7 +29,7 @@ const riskProfiles = [
   },
   {
     id: 'balanced-adventurous',
-    label: 'Balanced – Adventurous',
+    label: 'Balanced – Adventurous',
     description: 'Tilt toward growth with some defensive cushions.',
   },
   {
@@ -38,38 +39,52 @@ const riskProfiles = [
   },
 ];
 
-// Entry point: call this on page load
+/* -------------------------------------------------------------------------- */
+/* 2. Entry point – hook into sidebar                                         */
+/* -------------------------------------------------------------------------- */
 export function initThematicPortfolio() {
-  const container = document.getElementById('portfolio-ideas');
-  if (!container) {
-    console.warn('Portfolio Ideas container not found: #portfolio-ideas');
-    return;
-  }
-  renderRiskProfileSelection(container);
+  const sidebar = document.getElementById("sidebar-list");
+  if (!sidebar) return;
+
+  sidebar.addEventListener("click", (e) => {
+    const li = e.target.closest("li");
+    if (!li) return;
+    if (li.textContent.trim().toUpperCase() === "PORTFOLIO IDEAS") {
+      // hide other views
+      document.getElementById("main-content").style.display = "none";
+      document.getElementById("portfolio-builder-template").style.display = "none";
+      // show our template container
+      const tpl = document.getElementById("thematic-portfolio-template");
+      tpl.style.display = "block";
+      // render first layer
+      loadThematicPortfolio(tpl);
+    }
+  });
 }
 
-/**
- * Renders the grid of risk profile cards (first layer)
- * @param {HTMLElement} container
- */
-function renderRiskProfileSelection(container) {
+/* -------------------------------------------------------------------------- */
+/* 3. First layer renderer                                                    */
+/* -------------------------------------------------------------------------- */
+function loadThematicPortfolio(container) {
+  // clear any previous
   container.innerHTML = '';
 
+  // grid wrapper
   const grid = document.createElement('div');
   grid.className = 'risk-profile-grid';
 
   riskProfiles.forEach(profile => {
     const card = document.createElement('div');
     card.className = 'risk-profile-card';
-    card.setAttribute('data-profile-id', profile.id);
+    card.dataset.profileId = profile.id;
 
-    const title = document.createElement('h3');
-    title.textContent = profile.label;
-    card.appendChild(title);
+    const h3 = document.createElement('h3');
+    h3.textContent = profile.label;
+    card.appendChild(h3);
 
-    const desc = document.createElement('p');
-    desc.textContent = profile.description;
-    card.appendChild(desc);
+    const p = document.createElement('p');
+    p.textContent = profile.description;
+    card.appendChild(p);
 
     card.addEventListener('click', () => {
       handleProfileSelect(profile.id);
@@ -81,18 +96,13 @@ function renderRiskProfileSelection(container) {
   container.appendChild(grid);
 }
 
-/**
- * Handler when a risk profile is selected.
- * Clears the first layer and calls next renderer (to be implemented).
- * @param {string} profileId
- */
+/* -------------------------------------------------------------------------- */
+/* 4. Handler for profile click – stub for layer 2                             */
+/* -------------------------------------------------------------------------- */
 function handleProfileSelect(profileId) {
-  const container = document.getElementById('portfolio-ideas');
-  // Clear first layer
-  container.innerHTML = '';
-
-  // TODO: Render second layer (strategy listing) for chosen profile
-  // e.g. renderStrategyList(profileId, container);
-
-  console.log('Selected profile:', profileId);
+  const tpl = document.getElementById("thematic-portfolio-template");
+  // clear first layer
+  tpl.innerHTML = '';
+  // TODO: render layer 2 (strategy listing) for profileId
+  console.log('Risk profile selected:', profileId);
 }
