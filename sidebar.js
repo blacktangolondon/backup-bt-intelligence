@@ -2,6 +2,10 @@
 // Group instruments into EQUITIES, ETF, FUTURES, FX with expandable submenus
 // + NON-DIRECTIONAL (Relative Value / Equity Neutral / Fixed Income) from spreads.json
 
+import { initPortfolios } from './portfolios.js';
+import { initThematicPortfolio } from './thematicPortfolio.js';
+import initPortfolioBuilder from './portfolioBuilder.js';
+
 export async function generateSidebarContent() {
   const sidebarList = document.getElementById('sidebar-list');
   if (!sidebarList) {
@@ -63,7 +67,6 @@ export async function generateSidebarContent() {
         nonDirectionalGroups[prettyGroup].push(pairName);
       }
 
-      // sort each bucket
       for (const k in nonDirectionalGroups) {
         nonDirectionalGroups[k].sort();
       }
@@ -266,11 +269,36 @@ export async function generateSidebarContent() {
   }
 
   // ───────────────────────────────────────
-  // Add Portfolio Builder and Portfolio Ideas at bottom
+  // Add Portfolio Builder, Portfolio Ideas, and Portfolios at bottom
   // ───────────────────────────────────────
-  ['PORTFOLIO BUILDER','PORTFOLIO IDEAS'].forEach(txt => {
+  ['PORTFOLIO BUILDER','PORTFOLIO IDEAS','PORTFOLIOS'].forEach(txt => {
     const li = document.createElement('li');
     li.textContent = txt;
+
+    if (txt === 'PORTFOLIO BUILDER') {
+      li.addEventListener('click', () => {
+        document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
+        document.getElementById('portfolio-builder-template').classList.remove('hidden');
+        initPortfolioBuilder();
+      });
+    }
+
+    if (txt === 'PORTFOLIO IDEAS') {
+      li.addEventListener('click', () => {
+        document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
+        document.getElementById('thematic-portfolio-template').classList.remove('hidden');
+        initThematicPortfolio();
+      });
+    }
+
+    if (txt === 'PORTFOLIOS') {
+      li.addEventListener('click', () => {
+        document.querySelectorAll('.main-section').forEach(sec => sec.classList.add('hidden'));
+        document.getElementById('portfolios-template').classList.remove('hidden');
+        initPortfolios();
+      });
+    }
+
     sidebarList.appendChild(li);
   });
 }
