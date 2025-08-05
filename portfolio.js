@@ -1,15 +1,15 @@
 // portfolio.js
-// Renders the Portfolio overview page with six risk-based portfolio cards
+// Renders the Portfolio (Risk Profile) overview page and drills into Adventurous portfolios
 
+/**
+ * Renders the six risk profiles as cards.
+ */
 function renderPortfolioPage() {
-  // Clear existing content
   const container = document.getElementById('portfolios-template');
-  // hide main dashboard when showing portfolio
   const main = document.getElementById('main-content');
   if (main) main.style.display = 'none';
   container.innerHTML = '';
 
-  // Create a wrapper for styling
   const page = document.createElement('div');
   page.classList.add('portfolio-page');
   container.appendChild(page);
@@ -20,8 +20,8 @@ function renderPortfolioPage() {
   pageTitle.classList.add('page-title');
   page.appendChild(pageTitle);
 
-  // Define portfolio levels with descriptions
-  const portfolios = [
+  // Risk profiles
+  const profiles = [
     { title: 'Very Cautious', desc: 'Target returns just above bank deposit rates, with capital preservation.' },
     { title: 'Cautious', desc: 'Reluctant to take much, if any, risk; returns are expected to barely keep pace with inflation.' },
     { title: 'Cautious to Balanced', desc: 'Some loss is accepted, and one may wish to invest in other areas besides cash.' },
@@ -30,45 +30,96 @@ function renderPortfolioPage() {
     { title: 'Adventurous', desc: 'It is understood and accepted the implied risk necessary in aiming for higher returns.' }
   ];
 
-  // Create grid container
   const grid = document.createElement('div');
   grid.classList.add('portfolio-grid');
+  page.appendChild(grid);
 
-  // Generate card for each portfolio
-  portfolios.forEach(({ title, desc }) => {
+  profiles.forEach(({ title, desc }) => {
     const card = document.createElement('div');
     card.classList.add('portfolio-card');
 
-    // Title element
     const cardTitle = document.createElement('h3');
     cardTitle.textContent = title;
     cardTitle.classList.add('portfolio-card-title');
     card.appendChild(cardTitle);
 
-    // Description element
     const cardDesc = document.createElement('p');
     cardDesc.textContent = desc;
     cardDesc.classList.add('portfolio-card-desc');
     card.appendChild(cardDesc);
 
-    // Access button
     const btn = document.createElement('button');
     btn.textContent = 'Access';
     btn.classList.add('portfolio-card-btn');
     card.appendChild(btn);
 
-    // Click handler on button (placeholder - to be updated later)
     btn.addEventListener('click', () => {
-      const slug = title.toLowerCase().replace(/ /g, '-');
-      window.location.hash = `#portfolio/${slug}`;
-      page.innerHTML = `<h3>${title} Portfolio</h3><p>Loading...</p>`;
+      if (title === 'Adventurous') {
+        renderAdventurousPortfolios();
+      } else {
+        // Future detail views for other profiles
+        alert(`Detail view for ${title} coming soon!`);
+      }
     });
 
     grid.appendChild(card);
   });
+}
 
-  // Append grid into the page wrapper
-  page.appendChild(grid);
+/**
+ * Renders the table of Adventurous portfolios.
+ */
+function renderAdventurousPortfolios() {
+  const container = document.getElementById('portfolios-template');
+  container.innerHTML = '';
+
+  const page = document.createElement('div');
+  page.classList.add('portfolio-page');
+  container.appendChild(page);
+
+  const title = document.createElement('h2');
+  title.textContent = 'Adventurous Portfolios';
+  title.classList.add('page-title');
+  page.appendChild(title);
+
+  const adventures = [
+    {
+      name: 'Arbitrage (Dynamic)',
+      desc: 'A blended strategy of Relative Value, Equity Neutral and Fixed Income Arbitrage with a dynamic medium-frequency approach. Focus on containing execution costs.'
+    },
+    {
+      name: 'Arbitrage (Tactical)',
+      desc: 'A blended strategy of Relative Value, Equity Neutral and Fixed Income Arbitrage with a tactical low-frequency approach.'
+    },
+    { name: 'Long / Short Equity', desc: '' },
+    { name: 'Short Only', desc: '' },
+    { name: 'Emerging Markets', desc: '' }
+  ];
+
+  const table = document.createElement('table');
+  table.classList.add('portfolio-list');
+  const thead = document.createElement('thead');
+  thead.innerHTML = `
+    <tr>
+      <th>Portfolio</th>
+      <th>Description</th>
+      <th></th>
+    </tr>`;
+  table.appendChild(thead);
+
+  const tbody = document.createElement('tbody');
+  adventures.forEach(({ name, desc }) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${name}</td>
+      <td>${desc}</td>
+      <td><button class="portfolio-card-btn">Access</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+
+  page.appendChild(table);
 }
 
 export { renderPortfolioPage };
