@@ -64,7 +64,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
       }
       return;
     }
-    }
+}
 
     // 2) Instrument-item click (dashboard navigation)
     if (e.target && e.target.classList.contains('instrument-item')) {
