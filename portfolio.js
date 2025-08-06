@@ -78,7 +78,7 @@ function renderAdventurousPortfolios() {
   container.appendChild(page);
 
   const title = document.createElement('h2');
-  title.textContent = 'Adventurous Portfolios';
+  title.textContent = 'Adventurous Strategies';
   title.classList.add('page-title');
   page.appendChild(title);
 
