@@ -152,8 +152,6 @@ function renderModule3(rets) {
         layout: { padding: { bottom: 20 } },
         scales: {
           y: {
-            beginAtZero: true,
-            min: 0,
             title: {
               display: true,
               text: 'Cumulative Return (%)',
