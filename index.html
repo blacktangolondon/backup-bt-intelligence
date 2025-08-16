@@ -6,19 +6,22 @@
   <title>TrendScore</title>
   <link rel="stylesheet" href="styles.css" />
 
+  <!-- Existing libs you already use -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 
+  <!-- Lightweight Charts (needed by spreadView.js) -->
   <script src="https://cdn.jsdelivr.net/npm/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 
-  <!-- Portfolio page renderer -->
+  <!-- Portfolio page renderer (unchanged) -->
   <script type="module" src="portfolio.js"></script>
 </head>
 
 <body>
+  <!-- Sidebar -->
   <div id="sidebar">
     <div id="sidebar-title">BT-intelligence</div>
     <div id="sidebar-search-container">
@@ -28,6 +31,7 @@
     <ul id="sidebar-list"></ul>
   </div>
 
+  <!-- Main content grid with your existing blocks -->
   <div id="main-content">
     <div id="block1" class="content-block">
       <div class="tradingview-widget-container"></div>
@@ -56,15 +60,22 @@
 
     <div id="block4" class="content-block"></div>
 
-    <div id="block5" class="content-block" style="display:none;">
-      <div id="spread-chart" style="width:100%; height:100%;"></div>
-    </div>
+    <!-- NOTE: removed old block5 that contained #spread-chart to avoid duplicate IDs -->
+    <!-- If you still need block5 for other content, you can keep the container but without #spread-chart -->
+    <!-- <div id="block5" class="content-block" style="display:none;"></div> -->
   </div>
 
+  <!-- App main sections (hidden by default) -->
   <div id="portfolio-builder-template" class="main-section" style="display:none;"></div>
   <div id="thematic-portfolio-template" class="main-section" style="display:none;"></div>
   <div id="portfolios-template" class="main-section" style="display:none;"></div>
 
+  <!-- NEW: Dedicated spread page target used by spreadView.js -->
+  <section id="spread-page" class="main-section" style="display:none;">
+    <div id="spread-chart" style="width:100%; height:100%;"></div>
+  </section>
+
+  <!-- YouTube popup (unchanged) -->
   <div id="youtube-popup" style="display:none;">
     <div id="youtube-popup-header">
       LIVE TV
@@ -79,7 +90,16 @@
     </div>
   </div>
 
-  <!-- Main application entrypoint -->
+  <!-- Your main app entry (unchanged) -->
   <script type="module" src="main.js"></script>
+
+  <!-- NEW: modules for spreads sidebar + chart -->
+  <script type="module" src="spreadView.js"></script>
+  <script type="module">
+    import { generateSidebarContent } from './sidebar.js';
+    // Build the sidebar (NON-DIRECTIONAL will be a flat list from spreads.json)
+    generateSidebarContent();
+    // We keep #spread-page hidden until a spread is clicked.
+  </script>
 </body>
 </html>
