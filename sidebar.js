@@ -1,9 +1,8 @@
 // sidebar.js
-// Group instruments into EQUITIES, ETF, FUTURES, FX with expandable submenus
-// + NON-DIRECTIONAL spreads, plus new PORTFOLIO section
+// Left sidebar: instruments sections + NON-DIRECTIONAL (flat spreads list) + Portfolio link
 
-import { showSpread } from './spreadView.js';
 import { renderPortfolioPage } from './portfolio.js';
+import { showSpread, showSpreadPage } from './spreadView.js';
 
 export async function generateSidebarContent() {
   const sidebarList = document.getElementById('sidebar-list');
@@ -27,22 +26,38 @@ export async function generateSidebarContent() {
   ]);
 
   const prettyName = name => name;
-  const prettyPair = pair => pair;
 
   // ───────────────────────────────────────
-  // Load instruments.json
+  // Load instruments.json (optional groups)
   // ───────────────────────────────────────
   let instruments = [];
   try {
     const resp = await fetch('./instruments.json');
-    instruments = await resp.json();
+    if (resp.ok) instruments = await resp.json();
   } catch (err) {
-    console.error('Failed to load instruments.json', err);
-    return;
+    // Non-blocking for the NON-DIRECTIONAL requirement
+    console.warn('Could not load instruments.json (non-blocking)', err);
   }
 
   // ───────────────────────────────────────
-  // Prepare grouping structures for instruments
+  // Load spreads.json (we only need flat keys)
+  // ───────────────────────────────────────
+  let spreadKeys = [];
+  try {
+    const resp = await fetch('./spreads.json');
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const spreadsObj = await resp.json();
+
+    // Flat list: all keys except "_groups" and hidden ones
+    spreadKeys = Object.keys(spreadsObj || [])
+      .filter(k => k !== '_groups' && !HIDDEN_PAIRS.has(k))
+      .sort((a, b) => a.localeCompare(b));
+  } catch (err) {
+    console.error('Failed to load spreads.json', err);
+  }
+
+  // ───────────────────────────────────────
+  // Prepare grouping structures for instruments (unchanged)
   // ───────────────────────────────────────
   const data = {
     EQUITIES: { 
@@ -53,8 +68,8 @@ export async function generateSidebarContent() {
     ETF:      { 'EURONEXT': [] },
     FUTURES:  {
       'EQUITY INDICES': [],
-      'ENERGY':           [],
-      'METALS':           [],
+      'ENERGY':         [],
+      'METALS':         [],
       'INTEREST RATES': [],
       'AGRICULTURE':    []
     },
@@ -62,20 +77,13 @@ export async function generateSidebarContent() {
   };
 
   function classifyFutureByCode(code) {
-    const sym = code.split(/=|:/)[0].toUpperCase();
-    if (['ES','NQ','YM','RTY','NKY','HSI','ASX','SX5E','FTMIB','CAC'].includes(sym)) {
-      return 'EQUITY INDICES';
-    } else if (['CL','BZ','RB','HO','NG'].includes(sym)) {
-      return 'ENERGY';
-    } else if (['GC','SI','HG','PL','PA'].includes(sym)) {
-      return 'METALS';
-    } else if (['ZB','ZN','ZF','ZT','GE','FV','TU','TY','FF'].includes(sym)) {
-      return 'INTEREST RATES';
-    } else if (['ZC','ZW','ZS','CC','SB','CT','LE','LH','ZM','ZO','ZR'].includes(sym)) {
-      return 'AGRICULTURE';
-    } else {
-      return 'EQUITY INDICES';
-    }
+    const sym = (code || '').split(/=|:/)[0].toUpperCase();
+    if (['ES','NQ','YM','RTY','NKY','HSI','ASX','SX5E','FTMIB','CAC'].includes(sym)) return 'EQUITY INDICES';
+    if (['CL','BZ','RB','HO','NG'].includes(sym)) return 'ENERGY';
+    if (['GC','SI','HG','PL','PA'].includes(sym)) return 'METALS';
+    if (['ZB','ZN','ZF','ZT','GE','FV','TU','TY','FF'].includes(sym)) return 'INTEREST RATES';
+    if (['ZC','ZW','ZS','CC','SB','CT','LE','LH','ZM','ZO','ZR'].includes(sym)) return 'AGRICULTURE';
+    return 'EQUITY INDICES';
   }
 
   instruments.forEach(inst => {
@@ -117,7 +125,7 @@ export async function generateSidebarContent() {
   // Utility: create expandable category
   // ───────────────────────────────────────
   function addCategory(title, content) {
-    const li      = document.createElement('li');
+    const li     = document.createElement('li');
     li.classList.add('expandable');
     const toggle = document.createElement('div');
     toggle.classList.add('toggle-btn');
@@ -128,7 +136,7 @@ export async function generateSidebarContent() {
     subUl.classList.add('sub-list');
 
     if (Array.isArray(content)) {
-      content.sort().forEach(item => {
+      content.forEach(item => {
         const instLi = document.createElement('li');
         instLi.classList.add('instrument-item');
         instLi.dataset.key = item;
@@ -181,53 +189,45 @@ export async function generateSidebarContent() {
   addCategory('FX',       data.FX);
 
   // ───────────────────────────────────────
-  // Create NON-DIRECTIONAL section
+  // Render NON-DIRECTIONAL (flat)
   // ───────────────────────────────────────
-  const liND = document.createElement('li');
-  liND.classList.add('sidebar-item');
+  {
+    const liND = document.createElement('li');
+    liND.classList.add('expandable');
+    const toggleND = document.createElement('div');
+    toggleND.classList.add('toggle-btn');
+    toggleND.innerHTML = `NON-DIRECTIONAL <span>+</span>`;
+    liND.appendChild(toggleND);
 
-  const toggleND = document.createElement('div');
-  toggleND.classList.add('parent-toggle');
-  toggleND.textContent = 'NON-DIRECTIONAL ';
-  const spanND = document.createElement('span');
-  spanND.textContent = '+';
-  toggleND.appendChild(spanND);
-  liND.appendChild(toggleND);
+    const subUlND = document.createElement('ul');
+    subUlND.classList.add('sub-list');
 
-  const subUlND = document.createElement('ul');
-  subUlND.classList.add('sub-list');
+    spreadKeys.forEach(pair => {
+      const item = document.createElement('li');
+      item.classList.add('nd-spread');
+      item.dataset.pair = pair;
+      item.textContent = pair;            // or use a friendly map if desired
+      subUlND.appendChild(item);
+    });
 
-  // Load spreads.json to get spreads
-  const resp = await fetch('./spreads.json');
-  if (!resp.ok) {
-    console.error(`Failed to load spreads.json: HTTP ${resp.status}`);
-    return;
-  }
-  const spreadsData = await resp.json();
-  const allSpreads = Object.keys(spreadsData);
+    liND.appendChild(subUlND);
+    toggleND.addEventListener('click', () => {
+      liND.classList.toggle('expanded');
+      toggleND.querySelector('span').textContent = liND.classList.contains('expanded') ? '-' : '+';
+    });
 
-  // Filter out the hidden pairs
-  const spreadPairs = allSpreads.filter(pair => !HIDDEN_PAIRS.has(pair));
-
-  // Dynamically add all filtered spread pairs
-  spreadPairs.forEach(pair => {
-    const subLi = document.createElement('li');
-    subLi.classList.add('sub-item');
-    subLi.textContent = pair;
-    subLi.dataset.pair = pair; // Store the spread pair in a data attribute
-    subUlND.appendChild(subLi);
-
-    subLi.addEventListener('click', () => {
+    // Click handling for spreads (event delegation)
+    subUlND.addEventListener('click', (e) => {
+      const li = e.target.closest('.nd-spread');
+      if (!li) return;
+      const pair = li.dataset.pair;
+      // Show spread page + render chart
+      showSpreadPage();
       showSpread(pair);
     });
-  });
 
-  liND.appendChild(subUlND);
-  toggleND.addEventListener('click', () => {
-    liND.classList.toggle('expanded');
-    spanND.textContent = liND.classList.contains('expanded') ? '-' : '+';
-  });
-  sidebarList.appendChild(liND);
+    sidebarList.appendChild(liND);
+  }
 
   // ───────────────────────────────────────
   // Add Portfolio link
@@ -236,21 +236,20 @@ export async function generateSidebarContent() {
   portfolioLi.textContent = 'PORTFOLIO';
   portfolioLi.classList.add('sidebar-item');
   portfolioLi.addEventListener('click', () => {
-    // Hide all content blocks and other main-sections
     document.querySelectorAll('.content-block, .main-section').forEach(el => el.style.display = 'none');
-    // Show portfolio container and render
     const pst = document.getElementById('portfolios-template');
-    pst.style.display = 'block';
-    renderPortfolioPage();
+    if (pst) {
+      pst.style.display = 'block';
+      renderPortfolioPage?.();
+    }
   });
   sidebarList.appendChild(portfolioLi);
 
-  // ───────────────────────────────────────
-  // Add Portfolio Builder and Portfolio Ideas at bottom
-  // ───────────────────────────────────────
+  // Optional: other static links
   ['PORTFOLIO BUILDER','PORTFOLIO IDEAS'].forEach(txt => {
     const li = document.createElement('li');
     li.textContent = txt;
+    li.classList.add('sidebar-item');
     sidebarList.appendChild(li);
   });
 }
