@@ -2,6 +2,7 @@
 // Group instruments into EQUITIES, ETF, FUTURES, FX with expandable submenus
 // + NON-DIRECTIONAL spreads, plus new PORTFOLIO section
 
+import { showSpread } from './spreadView.js';
 import { renderPortfolioPage } from './portfolio.js';
 
 export async function generateSidebarContent() {
@@ -41,40 +42,6 @@ export async function generateSidebarContent() {
   }
 
   // ───────────────────────────────────────
-  // Load spreads.json
-  // ───────────────────────────────────────
-  let nonDirectionalGroups = null;
-  try {
-    const resp = await fetch('./spreads.json');
-    const spreadsObj = await resp.json();
-
-    if (spreadsObj && spreadsObj._groups) {
-      const prettyMap = {
-        relative_value:   'RELATIVE VALUE ARBITRAGE',
-        equity_neutral:   'EQUITY NEUTRAL ARBITRAGE',
-        fixed_income:     'FIXED INCOME ARBITRAGE',
-        calendar:         'CALENDAR SPREAD'
-      };
-      nonDirectionalGroups = {};
-      Object.values(prettyMap).forEach(k => nonDirectionalGroups[k] = []);
-      for (const [pairName, grpKey] of Object.entries(spreadsObj._groups)) {
-        if (HIDDEN_PAIRS.has(pairName)) continue;
-        const prettyGroup = prettyMap[grpKey] || grpKey.toUpperCase();
-        nonDirectionalGroups[prettyGroup].push(pairName);
-      }
-      for (const k in nonDirectionalGroups) {
-        nonDirectionalGroups[k].sort();
-      }
-    } else {
-      const spreadsList = Object.keys(spreadsObj || {})
-        .filter(k => k !== '_groups' && !HIDDEN_PAIRS.has(k));
-      nonDirectionalGroups = { 'RELATIVE VALUE ARBITRAGE': spreadsList.sort() };
-    }
-  } catch (err) {
-    console.error('Failed to load spreads.json', err);
-  }
-
-  // ───────────────────────────────────────
   // Prepare grouping structures for instruments
   // ───────────────────────────────────────
   const data = {
@@ -86,8 +53,8 @@ export async function generateSidebarContent() {
     ETF:      { 'EURONEXT': [] },
     FUTURES:  {
       'EQUITY INDICES': [],
-      'ENERGY':         [],
-      'METALS':         [],
+      'ENERGY':           [],
+      'METALS':           [],
       'INTEREST RATES': [],
       'AGRICULTURE':    []
     },
@@ -150,7 +117,7 @@ export async function generateSidebarContent() {
   // Utility: create expandable category
   // ───────────────────────────────────────
   function addCategory(title, content) {
-    const li     = document.createElement('li');
+    const li      = document.createElement('li');
     li.classList.add('expandable');
     const toggle = document.createElement('div');
     toggle.classList.add('toggle-btn');
@@ -214,54 +181,53 @@ export async function generateSidebarContent() {
   addCategory('FX',       data.FX);
 
   // ───────────────────────────────────────
-  // Render NON-DIRECTIONAL section (if available)
+  // Create NON-DIRECTIONAL section
   // ───────────────────────────────────────
-  if (nonDirectionalGroups) {
-    const liND = document.createElement('li');
-    liND.classList.add('expandable');
-    const toggleND = document.createElement('div');
-    toggleND.classList.add('toggle-btn');
-    toggleND.innerHTML = `NON-DIRECTIONAL <span>+</span>`;
-    liND.appendChild(toggleND);
+  const liND = document.createElement('li');
+  liND.classList.add('sidebar-item');
 
-    const subUlND = document.createElement('ul');
-    subUlND.classList.add('sub-list');
+  const toggleND = document.createElement('div');
+  toggleND.classList.add('parent-toggle');
+  toggleND.textContent = 'NON-DIRECTIONAL ';
+  const spanND = document.createElement('span');
+  spanND.textContent = '+';
+  toggleND.appendChild(spanND);
+  liND.appendChild(toggleND);
 
-    for (const [catName, arr] of Object.entries(nonDirectionalGroups)) {
-      if (!arr.length) continue;
-      const subLi = document.createElement('li');
-      subLi.classList.add('expandable');
-      const subToggle = document.createElement('div');
-      subToggle.classList.add('toggle-btn');
-      subToggle.innerHTML = `${catName} <span>+</span>`;
-      subLi.appendChild(subToggle);
+  const subUlND = document.createElement('ul');
+  subUlND.classList.add('sub-list');
 
-      const instUl = document.createElement('ul');
-      instUl.classList.add('sub-list');
-      arr.sort().forEach(pair => {
-        if (HIDDEN_PAIRS.has(pair)) return;
-        const instLi = document.createElement('li');
-        instLi.classList.add('instrument-item');
-        instLi.dataset.pair = pair;
-        instLi.textContent = prettyPair(pair);
-        instUl.appendChild(instLi);
-      });
-      subLi.appendChild(instUl);
-      subUlND.appendChild(subLi);
-
-      subToggle.addEventListener('click', () => {
-        subLi.classList.toggle('expanded');
-        subToggle.querySelector('span').textContent = subLi.classList.contains('expanded') ? '-' : '+';
-      });
-    }
-
-    liND.appendChild(subUlND);
-    toggleND.addEventListener('click', () => {
-      liND.classList.toggle('expanded');
-      toggleND.querySelector('span').textContent = liND.classList.contains('expanded') ? '-' : '+';
-    });
-    sidebarList.appendChild(liND);
+  // Load spreads.json to get spreads
+  const resp = await fetch('./spreads.json');
+  if (!resp.ok) {
+    console.error(`Failed to load spreads.json: HTTP ${resp.status}`);
+    return;
   }
+  const spreadsData = await resp.json();
+  const allSpreads = Object.keys(spreadsData);
+
+  // Filter out the hidden pairs
+  const spreadPairs = allSpreads.filter(pair => !HIDDEN_PAIRS.has(pair));
+
+  // Dynamically add all filtered spread pairs
+  spreadPairs.forEach(pair => {
+    const subLi = document.createElement('li');
+    subLi.classList.add('sub-item');
+    subLi.textContent = pair;
+    subLi.dataset.pair = pair; // Store the spread pair in a data attribute
+    subUlND.appendChild(subLi);
+
+    subLi.addEventListener('click', () => {
+      showSpread(pair);
+    });
+  });
+
+  liND.appendChild(subUlND);
+  toggleND.addEventListener('click', () => {
+    liND.classList.toggle('expanded');
+    spanND.textContent = liND.classList.contains('expanded') ? '-' : '+';
+  });
+  sidebarList.appendChild(liND);
 
   // ───────────────────────────────────────
   // Add Portfolio link
