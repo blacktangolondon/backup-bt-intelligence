@@ -3,6 +3,15 @@
 // using the global LightweightCharts standalone IIFE build.
 
 /**
+ * Public: make the spread page visible (and hide others).
+ */
+export function showSpreadPage() {
+  document.querySelectorAll('.content-block, .main-section').forEach(el => el.style.display = 'none');
+  const spreadPage = document.getElementById('spread-page');
+  if (spreadPage) spreadPage.style.display = 'block';
+}
+
+/**
  * Fetches spreads.json and draws the selected spread.
  * @param {string} spreadKey  e.g. "FTSE100/EU50"
  */
@@ -171,11 +180,8 @@ const ROOT_NAME = {
   ZC:'Corn', ZW:'Wheat', ZS:'Soybeans', LE:'Live Cattle', HE:'Lean Hogs'
 };
 
-// ──────────────────────────────────────────────────────────────────────────────
-// Very important: update this map with every single A/B you want a friendly name for
-// ──────────────────────────────────────────────────────────────────────────────
+// Friendly labels: extend as you add A/B keys
 const LABEL_MAP = {
-  // ── RELATIVE VALUE
   'FTSE100/EU50'         : 'FTSE 100 / Euro Stoxx 50',
   'FTSE100/CAC40'        : 'FTSE 100 / CAC 40',
   'CAC40/EU50'           : 'CAC 40 / Euro Stoxx 50',
@@ -195,45 +201,7 @@ const LABEL_MAP = {
   'SOYBEANS/CORN'        : 'Soybeans / Corn',
   'BITCOIN/ETHEREUM'     : 'Bitcoin / Ethereum',
   'COPPER/ALUMINIUM'     : 'Copper / Aluminium',
-
-  // ── EQUITY NEUTRAL
   'AAPL/MSFT'            : 'Apple / Microsoft',
   'NVDA/AMD'             : 'Nvidia / AMD',
-  'GOOGL/META'           : 'Google (Alphabet) / Meta',
-  'JPM/BAC'              : 'JPMorgan / Bank of America',
-  'XOM/CVX'              : 'Exxon Mobil / Chevron',
-  'KO/PEP'               : 'Coca‑Cola / PepsiCo',
-  'TSLA/F'               : 'Tesla / Ford',
-  'ASML/TSM'             : 'ASML / TSMC',
-  'DIS/CMCSA'            : 'Disney / Comcast',
-  'CAT/DE'               : 'Caterpillar / Deere',
-  'AMZN/NFLX'            : 'Amazon / Netflix',
-  'JNJ/PFE'              : 'Johnson & Johnson / Pfizer',
-  'BA/LMT'               : 'Boeing / Lockheed Martin',
-  'V/MA'                 : 'Visa / Mastercard',
-  'NFLX/DIS'             : 'Netflix / Disney',
-  'GM/F'                 : 'General Motors / Ford',
-  'BATS.L/IMB.L'         : 'British American Tobacco / Imperial Brands',
-  'BNP.PA/ACA.PA'        : 'BNP / Crédit Agricole',
-  'DBK.DE/CBK.DE'        : 'Deutsche Bank / Commerzbank',
-  'GS/MS'                 : 'Goldman Sachs / Morgan Stanley',
-  'HSBA.L/BARC.L'                 : 'HSBC / Barclays',
-  'LLOY.L/NWG.L'                 : 'LLoyds / Natwest',
-  'MC.PA/CFR.SW'                 : 'Louis Vuitton / Compagnie Financiere',
-  'NESN.SW/ULVR.L'                 : 'Nestlé / Unilever',
-  'PG/CL'                 : 'The Procter & Gamble Company / Colgate-Palmolive',
-   'SIE.DE/SU.PA'                 : 'Siemens / Schneider Electric',
-  'TSLA/RIVN'                 : 'Tesla / Rivian',
-  'ULVR.L/RKT.L'                 : 'Unilever / Reckitt Benckiser',
-   'VOW.DE/BMW.DE'                 : 'Volkswagen / BMW',
-  'WFC/C'                 : 'Wells Fargo / Citigroup',
-
-  // ── FIXED INCOME
-  'ZN/ZF'                : '10Y Note / 5Y Note',
-  'ZF/ZT'                : '5Y Note / 2Y Note',
-  'ZN/ZT'                : '10Y Note / 2Y Note',
-  'UB/ZT'                : 'Ultra Bond / 2Y Note',
-  'UB/ZF'                : 'Ultra Bond / 5Y Note',
-  'HYG/LQD'              : 'High‑Yield ETF / Investment‑Grade ETF',
-  'HYG/ZB'               : 'High‑Yield ETF / 30Y Bond Future'
+  'GOOGL/META'           : 'Google (Alphabet) / Meta'
 };
