@@ -6,18 +6,45 @@
   <title>TrendScore</title>
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Existing libs you already use -->
+  <!-- Librerie esistenti -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 
-  <!-- Lightweight Charts (needed by spreadView.js) -->
+  <!-- Lightweight Charts per gli spread -->
   <script src="https://cdn.jsdelivr.net/npm/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 
-  <!-- Portfolio page renderer (unchanged) -->
+  <!-- (Se usi la pagina portafoglio) -->
   <script type="module" src="portfolio.js"></script>
+
+  <!-- Fix dimensioni per il grafico spread -->
+  <style>
+    html, body { height: 100%; }
+    #main-content { position: relative; }
+
+    /* block5: contenitore degli spread */
+    #block5.content-block {
+      /* lo lascio visibile per design; se vuoi tenerlo chiuso all'avvio, metti display:none e il fix JS lo aprirà al click */
+      display: block;
+      min-height: 480px;
+      height: calc(100vh - 40px);
+    }
+
+    /* la pagina spread dentro block5 */
+    #spread-page {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* contenitore del grafico */
+    #spread-chart {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
 </head>
 
 <body>
@@ -31,7 +58,7 @@
     <ul id="sidebar-list"></ul>
   </div>
 
-  <!-- Main content grid with your existing blocks -->
+  <!-- Main content grid -->
   <div id="main-content">
     <div id="block1" class="content-block">
       <div class="tradingview-widget-container"></div>
@@ -60,22 +87,20 @@
 
     <div id="block4" class="content-block"></div>
 
-    <!-- NOTE: removed old block5 that contained #spread-chart to avoid duplicate IDs -->
-    <!-- If you still need block5 for other content, you can keep the container but without #spread-chart -->
-    <!-- <div id="block5" class="content-block" style="display:none;"></div> -->
+    <!-- ✅ BLOCK 5 REINTRODOTTO: contiene la pagina degli spread e l’unico #spread-chart -->
+    <div id="block5" class="content-block">
+      <section id="spread-page">
+        <div id="spread-chart"></div>
+      </section>
+    </div>
   </div>
 
-  <!-- App main sections (hidden by default) -->
+  <!-- Altre sezioni opzionali -->
   <div id="portfolio-builder-template" class="main-section" style="display:none;"></div>
   <div id="thematic-portfolio-template" class="main-section" style="display:none;"></div>
   <div id="portfolios-template" class="main-section" style="display:none;"></div>
 
-  <!-- NEW: Dedicated spread page target used by spreadView.js -->
-  <section id="spread-page" class="main-section" style="display:none;">
-    <div id="spread-chart" style="width:100%; height:100%;"></div>
-  </section>
-
-  <!-- YouTube popup (unchanged) -->
+  <!-- Popup YouTube -->
   <div id="youtube-popup" style="display:none;">
     <div id="youtube-popup-header">
       LIVE TV
@@ -90,16 +115,30 @@
     </div>
   </div>
 
-  <!-- Your main app entry (unchanged) -->
+  <!-- Entry point principale -->
   <script type="module" src="main.js"></script>
 
-  <!-- NEW: modules for spreads sidebar + chart -->
+  <!-- Moduli per sidebar e grafico spread -->
   <script type="module" src="spreadView.js"></script>
   <script type="module">
     import { generateSidebarContent } from './sidebar.js';
-    // Build the sidebar (NON-DIRECTIONAL will be a flat list from spreads.json)
     generateSidebarContent();
-    // We keep #spread-page hidden until a spread is clicked.
+  </script>
+
+  <!-- Bridge: dopo il click su uno spread, assicurati che block5 sia visibile -->
+  <script>
+    // Se preferisci che block5 resti nascosto finché non clicchi uno spread,
+    // metti: document.getElementById('block5').style.display = 'none';
+    // e lascia questo bridge che lo riapre al click.
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.nd-spread')) {
+        // Esegui DOPO gli handler della sidebar (che chiamano showSpreadPage)
+        setTimeout(() => {
+          const b5 = document.getElementById('block5');
+          if (b5) b5.style.display = 'block';
+        }, 0);
+      }
+    });
   </script>
 </body>
 </html>
