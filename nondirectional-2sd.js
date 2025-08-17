@@ -12,9 +12,9 @@ Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
-// ——— Helper: t.pnl è il ritorno frazionale (es. 0.02 = +2%) ———
+// ——— Helper: t.pnl è il PnL assoluto in GBP ———
 // (da non_directional_stats-2sd.json / trades[])
-function ret(t) { return t.pnl; }
+function pnl(t) { return t.pnl; }
 
 (async function() {
   // 1) Load stats & trades (2σ backtest output)
@@ -26,8 +26,8 @@ function ret(t) { return t.pnl; }
   const stats  = await resp.json();
   const trades = stats.trades;
 
-  // 2) Build percent-return array (fractions in t.pnl → *100 later)
-  const rets = trades.map(ret);
+  // 2) Build PnL-in-GBP array (fractions in t.pnl → *100 later)
+  const pnls = trades.map(pnl);
 
   // 3) Compute durations (in days)
   const durations = trades
@@ -51,20 +51,21 @@ function ret(t) { return t.pnl; }
   const quickestDur = Math.min(...durations);
 
   // pull max-drawdown from stats
-  const maxDrawdown = stats.portfolio_kpis.max_drawdown * 100;
+  const maxDrawdown = stats.portfolio_kpis.max_drawdown; // Value is already in GBP
+  // Note: the original code expected a percentage. The new code should not multiply by 100.
 
   // compute Sortino
-  const avgRet     = rets.reduce((sum, r) => sum + r, 0) / rets.length;
-  const downsideRs = rets.filter(r => r < 0);
-  const downsideSD = downsideRs.length
-    ? Math.sqrt(downsideRs.reduce((sum, r) => sum + r*r, 0) / downsideRs.length)
+  const avgPnl     = pnls.reduce((sum, p) => sum + p, 0) / pnls.length;
+  const downsidePnls = pnls.filter(p => p < 0);
+  const downsideSD = downsidePnls.length
+    ? Math.sqrt(downsidePnls.reduce((sum, p) => sum + p*p, 0) / downsidePnls.length)
     : 0;
-  const sortino    = downsideSD > 0 ? avgRet / downsideSD : 0;
+  const sortino    = downsideSD > 0 ? avgPnl / downsideSD : 0;
 
   // 6) Render everything
   renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino });
   renderModule2(trades);
-  renderModule3(rets);
+  renderModule3(pnls);
   renderModule4();   // 2σ alerts
 })();
 
@@ -77,7 +78,7 @@ function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, so
     { label: '# Trades',         value: numTrades },
     { label: 'Median Duration',  value: medDur.toFixed(0)    + ' days' },
     { label: 'Quickest Trade',   value: quickestDur.toFixed(0) + ' days' },
-    { label: 'Max Drawdown',     value: maxDrawdown.toFixed(1) + '%' },
+    { label: 'Max Drawdown',     value: '£' + maxDrawdown.toFixed(2) }, // Now correctly displayed in GBP
     { label: 'Sortino Ratio',    value: sortino.toFixed(2)     }
   ].forEach(c => {
     const d = document.createElement('div');
@@ -92,7 +93,7 @@ function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, so
 
 // —––– Module 2 — Historical Report —–––
 // Colonna "Delta" = |(take_profit - entry) / entry| * 100
-// P&L ora in £: t.pnl (frazione) × accountGBP × allocPerTrade
+// P&L ora in £: t.pnl (valore assoluto in GBP)
 function renderModule2(trades) {
   const tbody = document.querySelector('#module2 tbody');
   tbody.innerHTML = '';
@@ -119,7 +120,7 @@ function renderModule2(trades) {
     .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
       const deltaPct   = (Math.abs((t.take_profit - t.entry) / t.entry) * 100).toFixed(2) + '%';
-      const pnlGBP     = t.pnl * CONFIG.accountGBP * CONFIG.allocPerTrade; // ← conversione in sterline
+      const pnlGBP     = t.pnl; // ← Corretto: usa il valore PnL assoluto fornito dal backtest
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
@@ -139,12 +140,20 @@ function renderModule2(trades) {
 }
 
 // —––– Module 3 — Arithmetic Equity Curve —–––
-function renderModule3(rets) {
+function renderModule3(pnls) {
+  // Calcola il capitale iniziale del portafoglio in GBP
+  // Il backtest usa TOTAL_PORTFOLIO_CAPITAL_USD = 18000 e GBP_USD_EXCHANGE_RATE = 1.27
+  const initialCapitalUSD = 18000;
+  const exchangeRate = 1.27;
+  const initialCapitalGBP = initialCapitalUSD / exchangeRate;
+  
   const cum = [];
-  let sum   = 0;
-  rets.forEach(r => {
-    sum += r;
-    cum.push(sum * 100);
+  let sumGBP = 0;
+  pnls.forEach(pnl => {
+    sumGBP += pnl;
+    // Calcola il ritorno percentuale cumulativo rispetto al capitale iniziale in GBP
+    const cumulativeReturnPct = (sumGBP / initialCapitalGBP) * 100;
+    cum.push(cumulativeReturnPct);
   });
 
   new Chart(
