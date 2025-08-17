@@ -110,11 +110,10 @@ function renderModule2(trades) {
     <th>Close Price</th>
     <th>Take Profit</th>
     <th>Stop Loss</th>
-    <th>Position Value</th>
     <th>P&L (£)</th>
   `;
 
-  const money = (gbp) => '£' + Number(gbp).toFixed(2);
+  const money = (gbp) => '£' + gbp.toFixed(2);
 
   trades
     .slice()
@@ -122,9 +121,6 @@ function renderModule2(trades) {
     .forEach(t => {
       const deltaPct   = (Math.abs((t.take_profit - t.entry) / t.entry) * 100).toFixed(2) + '%';
       const pnlGBP     = t.pnl; // ← Corretto: usa il valore PnL assoluto fornito dal backtest
-      const posValGBP  = (typeof t.position_value_gbp === 'number' && !isNaN(t.position_value_gbp))
-        ? t.position_value_gbp
-        : 0;
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
@@ -137,7 +133,6 @@ function renderModule2(trades) {
         <td>${t.exit.toFixed(4)}</td>
         <td>${t.take_profit.toFixed(4)}</td>
         <td>${t.stop_loss.toFixed(4)}</td>
-        <td>${money(posValGBP)}</td>
         <td>${money(pnlGBP)}</td>
       `;
       tbody.appendChild(tr);
@@ -184,7 +179,7 @@ function renderModule3(pnls) {
               text: 'Cumulative Return (%)',
               font: { size: 14 }
             },
-            ticks: { callback: v => Number(v).toFixed(1) + '%' }
+            ticks: { callback: v => v.toFixed(1) + '%' }
           },
           x: { display: false }
         },
@@ -248,4 +243,3 @@ async function renderModule4() {
     console.error('Module 4 render error:', err);
   }
 }
-
