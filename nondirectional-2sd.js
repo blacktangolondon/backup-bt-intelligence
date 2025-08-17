@@ -1,15 +1,20 @@
 // nondirectional-2sd.js
 
+// ─── Config per la conversione in £ ───
+const CONFIG = {
+  accountGBP: 18000,    // capitale conto
+  allocPerTrade: 1.0,   // quota di capitale allocata per trade (1.0 = 100%; 0.25 = 25%)
+  // commissionGBP: 0,  // se vuoi, possiamo sottrarre costi fissi/variabili qui
+};
+
 // ─── Global Chart.js font defaults ───
 Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
-// ——— Helper at top-level so every renderModule can use it ———
-function ret(t) {
-  // in non_directional_stats-2sd.json, t.pnl is the fractional return
-  return t.pnl;
-}
+// ——— Helper: t.pnl è il ritorno frazionale (es. 0.02 = +2%) ———
+// (da non_directional_stats-2sd.json / trades[])
+function ret(t) { return t.pnl; }
 
 (async function() {
   // 1) Load stats & trades (2σ backtest output)
@@ -86,8 +91,8 @@ function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, so
 }
 
 // —––– Module 2 — Historical Report —–––
-// Aggiunta colonna "Delta" dopo "Signal", definita come:
-// Delta (%) = ((take_profit - entry) / entry) * 100
+// Colonna "Delta" = |(take_profit - entry) / entry| * 100
+// P&L ora in £: t.pnl (frazione) × accountGBP × allocPerTrade
 function renderModule2(trades) {
   const tbody = document.querySelector('#module2 tbody');
   tbody.innerHTML = '';
@@ -104,15 +109,17 @@ function renderModule2(trades) {
     <th>Close Price</th>
     <th>Take Profit</th>
     <th>Stop Loss</th>
-    <th>P&L</th>
+    <th>P&L (£)</th>
   `;
+
+  const money = (gbp) => '£' + gbp.toFixed(2);
 
   trades
     .slice()
     .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
-      const pnlPct   = (t.pnl * 100).toFixed(2) + '%';
-      const deltaPct = (Math.abs((t.take_profit - t.entry) / t.entry) * 100).toFixed(2) + '%';
+      const deltaPct   = (Math.abs((t.take_profit - t.entry) / t.entry) * 100).toFixed(2) + '%';
+      const pnlGBP     = t.pnl * CONFIG.accountGBP * CONFIG.allocPerTrade; // ← conversione in sterline
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
@@ -125,7 +132,7 @@ function renderModule2(trades) {
         <td>${t.exit.toFixed(4)}</td>
         <td>${t.take_profit.toFixed(4)}</td>
         <td>${t.stop_loss.toFixed(4)}</td>
-        <td>${pnlPct}</td>
+        <td>${money(pnlGBP)}</td>
       `;
       tbody.appendChild(tr);
     });
