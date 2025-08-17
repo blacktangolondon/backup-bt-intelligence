@@ -110,10 +110,12 @@ function renderModule2(trades) {
     <th>Close Price</th>
     <th>Take Profit</th>
     <th>Stop Loss</th>
+    <th>Position Value (£)</th>
     <th>P&L (£)</th>
   `;
 
   const money = (gbp) => '£' + gbp.toFixed(2);
+  const exchangeRate = 1.27;
 
   trades
     .slice()
@@ -121,6 +123,7 @@ function renderModule2(trades) {
     .forEach(t => {
       const deltaPct   = (Math.abs((t.take_profit - t.entry) / t.entry) * 100).toFixed(2) + '%';
       const pnlGBP     = t.pnl; // ← Corretto: usa il valore PnL assoluto fornito dal backtest
+      const positionValueGBP = t.size / exchangeRate; // Converte il valore da USD a GBP
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
@@ -133,6 +136,7 @@ function renderModule2(trades) {
         <td>${t.exit.toFixed(4)}</td>
         <td>${t.take_profit.toFixed(4)}</td>
         <td>${t.stop_loss.toFixed(4)}</td>
+        <td>${money(positionValueGBP)}</td>
         <td>${money(pnlGBP)}</td>
       `;
       tbody.appendChild(tr);
@@ -194,6 +198,13 @@ async function renderModule4() {
   try {
     const resp = await fetch('spreads.json');
     const data = await resp.json();
+    
+    // Aggiungi costanti necessarie per il calcolo della dimensione della posizione
+    const TOTAL_PORTFOLIO_CAPITAL_USD = 18000.0;
+    const RISK_PER_TRADE_PERCENT = 0.01;
+    const GBP_USD_EXCHANGE_RATE = 1.27;
+    const DOLLAR_RISK_PER_TRADE_USD = TOTAL_PORTFOLIO_CAPITAL_USD * RISK_PER_TRADE_PERCENT;
+    const money = (gbp) => '£' + gbp.toFixed(2);
 
     const alerts = Object.entries(data)
       .filter(([_, series]) => Array.isArray(series) && series.length >= 2)
@@ -213,6 +224,14 @@ async function renderModule4() {
         // TP/SL still based on mid-of-1σ band
         const mid    = (lower1 + upper1) / 2;
         const half   = Math.abs(price - mid);
+        
+        // Calcola la dimensione della posizione come nello script Python
+        const dist = Math.abs(price - mid); // Distanza dal prezzo di entrata al trend
+        let positionValueUSD = 0;
+        if (dist > 1e-9) { // Evita la divisione per zero
+          positionValueUSD = DOLLAR_RISK_PER_TRADE_USD * (price / dist);
+        }
+        const positionValueGBP = positionValueUSD / GBP_USD_EXCHANGE_RATE;
 
         return {
           spread,
@@ -221,13 +240,26 @@ async function renderModule4() {
           takeProfit: mid,
           stopLoss:   signal === 'Long'
                         ? price - half
-                        : price + half
+                        : price + half,
+          positionValueGBP: positionValueGBP // Aggiungi il valore calcolato
         };
       })
       .filter(Boolean);
 
     const tbody = document.querySelector('#module4 tbody');
     tbody.innerHTML = '';
+    
+    // Ricrea l'intestazione con la nuova colonna
+    const thead = document.querySelector('#module4 thead tr');
+    thead.innerHTML = `
+      <th>Spread</th>
+      <th>Signal</th>
+      <th>Entry</th>
+      <th>Take Profit</th>
+      <th>Stop Loss</th>
+      <th>Position Value (£)</th>
+    `;
+
     alerts.forEach(a => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
@@ -236,6 +268,7 @@ async function renderModule4() {
         <td>${a.entry.toFixed(4)}</td>
         <td>${a.takeProfit.toFixed(4)}</td>
         <td>${a.stopLoss.toFixed(4)}</td>
+        <td>${money(a.positionValueGBP)}</td>
       `;
       tbody.appendChild(tr);
     });
