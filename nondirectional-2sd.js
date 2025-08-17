@@ -1,6 +1,4 @@
-# Write the updated nondirectional-2sd.js file with Position Value columns added to Module 2 and Module 4
-
-updated_js = r"""// nondirectional-2sd.js
+// nondirectional-2sd.js
 
 // ─── Config per la conversione in £ ───
 const CONFIG = {
@@ -102,21 +100,18 @@ function renderModule2(trades) {
 
   // rebuild header
   const thead = document.querySelector('#module2 thead tr');
-  if (thead) {
-    thead.innerHTML = `
-      <th>Spread</th>
-      <th>Signal</th>
-      <th>Delta</th>
-      <th>Open Date</th>
-      <th>Close Date</th>
-      <th>Open Price</th>
-      <th>Close Price</th>
-      <th>Take Profit</th>
-      <th>Stop Loss</th>
-      <th>Position Value (£)</th>
-      <th>P&L (£)</th>
-    `;
-  }
+  thead.innerHTML = `
+    <th>Spread</th>
+    <th>Signal</th>
+    <th>Delta</th>
+    <th>Open Date</th>
+    <th>Close Date</th>
+    <th>Open Price</th>
+    <th>Close Price</th>
+    <th>Take Profit</th>
+    <th>Stop Loss</th>
+    <th>P&L (£)</th>
+  `;
 
   const money = (gbp) => '£' + gbp.toFixed(2);
 
@@ -126,12 +121,6 @@ function renderModule2(trades) {
     .forEach(t => {
       const deltaPct   = (Math.abs((t.take_profit - t.entry) / t.entry) * 100).toFixed(2) + '%';
       const pnlGBP     = t.pnl; // ← Corretto: usa il valore PnL assoluto fornito dal backtest
-
-      // Position Value: preferisci il valore calcolato dal backtest (t.position_value).
-      // In assenza, fallback ad una quota fissa del capitale secondo CONFIG.
-      const posValue   = typeof t.position_value === 'number'
-        ? t.position_value
-        : (CONFIG.accountGBP * CONFIG.allocPerTrade);
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
@@ -144,7 +133,6 @@ function renderModule2(trades) {
         <td>${t.exit.toFixed(4)}</td>
         <td>${t.take_profit.toFixed(4)}</td>
         <td>${t.stop_loss.toFixed(4)}</td>
-        <td>${money(posValue)}</td>
         <td>${money(pnlGBP)}</td>
       `;
       tbody.appendChild(tr);
@@ -201,11 +189,6 @@ function renderModule3(pnls) {
   );
 }
 
-// Helper per calcolare il Position Value in assenza di un valore pre-calcolato
-function computePositionValue() {
-  return CONFIG.accountGBP * CONFIG.allocPerTrade;
-}
-
 // —––– Module 4 — New Strategies Alert (2σ) —–––
 async function renderModule4() {
   try {
@@ -238,24 +221,10 @@ async function renderModule4() {
           takeProfit: mid,
           stopLoss:   signal === 'Long'
                         ? price - half
-                        : price + half,
-          positionValue: computePositionValue()
+                        : price + half
         };
       })
       .filter(Boolean);
-
-    // Rebuild header with Position Value
-    const thead = document.querySelector('#module4 thead tr');
-    if (thead) {
-      thead.innerHTML = `
-        <th>Spread</th>
-        <th>Signal</th>
-        <th>Entry</th>
-        <th>Take Profit</th>
-        <th>Stop Loss</th>
-        <th>Position Value (£)</th>
-      `;
-    }
 
     const tbody = document.querySelector('#module4 tbody');
     tbody.innerHTML = '';
@@ -267,7 +236,6 @@ async function renderModule4() {
         <td>${a.entry.toFixed(4)}</td>
         <td>${a.takeProfit.toFixed(4)}</td>
         <td>${a.stopLoss.toFixed(4)}</td>
-        <td>£${(a.positionValue).toFixed(2)}</td>
       `;
       tbody.appendChild(tr);
     });
@@ -275,10 +243,3 @@ async function renderModule4() {
     console.error('Module 4 render error:', err);
   }
 }
-"""
-
-# Save to file
-with open('/mnt/data/nondirectional-2sd.js', 'w', encoding='utf-8') as f:
-    f.write(updated_js)
-
-'/mnt/data/nondirectional-2sd.js'
