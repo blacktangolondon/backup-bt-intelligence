@@ -5,7 +5,7 @@ Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
-// ——— Helper at top‑level so every renderModule can use it ———
+// ——— Helper at top-level so every renderModule can use it ———
 function ret(t) {
   // in non_directional_stats-2sd.json, t.pnl is the fractional return
   return t.pnl;
@@ -21,7 +21,7 @@ function ret(t) {
   const stats  = await resp.json();
   const trades = stats.trades;
 
-  // 2) Build percent‑return array (fractions in t.pnl → *100 later)
+  // 2) Build percent-return array (fractions in t.pnl → *100 later)
   const rets = trades.map(ret);
 
   // 3) Compute durations (in days)
@@ -45,7 +45,7 @@ function ret(t) {
     : (durations[mid - 1] + durations[mid]) / 2;
   const quickestDur = Math.min(...durations);
 
-  // pull max‑drawdown from stats
+  // pull max-drawdown from stats
   const maxDrawdown = stats.portfolio_kpis.max_drawdown * 100;
 
   // compute Sortino
@@ -63,7 +63,7 @@ function ret(t) {
   renderModule4();   // 2σ alerts
 })();
 
-// ——— Module 1 — Portfolio KPI Cards —–––
+// ——— Module 1 — Portfolio KPI Cards —–––
 function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino }) {
   const cont = document.getElementById('module1');
   cont.innerHTML = '';
@@ -85,7 +85,9 @@ function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, so
   });
 }
 
-// —––– Module 2 — Historical Report —–––
+// —––– Module 2 — Historical Report —–––
+// Aggiunta colonna "Delta" dopo "Signal", definita come:
+// Delta (%) = ((take_profit - entry) / entry) * 100
 function renderModule2(trades) {
   const tbody = document.querySelector('#module2 tbody');
   tbody.innerHTML = '';
@@ -95,6 +97,7 @@ function renderModule2(trades) {
   thead.innerHTML = `
     <th>Spread</th>
     <th>Signal</th>
+    <th>Delta</th>
     <th>Open Date</th>
     <th>Close Date</th>
     <th>Open Price</th>
@@ -108,11 +111,14 @@ function renderModule2(trades) {
     .slice()
     .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
-      const pnlPct = (t.pnl * 100).toFixed(2) + '%';
+      const pnlPct   = (t.pnl * 100).toFixed(2) + '%';
+      const deltaPct = (((t.take_profit - t.entry) / t.entry) * 100).toFixed(2) + '%';
+
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td class="instrument-item" data-key="${t.spread}">${t.spread}</td>
         <td>${t.type === 'long' ? 'Long' : 'Short'}</td>
+        <td>${deltaPct}</td>
         <td>${t.entry_date}</td>
         <td>${t.exit_date}</td>
         <td>${t.entry.toFixed(4)}</td>
@@ -125,7 +131,7 @@ function renderModule2(trades) {
     });
 }
 
-// —––– Module 3 — Arithmetic Equity Curve —–––
+// —––– Module 3 — Arithmetic Equity Curve —–––
 function renderModule3(rets) {
   const cum = [];
   let sum   = 0;
@@ -167,7 +173,7 @@ function renderModule3(rets) {
   );
 }
 
-// —––– Module 4 — New Strategies Alert (2σ) —–––
+// —––– Module 4 — New Strategies Alert (2σ) —–––
 async function renderModule4() {
   try {
     const resp = await fetch('spreads.json');
@@ -188,7 +194,7 @@ async function renderModule4() {
         if (!justBrokeLong && !justBrokeShort) return;
 
         const signal = justBrokeLong ? 'Long' : 'Short';
-        // TP/SL still based on mid‑of‑1σ band
+        // TP/SL still based on mid-of-1σ band
         const mid    = (lower1 + upper1) / 2;
         const half   = Math.abs(price - mid);
 
@@ -218,6 +224,6 @@ async function renderModule4() {
       tbody.appendChild(tr);
     });
   } catch (err) {
-    console.error('Module 4 render error:', err);
+    console.error('Module 4 render error:', err);
   }
 }
