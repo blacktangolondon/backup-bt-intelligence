@@ -112,7 +112,7 @@ function renderModule2(trades) {
     .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
       const pnlPct   = (t.pnl * 100).toFixed(2) + '%';
-      const deltaPct = (((t.take_profit - t.entry) / t.entry) * 100).toFixed(2) + '%';
+      const deltaPct = (Math.abs((t.take_profit - t.entry) / t.entry) * 100).toFixed(2) + '%';
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
