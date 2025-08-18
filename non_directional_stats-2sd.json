@@ -4,17 +4,17 @@
       "start": "2023-11-07",
       "end": "2025-08-18"
     },
-    "total_trades": 82,
-    "wins": 74,
+    "total_trades": 87,
+    "wins": 79,
     "losses": 8,
-    "win_rate_pct": 90.2,
-    "total_pnl": 9458.8617,
-    "avg_pnl_per_trade": 115.352,
+    "win_rate_pct": 90.8,
+    "total_pnl": 10158.2886,
+    "avg_pnl_per_trade": 116.7619,
     "max_win": 236.2888,
     "max_loss": -178.9707,
     "max_drawdown": 307.939,
-    "avg_duration_days": 27.6,
-    "sortino_ratio": 10.052
+    "avg_duration_days": 26.5,
+    "sortino_ratio": 10.1749
   },
   "by_spread": [
     {
@@ -150,6 +150,18 @@
       "sortino_ratio": "N/A"
     },
     {
+      "key": "SILVER/PHAG",
+      "trades": 5,
+      "wins": 5,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "avg_pnl": 139.1485,
+      "max_win": 160.5361,
+      "max_loss": 110.1687,
+      "avg_duration_days": 7.8,
+      "sortino_ratio": "N/A"
+    },
+    {
       "key": "COPPER/COPX",
       "trades": 2,
       "wins": 1,
@@ -227,8 +239,8 @@
       "wins": 1,
       "losses": 1,
       "win_rate_pct": 50.0,
-      "avg_pnl": -15.6406,
-      "max_win": 115.557,
+      "avg_pnl": -13.7984,
+      "max_win": 119.2414,
       "max_loss": -146.8382,
       "avg_duration_days": 110.5,
       "sortino_ratio": "N/A"
@@ -767,6 +779,71 @@
       "cum_pnl": 4950.3858
     },
     {
+      "spread": "SILVER/PHAG",
+      "entry_date": "2024-04-12",
+      "exit_date": "2024-04-16",
+      "type": "long",
+      "entry": 1.0586,
+      "exit": 1.0925,
+      "pnl": 138.5242,
+      "take_profit": 1.089,
+      "stop_loss": 1.0283,
+      "duration": 4,
+      "cum_pnl": 5088.9099
+    },
+    {
+      "spread": "SILVER/PHAG",
+      "entry_date": "2024-09-06",
+      "exit_date": "2024-09-09",
+      "type": "long",
+      "entry": 1.061,
+      "exit": 1.0966,
+      "pnl": 157.5944,
+      "take_profit": 1.0892,
+      "stop_loss": 1.0328,
+      "duration": 3,
+      "cum_pnl": 5246.5043
+    },
+    {
+      "spread": "SILVER/PHAG",
+      "entry_date": "2024-09-24",
+      "exit_date": "2024-09-25",
+      "type": "short",
+      "entry": 1.1069,
+      "exit": 1.0828,
+      "pnl": 160.5361,
+      "take_profit": 1.0895,
+      "stop_loss": 1.1243,
+      "duration": 1,
+      "cum_pnl": 5407.0404
+    },
+    {
+      "spread": "SILVER/PHAG",
+      "entry_date": "2025-01-09",
+      "exit_date": "2025-01-27",
+      "type": "short",
+      "entry": 1.112,
+      "exit": 1.0922,
+      "pnl": 110.1687,
+      "take_profit": 1.0923,
+      "stop_loss": 1.1317,
+      "duration": 18,
+      "cum_pnl": 5517.2091
+    },
+    {
+      "spread": "SILVER/PHAG",
+      "entry_date": "2025-04-04",
+      "exit_date": "2025-04-17",
+      "type": "long",
+      "entry": 1.0646,
+      "exit": 1.1001,
+      "pnl": 128.9191,
+      "take_profit": 1.099,
+      "stop_loss": 1.0302,
+      "duration": 13,
+      "cum_pnl": 5646.1282
+    },
+    {
       "spread": "COPPER/COPX",
       "entry_date": "2023-11-07",
       "exit_date": "2024-03-14",
@@ -777,7 +854,7 @@
       "take_profit": 0.0998,
       "stop_loss": 0.1239,
       "duration": 128,
-      "cum_pnl": 5090.1171
+      "cum_pnl": 5785.8595
     },
     {
       "spread": "COPPER/COPX",
@@ -790,7 +867,7 @@
       "take_profit": 0.0977,
       "stop_loss": 0.1169,
       "duration": 71,
-      "cum_pnl": 4942.0448
+      "cum_pnl": 5637.7872
     },
     {
       "spread": "COPPER/COPA",
@@ -803,7 +880,7 @@
       "take_profit": 0.1112,
       "stop_loss": 0.1153,
       "duration": 65,
-      "cum_pnl": 5103.2499
+      "cum_pnl": 5798.9923
     },
     {
       "spread": "COPPER/COPA",
@@ -816,7 +893,7 @@
       "take_profit": 0.1101,
       "stop_loss": 0.1135,
       "duration": 58,
-      "cum_pnl": 5258.7605
+      "cum_pnl": 5954.5029
     },
     {
       "spread": "COPPER/COPA",
@@ -829,7 +906,7 @@
       "take_profit": 0.1103,
       "stop_loss": 0.1137,
       "duration": 67,
-      "cum_pnl": 5079.7898
+      "cum_pnl": 5775.5322
     },
     {
       "spread": "PLATINUM/PPLT",
@@ -842,7 +919,7 @@
       "take_profit": 10.8824,
       "stop_loss": 10.3718,
       "duration": 1,
-      "cum_pnl": 5216.0001
+      "cum_pnl": 5911.7425
     },
     {
       "spread": "PLATINUM/PPLT",
@@ -855,7 +932,7 @@
       "take_profit": 10.9342,
       "stop_loss": 11.2739,
       "duration": 3,
-      "cum_pnl": 5354.1355
+      "cum_pnl": 6049.8779
     },
     {
       "spread": "PLATINUM/PPLT",
@@ -868,7 +945,7 @@
       "take_profit": 10.9342,
       "stop_loss": 10.595,
       "duration": 7,
-      "cum_pnl": 5554.6565
+      "cum_pnl": 6250.3989
     },
     {
       "spread": "PLATINUM/PPLT",
@@ -881,7 +958,7 @@
       "take_profit": 10.9853,
       "stop_loss": 10.5982,
       "duration": 3,
-      "cum_pnl": 5739.5342
+      "cum_pnl": 6435.2766
     },
     {
       "spread": "PLATINUM/PPLT",
@@ -894,7 +971,7 @@
       "take_profit": 10.9896,
       "stop_loss": 10.5122,
       "duration": 41,
-      "cum_pnl": 5858.3844
+      "cum_pnl": 6554.1268
     },
     {
       "spread": "PLATINUM/PPLT",
@@ -907,7 +984,7 @@
       "take_profit": 10.9875,
       "stop_loss": 10.6093,
       "duration": 4,
-      "cum_pnl": 5978.7386
+      "cum_pnl": 6674.4811
     },
     {
       "spread": "PLATINUM/PPLT",
@@ -920,7 +997,7 @@
       "take_profit": 10.9835,
       "stop_loss": 10.453,
       "duration": 2,
-      "cum_pnl": 6101.0922
+      "cum_pnl": 6796.8346
     },
     {
       "spread": "PLATINUM/PPLT",
@@ -933,7 +1010,7 @@
       "take_profit": 10.9866,
       "stop_loss": 11.4973,
       "duration": 6,
-      "cum_pnl": 6218.5821
+      "cum_pnl": 6914.3245
     },
     {
       "spread": "PLATINUM/PPLT",
@@ -946,7 +1023,7 @@
       "take_profit": 10.9972,
       "stop_loss": 11.5562,
       "duration": 10,
-      "cum_pnl": 6376.9733
+      "cum_pnl": 7072.7158
     },
     {
       "spread": "PLATINUM/PLTM",
@@ -959,7 +1036,7 @@
       "take_profit": 103.0264,
       "stop_loss": 98.2886,
       "duration": 1,
-      "cum_pnl": 6506.1528
+      "cum_pnl": 7201.8953
     },
     {
       "spread": "PLATINUM/PLTM",
@@ -972,7 +1049,7 @@
       "take_profit": 103.4066,
       "stop_loss": 100.0064,
       "duration": 7,
-      "cum_pnl": 6703.6119
+      "cum_pnl": 7399.3543
     },
     {
       "spread": "PLATINUM/PLTM",
@@ -985,7 +1062,7 @@
       "take_profit": 103.8599,
       "stop_loss": 100.033,
       "duration": 3,
-      "cum_pnl": 6887.5394
+      "cum_pnl": 7583.2818
     },
     {
       "spread": "PLATINUM/PLTM",
@@ -998,7 +1075,7 @@
       "take_profit": 103.904,
       "stop_loss": 100.4697,
       "duration": 7,
-      "cum_pnl": 7028.8664
+      "cum_pnl": 7724.6088
     },
     {
       "spread": "PLATINUM/PLTM",
@@ -1011,7 +1088,7 @@
       "take_profit": 103.8884,
       "stop_loss": 99.2647,
       "duration": 41,
-      "cum_pnl": 7147.0326
+      "cum_pnl": 7842.775
     },
     {
       "spread": "PLATINUM/PLTM",
@@ -1024,7 +1101,7 @@
       "take_profit": 103.8693,
       "stop_loss": 100.2526,
       "duration": 4,
-      "cum_pnl": 7262.7158
+      "cum_pnl": 7958.4582
     },
     {
       "spread": "PLATINUM/PLTM",
@@ -1037,7 +1114,7 @@
       "take_profit": 103.8232,
       "stop_loss": 98.8598,
       "duration": 2,
-      "cum_pnl": 7381.4023
+      "cum_pnl": 8077.1447
     },
     {
       "spread": "PLATINUM/PLTM",
@@ -1050,7 +1127,7 @@
       "take_profit": 103.8395,
       "stop_loss": 108.4741,
       "duration": 7,
-      "cum_pnl": 7543.8694
+      "cum_pnl": 8239.6119
     },
     {
       "spread": "PLATINUM/PLTM",
@@ -1063,7 +1140,7 @@
       "take_profit": 103.9343,
       "stop_loss": 108.8375,
       "duration": 10,
-      "cum_pnl": 7705.7877
+      "cum_pnl": 8401.5301
     },
     {
       "spread": "CRUDE_WTI/WTWTI_DE",
@@ -1076,7 +1153,7 @@
       "take_profit": 5.9897,
       "stop_loss": 4.7925,
       "duration": 155,
-      "cum_pnl": 7558.9495
+      "cum_pnl": 8254.6919
     },
     {
       "spread": "CRUDE_WTI/WTWTI_DE",
@@ -1084,12 +1161,12 @@
       "exit_date": "2025-08-18",
       "type": "short",
       "entry": 5.313,
-      "exit": 4.8081,
-      "pnl": 115.557,
+      "exit": 4.7927,
+      "pnl": 119.2414,
       "take_profit": 4.7198,
       "stop_loss": 5.9063,
       "duration": 66,
-      "cum_pnl": 7674.5065
+      "cum_pnl": 8373.9333
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1102,7 +1179,7 @@
       "take_profit": 10.7893,
       "stop_loss": 11.2158,
       "duration": 6,
-      "cum_pnl": 7815.9057
+      "cum_pnl": 8515.3326
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1115,7 +1192,7 @@
       "take_profit": 10.7945,
       "stop_loss": 9.9111,
       "duration": 1,
-      "cum_pnl": 7979.2554
+      "cum_pnl": 8678.6823
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1128,7 +1205,7 @@
       "take_profit": 10.7988,
       "stop_loss": 11.3329,
       "duration": 12,
-      "cum_pnl": 8123.2373
+      "cum_pnl": 8822.6641
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1141,7 +1218,7 @@
       "take_profit": 10.8363,
       "stop_loss": 10.2916,
       "duration": 2,
-      "cum_pnl": 8289.41
+      "cum_pnl": 8988.8368
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1154,7 +1231,7 @@
       "take_profit": 10.8462,
       "stop_loss": 11.2226,
       "duration": 14,
-      "cum_pnl": 8401.3016
+      "cum_pnl": 9100.7284
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1167,7 +1244,7 @@
       "take_profit": 10.8586,
       "stop_loss": 10.4826,
       "duration": 4,
-      "cum_pnl": 8525.6158
+      "cum_pnl": 9225.0426
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1180,7 +1257,7 @@
       "take_profit": 10.8659,
       "stop_loss": 10.3586,
       "duration": 9,
-      "cum_pnl": 8662.8401
+      "cum_pnl": 9362.2669
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1193,7 +1270,7 @@
       "take_profit": 10.8591,
       "stop_loss": 10.2953,
       "duration": 24,
-      "cum_pnl": 8792.835
+      "cum_pnl": 9492.2618
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1206,7 +1283,7 @@
       "take_profit": 10.8704,
       "stop_loss": 10.4232,
       "duration": 4,
-      "cum_pnl": 8909.2889
+      "cum_pnl": 9608.7157
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1219,7 +1296,7 @@
       "take_profit": 10.8853,
       "stop_loss": 11.3379,
       "duration": 8,
-      "cum_pnl": 9049.727
+      "cum_pnl": 9749.1538
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1232,7 +1309,7 @@
       "take_profit": 10.8907,
       "stop_loss": 10.4489,
       "duration": 15,
-      "cum_pnl": 9286.0157
+      "cum_pnl": 9985.4426
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1245,7 +1322,7 @@
       "take_profit": 10.891,
       "stop_loss": 11.3274,
       "duration": 10,
-      "cum_pnl": 9115.4219
+      "cum_pnl": 9814.8487
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1258,7 +1335,7 @@
       "take_profit": 10.9112,
       "stop_loss": 11.3858,
       "duration": 20,
-      "cum_pnl": 9285.428
+      "cum_pnl": 9984.8548
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1271,7 +1348,7 @@
       "take_profit": 10.9206,
       "stop_loss": 10.374,
       "duration": 3,
-      "cum_pnl": 9495.6449
+      "cum_pnl": 10195.0717
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1284,7 +1361,7 @@
       "take_profit": 10.9235,
       "stop_loss": 10.3968,
       "duration": 12,
-      "cum_pnl": 9623.1122
+      "cum_pnl": 10322.539
     },
     {
       "spread": "PALLADIUM/PALL",
@@ -1297,7 +1374,7 @@
       "take_profit": 10.944,
       "stop_loss": 11.6852,
       "duration": 27,
-      "cum_pnl": 9766.8004
+      "cum_pnl": 10466.2272
     },
     {
       "spread": "WHEAT/WEAT",
@@ -1310,7 +1387,7 @@
       "take_profit": 97.0025,
       "stop_loss": 109.9141,
       "duration": 286,
-      "cum_pnl": 9615.9827
+      "cum_pnl": 10315.4095
     },
     {
       "spread": "WHEAT/WEAT",
@@ -1323,7 +1400,7 @@
       "take_profit": 107.1539,
       "stop_loss": 115.351,
       "duration": 200,
-      "cum_pnl": 9458.8614
+      "cum_pnl": 10158.2882
     }
   ]
 }
