@@ -117,7 +117,7 @@ function renderModule2(trades) {
 
   trades
     .slice()
-    .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
+    .sort((a, b) => new Date(a.entry_date) - new Date(b.entry_date))
     .forEach(t => {
       const deltaPct   = (Math.abs((t.take_profit - t.entry) / t.entry) * 100).toFixed(2) + '%';
       const pnlGBP     = t.pnl; // ← Corretto: usa il valore PnL assoluto fornito dal backtest
