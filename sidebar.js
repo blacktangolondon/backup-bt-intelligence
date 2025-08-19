@@ -48,9 +48,9 @@ export async function generateSidebarContent() {
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const spreadsObj = await resp.json();
 
-    // Flat list: all keys except "_groups" and hidden ones
-    spreadKeys = Object.keys(spreadsObj || [])
-      .filter(k => k !== '_groups' && !HIDDEN_PAIRS.has(k))
+    // Flat list: exactly the keys in spreads.json (exclude only meta-keys)
+    spreadKeys = Object.keys(spreadsObj || {})
+      .filter(k => k !== '_groups' && !String(k).startsWith('_'))
       .sort((a, b) => a.localeCompare(b));
   } catch (err) {
     console.error('Failed to load spreads.json', err);
@@ -73,25 +73,19 @@ export async function generateSidebarContent() {
       'INTEREST RATES': [],
       'AGRICULTURE':    []
     },
-    FX:       { 'MAJORS': [], 'MINORS': [] }
+    FX: {
+      'MAJORS': [],
+      'MINORS': []
+    }
   };
 
-  function classifyFutureByCode(code) {
-    const sym = (code || '').split(/=|:/)[0].toUpperCase();
-    if (['ES','NQ','YM','RTY','NKY','HSI','ASX','SX5E','FTMIB','CAC'].includes(sym)) return 'EQUITY INDICES';
-    if (['CL','BZ','RB','HO','NG'].includes(sym)) return 'ENERGY';
-    if (['GC','SI','HG','PL','PA'].includes(sym)) return 'METALS';
-    if (['ZB','ZN','ZF','ZT','GE','FV','TU','TY','FF'].includes(sym)) return 'INTEREST RATES';
-    if (['ZC','ZW','ZS','CC','SB','CT','LE','LH','ZM','ZO','ZR'].includes(sym)) return 'AGRICULTURE';
-    return 'EQUITY INDICES';
-  }
-
-  instruments.forEach(inst => {
-    const name     = inst.ticker;
-    const cls      = (inst.asset_class||'').toLowerCase();
-    const exch     = inst.exchange;
-    const rawCat   = inst.category;
-    const corrCode = inst.correlation_ticker;
+  // Build groups from instruments.json (unchanged)
+  instruments?.forEach(inst => {
+    const { name, asset_class, exchange, category, correlation_code } = inst || {};
+    const cls = (asset_class || '').toLowerCase();
+    const exch = exchange || '';
+    const rawCat = category;
+    const corrCode = correlation_code || '';
 
     switch (cls) {
       case 'equity': {
@@ -125,8 +119,9 @@ export async function generateSidebarContent() {
   // Utility: create expandable category
   // ───────────────────────────────────────
   function addCategory(title, content) {
-    const li     = document.createElement('li');
+    const li = document.createElement('li');
     li.classList.add('expandable');
+
     const toggle = document.createElement('div');
     toggle.classList.add('toggle-btn');
     toggle.innerHTML = `${title} <span>+</span>`;
@@ -136,21 +131,19 @@ export async function generateSidebarContent() {
     subUl.classList.add('sub-list');
 
     if (Array.isArray(content)) {
-      content.forEach(item => {
+      content.sort().forEach(it => {
         const instLi = document.createElement('li');
         instLi.classList.add('instrument-item');
-        instLi.dataset.key = item;
-        instLi.textContent = prettyName(item);
+        instLi.dataset.key = it;
+        instLi.textContent = prettyName(it);
         subUl.appendChild(instLi);
       });
-    } else {
-      for (const [subName, arr] of Object.entries(content)) {
-        if (!arr.length) continue;
-        const subLi     = document.createElement('li');
-        subLi.classList.add('expandable');
+    } else if (content && typeof content === 'object') {
+      for (const [sub, arr] of Object.entries(content)) {
+        const subLi = document.createElement('li');
         const subToggle = document.createElement('div');
         subToggle.classList.add('toggle-btn');
-        subToggle.innerHTML = `${subName} <span>+</span>`;
+        subToggle.innerHTML = `${sub} <span>+</span>`;
         subLi.appendChild(subToggle);
 
         const instUl = document.createElement('ul');
@@ -204,8 +197,9 @@ export async function generateSidebarContent() {
 
     spreadKeys.forEach(pair => {
       const item = document.createElement('li');
-      item.classList.add('nd-spread');
+      item.classList.add('nd-spread', 'instrument-item');
       item.dataset.pair = pair;
+      item.dataset.key = pair;
       item.textContent = pair;            // or use a friendly map if desired
       subUlND.appendChild(item);
     });
@@ -214,16 +208,6 @@ export async function generateSidebarContent() {
     toggleND.addEventListener('click', () => {
       liND.classList.toggle('expanded');
       toggleND.querySelector('span').textContent = liND.classList.contains('expanded') ? '-' : '+';
-    });
-
-    // Click handling for spreads (event delegation)
-    subUlND.addEventListener('click', (e) => {
-      const li = e.target.closest('.nd-spread');
-      if (!li) return;
-      const pair = li.dataset.pair;
-      // Show spread page + render chart
-      showSpreadPage();
-      showSpread(pair);
     });
 
     sidebarList.appendChild(liND);
@@ -252,4 +236,15 @@ export async function generateSidebarContent() {
     li.classList.add('sidebar-item');
     sidebarList.appendChild(li);
   });
+}
+
+// Helper to bucket futures when category is missing
+function classifyFutureByCode(code='') {
+  const c = code.toUpperCase();
+  if (/(ES|NQ|YM|RTY)/.test(c)) return 'EQUITY INDICES';
+  if (/(CL|NG|RB|HO)/.test(c))   return 'ENERGY';
+  if (/(GC|SI|HG)/.test(c))      return 'METALS';
+  if (/(ZN|ZF|ZB|ZT|UB|GE)/.test(c)) return 'INTEREST RATES';
+  if (/(ZS|ZC|ZW|KE|ZR|ZM|ZL)/.test(c)) return 'AGRICULTURE';
+  return 'EQUITY INDICES';
 }
