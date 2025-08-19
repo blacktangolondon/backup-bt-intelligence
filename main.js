@@ -28,7 +28,7 @@ async function initializeTrendScore() {
     window.futuresFullData = jsonData.futuresFullData;
     window.fxFullData      = jsonData.fxFullData;
 
-    // --- Load spreadsFullData explicitly (for sidebar + events.js) ---
+    // --- CRITICAL FIX: Load spreadsFullData explicitly ---
     try {
       const resp = await fetch('./spreads.json');
       window.spreadsFullData = resp.ok ? await resp.json() : {};
@@ -53,12 +53,18 @@ async function initializeTrendScore() {
       console.warn('No stock prices loaded. Check stock_prices.csv.');
     }
 
-    // ——— Build historicalReturns for correlation ———
+    // ——— New: build historicalReturns for correlation ———
     window.historicalReturns = {};
     function computeReturns(priceArray) {
-      if (!Array.isArray(priceArray) || priceArray.length < 2) return [];
+      // Ensure priceArray is an array of numbers with at least two points
+      if (!Array.isArray(priceArray) || priceArray.length < 2) {
+        return [];
+      }
+      // For i > 0: (current / previous) - 1
       return priceArray.map((price, idx, arr) =>
-        idx === 0 ? 0 : price / arr[idx - 1] - 1
+        idx === 0
+          ? 0
+          : price / arr[idx - 1] - 1
       );
     }
 
@@ -88,13 +94,14 @@ async function initializeTrendScore() {
     initBlock3Tabs();
 
     // 5) Global event handlers (sidebar clicks for stocks/etfs/etc, fullscreen, etc.)
+    // --- CRITICAL FIX: Pass window.historicalReturns as the third argument ---
     initEventHandlers(
       { // allGroupData
         STOCKS:  window.stocksFullData,
         ETFS:    window.etfFullData,
         FUTURES: window.futuresFullData,
         FX:      window.fxFullData,
-        SPREADS: window.spreadsFullData // <-- aggiunto
+        SPREADS: window.spreadsFullData // Pass spreads data correctly
       },
       { // allPricesData
         stockPrices:   window.pricesData.stockPrices,
@@ -102,7 +109,7 @@ async function initializeTrendScore() {
         futuresPrices: window.pricesData.futuresPrices,
         fxPrices:      window.pricesData.fxPrices
       },
-      window.historicalReturns
+      window.historicalReturns // Pass the flat historicalReturns map directly
     );
 
     // 6) Initialize Portfolio Builder & Portfolio Ideas
@@ -124,17 +131,18 @@ async function initializeTrendScore() {
     // 8) Default dashboard view (first stock)
     const defaultInstrument = Object.keys(window.stocksFullData)[0] || "AMZN";
     if (window.stocksFullData[defaultInstrument]) {
-      // ensure spreads block is hidden at startup; it will be shown when a spread is clicked
+      // ensure spreads block is hidden
       const spreadBlock = document.getElementById('block5');
       if (spreadBlock) spreadBlock.style.display = 'none';
 
       updateChart(defaultInstrument, window.stocksFullData);
       updateSymbolOverview(defaultInstrument, window.stocksFullData);
       updateBlock3(defaultInstrument, window.stocksFullData);
+      // --- CRITICAL FIX: Pass window.historicalReturns here too ---
       updateBlock4(
         defaultInstrument,
         window.stocksFullData,
-        window.historicalReturns
+        window.historicalReturns // Use historicalReturns, not pricesData.stockPrices
       );
     }
   } catch (error) {
