@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Value Investing Dashboard</title>
+  <!-- Link to the merged and adapted CSS file -->
+  <link rel="stylesheet" href="value.css" />
+  <!-- Font for aesthetics -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; } /* Apply Inter font to body */
+  </style>
+</head>
+<body>
+  <div class="loading-message" id="loadingMessage">
+    Loading data... Please wait. <br>
+    <span style="animation-delay: 0s;">.</span>
+    <span style="animation-delay: 0.1s;">.</span>
+    <span style="animation-delay: 0.2s;">.</span>
+  </div>
+
+  <aside id="sidebar">
+    <div id="collapse-btn">☰</div>
+    <div class="sidebar-content">
+      <div class="logo">Value Strategy</div>
+      <nav class="nav-links">
+        <ul>
+          <li class="active" data-page="dashboard">Dashboard</li>
+          <!-- Add other potential navigation links here if the app expands -->
+          <li>About</li>
+        </ul>
+      </nav>
+      <div class="footer">
+        Value Strategy Dashboard <br> &copy; 2025
+      </div>
+    </div>
+  </aside>
+
+  <main id="main-content">
+    <div id="container">
+      <!-- Module 1: Portfolio KPI Cards -->
+      <section id="module1" class="card-grid card">
+        <!-- KPIs will be dynamically inserted here by JavaScript -->
+      </section>
+
+      <!-- Module 2: Historical Report (Trades) -->
+      <section id="module2" class="card table-card">
+        <h2>Historical Trades</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Ticker</th>
+                <th>Entry Date</th>
+                <th>Exit Date</th>
+                <th>Entry P/E</th>
+                <th>Exit P/E</th>
+                <th>Entry Price</th>
+                <th>Exit Price</th>
+                <th>P&L (USD)</th>
+                <th>Duration (Days)</th>
+                <th>Exit Reason</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Historical trades will be dynamically inserted here by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Module 3: Performance Visuals (Equity Curve Chart) -->
+      <section id="module3" class="card charts-card">
+        <h2>Equity Curve</h2>
+        <canvas id="equityChart"></canvas>
+      </section>
+
+      <!-- Module 4: New Strategies Alert (New Buy Signals) -->
+      <section id="module4" class="card table-card">
+        <h2>New Buy Signals</h2>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Ticker</th>
+                <th>Current P/E</th>
+                <th>Current Price</th>
+                <th>10-yr Median P/E</th>
+                <th>Sector Median P/E</th>
+                <th>Entry Reason</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- New signals will be dynamically inserted here by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Chart.js library for charting -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script> <!-- Add date adapter for Chart.js -->
+  <!-- Value Strategy dashboard logic -->
+  <script src="value_dashboard.js"></script>
+</body>
+</html>
