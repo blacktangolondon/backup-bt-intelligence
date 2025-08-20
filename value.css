@@ -1,0 +1,317 @@
+/* Base resets */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent overall scrolling, let individual modules scroll */
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Body styling */
+body {
+  background: #000; /* Dark background */
+  color: #ddd;      /* Light text */
+  font-family: 'Inter', sans-serif; /* Using Inter font */
+  display: flex; /* Flexbox for sidebar and main content */
+  min-height: 100vh;
+}
+
+/* Loading message style */
+.loading-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: white;
+  text-align: center;
+}
+@keyframes pulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 1; }\
+  100% { opacity: 0.3; }
+}
+.loading-message span {
+  display: inline-block;
+  animation: pulse 1.5s infinite;
+}
+
+
+/* Sidebar Styling */
+#sidebar {
+  background-color: #000000; /* Black sidebar */
+  color: white;
+  width: 13.33%; /* Match original */
+  min-width: 250px; /* Minimum width for sidebar content visibility */
+  height: 100vh;
+  overflow-y: auto;
+  transition: width 0.3s ease;
+  font-family: Arial, sans-serif; /* Keep original font for sidebar if preferred */
+  font-size: 11px;
+  position: relative;
+  padding-bottom: 10px;
+  border-right: 1px solid #333; /* Separator from main content */
+}
+
+#collapse-btn {
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #334455;
+  border-radius: 8px; /* Rounded corners */
+  margin: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+#collapse-btn:hover {
+  background-color: #556677;
+}
+
+#sidebar.collapsed {
+  width: 50px; /* Collapsed width */
+  min-width: 50px;
+}
+#sidebar.collapsed .sidebar-content {
+  display: none;
+}
+
+.logo {
+  text-align: center;
+  padding: 20px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #FFA500; /* Orange accent */
+  border-bottom: 1px solid #333;
+}
+
+.nav-links ul {
+  list-style: none;
+  padding: 10px 0;
+}
+.nav-links li {
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-radius: 8px; /* Rounded corners for list items */
+  margin: 0 5px;
+}
+.nav-links li:hover {
+  background-color: #222;
+}
+.nav-links li.active {
+  background-color: #FFA500; /* Orange active state */
+  color: #000;
+  font-weight: bold;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  font-size: 10px;
+  color: #888;
+}
+
+/* Main Content Area */
+#main-content {
+  flex-grow: 1; /* Takes remaining space */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #111; /* Slightly lighter dark background for main content */
+  overflow: auto; /* Allow main content to scroll if needed */
+}
+
+/* Layout grid: 2×2 with Module 4 bottom‑right */
+#container {
+  display: grid;
+  grid-template-areas:
+    "module1 module3"
+    "module4 module2";
+  grid-template-columns: 2fr 3fr; /* Wider right column for charts */
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+  height: 100%; /* Take full height of main-content */
+  width: 100%;
+}
+
+/* Card base styles */
+.card {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  display: flex; /* Default to flex for internal layout */
+  flex-direction: column;
+  overflow: hidden; /* Important for preventing content overflow */
+}
+
+/* Module 1: KPI Cards as 2‑column grid */
+#module1 {
+  grid-area: module1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding: 0; /* Padding is already on .card */
+  height: 100%;
+  overflow: hidden;
+}
+
+.kpi-card {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.kpi-value {
+  font-size: 24px;
+  color: #FFA500; /* Orange accent */
+  font-weight: bold;
+}
+.kpi-label {
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+/* Module 2: Historical Trades */
+#module2 {
+  grid-area: module2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto; /* Enable scrolling for table */
+}
+
+/* Module 3: Performance Visuals (flex) */
+#module3 {
+  grid-area: module3;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden; /* Chart takes care of its own overflow */
+}
+
+/* Module 4: New Strategies Alert (table) */
+#module4 {
+  grid-area: module4;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto; /* Enable scrolling for table */
+}
+
+/* Table styling (Modules 2 & 4) */
+.table-card h2 {
+  margin-bottom: 8px;
+  color: #FFA500; /* Orange heading */
+}
+.table-wrapper {
+  flex: 1; /* Takes available vertical space */
+  overflow-y: auto; /* Scrollable content */
+}
+.table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table-wrapper th,
+.table-wrapper td {
+  padding: 6px 8px;
+  text-align: right;
+  font-size: 12px;
+  border-bottom: 1px solid #333;
+  white-space: nowrap; /* prevent wrapping of long values (dates, numbers, etc.) */
+}
+.table-wrapper th:first-child,
+.table-wrapper td:first-child {
+  text-align: left;
+}
+.table-wrapper tr:nth-child(even) {
+  background: #1a1a1a;
+}
+.table-wrapper tr:hover {
+  background: #2a2a2a;
+}
+
+/* --- WebKit (Chrome, Edge, Safari) scrollbar styling --- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #777;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  #container {
+    grid-template-areas:
+      "module1"
+      "module3"
+      "module4"
+      "module2";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto; /* Auto height for stacked modules */
+  }
+  #main-content {
+    padding: 10px;
+  }
+  .card {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  #sidebar {
+    width: 100%;
+    height: auto;
+    min-width: auto;
+    position: relative;
+    border-right: none;
+    border-bottom: 1px solid #333;
+  }
+  #sidebar.collapsed {
+    width: 100%;
+  }
+  #main-content {
+    padding: 8px;
+  }
+  .logo {
+    padding: 10px;
+  }
+  .nav-links li {
+    padding: 6px 15px;
+  }
+  .kpi-value {
+    font-size: 20px;
+  }
+  .kpi-label {
+    font-size: 10px;
+  }
+  .table-wrapper th,
+  .table-wrapper td {
+    font-size: 10px;
+    padding: 4px 6px;
+  }
+}
+
