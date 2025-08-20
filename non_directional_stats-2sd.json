@@ -4,17 +4,17 @@
       "start": "2023-11-21",
       "end": "2024-06-07"
     },
-    "total_trades": 190,
+    "total_trades": 189,
     "wins": 147,
-    "losses": 43,
-    "win_rate_pct": 77.4,
-    "total_pnl": 9085.9961,
-    "avg_pnl_per_trade": 47.821,
+    "losses": 42,
+    "win_rate_pct": 77.8,
+    "total_pnl": 9106.2708,
+    "avg_pnl_per_trade": 48.1813,
     "max_win": 201.8838,
     "max_loss": -131.0585,
     "max_drawdown": 189.3706,
     "avg_duration_days": 5.6,
-    "sortino_ratio": 1.9768
+    "sortino_ratio": 1.9684
   },
   "by_spread": [
     {
@@ -289,20 +289,20 @@
     },
     {
       "period": {
-        "start": "2023-11-01",
+        "start": "2023-11-07",
         "end": "2025-08-08"
       },
-      "total_trades": 12,
+      "total_trades": 11,
       "wins": 5,
-      "losses": 7,
-      "win_rate_pct": 41.7,
-      "total_pnl": -84.2763,
-      "avg_pnl_per_trade": -7.023,
+      "losses": 6,
+      "win_rate_pct": 45.5,
+      "total_pnl": -64.0016,
+      "avg_pnl_per_trade": -5.8183,
       "max_win": 55.5592,
       "max_loss": -48.2841,
       "max_drawdown": 139.4169,
       "avg_duration_days": 6.5,
-      "sortino_ratio": -0.4422,
+      "sortino_ratio": -0.3392,
       "key": "COPPER/COPX"
     },
     {
@@ -2379,31 +2379,17 @@
     },
     {
       "spread": "COPPER/COPX",
-      "entry_date": "2023-11-01",
-      "exit_date": "2023-11-08",
+      "entry_date": "2023-11-07",
+      "exit_date": "2023-11-14",
       "type": "short",
-      "entry": 0.1116,
-      "exit": 0.1136,
-      "pnl": -28.7287,
-      "take_profit": 0.0994,
-      "stop_loss": 0.1238,
+      "entry": 0.1118,
+      "exit": 0.1097,
+      "pnl": 19.8561,
+      "take_profit": 0.0996,
+      "stop_loss": 0.1241,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": -28.7287
-    },
-    {
-      "spread": "COPPER/COPX",
-      "entry_date": "2023-11-09",
-      "exit_date": "2023-11-16",
-      "type": "short",
-      "entry": 0.1134,
-      "exit": 0.1103,
-      "pnl": 28.3101,
-      "take_profit": 0.0997,
-      "stop_loss": 0.1271,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": -0.4186
+      "cum_pnl": 19.8561
     },
     {
       "spread": "COPPER/COPX",
@@ -2417,7 +2403,7 @@
       "stop_loss": 0.1169,
       "duration": 8,
       "exit_reason": "max_hold_days",
-      "cum_pnl": 55.1406
+      "cum_pnl": 75.4153
     },
     {
       "spread": "COPPER/COPX",
@@ -2431,7 +2417,7 @@
       "stop_loss": 0.1162,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": 6.8565
+      "cum_pnl": 27.1312
     },
     {
       "spread": "COPPER/COPX",
@@ -2445,7 +2431,7 @@
       "stop_loss": 0.124,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": 28.1038
+      "cum_pnl": 48.3785
     },
     {
       "spread": "COPPER/COPX",
@@ -2459,7 +2445,7 @@
       "stop_loss": 0.1231,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": 28.2886
+      "cum_pnl": 48.5633
     },
     {
       "spread": "COPPER/COPX",
@@ -2473,7 +2459,7 @@
       "stop_loss": 0.1243,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": -12.5245
+      "cum_pnl": 7.7502
     },
     {
       "spread": "COPPER/COPX",
@@ -2487,7 +2473,7 @@
       "stop_loss": 0.1265,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": -3.5613
+      "cum_pnl": 16.7134
     },
     {
       "spread": "COPPER/COPX",
@@ -2501,7 +2487,7 @@
       "stop_loss": 0.1315,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": -26.6371
+      "cum_pnl": -6.3624
     },
     {
       "spread": "COPPER/COPX",
@@ -2515,7 +2501,7 @@
       "stop_loss": 0.1384,
       "duration": 6,
       "exit_reason": "coint_breach",
-      "cum_pnl": -31.461
+      "cum_pnl": -11.1863
     },
     {
       "spread": "COPPER/COPX",
@@ -2529,7 +2515,7 @@
       "stop_loss": 0.1326,
       "duration": 7,
       "exit_reason": "coint_breach",
-      "cum_pnl": -75.5342
+      "cum_pnl": -55.2595
     },
     {
       "spread": "COPPER/COPX",
@@ -2543,7 +2529,7 @@
       "stop_loss": 0.0804,
       "duration": 1,
       "exit_reason": "coint_breach",
-      "cum_pnl": -84.2762
+      "cum_pnl": -64.0015
     },
     {
       "spread": "COPPER/COPA",
