@@ -4,17 +4,17 @@
       "start": "2023-11-21",
       "end": "2024-06-07"
     },
-    "total_trades": 189,
-    "wins": 147,
+    "total_trades": 190,
+    "wins": 148,
     "losses": 42,
-    "win_rate_pct": 77.8,
-    "total_pnl": 9106.2708,
-    "avg_pnl_per_trade": 48.1813,
+    "win_rate_pct": 77.9,
+    "total_pnl": 9106.5348,
+    "avg_pnl_per_trade": 47.9291,
     "max_win": 201.8838,
     "max_loss": -131.0585,
     "max_drawdown": 189.3706,
     "avg_duration_days": 5.6,
-    "sortino_ratio": 1.9684
+    "sortino_ratio": 1.9581
   },
   "by_spread": [
     {
@@ -182,19 +182,19 @@
     {
       "period": {
         "start": "2023-12-13",
-        "end": "2025-08-14"
+        "end": "2025-08-22"
       },
-      "total_trades": 23,
-      "wins": 12,
+      "total_trades": 24,
+      "wins": 13,
       "losses": 11,
-      "win_rate_pct": 52.2,
-      "total_pnl": 322.9822,
-      "avg_pnl_per_trade": 14.0427,
+      "win_rate_pct": 54.2,
+      "total_pnl": 323.2462,
+      "avg_pnl_per_trade": 13.4686,
       "max_win": 89.5627,
       "max_loss": -64.6822,
       "max_drawdown": 89.4594,
       "avg_duration_days": 7.0,
-      "sortino_ratio": 0.7648,
+      "sortino_ratio": 0.7335,
       "key": "SILVER/SIL"
     },
     {
@@ -2180,6 +2180,20 @@
       "duration": 7,
       "exit_reason": "max_hold_days",
       "cum_pnl": 322.9824
+    },
+    {
+      "spread": "SILVER/SIL",
+      "entry_date": "2025-08-15",
+      "exit_date": "2025-08-22",
+      "type": "long",
+      "entry": 0.7016,
+      "exit": 0.7046,
+      "pnl": 0.264,
+      "take_profit": 0.8006,
+      "stop_loss": 0.6026,
+      "duration": 7,
+      "exit_reason": "max_hold_days",
+      "cum_pnl": 323.2463
     },
     {
       "spread": "GOLD/IAU",
