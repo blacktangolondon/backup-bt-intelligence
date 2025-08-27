@@ -1,0 +1,903 @@
+{
+  "portfolio_kpis": {
+    "period": {
+      "start": "2020-08-31",
+      "end": "2025-07-31"
+    },
+    "initial_capital_usd": 100000.0,
+    "final_portfolio_value_usd": 129073.58,
+    "total_pnl_usd": 29293.12,
+    "total_trades": 51,
+    "wins": 31,
+    "losses": 20,
+    "win_rate_pct": 60.8,
+    "avg_pnl_per_trade_usd": 574.37,
+    "max_win_usd": 5641.84,
+    "max_loss_usd": -2942.56,
+    "max_drawdown_usd": 13163.98,
+    "avg_duration_days": 349.0,
+    "sortino_ratio": "N/A"
+  },
+  "historical_trades": [
+    {
+      "ticker": "MPC",
+      "entry_date": "2020-08-31",
+      "exit_date": "2020-09-30",
+      "entry_pe": -2.98,
+      "exit_pe": -2.47,
+      "entry_price": 35.46,
+      "exit_price": 29.34,
+      "pnl_usd": -867.08,
+      "duration_days": 30,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "MO",
+      "entry_date": "2020-08-31",
+      "exit_date": "2020-10-31",
+      "entry_pe": -89.27,
+      "exit_pe": 92.51,
+      "entry_price": 43.74,
+      "exit_price": 36.08,
+      "pnl_usd": -879.75,
+      "duration_days": 61,
+      "exit_reason": "Hard_Cap_PE_22_and_Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "GILD",
+      "entry_date": "2020-08-31",
+      "exit_date": "2020-11-30",
+      "entry_pe": -278.12,
+      "exit_pe": 62.55,
+      "entry_price": 66.75,
+      "exit_price": 60.67,
+      "pnl_usd": -459.98,
+      "duration_days": 91,
+      "exit_reason": "Hard_Cap_PE_22_and_Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "PSX",
+      "entry_date": "2020-08-31",
+      "exit_date": "2020-11-30",
+      "entry_pe": -21.18,
+      "exit_pe": -9.83,
+      "entry_price": 58.47,
+      "exit_price": 60.58,
+      "pnl_usd": 175.25,
+      "duration_days": 91,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "CVX",
+      "entry_date": "2020-08-31",
+      "exit_date": "2020-12-31",
+      "entry_pe": -18.01,
+      "exit_pe": -13.75,
+      "entry_price": 83.93,
+      "exit_price": 84.45,
+      "pnl_usd": 25.95,
+      "duration_days": 122,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "PSX",
+      "entry_date": "2020-12-31",
+      "exit_date": "2021-01-31",
+      "entry_pe": -11.35,
+      "exit_pe": -11.01,
+      "entry_price": 69.94,
+      "exit_price": 67.8,
+      "pnl_usd": -166.79,
+      "duration_days": 31,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "DOW",
+      "entry_date": "2020-08-31",
+      "exit_date": "2021-02-28",
+      "entry_pe": -16.9,
+      "exit_pe": 36.25,
+      "entry_price": 45.12,
+      "exit_price": 59.31,
+      "pnl_usd": 1565.9,
+      "duration_days": 181,
+      "exit_reason": "Hard_Cap_PE_22"
+    },
+    {
+      "ticker": "F",
+      "entry_date": "2020-08-31",
+      "exit_date": "2021-05-31",
+      "entry_pe": -12.87,
+      "exit_pe": 14.68,
+      "entry_price": 6.82,
+      "exit_price": 14.53,
+      "pnl_usd": 5641.84,
+      "duration_days": 273,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "BAC",
+      "entry_date": "2020-09-30",
+      "exit_date": "2021-05-31",
+      "entry_pe": 11.64,
+      "exit_pe": 18.19,
+      "entry_price": 24.09,
+      "exit_price": 42.39,
+      "pnl_usd": 3667.02,
+      "duration_days": 243,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "CVX",
+      "entry_date": "2021-01-31",
+      "exit_date": "2021-05-31",
+      "entry_pe": -13.88,
+      "exit_pe": -24.89,
+      "entry_price": 85.2,
+      "exit_price": 103.79,
+      "pnl_usd": 1137.54,
+      "duration_days": 120,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "D",
+      "entry_date": "2021-02-28",
+      "exit_date": "2021-05-31",
+      "entry_pe": -142.33,
+      "exit_pe": 71.16,
+      "entry_price": 68.32,
+      "exit_price": 76.14,
+      "pnl_usd": 632.3,
+      "duration_days": 92,
+      "exit_reason": "Hard_Cap_PE_22_and_Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "SPG",
+      "entry_date": "2021-05-31",
+      "exit_date": "2021-06-30",
+      "entry_pe": 36.4,
+      "exit_pe": 36.96,
+      "entry_price": 128.49,
+      "exit_price": 130.48,
+      "pnl_usd": 87.6,
+      "duration_days": 30,
+      "exit_reason": "Hard_Cap_PE_22"
+    },
+    {
+      "ticker": "RTX",
+      "entry_date": "2020-10-31",
+      "exit_date": "2021-07-31",
+      "entry_pe": -46.99,
+      "exit_pe": 60.42,
+      "entry_price": 54.32,
+      "exit_price": 86.95,
+      "pnl_usd": 2845.31,
+      "duration_days": 273,
+      "exit_reason": "Hard_Cap_PE_22_and_Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "PFE",
+      "entry_date": "2021-05-31",
+      "exit_date": "2021-07-31",
+      "entry_pe": 20.46,
+      "exit_pe": 22.62,
+      "entry_price": 38.73,
+      "exit_price": 42.81,
+      "pnl_usd": 630.96,
+      "duration_days": 61,
+      "exit_reason": "Hard_Cap_PE_22"
+    },
+    {
+      "ticker": "CVX",
+      "entry_date": "2021-06-30",
+      "exit_date": "2021-07-31",
+      "entry_pe": -25.12,
+      "exit_pe": -24.41,
+      "entry_price": 104.74,
+      "exit_price": 101.81,
+      "pnl_usd": -174.2,
+      "duration_days": 31,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "PSX",
+      "entry_date": "2021-06-30",
+      "exit_date": "2021-07-31",
+      "entry_pe": -17.66,
+      "exit_pe": -15.11,
+      "entry_price": 85.82,
+      "exit_price": 73.43,
+      "pnl_usd": -873.98,
+      "duration_days": 31,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "SYY",
+      "entry_date": "2020-11-30",
+      "exit_date": "2021-08-31",
+      "entry_pe": -1073.64,
+      "exit_pe": 78.86,
+      "entry_price": 71.29,
+      "exit_price": 79.65,
+      "pnl_usd": 607.6,
+      "duration_days": 274,
+      "exit_reason": "Hard_Cap_PE_22_and_Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "COP",
+      "entry_date": "2020-11-30",
+      "exit_date": "2021-08-31",
+      "entry_pe": -35.01,
+      "exit_pe": 47.87,
+      "entry_price": 39.56,
+      "exit_price": 55.53,
+      "pnl_usd": 2104.42,
+      "duration_days": 274,
+      "exit_reason": "Hard_Cap_PE_22_and_Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "VZ",
+      "entry_date": "2021-07-31",
+      "exit_date": "2021-08-31",
+      "entry_pe": 11.55,
+      "exit_pe": 11.39,
+      "entry_price": 55.78,
+      "exit_price": 55.0,
+      "pnl_usd": -88.76,
+      "duration_days": 31,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "PSX",
+      "entry_date": "2021-08-31",
+      "exit_date": "2021-09-30",
+      "entry_pe": -18.32,
+      "exit_pe": -18.05,
+      "entry_price": 71.09,
+      "exit_price": 70.03,
+      "pnl_usd": -95.28,
+      "duration_days": 30,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "XOM",
+      "entry_date": "2021-08-31",
+      "exit_date": "2021-09-30",
+      "entry_pe": -17.53,
+      "exit_pe": -18.91,
+      "entry_price": 54.52,
+      "exit_price": 58.82,
+      "pnl_usd": 466.28,
+      "duration_days": 30,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "VZ",
+      "entry_date": "2021-09-30",
+      "exit_date": "2021-10-31",
+      "entry_pe": 11.18,
+      "exit_pe": 9.94,
+      "entry_price": 54.01,
+      "exit_price": 52.99,
+      "pnl_usd": -117.02,
+      "duration_days": 31,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "AMGN",
+      "entry_date": "2021-09-30",
+      "exit_date": "2021-12-31",
+      "entry_pe": 21.63,
+      "exit_pe": 23.17,
+      "entry_price": 212.65,
+      "exit_price": 224.97,
+      "pnl_usd": 335.03,
+      "duration_days": 92,
+      "exit_reason": "Hard_Cap_PE_22"
+    },
+    {
+      "ticker": "BMY",
+      "entry_date": "2020-08-31",
+      "exit_date": "2022-02-28",
+      "entry_pe": -637.3,
+      "exit_pe": 22.01,
+      "entry_price": 62.2,
+      "exit_price": 68.67,
+      "pnl_usd": 514.58,
+      "duration_days": 546,
+      "exit_reason": "Hard_Cap_PE_22"
+    },
+    {
+      "ticker": "ALL",
+      "entry_date": "2020-08-31",
+      "exit_date": "2022-02-28",
+      "entry_pe": 6.97,
+      "exit_pe": 19.39,
+      "entry_price": 93.0,
+      "exit_price": 122.36,
+      "pnl_usd": 1571.92,
+      "duration_days": 546,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "PSX",
+      "entry_date": "2021-10-31",
+      "exit_date": "2022-02-28",
+      "entry_pe": -65.03,
+      "exit_pe": 28.46,
+      "entry_price": 74.78,
+      "exit_price": 84.24,
+      "pnl_usd": 739.96,
+      "duration_days": 120,
+      "exit_reason": "Hard_Cap_PE_22_and_Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "CB",
+      "entry_date": "2021-07-31",
+      "exit_date": "2022-10-31",
+      "entry_pe": 9.32,
+      "exit_pe": 15.15,
+      "entry_price": 168.74,
+      "exit_price": 214.89,
+      "pnl_usd": 1614.17,
+      "duration_days": 457,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "TROW",
+      "entry_date": "2022-01-31",
+      "exit_date": "2023-03-31",
+      "entry_pe": 11.64,
+      "exit_pe": 16.88,
+      "entry_price": 154.43,
+      "exit_price": 112.9,
+      "pnl_usd": -1611.52,
+      "duration_days": 424,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "GM",
+      "entry_date": "2023-03-31",
+      "exit_date": "2023-04-30",
+      "entry_pe": 5.95,
+      "exit_pe": 5.08,
+      "entry_price": 36.68,
+      "exit_price": 33.04,
+      "pnl_usd": -599.16,
+      "duration_days": 30,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "F",
+      "entry_date": "2022-02-28",
+      "exit_date": "2023-05-31",
+      "entry_pe": 3.95,
+      "exit_pe": 16.9,
+      "entry_price": 17.56,
+      "exit_price": 12.0,
+      "pnl_usd": -1900.13,
+      "duration_days": 457,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "MRK",
+      "entry_date": "2022-02-28",
+      "exit_date": "2023-06-30",
+      "entry_pe": 14.9,
+      "exit_pe": 22.54,
+      "entry_price": 76.58,
+      "exit_price": 115.39,
+      "pnl_usd": 3025.75,
+      "duration_days": 487,
+      "exit_reason": "Hard_Cap_PE_22"
+    },
+    {
+      "ticker": "TRV",
+      "entry_date": "2021-07-31",
+      "exit_date": "2023-07-31",
+      "entry_pe": 10.02,
+      "exit_pe": 18.33,
+      "entry_price": 148.92,
+      "exit_price": 172.61,
+      "pnl_usd": 936.39,
+      "duration_days": 730,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "DOW",
+      "entry_date": "2021-07-31",
+      "exit_date": "2023-07-31",
+      "entry_pe": 11.41,
+      "exit_pe": 23.14,
+      "entry_price": 62.16,
+      "exit_price": 56.47,
+      "pnl_usd": -548.17,
+      "duration_days": 730,
+      "exit_reason": "Hard_Cap_PE_22"
+    },
+    {
+      "ticker": "VZ",
+      "entry_date": "2023-07-31",
+      "exit_date": "2023-08-31",
+      "entry_pe": 6.82,
+      "exit_pe": 7.0,
+      "entry_price": 34.08,
+      "exit_price": 34.98,
+      "pnl_usd": 154.91,
+      "duration_days": 31,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "F",
+      "entry_date": "2023-08-31",
+      "exit_date": "2023-09-30",
+      "entry_pe": 11.89,
+      "exit_pe": 12.18,
+      "entry_price": 12.13,
+      "exit_price": 12.42,
+      "pnl_usd": 137.45,
+      "duration_days": 30,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "VZ",
+      "entry_date": "2023-09-30",
+      "exit_date": "2023-10-31",
+      "entry_pe": 6.48,
+      "exit_pe": 7.08,
+      "entry_price": 32.41,
+      "exit_price": 35.13,
+      "pnl_usd": 489.88,
+      "duration_days": 31,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "QCOM",
+      "entry_date": "2022-10-31",
+      "exit_date": "2023-12-31",
+      "entry_pe": 10.42,
+      "exit_pe": 22.53,
+      "entry_price": 117.66,
+      "exit_price": 144.63,
+      "pnl_usd": 1311.6,
+      "duration_days": 426,
+      "exit_reason": "Hard_Cap_PE_22"
+    },
+    {
+      "ticker": "GILD",
+      "entry_date": "2023-06-30",
+      "exit_date": "2024-05-31",
+      "entry_pe": 17.4,
+      "exit_pe": 178.53,
+      "entry_price": 77.07,
+      "exit_price": 64.27,
+      "pnl_usd": -996.67,
+      "duration_days": 336,
+      "exit_reason": "Hard_Cap_PE_22_and_Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "PFE",
+      "entry_date": "2024-05-31",
+      "exit_date": "2024-11-30",
+      "entry_pe": -439.57,
+      "exit_pe": 35.45,
+      "entry_price": 28.66,
+      "exit_price": 26.21,
+      "pnl_usd": -539.17,
+      "duration_days": 183,
+      "exit_reason": "Hard_Cap_PE_22"
+    },
+    {
+      "ticker": "SWK",
+      "entry_date": "2023-05-31",
+      "exit_date": "2025-02-28",
+      "entry_pe": -66.35,
+      "exit_pe": 44.71,
+      "entry_price": 74.97,
+      "exit_price": 86.53,
+      "pnl_usd": 884.2,
+      "duration_days": 639,
+      "exit_reason": "Hard_Cap_PE_22_and_Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "LYB",
+      "entry_date": "2021-05-31",
+      "exit_date": "2025-07-31",
+      "entry_pe": 16.09,
+      "exit_pe": 17.82,
+      "entry_price": 112.62,
+      "exit_price": 57.93,
+      "pnl_usd": -2942.56,
+      "duration_days": 1522,
+      "exit_reason": "Valuation_Stretched_vs_Sector"
+    },
+    {
+      "ticker": "BA",
+      "entry_date": "2020-08-31",
+      "exit_date": "2025-07-31",
+      "entry_pe": -34.02,
+      "exit_pe": -13.44,
+      "entry_price": 171.82,
+      "exit_price": 221.84,
+      "pnl_usd": 1449.14,
+      "duration_days": 1795,
+      "exit_reason": "Backtest_End"
+    },
+    {
+      "ticker": "JPM",
+      "entry_date": "2021-08-31",
+      "exit_date": "2025-07-31",
+      "entry_pe": 10.67,
+      "exit_pe": 15.2,
+      "entry_price": 159.95,
+      "exit_price": 296.24,
+      "pnl_usd": 5096.28,
+      "duration_days": 1430,
+      "exit_reason": "Backtest_End"
+    },
+    {
+      "ticker": "T",
+      "entry_date": "2022-02-28",
+      "exit_date": "2025-07-31",
+      "entry_pe": 6.55,
+      "exit_pe": 15.59,
+      "entry_price": 17.88,
+      "exit_price": 27.41,
+      "pnl_usd": 3182.53,
+      "duration_days": 1249,
+      "exit_reason": "Backtest_End"
+    },
+    {
+      "ticker": "CVX",
+      "entry_date": "2023-04-30",
+      "exit_date": "2025-07-31",
+      "entry_pe": 9.22,
+      "exit_pe": 17.35,
+      "entry_price": 168.58,
+      "exit_price": 151.64,
+      "pnl_usd": -603.19,
+      "duration_days": 823,
+      "exit_reason": "Backtest_End"
+    },
+    {
+      "ticker": "CINF",
+      "entry_date": "2023-09-30",
+      "exit_date": "2025-07-31",
+      "entry_pe": 11.94,
+      "exit_pe": 12.79,
+      "entry_price": 102.29,
+      "exit_price": 147.51,
+      "pnl_usd": 2605.69,
+      "duration_days": 670,
+      "exit_reason": "Backtest_End"
+    },
+    {
+      "ticker": "F",
+      "entry_date": "2023-10-31",
+      "exit_date": "2025-07-31",
+      "entry_pe": 6.37,
+      "exit_pe": 14.18,
+      "entry_price": 9.75,
+      "exit_price": 11.07,
+      "pnl_usd": 789.4,
+      "duration_days": 639,
+      "exit_reason": "Backtest_End"
+    },
+    {
+      "ticker": "VZ",
+      "entry_date": "2024-01-31",
+      "exit_date": "2025-07-31",
+      "entry_pe": 8.54,
+      "exit_pe": 9.97,
+      "entry_price": 42.35,
+      "exit_price": 42.76,
+      "pnl_usd": 54.13,
+      "duration_days": 547,
+      "exit_reason": "Backtest_End"
+    },
+    {
+      "ticker": "INTC",
+      "entry_date": "2024-11-30",
+      "exit_date": "2025-07-31",
+      "entry_pe": -6.47,
+      "exit_pe": -4.15,
+      "entry_price": 24.05,
+      "exit_price": 19.8,
+      "pnl_usd": -1141.98,
+      "duration_days": 243,
+      "exit_reason": "Backtest_End"
+    },
+    {
+      "ticker": "DOV",
+      "entry_date": "2025-02-28",
+      "exit_date": "2025-07-31",
+      "entry_pe": 10.22,
+      "exit_pe": 10.93,
+      "entry_price": 198.77,
+      "exit_price": 181.14,
+      "pnl_usd": -576.02,
+      "duration_days": 153,
+      "exit_reason": "Backtest_End"
+    },
+    {
+      "ticker": "WHR",
+      "entry_date": "2025-07-31",
+      "exit_date": "2025-07-31",
+      "entry_pe": -30.87,
+      "exit_pe": -30.87,
+      "entry_price": 83.04,
+      "exit_price": 83.04,
+      "pnl_usd": -6.45,
+      "duration_days": 0,
+      "exit_reason": "Backtest_End"
+    }
+  ],
+  "equity_curve": [
+    {
+      "date": "2020-08-31",
+      "portfolio_value": 99950.0
+    },
+    {
+      "date": "2020-09-30",
+      "portfolio_value": 96764.18
+    },
+    {
+      "date": "2020-10-31",
+      "portfolio_value": 94981.48
+    },
+    {
+      "date": "2020-11-30",
+      "portfolio_value": 104612.48
+    },
+    {
+      "date": "2020-12-31",
+      "portfolio_value": 105666.38
+    },
+    {
+      "date": "2021-01-31",
+      "portfolio_value": 104849.78
+    },
+    {
+      "date": "2021-02-28",
+      "portfolio_value": 111562.78
+    },
+    {
+      "date": "2021-03-31",
+      "portfolio_value": 116041.03
+    },
+    {
+      "date": "2021-04-30",
+      "portfolio_value": 116814.23
+    },
+    {
+      "date": "2021-05-31",
+      "portfolio_value": 121042.64
+    },
+    {
+      "date": "2021-06-30",
+      "portfolio_value": 120347.56
+    },
+    {
+      "date": "2021-07-31",
+      "portfolio_value": 118567.25
+    },
+    {
+      "date": "2021-08-31",
+      "portfolio_value": 119862.49
+    },
+    {
+      "date": "2021-09-30",
+      "portfolio_value": 117795.8
+    },
+    {
+      "date": "2021-10-31",
+      "portfolio_value": 118030.32
+    },
+    {
+      "date": "2021-11-30",
+      "portfolio_value": 113975.9
+    },
+    {
+      "date": "2021-12-31",
+      "portfolio_value": 117524.75
+    },
+    {
+      "date": "2022-01-31",
+      "portfolio_value": 119518.34
+    },
+    {
+      "date": "2022-02-28",
+      "portfolio_value": 119746.45
+    },
+    {
+      "date": "2022-03-31",
+      "portfolio_value": 121136.64
+    },
+    {
+      "date": "2022-04-30",
+      "portfolio_value": 117804.6
+    },
+    {
+      "date": "2022-05-31",
+      "portfolio_value": 119918.24
+    },
+    {
+      "date": "2022-06-30",
+      "portfolio_value": 113855.83
+    },
+    {
+      "date": "2022-07-31",
+      "portfolio_value": 114886.18
+    },
+    {
+      "date": "2022-08-31",
+      "portfolio_value": 113770.94
+    },
+    {
+      "date": "2022-09-30",
+      "portfolio_value": 107972.66
+    },
+    {
+      "date": "2022-10-31",
+      "portfolio_value": 115051.36
+    },
+    {
+      "date": "2022-11-30",
+      "portfolio_value": 120034.51
+    },
+    {
+      "date": "2022-12-31",
+      "portfolio_value": 117542.2
+    },
+    {
+      "date": "2023-01-31",
+      "portfolio_value": 122595.52
+    },
+    {
+      "date": "2023-02-28",
+      "portfolio_value": 120200.79
+    },
+    {
+      "date": "2023-03-31",
+      "portfolio_value": 119660.94
+    },
+    {
+      "date": "2023-04-30",
+      "portfolio_value": 118982.89
+    },
+    {
+      "date": "2023-05-31",
+      "portfolio_value": 115545.3
+    },
+    {
+      "date": "2023-06-30",
+      "portfolio_value": 119415.31
+    },
+    {
+      "date": "2023-07-31",
+      "portfolio_value": 122056.33
+    },
+    {
+      "date": "2023-08-31",
+      "portfolio_value": 120120.39
+    },
+    {
+      "date": "2023-09-30",
+      "portfolio_value": 118257.92
+    },
+    {
+      "date": "2023-10-31",
+      "portfolio_value": 117596.4
+    },
+    {
+      "date": "2023-11-30",
+      "portfolio_value": 121885.37
+    },
+    {
+      "date": "2023-12-31",
+      "portfolio_value": 126374.94
+    },
+    {
+      "date": "2024-01-31",
+      "portfolio_value": 124834.41
+    },
+    {
+      "date": "2024-02-29",
+      "portfolio_value": 124787.55
+    },
+    {
+      "date": "2024-03-31",
+      "portfolio_value": 127678.46
+    },
+    {
+      "date": "2024-04-30",
+      "portfolio_value": 123725.74
+    },
+    {
+      "date": "2024-05-31",
+      "portfolio_value": 124802.98
+    },
+    {
+      "date": "2024-06-30",
+      "portfolio_value": 124387.12
+    },
+    {
+      "date": "2024-07-31",
+      "portfolio_value": 127546.79
+    },
+    {
+      "date": "2024-08-31",
+      "portfolio_value": 127435.89
+    },
+    {
+      "date": "2024-09-30",
+      "portfolio_value": 127423.18
+    },
+    {
+      "date": "2024-10-31",
+      "portfolio_value": 125742.95
+    },
+    {
+      "date": "2024-11-30",
+      "portfolio_value": 128639.35
+    },
+    {
+      "date": "2024-12-31",
+      "portfolio_value": 123579.22
+    },
+    {
+      "date": "2025-01-31",
+      "portfolio_value": 125220.48
+    },
+    {
+      "date": "2025-02-28",
+      "portfolio_value": 128559.7
+    },
+    {
+      "date": "2025-03-31",
+      "portfolio_value": 127565.43
+    },
+    {
+      "date": "2025-04-30",
+      "portfolio_value": 124401.28
+    },
+    {
+      "date": "2025-05-31",
+      "portfolio_value": 126754.0
+    },
+    {
+      "date": "2025-06-30",
+      "portfolio_value": 129485.13
+    },
+    {
+      "date": "2025-07-31",
+      "portfolio_value": 129073.58
+    }
+  ],
+  "new_entry_signals": {
+    "DOW": {
+      "pe": -16.64,
+      "price": 23.29,
+      "sector_median_pe": 0.59,
+      "entry_reason": "Value_vs_Sector_and_OldEconomy_PE<=12"
+    },
+    "TRV": {
+      "pe": 11.51,
+      "price": 260.24,
+      "sector_median_pe": 13.81,
+      "entry_reason": "OldEconomy_PE<=12"
+    },
+    "UPS": {
+      "pe": 12.81,
+      "price": 86.16,
+      "sector_median_pe": 21.44,
+      "entry_reason": "Value_vs_Sector"
+    },
+    "WHR": {
+      "pe": -30.87,
+      "price": 83.04,
+      "sector_median_pe": 11.25,
+      "entry_reason": "Value_vs_Sector_and_OldEconomy_PE<=12"
+    }
+  }
+}
