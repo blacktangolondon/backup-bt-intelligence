@@ -4,17 +4,17 @@
       "start": "2023-11-21",
       "end": "2024-06-07"
     },
-    "total_trades": 206,
-    "wins": 151,
-    "losses": 55,
-    "win_rate_pct": 73.3,
-    "total_pnl": 8734.0299,
-    "avg_pnl_per_trade": 42.3982,
+    "total_trades": 182,
+    "wins": 138,
+    "losses": 44,
+    "win_rate_pct": 75.8,
+    "total_pnl": 8418.796,
+    "avg_pnl_per_trade": 46.2571,
     "max_win": 201.8838,
     "max_loss": -131.0585,
     "max_drawdown": 558.2092,
-    "avg_duration_days": 5.6,
-    "sortino_ratio": 1.8242
+    "avg_duration_days": 5.4,
+    "sortino_ratio": 1.9177
   },
   "by_spread": [
     {
@@ -182,24 +182,6 @@
     {
       "period": {
         "start": "2023-12-13",
-        "end": "2025-08-22"
-      },
-      "total_trades": 24,
-      "wins": 13,
-      "losses": 11,
-      "win_rate_pct": 54.2,
-      "total_pnl": 323.6879,
-      "avg_pnl_per_trade": 13.487,
-      "max_win": 89.5627,
-      "max_loss": -64.6822,
-      "max_drawdown": 89.4594,
-      "avg_duration_days": 7.0,
-      "sortino_ratio": 0.7345,
-      "key": "SILVER/SIL"
-    },
-    {
-      "period": {
-        "start": "2023-12-13",
         "end": "2025-01-24"
       },
       "total_trades": 3,
@@ -289,20 +271,20 @@
     },
     {
       "period": {
-        "start": "2023-11-07",
+        "start": "2023-11-09",
         "end": "2025-08-08"
       },
       "total_trades": 11,
       "wins": 5,
       "losses": 6,
       "win_rate_pct": 45.5,
-      "total_pnl": -64.0016,
-      "avg_pnl_per_trade": -5.8183,
+      "total_pnl": -55.5476,
+      "avg_pnl_per_trade": -5.0498,
       "max_win": 55.5592,
       "max_loss": -48.2841,
       "max_drawdown": 139.4169,
       "avg_duration_days": 6.5,
-      "sortino_ratio": -0.3392,
+      "sortino_ratio": -0.2944,
       "key": "COPPER/COPX"
     },
     {
@@ -1878,342 +1860,6 @@
       "cum_pnl": 233.3959
     },
     {
-      "spread": "SILVER/SIL",
-      "entry_date": "2023-12-13",
-      "exit_date": "2023-12-20",
-      "type": "long",
-      "entry": 0.8278,
-      "exit": 0.8674,
-      "pnl": 48.6576,
-      "take_profit": 0.9347,
-      "stop_loss": 0.7208,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 48.6576
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2023-12-21",
-      "exit_date": "2023-12-28",
-      "type": "long",
-      "entry": 0.8446,
-      "exit": 0.8421,
-      "pnl": -9.5287,
-      "take_profit": 0.9333,
-      "stop_loss": 0.7559,
-      "duration": 7,
-      "exit_reason": "coint_breach",
-      "cum_pnl": 39.1289
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2024-01-12",
-      "exit_date": "2024-01-19",
-      "type": "long",
-      "entry": 0.8591,
-      "exit": 0.9,
-      "pnl": 75.8096,
-      "take_profit": 0.9299,
-      "stop_loss": 0.7884,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 114.9385
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2024-04-09",
-      "exit_date": "2024-04-16",
-      "type": "long",
-      "entry": 0.8702,
-      "exit": 0.9239,
-      "pnl": 89.5627,
-      "take_profit": 0.9506,
-      "stop_loss": 0.7899,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 204.5012
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2024-04-25",
-      "exit_date": "2024-05-02",
-      "type": "long",
-      "entry": 0.8609,
-      "exit": 0.8583,
-      "pnl": -9.7934,
-      "take_profit": 0.9488,
-      "stop_loss": 0.773,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 194.7078
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2024-05-03",
-      "exit_date": "2024-05-10",
-      "type": "long",
-      "entry": 0.8542,
-      "exit": 0.8573,
-      "pnl": -0.4048,
-      "take_profit": 0.9461,
-      "stop_loss": 0.7623,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 194.303
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2024-05-13",
-      "exit_date": "2024-05-20",
-      "type": "long",
-      "entry": 0.8654,
-      "exit": 0.8963,
-      "pnl": 49.8709,
-      "take_profit": 0.9443,
-      "stop_loss": 0.7865,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 244.1739
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2024-07-12",
-      "exit_date": "2024-07-19",
-      "type": "long",
-      "entry": 0.8656,
-      "exit": 0.8478,
-      "pnl": -37.5935,
-      "take_profit": 0.947,
-      "stop_loss": 0.7843,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 206.5804
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2024-07-22",
-      "exit_date": "2024-07-29",
-      "type": "long",
-      "entry": 0.8461,
-      "exit": 0.8322,
-      "pnl": -25.2497,
-      "take_profit": 0.9448,
-      "stop_loss": 0.7475,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 181.3308
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2024-07-30",
-      "exit_date": "2024-08-06",
-      "type": "long",
-      "entry": 0.846,
-      "exit": 0.8919,
-      "pnl": 63.6508,
-      "take_profit": 0.9418,
-      "stop_loss": 0.7501,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 244.9815
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2024-10-18",
-      "exit_date": "2024-10-25",
-      "type": "long",
-      "entry": 0.8397,
-      "exit": 0.8307,
-      "pnl": -19.0105,
-      "take_profit": 0.9324,
-      "stop_loss": 0.7469,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 225.971
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2024-10-28",
-      "exit_date": "2024-11-04",
-      "type": "long",
-      "entry": 0.8349,
-      "exit": 0.8527,
-      "pnl": 22.2114,
-      "take_profit": 0.9283,
-      "stop_loss": 0.7415,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 248.1825
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2024-11-06",
-      "exit_date": "2024-11-13",
-      "type": "long",
-      "entry": 0.8295,
-      "exit": 0.8841,
-      "pnl": 77.1244,
-      "take_profit": 0.9249,
-      "stop_loss": 0.734,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 325.3069
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2024-12-03",
-      "exit_date": "2024-12-10",
-      "type": "long",
-      "entry": 0.8161,
-      "exit": 0.8386,
-      "pnl": 28.0395,
-      "take_profit": 0.9146,
-      "stop_loss": 0.7176,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 353.3464
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2025-04-10",
-      "exit_date": "2025-04-17",
-      "type": "long",
-      "entry": 0.8042,
-      "exit": 0.7803,
-      "pnl": -47.5375,
-      "take_profit": 0.886,
-      "stop_loss": 0.7223,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 305.8089
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2025-04-21",
-      "exit_date": "2025-04-28",
-      "type": "long",
-      "entry": 0.7789,
-      "exit": 0.8112,
-      "pnl": 41.7488,
-      "take_profit": 0.879,
-      "stop_loss": 0.6788,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 347.5577
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2025-05-09",
-      "exit_date": "2025-05-16",
-      "type": "long",
-      "entry": 0.7676,
-      "exit": 0.8156,
-      "pnl": 64.884,
-      "take_profit": 0.8668,
-      "stop_loss": 0.6683,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 412.4417
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2025-05-27",
-      "exit_date": "2025-06-03",
-      "type": "long",
-      "entry": 0.7777,
-      "exit": 0.7449,
-      "pnl": -64.6822,
-      "take_profit": 0.8574,
-      "stop_loss": 0.698,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 347.7595
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2025-06-04",
-      "exit_date": "2025-06-11",
-      "type": "long",
-      "entry": 0.7355,
-      "exit": 0.7542,
-      "pnl": 19.6547,
-      "take_profit": 0.8505,
-      "stop_loss": 0.6206,
-      "duration": 7,
-      "exit_reason": "coint_breach",
-      "cum_pnl": 367.4142
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2025-06-12",
-      "exit_date": "2025-06-20",
-      "type": "long",
-      "entry": 0.747,
-      "exit": 0.7563,
-      "pnl": 9.351,
-      "take_profit": 0.8437,
-      "stop_loss": 0.6502,
-      "duration": 8,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 376.7652
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2025-06-23",
-      "exit_date": "2025-06-30",
-      "type": "long",
-      "entry": 0.7518,
-      "exit": 0.7447,
-      "pnl": -16.8563,
-      "take_profit": 0.8373,
-      "stop_loss": 0.6662,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 359.9089
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2025-07-01",
-      "exit_date": "2025-07-07",
-      "type": "long",
-      "entry": 0.7475,
-      "exit": 0.7338,
-      "pnl": -28.6907,
-      "take_profit": 0.8312,
-      "stop_loss": 0.6638,
-      "duration": 6,
-      "exit_reason": "coint_breach",
-      "cum_pnl": 331.2183
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2025-08-07",
-      "exit_date": "2025-08-14",
-      "type": "long",
-      "entry": 0.7089,
-      "exit": 0.706,
-      "pnl": -8.2359,
-      "take_profit": 0.8085,
-      "stop_loss": 0.6092,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 322.9824
-    },
-    {
-      "spread": "SILVER/SIL",
-      "entry_date": "2025-08-15",
-      "exit_date": "2025-08-22",
-      "type": "long",
-      "entry": 0.7016,
-      "exit": 0.7049,
-      "pnl": 0.7057,
-      "take_profit": 0.8006,
-      "stop_loss": 0.6026,
-      "duration": 7,
-      "exit_reason": "max_hold_days",
-      "cum_pnl": 323.6881
-    },
-    {
       "spread": "GOLD/IAU",
       "entry_date": "2023-12-13",
       "exit_date": "2023-12-15",
@@ -2411,17 +2057,17 @@
     },
     {
       "spread": "COPPER/COPX",
-      "entry_date": "2023-11-07",
-      "exit_date": "2023-11-14",
+      "entry_date": "2023-11-09",
+      "exit_date": "2023-11-16",
       "type": "short",
-      "entry": 0.1118,
-      "exit": 0.1097,
-      "pnl": 19.8561,
-      "take_profit": 0.0996,
-      "stop_loss": 0.1241,
+      "entry": 0.1134,
+      "exit": 0.1103,
+      "pnl": 28.3101,
+      "take_profit": 0.0997,
+      "stop_loss": 0.1271,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": 19.8561
+      "cum_pnl": 28.3101
     },
     {
       "spread": "COPPER/COPX",
@@ -2435,7 +2081,7 @@
       "stop_loss": 0.1169,
       "duration": 8,
       "exit_reason": "max_hold_days",
-      "cum_pnl": 75.4153
+      "cum_pnl": 83.8693
     },
     {
       "spread": "COPPER/COPX",
@@ -2449,7 +2095,7 @@
       "stop_loss": 0.1162,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": 27.1312
+      "cum_pnl": 35.5852
     },
     {
       "spread": "COPPER/COPX",
@@ -2463,7 +2109,7 @@
       "stop_loss": 0.124,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": 48.3785
+      "cum_pnl": 56.8325
     },
     {
       "spread": "COPPER/COPX",
@@ -2477,7 +2123,7 @@
       "stop_loss": 0.1231,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": 48.5633
+      "cum_pnl": 57.0174
     },
     {
       "spread": "COPPER/COPX",
@@ -2491,7 +2137,7 @@
       "stop_loss": 0.1243,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": 7.7502
+      "cum_pnl": 16.2042
     },
     {
       "spread": "COPPER/COPX",
@@ -2505,7 +2151,7 @@
       "stop_loss": 0.1265,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": 16.7134
+      "cum_pnl": 25.1675
     },
     {
       "spread": "COPPER/COPX",
@@ -2519,7 +2165,7 @@
       "stop_loss": 0.1315,
       "duration": 7,
       "exit_reason": "max_hold_days",
-      "cum_pnl": -6.3624
+      "cum_pnl": 2.0917
     },
     {
       "spread": "COPPER/COPX",
@@ -2533,7 +2179,7 @@
       "stop_loss": 0.1384,
       "duration": 6,
       "exit_reason": "coint_breach",
-      "cum_pnl": -11.1863
+      "cum_pnl": -2.7323
     },
     {
       "spread": "COPPER/COPX",
@@ -2547,7 +2193,7 @@
       "stop_loss": 0.1326,
       "duration": 7,
       "exit_reason": "coint_breach",
-      "cum_pnl": -55.2595
+      "cum_pnl": -46.8055
     },
     {
       "spread": "COPPER/COPX",
@@ -2561,7 +2207,7 @@
       "stop_loss": 0.0804,
       "duration": 1,
       "exit_reason": "coint_breach",
-      "cum_pnl": -64.0015
+      "cum_pnl": -55.5475
     },
     {
       "spread": "COPPER/COPA",
