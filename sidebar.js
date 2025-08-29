@@ -266,8 +266,8 @@ export async function generateSidebarContent() {
 
     const ITEMS = [
       { label: 'FX',                url: 'https://backup-bt-intelligence.netlify.app/fx_long_short.html' },
-      { label: 'Future',            url: 'https://backup-bt-intelligence.netlify.app/futures_long_short.html' },
-      { label: 'Long Short Equity', url: 'https://backup-bt-intelligence.netlify.app/equities_long_short.html' },
+      { label: 'FUTURE',            url: 'https://backup-bt-intelligence.netlify.app/futures_long_short.html' },
+      { label: 'LONG-SHORT EQUITY', url: 'https://backup-bt-intelligence.netlify.app/equities_long_short.html' },
     ];
 
     ITEMS.forEach(({label, url}) => {
