@@ -19,9 +19,50 @@
   <!-- (Se usi la pagina portafoglio) -->
   <script type="module" src="portfolio.js"></script>
 
-  <!-- Fix dimensioni per il grafico spread -->
+  <!-- Fix layout: sidebar fissa + main a tutta larghezza/altezza -->
   <style>
-    html, body { height: 100%; }
+    :root { --sidebar-w: 260px; }
+
+    /* Layout base (aggiunta) */
+    html, body { height: 100%; margin: 0; }
+    body { display: flex; background: #000; color: #fff; }
+
+    /* Sidebar a sinistra (aggiunta) */
+    #sidebar {
+      flex: 0 0 var(--sidebar-w);
+      width: var(--sidebar-w);
+      height: 100vh;
+      overflow: auto;
+      position: sticky; top: 0;
+      z-index: 3;
+    }
+
+    /* Main area riempie tutto lo spazio (aggiunta) */
+    #main-content, .main-section {
+      flex: 1 1 auto;
+      min-width: 0;           /* evita schiacciamenti */
+      height: 100vh;
+      overflow: auto;
+      padding: 12px 16px;
+      position: relative;
+    }
+
+    .content-block { width: 100%; }
+
+    /* Supporto Tactical (iframe) — opzionale, non interferisce se non usato */
+    #tactical-embed {
+      display: block;
+      width: 100%;
+      height: calc(100vh - 24px);
+    }
+    #tactical-embed iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Fix dimensioni per il grafico spread (tuo codice, invariato ma compatibile col layout) */
     #main-content { position: relative; }
 
     /* block5: contenitore degli spread */
