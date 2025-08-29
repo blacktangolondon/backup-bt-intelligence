@@ -265,7 +265,7 @@ export async function generateSidebarContent() {
     subUlTS.classList.add('sub-list');
 
     const ITEMS = [
-      { label: 'SX',                url: 'https://backup-bt-intelligence.netlify.app/fx_long_short.html' },
+      { label: 'FX',                url: 'https://backup-bt-intelligence.netlify.app/fx_long_short.html' },
       { label: 'Future',            url: 'https://backup-bt-intelligence.netlify.app/futures_long_short.html' },
       { label: 'Long Short Equity', url: 'https://backup-bt-intelligence.netlify.app/equities_long_short.html' },
     ];
