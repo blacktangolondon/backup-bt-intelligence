@@ -128,38 +128,60 @@ function renderModule3(rets) {
   });
 }
 
-// Module 4 — Alerts (±2σ, coerente col backtest)
+
+
+// Module 4 — Alerts (±0.5σ, coerente col backtest)
 async function renderModule4() {
   try {
     const resp = await fetch(CHANNELS_FILE);
     const data = await resp.json();
+    const STD_MULTIPLIER = 0.5; // Nuovo valore del moltiplicatore
 
     const alerts = Object.entries(data)
       .filter(([_, series]) => Array.isArray(series) && series.length >= 2)
       .map(([spread, series]) => {
         const prev = series[series.length - 2];
         const last = series[series.length - 1];
-        // [date, ratio, lower1, lower2, upper1, upper2]
-        const [, prevPrice, , prevLower2, , prevUpper2] = prev;
-        const [, price,     , lower2,     , upper2]     = last;
 
-        const justBrokeLong  = (price <  lower2) && (prevPrice >= prevLower2);
-        const justBrokeShort = (price >  upper2) && (prevPrice <= prevUpper2);
+        // [date, ratio, lower1, lower2, upper1, upper2]
+        const [, prevPrice, prevLower1, , prevUpper1, ] = prev;
+        const [, price, lower1, , upper1, ] = last;
+
+        // Calcola dinamicamente le bande usando il nuovo moltiplicatore
+        const trend = (upper1 + lower1) / 2;
+        const std = upper1 - trend;
+        const ub = trend + std * STD_MULTIPLIER;
+        const lb = trend - std * STD_MULTIPLIER;
+        
+        // Calcola le bande dinamiche per il punto precedente per il confronto
+        const prevTrend = (prevUpper1 + prevLower1) / 2;
+        const prevStd = prevUpper1 - prevTrend;
+        const prevUb = prevTrend + prevStd * STD_MULTIPLIER;
+        const prevLb = prevTrend - prevStd * STD_MULTIPLIER;
+        
+        const justBrokeLong  = (price < lb) && (prevPrice >= prevLb);
+        const justBrokeShort = (price > ub) && (prevPrice <= prevUb);
+        
         if (!(justBrokeLong || justBrokeShort)) return;
 
         const signal = justBrokeLong ? 'Long' : 'Short';
-        const mid    = (lower2 + upper2) / 2;   // trend
-        const half   = Math.abs(price - mid);   // TP/SL simmetrici
+        const mid = (lb + ub) / 2;
+        const half = Math.abs(price - mid);
 
         return {
           spread,
           signal,
           entry: price,
           takeProfit: mid,
-          stopLoss: signal==='Long' ? price - half : price + half
+          stopLoss: signal === 'Long' ? price - half : price + half
         };
       })
       .filter(Boolean);
+  } catch (error) {
+    console.error("Error in renderModule4:", error);
+    return [];
+  }
+}
 
     const tbody = document.querySelector('#module4 tbody');
     tbody.innerHTML = '';
