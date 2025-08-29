@@ -5,6 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FX — Non-Directional Strategies Dashboard</title>
   <link rel="stylesheet" href="nondirectional.css" />
+
+  <!-- Full-width override for embedding inside the main app -->
+  <style>
+    html, body { margin: 0; height: 100%; }
+    /* make the dashboard use all available space inside the iframe */
+    #container {
+      max-width: none !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 12px 16px;          /* keep some breathing space */
+      box-sizing: border-box;
+    }
+    /* ensure cards/tables/charts don't impose their own max width */
+    .card, .card-grid, .charts-card, .table-card, .table-wrapper {
+      max-width: none !important;
+      width: 100%;
+    }
+    /* let tables and charts expand horizontally */
+    .table-wrapper table { width: 100%; }
+    canvas { width: 100% !important; height: auto; }
+  </style>
 </head>
 <body>
   <div id="container">
