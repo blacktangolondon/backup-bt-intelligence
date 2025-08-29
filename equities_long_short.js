@@ -191,31 +191,29 @@ async function renderModule4() {
     const data = await resp.json();
 
     const alerts = Object.entries(data)
-      // we need at least two days to detect a crossing
       .filter(([_, series]) => Array.isArray(series) && series.length >= 2)
       .map(([spread, series]) => {
         const prev = series[series.length - 2];
         const last = series[series.length - 1];
-        const [, prevPrice, prevLower2, , prevUpper2] = prev;
-        const [, price,     lower2,     , upper2]     = last;
 
-        // only signal on the very first day of a crossing
-        const justBrokeLong  = (price < lower2)  && (prevPrice >= prevLower2);
-        const justBrokeShort = (price > upper2)  && (prevPrice <= prevUpper2);
+        // [date, ratio, lower1, lower2, upper1, upper2]
+        const [, prevPrice, , prevLower2, , prevUpper2] = prev;
+        const [, price,     , lower2,     , upper2]     = last;
+
+        const justBrokeLong  = (price <  lower2) && (prevPrice >= prevLower2);
+        const justBrokeShort = (price >  upper2) && (prevPrice <= prevUpper2);
         if (!(justBrokeLong || justBrokeShort)) return;
 
         const signal = justBrokeLong ? 'Long' : 'Short';
-        const mid    = (lower2 + upper2) / 2;
-        const half   = Math.abs(price - mid);
+        const mid    = (lower2 + upper2) / 2;     // == trend
+        const half   = Math.abs(price - mid);     // distanza simmetrica
 
         return {
           spread,
           signal,
           entry:      price,
           takeProfit: mid,
-          stopLoss:   signal === 'Long'
-                         ? price - half
-                         : price + half
+          stopLoss:   signal === 'Long' ? price - half : price + half
         };
       })
       .filter(Boolean);
