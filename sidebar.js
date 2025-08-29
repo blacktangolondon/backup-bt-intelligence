@@ -1,5 +1,5 @@
 // sidebar.js
-// Left sidebar: instruments sections + NON-DIRECTIONAL (flat spreads list) + Portfolio link
+// Left sidebar: instruments sections + NON-DIRECTIONAL (flat spreads list) + Tactical Strategies + Portfolio link
 
 import { renderPortfolioPage } from './portfolio.js';
 import { showSpread, showSpreadPage } from './spreadView.js';
@@ -200,7 +200,7 @@ export async function generateSidebarContent() {
       item.classList.add('nd-spread', 'instrument-item');
       item.dataset.pair = pair;
       item.dataset.key = pair;
-      item.textContent = pair;            // or use a friendly map if desired
+      item.textContent = pair; // or map to a friendly name if needed
       subUlND.appendChild(item);
     });
 
@@ -211,6 +211,80 @@ export async function generateSidebarContent() {
     });
 
     sidebarList.appendChild(liND);
+  }
+
+  // ───────────────────────────────────────
+  // Tactical Strategies (iframe embed in main area)
+  // ───────────────────────────────────────
+  {
+    // helper: show a page in main area via iframe
+    function showTacticalPage(url) {
+      // Hide existing content blocks
+      document.querySelectorAll('.content-block, .main-section')
+        .forEach(el => (el.style.display = 'none'));
+
+      // Create container once
+      let host = document.getElementById('tactical-embed');
+      if (!host) {
+        host = document.createElement('div');
+        host.id = 'tactical-embed';
+        host.classList.add('content-block');
+        host.style.display = 'block';
+
+        const iframe = document.createElement('iframe');
+        iframe.id = 'tactical-iframe';
+        iframe.style.width = '100%';
+        iframe.style.height = '80vh';
+        iframe.style.border = '0';
+
+        host.appendChild(iframe);
+
+        // Try to append to main area; fallback to body
+        const main =
+          document.getElementById('main-content') ||
+          document.querySelector('.main-section') ||
+          document.getElementById('content') ||
+          document.body;
+
+        main.appendChild(host);
+      }
+
+      const iframe = document.getElementById('tactical-iframe') || host.querySelector('iframe');
+      iframe.src = url;
+      host.style.display = 'block';
+    }
+
+    const liTS = document.createElement('li');
+    liTS.classList.add('expandable');
+    const toggleTS = document.createElement('div');
+    toggleTS.classList.add('toggle-btn');
+    toggleTS.innerHTML = `TACTICAL STRATEGIES <span>+</span>`;
+    liTS.appendChild(toggleTS);
+
+    const subUlTS = document.createElement('ul');
+    subUlTS.classList.add('sub-list');
+
+    const ITEMS = [
+      { label: 'SX',                url: 'https://backup-bt-intelligence.netlify.app/fx_long_short.html' },
+      { label: 'Future',            url: 'https://backup-bt-intelligence.netlify.app/futures_long_short.html' },
+      { label: 'Long Short Equity', url: 'https://backup-bt-intelligence.netlify.app/equities_long_short.html' },
+    ];
+
+    ITEMS.forEach(({label, url}) => {
+      const it = document.createElement('li');
+      it.classList.add('sidebar-item', 'tactical-link');
+      it.textContent = label;
+      it.addEventListener('click', () => showTacticalPage(url));
+      subUlTS.appendChild(it);
+    });
+
+    liTS.appendChild(subUlTS);
+    toggleTS.addEventListener('click', () => {
+      liTS.classList.toggle('expanded');
+      toggleTS.querySelector('span').textContent = liTS.classList.contains('expanded') ? '-' : '+';
+    });
+
+    sidebarList.appendChild(liTS);
   }
 
   // ───────────────────────────────────────
