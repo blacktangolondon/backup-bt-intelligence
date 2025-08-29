@@ -8,7 +8,7 @@ Chart.defaults.font.weight = 'normal';
 // ─── Sizing & fees ───
 const ACCOUNT_SIZE   = 20000;
 const RISK_PCT       = 0.02;     // 2% per trade
-const COMMISSION_PCT = 0.004;    // 0.4% round-trip equivalente
+const COMMISSION_PCT = 0.0002;    // 0.02% round-trip equivalente
 
 // Files (FX)
 const STATS_FILE    = 'fx_long_short_stats.json';
