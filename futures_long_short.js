@@ -115,7 +115,7 @@ function renderModule3(rets) {
   });
 }
 
-// Alerts (±2σ)
+// Alerts (±1σ)
 async function renderModule4() {
   try {
     const resp = await fetch(CHANNELS_FILE);
@@ -127,15 +127,15 @@ async function renderModule4() {
         const prev = series[series.length - 2];
         const last = series[series.length - 1];
         // [date, ratio, lower1, lower2, upper1, upper2]
-        const [, prevPrice, , prevLower2, , prevUpper2] = prev;
-        const [, price,     , lower2,     , upper2]     = last;
+        const [, prevPrice, , prevLower1, , prevUpper1] = prev;
+        const [, price,     , lower1,     , upper1]     = last;
 
-        const justBrokeLong  = (price <  lower2) && (prevPrice >= prevLower2);
-        const justBrokeShort = (price >  upper2) && (prevPrice <= prevUpper2);
+        const justBrokeLong  = (price <  lower1) && (prevPrice >= prevLower1);
+        const justBrokeShort = (price >  upper1) && (prevPrice <= prevUpper1);
         if (!(justBrokeLong || justBrokeShort)) return;
 
         const signal = justBrokeLong ? 'Long' : 'Short';
-        const mid    = (lower2 + upper2) / 2;
+        const mid    = (lower1 + upper1) / 2;
         const half   = Math.abs(price - mid);
 
         return {
