@@ -196,16 +196,16 @@ async function renderModule4() {
       .map(([spread, series]) => {
         const prev = series[series.length - 2];
         const last = series[series.length - 1];
-        const [, prevPrice, prevLower1, , prevUpper1] = prev;
-        const [, price,     lower1,     , upper1]     = last;
+        const [, prevPrice, prevLower2, , prevUpper2] = prev;
+        const [, price,     lower2,     , upper2]     = last;
 
         // only signal on the very first day of a crossing
-        const justBrokeLong  = (price < lower1)  && (prevPrice >= prevLower1);
-        const justBrokeShort = (price > upper1)  && (prevPrice <= prevUpper1);
+        const justBrokeLong  = (price < lower2)  && (prevPrice >= prevLower2);
+        const justBrokeShort = (price > upper2)  && (prevPrice <= prevUpper2);
         if (!(justBrokeLong || justBrokeShort)) return;
 
         const signal = justBrokeLong ? 'Long' : 'Short';
-        const mid    = (lower1 + upper1) / 2;
+        const mid    = (lower2 + upper2) / 2;
         const half   = Math.abs(price - mid);
 
         return {
