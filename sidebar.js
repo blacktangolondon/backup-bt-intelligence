@@ -214,39 +214,46 @@ export async function generateSidebarContent() {
   }
 
   // ───────────────────────────────────────
-  // Tactical Strategies (iframe embed in main area)
+  // Tactical Strategies (embed inside #block5 area)
   // ───────────────────────────────────────
   {
-    // helper: show a page in main area via iframe
     function showTacticalPage(url) {
-      // Hide existing content blocks
+      // Hide other content blocks
       document.querySelectorAll('.content-block, .main-section')
         .forEach(el => (el.style.display = 'none'));
 
-      // Create container once
+      // Use block5 as host (same area used by NON-DIRECTIONAL)
+      const block5 = document.getElementById('block5');
+      if (!block5) return;
+
+      block5.style.display = 'block';
+      if (getComputedStyle(block5).position === 'static') {
+        block5.style.position = 'relative';
+      }
+
+      // Hide the standard spread view if present
+      const spreadPage = document.getElementById('spread-page');
+      if (spreadPage) spreadPage.style.display = 'none';
+
+      // Create (once) the tactical container + iframe that fills block5
       let host = document.getElementById('tactical-embed');
       if (!host) {
         host = document.createElement('div');
         host.id = 'tactical-embed';
-        host.classList.add('content-block');
+        host.style.position = 'absolute';
+        host.style.inset = '0';       // top/right/bottom/left: 0
         host.style.display = 'block';
 
         const iframe = document.createElement('iframe');
         iframe.id = 'tactical-iframe';
+        iframe.style.position = 'absolute';
+        iframe.style.inset = '0';
         iframe.style.width = '100%';
-        iframe.style.height = '80vh';
+        iframe.style.height = '100%';
         iframe.style.border = '0';
 
         host.appendChild(iframe);
-
-        // Try to append to main area; fallback to body
-        const main =
-          document.getElementById('main-content') ||
-          document.querySelector('.main-section') ||
-          document.getElementById('content') ||
-          document.body;
-
-        main.appendChild(host);
+        block5.appendChild(host);
       }
 
       const iframe = document.getElementById('tactical-iframe') || host.querySelector('iframe');
@@ -309,6 +316,18 @@ export async function generateSidebarContent() {
     li.textContent = txt;
     li.classList.add('sidebar-item');
     sidebarList.appendChild(li);
+  });
+
+  // Quando clicchi su uno spread NON-DIRECTIONAL, ritorna alla vista spread (nasconde l'embed tactical)
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.nd-spread')) {
+      const host = document.getElementById('tactical-embed');
+      if (host) host.style.display = 'none';
+      const block5 = document.getElementById('block5');
+      if (block5) block5.style.display = 'block';
+      const spreadPage = document.getElementById('spread-page');
+      if (spreadPage) spreadPage.style.display = 'block';
+    }
   });
 }
 
