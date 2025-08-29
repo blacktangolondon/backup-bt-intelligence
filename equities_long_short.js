@@ -27,20 +27,21 @@ function ret(t) {
   const trades = stats.trades;
 
   // 1a) Compute net P&L and return% for each trade (Excel cols J, M)
-  const riskAmt = ACCOUNT_SIZE * RISK_PCT;
-  trades.forEach(t => {
-    const dist      = Math.abs(t.entry - t.take_profit);
-    const notional  = riskAmt / dist;
-    const commission= notional * COMMISSION_PCT;
+const riskAmt = ACCOUNT_SIZE * RISK_PCT;
 
-    const rawPnl    = t.type === 'long'
-      ? (t.exit - t.entry) * notional
-      : (t.entry - t.exit) * notional;
+trades.forEach(t => {
+  const dist    = Math.abs(t.entry - t.take_profit);
+  const shares  = dist > 0 ? (riskAmt / dist) : 0;   // pezzi
+  const notional= shares * t.entry;                  // valore monetario
+  const commission = notional * COMMISSION_PCT;      // ok se 0.004 è già round-trip
 
-    const netPnl    = rawPnl - commission;
-    t.netPnl        = netPnl;                       // Excel col J if you ever need it
-    t.returnPct     = netPnl / ACCOUNT_SIZE;        // Excel col M
-  });
+  const grossPnl = (t.type === 'long'
+    ? (t.exit - t.entry) * shares
+    : (t.entry - t.exit) * shares);
+
+  const netPnl = grossPnl - commission;
+  t.returnPct  = netPnl / ACCOUNT_SIZE;
+});
 
   // 1b) Build percent-return array (fractions) for Module 3
   const rets = trades.map(ret);
