@@ -274,6 +274,7 @@ export async function generateSidebarContent() {
     const ITEMS = [
       { label: 'FX',                url: 'https://backup-bt-intelligence.netlify.app/fx_long_short.html' },
       { label: 'FUTURE',            url: 'https://backup-bt-intelligence.netlify.app/futures_long_short.html' },
+      { label: 'FUTURES - COT', url: 'https://backup-bt-intelligence.netlify.app/cot.html' },
       { label: 'LONG-SHORT EQUITY', url: 'https://backup-bt-intelligence.netlify.app/equities_long_short.html' },
     ];
 
