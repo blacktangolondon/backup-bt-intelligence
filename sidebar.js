@@ -272,10 +272,11 @@ export async function generateSidebarContent() {
     subUlTS.classList.add('sub-list');
 
     const ITEMS = [
-      { label: 'FX',                url: 'https://backup-bt-intelligence.netlify.app/fx_long_short.html' },
-      { label: 'FUTURE',            url: 'https://backup-bt-intelligence.netlify.app/futures_long_short.html' },
-      { label: 'FUTURES - COT', url: 'https://backup-bt-intelligence.netlify.app/cot.html' },
       { label: 'LONG-SHORT EQUITY', url: 'https://backup-bt-intelligence.netlify.app/equities_long_short.html' },
+      { label: 'TACTICAL FX',                url: 'https://backup-bt-intelligence.netlify.app/fx_long_short.html' },
+      { label: 'TACTICAL FUTURES',            url: 'https://backup-bt-intelligence.netlify.app/futures_long_short.html' },
+      { label: 'FUTURES - COT', url: 'https://backup-bt-intelligence.netlify.app/cot.html' },
+      { label: 'MARKET NEUTRAL', url: 'https://backup-bt-intelligence.netlify.app/nondirectional-2sd.html' },
     ];
 
     ITEMS.forEach(({label, url}) => {
