@@ -1,40 +1,41 @@
 {
+  "best_sl_tp_pct": 0.05,
   "portfolio_kpis": {
     "period": {
       "start": "2020-09-21",
       "end": "2025-09-02"
     },
     "total_trades": 153,
-    "wins": 75,
-    "losses": 78,
-    "win_rate_pct": 49.0,
-    "total_pnl": 0.0455,
-    "avg_pnl_per_trade": 0.0003,
-    "max_drawdown": 0.9872,
-    "avg_duration_days": 87.43137254901961
+    "wins": 83,
+    "losses": 70,
+    "win_rate_pct": 54.2,
+    "total_pnl": 0.7366,
+    "avg_pnl_per_trade": 0.0048,
+    "max_drawdown": 0.5999,
+    "avg_duration_days": 52.41830065359477
   },
   "by_market": [
     {
       "key": "ADJUSTED INT RATE S&P 500 TOTL - CHICAGO MERCANTILE EXCHANGE",
       "trades": 5,
-      "wins": 1,
-      "losses": 4,
-      "win_rate_pct": 20.0,
-      "avg_pnl": -0.0192,
-      "max_win": 0.0411,
-      "max_loss": -0.1,
-      "avg_duration_days": 67.2
+      "wins": 2,
+      "losses": 3,
+      "win_rate_pct": 40.0,
+      "avg_pnl": -0.0033,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 51.4
     },
     {
       "key": "ALUMINUM MWP - COMMODITY EXCHANGE INC.",
       "trades": 4,
-      "wins": 1,
-      "losses": 3,
-      "win_rate_pct": 25.0,
-      "avg_pnl": -0.0477,
-      "max_win": 0.1,
+      "wins": 0,
+      "losses": 4,
+      "win_rate_pct": 0.0,
+      "avg_pnl": -0.0727,
+      "max_win": -0.0348,
       "max_loss": -0.1562,
-      "avg_duration_days": 80.0
+      "avg_duration_days": 54.0
     },
     {
       "key": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
@@ -42,10 +43,10 @@
       "wins": 1,
       "losses": 9,
       "win_rate_pct": 10.0,
-      "avg_pnl": -0.0312,
-      "max_win": 0.0028,
-      "max_loss": -0.0837,
-      "avg_duration_days": 75.1
+      "avg_pnl": -0.0239,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 53.2
     },
     {
       "key": "BLACK SEA WHEAT FINANCIAL - CHICAGO BOARD OF TRADE",
@@ -53,21 +54,21 @@
       "wins": 1,
       "losses": 1,
       "win_rate_pct": 50.0,
-      "avg_pnl": -0.0,
-      "max_win": 0.1,
-      "max_loss": -0.1,
-      "avg_duration_days": 24.0
+      "avg_pnl": 0.0,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 10.0
     },
     {
       "key": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
       "trades": 8,
-      "wins": 4,
-      "losses": 4,
-      "win_rate_pct": 50.0,
-      "avg_pnl": -0.0119,
-      "max_win": 0.1,
-      "max_loss": -0.1,
-      "avg_duration_days": 65.375
+      "wins": 5,
+      "losses": 3,
+      "win_rate_pct": 62.5,
+      "avg_pnl": 0.0139,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 27.875
     },
     {
       "key": "BRENT LAST DAY - NEW YORK MERCANTILE EXCHANGE",
@@ -75,10 +76,10 @@
       "wins": 4,
       "losses": 1,
       "win_rate_pct": 80.0,
-      "avg_pnl": 0.0544,
-      "max_win": 0.1,
-      "max_loss": -0.1,
-      "avg_duration_days": 30.6
+      "avg_pnl": 0.03,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 7.0
     },
     {
       "key": "BRITISH POUND - CHICAGO MERCANTILE EXCHANGE",
@@ -108,21 +109,21 @@
       "wins": 3,
       "losses": 0,
       "win_rate_pct": 100.0,
-      "avg_pnl": 0.0684,
-      "max_win": 0.1,
+      "avg_pnl": 0.0351,
+      "max_win": 0.05,
       "max_loss": 0.0052,
-      "avg_duration_days": 22.333333333333332
+      "avg_duration_days": 11.333333333333334
     },
     {
       "key": "COPPER-GRADE #1 - COMMODITY EXCHANGE INC.",
       "trades": 2,
-      "wins": 2,
-      "losses": 0,
-      "win_rate_pct": 100.0,
-      "avg_pnl": 0.1,
-      "max_win": 0.1,
-      "max_loss": 0.1,
-      "avg_duration_days": 56.0
+      "wins": 1,
+      "losses": 1,
+      "win_rate_pct": 50.0,
+      "avg_pnl": 0.0,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 17.5
     },
     {
       "key": "CORN - CHICAGO BOARD OF TRADE",
@@ -130,10 +131,10 @@
       "wins": 5,
       "losses": 2,
       "win_rate_pct": 71.4,
-      "avg_pnl": 0.0488,
-      "max_win": 0.1,
-      "max_loss": -0.1,
-      "avg_duration_days": 39.42857142857143
+      "avg_pnl": 0.0214,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 19.285714285714285
     },
     {
       "key": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
@@ -141,10 +142,10 @@
       "wins": 0,
       "losses": 4,
       "win_rate_pct": 0.0,
-      "avg_pnl": -0.15,
-      "max_win": -0.1,
-      "max_loss": -0.3,
-      "avg_duration_days": 410.75
+      "avg_pnl": -0.1131,
+      "max_win": -0.05,
+      "max_loss": -0.3026,
+      "avg_duration_days": 380.25
     },
     {
       "key": "DOW JONES U.S. REAL ESTATE IDX - CHICAGO BOARD OF TRADE",
@@ -153,20 +154,20 @@
       "losses": 4,
       "win_rate_pct": 50.0,
       "avg_pnl": -0.0013,
-      "max_win": 0.06,
-      "max_loss": -0.1,
-      "avg_duration_days": 129.75
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 80.625
     },
     {
       "key": "E-MINI RUSSELL 2000 INDEX - CHICAGO MERCANTILE EXCHANGE",
       "trades": 1,
-      "wins": 0,
-      "losses": 1,
-      "win_rate_pct": 0.0,
-      "avg_pnl": -0.0686,
-      "max_win": -0.0686,
-      "max_loss": -0.0686,
-      "avg_duration_days": 71.0
+      "wins": 1,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "avg_pnl": 0.05,
+      "max_win": 0.05,
+      "max_loss": 0.05,
+      "avg_duration_days": 21.0
     },
     {
       "key": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
@@ -182,13 +183,13 @@
     {
       "key": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
       "trades": 8,
-      "wins": 7,
-      "losses": 1,
-      "win_rate_pct": 87.5,
-      "avg_pnl": 0.046,
-      "max_win": 0.1,
-      "max_loss": -0.0072,
-      "avg_duration_days": 225.25
+      "wins": 6,
+      "losses": 2,
+      "win_rate_pct": 75.0,
+      "avg_pnl": 0.0254,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 145.25
     },
     {
       "key": "EURO FX/JAPANESE YEN XRATE - CHICAGO MERCANTILE EXCHANGE",
@@ -196,10 +197,10 @@
       "wins": 3,
       "losses": 0,
       "win_rate_pct": 100.0,
-      "avg_pnl": 0.0786,
-      "max_win": 0.1,
-      "max_loss": 0.0673,
-      "avg_duration_days": 167.33333333333334
+      "avg_pnl": 0.05,
+      "max_win": 0.05,
+      "max_loss": 0.05,
+      "avg_duration_days": 98.33333333333333
     },
     {
       "key": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
@@ -207,10 +208,10 @@
       "wins": 4,
       "losses": 5,
       "win_rate_pct": 44.4,
-      "avg_pnl": -0.0196,
-      "max_win": 0.025,
-      "max_loss": -0.0647,
-      "avg_duration_days": 107.44444444444444
+      "avg_pnl": -0.0075,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 66.44444444444444
     },
     {
       "key": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
@@ -218,10 +219,10 @@
       "wins": 1,
       "losses": 3,
       "win_rate_pct": 25.0,
-      "avg_pnl": -0.0287,
-      "max_win": 0.0024,
-      "max_loss": -0.0722,
-      "avg_duration_days": 76.0
+      "avg_pnl": -0.0164,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 27.75
     },
     {
       "key": "MINI SOYBEANS - CHICAGO BOARD OF TRADE",
@@ -237,13 +238,13 @@
     {
       "key": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
       "trades": 5,
-      "wins": 0,
-      "losses": 5,
-      "win_rate_pct": 0.0,
-      "avg_pnl": -0.0783,
-      "max_win": -0.028,
-      "max_loss": -0.1,
-      "avg_duration_days": 35.2
+      "wins": 1,
+      "losses": 4,
+      "win_rate_pct": 20.0,
+      "avg_pnl": -0.03,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 16.2
     },
     {
       "key": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
@@ -251,10 +252,10 @@
       "wins": 7,
       "losses": 4,
       "win_rate_pct": 63.6,
-      "avg_pnl": 0.0196,
-      "max_win": 0.1,
-      "max_loss": -0.1,
-      "avg_duration_days": 83.9090909090909
+      "avg_pnl": 0.0106,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 34.45454545454545
     },
     {
       "key": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
@@ -262,10 +263,10 @@
       "wins": 5,
       "losses": 3,
       "win_rate_pct": 62.5,
-      "avg_pnl": -0.0041,
-      "max_win": 0.0929,
-      "max_loss": -0.1,
-      "avg_duration_days": 51.5
+      "avg_pnl": 0.005,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 23.0
     },
     {
       "key": "S&P 500 STOCK INDEX - CHICAGO MERCANTILE EXCHANGE",
@@ -273,10 +274,10 @@
       "wins": 1,
       "losses": 0,
       "win_rate_pct": 100.0,
-      "avg_pnl": 0.0588,
-      "max_win": 0.0588,
-      "max_loss": 0.0588,
-      "avg_duration_days": 78.0
+      "avg_pnl": 0.05,
+      "max_win": 0.05,
+      "max_loss": 0.05,
+      "avg_duration_days": 66.0
     },
     {
       "key": "SILVER - COMMODITY EXCHANGE INC.",
@@ -284,43 +285,43 @@
       "wins": 3,
       "losses": 0,
       "win_rate_pct": 100.0,
-      "avg_pnl": 0.1272,
-      "max_win": 0.2074,
-      "max_loss": 0.054,
+      "avg_pnl": 0.1409,
+      "max_win": 0.2221,
+      "max_loss": 0.0668,
       "avg_duration_days": 99.0
     },
     {
       "key": "SOYBEANS - CHICAGO BOARD OF TRADE",
       "trades": 6,
-      "wins": 4,
-      "losses": 2,
-      "win_rate_pct": 66.7,
-      "avg_pnl": 0.036,
-      "max_win": 0.1,
-      "max_loss": -0.1,
-      "avg_duration_days": 65.0
+      "wins": 6,
+      "losses": 0,
+      "win_rate_pct": 100.0,
+      "avg_pnl": 0.05,
+      "max_win": 0.05,
+      "max_loss": 0.05,
+      "avg_duration_days": 15.0
     },
     {
       "key": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
       "trades": 13,
-      "wins": 5,
-      "losses": 8,
-      "win_rate_pct": 38.5,
-      "avg_pnl": -0.0214,
-      "max_win": 0.1,
-      "max_loss": -0.1,
-      "avg_duration_days": 64.07692307692308
+      "wins": 9,
+      "losses": 4,
+      "win_rate_pct": 69.2,
+      "avg_pnl": 0.0182,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 28.846153846153847
     },
     {
       "key": "WHEAT-HRW - CHICAGO BOARD OF TRADE",
       "trades": 7,
-      "wins": 3,
-      "losses": 4,
-      "win_rate_pct": 42.9,
-      "avg_pnl": -0.0024,
-      "max_win": 0.1,
-      "max_loss": -0.1,
-      "avg_duration_days": 65.0
+      "wins": 4,
+      "losses": 3,
+      "win_rate_pct": 57.1,
+      "avg_pnl": 0.0071,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 17.714285714285715
     },
     {
       "key": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
@@ -328,199 +329,351 @@
       "wins": 4,
       "losses": 5,
       "win_rate_pct": 44.4,
-      "avg_pnl": -0.0012,
-      "max_win": 0.1,
-      "max_loss": -0.1,
-      "avg_duration_days": 49.55555555555556
+      "avg_pnl": -0.0056,
+      "max_win": 0.05,
+      "max_loss": -0.05,
+      "avg_duration_days": 14.444444444444445
+    }
+  ],
+  "grid_search": [
+    {
+      "sl_tp_pct": 0.05,
+      "period": {
+        "start": "2020-09-21",
+        "end": "2025-09-02"
+      },
+      "total_trades": 153,
+      "wins": 83,
+      "losses": 70,
+      "win_rate_pct": 54.2,
+      "total_pnl": 0.7366,
+      "avg_pnl_per_trade": 0.0048,
+      "max_drawdown": 0.5999,
+      "avg_duration_days": 52.41830065359477
+    },
+    {
+      "sl_tp_pct": 0.07,
+      "period": {
+        "start": "2020-09-21",
+        "end": "2025-09-02"
+      },
+      "total_trades": 153,
+      "wins": 80,
+      "losses": 73,
+      "win_rate_pct": 52.3,
+      "total_pnl": 0.5631,
+      "avg_pnl_per_trade": 0.0037,
+      "max_drawdown": 0.6445,
+      "avg_duration_days": 69.2875816993464
+    },
+    {
+      "sl_tp_pct": 0.09,
+      "period": {
+        "start": "2020-09-21",
+        "end": "2025-09-02"
+      },
+      "total_trades": 153,
+      "wins": 76,
+      "losses": 77,
+      "win_rate_pct": 49.7,
+      "total_pnl": 0.0805,
+      "avg_pnl_per_trade": 0.0005,
+      "max_drawdown": 0.8831,
+      "avg_duration_days": 84.47058823529412
+    },
+    {
+      "sl_tp_pct": 0.1,
+      "period": {
+        "start": "2020-09-21",
+        "end": "2025-09-02"
+      },
+      "total_trades": 153,
+      "wins": 75,
+      "losses": 78,
+      "win_rate_pct": 49.0,
+      "total_pnl": 0.0844,
+      "avg_pnl_per_trade": 0.0006,
+      "max_drawdown": 0.9872,
+      "avg_duration_days": 87.43137254901961
+    },
+    {
+      "sl_tp_pct": 0.011,
+      "period": {
+        "start": "2020-09-21",
+        "end": "2025-09-02"
+      },
+      "total_trades": 153,
+      "wins": 74,
+      "losses": 79,
+      "win_rate_pct": 48.4,
+      "total_pnl": -0.0837,
+      "avg_pnl_per_trade": -0.0005,
+      "max_drawdown": 0.619,
+      "avg_duration_days": 18.640522875816995
+    },
+    {
+      "sl_tp_pct": 0.13,
+      "period": {
+        "start": "2020-09-21",
+        "end": "2025-09-02"
+      },
+      "total_trades": 153,
+      "wins": 71,
+      "losses": 82,
+      "win_rate_pct": 46.4,
+      "total_pnl": -0.3501,
+      "avg_pnl_per_trade": -0.0023,
+      "max_drawdown": 1.7287,
+      "avg_duration_days": 101.7843137254902
+    },
+    {
+      "sl_tp_pct": 0.15,
+      "period": {
+        "start": "2020-09-21",
+        "end": "2025-09-02"
+      },
+      "total_trades": 153,
+      "wins": 69,
+      "losses": 84,
+      "win_rate_pct": 45.1,
+      "total_pnl": -0.809,
+      "avg_pnl_per_trade": -0.0053,
+      "max_drawdown": 2.3265,
+      "avg_duration_days": 109.50326797385621
+    },
+    {
+      "sl_tp_pct": 0.17,
+      "period": {
+        "start": "2020-09-21",
+        "end": "2025-09-02"
+      },
+      "total_trades": 153,
+      "wins": 70,
+      "losses": 83,
+      "win_rate_pct": 45.8,
+      "total_pnl": -0.3574,
+      "avg_pnl_per_trade": -0.0023,
+      "max_drawdown": 2.3379,
+      "avg_duration_days": 112.52941176470588
+    },
+    {
+      "sl_tp_pct": 0.19,
+      "period": {
+        "start": "2020-09-21",
+        "end": "2025-09-02"
+      },
+      "total_trades": 153,
+      "wins": 68,
+      "losses": 85,
+      "win_rate_pct": 44.4,
+      "total_pnl": -0.6053,
+      "avg_pnl_per_trade": -0.004,
+      "max_drawdown": 2.7567,
+      "avg_duration_days": 116.37254901960785
+    },
+    {
+      "sl_tp_pct": 0.2,
+      "period": {
+        "start": "2020-09-21",
+        "end": "2025-09-02"
+      },
+      "total_trades": 153,
+      "wins": 67,
+      "losses": 86,
+      "win_rate_pct": 43.8,
+      "total_pnl": -0.775,
+      "avg_pnl_per_trade": -0.0051,
+      "max_drawdown": 3.0364,
+      "avg_duration_days": 117.28104575163398
     }
   ],
   "trades": [
+    {
+      "market": "COPPER-GRADE #1 - COMMODITY EXCHANGE INC.",
+      "ticker": "HG=F",
+      "type": "long",
+      "entry_date": "2020-09-21",
+      "exit_date": "2020-09-24",
+      "entry": 3.0985000133514404,
+      "exit": 2.9435750126838682,
+      "take_profit": 3.2534250140190126,
+      "stop_loss": 2.9435750126838682
+    },
     {
       "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
       "ticker": "ZS=F",
       "type": "long",
       "entry_date": "2020-09-28",
-      "exit_date": "2020-11-05",
+      "exit_date": "2020-10-06",
       "entry": 1002.0,
-      "exit": 1102.2,
-      "take_profit": 1102.2,
-      "stop_loss": 901.8000000000001
+      "exit": 1052.1000000000001,
+      "take_profit": 1052.1000000000001,
+      "stop_loss": 951.9
     },
     {
       "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
       "ticker": "YM=F",
       "type": "short",
       "entry_date": "2020-09-28",
-      "exit_date": "2020-11-09",
+      "exit_date": "2020-10-08",
       "entry": 27060.0,
-      "exit": 29766.000000000004,
-      "take_profit": 24354.0,
-      "stop_loss": 29766.000000000004
-    },
-    {
-      "market": "COPPER-GRADE #1 - COMMODITY EXCHANGE INC.",
-      "ticker": "HG=F",
-      "type": "long",
-      "entry_date": "2020-10-19",
-      "exit_date": "2020-11-30",
-      "entry": 3.0975000858306885,
-      "exit": 3.4072500944137576,
-      "take_profit": 3.4072500944137576,
-      "stop_loss": 2.78775007724762
-    },
-    {
-      "market": "COPPER-GRADE #1 - COMMODITY EXCHANGE INC.",
-      "ticker": "HG=F",
-      "type": "long",
-      "entry_date": "2020-09-21",
-      "exit_date": "2020-11-30",
-      "entry": 3.0985000133514404,
-      "exit": 3.408350014686585,
-      "take_profit": 3.408350014686585,
-      "stop_loss": 2.7886500120162965
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "long",
-      "entry_date": "2020-11-02",
-      "exit_date": "2020-12-18",
-      "entry": 396.0,
-      "exit": 435.6,
-      "take_profit": 435.6,
-      "stop_loss": 356.40000000000003
-    },
-    {
-      "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
-      "ticker": "ZW=F",
-      "type": "long",
-      "entry_date": "2020-11-02",
-      "exit_date": "2021-01-05",
-      "entry": 593.25,
-      "exit": 652.575,
-      "take_profit": 652.575,
-      "stop_loss": 533.9250000000001
+      "exit": 28413.0,
+      "take_profit": 25707.0,
+      "stop_loss": 28413.0
     },
     {
       "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "ES=F",
       "type": "long",
       "entry_date": "2020-10-19",
-      "exit_date": "2021-01-08",
+      "exit_date": "2020-10-28",
       "entry": 3471.0,
-      "exit": 3818.1000000000004,
-      "take_profit": 3818.1000000000004,
-      "stop_loss": 3123.9
+      "exit": 3297.45,
+      "take_profit": 3644.55,
+      "stop_loss": 3297.45
     },
     {
-      "market": "BLACK SEA WHEAT FINANCIAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2021-03-01",
-      "exit_date": "2021-03-31",
-      "entry": 661.0,
-      "exit": 594.9,
-      "take_profit": 594.9,
-      "stop_loss": 727.1
+      "market": "CORN - CHICAGO BOARD OF TRADE",
+      "ticker": "ZC=F",
+      "type": "long",
+      "entry_date": "2020-11-02",
+      "exit_date": "2020-11-05",
+      "entry": 396.0,
+      "exit": 415.8,
+      "take_profit": 415.8,
+      "stop_loss": 376.2
     },
     {
       "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
       "ticker": "ZW=F",
       "type": "long",
-      "entry_date": "2021-03-01",
-      "exit_date": "2021-03-31",
-      "entry": 661.0,
-      "exit": 594.9,
-      "take_profit": 727.1,
-      "stop_loss": 594.9
+      "entry_date": "2020-11-02",
+      "exit_date": "2020-11-05",
+      "entry": 593.25,
+      "exit": 622.9125,
+      "take_profit": 622.9125,
+      "stop_loss": 563.5875
     },
     {
-      "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
-      "ticker": "YM=F",
-      "type": "short",
-      "entry_date": "2020-12-21",
-      "exit_date": "2021-04-05",
-      "entry": 30300.0,
-      "exit": 33330.0,
-      "take_profit": 27270.0,
-      "stop_loss": 33330.0
+      "market": "COPPER-GRADE #1 - COMMODITY EXCHANGE INC.",
+      "ticker": "HG=F",
+      "type": "long",
+      "entry_date": "2020-10-19",
+      "exit_date": "2020-11-20",
+      "entry": 3.0975000858306885,
+      "exit": 3.2523750901222233,
+      "take_profit": 3.2523750901222233,
+      "stop_loss": 2.9426250815391537
     },
     {
       "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
       "ticker": "ZW=F",
       "type": "long",
       "entry_date": "2021-01-11",
-      "exit_date": "2021-04-13",
+      "exit_date": "2021-01-13",
       "entry": 639.0,
-      "exit": 630.25,
-      "take_profit": 702.9000000000001,
-      "stop_loss": 575.1
+      "exit": 670.95,
+      "take_profit": 670.95,
+      "stop_loss": 607.05
+    },
+    {
+      "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
+      "ticker": "YM=F",
+      "type": "short",
+      "entry_date": "2020-12-21",
+      "exit_date": "2021-02-24",
+      "entry": 30300.0,
+      "exit": 31815.0,
+      "take_profit": 28785.0,
+      "stop_loss": 31815.0
     },
     {
       "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
       "ticker": "ZS=F",
       "type": "long",
       "entry_date": "2021-02-08",
-      "exit_date": "2021-04-22",
+      "exit_date": "2021-02-25",
       "entry": 1368.75,
-      "exit": 1505.6250000000002,
-      "take_profit": 1505.6250000000002,
-      "stop_loss": 1231.875
+      "exit": 1437.1875,
+      "take_profit": 1437.1875,
+      "stop_loss": 1300.3125
     },
     {
       "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
       "ticker": "YM=F",
       "type": "short",
       "entry_date": "2021-03-08",
-      "exit_date": "2021-05-07",
+      "exit_date": "2021-03-18",
       "entry": 31562.0,
-      "exit": 34718.200000000004,
-      "take_profit": 28405.8,
-      "stop_loss": 34718.200000000004
+      "exit": 33140.1,
+      "take_profit": 29983.899999999998,
+      "stop_loss": 33140.1
+    },
+    {
+      "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
+      "ticker": "ZW=F",
+      "type": "long",
+      "entry_date": "2021-03-01",
+      "exit_date": "2021-03-19",
+      "entry": 661.0,
+      "exit": 627.9499999999999,
+      "take_profit": 694.0500000000001,
+      "stop_loss": 627.9499999999999
+    },
+    {
+      "market": "BLACK SEA WHEAT FINANCIAL - CHICAGO BOARD OF TRADE",
+      "ticker": "ZW=F",
+      "type": "short",
+      "entry_date": "2021-03-01",
+      "exit_date": "2021-03-19",
+      "entry": 661.0,
+      "exit": 627.9499999999999,
+      "take_profit": 627.9499999999999,
+      "stop_loss": 694.0500000000001
     },
     {
       "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
       "ticker": "ZW=F",
       "type": "long",
       "entry_date": "2021-04-26",
-      "exit_date": "2021-05-26",
+      "exit_date": "2021-04-27",
       "entry": 712.75,
-      "exit": 641.475,
-      "take_profit": 784.0250000000001,
-      "stop_loss": 641.475
+      "exit": 748.3875,
+      "take_profit": 748.3875,
+      "stop_loss": 677.1125
     },
     {
       "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
       "ticker": "ZS=F",
       "type": "long",
       "entry_date": "2021-04-26",
-      "exit_date": "2021-06-17",
+      "exit_date": "2021-05-07",
       "entry": 1548.75,
-      "exit": 1393.875,
-      "take_profit": 1703.6250000000002,
-      "stop_loss": 1393.875
+      "exit": 1626.1875,
+      "take_profit": 1626.1875,
+      "stop_loss": 1471.3125
     },
     {
       "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
       "ticker": "ZW=F",
       "type": "long",
       "entry_date": "2021-06-14",
-      "exit_date": "2021-07-06",
+      "exit_date": "2021-06-17",
       "entry": 680.5,
-      "exit": 612.45,
-      "take_profit": 748.5500000000001,
-      "stop_loss": 612.45
+      "exit": 646.475,
+      "take_profit": 714.525,
+      "stop_loss": 646.475
     },
     {
-      "market": "BRITISH POUND STERLING - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6B=F",
+      "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6L=F",
       "type": "long",
-      "entry_date": "2021-03-08",
-      "exit_date": "2021-07-27",
-      "entry": 1.3840999603271484,
-      "exit": 1.3831000328063965,
-      "take_profit": 1.5225099563598634,
-      "stop_loss": 1.2456899642944337
+      "entry_date": "2021-06-14",
+      "exit_date": "2021-06-24",
+      "entry": 0.19419999420642853,
+      "exit": 0.20390999391674997,
+      "take_profit": 0.20390999391674997,
+      "stop_loss": 0.1844899944961071
     },
     {
       "market": "BRITISH POUND STERLING - CHICAGO MERCANTILE EXCHANGE",
@@ -530,162 +683,250 @@
       "exit_date": "2021-07-27",
       "entry": 1.3803999423980713,
       "exit": 1.3831000328063965,
-      "take_profit": 1.5184399366378785,
-      "stop_loss": 1.2423599481582641
+      "take_profit": 1.449419939517975,
+      "stop_loss": 1.3113799452781676
     },
     {
-      "market": "S&P 500 STOCK INDEX - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "ES=F",
+      "market": "BRITISH POUND STERLING - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6B=F",
       "type": "long",
-      "entry_date": "2021-06-07",
-      "exit_date": "2021-08-24",
-      "entry": 4232.25,
-      "exit": 4481.0,
-      "take_profit": 4655.475,
-      "stop_loss": 3809.025
-    },
-    {
-      "market": "BLACK SEA WHEAT FINANCIAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2021-09-13",
-      "exit_date": "2021-10-01",
-      "entry": 671.5,
-      "exit": 738.6500000000001,
-      "take_profit": 604.35,
-      "stop_loss": 738.6500000000001
-    },
-    {
-      "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6L=F",
-      "type": "long",
-      "entry_date": "2021-06-14",
-      "exit_date": "2021-10-12",
-      "entry": 0.19419999420642853,
-      "exit": 0.17970000207424164,
-      "take_profit": 0.2136199936270714,
-      "stop_loss": 0.17477999478578568
-    },
-    {
-      "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6L=F",
-      "type": "long",
-      "entry_date": "2021-07-06",
-      "exit_date": "2021-10-12",
-      "entry": 0.19715000689029694,
-      "exit": 0.17970000207424164,
-      "take_profit": 0.21686500757932664,
-      "stop_loss": 0.17743500620126726
-    },
-    {
-      "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
-      "ticker": "ZW=F",
-      "type": "long",
-      "entry_date": "2021-08-23",
-      "exit_date": "2021-11-01",
-      "entry": 712.75,
-      "exit": 784.0250000000001,
-      "take_profit": 784.0250000000001,
-      "stop_loss": 641.475
+      "entry_date": "2021-03-08",
+      "exit_date": "2021-07-27",
+      "entry": 1.3840999603271484,
+      "exit": 1.3831000328063965,
+      "take_profit": 1.4533049583435058,
+      "stop_loss": 1.314894962310791
     },
     {
       "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "ES=F",
       "type": "long",
       "entry_date": "2021-05-10",
-      "exit_date": "2021-11-03",
+      "exit_date": "2021-08-10",
       "entry": 4226.75,
-      "exit": 4649.425,
-      "take_profit": 4649.425,
-      "stop_loss": 3804.0750000000003
-    },
-    {
-      "market": "E-MINI RUSSELL 2000 INDEX - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "RTY=F",
-      "type": "short",
-      "entry_date": "2021-08-30",
-      "exit_date": "2021-11-09",
-      "entry": 2280.0,
-      "exit": 2436.300048828125,
-      "take_profit": 2052.0,
-      "stop_loss": 2508.0
+      "exit": 4438.087500000001,
+      "take_profit": 4438.087500000001,
+      "stop_loss": 4015.4125
     },
     {
       "market": "DOW JONES U.S. REAL ESTATE IDX - CHICAGO BOARD OF TRADE",
       "ticker": "YM=F",
       "type": "long",
       "entry_date": "2021-04-12",
-      "exit_date": "2021-12-14",
+      "exit_date": "2021-08-11",
       "entry": 33660.0,
-      "exit": 35680.0,
-      "take_profit": 37026.0,
-      "stop_loss": 30294.0
+      "exit": 35343.0,
+      "take_profit": 35343.0,
+      "stop_loss": 31977.0
     },
     {
-      "market": "DOW JONES U.S. REAL ESTATE IDX - CHICAGO BOARD OF TRADE",
-      "ticker": "YM=F",
+      "market": "S&P 500 STOCK INDEX - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "ES=F",
       "type": "long",
-      "entry_date": "2021-11-01",
-      "exit_date": "2021-12-14",
-      "entry": 35796.0,
-      "exit": 35680.0,
-      "take_profit": 39375.600000000006,
-      "stop_loss": 32216.4
+      "entry_date": "2021-06-07",
+      "exit_date": "2021-08-12",
+      "entry": 4232.25,
+      "exit": 4443.8625,
+      "take_profit": 4443.8625,
+      "stop_loss": 4020.6375
+    },
+    {
+      "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6L=F",
+      "type": "long",
+      "entry_date": "2021-07-06",
+      "exit_date": "2021-08-18",
+      "entry": 0.19715000689029694,
+      "exit": 0.18729250654578208,
+      "take_profit": 0.2070075072348118,
+      "stop_loss": 0.18729250654578208
+    },
+    {
+      "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
+      "ticker": "ZW=F",
+      "type": "long",
+      "entry_date": "2021-08-23",
+      "exit_date": "2021-09-10",
+      "entry": 712.75,
+      "exit": 677.1125,
+      "take_profit": 748.3875,
+      "stop_loss": 677.1125
+    },
+    {
+      "market": "BLACK SEA WHEAT FINANCIAL - CHICAGO BOARD OF TRADE",
+      "ticker": "ZW=F",
+      "type": "short",
+      "entry_date": "2021-09-13",
+      "exit_date": "2021-09-15",
+      "entry": 671.5,
+      "exit": 705.075,
+      "take_profit": 637.925,
+      "stop_loss": 705.075
+    },
+    {
+      "market": "E-MINI RUSSELL 2000 INDEX - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "RTY=F",
+      "type": "short",
+      "entry_date": "2021-08-30",
+      "exit_date": "2021-09-20",
+      "entry": 2280.0,
+      "exit": 2166.0,
+      "take_profit": 2166.0,
+      "stop_loss": 2394.0
+    },
+    {
+      "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "ES=F",
+      "type": "long",
+      "entry_date": "2021-08-09",
+      "exit_date": "2021-11-03",
+      "entry": 4428.0,
+      "exit": 4649.400000000001,
+      "take_profit": 4649.400000000001,
+      "stop_loss": 4206.599999999999
     },
     {
       "market": "DOW JONES U.S. REAL ESTATE IDX - CHICAGO BOARD OF TRADE",
       "ticker": "YM=F",
       "type": "long",
       "entry_date": "2021-07-19",
-      "exit_date": "2021-12-14",
+      "exit_date": "2021-11-05",
       "entry": 34555.0,
-      "exit": 35680.0,
-      "take_profit": 38010.5,
-      "stop_loss": 31099.5
+      "exit": 36282.75,
+      "take_profit": 36282.75,
+      "stop_loss": 32827.25
     },
     {
       "market": "DOW JONES U.S. REAL ESTATE IDX - CHICAGO BOARD OF TRADE",
       "ticker": "YM=F",
       "type": "long",
       "entry_date": "2021-06-28",
-      "exit_date": "2021-12-14",
+      "exit_date": "2021-11-05",
       "entry": 34398.0,
-      "exit": 35680.0,
-      "take_profit": 37837.8,
-      "stop_loss": 30958.2
-    },
-    {
-      "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "ES=F",
-      "type": "long",
-      "entry_date": "2022-01-03",
-      "exit_date": "2022-01-24",
-      "entry": 4771.0,
-      "exit": 4293.900000000001,
-      "take_profit": 5248.1,
-      "stop_loss": 4293.900000000001
+      "exit": 36117.9,
+      "take_profit": 36117.9,
+      "stop_loss": 32678.1
     },
     {
       "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "6M=F",
       "type": "short",
       "entry_date": "2021-11-08",
-      "exit_date": "2022-02-22",
+      "exit_date": "2021-11-24",
       "entry": 0.049139998853206635,
-      "exit": 0.04901999980211258,
-      "take_profit": 0.044225998967885975,
-      "stop_loss": 0.0540539987385273
+      "exit": 0.0466829989105463,
+      "take_profit": 0.0466829989105463,
+      "stop_loss": 0.05159699879586697
+    },
+    {
+      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6E=F",
+      "type": "short",
+      "entry_date": "2021-09-13",
+      "exit_date": "2021-11-24",
+      "entry": 1.181249976158142,
+      "exit": 1.122187477350235,
+      "take_profit": 1.122187477350235,
+      "stop_loss": 1.2403124749660492
+    },
+    {
+      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6A=F",
+      "type": "short",
+      "entry_date": "2021-09-07",
+      "exit_date": "2021-11-30",
+      "entry": 0.7452499866485596,
+      "exit": 0.7079874873161316,
+      "take_profit": 0.7079874873161316,
+      "stop_loss": 0.7825124859809875
+    },
+    {
+      "market": "DOW JONES U.S. REAL ESTATE IDX - CHICAGO BOARD OF TRADE",
+      "ticker": "YM=F",
+      "type": "long",
+      "entry_date": "2021-11-01",
+      "exit_date": "2021-12-01",
+      "entry": 35796.0,
+      "exit": 34006.2,
+      "take_profit": 37585.8,
+      "stop_loss": 34006.2
     },
     {
       "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "6M=F",
       "type": "short",
       "entry_date": "2021-11-29",
-      "exit_date": "2022-02-22",
+      "exit_date": "2021-12-13",
       "entry": 0.04571999981999397,
-      "exit": 0.04901999980211258,
-      "take_profit": 0.041147999837994574,
-      "stop_loss": 0.05029199980199337
+      "exit": 0.048005999810993676,
+      "take_profit": 0.04343399982899427,
+      "stop_loss": 0.048005999810993676
+    },
+    {
+      "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "ES=F",
+      "type": "long",
+      "entry_date": "2022-01-03",
+      "exit_date": "2022-01-19",
+      "entry": 4771.0,
+      "exit": 4532.45,
+      "take_profit": 5009.55,
+      "stop_loss": 4532.45
+    },
+    {
+      "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6L=F",
+      "type": "long",
+      "entry_date": "2022-02-14",
+      "exit_date": "2022-02-23",
+      "entry": 0.18905000388622284,
+      "exit": 0.198502504080534,
+      "take_profit": 0.198502504080534,
+      "stop_loss": 0.1795975036919117
+    },
+    {
+      "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "ES=F",
+      "type": "long",
+      "entry_date": "2022-01-31",
+      "exit_date": "2022-02-24",
+      "entry": 4423.5,
+      "exit": 4202.325,
+      "take_profit": 4644.675,
+      "stop_loss": 4202.325
+    },
+    {
+      "market": "EURO FX/JAPANESE YEN XRATE - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6E=F",
+      "type": "short",
+      "entry_date": "2021-10-25",
+      "exit_date": "2022-03-02",
+      "entry": 1.1648000478744507,
+      "exit": 1.106560045480728,
+      "take_profit": 1.106560045480728,
+      "stop_loss": 1.2230400502681733
+    },
+    {
+      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6E=F",
+      "type": "short",
+      "entry_date": "2021-11-08",
+      "exit_date": "2022-03-04",
+      "entry": 1.156749963760376,
+      "exit": 1.0989124655723572,
+      "take_profit": 1.0989124655723572,
+      "stop_loss": 1.2145874619483947
+    },
+    {
+      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6A=F",
+      "type": "short",
+      "entry_date": "2021-12-06",
+      "exit_date": "2022-03-04",
+      "entry": 0.7002500295639038,
+      "exit": 0.735262531042099,
+      "take_profit": 0.6652375280857086,
+      "stop_loss": 0.735262531042099
     },
     {
       "market": "MINI SOYBEANS - CHICAGO BOARD OF TRADE",
@@ -695,8 +936,8 @@
       "exit_date": "2022-03-08",
       "entry": 1642.5,
       "exit": 1674.5,
-      "take_profit": 1806.7500000000002,
-      "stop_loss": 1478.25
+      "take_profit": 1724.625,
+      "stop_loss": 1560.375
     },
     {
       "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
@@ -706,107 +947,63 @@
       "exit_date": "2022-03-22",
       "entry": 4299.5,
       "exit": 4456.75,
-      "take_profit": 4729.450000000001,
-      "stop_loss": 3869.55
-    },
-    {
-      "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "ES=F",
-      "type": "long",
-      "entry_date": "2022-01-31",
-      "exit_date": "2022-03-22",
-      "entry": 4423.5,
-      "exit": 4456.75,
-      "take_profit": 4865.85,
-      "stop_loss": 3981.15
-    },
-    {
-      "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6L=F",
-      "type": "long",
-      "entry_date": "2022-02-14",
-      "exit_date": "2022-03-24",
-      "entry": 0.18905000388622284,
-      "exit": 0.20795500427484515,
-      "take_profit": 0.20795500427484515,
-      "stop_loss": 0.17014500349760056
-    },
-    {
-      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6A=F",
-      "type": "short",
-      "entry_date": "2021-09-07",
-      "exit_date": "2022-04-12",
-      "entry": 0.7452499866485596,
-      "exit": 0.743149995803833,
-      "take_profit": 0.6707249879837036,
-      "stop_loss": 0.8197749853134156
-    },
-    {
-      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6A=F",
-      "type": "short",
-      "entry_date": "2021-12-06",
-      "exit_date": "2022-04-12",
-      "entry": 0.7002500295639038,
-      "exit": 0.743149995803833,
-      "take_profit": 0.6302250266075134,
-      "stop_loss": 0.7702750325202943
+      "take_profit": 4514.475,
+      "stop_loss": 4084.5249999999996
     },
     {
       "market": "CORN - CHICAGO BOARD OF TRADE",
       "ticker": "ZC=F",
       "type": "long",
       "entry_date": "2022-03-14",
-      "exit_date": "2022-04-19",
+      "exit_date": "2022-04-13",
       "entry": 745.0,
-      "exit": 819.5000000000001,
-      "take_profit": 819.5000000000001,
-      "stop_loss": 670.5
-    },
-    {
-      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6E=F",
-      "type": "short",
-      "entry_date": "2021-09-13",
-      "exit_date": "2022-04-27",
-      "entry": 1.181249976158142,
-      "exit": 1.063124978542328,
-      "take_profit": 1.063124978542328,
-      "stop_loss": 1.2993749737739564
+      "exit": 782.25,
+      "take_profit": 782.25,
+      "stop_loss": 707.75
     },
     {
       "market": "EURO FX/JAPANESE YEN XRATE - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "6E=F",
       "type": "short",
-      "entry_date": "2021-10-25",
-      "exit_date": "2022-04-28",
-      "entry": 1.1648000478744507,
-      "exit": 1.0483200430870057,
-      "take_profit": 1.0483200430870057,
-      "stop_loss": 1.281280052661896
+      "entry_date": "2021-12-27",
+      "exit_date": "2022-04-14",
+      "entry": 1.1375000476837158,
+      "exit": 1.08062504529953,
+      "take_profit": 1.08062504529953,
+      "stop_loss": 1.1943750500679016
     },
     {
-      "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "ES=F",
-      "type": "long",
-      "entry_date": "2021-08-09",
-      "exit_date": "2022-05-09",
-      "entry": 4428.0,
-      "exit": 3985.2000000000003,
-      "take_profit": 4870.8,
-      "stop_loss": 3985.2000000000003
+      "market": "EURO FX/JAPANESE YEN XRATE - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6E=F",
+      "type": "short",
+      "entry_date": "2022-02-14",
+      "exit_date": "2022-04-14",
+      "entry": 1.1360499858856201,
+      "exit": 1.079247486591339,
+      "take_profit": 1.079247486591339,
+      "stop_loss": 1.1928524851799012
     },
     {
       "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "6E=F",
       "type": "short",
-      "entry_date": "2021-11-08",
-      "exit_date": "2022-05-12",
-      "entry": 1.156749963760376,
-      "exit": 1.0410749673843385,
-      "take_profit": 1.0410749673843385,
-      "stop_loss": 1.2724249601364137
+      "entry_date": "2022-03-21",
+      "exit_date": "2022-04-28",
+      "entry": 1.1064000129699707,
+      "exit": 1.051080012321472,
+      "take_profit": 1.051080012321472,
+      "stop_loss": 1.1617200136184693
+    },
+    {
+      "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "ES=F",
+      "type": "long",
+      "entry_date": "2022-04-25",
+      "exit_date": "2022-05-09",
+      "entry": 4259.0,
+      "exit": 4046.0499999999997,
+      "take_profit": 4471.95,
+      "stop_loss": 4046.0499999999997
     },
     {
       "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
@@ -815,130 +1012,86 @@
       "entry_date": "2022-04-25",
       "exit_date": "2022-05-12",
       "entry": 1065.75,
-      "exit": 1172.325,
-      "take_profit": 1172.325,
-      "stop_loss": 959.1750000000001
+      "exit": 1119.0375000000001,
+      "take_profit": 1119.0375000000001,
+      "stop_loss": 1012.4625
     },
     {
       "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
       "ticker": "ZW=F",
       "type": "long",
       "entry_date": "2022-05-09",
-      "exit_date": "2022-05-16",
+      "exit_date": "2022-05-12",
       "entry": 1084.0,
-      "exit": 1192.4,
-      "take_profit": 1192.4,
-      "stop_loss": 975.6
-    },
-    {
-      "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "ES=F",
-      "type": "long",
-      "entry_date": "2022-04-25",
-      "exit_date": "2022-05-20",
-      "entry": 4259.0,
-      "exit": 3833.1,
-      "take_profit": 4684.900000000001,
-      "stop_loss": 3833.1
+      "exit": 1138.2,
+      "take_profit": 1138.2,
+      "stop_loss": 1029.8
     },
     {
       "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "ES=F",
       "type": "long",
       "entry_date": "2022-06-06",
-      "exit_date": "2022-06-16",
+      "exit_date": "2022-06-10",
       "entry": 4110.5,
-      "exit": 3699.4500000000003,
-      "take_profit": 4521.55,
-      "stop_loss": 3699.4500000000003
-    },
-    {
-      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6E=F",
-      "type": "short",
-      "entry_date": "2022-03-21",
-      "exit_date": "2022-06-21",
-      "entry": 1.1064000129699707,
-      "exit": 1.0505000352859497,
-      "take_profit": 0.9957600116729737,
-      "stop_loss": 1.217040014266968
-    },
-    {
-      "market": "EURO FX/JAPANESE YEN XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6E=F",
-      "type": "short",
-      "entry_date": "2021-12-27",
-      "exit_date": "2022-06-28",
-      "entry": 1.1375000476837158,
-      "exit": 1.05964994430542,
-      "take_profit": 1.0237500429153443,
-      "stop_loss": 1.2512500524520875
-    },
-    {
-      "market": "EURO FX/JAPANESE YEN XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6E=F",
-      "type": "short",
-      "entry_date": "2022-02-14",
-      "exit_date": "2022-06-28",
-      "entry": 1.1360499858856201,
-      "exit": 1.05964994430542,
-      "take_profit": 1.0224449872970582,
-      "stop_loss": 1.2496549844741822
+      "exit": 3904.975,
+      "take_profit": 4316.025000000001,
+      "stop_loss": 3904.975
     },
     {
       "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "6L=F",
       "type": "long",
       "entry_date": "2022-06-06",
-      "exit_date": "2022-07-01",
+      "exit_date": "2022-06-13",
       "entry": 0.20765000581741333,
-      "exit": 0.186885005235672,
-      "take_profit": 0.22841500639915469,
-      "stop_loss": 0.186885005235672
-    },
-    {
-      "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PL=F",
-      "type": "short",
-      "entry_date": "2022-07-18",
-      "exit_date": "2022-08-11",
-      "entry": 864.7999877929688,
-      "exit": 951.2799865722657,
-      "take_profit": 778.319989013672,
-      "stop_loss": 951.2799865722657
-    },
-    {
-      "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "ES=F",
-      "type": "short",
-      "entry_date": "2022-07-11",
-      "exit_date": "2022-08-15",
-      "entry": 3900.0,
-      "exit": 4290.0,
-      "take_profit": 3510.0,
-      "stop_loss": 4290.0
+      "exit": 0.19726750552654265,
+      "take_profit": 0.218032506108284,
+      "stop_loss": 0.19726750552654265
     },
     {
       "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "ES=F",
       "type": "long",
       "entry_date": "2022-06-27",
-      "exit_date": "2022-08-16",
+      "exit_date": "2022-07-28",
       "entry": 3915.0,
-      "exit": 4306.5,
-      "take_profit": 4306.5,
-      "stop_loss": 3523.5
+      "exit": 4110.75,
+      "take_profit": 4110.75,
+      "stop_loss": 3719.25
+    },
+    {
+      "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "ES=F",
+      "type": "short",
+      "entry_date": "2022-07-11",
+      "exit_date": "2022-07-28",
+      "entry": 3900.0,
+      "exit": 4095.0,
+      "take_profit": 3705.0,
+      "stop_loss": 4095.0
+    },
+    {
+      "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
+      "ticker": "PL=F",
+      "type": "short",
+      "entry_date": "2022-07-18",
+      "exit_date": "2022-08-04",
+      "entry": 864.7999877929688,
+      "exit": 908.0399871826172,
+      "take_profit": 821.5599884033203,
+      "stop_loss": 908.0399871826172
     },
     {
       "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
       "ticker": "PL=F",
       "type": "short",
       "entry_date": "2022-09-06",
-      "exit_date": "2022-09-19",
+      "exit_date": "2022-09-09",
       "entry": 832.7000122070312,
-      "exit": 915.9700134277344,
-      "take_profit": 749.4300109863282,
-      "stop_loss": 915.9700134277344
+      "exit": 874.3350128173829,
+      "take_profit": 791.0650115966796,
+      "stop_loss": 874.3350128173829
     },
     {
       "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
@@ -948,8 +1101,8 @@
       "exit_date": "2022-11-01",
       "entry": 0.04983000084757805,
       "exit": 0.050599999725818634,
-      "take_profit": 0.04484700076282024,
-      "stop_loss": 0.054813000932335855
+      "take_profit": 0.04733850080519914,
+      "stop_loss": 0.052321500889956955
     },
     {
       "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
@@ -959,8 +1112,19 @@
       "exit_date": "2023-01-24",
       "entry": 3972.5,
       "exit": 4036.5,
-      "take_profit": 4369.75,
-      "stop_loss": 3575.25
+      "take_profit": 4171.125,
+      "stop_loss": 3773.875
+    },
+    {
+      "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
+      "ticker": "ZW=F",
+      "type": "short",
+      "entry_date": "2023-01-23",
+      "exit_date": "2023-02-03",
+      "entry": 738.0,
+      "exit": 774.9,
+      "take_profit": 701.1,
+      "stop_loss": 774.9
     },
     {
       "market": "DOW JONES U.S. REAL ESTATE IDX - CHICAGO BOARD OF TRADE",
@@ -970,30 +1134,52 @@
       "exit_date": "2023-02-07",
       "entry": 34300.0,
       "exit": 33920.0,
-      "take_profit": 30870.0,
-      "stop_loss": 37730.0
+      "take_profit": 32585.0,
+      "stop_loss": 36015.0
+    },
+    {
+      "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6M=F",
+      "type": "short",
+      "entry_date": "2022-12-27",
+      "exit_date": "2023-02-17",
+      "entry": 0.05138000100851059,
+      "exit": 0.05394900105893612,
+      "take_profit": 0.048811000958085056,
+      "stop_loss": 0.05394900105893612
     },
     {
       "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
       "ticker": "ZW=F",
       "type": "short",
       "entry_date": "2023-02-13",
-      "exit_date": "2023-02-24",
+      "exit_date": "2023-02-21",
       "entry": 789.0,
-      "exit": 710.1,
-      "take_profit": 710.1,
-      "stop_loss": 867.9000000000001
+      "exit": 749.55,
+      "take_profit": 749.55,
+      "stop_loss": 828.45
     },
     {
       "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
       "ticker": "ZW=F",
       "type": "short",
-      "entry_date": "2023-01-23",
+      "entry_date": "2023-02-27",
       "exit_date": "2023-03-09",
-      "entry": 738.0,
-      "exit": 664.2,
-      "take_profit": 664.2,
-      "stop_loss": 811.8000000000001
+      "entry": 708.25,
+      "exit": 672.8375,
+      "take_profit": 672.8375,
+      "stop_loss": 743.6625
+    },
+    {
+      "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "ES=F",
+      "type": "short",
+      "entry_date": "2023-02-21",
+      "exit_date": "2023-03-10",
+      "entry": 4083.0,
+      "exit": 3878.85,
+      "take_profit": 3878.85,
+      "stop_loss": 4287.150000000001
     },
     {
       "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
@@ -1003,63 +1189,52 @@
       "exit_date": "2023-03-21",
       "entry": 1.0657999515533447,
       "exit": 1.073449969291687,
-      "take_profit": 0.9592199563980103,
-      "stop_loss": 1.1723799467086793
-    },
-    {
-      "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6M=F",
-      "type": "short",
-      "entry_date": "2022-12-27",
-      "exit_date": "2023-03-21",
-      "entry": 0.05138000100851059,
-      "exit": 0.05290000140666962,
-      "take_profit": 0.04624200090765953,
-      "stop_loss": 0.05651800110936165
-    },
-    {
-      "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2023-02-27",
-      "exit_date": "2023-04-25",
-      "entry": 708.25,
-      "exit": 637.4250000000001,
-      "take_profit": 637.4250000000001,
-      "stop_loss": 779.075
-    },
-    {
-      "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "ES=F",
-      "type": "short",
-      "entry_date": "2023-02-21",
-      "exit_date": "2023-06-27",
-      "entry": 4083.0,
-      "exit": 4375.75,
-      "take_profit": 3674.7000000000003,
-      "stop_loss": 4491.3
-    },
-    {
-      "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "ES=F",
-      "type": "short",
-      "entry_date": "2023-04-10",
-      "exit_date": "2023-06-27",
-      "entry": 4139.0,
-      "exit": 4375.75,
-      "take_profit": 3725.1,
-      "stop_loss": 4552.900000000001
+      "take_profit": 1.0125099539756774,
+      "stop_loss": 1.119089949131012
     },
     {
       "market": "DOW JONES U.S. REAL ESTATE IDX - CHICAGO BOARD OF TRADE",
       "ticker": "YM=F",
       "type": "short",
       "entry_date": "2023-03-20",
-      "exit_date": "2023-07-19",
+      "exit_date": "2023-04-03",
       "entry": 32142.0,
-      "exit": 35356.200000000004,
-      "take_profit": 28927.8,
-      "stop_loss": 35356.200000000004
+      "exit": 33749.1,
+      "take_profit": 30534.899999999998,
+      "stop_loss": 33749.1
+    },
+    {
+      "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "ES=F",
+      "type": "short",
+      "entry_date": "2023-04-10",
+      "exit_date": "2023-06-12",
+      "entry": 4139.0,
+      "exit": 4345.95,
+      "take_profit": 3932.0499999999997,
+      "stop_loss": 4345.95
+    },
+    {
+      "market": "DOW JONES U.S. REAL ESTATE IDX - CHICAGO BOARD OF TRADE",
+      "ticker": "YM=F",
+      "type": "short",
+      "entry_date": "2023-05-22",
+      "exit_date": "2023-07-18",
+      "entry": 33412.0,
+      "exit": 35082.6,
+      "take_profit": 31741.399999999998,
+      "stop_loss": 35082.6
+    },
+    {
+      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6J=F",
+      "type": "short",
+      "entry_date": "2023-06-12",
+      "exit_date": "2023-08-29",
+      "entry": 0.007185999769717455,
+      "exit": 0.0068266997812315815,
+      "take_profit": 0.0068266997812315815,
+      "stop_loss": 0.007545299758203328
     },
     {
       "market": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
@@ -1069,30 +1244,85 @@
       "exit_date": "2023-09-19",
       "entry": 1.086300015449524,
       "exit": 1.0703500509262085,
-      "take_profit": 1.1949300169944763,
-      "stop_loss": 0.9776700139045715
-    },
-    {
-      "market": "DOW JONES U.S. REAL ESTATE IDX - CHICAGO BOARD OF TRADE",
-      "ticker": "YM=F",
-      "type": "short",
-      "entry_date": "2023-05-22",
-      "exit_date": "2023-09-26",
-      "entry": 33412.0,
-      "exit": 34294.0,
-      "take_profit": 30070.8,
-      "stop_loss": 36753.200000000004
+      "take_profit": 1.1406150162220001,
+      "stop_loss": 1.0319850146770477
     },
     {
       "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
       "ticker": "ZW=F",
       "type": "short",
       "entry_date": "2023-10-09",
-      "exit_date": "2023-12-06",
+      "exit_date": "2023-10-20",
       "entry": 573.25,
-      "exit": 630.575,
-      "take_profit": 515.9250000000001,
-      "stop_loss": 630.575
+      "exit": 601.9125,
+      "take_profit": 544.5875,
+      "stop_loss": 601.9125
+    },
+    {
+      "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
+      "ticker": "PL=F",
+      "type": "short",
+      "entry_date": "2023-10-16",
+      "exit_date": "2023-10-31",
+      "entry": 890.4000244140625,
+      "exit": 934.9200256347657,
+      "take_profit": 845.8800231933593,
+      "stop_loss": 934.9200256347657
+    },
+    {
+      "market": "WHEAT-HRW - CHICAGO BOARD OF TRADE",
+      "ticker": "ZW=F",
+      "type": "short",
+      "entry_date": "2023-10-16",
+      "exit_date": "2023-11-16",
+      "entry": 580.0,
+      "exit": 551.0,
+      "take_profit": 551.0,
+      "stop_loss": 609.0
+    },
+    {
+      "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "ES=F",
+      "type": "long",
+      "entry_date": "2023-11-06",
+      "exit_date": "2023-12-01",
+      "entry": 4379.25,
+      "exit": 4598.212500000001,
+      "take_profit": 4598.212500000001,
+      "stop_loss": 4160.287499999999
+    },
+    {
+      "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
+      "ticker": "ZW=F",
+      "type": "short",
+      "entry_date": "2023-12-04",
+      "exit_date": "2023-12-05",
+      "entry": 583.0,
+      "exit": 612.15,
+      "take_profit": 553.85,
+      "stop_loss": 612.15
+    },
+    {
+      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6J=F",
+      "type": "short",
+      "entry_date": "2023-11-06",
+      "exit_date": "2023-12-07",
+      "entry": 0.0067010000348091125,
+      "exit": 0.007036050036549568,
+      "take_profit": 0.006365950033068657,
+      "stop_loss": 0.007036050036549568
+    },
+    {
+      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6J=F",
+      "type": "short",
+      "entry_date": "2023-10-23",
+      "exit_date": "2023-12-07",
+      "entry": 0.006694999989122152,
+      "exit": 0.00702974998857826,
+      "take_profit": 0.0063602499896660445,
+      "stop_loss": 0.00702974998857826
     },
     {
       "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
@@ -1102,8 +1332,8 @@
       "exit_date": "2023-12-12",
       "entry": 0.6448000073432922,
       "exit": 0.6567500233650208,
-      "take_profit": 0.580320006608963,
-      "stop_loss": 0.7092800080776215
+      "take_profit": 0.6125600069761276,
+      "stop_loss": 0.6770400077104569
     },
     {
       "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
@@ -1113,85 +1343,19 @@
       "exit_date": "2023-12-12",
       "entry": 0.638450026512146,
       "exit": 0.6567500233650208,
-      "take_profit": 0.5746050238609314,
-      "stop_loss": 0.7022950291633606
-    },
-    {
-      "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2023-12-04",
-      "exit_date": "2023-12-19",
-      "entry": 583.0,
-      "exit": 618.25,
-      "take_profit": 524.7,
-      "stop_loss": 641.3000000000001
-    },
-    {
-      "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "ES=F",
-      "type": "long",
-      "entry_date": "2023-11-06",
-      "exit_date": "2023-12-19",
-      "entry": 4379.25,
-      "exit": 4817.175,
-      "take_profit": 4817.175,
-      "stop_loss": 3941.3250000000003
-    },
-    {
-      "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PL=F",
-      "type": "short",
-      "entry_date": "2023-10-16",
-      "exit_date": "2023-12-22",
-      "entry": 890.4000244140625,
-      "exit": 979.4400268554688,
-      "take_profit": 801.3600219726562,
-      "stop_loss": 979.4400268554688
+      "take_profit": 0.6065275251865386,
+      "stop_loss": 0.6703725278377534
     },
     {
       "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
       "ticker": "PL=F",
       "type": "short",
       "entry_date": "2023-11-20",
-      "exit_date": "2023-12-26",
+      "exit_date": "2023-12-20",
       "entry": 921.5,
-      "exit": 980.0999755859375,
-      "take_profit": 829.35,
-      "stop_loss": 1013.6500000000001
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "short",
-      "entry_date": "2023-11-06",
-      "exit_date": "2023-12-26",
-      "entry": 0.0067010000348091125,
-      "exit": 0.0070500001311302185,
-      "take_profit": 0.006030900031328202,
-      "stop_loss": 0.007371100038290024
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "short",
-      "entry_date": "2023-10-23",
-      "exit_date": "2023-12-26",
-      "entry": 0.006694999989122152,
-      "exit": 0.0070500001311302185,
-      "take_profit": 0.006025499990209938,
-      "stop_loss": 0.007364499988034368
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "short",
-      "entry_date": "2023-06-12",
-      "exit_date": "2023-12-26",
-      "entry": 0.007185999769717455,
-      "exit": 0.0070500001311302185,
-      "take_profit": 0.00646739979274571,
-      "stop_loss": 0.007904599746689202
+      "exit": 967.575,
+      "take_profit": 875.425,
+      "stop_loss": 967.575
     },
     {
       "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
@@ -1201,19 +1365,30 @@
       "exit_date": "2023-12-26",
       "entry": 0.006761999800801277,
       "exit": 0.0070500001311302185,
-      "take_profit": 0.006085799820721149,
-      "stop_loss": 0.007438199780881405
+      "take_profit": 0.006423899810761213,
+      "stop_loss": 0.0071000997908413415
     },
     {
-      "market": "WHEAT-HRW - CHICAGO BOARD OF TRADE",
-      "ticker": "ZW=F",
+      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6E=F",
       "type": "short",
-      "entry_date": "2023-10-16",
-      "exit_date": "2023-12-26",
-      "entry": 580.0,
-      "exit": 638.0,
-      "take_profit": 522.0,
-      "stop_loss": 638.0
+      "entry_date": "2023-10-02",
+      "exit_date": "2023-12-27",
+      "entry": 1.0569000244140625,
+      "exit": 1.1097450256347656,
+      "take_profit": 1.0040550231933594,
+      "stop_loss": 1.1097450256347656
+    },
+    {
+      "market": "CORN - CHICAGO BOARD OF TRADE",
+      "ticker": "ZC=F",
+      "type": "short",
+      "entry_date": "2023-12-04",
+      "exit_date": "2024-01-18",
+      "entry": 461.25,
+      "exit": 438.1875,
+      "take_profit": 438.1875,
+      "stop_loss": 484.3125
     },
     {
       "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
@@ -1223,30 +1398,52 @@
       "exit_date": "2024-02-06",
       "entry": 0.20194999873638153,
       "exit": 0.20065000653266907,
-      "take_profit": 0.2221449986100197,
-      "stop_loss": 0.18175499886274338
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "short",
-      "entry_date": "2023-12-04",
-      "exit_date": "2024-02-16",
-      "entry": 461.25,
-      "exit": 415.125,
-      "take_profit": 415.125,
-      "stop_loss": 507.37500000000006
+      "take_profit": 0.2120474986732006,
+      "stop_loss": 0.19185249879956245
     },
     {
       "market": "CORN - CHICAGO BOARD OF TRADE",
       "ticker": "ZC=F",
       "type": "short",
       "entry_date": "2024-01-16",
-      "exit_date": "2024-02-23",
+      "exit_date": "2024-02-14",
       "entry": 447.75,
-      "exit": 402.975,
-      "take_profit": 402.975,
-      "stop_loss": 492.52500000000003
+      "exit": 425.36249999999995,
+      "take_profit": 425.36249999999995,
+      "stop_loss": 470.13750000000005
+    },
+    {
+      "market": "WHEAT-HRW - CHICAGO BOARD OF TRADE",
+      "ticker": "ZW=F",
+      "type": "short",
+      "entry_date": "2024-01-22",
+      "exit_date": "2024-02-16",
+      "entry": 593.5,
+      "exit": 563.8249999999999,
+      "take_profit": 563.8249999999999,
+      "stop_loss": 623.1750000000001
+    },
+    {
+      "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
+      "ticker": "ZS=F",
+      "type": "short",
+      "entry_date": "2024-01-22",
+      "exit_date": "2024-02-22",
+      "entry": 1216.75,
+      "exit": 1155.9125,
+      "take_profit": 1155.9125,
+      "stop_loss": 1277.5875
+    },
+    {
+      "market": "WHEAT-HRW - CHICAGO BOARD OF TRADE",
+      "ticker": "ZW=F",
+      "type": "short",
+      "entry_date": "2024-02-20",
+      "exit_date": "2024-02-22",
+      "entry": 558.5,
+      "exit": 586.4250000000001,
+      "take_profit": 530.5749999999999,
+      "stop_loss": 586.4250000000001
     },
     {
       "market": "COPPER- #1 - COMMODITY EXCHANGE INC.",
@@ -1256,74 +1453,96 @@
       "exit_date": "2024-03-05",
       "entry": 3.866499900817871,
       "exit": 3.8464999198913574,
-      "take_profit": 3.479849910736084,
-      "stop_loss": 4.253149890899659
+      "take_profit": 3.6731749057769774,
+      "stop_loss": 4.059824895858765
     },
     {
-      "market": "WHEAT-HRW - CHICAGO BOARD OF TRADE",
+      "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
       "ticker": "ZW=F",
       "type": "short",
-      "entry_date": "2024-01-22",
+      "entry_date": "2024-03-04",
       "exit_date": "2024-03-06",
-      "entry": 593.5,
-      "exit": 534.15,
-      "take_profit": 534.15,
-      "stop_loss": 652.85
+      "entry": 564.0,
+      "exit": 535.8,
+      "take_profit": 535.8,
+      "stop_loss": 592.2
     },
     {
       "market": "BRENT LAST DAY - NEW YORK MERCANTILE EXCHANGE",
       "ticker": "BZ=F",
       "type": "long",
       "entry_date": "2024-03-11",
-      "exit_date": "2024-04-02",
+      "exit_date": "2024-03-18",
       "entry": 81.91000366210938,
-      "exit": 87.80000305175781,
-      "take_profit": 90.10100402832032,
-      "stop_loss": 73.71900329589845
+      "exit": 86.00550384521485,
+      "take_profit": 86.00550384521485,
+      "stop_loss": 77.8145034790039
     },
     {
-      "market": "ALUMINUM MWP - COMMODITY EXCHANGE INC.",
-      "ticker": "ALI=F",
-      "type": "short",
-      "entry_date": "2024-03-11",
-      "exit_date": "2024-04-12",
-      "entry": 2210.5,
-      "exit": 2431.55,
-      "take_profit": 1989.45,
-      "stop_loss": 2431.55
+      "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "ES=F",
+      "type": "long",
+      "entry_date": "2024-02-20",
+      "exit_date": "2024-03-20",
+      "entry": 5016.5,
+      "exit": 5267.325,
+      "take_profit": 5267.325,
+      "stop_loss": 4765.675
     },
     {
       "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
       "ticker": "PL=F",
       "type": "short",
       "entry_date": "2024-03-11",
-      "exit_date": "2024-04-16",
+      "exit_date": "2024-03-27",
       "entry": 937.7000122070312,
-      "exit": 964.0,
-      "take_profit": 843.9300109863282,
-      "stop_loss": 1031.4700134277346
+      "exit": 890.8150115966796,
+      "take_profit": 890.8150115966796,
+      "stop_loss": 984.5850128173829
+    },
+    {
+      "market": "ALUMINUM MWP - COMMODITY EXCHANGE INC.",
+      "ticker": "ALI=F",
+      "type": "short",
+      "entry_date": "2024-03-11",
+      "exit_date": "2024-04-02",
+      "entry": 2210.5,
+      "exit": 2321.025,
+      "take_profit": 2099.975,
+      "stop_loss": 2321.025
     },
     {
       "market": "COPPER- #1 - COMMODITY EXCHANGE INC.",
       "ticker": "HG=F",
       "type": "long",
       "entry_date": "2024-03-25",
-      "exit_date": "2024-04-18",
+      "exit_date": "2024-04-03",
       "entry": 3.999500036239624,
-      "exit": 4.399450039863587,
-      "take_profit": 4.399450039863587,
-      "stop_loss": 3.5995500326156615
+      "exit": 4.199475038051605,
+      "take_profit": 4.199475038051605,
+      "stop_loss": 3.7995250344276426
     },
     {
-      "market": "BRITISH POUND - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6B=F",
-      "type": "long",
-      "entry_date": "2024-03-11",
-      "exit_date": "2024-04-23",
-      "entry": 1.2862000465393066,
-      "exit": 1.2351000308990479,
-      "take_profit": 1.4148200511932374,
-      "stop_loss": 1.157580041885376
+      "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
+      "ticker": "ZW=F",
+      "type": "short",
+      "entry_date": "2024-04-08",
+      "exit_date": "2024-04-17",
+      "entry": 570.25,
+      "exit": 541.7375,
+      "take_profit": 541.7375,
+      "stop_loss": 598.7625
+    },
+    {
+      "market": "ALUMINUM MWP - COMMODITY EXCHANGE INC.",
+      "ticker": "ALI=F",
+      "type": "short",
+      "entry_date": "2024-04-15",
+      "exit_date": "2024-04-19",
+      "entry": 2492.0,
+      "exit": 2616.6,
+      "take_profit": 2367.4,
+      "stop_loss": 2616.6
     },
     {
       "market": "BRITISH POUND - CHICAGO MERCANTILE EXCHANGE",
@@ -1333,63 +1552,74 @@
       "exit_date": "2024-04-23",
       "entry": 1.260599970817566,
       "exit": 1.2351000308990479,
-      "take_profit": 1.3866599678993226,
-      "stop_loss": 1.1345399737358093
+      "take_profit": 1.3236299693584443,
+      "stop_loss": 1.1975699722766875
     },
     {
-      "market": "WHEAT-HRW - CHICAGO BOARD OF TRADE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2024-02-20",
-      "exit_date": "2024-04-26",
-      "entry": 558.5,
-      "exit": 614.35,
-      "take_profit": 502.65000000000003,
-      "stop_loss": 614.35
-    },
-    {
-      "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2024-04-08",
-      "exit_date": "2024-05-06",
-      "entry": 570.25,
-      "exit": 627.2750000000001,
-      "take_profit": 513.225,
-      "stop_loss": 627.2750000000001
+      "market": "BRITISH POUND - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6B=F",
+      "type": "long",
+      "entry_date": "2024-03-11",
+      "exit_date": "2024-04-23",
+      "entry": 1.2862000465393066,
+      "exit": 1.2351000308990479,
+      "take_profit": 1.350510048866272,
+      "stop_loss": 1.2218900442123413
     },
     {
       "market": "WHEAT-HRW - CHICAGO BOARD OF TRADE",
       "ticker": "ZW=F",
       "type": "short",
       "entry_date": "2024-03-25",
-      "exit_date": "2024-05-06",
+      "exit_date": "2024-04-24",
       "entry": 559.0,
-      "exit": 614.9000000000001,
-      "take_profit": 503.1,
-      "stop_loss": 614.9000000000001
+      "exit": 586.95,
+      "take_profit": 531.05,
+      "stop_loss": 586.95
     },
     {
-      "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2024-03-04",
-      "exit_date": "2024-05-06",
-      "entry": 564.0,
-      "exit": 620.4000000000001,
-      "take_profit": 507.6,
-      "stop_loss": 620.4000000000001
+      "market": "COPPER- #1 - COMMODITY EXCHANGE INC.",
+      "ticker": "HG=F",
+      "type": "long",
+      "entry_date": "2024-04-15",
+      "exit_date": "2024-04-26",
+      "entry": 4.382999897003174,
+      "exit": 4.602149891853332,
+      "take_profit": 4.602149891853332,
+      "stop_loss": 4.163849902153015
     },
     {
-      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6A=F",
+      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6J=F",
       "type": "short",
-      "entry_date": "2024-04-22",
-      "exit_date": "2024-05-14",
-      "entry": 0.642799973487854,
-      "exit": 0.6614999771118164,
-      "take_profit": 0.5785199761390686,
-      "stop_loss": 0.7070799708366394
+      "entry_date": "2024-02-26",
+      "exit_date": "2024-04-26",
+      "entry": 0.006668999791145325,
+      "exit": 0.006335549801588058,
+      "take_profit": 0.006335549801588058,
+      "stop_loss": 0.007002449780702591
+    },
+    {
+      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6J=F",
+      "type": "short",
+      "entry_date": "2024-03-25",
+      "exit_date": "2024-04-29",
+      "entry": 0.006626000162214041,
+      "exit": 0.006294700154103338,
+      "take_profit": 0.006294700154103338,
+      "stop_loss": 0.0069573001703247435
+    },
+    {
+      "market": "CORN - CHICAGO BOARD OF TRADE",
+      "ticker": "ZC=F",
+      "type": "short",
+      "entry_date": "2024-04-15",
+      "exit_date": "2024-05-03",
+      "entry": 434.5,
+      "exit": 456.225,
+      "take_profit": 412.775,
+      "stop_loss": 456.225
     },
     {
       "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
@@ -1399,63 +1629,30 @@
       "exit_date": "2024-05-14",
       "entry": 0.6559000015258789,
       "exit": 0.6614999771118164,
-      "take_profit": 0.590310001373291,
-      "stop_loss": 0.7214900016784669
+      "take_profit": 0.6231050014495849,
+      "stop_loss": 0.6886950016021729
     },
     {
-      "market": "COPPER- #1 - COMMODITY EXCHANGE INC.",
-      "ticker": "HG=F",
-      "type": "long",
-      "entry_date": "2024-04-15",
+      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6A=F",
+      "type": "short",
+      "entry_date": "2024-04-22",
       "exit_date": "2024-05-14",
-      "entry": 4.382999897003174,
-      "exit": 4.821299886703492,
-      "take_profit": 4.821299886703492,
-      "stop_loss": 3.9446999073028564
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "short",
-      "entry_date": "2024-04-15",
-      "exit_date": "2024-05-21",
-      "entry": 434.5,
-      "exit": 460.0,
-      "take_profit": 391.05,
-      "stop_loss": 477.95000000000005
-    },
-    {
-      "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
-      "ticker": "ZS=F",
-      "type": "short",
-      "entry_date": "2024-01-22",
-      "exit_date": "2024-05-28",
-      "entry": 1216.75,
-      "exit": 1250.25,
-      "take_profit": 1095.075,
-      "stop_loss": 1338.4250000000002
+      "entry": 0.642799973487854,
+      "exit": 0.6614999771118164,
+      "take_profit": 0.6106599748134612,
+      "stop_loss": 0.6749399721622468
     },
     {
       "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "ES=F",
       "type": "long",
       "entry_date": "2024-04-22",
-      "exit_date": "2024-06-18",
+      "exit_date": "2024-05-14",
       "entry": 5014.25,
-      "exit": 5480.25,
-      "take_profit": 5515.675,
-      "stop_loss": 4512.825
-    },
-    {
-      "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "ES=F",
-      "type": "long",
-      "entry_date": "2024-02-20",
-      "exit_date": "2024-06-20",
-      "entry": 5016.5,
-      "exit": 5518.150000000001,
-      "take_profit": 5518.150000000001,
-      "stop_loss": 4514.85
+      "exit": 5264.962500000001,
+      "take_profit": 5264.962500000001,
+      "stop_loss": 4763.537499999999
     },
     {
       "market": "DOW JONES U.S. REAL ESTATE IDX - CHICAGO BOARD OF TRADE",
@@ -1465,74 +1662,96 @@
       "exit_date": "2024-07-02",
       "entry": 38821.0,
       "exit": 39662.0,
-      "take_profit": 34938.9,
-      "stop_loss": 42703.100000000006
+      "take_profit": 36879.95,
+      "stop_loss": 40762.05
     },
     {
-      "market": "ALUMINUM MWP - COMMODITY EXCHANGE INC.",
-      "ticker": "ALI=F",
+      "market": "CORN - CHICAGO BOARD OF TRADE",
+      "ticker": "ZC=F",
       "type": "short",
-      "entry_date": "2024-04-15",
-      "exit_date": "2024-07-22",
-      "entry": 2492.0,
-      "exit": 2242.8,
-      "take_profit": 2242.8,
-      "stop_loss": 2741.2000000000003
+      "entry_date": "2024-07-08",
+      "exit_date": "2024-07-15",
+      "entry": 411.75,
+      "exit": 391.16249999999997,
+      "take_profit": 391.16249999999997,
+      "stop_loss": 432.33750000000003
+    },
+    {
+      "market": "WHEAT-HRW - CHICAGO BOARD OF TRADE",
+      "ticker": "ZW=F",
+      "type": "short",
+      "entry_date": "2024-07-01",
+      "exit_date": "2024-07-16",
+      "entry": 556.5,
+      "exit": 528.675,
+      "take_profit": 528.675,
+      "stop_loss": 584.325
     },
     {
       "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "6J=F",
       "type": "short",
       "entry_date": "2024-07-01",
-      "exit_date": "2024-07-30",
+      "exit_date": "2024-07-24",
       "entry": 0.00622999994084239,
-      "exit": 0.006519000045955181,
-      "take_profit": 0.005606999946758152,
-      "stop_loss": 0.006852999934926629
+      "exit": 0.00654149993788451,
+      "take_profit": 0.00591849994380027,
+      "stop_loss": 0.00654149993788451
     },
     {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
+      "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
+      "ticker": "ZW=F",
       "type": "short",
-      "entry_date": "2024-03-25",
-      "exit_date": "2024-07-30",
-      "entry": 0.006626000162214041,
-      "exit": 0.006519000045955181,
-      "take_profit": 0.005963400145992637,
-      "stop_loss": 0.007288600178435445
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "short",
-      "entry_date": "2024-02-26",
-      "exit_date": "2024-07-30",
-      "entry": 0.006668999791145325,
-      "exit": 0.006519000045955181,
-      "take_profit": 0.006002099812030793,
-      "stop_loss": 0.0073358997702598575
-    },
-    {
-      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6A=F",
-      "type": "long",
       "entry_date": "2024-07-22",
-      "exit_date": "2024-08-06",
-      "entry": 0.6694999933242798,
-      "exit": 0.6527000069618225,
-      "take_profit": 0.7364499926567079,
-      "stop_loss": 0.6025499939918518
+      "exit_date": "2024-07-29",
+      "entry": 545.25,
+      "exit": 517.9875,
+      "take_profit": 517.9875,
+      "stop_loss": 572.5125
     },
     {
       "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
       "ticker": "ZS=F",
       "type": "short",
       "entry_date": "2024-07-15",
-      "exit_date": "2024-08-13",
+      "exit_date": "2024-07-29",
       "entry": 1100.0,
-      "exit": 990.0,
-      "take_profit": 990.0,
-      "stop_loss": 1210.0
+      "exit": 1045.0,
+      "take_profit": 1045.0,
+      "stop_loss": 1155.0
+    },
+    {
+      "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6L=F",
+      "type": "short",
+      "entry_date": "2024-07-15",
+      "exit_date": "2024-08-01",
+      "entry": 0.18359999358654022,
+      "exit": 0.17441999390721322,
+      "take_profit": 0.17441999390721322,
+      "stop_loss": 0.19277999326586723
+    },
+    {
+      "market": "ADJUSTED INT RATE S&P 500 TOTL - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "ES=F",
+      "type": "short",
+      "entry_date": "2024-07-08",
+      "exit_date": "2024-08-05",
+      "entry": 5612.0,
+      "exit": 5331.4,
+      "take_profit": 5331.4,
+      "stop_loss": 5892.6
+    },
+    {
+      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6A=F",
+      "type": "long",
+      "entry_date": "2024-07-22",
+      "exit_date": "2024-08-05",
+      "entry": 0.6694999933242798,
+      "exit": 0.6360249936580658,
+      "take_profit": 0.7029749929904938,
+      "stop_loss": 0.6360249936580658
     },
     {
       "market": "BRITISH POUND - CHICAGO MERCANTILE EXCHANGE",
@@ -1542,129 +1761,85 @@
       "exit_date": "2024-08-13",
       "entry": 1.2812000513076782,
       "exit": 1.2793999910354614,
-      "take_profit": 1.4093200564384463,
-      "stop_loss": 1.1530800461769104
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "short",
-      "entry_date": "2024-07-08",
-      "exit_date": "2024-08-16",
-      "entry": 411.75,
-      "exit": 370.575,
-      "take_profit": 370.575,
-      "stop_loss": 452.925
-    },
-    {
-      "market": "WHEAT-HRW - CHICAGO BOARD OF TRADE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2024-07-01",
-      "exit_date": "2024-08-26",
-      "entry": 556.5,
-      "exit": 500.85,
-      "take_profit": 500.85,
-      "stop_loss": 612.1500000000001
-    },
-    {
-      "market": "ADJUSTED INT RATE S&P 500 TOTL - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "ES=F",
-      "type": "short",
-      "entry_date": "2024-07-08",
-      "exit_date": "2024-08-27",
-      "entry": 5612.0,
-      "exit": 5630.0,
-      "take_profit": 5050.8,
-      "stop_loss": 6173.200000000001
-    },
-    {
-      "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2024-07-22",
-      "exit_date": "2024-10-01",
-      "entry": 545.25,
-      "exit": 599.7750000000001,
-      "take_profit": 490.725,
-      "stop_loss": 599.7750000000001
+      "take_profit": 1.3452600538730621,
+      "stop_loss": 1.2171400487422943
     },
     {
       "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
       "ticker": "ZS=F",
       "type": "short",
       "entry_date": "2024-08-05",
-      "exit_date": "2024-10-15",
+      "exit_date": "2024-08-14",
       "entry": 1040.0,
-      "exit": 995.0,
-      "take_profit": 936.0,
-      "stop_loss": 1144.0
-    },
-    {
-      "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6L=F",
-      "type": "short",
-      "entry_date": "2024-07-15",
-      "exit_date": "2024-10-15",
-      "entry": 0.18359999358654022,
-      "exit": 0.1789499968290329,
-      "take_profit": 0.1652399942278862,
-      "stop_loss": 0.20195999294519426
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "long",
-      "entry_date": "2024-09-09",
-      "exit_date": "2024-11-05",
-      "entry": 0.007036999799311161,
-      "exit": 0.0065819998271763325,
-      "take_profit": 0.007740699779242278,
-      "stop_loss": 0.006333299819380045
+      "exit": 988.0,
+      "take_profit": 988.0,
+      "stop_loss": 1092.0
     },
     {
       "market": "S&P 500 ANNUAL DIVIDEND INDEX - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "ES=F",
       "type": "long",
       "entry_date": "2024-09-09",
-      "exit_date": "2024-11-06",
+      "exit_date": "2024-09-18",
       "entry": 5410.0,
-      "exit": 5951.000000000001,
-      "take_profit": 5951.000000000001,
-      "stop_loss": 4869.0
+      "exit": 5680.5,
+      "take_profit": 5680.5,
+      "stop_loss": 5139.5
+    },
+    {
+      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6J=F",
+      "type": "long",
+      "entry_date": "2024-09-09",
+      "exit_date": "2024-10-17",
+      "entry": 0.007036999799311161,
+      "exit": 0.006685149809345602,
+      "take_profit": 0.00738884978927672,
+      "stop_loss": 0.006685149809345602
     },
     {
       "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "ES=F",
       "type": "long",
       "entry_date": "2024-11-04",
-      "exit_date": "2024-12-03",
+      "exit_date": "2024-11-08",
       "entry": 5741.75,
-      "exit": 6064.0,
-      "take_profit": 6315.925,
-      "stop_loss": 5167.575
+      "exit": 6028.837500000001,
+      "take_profit": 6028.837500000001,
+      "stop_loss": 5454.662499999999
     },
     {
-      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6E=F",
-      "type": "short",
-      "entry_date": "2023-10-02",
-      "exit_date": "2024-12-24",
-      "entry": 1.0569000244140625,
-      "exit": 1.0415500402450562,
-      "take_profit": 0.9512100219726562,
-      "stop_loss": 1.1625900268554688
+      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6A=F",
+      "type": "long",
+      "entry_date": "2024-10-07",
+      "exit_date": "2024-11-14",
+      "entry": 0.6807500123977661,
+      "exit": 0.6467125117778778,
+      "take_profit": 0.7147875130176544,
+      "stop_loss": 0.6467125117778778
     },
     {
-      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6E=F",
+      "market": "ADJUSTED INT RATE S&P 500 TOTL - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "ES=F",
       "type": "short",
-      "entry_date": "2024-06-10",
-      "exit_date": "2024-12-24",
-      "entry": 1.0774500370025635,
-      "exit": 1.0415500402450562,
-      "take_profit": 0.9697050333023072,
-      "stop_loss": 1.18519504070282
+      "entry_date": "2024-10-07",
+      "exit_date": "2024-12-04",
+      "entry": 5802.0,
+      "exit": 6092.1,
+      "take_profit": 5511.9,
+      "stop_loss": 6092.1
+    },
+    {
+      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6A=F",
+      "type": "long",
+      "entry_date": "2024-10-28",
+      "exit_date": "2024-12-18",
+      "entry": 0.6608999967575073,
+      "exit": 0.627854996919632,
+      "take_profit": 0.6939449965953827,
+      "stop_loss": 0.627854996919632
     },
     {
       "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
@@ -1674,8 +1849,19 @@
       "exit_date": "2024-12-24",
       "entry": 1.0815000534057617,
       "exit": 1.0415500402450562,
-      "take_profit": 0.9733500480651855,
-      "stop_loss": 1.189650058746338
+      "take_profit": 1.0274250507354736,
+      "stop_loss": 1.1355750560760498
+    },
+    {
+      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6E=F",
+      "type": "short",
+      "entry_date": "2024-06-10",
+      "exit_date": "2024-12-24",
+      "entry": 1.0774500370025635,
+      "exit": 1.0415500402450562,
+      "take_profit": 1.0235775351524352,
+      "stop_loss": 1.1313225388526917
     },
     {
       "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
@@ -1685,41 +1871,8 @@
       "exit_date": "2024-12-24",
       "entry": 1.0848499536514282,
       "exit": 1.0415500402450562,
-      "take_profit": 0.9763649582862854,
-      "stop_loss": 1.1933349490165712
-    },
-    {
-      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6A=F",
-      "type": "long",
-      "entry_date": "2024-10-28",
-      "exit_date": "2024-12-24",
-      "entry": 0.6608999967575073,
-      "exit": 0.6237499713897705,
-      "take_profit": 0.7269899964332581,
-      "stop_loss": 0.5948099970817566
-    },
-    {
-      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6A=F",
-      "type": "long",
-      "entry_date": "2024-10-07",
-      "exit_date": "2024-12-24",
-      "entry": 0.6807500123977661,
-      "exit": 0.6237499713897705,
-      "take_profit": 0.7488250136375428,
-      "stop_loss": 0.6126750111579895
-    },
-    {
-      "market": "ADJUSTED INT RATE S&P 500 TOTL - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "ES=F",
-      "type": "short",
-      "entry_date": "2024-10-07",
-      "exit_date": "2024-12-31",
-      "entry": 5802.0,
-      "exit": 5955.0,
-      "take_profit": 5221.8,
-      "stop_loss": 6382.200000000001
+      "take_profit": 1.0306074559688567,
+      "stop_loss": 1.1390924513339997
     },
     {
       "market": "ADJUSTED INT RATE S&P 500 TOTL - CHICAGO MERCANTILE EXCHANGE",
@@ -1729,52 +1882,96 @@
       "exit_date": "2024-12-31",
       "entry": 5911.5,
       "exit": 5955.0,
-      "take_profit": 5320.35,
-      "stop_loss": 6502.650000000001
+      "take_profit": 5615.925,
+      "stop_loss": 6207.075
     },
     {
       "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
       "ticker": "ZW=F",
       "type": "short",
       "entry_date": "2025-01-21",
-      "exit_date": "2025-02-14",
+      "exit_date": "2025-01-30",
       "entry": 542.0,
-      "exit": 596.2,
-      "take_profit": 487.8,
-      "stop_loss": 596.2
+      "exit": 569.1,
+      "take_profit": 514.9,
+      "stop_loss": 569.1
     },
     {
       "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
       "ticker": "ZW=F",
       "type": "short",
       "entry_date": "2024-12-30",
-      "exit_date": "2025-02-14",
+      "exit_date": "2025-02-04",
       "entry": 547.25,
-      "exit": 601.975,
-      "take_profit": 492.52500000000003,
-      "stop_loss": 601.975
+      "exit": 574.6125000000001,
+      "take_profit": 519.8874999999999,
+      "stop_loss": 574.6125000000001
     },
     {
       "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
       "ticker": "ZW=F",
       "type": "short",
       "entry_date": "2025-02-03",
-      "exit_date": "2025-02-25",
+      "exit_date": "2025-02-05",
       "entry": 555.0,
-      "exit": 578.75,
-      "take_profit": 499.5,
-      "stop_loss": 610.5
+      "exit": 582.75,
+      "take_profit": 527.25,
+      "stop_loss": 582.75
     },
     {
       "market": "CORN - CHICAGO BOARD OF TRADE",
       "ticker": "ZC=F",
       "type": "long",
       "entry_date": "2025-02-24",
-      "exit_date": "2025-03-03",
+      "exit_date": "2025-02-27",
       "entry": 490.0,
-      "exit": 441.0,
-      "take_profit": 539.0,
-      "stop_loss": 441.0
+      "exit": 465.5,
+      "take_profit": 514.5,
+      "stop_loss": 465.5
+    },
+    {
+      "market": "ADJUSTED INT RATE S&P 500 TOTL - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "ES=F",
+      "type": "long",
+      "entry_date": "2025-01-27",
+      "exit_date": "2025-03-04",
+      "entry": 6102.25,
+      "exit": 5797.1375,
+      "take_profit": 6407.3625,
+      "stop_loss": 5797.1375
+    },
+    {
+      "market": "BRENT LAST DAY - NEW YORK MERCANTILE EXCHANGE",
+      "ticker": "BZ=F",
+      "type": "long",
+      "entry_date": "2025-03-10",
+      "exit_date": "2025-03-26",
+      "entry": 70.44000244140625,
+      "exit": 73.96200256347656,
+      "take_profit": 73.96200256347656,
+      "stop_loss": 66.91800231933594
+    },
+    {
+      "market": "WHEAT-HRW - CHICAGO BOARD OF TRADE",
+      "ticker": "ZW=F",
+      "type": "short",
+      "entry_date": "2025-03-17",
+      "exit_date": "2025-03-27",
+      "entry": 559.0,
+      "exit": 531.05,
+      "take_profit": 531.05,
+      "stop_loss": 586.95
+    },
+    {
+      "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
+      "ticker": "ZW=F",
+      "type": "short",
+      "entry_date": "2025-03-10",
+      "exit_date": "2025-03-28",
+      "entry": 548.25,
+      "exit": 520.8375,
+      "take_profit": 520.8375,
+      "stop_loss": 575.6625
     },
     {
       "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
@@ -1784,52 +1981,52 @@
       "exit_date": "2025-04-01",
       "entry": 5626.75,
       "exit": 5644.25,
-      "take_profit": 6189.425,
-      "stop_loss": 5064.075
-    },
-    {
-      "market": "ADJUSTED INT RATE S&P 500 TOTL - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "ES=F",
-      "type": "long",
-      "entry_date": "2025-01-27",
-      "exit_date": "2025-04-03",
-      "entry": 6102.25,
-      "exit": 5492.025000000001,
-      "take_profit": 6712.475,
-      "stop_loss": 5492.025000000001
+      "take_profit": 5908.087500000001,
+      "stop_loss": 5345.412499999999
     },
     {
       "market": "BRENT LAST DAY - NEW YORK MERCANTILE EXCHANGE",
       "ticker": "BZ=F",
       "type": "long",
-      "entry_date": "2025-03-10",
-      "exit_date": "2025-04-07",
-      "entry": 70.44000244140625,
-      "exit": 63.396002197265624,
-      "take_profit": 77.48400268554688,
-      "stop_loss": 63.396002197265624
+      "entry_date": "2025-04-07",
+      "exit_date": "2025-04-08",
+      "entry": 64.79000091552734,
+      "exit": 61.55050086975098,
+      "take_profit": 68.02950096130371,
+      "stop_loss": 61.55050086975098
     },
     {
       "market": "WHEAT-HRW - CHICAGO BOARD OF TRADE",
       "ticker": "ZW=F",
       "type": "short",
-      "entry_date": "2025-03-17",
-      "exit_date": "2025-05-12",
-      "entry": 559.0,
-      "exit": 503.1,
-      "take_profit": 503.1,
-      "stop_loss": 614.9000000000001
+      "entry_date": "2025-03-31",
+      "exit_date": "2025-04-11",
+      "entry": 529.5,
+      "exit": 555.975,
+      "take_profit": 503.025,
+      "stop_loss": 555.975
     },
     {
       "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
       "ticker": "6L=F",
       "type": "long",
       "entry_date": "2025-04-14",
-      "exit_date": "2025-05-13",
+      "exit_date": "2025-04-30",
       "entry": 0.16965000331401825,
-      "exit": 0.17505000531673431,
-      "take_profit": 0.18661500364542008,
-      "stop_loss": 0.15268500298261642
+      "exit": 0.17813250347971918,
+      "take_profit": 0.17813250347971918,
+      "stop_loss": 0.16116750314831732
+    },
+    {
+      "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
+      "ticker": "ZW=F",
+      "type": "short",
+      "entry_date": "2025-04-07",
+      "exit_date": "2025-05-12",
+      "entry": 530.75,
+      "exit": 504.2125,
+      "take_profit": 504.2125,
+      "stop_loss": 557.2875
     },
     {
       "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
@@ -1839,74 +2036,30 @@
       "exit_date": "2025-05-13",
       "entry": 0.17204999923706055,
       "exit": 0.17505000531673431,
-      "take_profit": 0.18925499916076663,
-      "stop_loss": 0.1548449993133545
-    },
-    {
-      "market": "BRENT LAST DAY - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "BZ=F",
-      "type": "long",
-      "entry_date": "2025-04-07",
-      "exit_date": "2025-06-13",
-      "entry": 64.79000091552734,
-      "exit": 71.26900100708008,
-      "take_profit": 71.26900100708008,
-      "stop_loss": 58.31100082397461
+      "take_profit": 0.18065249919891357,
+      "stop_loss": 0.16344749927520752
     },
     {
       "market": "BRENT LAST DAY - NEW YORK MERCANTILE EXCHANGE",
       "ticker": "BZ=F",
       "type": "long",
       "entry_date": "2025-05-12",
-      "exit_date": "2025-06-13",
+      "exit_date": "2025-05-21",
       "entry": 64.2300033569336,
-      "exit": 70.65300369262695,
-      "take_profit": 70.65300369262695,
-      "stop_loss": 57.807003021240234
+      "exit": 67.44150352478027,
+      "take_profit": 67.44150352478027,
+      "stop_loss": 61.018503189086914
     },
     {
       "market": "BRENT LAST DAY - NEW YORK MERCANTILE EXCHANGE",
       "ticker": "BZ=F",
       "type": "long",
       "entry_date": "2025-06-09",
-      "exit_date": "2025-06-13",
+      "exit_date": "2025-06-11",
       "entry": 66.5999984741211,
-      "exit": 73.2599983215332,
-      "take_profit": 73.2599983215332,
-      "stop_loss": 59.939998626708984
-    },
-    {
-      "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2025-04-07",
-      "exit_date": "2025-07-15",
-      "entry": 530.75,
-      "exit": 541.5,
-      "take_profit": 477.675,
-      "stop_loss": 583.825
-    },
-    {
-      "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2025-03-10",
-      "exit_date": "2025-07-15",
-      "entry": 548.25,
-      "exit": 541.5,
-      "take_profit": 493.425,
-      "stop_loss": 603.075
-    },
-    {
-      "market": "WHEAT-HRW - CHICAGO BOARD OF TRADE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2025-03-31",
-      "exit_date": "2025-07-29",
-      "entry": 529.5,
-      "exit": 538.25,
-      "take_profit": 476.55,
-      "stop_loss": 582.45
+      "exit": 69.92999839782715,
+      "take_profit": 69.92999839782715,
+      "stop_loss": 63.26999855041504
     },
     {
       "market": "ALUMINUM MWP - COMMODITY EXCHANGE INC.",
@@ -1916,8 +2069,8 @@
       "exit_date": "2025-08-29",
       "entry": 2457.25,
       "exit": 2542.75,
-      "take_profit": 2211.525,
-      "stop_loss": 2702.9750000000004
+      "take_profit": 2334.3875,
+      "stop_loss": 2580.1125
     },
     {
       "market": "ALUMINUM MWP - COMMODITY EXCHANGE INC.",
@@ -1927,63 +2080,8 @@
       "exit_date": "2025-08-29",
       "entry": 2199.25,
       "exit": 2542.75,
-      "take_profit": 1979.325,
-      "stop_loss": 2419.175
-    },
-    {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "ticker": "SI=F",
-      "type": "long",
-      "entry_date": "2025-03-17",
-      "exit_date": "2025-09-02",
-      "entry": 34.040000915527344,
-      "exit": 41.099998474121094,
-      "take_profit": 37.44400100708008,
-      "stop_loss": 30.63600082397461
-    },
-    {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "ticker": "SI=F",
-      "type": "long",
-      "entry_date": "2025-06-09",
-      "exit_date": "2025-09-02",
-      "entry": 36.6879997253418,
-      "exit": 41.099998474121094,
-      "take_profit": 40.35679969787598,
-      "stop_loss": 33.019199752807616
-    },
-    {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "ticker": "SI=F",
-      "type": "long",
-      "entry_date": "2025-07-21",
-      "exit_date": "2025-09-02",
-      "entry": 38.994998931884766,
-      "exit": 41.099998474121094,
-      "take_profit": 42.89449882507324,
-      "stop_loss": 35.09549903869629
-    },
-    {
-      "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2024-11-25",
-      "exit_date": "2025-09-02",
-      "entry": 544.75,
-      "exit": 525.25,
-      "take_profit": 490.27500000000003,
-      "stop_loss": 599.225
-    },
-    {
-      "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
-      "ticker": "YM=F",
-      "type": "short",
-      "entry_date": "2021-09-27",
-      "exit_date": "2025-09-02",
-      "entry": 34696.0,
-      "exit": 45106.0,
-      "take_profit": 31226.4,
-      "stop_loss": 38165.600000000006
+      "take_profit": 2089.2875,
+      "stop_loss": 2309.2125
     },
     {
       "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
@@ -1992,20 +2090,9 @@
       "entry_date": "2025-08-25",
       "exit_date": "2025-09-02",
       "entry": 0.6498000025749207,
-      "exit": 0.6520500183105469,
-      "take_profit": 0.5848200023174286,
-      "stop_loss": 0.7147800028324128
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "long",
-      "entry_date": "2025-02-18",
-      "exit_date": "2025-09-02",
-      "entry": 0.00658900011330843,
-      "exit": 0.006753500085324049,
-      "take_profit": 0.0072479001246392736,
-      "stop_loss": 0.005930100101977587
+      "exit": 0.6522499918937683,
+      "take_profit": 0.6173100024461746,
+      "stop_loss": 0.6822900027036667
     },
     {
       "market": "ADJUSTED INT RATE S&P 500 TOTL - CHICAGO MERCANTILE EXCHANGE",
@@ -2015,8 +2102,74 @@
       "exit_date": "2025-09-02",
       "entry": 6223.25,
       "exit": 6478.75,
-      "take_profit": 6845.575000000001,
-      "stop_loss": 5600.925
+      "take_profit": 6534.4125,
+      "stop_loss": 5912.0875
+    },
+    {
+      "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
+      "ticker": "YM=F",
+      "type": "short",
+      "entry_date": "2021-09-27",
+      "exit_date": "2025-09-02",
+      "entry": 34696.0,
+      "exit": 45194.0,
+      "take_profit": 32961.2,
+      "stop_loss": 36430.8
+    },
+    {
+      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
+      "ticker": "6J=F",
+      "type": "long",
+      "entry_date": "2025-02-18",
+      "exit_date": "2025-09-02",
+      "entry": 0.00658900011330843,
+      "exit": 0.0067540002055466175,
+      "take_profit": 0.006918450118973851,
+      "stop_loss": 0.006259550107643008
+    },
+    {
+      "market": "SILVER - COMMODITY EXCHANGE INC.",
+      "ticker": "SI=F",
+      "type": "long",
+      "entry_date": "2025-07-21",
+      "exit_date": "2025-09-02",
+      "entry": 38.994998931884766,
+      "exit": 41.599998474121094,
+      "take_profit": 40.944748878479004,
+      "stop_loss": 37.04524898529053
+    },
+    {
+      "market": "SILVER - COMMODITY EXCHANGE INC.",
+      "ticker": "SI=F",
+      "type": "long",
+      "entry_date": "2025-06-09",
+      "exit_date": "2025-09-02",
+      "entry": 36.6879997253418,
+      "exit": 41.599998474121094,
+      "take_profit": 38.52239971160889,
+      "stop_loss": 34.8535997390747
+    },
+    {
+      "market": "SILVER - COMMODITY EXCHANGE INC.",
+      "ticker": "SI=F",
+      "type": "long",
+      "entry_date": "2025-03-17",
+      "exit_date": "2025-09-02",
+      "entry": 34.040000915527344,
+      "exit": 41.599998474121094,
+      "take_profit": 35.74200096130371,
+      "stop_loss": 32.33800086975098
+    },
+    {
+      "market": "WHEAT-HRSpring - MINNEAPOLIS GRAIN EXCHANGE",
+      "ticker": "ZW=F",
+      "type": "short",
+      "entry_date": "2024-11-25",
+      "exit_date": "2025-09-02",
+      "entry": 544.75,
+      "exit": 525.0,
+      "take_profit": 517.5124999999999,
+      "stop_loss": 571.9875000000001
     }
   ]
 }
