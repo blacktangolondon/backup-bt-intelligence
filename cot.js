@@ -12,8 +12,23 @@ const COMMISSION_PCT = 0.004;   // commission (0.4%)
 
 // ——— Helper at top-level so every renderModule can use it ———
 function ret(t) {
-  // for Module 3: return the fractional return, matching Excel col M
+  // for Module 3: return the fractional sized & net return
   return t.returnPct;
+}
+
+// Compute Max Drawdown on the SAME arithmetic cumulative series used by Module 3
+function calcMDDFromRets(rets) {
+  let cum = 0;     // arithmetic cumulative return (starts at 0)
+  let peak = 0;    // running max of cum
+  let maxDD = 0;   // most negative drawdown (cum - peak)
+
+  for (const r of rets) {
+    cum += r;
+    if (cum > peak) peak = cum;
+    const dd = cum - peak;       // <= 0
+    if (dd < maxDD) maxDD = dd;  // track the lowest (most negative)
+  }
+  return Math.abs(maxDD) * 100;  // as percentage points
 }
 
 (async function() {
@@ -26,33 +41,33 @@ function ret(t) {
   const stats  = await resp.json();
   const trades = stats.trades;
 
-  // 1a) Compute net P&L and return% for each trade (Excel cols J, M)
+  // 1a) Compute net P&L and return% for each trade (sized & net of commissions)
   const riskAmt = ACCOUNT_SIZE * RISK_PCT;
 
   trades.forEach(t => {
-    // ✅ FIX #1: sizing basato sulla distanza dallo STOP, non dal take profit
-    const dist     = Math.abs(t.entry - t.stop_loss);
-    const shares   = dist > 0 ? (riskAmt / dist) : 0;   // pezzi
-    const notional = shares * t.entry;                  // valore monetario
-    const commission = notional * COMMISSION_PCT;       // ok se 0.004 è già round-trip
+    // sizing basato sulla distanza dallo STOP (FIX precedente)
+    const dist       = Math.abs(t.entry - t.stop_loss);
+    const shares     = dist > 0 ? (riskAmt / dist) : 0;   // pezzi
+    const notional   = shares * t.entry;                  // valore monetario
+    const commission = notional * COMMISSION_PCT;         // round-trip stimato
 
     const grossPnl = (t.type === 'long'
       ? (t.exit - t.entry) * shares
       : (t.entry - t.exit) * shares);
 
     const netPnl = grossPnl - commission;
-    t.returnPct  = netPnl / ACCOUNT_SIZE;
+    t.returnPct  = netPnl / ACCOUNT_SIZE;                 // frazione (es. 0.0123 = 1.23%)
   });
 
   // 1b) Build percent-return array (fractions) for Module 3
   const rets = trades.map(ret);
 
-  // 2) Compute durations (in days) – unchanged
+  // 2) Compute durations (in days)
   const durations = trades
     .map(t => (new Date(t.exit_date) - new Date(t.entry_date)) / (1000 * 60 * 60 * 24))
     .sort((a, b) => a - b);
 
-  // 3) Compute period string – unchanged
+  // 3) Compute period string
   const entryDates = trades.map(t => new Date(t.entry_date));
   const exitDates  = trades.map(t => new Date(t.exit_date));
   const startDate  = new Date(Math.min(...entryDates));
@@ -60,15 +75,18 @@ function ret(t) {
   const fmt = d => d.toLocaleString('default', { month: 'short', year: 'numeric' });
   const period = `${fmt(startDate)} – ${fmt(endDate)}`;
 
-  // 4) Compute metrics – unchanged
+  // 4) Compute metrics (all on sized returns for coherence)
   const numTrades   = trades.length;
   const mid         = Math.floor(durations.length / 2);
   const medDur      = durations.length % 2 === 1
     ? durations[mid]
     : (durations[mid - 1] + durations[mid]) / 2;
   const quickestDur = Math.min(...durations);
-  const maxDrawdown = stats.portfolio_kpis.max_drawdown * 100;
-  const avgRet      = rets.reduce((sum, r) => sum + r, 0) / rets.length;
+
+  // ✅ NEW: Max Drawdown calcolato sui ritorni dimensionati (stessa curva del grafico)
+  const maxDrawdown = calcMDDFromRets(rets);
+
+  const avgRet      = rets.length ? (rets.reduce((s, r) => s + r, 0) / rets.length) : 0;
   const downsideRs  = rets.filter(r => r < 0);
   const downsideSD  = downsideRs.length
     ? Math.sqrt(downsideRs.reduce((sum, r) => sum + r*r, 0) / downsideRs.length)
@@ -89,7 +107,7 @@ function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, so
   [
     { label: 'Period',           value: period },
     { label: '# Trades',         value: numTrades },
-    { label: 'Median Duration',  value: medDur.toFixed(0)    + ' days' },
+    { label: 'Median Duration',  value: medDur.toFixed(0)      + ' days' },
     { label: 'Quickest Trade',   value: quickestDur.toFixed(0) + ' days' },
     { label: 'Max Drawdown',     value: maxDrawdown.toFixed(1) + '%' },
     { label: 'Sortino Ratio',    value: sortino.toFixed(2)     }
@@ -111,7 +129,7 @@ function renderModule2(trades) {
 
   // rebuild header
   const thead = document.querySelector('#module2 thead tr');
-  // ✅ FIX #2: intestazione "Market" e uso di t.market
+  // (fix precedente) intestazione Market + t.market
   thead.innerHTML = `
     <th>Market</th>
     <th>Signal</th>
@@ -145,7 +163,7 @@ function renderModule2(trades) {
     });
 }
 
-// —––– Module 3 — Arithmetic Equity Curve
+// —––– Module 3 — Arithmetic Equity Curve (same series used for MDD)
 function renderModule3(rets) {
   const cum = [];
   let sum   = 0;
@@ -187,7 +205,7 @@ function renderModule3(rets) {
   );
 }
 
-// —––– Module 4 — New Strategies Alert —–––
+// —––– Module 4 — New Strategies Alert (placeholder legacy; optional to replace) —–––
 async function renderModule4() {
   try {
     const resp = await fetch('eq_channels.json');
