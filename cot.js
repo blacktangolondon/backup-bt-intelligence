@@ -27,21 +27,22 @@ function ret(t) {
   const trades = stats.trades;
 
   // 1a) Compute net P&L and return% for each trade (Excel cols J, M)
-const riskAmt = ACCOUNT_SIZE * RISK_PCT;
+  const riskAmt = ACCOUNT_SIZE * RISK_PCT;
 
-trades.forEach(t => {
-  const dist    = Math.abs(t.entry - t.take_profit);
-  const shares  = dist > 0 ? (riskAmt / dist) : 0;   // pezzi
-  const notional= shares * t.entry;                  // valore monetario
-  const commission = notional * COMMISSION_PCT;      // ok se 0.004 è già round-trip
+  trades.forEach(t => {
+    // ✅ FIX #1: sizing basato sulla distanza dallo STOP, non dal take profit
+    const dist     = Math.abs(t.entry - t.stop_loss);
+    const shares   = dist > 0 ? (riskAmt / dist) : 0;   // pezzi
+    const notional = shares * t.entry;                  // valore monetario
+    const commission = notional * COMMISSION_PCT;       // ok se 0.004 è già round-trip
 
-  const grossPnl = (t.type === 'long'
-    ? (t.exit - t.entry) * shares
-    : (t.entry - t.exit) * shares);
+    const grossPnl = (t.type === 'long'
+      ? (t.exit - t.entry) * shares
+      : (t.entry - t.exit) * shares);
 
-  const netPnl = grossPnl - commission;
-  t.returnPct  = netPnl / ACCOUNT_SIZE;
-});
+    const netPnl = grossPnl - commission;
+    t.returnPct  = netPnl / ACCOUNT_SIZE;
+  });
 
   // 1b) Build percent-return array (fractions) for Module 3
   const rets = trades.map(ret);
@@ -110,8 +111,9 @@ function renderModule2(trades) {
 
   // rebuild header
   const thead = document.querySelector('#module2 thead tr');
+  // ✅ FIX #2: intestazione "Market" e uso di t.market
   thead.innerHTML = `
-    <th>Spread</th>
+    <th>Market</th>
     <th>Signal</th>
     <th>Open Date</th>
     <th>Close Date</th>
@@ -129,7 +131,7 @@ function renderModule2(trades) {
       const retPct = (t.returnPct * 100).toFixed(2) + '%';
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${t.spread}</td>
+        <td>${t.market}</td>
         <td>${t.type === 'long' ? 'Long' : 'Short'}</td>
         <td>${t.entry_date}</td>
         <td>${t.exit_date}</td>
