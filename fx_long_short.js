@@ -12,7 +12,7 @@ const COMMISSION_PCT = 0.0002;    // 0.02% round-trip equivalente
 
 // Files (FX)
 const STATS_FILE    = 'fx_long_short_stats.json';
-const CHANNELS_FILE = 'fx_channels_open.json';
+const CHANNELS_FILE = 'fx_channels.json';
 
 // Helper
 function ret(t){ return t.returnPct; }
