@@ -23,6 +23,7 @@ function ret(t){ return t.returnPct; }
   if (!resp.ok) { console.error('JSON load failed'); return; }
   const stats  = await resp.json();
   const trades = stats.trades;
+  const sortedTrades = trades.slice().sort((a,b)=> new Date(a.exit_date) - new Date(b.exit_date));
 
   // 1a) Net P&L and return%
   const riskAmt = ACCOUNT_SIZE * RISK_PCT;
@@ -41,7 +42,7 @@ function ret(t){ return t.returnPct; }
   });
 
   // 1b) Returns array
-  const rets = trades.map(ret);
+  const rets = sortedTrades.map(ret);
 
   // 2) Durations
   const durations = trades
@@ -70,7 +71,12 @@ function ret(t){ return t.returnPct; }
   // 5) Render
   renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino });
   renderModule2(trades);
-  renderModule3(rets);
+  if (Array.isArray(stats.equity_curve) && stats.equity_curve.length){
+    const curve = stats.equity_curve.map(p=>p.cumulative_pnl*100);
+    renderModule3(curve.map((v,i)=> (i===0? v/100 : (v-curve[i-1])/100)));
+  } else {
+    renderModule3(rets);
+  }
   renderModule4();
 })();
 
