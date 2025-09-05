@@ -1,19 +1,21 @@
 {
   "portfolio_kpis": {
     "period": {
-      "start": "2023-11-14",
-      "end": "2025-09-05"
+      "start": "2023-11-21",
+      "end": "2025-09-03"
     },
-    "total_trades": 338,
-    "wins": 191,
-    "losses": 147,
-    "win_rate_pct": 56.5,
-    "total_pnl": 1.267929,
-    "avg_pnl_per_trade": 0.003751,
+    "total_trades": 323,
+    "wins": 182,
+    "losses": 141,
+    "win_rate_pct": 56.3,
+    "total_pnl": 1.268949,
+    "avg_pnl_per_trade": 0.003929,
     "max_win": 0.047297,
     "max_loss": -0.020669,
     "max_drawdown": 0.359087,
-    "avg_duration_days": 26.4
+    "avg_duration_days": 26.3,
+    "open_positions": 15,
+    "mtm_open_pnl": -0.00102
   },
   "by_spread": [
     {
@@ -29,14 +31,14 @@
     },
     {
       "key": "GBPUSD=X",
-      "trades": 12,
-      "wins": 7,
+      "trades": 11,
+      "wins": 6,
       "losses": 5,
-      "win_rate_pct": 58.3,
-      "avg_pnl": 0.00501,
+      "win_rate_pct": 54.5,
+      "avg_pnl": 0.004688,
       "max_win": 0.024376,
       "max_loss": -0.020364,
-      "avg_duration_days": 31.9
+      "avg_duration_days": 32.7
     },
     {
       "key": "USDJPY=X",
@@ -73,14 +75,14 @@
     },
     {
       "key": "AUDUSD=X",
-      "trades": 11,
+      "trades": 10,
       "wins": 4,
-      "losses": 7,
-      "win_rate_pct": 36.4,
-      "avg_pnl": -0.004581,
+      "losses": 6,
+      "win_rate_pct": 40.0,
+      "avg_pnl": -0.004806,
       "max_win": 0.020454,
       "max_loss": -0.02029,
-      "avg_duration_days": 28.7
+      "avg_duration_days": 25.7
     },
     {
       "key": "NZDUSD=X",
@@ -117,25 +119,25 @@
     },
     {
       "key": "EURCHF=X",
-      "trades": 13,
-      "wins": 11,
+      "trades": 12,
+      "wins": 10,
       "losses": 2,
-      "win_rate_pct": 84.6,
-      "avg_pnl": 0.015276,
+      "win_rate_pct": 83.3,
+      "avg_pnl": 0.015998,
       "max_win": 0.031383,
       "max_loss": -0.020287,
-      "avg_duration_days": 29.5
+      "avg_duration_days": 29.8
     },
     {
       "key": "EURAUD=X",
-      "trades": 8,
-      "wins": 4,
+      "trades": 7,
+      "wins": 3,
       "losses": 4,
-      "win_rate_pct": 50.0,
-      "avg_pnl": -0.004324,
+      "win_rate_pct": 42.9,
+      "avg_pnl": -0.005298,
       "max_win": 0.020366,
       "max_loss": -0.020546,
-      "avg_duration_days": 21.5
+      "avg_duration_days": 19.6
     },
     {
       "key": "EURNZD=X",
@@ -150,36 +152,36 @@
     },
     {
       "key": "EURCAD=X",
+      "trades": 11,
+      "wins": 8,
+      "losses": 3,
+      "win_rate_pct": 72.7,
+      "avg_pnl": 0.010071,
+      "max_win": 0.034357,
+      "max_loss": -0.020603,
+      "avg_duration_days": 19.5
+    },
+    {
+      "key": "GBPJPY=X",
+      "trades": 8,
+      "wins": 3,
+      "losses": 5,
+      "win_rate_pct": 37.5,
+      "avg_pnl": -0.00098,
+      "max_win": 0.02529,
+      "max_loss": -0.020164,
+      "avg_duration_days": 33.2
+    },
+    {
+      "key": "GBPCHF=X",
       "trades": 12,
       "wins": 8,
       "losses": 4,
       "win_rate_pct": 66.7,
-      "avg_pnl": 0.00837,
-      "max_win": 0.034357,
-      "max_loss": -0.020603,
-      "avg_duration_days": 20.8
-    },
-    {
-      "key": "GBPJPY=X",
-      "trades": 9,
-      "wins": 4,
-      "losses": 5,
-      "win_rate_pct": 44.4,
-      "avg_pnl": -0.000545,
-      "max_win": 0.02529,
-      "max_loss": -0.020164,
-      "avg_duration_days": 32.1
-    },
-    {
-      "key": "GBPCHF=X",
-      "trades": 13,
-      "wins": 8,
-      "losses": 5,
-      "win_rate_pct": 61.5,
-      "avg_pnl": 0.009695,
+      "avg_pnl": 0.011368,
       "max_win": 0.047297,
       "max_loss": -0.020515,
-      "avg_duration_days": 17.1
+      "avg_duration_days": 17
     },
     {
       "key": "GBPAUD=X",
@@ -205,36 +207,36 @@
     },
     {
       "key": "GBPCAD=X",
-      "trades": 10,
-      "wins": 10,
+      "trades": 9,
+      "wins": 9,
       "losses": 0,
       "win_rate_pct": 100.0,
-      "avg_pnl": 0.015055,
+      "avg_pnl": 0.015772,
       "max_win": 0.022267,
       "max_loss": 0.001452,
-      "avg_duration_days": 31.3
+      "avg_duration_days": 34.4
     },
     {
       "key": "AUDJPY=X",
-      "trades": 8,
-      "wins": 4,
-      "losses": 4,
-      "win_rate_pct": 50.0,
-      "avg_pnl": 0.000917,
-      "max_win": 0.025214,
-      "max_loss": -0.020243,
-      "avg_duration_days": 25.8
-    },
-    {
-      "key": "AUDCHF=X",
       "trades": 7,
       "wins": 4,
       "losses": 3,
       "win_rate_pct": 57.1,
-      "avg_pnl": 0.005646,
+      "avg_pnl": 0.001883,
+      "max_win": 0.025214,
+      "max_loss": -0.020243,
+      "avg_duration_days": 28.9
+    },
+    {
+      "key": "AUDCHF=X",
+      "trades": 6,
+      "wins": 3,
+      "losses": 3,
+      "win_rate_pct": 50.0,
+      "avg_pnl": 0.00552,
       "max_win": 0.02958,
       "max_loss": -0.020307,
-      "avg_duration_days": 30.6
+      "avg_duration_days": 29.7
     },
     {
       "key": "AUDCAD=X",
@@ -271,36 +273,36 @@
     },
     {
       "key": "NZDCHF=X",
-      "trades": 7,
+      "trades": 6,
       "wins": 3,
-      "losses": 4,
-      "win_rate_pct": 42.9,
-      "avg_pnl": 0.000669,
+      "losses": 3,
+      "win_rate_pct": 50.0,
+      "avg_pnl": 0.00244,
       "max_win": 0.021913,
       "max_loss": -0.020258,
-      "avg_duration_days": 43.1
+      "avg_duration_days": 43.3
     },
     {
       "key": "NZDCAD=X",
-      "trades": 21,
-      "wins": 19,
+      "trades": 20,
+      "wins": 18,
       "losses": 2,
-      "win_rate_pct": 90.5,
-      "avg_pnl": 0.016843,
+      "win_rate_pct": 90.0,
+      "avg_pnl": 0.017414,
       "max_win": 0.029295,
       "max_loss": -0.020455,
-      "avg_duration_days": 20.3
+      "avg_duration_days": 20.5
     },
     {
       "key": "CADJPY=X",
-      "trades": 7,
-      "wins": 2,
+      "trades": 6,
+      "wins": 1,
       "losses": 5,
-      "win_rate_pct": 28.6,
-      "avg_pnl": -0.009052,
+      "win_rate_pct": 16.7,
+      "avg_pnl": -0.010797,
       "max_win": 0.022578,
       "max_loss": -0.020174,
-      "avg_duration_days": 32.7
+      "avg_duration_days": 28.8
     },
     {
       "key": "CADCHF=X",
@@ -326,14 +328,14 @@
     },
     {
       "key": "USDSEK=X",
-      "trades": 8,
+      "trades": 7,
       "wins": 5,
-      "losses": 3,
-      "win_rate_pct": 62.5,
-      "avg_pnl": 0.006398,
+      "losses": 2,
+      "win_rate_pct": 71.4,
+      "avg_pnl": 0.009396,
       "max_win": 0.023969,
       "max_loss": -0.020298,
-      "avg_duration_days": 25.5
+      "avg_duration_days": 22.1
     },
     {
       "key": "USDNOK=X",
@@ -359,14 +361,14 @@
     },
     {
       "key": "EURNOK=X",
-      "trades": 13,
-      "wins": 7,
+      "trades": 12,
+      "wins": 6,
       "losses": 6,
-      "win_rate_pct": 53.8,
-      "avg_pnl": 0.003409,
+      "win_rate_pct": 50.0,
+      "avg_pnl": 0.002862,
       "max_win": 0.025027,
       "max_loss": -0.020474,
-      "avg_duration_days": 24.4
+      "avg_duration_days": 26.2
     },
     {
       "key": "NOKSEK=X",
@@ -414,6 +416,7 @@
       "take_profit": 0.589136,
       "stop_loss": 0.620583,
       "duration": 10,
+      "exit_reason": "SL",
       "cum_pnl": -0.020154
     },
     {
@@ -427,6 +430,7 @@
       "take_profit": 0.950674,
       "stop_loss": 0.980386,
       "duration": 14,
+      "exit_reason": "TP",
       "cum_pnl": 0.007979
     },
     {
@@ -440,6 +444,7 @@
       "take_profit": 1.466185,
       "stop_loss": 1.526755,
       "duration": 19,
+      "exit_reason": "TP",
       "cum_pnl": 0.030169
     },
     {
@@ -453,6 +458,7 @@
       "take_profit": 181.594931,
       "stop_loss": 192.031069,
       "duration": 15,
+      "exit_reason": "TP",
       "cum_pnl": 0.050692
     },
     {
@@ -466,6 +472,7 @@
       "take_profit": 95.692598,
       "stop_loss": 99.973402,
       "duration": 23,
+      "exit_reason": "TP",
       "cum_pnl": 0.075906
     },
     {
@@ -479,6 +486,7 @@
       "take_profit": 88.38254,
       "stop_loss": 91.673461,
       "duration": 21,
+      "exit_reason": "TP",
       "cum_pnl": 0.098939
     },
     {
@@ -492,6 +500,7 @@
       "take_profit": 0.638834,
       "stop_loss": 0.672405,
       "duration": 29,
+      "exit_reason": "SL",
       "cum_pnl": 0.078783
     },
     {
@@ -505,6 +514,7 @@
       "take_profit": 11.096201,
       "stop_loss": 10.228399,
       "duration": 21,
+      "exit_reason": "SL",
       "cum_pnl": 0.058685
     },
     {
@@ -518,6 +528,7 @@
       "take_profit": 1.062495,
       "stop_loss": 1.113245,
       "duration": 62,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.053044
     },
     {
@@ -531,6 +542,7 @@
       "take_profit": 1.209862,
       "stop_loss": 1.289798,
       "duration": 62,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.04152
     },
     {
@@ -544,6 +556,7 @@
       "take_profit": 1.668332,
       "stop_loss": 1.753949,
       "duration": 62,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.042972
     },
     {
@@ -557,6 +570,7 @@
       "take_profit": 160.028124,
       "stop_loss": 150.675876,
       "duration": 34,
+      "exit_reason": "TP",
       "cum_pnl": 0.062971
     },
     {
@@ -570,6 +584,7 @@
       "take_profit": 1.913463,
       "stop_loss": 1.815497,
       "duration": 26,
+      "exit_reason": "TP",
       "cum_pnl": 0.084908
     },
     {
@@ -583,6 +598,7 @@
       "take_profit": 0.882194,
       "stop_loss": 0.904666,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.093971
     },
     {
@@ -596,6 +612,7 @@
       "take_profit": 2.066204,
       "stop_loss": 1.990196,
       "duration": 29,
+      "exit_reason": "TP",
       "cum_pnl": 0.116303
     },
     {
@@ -609,6 +626,7 @@
       "take_profit": 0.813552,
       "stop_loss": 0.843388,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.127034
     },
     {
@@ -622,6 +640,7 @@
       "take_profit": 1.08219,
       "stop_loss": 1.06213,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.136956
     },
     {
@@ -635,6 +654,7 @@
       "take_profit": 149.251134,
       "stop_loss": 138.932866,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.154595
     },
     {
@@ -648,6 +668,7 @@
       "take_profit": 11.924883,
       "stop_loss": 11.171716,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.141615
     },
     {
@@ -661,6 +682,7 @@
       "take_profit": 0.947302,
       "stop_loss": 0.909938,
       "duration": 46,
+      "exit_reason": "TP",
       "cum_pnl": 0.164165
     },
     {
@@ -674,6 +696,7 @@
       "take_profit": 88.750553,
       "stop_loss": 92.603447,
       "duration": 42,
+      "exit_reason": "SL",
       "cum_pnl": 0.143977
     },
     {
@@ -687,6 +710,7 @@
       "take_profit": 0.982422,
       "stop_loss": 1.021258,
       "duration": 27,
+      "exit_reason": "TP",
       "cum_pnl": 0.164349
     },
     {
@@ -700,6 +724,7 @@
       "take_profit": 0.521698,
       "stop_loss": 0.557122,
       "duration": 62,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.160286
     },
     {
@@ -713,6 +738,7 @@
       "take_profit": 1.091347,
       "stop_loss": 1.050353,
       "duration": 23,
+      "exit_reason": "TP",
       "cum_pnl": 0.183446
     },
     {
@@ -726,6 +752,7 @@
       "take_profit": 95.583758,
       "stop_loss": 99.690242,
       "duration": 61,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.187931
     },
     {
@@ -739,6 +766,7 @@
       "take_profit": 1.073008,
       "stop_loss": 1.055512,
       "duration": 33,
+      "exit_reason": "TP",
       "cum_pnl": 0.208913
     },
     {
@@ -752,6 +780,7 @@
       "take_profit": 2.088757,
       "stop_loss": 2.014283,
       "duration": 35,
+      "exit_reason": "TP",
       "cum_pnl": 0.229908
     },
     {
@@ -765,6 +794,7 @@
       "take_profit": 0.824365,
       "stop_loss": 0.848335,
       "duration": 21,
+      "exit_reason": "TP",
       "cum_pnl": 0.251373
     },
     {
@@ -778,6 +808,7 @@
       "take_profit": 1.24055,
       "stop_loss": 1.29465,
       "duration": 61,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.247326
     },
     {
@@ -791,6 +822,7 @@
       "take_profit": 0.641568,
       "stop_loss": 0.672952,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.248879
     },
     {
@@ -804,6 +836,7 @@
       "take_profit": 1.080488,
       "stop_loss": 1.127292,
       "duration": 40,
+      "exit_reason": "SL",
       "cum_pnl": 0.22869
     },
     {
@@ -817,6 +850,7 @@
       "take_profit": 95.904595,
       "stop_loss": 99.119405,
       "duration": 8,
+      "exit_reason": "SL",
       "cum_pnl": 0.208447
     },
     {
@@ -830,6 +864,7 @@
       "take_profit": 0.942339,
       "stop_loss": 0.968961,
       "duration": 21,
+      "exit_reason": "SL",
       "cum_pnl": 0.18816
     },
     {
@@ -843,6 +878,7 @@
       "take_profit": 1.067763,
       "stop_loss": 1.086197,
       "duration": 7,
+      "exit_reason": "SL",
       "cum_pnl": 0.167693
     },
     {
@@ -856,6 +892,7 @@
       "take_profit": 0.596584,
       "stop_loss": 0.625475,
       "duration": 61,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.182366
     },
     {
@@ -869,6 +906,7 @@
       "take_profit": 1.687868,
       "stop_loss": 1.610132,
       "duration": 62,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.186153
     },
     {
@@ -882,6 +920,7 @@
       "take_profit": 1.491996,
       "stop_loss": 1.428824,
       "duration": 62,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.193193
     },
     {
@@ -895,6 +934,7 @@
       "take_profit": 10.857675,
       "stop_loss": 10.396725,
       "duration": 13,
+      "exit_reason": "TP",
       "cum_pnl": 0.219857
     },
     {
@@ -908,6 +948,7 @@
       "take_profit": 1.363735,
       "stop_loss": 1.334605,
       "duration": 61,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.234921
     },
     {
@@ -921,6 +962,7 @@
       "take_profit": 0.552358,
       "stop_loss": 0.597102,
       "duration": 54,
+      "exit_reason": "SL",
       "cum_pnl": 0.214818
     },
     {
@@ -934,6 +976,7 @@
       "take_profit": 108.014907,
       "stop_loss": 113.799093,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.208136
     },
     {
@@ -947,6 +990,7 @@
       "take_profit": 0.627293,
       "stop_loss": 0.671407,
       "duration": 61,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.192595
     },
     {
@@ -960,6 +1004,7 @@
       "take_profit": 0.605628,
       "stop_loss": 0.584992,
       "duration": 8,
+      "exit_reason": "TP",
       "cum_pnl": 0.213026
     },
     {
@@ -973,6 +1018,7 @@
       "take_profit": 0.862914,
       "stop_loss": 0.911186,
       "duration": 57,
+      "exit_reason": "SL",
       "cum_pnl": 0.192879
     },
     {
@@ -986,6 +1032,7 @@
       "take_profit": 0.646308,
       "stop_loss": 0.670952,
       "duration": 23,
+      "exit_reason": "TP",
       "cum_pnl": 0.213328
     },
     {
@@ -999,6 +1046,7 @@
       "take_profit": 1.355716,
       "stop_loss": 1.380564,
       "duration": 6,
+      "exit_reason": "SL",
       "cum_pnl": 0.192888
     },
     {
@@ -1012,6 +1060,7 @@
       "take_profit": 0.885008,
       "stop_loss": 0.907251,
       "duration": 10,
+      "exit_reason": "TP",
       "cum_pnl": 0.215063
     },
     {
@@ -1025,6 +1074,7 @@
       "take_profit": 149.147531,
       "stop_loss": 157.16647,
       "duration": 16,
+      "exit_reason": "SL",
       "cum_pnl": 0.19491
     },
     {
@@ -1038,6 +1088,7 @@
       "take_profit": 89.855691,
       "stop_loss": 92.678309,
       "duration": 38,
+      "exit_reason": "SL",
       "cum_pnl": 0.174651
     },
     {
@@ -1051,6 +1102,7 @@
       "take_profit": 109.280974,
       "stop_loss": 114.473026,
       "duration": 11,
+      "exit_reason": "SL",
       "cum_pnl": 0.154479
     },
     {
@@ -1064,6 +1116,7 @@
       "take_profit": 172.793527,
       "stop_loss": 160.714473,
       "duration": 24,
+      "exit_reason": "TP",
       "cum_pnl": 0.175089
     },
     {
@@ -1077,6 +1130,7 @@
       "take_profit": 13.697113,
       "stop_loss": 14.226887,
       "duration": 24,
+      "exit_reason": "SL",
       "cum_pnl": 0.154878
     },
     {
@@ -1090,6 +1144,7 @@
       "take_profit": 11.725172,
       "stop_loss": 11.239828,
       "duration": 32,
+      "exit_reason": "TP",
       "cum_pnl": 0.177271
     },
     {
@@ -1103,6 +1158,7 @@
       "take_profit": 10.866446,
       "stop_loss": 11.307594,
       "duration": 3,
+      "exit_reason": "TP",
       "cum_pnl": 0.199189
     },
     {
@@ -1116,6 +1172,7 @@
       "take_profit": 13.777964,
       "stop_loss": 14.330036,
       "duration": 7,
+      "exit_reason": "SL",
       "cum_pnl": 0.178985
     },
     {
@@ -1129,6 +1186,7 @@
       "take_profit": 90.808921,
       "stop_loss": 94.049079,
       "duration": 8,
+      "exit_reason": "SL",
       "cum_pnl": 0.158757
     },
     {
@@ -1142,6 +1200,7 @@
       "take_profit": 0.605463,
       "stop_loss": 0.581017,
       "duration": 33,
+      "exit_reason": "TP",
       "cum_pnl": 0.18957
     },
     {
@@ -1155,6 +1214,7 @@
       "take_profit": 0.884995,
       "stop_loss": 0.908365,
       "duration": 16,
+      "exit_reason": "SL",
       "cum_pnl": 0.169263
     },
     {
@@ -1168,6 +1228,7 @@
       "take_profit": 0.827917,
       "stop_loss": 0.802463,
       "duration": 54,
+      "exit_reason": "TP",
       "cum_pnl": 0.195109
     },
     {
@@ -1181,6 +1242,7 @@
       "take_profit": 1.100116,
       "stop_loss": 1.061204,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.199739
     },
     {
@@ -1194,6 +1256,7 @@
       "take_profit": 1.738948,
       "stop_loss": 1.664632,
       "duration": 51,
+      "exit_reason": "TP",
       "cum_pnl": 0.220563
     },
     {
@@ -1207,6 +1270,7 @@
       "take_profit": 1.354309,
       "stop_loss": 1.370611,
       "duration": 3,
+      "exit_reason": "SL",
       "cum_pnl": 0.199894
     },
     {
@@ -1220,6 +1284,7 @@
       "take_profit": 11.928045,
       "stop_loss": 11.283755,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.190419
     },
     {
@@ -1233,6 +1298,7 @@
       "take_profit": 13.994408,
       "stop_loss": 14.705192,
       "duration": 46,
+      "exit_reason": "SL",
       "cum_pnl": 0.170257
     },
     {
@@ -1246,6 +1312,7 @@
       "take_profit": 1.275871,
       "stop_loss": 1.213029,
       "duration": 45,
+      "exit_reason": "TP",
       "cum_pnl": 0.190684
     },
     {
@@ -1259,6 +1326,7 @@
       "take_profit": 10.635905,
       "stop_loss": 11.092274,
       "duration": 45,
+      "exit_reason": "TP",
       "cum_pnl": 0.213904
     },
     {
@@ -1272,6 +1340,7 @@
       "take_profit": 150.160603,
       "stop_loss": 157.571397,
       "duration": 23,
+      "exit_reason": "SL",
       "cum_pnl": 0.193738
     },
     {
@@ -1285,6 +1354,7 @@
       "take_profit": 109.929085,
       "stop_loss": 115.150916,
       "duration": 25,
+      "exit_reason": "SL",
       "cum_pnl": 0.173566
     },
     {
@@ -1298,6 +1368,7 @@
       "take_profit": 1.96543,
       "stop_loss": 1.87059,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.171586
     },
     {
@@ -1311,6 +1382,7 @@
       "take_profit": 1.821248,
       "stop_loss": 1.756612,
       "duration": 33,
+      "exit_reason": "SL",
       "cum_pnl": 0.151365
     },
     {
@@ -1324,6 +1396,7 @@
       "take_profit": 0.862401,
       "stop_loss": 0.847499,
       "duration": 45,
+      "exit_reason": "SL",
       "cum_pnl": 0.130906
     },
     {
@@ -1337,6 +1410,7 @@
       "take_profit": 11.73481,
       "stop_loss": 11.28119,
       "duration": 14,
+      "exit_reason": "SL",
       "cum_pnl": 0.110703
     },
     {
@@ -1350,6 +1424,7 @@
       "take_profit": 0.978049,
       "stop_loss": 1.017011,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.129367
     },
     {
@@ -1363,6 +1438,7 @@
       "take_profit": 0.957222,
       "stop_loss": 0.976018,
       "duration": 2,
+      "exit_reason": "TP",
       "cum_pnl": 0.16075
     },
     {
@@ -1376,6 +1452,7 @@
       "take_profit": 111.330277,
       "stop_loss": 116.557723,
       "duration": 16,
+      "exit_reason": "SL",
       "cum_pnl": 0.140576
     },
     {
@@ -1389,6 +1466,7 @@
       "take_profit": 191.221115,
       "stop_loss": 204.242885,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.125931
     },
     {
@@ -1402,6 +1480,7 @@
       "take_profit": 1.104783,
       "stop_loss": 1.068898,
       "duration": 21,
+      "exit_reason": "SL",
       "cum_pnl": 0.105689
     },
     {
@@ -1415,6 +1494,7 @@
       "take_profit": 151.947561,
       "stop_loss": 160.230439,
       "duration": 21,
+      "exit_reason": "SL",
       "cum_pnl": 0.085538
     },
     {
@@ -1428,6 +1508,7 @@
       "take_profit": 1.072364,
       "stop_loss": 1.092336,
       "duration": 8,
+      "exit_reason": "SL",
       "cum_pnl": 0.065104
     },
     {
@@ -1441,6 +1522,7 @@
       "take_profit": 10.612386,
       "stop_loss": 10.175814,
       "duration": 24,
+      "exit_reason": "TP",
       "cum_pnl": 0.085538
     },
     {
@@ -1454,6 +1536,7 @@
       "take_profit": 1.116472,
       "stop_loss": 1.139248,
       "duration": 11,
+      "exit_reason": "SL",
       "cum_pnl": 0.065142
     },
     {
@@ -1467,6 +1550,7 @@
       "take_profit": 0.647655,
       "stop_loss": 0.673884,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.055897
     },
     {
@@ -1480,6 +1564,7 @@
       "take_profit": 2.115061,
       "stop_loss": 2.033939,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.063227
     },
     {
@@ -1493,6 +1578,7 @@
       "take_profit": 1.287708,
       "stop_loss": 1.243652,
       "duration": 21,
+      "exit_reason": "TP",
       "cum_pnl": 0.086395
     },
     {
@@ -1506,6 +1592,7 @@
       "take_profit": 0.854328,
       "stop_loss": 0.839752,
       "duration": 10,
+      "exit_reason": "SL",
       "cum_pnl": 0.06593
     },
     {
@@ -1519,6 +1606,7 @@
       "take_profit": 10.869239,
       "stop_loss": 10.42724,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.074386
     },
     {
@@ -1532,6 +1620,7 @@
       "take_profit": 2.122799,
       "stop_loss": 2.050001,
       "duration": 6,
+      "exit_reason": "TP",
       "cum_pnl": 0.100234
     },
     {
@@ -1545,6 +1634,7 @@
       "take_profit": 0.606137,
       "stop_loss": 0.632363,
       "duration": 43,
+      "exit_reason": "TP",
       "cum_pnl": 0.121871
     },
     {
@@ -1558,6 +1648,7 @@
       "take_profit": 0.826909,
       "stop_loss": 0.849911,
       "duration": 48,
+      "exit_reason": "TP",
       "cum_pnl": 0.141925
     },
     {
@@ -1571,6 +1662,7 @@
       "take_profit": 14.318524,
       "stop_loss": 14.965476,
       "duration": 6,
+      "exit_reason": "TP",
       "cum_pnl": 0.163446
     },
     {
@@ -1584,6 +1676,7 @@
       "take_profit": 169.300707,
       "stop_loss": 179.373292,
       "duration": 20,
+      "exit_reason": "TP",
       "cum_pnl": 0.185161
     },
     {
@@ -1597,6 +1690,7 @@
       "take_profit": 1.355773,
       "stop_loss": 1.379348,
       "duration": 50,
+      "exit_reason": "SL",
       "cum_pnl": 0.164697
     },
     {
@@ -1610,6 +1704,7 @@
       "take_profit": 0.9565,
       "stop_loss": 0.98214,
       "duration": 24,
+      "exit_reason": "TP",
       "cum_pnl": 0.184894
     },
     {
@@ -1623,6 +1718,7 @@
       "take_profit": 0.608044,
       "stop_loss": 0.587655,
       "duration": 7,
+      "exit_reason": "SL",
       "cum_pnl": 0.164659
     },
     {
@@ -1636,6 +1732,7 @@
       "take_profit": 1.506295,
       "stop_loss": 1.448425,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.178486
     },
     {
@@ -1649,6 +1746,7 @@
       "take_profit": 197.691228,
       "stop_loss": 210.472771,
       "duration": 29,
+      "exit_reason": "TP",
       "cum_pnl": 0.203776
     },
     {
@@ -1662,6 +1760,7 @@
       "take_profit": 1.125719,
       "stop_loss": 1.146061,
       "duration": 6,
+      "exit_reason": "TP",
       "cum_pnl": 0.251073
     },
     {
@@ -1675,6 +1774,7 @@
       "take_profit": 113.849529,
       "stop_loss": 108.302471,
       "duration": 6,
+      "exit_reason": "SL",
       "cum_pnl": 0.230913
     },
     {
@@ -1688,6 +1788,7 @@
       "take_profit": 0.632773,
       "stop_loss": 0.663147,
       "duration": 46,
+      "exit_reason": "TP",
       "cum_pnl": 0.255803
     },
     {
@@ -1701,6 +1802,7 @@
       "take_profit": 0.867089,
       "stop_loss": 0.908111,
       "duration": 15,
+      "exit_reason": "TP",
       "cum_pnl": 0.285643
     },
     {
@@ -1714,6 +1816,7 @@
       "take_profit": 0.849096,
       "stop_loss": 0.836544,
       "duration": 7,
+      "exit_reason": "TP",
       "cum_pnl": 0.312321
     },
     {
@@ -1727,6 +1830,7 @@
       "take_profit": 94.21215,
       "stop_loss": 88.08985,
       "duration": 9,
+      "exit_reason": "SL",
       "cum_pnl": 0.292202
     },
     {
@@ -1740,6 +1844,7 @@
       "take_profit": 0.972927,
       "stop_loss": 1.015114,
       "duration": 43,
+      "exit_reason": "TP",
       "cum_pnl": 0.319889
     },
     {
@@ -1753,6 +1858,7 @@
       "take_profit": 14.362206,
       "stop_loss": 13.519794,
       "duration": 9,
+      "exit_reason": "SL",
       "cum_pnl": 0.299757
     },
     {
@@ -1766,6 +1872,7 @@
       "take_profit": 170.590532,
       "stop_loss": 159.705467,
       "duration": 6,
+      "exit_reason": "SL",
       "cum_pnl": 0.279636
     },
     {
@@ -1779,6 +1886,7 @@
       "take_profit": 200.580577,
       "stop_loss": 184.935423,
       "duration": 5,
+      "exit_reason": "SL",
       "cum_pnl": 0.259537
     },
     {
@@ -1792,6 +1900,7 @@
       "take_profit": 101.887576,
       "stop_loss": 94.228424,
       "duration": 5,
+      "exit_reason": "SL",
       "cum_pnl": 0.239435
     },
     {
@@ -1805,6 +1914,7 @@
       "take_profit": 14.660045,
       "stop_loss": 13.836555,
       "duration": 12,
+      "exit_reason": "SL",
       "cum_pnl": 0.219297
     },
     {
@@ -1818,6 +1928,7 @@
       "take_profit": 10.545058,
       "stop_loss": 10.886143,
       "duration": 15,
+      "exit_reason": "TP",
       "cum_pnl": 0.242963
     },
     {
@@ -1831,6 +1942,7 @@
       "take_profit": 2.127235,
       "stop_loss": 2.202465,
       "duration": 15,
+      "exit_reason": "TP",
       "cum_pnl": 0.268472
     },
     {
@@ -1844,6 +1956,7 @@
       "take_profit": 10.810596,
       "stop_loss": 11.201404,
       "duration": 15,
+      "exit_reason": "TP",
       "cum_pnl": 0.29144
     },
     {
@@ -1857,6 +1970,7 @@
       "take_profit": 0.567733,
       "stop_loss": 0.537647,
       "duration": 3,
+      "exit_reason": "TP",
       "cum_pnl": 0.315942
     },
     {
@@ -1870,6 +1984,7 @@
       "take_profit": 1.809354,
       "stop_loss": 1.874546,
       "duration": 19,
+      "exit_reason": "TP",
       "cum_pnl": 0.336467
     },
     {
@@ -1883,6 +1998,7 @@
       "take_profit": 0.827533,
       "stop_loss": 0.799327,
       "duration": 19,
+      "exit_reason": "TP",
       "cum_pnl": 0.363083
     },
     {
@@ -1896,6 +2012,7 @@
       "take_profit": 0.955753,
       "stop_loss": 0.928308,
       "duration": 14,
+      "exit_reason": "TP",
       "cum_pnl": 0.385253
     },
     {
@@ -1909,6 +2026,7 @@
       "take_profit": 1.101234,
       "stop_loss": 1.066706,
       "duration": 23,
+      "exit_reason": "TP",
       "cum_pnl": 0.406642
     },
     {
@@ -1922,6 +2040,7 @@
       "take_profit": 1.294417,
       "stop_loss": 1.243722,
       "duration": 13,
+      "exit_reason": "TP",
       "cum_pnl": 0.429844
     },
     {
@@ -1935,6 +2054,7 @@
       "take_profit": 0.893447,
       "stop_loss": 0.916713,
       "duration": 11,
+      "exit_reason": "SL",
       "cum_pnl": 0.409533
     },
     {
@@ -1948,6 +2068,7 @@
       "take_profit": 0.525981,
       "stop_loss": 0.494139,
       "duration": 17,
+      "exit_reason": "TP",
       "cum_pnl": 0.430409
     },
     {
@@ -1961,6 +2082,7 @@
       "take_profit": 0.6561,
       "stop_loss": 0.67732,
       "duration": 7,
+      "exit_reason": "SL",
       "cum_pnl": 0.410158
     },
     {
@@ -1974,6 +2096,7 @@
       "take_profit": 0.848019,
       "stop_loss": 0.865722,
       "duration": 18,
+      "exit_reason": "TP",
       "cum_pnl": 0.434445
     },
     {
@@ -1987,6 +2110,7 @@
       "take_profit": 10.841338,
       "stop_loss": 10.463642,
       "duration": 7,
+      "exit_reason": "SL",
       "cum_pnl": 0.414219
     },
     {
@@ -2000,6 +2124,7 @@
       "take_profit": 155.935717,
       "stop_loss": 143.966283,
       "duration": 27,
+      "exit_reason": "SL",
       "cum_pnl": 0.394119
     },
     {
@@ -2013,6 +2138,7 @@
       "take_profit": 0.605927,
       "stop_loss": 0.625293,
       "duration": 8,
+      "exit_reason": "SL",
       "cum_pnl": 0.373865
     },
     {
@@ -2026,6 +2152,7 @@
       "take_profit": 0.567692,
       "stop_loss": 0.592647,
       "duration": 18,
+      "exit_reason": "TP",
       "cum_pnl": 0.403445
     },
     {
@@ -2039,6 +2166,7 @@
       "take_profit": 1.080475,
       "stop_loss": 1.111025,
       "duration": 29,
+      "exit_reason": "TP",
       "cum_pnl": 0.424632
     },
     {
@@ -2052,6 +2180,7 @@
       "take_profit": 11.893205,
       "stop_loss": 11.361795,
       "duration": 11,
+      "exit_reason": "TP",
       "cum_pnl": 0.448762
     },
     {
@@ -2065,6 +2194,7 @@
       "take_profit": 10.846906,
       "stop_loss": 10.421294,
       "duration": 7,
+      "exit_reason": "TP",
       "cum_pnl": 0.468797
     },
     {
@@ -2078,6 +2208,7 @@
       "take_profit": 0.895103,
       "stop_loss": 0.914897,
       "duration": 6,
+      "exit_reason": "SL",
       "cum_pnl": 0.448431
     },
     {
@@ -2091,6 +2222,7 @@
       "take_profit": 1.122175,
       "stop_loss": 1.103145,
       "duration": 30,
+      "exit_reason": "TP",
       "cum_pnl": 0.473018
     },
     {
@@ -2104,6 +2236,7 @@
       "take_profit": 0.847154,
       "stop_loss": 0.834967,
       "duration": 25,
+      "exit_reason": "SL",
       "cum_pnl": 0.452466
     },
     {
@@ -2117,6 +2250,7 @@
       "take_profit": 1.670497,
       "stop_loss": 1.622104,
       "duration": 36,
+      "exit_reason": "SL",
       "cum_pnl": 0.432194
     },
     {
@@ -2130,6 +2264,7 @@
       "take_profit": 0.825298,
       "stop_loss": 0.850122,
       "duration": 35,
+      "exit_reason": "SL",
       "cum_pnl": 0.411924
     },
     {
@@ -2143,6 +2278,7 @@
       "take_profit": 10.856534,
       "stop_loss": 10.418266,
       "duration": 11,
+      "exit_reason": "SL",
       "cum_pnl": 0.39173
     },
     {
@@ -2156,6 +2292,7 @@
       "take_profit": 1.815817,
       "stop_loss": 1.759923,
       "duration": 31,
+      "exit_reason": "SL",
       "cum_pnl": 0.371474
     },
     {
@@ -2169,6 +2306,7 @@
       "take_profit": 11.628339,
       "stop_loss": 11.263461,
       "duration": 51,
+      "exit_reason": "SL",
       "cum_pnl": 0.351223
     },
     {
@@ -2182,6 +2320,7 @@
       "take_profit": 178.721554,
       "stop_loss": 162.598446,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.348796
     },
     {
@@ -2195,6 +2334,7 @@
       "take_profit": 1.495219,
       "stop_loss": 1.527921,
       "duration": 15,
+      "exit_reason": "TP",
       "cum_pnl": 0.371838
     },
     {
@@ -2208,6 +2348,7 @@
       "take_profit": 0.636583,
       "stop_loss": 0.597957,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.381921
     },
     {
@@ -2221,6 +2362,7 @@
       "take_profit": 1.121264,
       "stop_loss": 1.140296,
       "duration": 13,
+      "exit_reason": "TP",
       "cum_pnl": 0.408432
     },
     {
@@ -2234,6 +2376,7 @@
       "take_profit": 0.970075,
       "stop_loss": 0.940625,
       "duration": 23,
+      "exit_reason": "TP",
       "cum_pnl": 0.429523
     },
     {
@@ -2247,6 +2390,7 @@
       "take_profit": 1.099177,
       "stop_loss": 1.130683,
       "duration": 44,
+      "exit_reason": "TP",
       "cum_pnl": 0.451787
     },
     {
@@ -2260,6 +2404,7 @@
       "take_profit": 1.972398,
       "stop_loss": 1.894262,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.452255
     },
     {
@@ -2273,6 +2418,7 @@
       "take_profit": 1.088313,
       "stop_loss": 1.102287,
       "duration": 6,
+      "exit_reason": "SL",
       "cum_pnl": 0.431628
     },
     {
@@ -2286,6 +2432,7 @@
       "take_profit": 1.367612,
       "stop_loss": 1.333147,
       "duration": 47,
+      "exit_reason": "TP",
       "cum_pnl": 0.455281
     },
     {
@@ -2299,6 +2446,7 @@
       "take_profit": 2.136906,
       "stop_loss": 2.062774,
       "duration": 40,
+      "exit_reason": "TP",
       "cum_pnl": 0.484316
     },
     {
@@ -2312,6 +2460,7 @@
       "take_profit": 10.563674,
       "stop_loss": 10.030926,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.4993
     },
     {
@@ -2325,6 +2474,7 @@
       "take_profit": 1.365729,
       "stop_loss": 1.382411,
       "duration": 11,
+      "exit_reason": "SL",
       "cum_pnl": 0.478641
     },
     {
@@ -2338,6 +2488,7 @@
       "take_profit": 0.603041,
       "stop_loss": 0.618139,
       "duration": 10,
+      "exit_reason": "TP",
       "cum_pnl": 0.4984
     },
     {
@@ -2351,6 +2502,7 @@
       "take_profit": 1.294583,
       "stop_loss": 1.346877,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.515355
     },
     {
@@ -2364,6 +2516,7 @@
       "take_profit": 0.866918,
       "stop_loss": 0.827322,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.533539
     },
     {
@@ -2377,6 +2530,7 @@
       "take_profit": 0.520573,
       "stop_loss": 0.546847,
       "duration": 29,
+      "exit_reason": "TP",
       "cum_pnl": 0.555452
     },
     {
@@ -2390,6 +2544,7 @@
       "take_profit": 0.951992,
       "stop_loss": 0.930508,
       "duration": 62,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.543502
     },
     {
@@ -2403,6 +2558,7 @@
       "take_profit": 1.970398,
       "stop_loss": 1.901042,
       "duration": 19,
+      "exit_reason": "TP",
       "cum_pnl": 0.570229
     },
     {
@@ -2416,6 +2572,7 @@
       "take_profit": 1.80994,
       "stop_loss": 1.76654,
       "duration": 22,
+      "exit_reason": "TP",
       "cum_pnl": 0.596434
     },
     {
@@ -2429,6 +2586,7 @@
       "take_profit": 11.51031,
       "stop_loss": 11.25329,
       "duration": 8,
+      "exit_reason": "TP",
       "cum_pnl": 0.627424
     },
     {
@@ -2442,6 +2600,7 @@
       "take_profit": 11.889517,
       "stop_loss": 11.411283,
       "duration": 37,
+      "exit_reason": "TP",
       "cum_pnl": 0.647972
     },
     {
@@ -2455,6 +2614,7 @@
       "take_profit": 0.840561,
       "stop_loss": 0.824999,
       "duration": 16,
+      "exit_reason": "TP",
       "cum_pnl": 0.67528
     },
     {
@@ -2468,6 +2628,7 @@
       "take_profit": 1.124028,
       "stop_loss": 1.100032,
       "duration": 2,
+      "exit_reason": "TP",
       "cum_pnl": 0.696046
     },
     {
@@ -2481,6 +2642,7 @@
       "take_profit": 10.519237,
       "stop_loss": 10.805163,
       "duration": 7,
+      "exit_reason": "SL",
       "cum_pnl": 0.675748
     },
     {
@@ -2494,6 +2656,7 @@
       "take_profit": 0.601908,
       "stop_loss": 0.585612,
       "duration": 1,
+      "exit_reason": "TP",
       "cum_pnl": 0.696615
     },
     {
@@ -2507,6 +2670,7 @@
       "take_profit": 1.091988,
       "stop_loss": 1.106512,
       "duration": 8,
+      "exit_reason": "SL",
       "cum_pnl": 0.676009
     },
     {
@@ -2520,6 +2684,7 @@
       "take_profit": 1.094053,
       "stop_loss": 1.072107,
       "duration": 22,
+      "exit_reason": "SL",
       "cum_pnl": 0.655614
     },
     {
@@ -2533,6 +2698,7 @@
       "take_profit": 0.658065,
       "stop_loss": 0.677714,
       "duration": 1,
+      "exit_reason": "TP",
       "cum_pnl": 0.675577
     },
     {
@@ -2546,6 +2712,7 @@
       "take_profit": 1.492142,
       "stop_loss": 1.516317,
       "duration": 10,
+      "exit_reason": "TP",
       "cum_pnl": 0.698558
     },
     {
@@ -2559,6 +2726,7 @@
       "take_profit": 0.822464,
       "stop_loss": 0.850516,
       "duration": 34,
+      "exit_reason": "TP",
       "cum_pnl": 0.718511
     },
     {
@@ -2572,6 +2740,7 @@
       "take_profit": 156.24522,
       "stop_loss": 147.38478,
       "duration": 21,
+      "exit_reason": "TP",
       "cum_pnl": 0.738382
     },
     {
@@ -2585,6 +2754,7 @@
       "take_profit": 0.863339,
       "stop_loss": 0.889561,
       "duration": 8,
+      "exit_reason": "SL",
       "cum_pnl": 0.718115
     },
     {
@@ -2598,6 +2768,7 @@
       "take_profit": 1.764806,
       "stop_loss": 1.823874,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.730075
     },
     {
@@ -2611,6 +2782,7 @@
       "take_profit": 0.96806,
       "stop_loss": 0.99452,
       "duration": 13,
+      "exit_reason": "SL",
       "cum_pnl": 0.709778
     },
     {
@@ -2624,6 +2796,7 @@
       "take_profit": 1.65189,
       "stop_loss": 1.61329,
       "duration": 15,
+      "exit_reason": "SL",
       "cum_pnl": 0.68944
     },
     {
@@ -2637,6 +2810,7 @@
       "take_profit": 1.493081,
       "stop_loss": 1.468318,
       "duration": 9,
+      "exit_reason": "SL",
       "cum_pnl": 0.668962
     },
     {
@@ -2650,6 +2824,7 @@
       "take_profit": 0.632553,
       "stop_loss": 0.612927,
       "duration": 42,
+      "exit_reason": "TP",
       "cum_pnl": 0.692085
     },
     {
@@ -2663,6 +2838,7 @@
       "take_profit": 0.601818,
       "stop_loss": 0.583222,
       "duration": 10,
+      "exit_reason": "SL",
       "cum_pnl": 0.67183
     },
     {
@@ -2676,6 +2852,7 @@
       "take_profit": 0.566549,
       "stop_loss": 0.591731,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.669756
     },
     {
@@ -2689,6 +2866,7 @@
       "take_profit": 11.50077,
       "stop_loss": 11.76323,
       "duration": 21,
+      "exit_reason": "TP",
       "cum_pnl": 0.69218
     },
     {
@@ -2702,6 +2880,7 @@
       "take_profit": 170.28489,
       "stop_loss": 160.61511,
       "duration": 26,
+      "exit_reason": "SL",
       "cum_pnl": 0.672043
     },
     {
@@ -2715,6 +2894,7 @@
       "take_profit": 0.824226,
       "stop_loss": 0.805095,
       "duration": 5,
+      "exit_reason": "TP",
       "cum_pnl": 0.696186
     },
     {
@@ -2728,6 +2908,7 @@
       "take_profit": 0.628359,
       "stop_loss": 0.648681,
       "duration": 5,
+      "exit_reason": "TP",
       "cum_pnl": 0.716287
     },
     {
@@ -2741,6 +2922,7 @@
       "take_profit": 1.780805,
       "stop_loss": 1.720095,
       "duration": 7,
+      "exit_reason": "TP",
       "cum_pnl": 0.737002
     },
     {
@@ -2754,6 +2936,7 @@
       "take_profit": 102.339537,
       "stop_loss": 97.550463,
       "duration": 52,
+      "exit_reason": "SL",
       "cum_pnl": 0.716835
     },
     {
@@ -2767,6 +2950,7 @@
       "take_profit": 1.972497,
       "stop_loss": 1.907463,
       "duration": 15,
+      "exit_reason": "TP",
       "cum_pnl": 0.737484
     },
     {
@@ -2780,6 +2964,7 @@
       "take_profit": 0.657999,
       "stop_loss": 0.638961,
       "duration": 23,
+      "exit_reason": "SL",
       "cum_pnl": 0.717212
     },
     {
@@ -2793,6 +2978,7 @@
       "take_profit": 1.804894,
       "stop_loss": 1.764986,
       "duration": 25,
+      "exit_reason": "TP",
       "cum_pnl": 0.742874
     },
     {
@@ -2806,6 +2992,7 @@
       "take_profit": 201.160222,
       "stop_loss": 186.349778,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.73555
     },
     {
@@ -2819,6 +3006,7 @@
       "take_profit": 1.639259,
       "stop_loss": 1.665341,
       "duration": 3,
+      "exit_reason": "TP",
       "cum_pnl": 0.755916
     },
     {
@@ -2832,6 +3020,7 @@
       "take_profit": 1.125439,
       "stop_loss": 1.104641,
       "duration": 19,
+      "exit_reason": "TP",
       "cum_pnl": 0.776681
     },
     {
@@ -2845,6 +3034,7 @@
       "take_profit": 1.638403,
       "stop_loss": 1.662597,
       "duration": 8,
+      "exit_reason": "SL",
       "cum_pnl": 0.756135
     },
     {
@@ -2858,6 +3048,7 @@
       "take_profit": 1.799405,
       "stop_loss": 1.829016,
       "duration": 8,
+      "exit_reason": "SL",
       "cum_pnl": 0.735645
     },
     {
@@ -2871,6 +3062,7 @@
       "take_profit": 0.901355,
       "stop_loss": 0.921465,
       "duration": 30,
+      "exit_reason": "TP",
       "cum_pnl": 0.763089
     },
     {
@@ -2884,6 +3076,7 @@
       "take_profit": 10.836044,
       "stop_loss": 11.234155,
       "duration": 47,
+      "exit_reason": "SL",
       "cum_pnl": 0.742867
     },
     {
@@ -2897,6 +3090,7 @@
       "take_profit": 156.708336,
       "stop_loss": 145.391664,
       "duration": 22,
+      "exit_reason": "TP",
       "cum_pnl": 0.765209
     },
     {
@@ -2910,6 +3104,7 @@
       "take_profit": 11.833795,
       "stop_loss": 11.492805,
       "duration": 34,
+      "exit_reason": "TP",
       "cum_pnl": 0.787681
     },
     {
@@ -2923,6 +3118,7 @@
       "take_profit": 0.972163,
       "stop_loss": 0.995377,
       "duration": 8,
+      "exit_reason": "TP",
       "cum_pnl": 0.822684
     },
     {
@@ -2936,6 +3132,7 @@
       "take_profit": 1.093837,
       "stop_loss": 1.110903,
       "duration": 22,
+      "exit_reason": "SL",
       "cum_pnl": 0.802167
     },
     {
@@ -2949,6 +3146,7 @@
       "take_profit": 11.767555,
       "stop_loss": 10.635685,
       "duration": 1,
+      "exit_reason": "TP",
       "cum_pnl": 0.825496
     },
     {
@@ -2962,6 +3160,7 @@
       "take_profit": 1.299592,
       "stop_loss": 1.249808,
       "duration": 51,
+      "exit_reason": "SL",
       "cum_pnl": 0.805291
     },
     {
@@ -2975,6 +3174,7 @@
       "take_profit": 1.783987,
       "stop_loss": 1.835173,
       "duration": 23,
+      "exit_reason": "TP",
       "cum_pnl": 0.826459
     },
     {
@@ -2988,6 +3188,7 @@
       "take_profit": 0.837301,
       "stop_loss": 0.820479,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.825637
     },
     {
@@ -3001,6 +3202,7 @@
       "take_profit": 179.952077,
       "stop_loss": 168.439923,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.823595
     },
     {
@@ -3014,6 +3216,7 @@
       "take_profit": 1.12626,
       "stop_loss": 1.14482,
       "duration": 8,
+      "exit_reason": "TP",
       "cum_pnl": 0.846726
     },
     {
@@ -3027,6 +3230,7 @@
       "take_profit": 1.972074,
       "stop_loss": 2.029686,
       "duration": 35,
+      "exit_reason": "TP",
       "cum_pnl": 0.867312
     },
     {
@@ -3040,6 +3244,7 @@
       "take_profit": 0.942045,
       "stop_loss": 0.922075,
       "duration": 61,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.889573
     },
     {
@@ -3053,6 +3258,7 @@
       "take_profit": 0.973637,
       "stop_loss": 0.994743,
       "duration": 6,
+      "exit_reason": "TP",
       "cum_pnl": 0.914254
     },
     {
@@ -3066,6 +3272,7 @@
       "take_profit": 1.494159,
       "stop_loss": 1.461661,
       "duration": 20,
+      "exit_reason": "TP",
       "cum_pnl": 0.935295
     },
     {
@@ -3079,6 +3286,7 @@
       "take_profit": 0.568335,
       "stop_loss": 0.545925,
       "duration": 34,
+      "exit_reason": "TP",
       "cum_pnl": 0.956819
     },
     {
@@ -3092,6 +3300,7 @@
       "take_profit": 1.127131,
       "stop_loss": 1.108249,
       "duration": 14,
+      "exit_reason": "TP",
       "cum_pnl": 0.981596
     },
     {
@@ -3105,6 +3314,7 @@
       "take_profit": 1.791651,
       "stop_loss": 1.727109,
       "duration": 17,
+      "exit_reason": "TP",
       "cum_pnl": 1.003863
     },
     {
@@ -3118,6 +3328,7 @@
       "take_profit": 0.83193,
       "stop_loss": 0.84587,
       "duration": 23,
+      "exit_reason": "TP",
       "cum_pnl": 1.024128
     },
     {
@@ -3131,6 +3342,7 @@
       "take_profit": 0.625476,
       "stop_loss": 0.643324,
       "duration": 23,
+      "exit_reason": "TP",
       "cum_pnl": 1.054097
     },
     {
@@ -3144,6 +3356,7 @@
       "take_profit": 1.493664,
       "stop_loss": 1.514516,
       "duration": 10,
+      "exit_reason": "TP",
       "cum_pnl": 1.081756
     },
     {
@@ -3157,6 +3370,7 @@
       "take_profit": 0.938294,
       "stop_loss": 0.961227,
       "duration": 12,
+      "exit_reason": "TP",
       "cum_pnl": 1.102198
     },
     {
@@ -3170,6 +3384,7 @@
       "take_profit": 1.494433,
       "stop_loss": 1.474727,
       "duration": 1,
+      "exit_reason": "SL",
       "cum_pnl": 1.081595
     },
     {
@@ -3183,6 +3398,7 @@
       "take_profit": 1.972133,
       "stop_loss": 2.020887,
       "duration": 12,
+      "exit_reason": "TP",
       "cum_pnl": 1.104157
     },
     {
@@ -3196,6 +3412,7 @@
       "take_profit": 2.158892,
       "stop_loss": 2.242328,
       "duration": 62,
+      "exit_reason": "TimeCap",
       "cum_pnl": 1.108764
     },
     {
@@ -3209,6 +3426,7 @@
       "take_profit": 10.706833,
       "stop_loss": 11.039967,
       "duration": 2,
+      "exit_reason": "TP",
       "cum_pnl": 1.132733
     },
     {
@@ -3222,6 +3440,7 @@
       "take_profit": 0.518595,
       "stop_loss": 0.492725,
       "duration": 61,
+      "exit_reason": "TimeCap",
       "cum_pnl": 1.149044
     },
     {
@@ -3235,6 +3454,7 @@
       "take_profit": 0.825219,
       "stop_loss": 0.7978,
       "duration": 61,
+      "exit_reason": "TimeCap",
       "cum_pnl": 1.150704
     },
     {
@@ -3248,6 +3468,7 @@
       "take_profit": 11.435984,
       "stop_loss": 11.195016,
       "duration": 12,
+      "exit_reason": "SL",
       "cum_pnl": 1.130328
     },
     {
@@ -3261,6 +3482,7 @@
       "take_profit": 1.640939,
       "stop_loss": 1.665441,
       "duration": 8,
+      "exit_reason": "TP",
       "cum_pnl": 1.150652
     },
     {
@@ -3274,6 +3496,7 @@
       "take_profit": 1.792925,
       "stop_loss": 1.748355,
       "duration": 13,
+      "exit_reason": "TP",
       "cum_pnl": 1.171415
     },
     {
@@ -3287,6 +3510,7 @@
       "take_profit": 0.905161,
       "stop_loss": 0.884799,
       "duration": 58,
+      "exit_reason": "TP",
       "cum_pnl": 1.193438
     },
     {
@@ -3300,6 +3524,7 @@
       "take_profit": 0.938373,
       "stop_loss": 0.958368,
       "duration": 9,
+      "exit_reason": "TP",
       "cum_pnl": 1.213664
     },
     {
@@ -3313,6 +3538,7 @@
       "take_profit": 1.494655,
       "stop_loss": 1.470365,
       "duration": 7,
+      "exit_reason": "TP",
       "cum_pnl": 1.248021
     },
     {
@@ -3326,6 +3552,7 @@
       "take_profit": 0.623692,
       "stop_loss": 0.640288,
       "duration": 19,
+      "exit_reason": "TP",
       "cum_pnl": 1.26847
     },
     {
@@ -3339,6 +3566,7 @@
       "take_profit": 1.409718,
       "stop_loss": 1.441461,
       "duration": 3,
+      "exit_reason": "SL",
       "cum_pnl": 1.248111
     },
     {
@@ -3352,6 +3580,7 @@
       "take_profit": 1.973268,
       "stop_loss": 2.018952,
       "duration": 2,
+      "exit_reason": "SL",
       "cum_pnl": 1.227761
     },
     {
@@ -3365,6 +3594,7 @@
       "take_profit": 2.174335,
       "stop_loss": 2.233405,
       "duration": 15,
+      "exit_reason": "SL",
       "cum_pnl": 1.207463
     },
     {
@@ -3378,6 +3608,7 @@
       "take_profit": 1.640722,
       "stop_loss": 1.673518,
       "duration": 5,
+      "exit_reason": "SL",
       "cum_pnl": 1.187059
     },
     {
@@ -3391,6 +3622,7 @@
       "take_profit": 1.811699,
       "stop_loss": 1.860201,
       "duration": 28,
+      "exit_reason": "SL",
       "cum_pnl": 1.166756
     },
     {
@@ -3404,6 +3636,7 @@
       "take_profit": 202.173557,
       "stop_loss": 187.474443,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 1.152962
     },
     {
@@ -3417,6 +3650,7 @@
       "take_profit": 1.09671,
       "stop_loss": 1.11581,
       "duration": 62,
+      "exit_reason": "TimeCap",
       "cum_pnl": 1.150111
     },
     {
@@ -3430,6 +3664,7 @@
       "take_profit": 1.279243,
       "stop_loss": 1.246897,
       "duration": 11,
+      "exit_reason": "TP",
       "cum_pnl": 1.17003
     },
     {
@@ -3443,6 +3678,7 @@
       "take_profit": 11.732771,
       "stop_loss": 11.447829,
       "duration": 25,
+      "exit_reason": "TP",
       "cum_pnl": 1.195057
     },
     {
@@ -3456,6 +3692,7 @@
       "take_profit": 0.972406,
       "stop_loss": 0.950914,
       "duration": 19,
+      "exit_reason": "SL",
       "cum_pnl": 1.174699
     },
     {
@@ -3469,6 +3706,7 @@
       "take_profit": 0.830486,
       "stop_loss": 0.817694,
       "duration": 5,
+      "exit_reason": "TP",
       "cum_pnl": 1.212583
     },
     {
@@ -3482,6 +3720,7 @@
       "take_profit": 1.496332,
       "stop_loss": 1.539608,
       "duration": 2,
+      "exit_reason": "SL",
       "cum_pnl": 1.192302
     },
     {
@@ -3495,6 +3734,7 @@
       "take_profit": 1.127223,
       "stop_loss": 1.144857,
       "duration": 22,
+      "exit_reason": "SL",
       "cum_pnl": 1.171787
     },
     {
@@ -3508,6 +3748,7 @@
       "take_profit": 10.697055,
       "stop_loss": 10.283745,
       "duration": 2,
+      "exit_reason": "SL",
       "cum_pnl": 1.151584
     },
     {
@@ -3521,6 +3762,7 @@
       "take_profit": 11.017208,
       "stop_loss": 11.452592,
       "duration": 6,
+      "exit_reason": "TP",
       "cum_pnl": 1.181457
     },
     {
@@ -3534,6 +3776,7 @@
       "take_profit": 156.938867,
       "stop_loss": 148.229133,
       "duration": 29,
+      "exit_reason": "SL",
       "cum_pnl": 1.161317
     },
     {
@@ -3547,6 +3790,7 @@
       "take_profit": 0.886232,
       "stop_loss": 0.912867,
       "duration": 7,
+      "exit_reason": "TP",
       "cum_pnl": 1.18512
     },
     {
@@ -3560,6 +3804,7 @@
       "take_profit": 0.570668,
       "stop_loss": 0.555992,
       "duration": 9,
+      "exit_reason": "SL",
       "cum_pnl": 1.164813
     },
     {
@@ -3573,6 +3818,7 @@
       "take_profit": 0.824099,
       "stop_loss": 0.807461,
       "duration": 13,
+      "exit_reason": "TP",
       "cum_pnl": 1.185144
     },
     {
@@ -3586,6 +3832,7 @@
       "take_profit": 11.021521,
       "stop_loss": 10.651419,
       "duration": 4,
+      "exit_reason": "SL",
       "cum_pnl": 1.16491
     },
     {
@@ -3599,6 +3846,7 @@
       "take_profit": 0.910016,
       "stop_loss": 0.889024,
       "duration": 18,
+      "exit_reason": "TP",
       "cum_pnl": 1.187433
     },
     {
@@ -3612,6 +3860,7 @@
       "take_profit": 11.720785,
       "stop_loss": 11.492015,
       "duration": 6,
+      "exit_reason": "SL",
       "cum_pnl": 1.167027
     },
     {
@@ -3625,6 +3874,7 @@
       "take_profit": 1.064003,
       "stop_loss": 1.093477,
       "duration": 13,
+      "exit_reason": "SL",
       "cum_pnl": 1.146734
     },
     {
@@ -3638,6 +3888,7 @@
       "take_profit": 0.824706,
       "stop_loss": 0.837794,
       "duration": 2,
+      "exit_reason": "TP",
       "cum_pnl": 1.16872
     },
     {
@@ -3651,6 +3902,7 @@
       "take_profit": 13.899594,
       "stop_loss": 14.370406,
       "duration": 10,
+      "exit_reason": "SL",
       "cum_pnl": 1.14848
     },
     {
@@ -3664,6 +3916,7 @@
       "take_profit": 0.645624,
       "stop_loss": 0.626476,
       "duration": 13,
+      "exit_reason": "SL",
       "cum_pnl": 1.128214
     },
     {
@@ -3677,6 +3930,7 @@
       "take_profit": 1.065783,
       "stop_loss": 1.094337,
       "duration": 7,
+      "exit_reason": "SL",
       "cum_pnl": 1.107911
     },
     {
@@ -3690,6 +3944,7 @@
       "take_profit": 1.278981,
       "stop_loss": 1.309439,
       "duration": 23,
+      "exit_reason": "SL",
       "cum_pnl": 1.087571
     },
     {
@@ -3703,6 +3958,7 @@
       "take_profit": 0.887209,
       "stop_loss": 0.864611,
       "duration": 16,
+      "exit_reason": "SL",
       "cum_pnl": 1.067261
     },
     {
@@ -3716,6 +3972,7 @@
       "take_profit": 1.416459,
       "stop_loss": 1.448462,
       "duration": 15,
+      "exit_reason": "TP",
       "cum_pnl": 1.09565
     },
     {
@@ -3729,6 +3986,7 @@
       "take_profit": 0.829968,
       "stop_loss": 0.843151,
       "duration": 28,
+      "exit_reason": "SL",
       "cum_pnl": 1.075142
     },
     {
@@ -3742,6 +4000,7 @@
       "take_profit": 1.130937,
       "stop_loss": 1.153903,
       "duration": 23,
+      "exit_reason": "TP",
       "cum_pnl": 1.105189
     },
     {
@@ -3755,6 +4014,7 @@
       "take_profit": 0.911462,
       "stop_loss": 0.892918,
       "duration": 14,
+      "exit_reason": "SL",
       "cum_pnl": 1.0848
     },
     {
@@ -3768,6 +4028,7 @@
       "take_profit": 0.516784,
       "stop_loss": 0.500976,
       "duration": 36,
+      "exit_reason": "SL",
       "cum_pnl": 1.064542
     },
     {
@@ -3781,6 +4042,7 @@
       "take_profit": 0.583919,
       "stop_loss": 0.561522,
       "duration": 14,
+      "exit_reason": "SL",
       "cum_pnl": 1.044337
     },
     {
@@ -3794,6 +4056,7 @@
       "take_profit": 1.104107,
       "stop_loss": 1.088273,
       "duration": 18,
+      "exit_reason": "SL",
       "cum_pnl": 1.023783
     },
     {
@@ -3807,6 +4070,7 @@
       "take_profit": 0.824881,
       "stop_loss": 0.810519,
       "duration": 10,
+      "exit_reason": "SL",
       "cum_pnl": 1.003328
     },
     {
@@ -3820,6 +4084,7 @@
       "take_profit": 0.964055,
       "stop_loss": 0.939185,
       "duration": 9,
+      "exit_reason": "SL",
       "cum_pnl": 0.983022
     },
     {
@@ -3833,6 +4098,7 @@
       "take_profit": 0.938789,
       "stop_loss": 0.982271,
       "duration": 32,
+      "exit_reason": "TP",
       "cum_pnl": 1.006009
     },
     {
@@ -3846,6 +4112,7 @@
       "take_profit": 198.556185,
       "stop_loss": 189.083814,
       "duration": 9,
+      "exit_reason": "SL",
       "cum_pnl": 0.985845
     },
     {
@@ -3859,6 +4126,7 @@
       "take_profit": 0.623517,
       "stop_loss": 0.598383,
       "duration": 30,
+      "exit_reason": "SL",
       "cum_pnl": 0.965651
     },
     {
@@ -3872,6 +4140,7 @@
       "take_profit": 14.592797,
       "stop_loss": 15.236803,
       "duration": 12,
+      "exit_reason": "TP",
       "cum_pnl": 0.990621
     },
     {
@@ -3885,6 +4154,7 @@
       "take_profit": 11.695301,
       "stop_loss": 11.8943,
       "duration": 1,
+      "exit_reason": "SL",
       "cum_pnl": 0.970147
     },
     {
@@ -3898,6 +4168,7 @@
       "take_profit": 13.899648,
       "stop_loss": 13.383152,
       "duration": 4,
+      "exit_reason": "SL",
       "cum_pnl": 0.949936
     },
     {
@@ -3911,6 +4182,7 @@
       "take_profit": 1.282415,
       "stop_loss": 1.310905,
       "duration": 4,
+      "exit_reason": "SL",
       "cum_pnl": 0.929572
     },
     {
@@ -3924,6 +4196,7 @@
       "take_profit": 10.97829,
       "stop_loss": 10.52353,
       "duration": 8,
+      "exit_reason": "SL",
       "cum_pnl": 0.909383
     },
     {
@@ -3937,6 +4210,7 @@
       "take_profit": 173.357482,
       "stop_loss": 178.440518,
       "duration": 11,
+      "exit_reason": "TP",
       "cum_pnl": 0.933352
     },
     {
@@ -3950,6 +4224,7 @@
       "take_profit": 13.871697,
       "stop_loss": 12.794503,
       "duration": 21,
+      "exit_reason": "TP",
       "cum_pnl": 0.955128
     },
     {
@@ -3963,6 +4238,7 @@
       "take_profit": 1.79828,
       "stop_loss": 1.878201,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.957822
     },
     {
@@ -3976,6 +4252,7 @@
       "take_profit": 0.824429,
       "stop_loss": 0.811551,
       "duration": 6,
+      "exit_reason": "TP",
       "cum_pnl": 0.983061
     },
     {
@@ -3989,6 +4266,7 @@
       "take_profit": 173.328437,
       "stop_loss": 177.181563,
       "duration": 5,
+      "exit_reason": "TP",
       "cum_pnl": 1.004934
     },
     {
@@ -4002,6 +4280,7 @@
       "take_profit": 11.706649,
       "stop_loss": 12.503751,
       "duration": 26,
+      "exit_reason": "TP",
       "cum_pnl": 1.027896
     },
     {
@@ -4015,6 +4294,7 @@
       "take_profit": 0.640236,
       "stop_loss": 0.658444,
       "duration": 2,
+      "exit_reason": "TP",
       "cum_pnl": 1.04835
     },
     {
@@ -4028,6 +4308,7 @@
       "take_profit": 0.824219,
       "stop_loss": 0.810661,
       "duration": 1,
+      "exit_reason": "TP",
       "cum_pnl": 1.075687
     },
     {
@@ -4041,6 +4322,7 @@
       "take_profit": 165.599597,
       "stop_loss": 158.610403,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 1.078003
     },
     {
@@ -4054,6 +4336,7 @@
       "take_profit": 11.768738,
       "stop_loss": 11.546062,
       "duration": 12,
+      "exit_reason": "SL",
       "cum_pnl": 1.057584
     },
     {
@@ -4067,6 +4350,7 @@
       "take_profit": 0.907815,
       "stop_loss": 0.888565,
       "duration": 8,
+      "exit_reason": "SL",
       "cum_pnl": 1.037211
     },
     {
@@ -4080,6 +4364,7 @@
       "take_profit": 1.42242,
       "stop_loss": 1.37286,
       "duration": 43,
+      "exit_reason": "SL",
       "cum_pnl": 1.016985
     },
     {
@@ -4093,6 +4378,7 @@
       "take_profit": 173.478867,
       "stop_loss": 177.549133,
       "duration": 11,
+      "exit_reason": "TP",
       "cum_pnl": 1.037032
     },
     {
@@ -4106,6 +4392,7 @@
       "take_profit": 0.823986,
       "stop_loss": 0.808914,
       "duration": 3,
+      "exit_reason": "TP",
       "cum_pnl": 1.059739
     },
     {
@@ -4119,6 +4406,7 @@
       "take_profit": 13.823332,
       "stop_loss": 14.282688,
       "duration": 26,
+      "exit_reason": "SL",
       "cum_pnl": 1.039494
     },
     {
@@ -4132,6 +4420,7 @@
       "take_profit": 0.941044,
       "stop_loss": 0.914957,
       "duration": 61,
+      "exit_reason": "TimeCap",
       "cum_pnl": 1.053362
     },
     {
@@ -4145,6 +4434,7 @@
       "take_profit": 0.580986,
       "stop_loss": 0.605634,
       "duration": 57,
+      "exit_reason": "SL",
       "cum_pnl": 1.033169
     },
     {
@@ -4158,6 +4448,7 @@
       "take_profit": 1.125474,
       "stop_loss": 1.101326,
       "duration": 16,
+      "exit_reason": "SL",
       "cum_pnl": 1.0128
     },
     {
@@ -4171,6 +4462,7 @@
       "take_profit": 196.328572,
       "stop_loss": 189.943428,
       "duration": 28,
+      "exit_reason": "TP",
       "cum_pnl": 1.03517
     },
     {
@@ -4184,6 +4476,7 @@
       "take_profit": 11.209752,
       "stop_loss": 10.619048,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 1.03811
     },
     {
@@ -4197,6 +4490,7 @@
       "take_profit": 0.824153,
       "stop_loss": 0.809306,
       "duration": 5,
+      "exit_reason": "TP",
       "cum_pnl": 1.058361
     },
     {
@@ -4210,6 +4504,7 @@
       "take_profit": 1.866601,
       "stop_loss": 1.922079,
       "duration": 37,
+      "exit_reason": "SL",
       "cum_pnl": 1.038088
     },
     {
@@ -4223,6 +4518,7 @@
       "take_profit": 173.532643,
       "stop_loss": 178.557357,
       "duration": 15,
+      "exit_reason": "SL",
       "cum_pnl": 1.017808
     },
     {
@@ -4236,6 +4532,7 @@
       "take_profit": 163.661572,
       "stop_loss": 168.410428,
       "duration": 11,
+      "exit_reason": "SL",
       "cum_pnl": 0.997528
     },
     {
@@ -4249,6 +4546,7 @@
       "take_profit": 0.60943,
       "stop_loss": 0.586909,
       "duration": 40,
+      "exit_reason": "SL",
       "cum_pnl": 0.977316
     },
     {
@@ -4262,6 +4560,7 @@
       "take_profit": 0.940814,
       "stop_loss": 0.973586,
       "duration": 11,
+      "exit_reason": "TP",
       "cum_pnl": 0.998796
     },
     {
@@ -4275,6 +4574,7 @@
       "take_profit": 0.823692,
       "stop_loss": 0.805848,
       "duration": 3,
+      "exit_reason": "TP",
       "cum_pnl": 1.028065
     },
     {
@@ -4288,6 +4588,7 @@
       "take_profit": 2.215205,
       "stop_loss": 2.302695,
       "duration": 61,
+      "exit_reason": "TimeCap",
       "cum_pnl": 1.026194
     },
     {
@@ -4301,6 +4602,7 @@
       "take_profit": 0.640177,
       "stop_loss": 0.658103,
       "duration": 39,
+      "exit_reason": "SL",
       "cum_pnl": 1.005904
     },
     {
@@ -4314,6 +4616,7 @@
       "take_profit": 14.65227,
       "stop_loss": 15.36573,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 0.999344
     },
     {
@@ -4327,6 +4630,7 @@
       "take_profit": 0.823391,
       "stop_loss": 0.835549,
       "duration": 7,
+      "exit_reason": "TP",
       "cum_pnl": 1.028639
     },
     {
@@ -4340,6 +4644,7 @@
       "take_profit": 106.969184,
       "stop_loss": 102.890816,
       "duration": 55,
+      "exit_reason": "TP",
       "cum_pnl": 1.051217
     },
     {
@@ -4353,6 +4658,7 @@
       "take_profit": 0.504617,
       "stop_loss": 0.476703,
       "duration": 55,
+      "exit_reason": "SL",
       "cum_pnl": 1.031076
     },
     {
@@ -4366,6 +4672,7 @@
       "take_profit": 96.207819,
       "stop_loss": 91.690181,
       "duration": 29,
+      "exit_reason": "TP",
       "cum_pnl": 1.052018
     },
     {
@@ -4379,6 +4686,7 @@
       "take_profit": 88.254024,
       "stop_loss": 84.769976,
       "duration": 58,
+      "exit_reason": "TP",
       "cum_pnl": 1.074655
     },
     {
@@ -4392,6 +4700,7 @@
       "take_profit": 14.835645,
       "stop_loss": 15.392355,
       "duration": 8,
+      "exit_reason": "SL",
       "cum_pnl": 1.054438
     },
     {
@@ -4405,6 +4714,7 @@
       "take_profit": 0.822317,
       "stop_loss": 0.807803,
       "duration": 9,
+      "exit_reason": "TP",
       "cum_pnl": 1.073997
     },
     {
@@ -4418,6 +4728,7 @@
       "take_profit": 1.328172,
       "stop_loss": 1.369508,
       "duration": 9,
+      "exit_reason": "TP",
       "cum_pnl": 1.098373
     },
     {
@@ -4431,6 +4742,7 @@
       "take_profit": 148.103752,
       "stop_loss": 153.336248,
       "duration": 1,
+      "exit_reason": "TP",
       "cum_pnl": 1.123675
     },
     {
@@ -4444,6 +4756,7 @@
       "take_profit": 2.040821,
       "stop_loss": 2.123899,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 1.132728
     },
     {
@@ -4457,6 +4770,7 @@
       "take_profit": 11.716283,
       "stop_loss": 11.970117,
       "duration": 41,
+      "exit_reason": "SL",
       "cum_pnl": 1.112355
     },
     {
@@ -4470,6 +4784,7 @@
       "take_profit": 0.820607,
       "stop_loss": 0.809392,
       "duration": 14,
+      "exit_reason": "TP",
       "cum_pnl": 1.134921
     },
     {
@@ -4483,6 +4798,7 @@
       "take_profit": 2.272002,
       "stop_loss": 2.192798,
       "duration": 20,
+      "exit_reason": "TP",
       "cum_pnl": 1.161452
     },
     {
@@ -4496,6 +4812,7 @@
       "take_profit": 1.867497,
       "stop_loss": 1.800563,
       "duration": 17,
+      "exit_reason": "TP",
       "cum_pnl": 1.181558
     },
     {
@@ -4509,6 +4826,7 @@
       "take_profit": 0.584078,
       "stop_loss": 0.610522,
       "duration": 58,
+      "exit_reason": "TP",
       "cum_pnl": 1.204158
     },
     {
@@ -4522,6 +4840,7 @@
       "take_profit": 1.918067,
       "stop_loss": 1.996233,
       "duration": 19,
+      "exit_reason": "SL",
       "cum_pnl": 1.183958
     },
     {
@@ -4535,6 +4854,7 @@
       "take_profit": 95.043095,
       "stop_loss": 99.034905,
       "duration": 24,
+      "exit_reason": "TP",
       "cum_pnl": 1.207011
     },
     {
@@ -4548,6 +4868,7 @@
       "take_profit": 86.651115,
       "stop_loss": 90.220886,
       "duration": 36,
+      "exit_reason": "TP",
       "cum_pnl": 1.237134
     },
     {
@@ -4561,6 +4882,7 @@
       "take_profit": 0.939853,
       "stop_loss": 0.916927,
       "duration": 11,
+      "exit_reason": "TP",
       "cum_pnl": 1.260555
     },
     {
@@ -4574,6 +4896,7 @@
       "take_profit": 11.05272,
       "stop_loss": 11.38908,
       "duration": 58,
+      "exit_reason": "TP",
       "cum_pnl": 1.280302
     },
     {
@@ -4587,6 +4910,7 @@
       "take_profit": 0.903562,
       "stop_loss": 0.885698,
       "duration": 60,
+      "exit_reason": "TimeCap",
       "cum_pnl": 1.289507
     },
     {
@@ -4600,202 +4924,8 @@
       "take_profit": 1.096095,
       "stop_loss": 1.111925,
       "duration": 14,
+      "exit_reason": "SL",
       "cum_pnl": 1.268949
-    },
-    {
-      "spread": "GBPUSD=X",
-      "entry_date": "2025-08-13",
-      "exit_date": "2025-09-05",
-      "type": "short",
-      "entry": 1.3574,
-      "exit": 1.34633,
-      "pnl": 0.00855,
-      "take_profit": 1.33214,
-      "stop_loss": 1.38266,
-      "duration": 23,
-      "cum_pnl": 1.277499
-    },
-    {
-      "spread": "AUDUSD=X",
-      "entry_date": "2025-07-08",
-      "exit_date": "2025-09-05",
-      "type": "short",
-      "entry": 0.65302,
-      "exit": 0.65425,
-      "pnl": -0.00233,
-      "take_profit": 0.641339,
-      "stop_loss": 0.664702,
-      "duration": 59,
-      "cum_pnl": 1.275169
-    },
-    {
-      "spread": "EURCHF=X",
-      "entry_date": "2025-08-10",
-      "exit_date": "2025-09-05",
-      "type": "short",
-      "entry": 0.94123,
-      "exit": 0.93844,
-      "pnl": 0.006614,
-      "take_profit": 0.933363,
-      "stop_loss": 0.949097,
-      "duration": 26,
-      "cum_pnl": 1.281783
-    },
-    {
-      "spread": "EURAUD=X",
-      "entry_date": "2025-08-01",
-      "exit_date": "2025-09-05",
-      "type": "short",
-      "entry": 1.78984,
-      "exit": 1.78452,
-      "pnl": 0.002493,
-      "take_profit": 1.750036,
-      "stop_loss": 1.829644,
-      "duration": 35,
-      "cum_pnl": 1.284276
-    },
-    {
-      "spread": "EURCAD=X",
-      "entry_date": "2025-08-01",
-      "exit_date": "2025-09-05",
-      "type": "short",
-      "entry": 1.59689,
-      "exit": 1.61054,
-      "pnl": -0.010339,
-      "take_profit": 1.569868,
-      "stop_loss": 1.623912,
-      "duration": 35,
-      "cum_pnl": 1.273937
-    },
-    {
-      "spread": "GBPJPY=X",
-      "entry_date": "2025-08-13",
-      "exit_date": "2025-09-05",
-      "type": "short",
-      "entry": 200.04,
-      "exit": 199.544,
-      "pnl": 0.002939,
-      "take_profit": 196.937303,
-      "stop_loss": 203.142697,
-      "duration": 23,
-      "cum_pnl": 1.276876
-    },
-    {
-      "spread": "GBPCHF=X",
-      "entry_date": "2025-08-18",
-      "exit_date": "2025-09-05",
-      "type": "long",
-      "entry": 1.08863,
-      "exit": 1.08212,
-      "pnl": -0.010374,
-      "take_profit": 1.1016,
-      "stop_loss": 1.075659,
-      "duration": 18,
-      "cum_pnl": 1.266502
-    },
-    {
-      "spread": "GBPCAD=X",
-      "entry_date": "2025-09-02",
-      "exit_date": "2025-09-05",
-      "type": "long",
-      "entry": 1.84386,
-      "exit": 1.85711,
-      "pnl": 0.0086,
-      "take_profit": 1.873816,
-      "stop_loss": 1.813905,
-      "duration": 3,
-      "cum_pnl": 1.275102
-    },
-    {
-      "spread": "AUDJPY=X",
-      "entry_date": "2025-09-01",
-      "exit_date": "2025-09-05",
-      "type": "short",
-      "entry": 96.401,
-      "exit": 96.975,
-      "pnl": -0.005844,
-      "take_profit": 94.370615,
-      "stop_loss": 98.431385,
-      "duration": 4,
-      "cum_pnl": 1.269258
-    },
-    {
-      "spread": "AUDCHF=X",
-      "entry_date": "2025-07-31",
-      "exit_date": "2025-09-05",
-      "type": "long",
-      "entry": 0.52113,
-      "exit": 0.52582,
-      "pnl": 0.006403,
-      "take_profit": 0.535453,
-      "stop_loss": 0.506807,
-      "duration": 36,
-      "cum_pnl": 1.275661
-    },
-    {
-      "spread": "NZDCHF=X",
-      "entry_date": "2025-07-25",
-      "exit_date": "2025-09-05",
-      "type": "long",
-      "entry": 0.4777,
-      "exit": 0.47221,
-      "pnl": -0.009957,
-      "take_profit": 0.48892,
-      "stop_loss": 0.466481,
-      "duration": 42,
-      "cum_pnl": 1.265704
-    },
-    {
-      "spread": "NZDCAD=X",
-      "entry_date": "2025-08-20",
-      "exit_date": "2025-09-05",
-      "type": "long",
-      "entry": 0.80721,
-      "exit": 0.81045,
-      "pnl": 0.005428,
-      "take_profit": 0.818554,
-      "stop_loss": 0.795866,
-      "duration": 16,
-      "cum_pnl": 1.271132
-    },
-    {
-      "spread": "CADJPY=X",
-      "entry_date": "2025-07-11",
-      "exit_date": "2025-09-05",
-      "type": "short",
-      "entry": 107.638,
-      "exit": 107.454,
-      "pnl": 0.001416,
-      "take_profit": 105.343445,
-      "stop_loss": 109.932555,
-      "duration": 56,
-      "cum_pnl": 1.272548
-    },
-    {
-      "spread": "USDSEK=X",
-      "entry_date": "2025-07-18",
-      "exit_date": "2025-09-05",
-      "type": "long",
-      "entry": 9.65319,
-      "exit": 9.42214,
-      "pnl": -0.014589,
-      "take_profit": 9.972587,
-      "stop_loss": 9.333794,
-      "duration": 49,
-      "cum_pnl": 1.257959
-    },
-    {
-      "spread": "EURNOK=X",
-      "entry_date": "2025-09-02",
-      "exit_date": "2025-09-05",
-      "type": "long",
-      "entry": 11.6778,
-      "exit": 11.73661,
-      "pnl": 0.00997,
-      "take_profit": 11.791085,
-      "stop_loss": 11.564515,
-      "duration": 3,
-      "cum_pnl": 1.267929
     }
   ],
   "equity_curve": [
@@ -6090,66 +6220,203 @@
     {
       "date": "2025-09-03",
       "cumulative_pnl": 1.268949
+    }
+  ],
+  "open_trades": [
+    {
+      "spread": "AUDUSD=X",
+      "entry_date": "2025-07-08",
+      "last_date": "2025-09-05",
+      "type": "short",
+      "entry": 0.65302,
+      "last": 0.65425,
+      "mtm_return": -0.00233,
+      "take_profit": 0.641339,
+      "stop_loss": 0.664702,
+      "days_open": 59,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.277499
+      "spread": "CADJPY=X",
+      "entry_date": "2025-07-11",
+      "last_date": "2025-09-05",
+      "type": "short",
+      "entry": 107.638,
+      "last": 107.454,
+      "mtm_return": 0.001416,
+      "take_profit": 105.343445,
+      "stop_loss": 109.932555,
+      "days_open": 56,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.275169
+      "spread": "USDSEK=X",
+      "entry_date": "2025-07-18",
+      "last_date": "2025-09-05",
+      "type": "long",
+      "entry": 9.65319,
+      "last": 9.42214,
+      "mtm_return": -0.014589,
+      "take_profit": 9.972587,
+      "stop_loss": 9.333794,
+      "days_open": 49,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.281783
+      "spread": "NZDCHF=X",
+      "entry_date": "2025-07-25",
+      "last_date": "2025-09-05",
+      "type": "long",
+      "entry": 0.4777,
+      "last": 0.47221,
+      "mtm_return": -0.009957,
+      "take_profit": 0.48892,
+      "stop_loss": 0.466481,
+      "days_open": 42,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.284276
+      "spread": "AUDCHF=X",
+      "entry_date": "2025-07-31",
+      "last_date": "2025-09-05",
+      "type": "long",
+      "entry": 0.52113,
+      "last": 0.52582,
+      "mtm_return": 0.006403,
+      "take_profit": 0.535453,
+      "stop_loss": 0.506807,
+      "days_open": 36,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.273937
+      "spread": "EURAUD=X",
+      "entry_date": "2025-08-01",
+      "last_date": "2025-09-05",
+      "type": "short",
+      "entry": 1.78984,
+      "last": 1.78452,
+      "mtm_return": 0.002493,
+      "take_profit": 1.750036,
+      "stop_loss": 1.829644,
+      "days_open": 35,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.276876
+      "spread": "EURCAD=X",
+      "entry_date": "2025-08-01",
+      "last_date": "2025-09-05",
+      "type": "short",
+      "entry": 1.59689,
+      "last": 1.61054,
+      "mtm_return": -0.010339,
+      "take_profit": 1.569868,
+      "stop_loss": 1.623912,
+      "days_open": 35,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.266502
+      "spread": "EURCHF=X",
+      "entry_date": "2025-08-10",
+      "last_date": "2025-09-05",
+      "type": "short",
+      "entry": 0.94123,
+      "last": 0.93844,
+      "mtm_return": 0.006614,
+      "take_profit": 0.933363,
+      "stop_loss": 0.949097,
+      "days_open": 26,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.275102
+      "spread": "GBPUSD=X",
+      "entry_date": "2025-08-13",
+      "last_date": "2025-09-05",
+      "type": "short",
+      "entry": 1.3574,
+      "last": 1.34633,
+      "mtm_return": 0.00855,
+      "take_profit": 1.33214,
+      "stop_loss": 1.38266,
+      "days_open": 23,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.269258
+      "spread": "GBPJPY=X",
+      "entry_date": "2025-08-13",
+      "last_date": "2025-09-05",
+      "type": "short",
+      "entry": 200.04,
+      "last": 199.544,
+      "mtm_return": 0.002939,
+      "take_profit": 196.937303,
+      "stop_loss": 203.142697,
+      "days_open": 23,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.275661
+      "spread": "GBPCHF=X",
+      "entry_date": "2025-08-18",
+      "last_date": "2025-09-05",
+      "type": "long",
+      "entry": 1.08863,
+      "last": 1.08212,
+      "mtm_return": -0.010374,
+      "take_profit": 1.1016,
+      "stop_loss": 1.075659,
+      "days_open": 18,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.265704
+      "spread": "NZDCAD=X",
+      "entry_date": "2025-08-20",
+      "last_date": "2025-09-05",
+      "type": "long",
+      "entry": 0.80721,
+      "last": 0.81045,
+      "mtm_return": 0.005428,
+      "take_profit": 0.818554,
+      "stop_loss": 0.795866,
+      "days_open": 16,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.271132
+      "spread": "AUDJPY=X",
+      "entry_date": "2025-09-01",
+      "last_date": "2025-09-05",
+      "type": "short",
+      "entry": 96.401,
+      "last": 96.975,
+      "mtm_return": -0.005844,
+      "take_profit": 94.370615,
+      "stop_loss": 98.431385,
+      "days_open": 4,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.272548
+      "spread": "GBPCAD=X",
+      "entry_date": "2025-09-02",
+      "last_date": "2025-09-05",
+      "type": "long",
+      "entry": 1.84386,
+      "last": 1.85711,
+      "mtm_return": 0.0086,
+      "take_profit": 1.873816,
+      "stop_loss": 1.813905,
+      "days_open": 3,
+      "status": "open"
     },
     {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.257959
-    },
-    {
-      "date": "2025-09-05",
-      "cumulative_pnl": 1.267929
+      "spread": "EURNOK=X",
+      "entry_date": "2025-09-02",
+      "last_date": "2025-09-05",
+      "type": "long",
+      "entry": 11.6778,
+      "last": 11.73661,
+      "mtm_return": 0.00997,
+      "take_profit": 11.791085,
+      "stop_loss": 11.564515,
+      "days_open": 3,
+      "status": "open"
     }
   ]
 }
