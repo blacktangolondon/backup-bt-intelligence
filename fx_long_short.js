@@ -97,17 +97,20 @@ function ensureStickyHeader(paneId){
     periodLabel = trades[0].entry_date + ' → ' + trades[trades.length-1].exit_date;
   }
 
-  // KPI (realized) + open count (MTM rimosso)
+  // KPI (realized) + open count
   const k = stats.portfolio_kpis || {};
+  const totalPnl = k.total_pnl ?? trades.reduce((s,t)=>s+num(t.pnl),0);  // frazione (es. 1.2689 = 126.89%)
+  const maxDDabs = Math.abs(k.max_drawdown ?? 0);                        // frazione positiva
+  const ratioDD  = maxDDabs > 0 ? totalPnl / maxDDabs : null;            // numero puro
+
   const kpi = {
     period:         periodLabel || '—',
     totalTrades:    k.total_trades ?? trades.length,
     winRate:        (k.win_rate_pct ?? 0).toFixed(1) + '%',
-    totalPnl:       fmtPct(k.total_pnl ?? trades.reduce((s,t)=>s+num(t.pnl),0)),
-    maxDrawdown:    fmtPct(k.max_drawdown ?? 0),
+    // totalPnl & maxDrawdown NON più mostrati singolarmente
+    ratio_pnl_dd:   ratioDD,                      // nuovo KPI
     avgDuration:    (k.avg_duration_days ?? 0).toFixed(1) + ' d',
     openCount:      k.open_positions ?? openTrades.length
-    // openMtm:     — rimosso su richiesta
   };
 
   // Render KPI
@@ -122,7 +125,7 @@ function ensureStickyHeader(paneId){
   ensureStickyHeader('tab-realized');
   ensureStickyHeader('tab-open');
 
-  // Equity (area chart stile "screenshot")
+  // Equity (area chart stile “screenshot”)
   const curve = Array.isArray(stats.equity_curve) && stats.equity_curve.length
     ? stats.equity_curve.map(p => ({ x: p.date, y: num(p.cumulative_pnl) }))
     : (() => { let cum=0; return trades.map(t => { cum += num(t.pnl); return { x: t.exit_date, y: cum }; }); })();
@@ -143,16 +146,21 @@ function renderModule1(k) {
   const cont = document.getElementById('module1');
   if (!cont) return;
   cont.innerHTML = '';
+
+  // valore formattato del nuovo KPI (es. 2.08× oppure —)
+  const ratioText = (k.ratio_pnl_dd == null || !isFinite(k.ratio_pnl_dd))
+    ? '—'
+    : k.ratio_pnl_dd.toFixed(2) + '×';
+
   const items = [
-    { label: 'Period',        value: k.period },
-    { label: '# Trades',      value: k.totalTrades },
-    { label: 'Win Rate',      value: k.winRate },
-    { label: 'Total P&L (realized)', value: k.totalPnl },
-    { label: 'Max Drawdown',  value: k.maxDrawdown },
-    { label: 'Avg Duration',  value: k.avgDuration },
-    // 👉 MTM rimosso, mostro solo il numero di posizioni aperte
-    { label: 'Open Positions', value: `${k.openCount}` },
+    { label: 'Period',              value: k.period },
+    { label: '# Trades',            value: k.totalTrades },
+    { label: 'Win Rate',            value: k.winRate },
+    { label: 'P&L / Max DD',        value: ratioText },            // <— nuovo KPI unico
+    { label: 'Avg Duration',        value: k.avgDuration },
+    { label: 'Open Positions',      value: `${k.openCount}` },
   ];
+
   items.forEach(c => {
     const d = document.createElement('div');
     d.className = 'kpi-card';
@@ -277,11 +285,10 @@ function renderModule3(curve) {
 
   const labels = curve.map(p=>p.x);
 
-  // Converte cumulative_pnl in un indice (100 = inizio), per “aspetto equity”
+  // Converte cumulative_pnl in indice (100 = inizio)
   const base = 100;
   const dataIndex = curve.map(p => (1 + num(p.y)) * base);
 
-  // Area gradient arancione
   const grad = ctx.createLinearGradient(0, 0, 0, el.height);
   grad.addColorStop(0, 'rgba(246,163,19,0.35)');
   grad.addColorStop(1, 'rgba(246,163,19,0.00)');
@@ -307,9 +314,7 @@ function renderModule3(curve) {
       scales:{
         y:{
           grid:{ color:'#2a2a2a' },
-          ticks:{
-            callback: v => Number(v).toLocaleString()
-          }
+          ticks:{ callback: v => Number(v).toLocaleString() }
         },
         x:{
           grid:{ display:false },
@@ -318,11 +323,7 @@ function renderModule3(curve) {
       },
       plugins:{
         legend:{ display:true, position:'top', labels:{ color:'#ddd' } },
-        tooltip:{
-          callbacks:{
-            label: ctx => `Index: ${Number(ctx.parsed.y).toLocaleString()}`
-          }
-        }
+        tooltip:{ callbacks:{ label: ctx => `Index: ${Number(ctx.parsed.y).toLocaleString()}` } }
       }
     }
   });
