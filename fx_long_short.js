@@ -6,7 +6,7 @@ Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
 // ─── File paths (relative to THIS html file) ───
-const PATH_PREFIX   = '';  // '' = same folder as the HTML
+const PATH_PREFIX   = '';  // '' = stessa cartella del file HTML
 const STATS_FILE    = PATH_PREFIX + 'fx_long_short_stats.json';
 const CHANNELS_FILE = PATH_PREFIX + 'fx_channels.json';
 const STD_MULT      = 0.5;
@@ -32,12 +32,12 @@ const fetchJSON = async (url) => {
     return;
   }
 
-  // Realized trades
+  // Realized trades (chiuse)
   const trades = Array.isArray(stats.trades)
     ? stats.trades.slice().sort((a,b)=> new Date(a.exit_date) - new Date(b.exit_date))
     : [];
 
-  // Open positions (unrealized, MTM)
+  // Open positions (MTM)
   const openTrades = Array.isArray(stats.open_trades)
     ? stats.open_trades.slice().sort((a,b)=> new Date(a.entry_date) - new Date(b.entry_date))
     : [];
@@ -52,7 +52,7 @@ const fetchJSON = async (url) => {
     periodLabel = trades[0].entry_date + ' → ' + trades[trades.length-1].exit_date;
   }
 
-  // KPIs (realized), plus open badge
+  // KPI (realized) + badge open
   const k = stats.portfolio_kpis || {};
   const kpi = {
     period:         periodLabel || '—',
@@ -68,7 +68,10 @@ const fetchJSON = async (url) => {
   // Render KPI
   renderModule1(kpi);
 
-  // Render Historical Report with Tabs (Closed / Open)
+  // Sistemazione cromatica/strutturale del modulo 2 (niente titolo)
+  cleanModule2Chrome();
+
+  // Tab Closed / Open dentro il modulo 2
   renderReportTabs(trades, openTrades);
 
   // Equity (realized only)
@@ -77,7 +80,7 @@ const fetchJSON = async (url) => {
     : (() => { let cum=0; return trades.map(t => { cum += num(t.pnl); return { x: t.exit_date, y: cum }; }); })();
   renderModule3(curve);
 
-  // New Strategies Alert (prevUb/prevLb) — computed from channels JSON
+  // New Strategies Alert da channels (prevUb/prevLb)
   try {
     const channels = await fetchJSON(CHANNELS_FILE);
     const alerts = computeNewAlertsFrom(channels);
@@ -87,7 +90,7 @@ const fetchJSON = async (url) => {
   }
 })();
 
-// ───────── Module 1 — KPI cards ─────────
+// ───────── Modulo 1 — KPI cards ─────────
 function renderModule1(k) {
   const cont = document.getElementById('module1');
   if (!cont) return;
@@ -109,9 +112,56 @@ function renderModule1(k) {
   });
 }
 
-// ───────── Module 2 — Tabs (Closed / Open) ─────────
+// ───────── Modulo 2 — Tabs (Closed / Open) ─────────
+function cleanModule2Chrome() {
+  const m2 = document.getElementById('module2');
+  if (!m2) return;
+  // rimuovi il titolo “Historical Report” se presente
+  const h2 = m2.querySelector(':scope > h2');
+  if (h2) h2.remove();
+
+  // se manca la struttura tab, creala
+  if (!m2.querySelector('#reportTabs')) {
+    m2.insertAdjacentHTML('afterbegin', `
+      <div class="tabs" id="reportTabs">
+        <button class="tab active" data-tab="realized">Closed Trades</button>
+        <button class="tab" data-tab="open">Open Positions</button>
+      </div>
+      <div class="tabpanes">
+        <div class="tabpane active" id="tab-realized">
+          <div class="table-wrapper">
+            <table class="report-table">
+              <thead><tr></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tabpane" id="tab-open">
+          <div class="table-wrapper">
+            <table class="report-table">
+              <thead><tr></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    `);
+  } else {
+    // Assicura i wrapper per lo scroll e sticky header
+    ['tab-realized','tab-open'].forEach(id=>{
+      const pane = m2.querySelector('#'+id);
+      if (pane && !pane.querySelector('.table-wrapper')) {
+        const tbl = pane.querySelector('table');
+        const wrap = document.createElement('div');
+        wrap.className = 'table-wrapper';
+        tbl.parentNode.insertBefore(wrap, tbl);
+        wrap.appendChild(tbl);
+      }
+    });
+  }
+}
+
 function renderReportTabs(trades, openTrades){
-  // Wire tab buttons
   const tabs = document.querySelectorAll('#reportTabs .tab');
   const panes= {
     realized: document.getElementById('tab-realized'),
@@ -127,7 +177,7 @@ function renderReportTabs(trades, openTrades){
     });
   });
 
-  // Fill CLOSED trades table
+  // CLOSED
   {
     const thead = panes.realized.querySelector('thead tr');
     const tbody = panes.realized.querySelector('tbody');
@@ -154,7 +204,7 @@ function renderReportTabs(trades, openTrades){
     }
   }
 
-  // Fill OPEN positions table
+  // OPEN
   {
     const thead = panes.open.querySelector('thead tr');
     const tbody = panes.open.querySelector('tbody');
@@ -182,7 +232,7 @@ function renderReportTabs(trades, openTrades){
   }
 }
 
-// ───────── Module 3 — Equity chart (Chart.js) ─────────
+// ───────── Modulo 3 — Equity chart ─────────
 function renderModule3(curve) {
   const el = document.getElementById('equityChart');
   if (!el) return;
@@ -200,7 +250,7 @@ function renderModule3(curve) {
   });
 }
 
-// ───────── Module 4 — New Strategies Alert (prevUb/prevLb) ─────────
+// ───────── Modulo 4 — New Strategies Alert ─────────
 function computeNewAlertsFrom(channels){
   const out = [];
   if (!channels || typeof channels !== 'object') return out;
