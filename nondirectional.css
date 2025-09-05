@@ -40,14 +40,66 @@ body {
   overflow: hidden;
 }
 
-/* Module 2: Historical Trades */
-#module2 {
+/* --- Module 2: Report (Closed & Open) --- */
+#module2{
   grid-area: module2;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  overflow: auto;
+  height: 54vh;                /* altezza del modulo: regola a piacere */
+  overflow: auto;              /* <— ORA scorre TUTTO il modulo (tab + tabella) */
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 8px;
 }
+
+/* togli il vecchio titolo */
+#module2 > h2 { display: none; }
+
+/* Tabs: sticky nella parte alta del modulo */
+#module2 .tabs{
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: #1e1e1e;
+  padding-top: 4px;
+  margin: .25rem 0 .5rem;
+}
+#module2 .tab{ background:#222; color:#ffa500; border:1px solid #444; padding:.35rem .6rem; border-radius:6px; cursor:pointer; }
+#module2 .tab.active{ background:#ffa500; color:#111; border-color:#ffa500; }
+
+/* Pannelli */
+#module2 .tabpanes{ min-height: 0; }   /* lascia al modulo gestire l’altezza */
+#module2 .tabpane{ display:none; }
+#module2 .tabpane.active{ display:block; }
+
+/* wrapper senza overflow (scorre #module2) */
+#module2 .table-wrapper{ border: 1px solid #2a2a2a; border-radius: 6px; }
+
+/* Tabelle (compat Safari per sticky) */
+#module2 .report-table{ width:100%; border-collapse: separate; border-spacing:0; }
+#module2 .report-table th, 
+#module2 .report-table td{
+  padding: 6px 8px;
+  text-align: right;
+  font-size: 12px;
+  border-bottom: 1px solid #333;
+  white-space: nowrap;
+}
+#module2 .report-table th:first-child, 
+#module2 .report-table td:first-child{ text-align:left; }
+#module2 .report-table tr:nth-child(even){ background:#1a1a1a; }
+#module2 .report-table tr:hover{ background:#2a2a2a; }
+
+/* Header sticky: offset pari all’altezza dei tab */
+#module2 .report-table thead th{
+  position: sticky;
+  top: var(--tabs-h, 40px);   /* <-- aggiornato via JS in base ai tab */
+  z-index: 6;
+  background: #181818;
+  border-bottom: 1px solid #333;
+}
+
 
 /* Module 3: Performance Visuals (flex) */
 #module3 {
