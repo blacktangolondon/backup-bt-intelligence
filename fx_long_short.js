@@ -22,19 +22,62 @@ const fetchJSON = async (url) => {
   return r.json();
 };
 
-// 👉 NEW: calcola l’altezza dei tab e la passa al CSS come --tabs-h
+// 👉 offset per sticky: altezza dei tab (scritta come CSS var su #module2)
 function setStickyOffsets(){
   const m2 = document.getElementById('module2');
   const tabs = m2 ? m2.querySelector('.tabs') : null;
-  if (m2 && tabs) {
-    m2.style.setProperty('--tabs-h', tabs.offsetHeight + 'px');
-  }
+  if (m2 && tabs) m2.style.setProperty('--tabs-h', tabs.offsetHeight + 'px');
 }
-window.addEventListener('load', setStickyOffsets);
-window.addEventListener('resize', setStickyOffsets);
+
+// 👉 crea/sincronizza l'header sticky per una pane (id: "tab-realized" / "tab-open")
+function ensureStickyHeader(paneId){
+  const pane = document.getElementById(paneId);
+  if (!pane) return;
+  const wrap  = pane.querySelector('.table-wrapper');
+  const table = wrap ? wrap.querySelector('table') : null;
+  if (!table) return;
+
+  // crea contenitore sticky se mancante
+  let sticky = pane.querySelector('.sticky-head');
+  if (!sticky) {
+    sticky = document.createElement('div');
+    sticky.className = 'sticky-head';
+    sticky.innerHTML = `<table class="report-table"><thead>${table.querySelector('thead').innerHTML}</thead></table>`;
+    pane.insertBefore(sticky, wrap);
+  } else {
+    // allinea i titoli (se cambiano tra le due tab)
+    sticky.querySelector('thead').innerHTML = table.querySelector('thead').innerHTML;
+  }
+
+  // sincronizza larghezze colonne (clonato ↔ corpo)
+  const sync = () => {
+    const bodyTh = table.querySelectorAll('thead th');
+    const headTh = sticky.querySelectorAll('thead th');
+    if (!bodyTh.length || bodyTh.length !== headTh.length) return;
+
+    // usa le larghezze effettive della tabella corpo
+    const widths = Array.from(bodyTh).map(th => th.getBoundingClientRect().width);
+    sticky.style.width = wrap.getBoundingClientRect().width + 'px';
+    sticky.querySelector('table').style.tableLayout = 'fixed';
+    table.style.tableLayout = 'fixed';
+    widths.forEach((w,i) => {
+      headTh[i].style.width = w + 'px';
+      bodyTh[i].style.width = w + 'px';
+    });
+  };
+
+  // sincronizza ora e al prossimo frame (dopo layout)
+  sync();
+  requestAnimationFrame(sync);
+  // anche su resize
+  window.addEventListener('resize', sync);
+}
 
 // ─── Boot ───
 (async function () {
+  window.addEventListener('load', setStickyOffsets);
+  window.addEventListener('resize', setStickyOffsets);
+
   let stats;
   try {
     stats = await fetchJSON(STATS_FILE);
@@ -79,14 +122,14 @@ window.addEventListener('resize', setStickyOffsets);
   // Render KPI
   renderModule1(kpi);
 
-  // Pulizia modulo 2 (niente titolo) + struttura tab
+  // Modulo 2 (tabs + tabelle)
   cleanModule2Chrome();
-
-  // Tab Closed / Open dentro il modulo 2
   renderReportTabs(trades, openTrades);
 
-  // 👉 NEW: aggiorna l’offset sticky ora che i tab esistono
+  // offset sticky e header sticky per entrambe le tab
   setStickyOffsets();
+  ensureStickyHeader('tab-realized');
+  ensureStickyHeader('tab-open');
 
   // Equity (realized only)
   const curve = Array.isArray(stats.equity_curve) && stats.equity_curve.length
@@ -143,6 +186,7 @@ function cleanModule2Chrome() {
       </div>
       <div class="tabpanes">
         <div class="tabpane active" id="tab-realized">
+          <div class="sticky-head"></div>
           <div class="table-wrapper">
             <table class="report-table">
               <thead><tr></tr></thead>
@@ -151,6 +195,7 @@ function cleanModule2Chrome() {
           </div>
         </div>
         <div class="tabpane" id="tab-open">
+          <div class="sticky-head"></div>
           <div class="table-wrapper">
             <table class="report-table">
               <thead><tr></tr></thead>
@@ -160,18 +205,6 @@ function cleanModule2Chrome() {
         </div>
       </div>
     `);
-  } else {
-    // Assicura i wrapper
-    ['tab-realized','tab-open'].forEach(id=>{
-      const pane = m2.querySelector('#'+id);
-      if (pane && !pane.querySelector('.table-wrapper')) {
-        const tbl = pane.querySelector('table');
-        const wrap = document.createElement('div');
-        wrap.className = 'table-wrapper';
-        tbl.parentNode.insertBefore(wrap, tbl);
-        wrap.appendChild(tbl);
-      }
-    });
   }
 }
 
@@ -188,8 +221,8 @@ function renderReportTabs(trades, openTrades){
       const tab = btn.dataset.tab;
       panes.realized.classList.toggle('active', tab==='realized');
       panes.open.classList.toggle('active', tab==='open');
-      // 👉 NEW: ricalcola offset sticky nel caso cambi l’altezza dei tab
       setStickyOffsets();
+      ensureStickyHeader(tab === 'realized' ? 'tab-realized' : 'tab-open');
     });
   });
 
