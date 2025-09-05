@@ -37,7 +37,6 @@ function ensureStickyHeader(paneId){
   const table = wrap ? wrap.querySelector('table') : null;
   if (!table) return;
 
-  // crea contenitore sticky se mancante
   let sticky = pane.querySelector('.sticky-head');
   if (!sticky) {
     sticky = document.createElement('div');
@@ -45,17 +44,13 @@ function ensureStickyHeader(paneId){
     sticky.innerHTML = `<table class="report-table"><thead>${table.querySelector('thead').innerHTML}</thead></table>`;
     pane.insertBefore(sticky, wrap);
   } else {
-    // allinea i titoli (se cambiano tra le due tab)
     sticky.querySelector('thead').innerHTML = table.querySelector('thead').innerHTML;
   }
 
-  // sincronizza larghezze colonne (clonato ↔ corpo)
   const sync = () => {
     const bodyTh = table.querySelectorAll('thead th');
     const headTh = sticky.querySelectorAll('thead th');
     if (!bodyTh.length || bodyTh.length !== headTh.length) return;
-
-    // usa le larghezze effettive della tabella corpo
     const widths = Array.from(bodyTh).map(th => th.getBoundingClientRect().width);
     sticky.style.width = wrap.getBoundingClientRect().width + 'px';
     sticky.querySelector('table').style.tableLayout = 'fixed';
@@ -65,11 +60,7 @@ function ensureStickyHeader(paneId){
       bodyTh[i].style.width = w + 'px';
     });
   };
-
-  // sincronizza ora e al prossimo frame (dopo layout)
-  sync();
-  requestAnimationFrame(sync);
-  // anche su resize
+  sync(); requestAnimationFrame(sync);
   window.addEventListener('resize', sync);
 }
 
@@ -106,7 +97,7 @@ function ensureStickyHeader(paneId){
     periodLabel = trades[0].entry_date + ' → ' + trades[trades.length-1].exit_date;
   }
 
-  // KPI (realized) + badge open
+  // KPI (realized) + open count (MTM rimosso)
   const k = stats.portfolio_kpis || {};
   const kpi = {
     period:         periodLabel || '—',
@@ -115,8 +106,8 @@ function ensureStickyHeader(paneId){
     totalPnl:       fmtPct(k.total_pnl ?? trades.reduce((s,t)=>s+num(t.pnl),0)),
     maxDrawdown:    fmtPct(k.max_drawdown ?? 0),
     avgDuration:    (k.avg_duration_days ?? 0).toFixed(1) + ' d',
-    openCount:      k.open_positions ?? openTrades.length,
-    openMtm:        fmtPct(k.mtm_open_pnl ?? openTrades.reduce((s,t)=>s+num(t.mtm_return),0))
+    openCount:      k.open_positions ?? openTrades.length
+    // openMtm:     — rimosso su richiesta
   };
 
   // Render KPI
@@ -131,7 +122,7 @@ function ensureStickyHeader(paneId){
   ensureStickyHeader('tab-realized');
   ensureStickyHeader('tab-open');
 
-  // Equity (realized only)
+  // Equity (area chart stile "screenshot")
   const curve = Array.isArray(stats.equity_curve) && stats.equity_curve.length
     ? stats.equity_curve.map(p => ({ x: p.date, y: num(p.cumulative_pnl) }))
     : (() => { let cum=0; return trades.map(t => { cum += num(t.pnl); return { x: t.exit_date, y: cum }; }); })();
@@ -159,7 +150,8 @@ function renderModule1(k) {
     { label: 'Total P&L (realized)', value: k.totalPnl },
     { label: 'Max Drawdown',  value: k.maxDrawdown },
     { label: 'Avg Duration',  value: k.avgDuration },
-    { label: 'Open Positions', value: `${k.openCount} | MTM: ${k.openMtm}` },
+    // 👉 MTM rimosso, mostro solo il numero di posizioni aperte
+    { label: 'Open Positions', value: `${k.openCount}` },
   ];
   items.forEach(c => {
     const d = document.createElement('div');
@@ -173,11 +165,7 @@ function renderModule1(k) {
 function cleanModule2Chrome() {
   const m2 = document.getElementById('module2');
   if (!m2) return;
-  // rimuovi il titolo “Historical Report” se presente
-  const h2 = m2.querySelector(':scope > h2');
-  if (h2) h2.remove();
-
-  // se manca la struttura tab, creala
+  const h2 = m2.querySelector(':scope > h2'); if (h2) h2.remove();
   if (!m2.querySelector('#reportTabs')) {
     m2.insertAdjacentHTML('afterbegin', `
       <div class="tabs" id="reportTabs">
@@ -281,20 +269,61 @@ function renderReportTabs(trades, openTrades){
   }
 }
 
-// ───────── Modulo 3 — Equity chart ─────────
+// ───────── Modulo 3 — Equity chart (stile “screenshot”) ─────────
 function renderModule3(curve) {
   const el = document.getElementById('equityChart');
   if (!el) return;
   const ctx = el.getContext('2d');
+
   const labels = curve.map(p=>p.x);
-  const data   = curve.map(p=>num(p.y)*100);
+
+  // Converte cumulative_pnl in un indice (100 = inizio), per “aspetto equity”
+  const base = 100;
+  const dataIndex = curve.map(p => (1 + num(p.y)) * base);
+
+  // Area gradient arancione
+  const grad = ctx.createLinearGradient(0, 0, 0, el.height);
+  grad.addColorStop(0, 'rgba(246,163,19,0.35)');
+  grad.addColorStop(1, 'rgba(246,163,19,0.00)');
+
   new Chart(ctx,{
     type:'line',
-    data:{ labels, datasets:[{ label:'Cumulative Return (%)', data, borderWidth:1, fill:false }]},
+    data:{
+      labels,
+      datasets:[{
+        label: 'Portfolio Value (Index)',
+        data: dataIndex,
+        borderColor: '#F6A313',
+        backgroundColor: grad,
+        fill: true,
+        pointRadius: 0,
+        tension: 0.25,
+        borderWidth: 2,
+      }]
+    },
     options:{
-      maintainAspectRatio:false, layout:{padding:{bottom:16}},
-      scales:{ y:{ title:{display:true,text:'%'}, ticks:{ callback:v => v.toFixed(1)+'%' } }, x:{ ticks:{ maxRotation:0, autoSkip:true } } },
-      plugins:{ legend:{display:false} }
+      maintainAspectRatio:false,
+      layout:{padding:{bottom:12, left:8, right:8, top:8}},
+      scales:{
+        y:{
+          grid:{ color:'#2a2a2a' },
+          ticks:{
+            callback: v => Number(v).toLocaleString()
+          }
+        },
+        x:{
+          grid:{ display:false },
+          ticks:{ maxRotation:0, autoSkip:true }
+        }
+      },
+      plugins:{
+        legend:{ display:true, position:'top', labels:{ color:'#ddd' } },
+        tooltip:{
+          callbacks:{
+            label: ctx => `Index: ${Number(ctx.parsed.y).toLocaleString()}`
+          }
+        }
+      }
     }
   });
 }
