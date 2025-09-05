@@ -5,32 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Futures — Non-Directional Strategies Dashboard</title>
   <link rel="stylesheet" href="nondirectional.css" />
+
+  <!-- Full-width override per uniformarsi al layout FX -->
+  <style>
+    html, body { margin: 0; height: 100%; }
+    #container {
+      max-width: none !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 12px 16px;
+      box-sizing: border-box;
+    }
+    .card, .card-grid, .charts-card, .table-card {
+      max-width: none !important;
+      width: 100%;
+    }
+    .table-wrapper table { width: 100%; }
+    canvas { width: 100% !important; height: auto; }
+  </style>
 </head>
 <body>
   <div id="container">
+
+    <!-- Module 1: Portfolio KPI Cards -->
     <section id="module1" class="card-grid"></section>
 
-    <section id="module2" class="card table-card">
+    <!-- Module 2: Historical Report con tabs (Closed / Open) -->
+    <section id="module2" class="module">
       <h2>Historical Report</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead><tr></tr></thead>
-          <tbody></tbody>
-        </table>
+
+      <!-- Tabs -->
+      <div class="tabs" id="reportTabs">
+        <button class="tab active" data-tab="realized">Closed Trades</button>
+        <button class="tab" data-tab="open">Open Positions</button>
+      </div>
+
+      <!-- Tab panes -->
+      <div class="tabpanes">
+        <!-- Realized trades -->
+        <div class="tabpane active" id="tab-realized">
+          <table class="report-table">
+            <thead><tr></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <!-- Open positions -->
+        <div class="tabpane" id="tab-open">
+          <table class="report-table">
+            <thead><tr></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </div>
     </section>
 
+    <!-- Module 3: Performance Visuals -->
     <section id="module3" class="card charts-card">
       <canvas id="equityChart"></canvas>
     </section>
 
+    <!-- Module 4: New Strategies Alert -->
     <section id="module4" class="card table-card">
       <h2>New Strategies Alert</h2>
       <div class="table-wrapper">
         <table>
           <thead>
             <tr>
-              <th>Spread</th>
+              <th>Ticker</th>
               <th>Signal</th>
               <th>Open Price</th>
               <th>Take Profit</th>
