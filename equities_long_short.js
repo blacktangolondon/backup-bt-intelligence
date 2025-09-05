@@ -1,238 +1,298 @@
-// nondirectional.js
+// Dashboard glue (Chart.js required in HTML)
 
-// ─── Global Chart.js font defaults ───
+// ─── Chart.js defaults ───
 Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
-// ——— Position-sizing & fees settings ———
-const ACCOUNT_SIZE   = 20000;   // your Saxo account equity in $
-const RISK_PCT       = 0.02;    // risk per trade (2%)
-const COMMISSION_PCT = 0.004;   // commission (0.4%)
+// ─── File paths (relative to THIS html file) ───
+const STATS_FILE    = 'equities_long_short_stats.json';
+const CHANNELS_FILE = 'eq_channels.json';
 
-// ——— Helper at top-level so every renderModule can use it ———
-function ret(t) {
-  // for Module 3: return the fractional return, matching Excel col M
-  return t.returnPct;
-}
+// Per coerenza con EQUITY (ingressi su ±2σ di default)
+const STD_MULT      = 2.0;
 
-(async function() {
-  // 1) Load stats & trades
-  const resp   = await fetch('equities_long_short_stats.json');
-  if (!resp.ok) {
-    console.error('JSON load failed');
-    return;
+// ─── Helpers ───
+const fmtPct = v => (Number(v) * 100).toFixed(2) + '%';
+const num    = v => Number.isFinite(Number(v)) ? Number(v) : 0;
+const fetchJSON = async (url) => {
+  const u = url + (url.includes('?') ? '&' : '?') + 'ts=' + Date.now();
+  const r = await fetch(u, { cache: 'no-store' });
+  if (!r.ok) throw new Error(`Failed to load ${u}: ${r.status}`);
+  return r.json();
+};
+
+// ─── Boot ───
+(async function () {
+  let stats;
+  try { stats = await fetchJSON(STATS_FILE); }
+  catch (e) { console.error('JSON load failed for stats:', e); return; }
+
+  // Realized trades (chiuse)
+  const trades = Array.isArray(stats.trades)
+    ? stats.trades.slice().sort((a,b)=> new Date(a.exit_date) - new Date(b.exit_date))
+    : [];
+
+  // Open positions (MTM)
+  const openTrades = Array.isArray(stats.open_trades)
+    ? stats.open_trades.slice().sort((a,b)=> new Date(a.entry_date) - new Date(b.entry_date))
+    : [];
+
+  // Period label
+  let periodLabel = '';
+  if (stats.portfolio_kpis && stats.portfolio_kpis.period) {
+    const p = stats.portfolio_kpis.period;
+    if (p.start && p.end) periodLabel = p.start + ' → ' + p.end;
+    else if (typeof p === 'string') periodLabel = p;
+  } else if (trades.length) {
+    periodLabel = trades[0].entry_date + ' → ' + trades[trades.length-1].exit_date;
   }
-  const stats  = await resp.json();
-  const trades = stats.trades;
 
-  // 1a) Compute net P&L and return% for each trade (Excel cols J, M)
-const riskAmt = ACCOUNT_SIZE * RISK_PCT;
+  // KPI (realized)  — Niente MTM qui. Unifico P&L/DD come da FX.
+  const k = stats.portfolio_kpis || {};
+  const totalPnl = num(k.total_pnl);
+  const maxDD    = Math.max(0, num(k.max_drawdown));
+  const pnlOverDD= (maxDD > 0) ? (totalPnl / maxDD) : NaN;
 
-trades.forEach(t => {
-  const dist    = Math.abs(t.entry - t.take_profit);
-  const shares  = dist > 0 ? (riskAmt / dist) : 0;   // pezzi
-  const notional= shares * t.entry;                  // valore monetario
-  const commission = notional * COMMISSION_PCT;      // ok se 0.004 è già round-trip
+  const kpi = {
+    period:         periodLabel || '—',
+    totalTrades:    k.total_trades ?? trades.length,
+    winRate:        (k.win_rate_pct ?? 0).toFixed(1) + '%',
+    pnlOverDD:      Number.isFinite(pnlOverDD) ? pnlOverDD.toFixed(2) : '—',
+    avgDuration:    (k.avg_duration_days ?? 0).toFixed(1) + ' d',
+    openCount:      k.open_positions ?? openTrades.length
+  };
 
-  const grossPnl = (t.type === 'long'
-    ? (t.exit - t.entry) * shares
-    : (t.entry - t.exit) * shares);
+  // Render KPI
+  renderModule1(kpi);
 
-  const netPnl = grossPnl - commission;
-  t.returnPct  = netPnl / ACCOUNT_SIZE;
-});
+  // Pulizia modulo 2 (niente titolo) + struttura tab + wrapper scrollabile & sticky
+  cleanModule2Chrome();
 
-  // 1b) Build percent-return array (fractions) for Module 3
-  const rets = trades.map(ret);
+  // Tab Closed / Open
+  renderReportTabs(trades, openTrades);
 
-  // 2) Compute durations (in days) – unchanged
-  const durations = trades
-    .map(t => (new Date(t.exit_date) - new Date(t.entry_date)) / (1000 * 60 * 60 * 24))
-    .sort((a, b) => a - b);
+  // Equity (Portfolio Value Index, base=100)
+  const curve = Array.isArray(stats.equity_curve) && stats.equity_curve.length
+    ? stats.equity_curve.map(p => ({ x: p.date, y: num(p.cumulative_pnl) }))
+    : (() => { let cum=0; return trades.map(t => { cum += num(t.pnl); return { x: t.exit_date, y: cum }; }); })();
 
-  // 3) Compute period string – unchanged
-  const entryDates = trades.map(t => new Date(t.entry_date));
-  const exitDates  = trades.map(t => new Date(t.exit_date));
-  const startDate  = new Date(Math.min(...entryDates));
-  const endDate    = new Date(Math.max(...exitDates));
-  const fmt = d => d.toLocaleString('default', { month: 'short', year: 'numeric' });
-  const period = `${fmt(startDate)} – ${fmt(endDate)}`;
+  renderModule3_asIndex(curve);
 
-  // 4) Compute metrics – unchanged
-  const numTrades   = trades.length;
-  const mid         = Math.floor(durations.length / 2);
-  const medDur      = durations.length % 2 === 1
-    ? durations[mid]
-    : (durations[mid - 1] + durations[mid]) / 2;
-  const quickestDur = Math.min(...durations);
-  const maxDrawdown = stats.portfolio_kpis.max_drawdown * 100;
-  const avgRet      = rets.reduce((sum, r) => sum + r, 0) / rets.length;
-  const downsideRs  = rets.filter(r => r < 0);
-  const downsideSD  = downsideRs.length
-    ? Math.sqrt(downsideRs.reduce((sum, r) => sum + r*r, 0) / downsideRs.length)
-    : 0;
-  const sortino     = downsideSD > 0 ? avgRet / downsideSD : 0;
-
-  // 5) Render everything
-  renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino });
-  renderModule2(trades);
-  renderModule3(rets);
-  renderModule4();
+  // New Strategies Alert (prevUb/prevLb)
+  try {
+    const channels = await fetchJSON(CHANNELS_FILE);
+    const alerts = computeNewAlertsFrom(channels);
+    renderModule4(alerts);
+  } catch (e) {
+    console.warn('Channels load failed:', e);
+  }
 })();
 
-// —––– Module 1 — Portfolio KPI Cards —–––
-function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino }) {
+// ───────── Modulo 1 — KPI cards ─────────
+function renderModule1(k) {
   const cont = document.getElementById('module1');
+  if (!cont) return;
   cont.innerHTML = '';
-  [
-    { label: 'Period',           value: period },
-    { label: '# Trades',         value: numTrades },
-    { label: 'Median Duration',  value: medDur.toFixed(0)    + ' days' },
-    { label: 'Quickest Trade',   value: quickestDur.toFixed(0) + ' days' },
-    { label: 'Max Drawdown',     value: maxDrawdown.toFixed(1) + '%' },
-    { label: 'Sortino Ratio',    value: sortino.toFixed(2)     }
-  ].forEach(c => {
+  const items = [
+    { label: 'Period',        value: k.period },
+    { label: '# Trades',      value: k.totalTrades },
+    { label: 'Win Rate',      value: k.winRate },
+    { label: 'P&L / Max DD',  value: k.pnlOverDD },
+    { label: 'Avg Duration',  value: k.avgDuration },
+    { label: 'Open Positions',value: k.openCount }
+  ];
+  items.forEach(c => {
     const d = document.createElement('div');
     d.className = 'kpi-card';
-    d.innerHTML = `
-      <div class="kpi-value">${c.value}</div>
-      <div class="kpi-label">${c.label}</div>
-    `;
+    d.innerHTML = `<div class="kpi-value">${c.value}</div><div class="kpi-label">${c.label}</div>`;
     cont.appendChild(d);
   });
 }
 
-// —––– Module 2 — Historical Report
-function renderModule2(trades) {
-  const tbody = document.querySelector('#module2 tbody');
-  tbody.innerHTML = '';
+// ───────── Modulo 2 — Tabs (Closed / Open) ─────────
+function cleanModule2Chrome() {
+  const m2 = document.getElementById('module2');
+  if (!m2) return;
 
-  // rebuild header
-  const thead = document.querySelector('#module2 thead tr');
-  thead.innerHTML = `
-    <th>Spread</th>
-    <th>Signal</th>
-    <th>Open Date</th>
-    <th>Close Date</th>
-    <th>Open Price</th>
-    <th>Close Price</th>
-    <th>Take Profit</th>
-    <th>Stop Loss</th>
-    <th>Return</th>
-  `;
-
-  trades
-    .slice()
-    .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
-    .forEach(t => {
-      const retPct = (t.returnPct * 100).toFixed(2) + '%';
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${t.spread}</td>
-        <td>${t.type === 'long' ? 'Long' : 'Short'}</td>
-        <td>${t.entry_date}</td>
-        <td>${t.exit_date}</td>
-        <td>${t.entry.toFixed(4)}</td>
-        <td>${t.exit.toFixed(4)}</td>
-        <td>${t.take_profit.toFixed(4)}</td>
-        <td>${t.stop_loss.toFixed(4)}</td>
-        <td>${retPct}</td>
-      `;
-      tbody.appendChild(tr);
-    });
+  // se manca la struttura tab, creala
+  if (!m2.querySelector('#reportTabs')) {
+    m2.insertAdjacentHTML('afterbegin', `
+      <div class="tabs" id="reportTabs">
+        <button class="tab active" data-tab="realized">Closed Trades</button>
+        <button class="tab" data-tab="open">Open Positions</button>
+      </div>
+      <div class="tabpanes">
+        <div class="tabpane active" id="tab-realized">
+          <div class="table-wrapper">
+            <table class="report-table">
+              <thead><tr></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tabpane" id="tab-open">
+          <div class="table-wrapper">
+            <table class="report-table">
+              <thead><tr></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    `);
+  }
 }
 
-// —––– Module 3 — Arithmetic Equity Curve
-function renderModule3(rets) {
-  const cum = [];
-  let sum   = 0;
-  rets.forEach(r => {
-    sum += r;
-    cum.push(sum * 100);
+function renderReportTabs(trades, openTrades){
+  const tabs = document.querySelectorAll('#reportTabs .tab');
+  const panes= {
+    realized: document.getElementById('tab-realized'),
+    open:     document.getElementById('tab-open')
+  };
+  tabs.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      tabs.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      panes.realized.classList.toggle('active', tab==='realized');
+      panes.open.classList.toggle('active', tab==='open');
+    });
   });
 
-  new Chart(
-    document.getElementById('equityChart').getContext('2d'),
-    {
-      type: 'line',
-      data: {
-        labels: cum.map((_, i) => i + 1),
-        datasets: [{
-          label: 'Cumulative Return',
-          data: cum,
-          borderColor: '#FFA500',
-          fill: false
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        layout: { padding: { bottom: 20 } },
-        scales: {
-          y: {
-            title: {
-              display: true,
-              text: 'Cumulative Return (%)',
-              font: { size: 14 }
-            },
-            ticks: { callback: v => v.toFixed(1) + '%' }
-          },
-          x: { display: false }
-        },
-        plugins: { legend: { display: false } }
-      }
-    }
-  );
-}
-
-// —––– Module 4 — New Strategies Alert —–––
-async function renderModule4() {
-  try {
-    const resp = await fetch('eq_channels.json');
-    const data = await resp.json();
-
-    const alerts = Object.entries(data)
-      .filter(([_, series]) => Array.isArray(series) && series.length >= 2)
-      .map(([spread, series]) => {
-        const prev = series[series.length - 2];
-        const last = series[series.length - 1];
-
-        // [date, ratio, lower1, lower2, upper1, upper2]
-        const [, prevPrice, , prevLower2, , prevUpper2] = prev;
-        const [, price,     , lower2,     , upper2]     = last;
-
-        const justBrokeLong  = (price <  lower2) && (prevPrice >= prevLower2);
-        const justBrokeShort = (price >  upper2) && (prevPrice <= prevUpper2);
-        if (!(justBrokeLong || justBrokeShort)) return;
-
-        const signal = justBrokeLong ? 'Long' : 'Short';
-        const mid    = (lower2 + upper2) / 2;     // == trend
-        const half   = Math.abs(price - mid);     // distanza simmetrica
-
-        return {
-          spread,
-          signal,
-          entry:      price,
-          takeProfit: mid,
-          stopLoss:   signal === 'Long' ? price - half : price + half
-        };
-      })
-      .filter(Boolean);
-
-    const tbody = document.querySelector('#module4 tbody');
+  // CLOSED
+  {
+    const thead = panes.realized.querySelector('thead tr');
+    const tbody = panes.realized.querySelector('tbody');
+    thead.innerHTML = `
+      <th>Ticker</th><th>Signal</th><th>Open Date</th><th>Close Date</th>
+      <th>Open Price</th><th>Close Price</th><th>Target</th><th>Stop</th><th>Return</th><th>Exit</th>
+    `;
     tbody.innerHTML = '';
-    alerts.forEach(a => {
-      const tr = document.createElement('tr');
+    trades.forEach(t=>{
+      const tr=document.createElement('tr');
       tr.innerHTML = `
-        <td>${a.spread}</td>
-        <td>${a.signal}</td>
-        <td>${a.entry.toFixed(4)}</td>
-        <td>${a.takeProfit.toFixed(4)}</td>
-        <td>${a.stopLoss.toFixed(4)}</td>
+        <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
+        <td>${t.entry_date}</td><td>${t.exit_date}</td>
+        <td>${num(t.entry).toFixed(4)}</td><td>${num(t.exit).toFixed(4)}</td>
+        <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
+        <td>${fmtPct(num(t.pnl))}</td><td>${t.exit_reason || ''}</td>
       `;
       tbody.appendChild(tr);
     });
-  } catch (err) {
-    console.error('Module 4 render error:', err);
+    if (!trades.length){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td colspan="10" style="text-align:center;opacity:.7">No closed trades</td>`;
+      tbody.appendChild(tr);
+    }
   }
+
+  // OPEN
+  {
+    const thead = panes.open.querySelector('thead tr');
+    const tbody = panes.open.querySelector('tbody');
+    thead.innerHTML = `
+      <th>Ticker</th><th>Signal</th><th>Open Date</th><th>Days Open</th>
+      <th>Entry</th><th>Last</th><th>Target</th><th>Stop</th><th>Return (MTM)</th>
+    `;
+    tbody.innerHTML = '';
+    openTrades.forEach(t=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML = `
+        <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
+        <td>${t.entry_date}</td><td>${num(t.days_open)}</td>
+        <td>${num(t.entry).toFixed(4)}</td><td>${num(t.last).toFixed(4)}</td>
+        <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
+        <td>${fmtPct(num(t.mtm_return))}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+    if (!openTrades.length){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td colspan="9" style="text-align:center;opacity:.7">No open positions</td>`;
+      tbody.appendChild(tr);
+    }
+  }
+}
+
+// ───────── Modulo 3 — Portfolio Value Index ─────────
+function renderModule3_asIndex(curve) {
+  const el = document.getElementById('equityChart');
+  if (!el) return;
+  const ctx = el.getContext('2d');
+
+  // trasformo cumulative pnl in indice base 100
+  const labels = curve.map(p=>p.date);
+  const base = 100;
+  const data  = curve.map(p=>p.y);
+  const minY  = Math.min(0, ...data);
+  const idx   = data.map(v => base * (1 + v)); // 1+pnl cumulato
+
+  new Chart(ctx,{
+    type:'line',
+    data:{ labels, datasets:[{ label:'Portfolio Value Index (base=100)', data: idx, borderWidth:1, fill:false }]},
+    options:{
+      maintainAspectRatio:false, layout:{padding:{bottom:16}},
+      scales:{
+        y:{ title:{display:true,text:'Index'}, ticks:{ callback:v => v.toFixed(0) } },
+        x:{ ticks:{ maxRotation:0, autoSkip:true } }
+      },
+      plugins:{ legend:{display:false} }
+    }
+  });
+}
+
+// ───────── Modulo 4 — New Strategies Alert (prevUb/prevLb, σ=STD_MULT) ─────────
+function computeNewAlertsFrom(channels){
+  const out = [];
+  if (!channels || typeof channels !== 'object') return out;
+
+  for (const key of Object.keys(channels)){
+    const rows = channels[key];
+    if(!Array.isArray(rows) || rows.length < 2) continue;
+
+    const last  = rows[rows.length-1];
+    const prev  = rows[rows.length-2];
+
+    // [date, ratio, lower1, lower2, upper1, upper2]
+    const r_now   = num(last[1]),  l1 = num(last[2]),  u1 = num(last[4]);
+    const r_prev  = num(prev[1]), pl1 = num(prev[2]), pu1 = num(prev[4]);
+
+    const t_now   = (u1 + l1)/2;
+    const s_now   = Math.abs(u1 - t_now);
+    const t_prev  = (pu1 + pl1)/2;
+    const s_prev  = Math.abs(pu1 - t_prev);
+
+    const ub      = t_now  + s_now  * STD_MULT;
+    const lb      = t_now  - s_now  * STD_MULT;
+    const prevUb  = t_prev + s_prev * STD_MULT;
+    const prevLb  = t_prev - s_prev * STD_MULT;
+
+    if (r_now > ub && r_prev <= prevUb){
+      out.push({spread:key, signal:'Short', open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now + Math.abs(r_now - t_now)).toFixed(4)});
+    } else if (r_now < lb && r_prev >= prevLb){
+      out.push({spread:key, signal:'Long',  open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now - Math.abs(t_now - r_now)).toFixed(4)});
+    }
+  }
+  return out;
+}
+
+function renderModule4(alerts){
+  const tbody = document.querySelector('#module4 tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  if(!alerts.length){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td colspan="5" style="text-align:center;opacity:.7">No new signals today</td>`;
+    tbody.appendChild(tr);
+    return;
+  }
+  alerts.forEach(a=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${a.spread}</td><td>${a.signal}</td>
+      <td>${a.open}</td><td>${a.tp}</td><td>${a.sl}</td>
+    `;
+    tbody.appendChild(tr);
+  });
 }
