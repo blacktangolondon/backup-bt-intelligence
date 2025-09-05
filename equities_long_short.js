@@ -9,7 +9,7 @@ Chart.defaults.font.weight = 'normal';
 const STATS_FILE    = 'equities_long_short_stats.json';
 const CHANNELS_FILE = 'eq_channels.json';
 
-// Per coerenza con EQUITY (ingressi su ±2σ di default)
+// Coerenza con equity (ingressi ±2σ di default)
 const STD_MULT      = 2.0;
 
 // ─── Helpers ───
@@ -48,7 +48,7 @@ const fetchJSON = async (url) => {
     periodLabel = trades[0].entry_date + ' → ' + trades[trades.length-1].exit_date;
   }
 
-  // KPI (realized)  — Niente MTM qui. Unifico P&L/DD come da FX.
+  // KPI (realized) — P&L / Max DD unico
   const k = stats.portfolio_kpis || {};
   const totalPnl = num(k.total_pnl);
   const maxDD    = Math.max(0, num(k.max_drawdown));
@@ -63,16 +63,11 @@ const fetchJSON = async (url) => {
     openCount:      k.open_positions ?? openTrades.length
   };
 
-  // Render KPI
   renderModule1(kpi);
-
-  // Pulizia modulo 2 (niente titolo) + struttura tab + wrapper scrollabile & sticky
   cleanModule2Chrome();
-
-  // Tab Closed / Open
   renderReportTabs(trades, openTrades);
 
-  // Equity (Portfolio Value Index, base=100)
+  // Equity → Portfolio Value Index (base=100) con stile visibile
   const curve = Array.isArray(stats.equity_curve) && stats.equity_curve.length
     ? stats.equity_curve.map(p => ({ x: p.date, y: num(p.cumulative_pnl) }))
     : (() => { let cum=0; return trades.map(t => { cum += num(t.pnl); return { x: t.exit_date, y: cum }; }); })();
@@ -114,34 +109,31 @@ function renderModule1(k) {
 function cleanModule2Chrome() {
   const m2 = document.getElementById('module2');
   if (!m2) return;
-
-  // se manca la struttura tab, creala
-  if (!m2.querySelector('#reportTabs')) {
-    m2.insertAdjacentHTML('afterbegin', `
-      <div class="tabs" id="reportTabs">
-        <button class="tab active" data-tab="realized">Closed Trades</button>
-        <button class="tab" data-tab="open">Open Positions</button>
-      </div>
-      <div class="tabpanes">
-        <div class="tabpane active" id="tab-realized">
-          <div class="table-wrapper">
-            <table class="report-table">
-              <thead><tr></tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-        <div class="tabpane" id="tab-open">
-          <div class="table-wrapper">
-            <table class="report-table">
-              <thead><tr></tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
+  // crea struttura tab + wrappers scrollabili
+  m2.innerHTML = `
+    <div class="tabs" id="reportTabs">
+      <button class="tab active" data-tab="realized">Closed Trades</button>
+      <button class="tab" data-tab="open">Open Positions</button>
+    </div>
+    <div class="tabpanes">
+      <div class="tabpane active" id="tab-realized">
+        <div class="table-wrapper">
+          <table class="report-table">
+            <thead><tr></tr></thead>
+            <tbody></tbody>
+          </table>
         </div>
       </div>
-    `);
-  }
+      <div class="tabpane" id="tab-open">
+        <div class="table-wrapper">
+          <table class="report-table">
+            <thead><tr></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  `;
 }
 
 function renderReportTabs(trades, openTrades){
@@ -215,27 +207,42 @@ function renderReportTabs(trades, openTrades){
   }
 }
 
-// ───────── Modulo 3 — Portfolio Value Index ─────────
+// ───────── Modulo 3 — Portfolio Value Index (stile visibile) ─────────
 function renderModule3_asIndex(curve) {
   const el = document.getElementById('equityChart');
   if (!el) return;
   const ctx = el.getContext('2d');
 
-  // trasformo cumulative pnl in indice base 100
-  const labels = curve.map(p=>p.date);
-  const base = 100;
-  const data  = curve.map(p=>p.y);
-  const minY  = Math.min(0, ...data);
-  const idx   = data.map(v => base * (1 + v)); // 1+pnl cumulato
+  const labels = curve.map(p=>p.x);
+  const base   = 100;
+  const dataPnL= curve.map(p=>p.y);
+  const dataIdx= dataPnL.map(v => base * (1 + v));
+
+  const grad = ctx.createLinearGradient(0, 0, 0, el.height);
+  grad.addColorStop(0, 'rgba(246,163,19,0.35)');
+  grad.addColorStop(1, 'rgba(246,163,19,0.00)');
 
   new Chart(ctx,{
     type:'line',
-    data:{ labels, datasets:[{ label:'Portfolio Value Index (base=100)', data: idx, borderWidth:1, fill:false }]},
+    data:{
+      labels,
+      datasets:[{
+        label:'Portfolio Value (Index)',
+        data: dataIdx,
+        borderColor:'#F6A313',
+        backgroundColor: grad,
+        fill:true,
+        pointRadius:0,
+        tension:0.25,
+        borderWidth:2
+      }]
+    },
     options:{
-      maintainAspectRatio:false, layout:{padding:{bottom:16}},
+      maintainAspectRatio:false,
+      layout:{padding:{bottom:12,left:8,right:8,top:8}},
       scales:{
-        y:{ title:{display:true,text:'Index'}, ticks:{ callback:v => v.toFixed(0) } },
-        x:{ ticks:{ maxRotation:0, autoSkip:true } }
+        y:{ grid:{color:'#2a2a2a'}, ticks:{ callback:v => Number(v).toFixed(0) } },
+        x:{ grid:{display:false}, ticks:{ maxRotation:0, autoSkip:true } }
       },
       plugins:{ legend:{display:false} }
     }
