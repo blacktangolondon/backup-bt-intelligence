@@ -1,59 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Non‑Directional Strategies Dashboard</title>
-  <link rel="stylesheet" href="nondirectional.css" />
+  <meta charset="utf-8"/>
+  <title>Equities — Long/Short Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" href="nondirectional.css"/>
+  <style>
+    /* allineato a FX: tabs + sticky header */
+    .tabs { display:flex; gap:.5rem; margin-bottom:.5rem; position:sticky; top:0; background:var(--bg,#fff); z-index:5; padding:.25rem 0; }
+    .tab { border:1px solid #ddd; border-radius:8px; padding:.35rem .75rem; cursor:pointer; background:#f6f7f9; }
+    .tab.active { background:#e9edf3; font-weight:600; }
+    .tabpanes { }
+    .tabpane { display:none; }
+    .tabpane.active { display:block; }
+    .table-wrapper { max-height: 420px; overflow:auto; border:1px solid #eee; border-radius:10px; }
+    .report-table { width:100%; border-collapse:collapse; }
+    .report-table thead th { position:sticky; top:0; background:#fff; z-index:4; border-bottom:1px solid #e3e5e8; }
+    .report-table th, .report-table td { padding:.5rem .6rem; text-align:left; white-space:nowrap; }
+    #equityChart { width:100%; height:320px; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-  <div id="container">
-    <!-- Module 1: Portfolio KPI Cards -->
-    <section id="module1" class="card-grid"></section>
+  <header class="pagehead"><h1>Equities — Long/Short</h1></header>
 
-<!-- Module 2: Historical Report -->
-<section id="module2" class="card table-card">
-  <h2>Historical Report</h2>
-  <div class="table-wrapper">
-    <table>
-      <thead>
-        <tr></tr>   <!-- empty row for JS to fill -->
-      </thead>
+  <!-- Module 1: KPI -->
+  <section id="module1" class="module kpi-grid"></section>
+
+  <!-- Module 2: Closed/Open with tabs -->
+  <section id="module2" class="module">
+    <!-- creati via JS: tabs + pane realized + pane open -->
+    <table class="report-table" style="display:none;">
+      <thead><tr></tr></thead><tbody></tbody>
+    </table>
+  </section>
+
+  <!-- Module 3: Portfolio Value Index -->
+  <section class="module">
+    <h2>Performance</h2>
+    <canvas id="equityChart"></canvas>
+  </section>
+
+  <!-- Module 4: New Strategies Alert -->
+  <section id="module4" class="module">
+    <h2>New Strategies Alert</h2>
+    <table class="report-table">
+      <thead><tr>
+        <th>Ticker</th><th>Signal</th><th>Open</th><th>Target</th><th>Stop</th>
+      </tr></thead>
       <tbody></tbody>
     </table>
-  </div>
-</section>
+  </section>
 
-
-
-    <!-- Module 3: Performance Visuals -->
-    <section id="module3" class="card charts-card">
-      <canvas id="equityChart"></canvas>
-    </section>
-
-    <!-- Module 4: New Strategies Alert -->
-    <section id="module4" class="card table-card">
-      <h2>New Strategies Alert</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Spread</th>
-              <th>Signal</th>
-              <th>Open Price</th>
-              <th>Take Profit</th>
-              <th>Stop Loss</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-      </div>
-    </section>
-  </div>
-
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Our wiring logic -->
   <script src="equities_long_short.js"></script>
 </body>
 </html>
