@@ -265,7 +265,7 @@ export async function generateSidebarContent() {
     liTS.classList.add('expandable');
     const toggleTS = document.createElement('div');
     toggleTS.classList.add('toggle-btn');
-    toggleTS.innerHTML = `TACTICAL STRATEGIES <span>+</span>`;
+    toggleTS.innerHTML = `MARKET TIMING <span>+</span>`;
     liTS.appendChild(toggleTS);
 
     const subUlTS = document.createElement('ul');
