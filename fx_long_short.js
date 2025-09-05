@@ -9,7 +9,7 @@ Chart.defaults.font.weight = 'normal';
 const PATH_PREFIX   = '';  // '' = stessa cartella del file HTML
 const STATS_FILE    = PATH_PREFIX + 'fx_long_short_stats.json';
 const CHANNELS_FILE = PATH_PREFIX + 'fx_channels.json';
-const STD_MULT      = 1.25;
+const STD_MULT      = 0.5;
 
 // ─── Helpers ───
 const fmtPct = v => (Number(v) * 100).toFixed(2) + '%';
