@@ -40,20 +40,24 @@ const fetchJSON = async (url) => {
     periodLabel = trades[0].entry_date + ' → ' + trades[trades.length-1].exit_date;
   }
 
-  // KPI (P&L/MaxDD unico)
-  const k = stats.portfolio_kpis || {};
-  const totalPnl = num(k.total_pnl);
-  const maxDD    = Math.max(0, num(k.max_drawdown));
-  const pnlOverDD= (maxDD > 0) ? (totalPnl / maxDD) : NaN;
+// KPI (realized) — P&L / Max DD unico
+const k = stats.portfolio_kpis || {};
+const totalPnl = num(k.total_pnl);
+const maxDD    = Math.max(0, num(k.max_drawdown));
+const pnlOverDD= (maxDD > 0) ? (totalPnl / maxDD) : NaN;
 
-  renderModule1({
-    period:      periodLabel || '—',
-    totalTrades: k.total_trades ?? trades.length,
-    winRate:     (k.win_rate_pct ?? 0).toFixed(1) + '%',
-    pnlOverDD:   Number.isFinite(pnlOverDD) ? pnlOverDD.toFixed(2) : '—',
-    avgDuration: (k.avg_duration_days ?? 0).toFixed(1) + ' d',
-    openCount:   k.open_positions ?? openTrades.length
-  });
+// ▼ aggiungi la “×” qui
+const pnlOverDDLabel = Number.isFinite(pnlOverDD) ? pnlOverDD.toFixed(2) + '×' : '—';
+
+const kpi = {
+  period:         periodLabel || '—',
+  totalTrades:    k.total_trades ?? trades.length,
+  winRate:        (k.win_rate_pct ?? 0).toFixed(1) + '%',
+  pnlOverDD:      pnlOverDDLabel,          // ← usa la label con “×”
+  avgDuration:    (k.avg_duration_days ?? 0).toFixed(1) + ' d',
+  openCount:      k.open_positions ?? openTrades.length
+};
+
 
   // NON ricreo i tab (ci sono già in HTML); popolo solo le tabelle
   renderReportTabs(trades, openTrades);
