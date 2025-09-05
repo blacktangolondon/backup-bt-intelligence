@@ -68,7 +68,7 @@ const fetchJSON = async (url) => {
   // Render KPI
   renderModule1(kpi);
 
-  // Sistemazione cromatica/strutturale del modulo 2 (niente titolo)
+  // Pulizia modulo 2 (niente titolo) + struttura tab + wrapper scrollabile
   cleanModule2Chrome();
 
   // Tab Closed / Open dentro il modulo 2
@@ -182,7 +182,7 @@ function renderReportTabs(trades, openTrades){
     const thead = panes.realized.querySelector('thead tr');
     const tbody = panes.realized.querySelector('tbody');
     thead.innerHTML = `
-      <th>Spread</th><th>Signal</th><th>Open Date</th><th>Close Date</th>
+      <th>FX Pairs</th><th>Signal</th><th>Open Date</th><th>Close Date</th>
       <th>Open Price</th><th>Close Price</th><th>Take Profit</th><th>Stop Loss</th><th>Return</th><th>Exit</th>
     `;
     tbody.innerHTML = '';
@@ -209,7 +209,7 @@ function renderReportTabs(trades, openTrades){
     const thead = panes.open.querySelector('thead tr');
     const tbody = panes.open.querySelector('tbody');
     thead.innerHTML = `
-      <th>Spread</th><th>Signal</th><th>Open Date</th><th>Days Open</th>
+      <th>FX Pairs</th><th>Signal</th><th>Open Date</th><th>Days Open</th>
       <th>Entry</th><th>Last</th><th>Take Profit</th><th>Stop Loss</th><th>Return (MTM)</th>
     `;
     tbody.innerHTML = '';
