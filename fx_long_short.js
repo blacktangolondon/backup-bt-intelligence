@@ -22,6 +22,17 @@ const fetchJSON = async (url) => {
   return r.json();
 };
 
+// 👉 NEW: calcola l’altezza dei tab e la passa al CSS come --tabs-h
+function setStickyOffsets(){
+  const m2 = document.getElementById('module2');
+  const tabs = m2 ? m2.querySelector('.tabs') : null;
+  if (m2 && tabs) {
+    m2.style.setProperty('--tabs-h', tabs.offsetHeight + 'px');
+  }
+}
+window.addEventListener('load', setStickyOffsets);
+window.addEventListener('resize', setStickyOffsets);
+
 // ─── Boot ───
 (async function () {
   let stats;
@@ -68,11 +79,14 @@ const fetchJSON = async (url) => {
   // Render KPI
   renderModule1(kpi);
 
-  // Pulizia modulo 2 (niente titolo) + struttura tab + wrapper scrollabile
+  // Pulizia modulo 2 (niente titolo) + struttura tab
   cleanModule2Chrome();
 
   // Tab Closed / Open dentro il modulo 2
   renderReportTabs(trades, openTrades);
+
+  // 👉 NEW: aggiorna l’offset sticky ora che i tab esistono
+  setStickyOffsets();
 
   // Equity (realized only)
   const curve = Array.isArray(stats.equity_curve) && stats.equity_curve.length
@@ -147,7 +161,7 @@ function cleanModule2Chrome() {
       </div>
     `);
   } else {
-    // Assicura i wrapper per lo scroll e sticky header
+    // Assicura i wrapper
     ['tab-realized','tab-open'].forEach(id=>{
       const pane = m2.querySelector('#'+id);
       if (pane && !pane.querySelector('.table-wrapper')) {
@@ -174,6 +188,8 @@ function renderReportTabs(trades, openTrades){
       const tab = btn.dataset.tab;
       panes.realized.classList.toggle('active', tab==='realized');
       panes.open.classList.toggle('active', tab==='open');
+      // 👉 NEW: ricalcola offset sticky nel caso cambi l’altezza dei tab
+      setStickyOffsets();
     });
   });
 
