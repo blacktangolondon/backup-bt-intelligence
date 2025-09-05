@@ -6,7 +6,6 @@ Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
 // ─── File paths (relative to THIS html file) ───
-// If your JSONs are in a subfolder (e.g. "data/"), set PATH_PREFIX = 'data/';
 const PATH_PREFIX   = '';  // '' = same folder as the HTML
 const STATS_FILE    = PATH_PREFIX + 'fx_long_short_stats.json';
 const CHANNELS_FILE = PATH_PREFIX + 'fx_channels.json';
@@ -33,12 +32,12 @@ const fetchJSON = async (url) => {
     return;
   }
 
-  // Realized trades only (already sorted in JSON, but sort again for safety)
+  // Realized trades
   const trades = Array.isArray(stats.trades)
     ? stats.trades.slice().sort((a,b)=> new Date(a.exit_date) - new Date(b.exit_date))
     : [];
 
-  // Open positions (unrealized, MTM) from JSON
+  // Open positions (unrealized, MTM)
   const openTrades = Array.isArray(stats.open_trades)
     ? stats.open_trades.slice().sort((a,b)=> new Date(a.entry_date) - new Date(b.entry_date))
     : [];
@@ -53,7 +52,7 @@ const fetchJSON = async (url) => {
     periodLabel = trades[0].entry_date + ' → ' + trades[trades.length-1].exit_date;
   }
 
-  // KPIs (realized only), plus open positions badge
+  // KPIs (realized), plus open badge
   const k = stats.portfolio_kpis || {};
   const kpi = {
     period:         periodLabel || '—',
@@ -66,11 +65,11 @@ const fetchJSON = async (url) => {
     openMtm:        fmtPct(k.mtm_open_pnl ?? openTrades.reduce((s,t)=>s+num(t.mtm_return),0))
   };
 
-  // Render KPI + badge for opens
+  // Render KPI
   renderModule1(kpi);
 
-  // Historical Report (realized only)
-  renderModule2(trades);
+  // Render Historical Report with Tabs (Closed / Open)
+  renderReportTabs(trades, openTrades);
 
   // Equity (realized only)
   const curve = Array.isArray(stats.equity_curve) && stats.equity_curve.length
@@ -79,21 +78,13 @@ const fetchJSON = async (url) => {
   renderModule3(curve);
 
   // New Strategies Alert (prevUb/prevLb) — computed from channels JSON
-  let alerts = [];
   try {
     const channels = await fetchJSON(CHANNELS_FILE);
-    alerts = computeNewAlertsFrom(channels);
+    const alerts = computeNewAlertsFrom(channels);
+    renderModule4(alerts);
   } catch (e) {
     console.warn('Channels load failed:', e);
   }
-  renderModule4(alerts);
-
-  // Open Positions (new section)
-  ensureOpenModule();
-  renderModule5(openTrades);
-
-  // Diagnostics
-  console.log('open_trades length =', openTrades.length);
 })();
 
 // ───────── Module 1 — KPI cards ─────────
@@ -118,27 +109,77 @@ function renderModule1(k) {
   });
 }
 
-// ───────── Module 2 — Historical Report (realized trades) ─────────
-function renderModule2(trades) {
-  const tbody = document.querySelector('#module2 tbody');
-  const thead = document.querySelector('#module2 thead tr');
-  if (!tbody || !thead) return;
-  tbody.innerHTML = '';
-  thead.innerHTML = `
-    <th>Spread</th><th>Signal</th><th>Open Date</th><th>Close Date</th>
-    <th>Open Price</th><th>Close Price</th><th>Take Profit</th><th>Stop Loss</th><th>Return</th><th>Exit</th>
-  `;
-  trades.forEach(t=>{
-    const tr=document.createElement('tr');
-    tr.innerHTML = `
-      <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
-      <td>${t.entry_date}</td><td>${t.exit_date}</td>
-      <td>${num(t.entry).toFixed(4)}</td><td>${num(t.exit).toFixed(4)}</td>
-      <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
-      <td>${fmtPct(num(t.pnl))}</td><td>${t.exit_reason || ''}</td>
-    `;
-    tbody.appendChild(tr);
+// ───────── Module 2 — Tabs (Closed / Open) ─────────
+function renderReportTabs(trades, openTrades){
+  // Wire tab buttons
+  const tabs = document.querySelectorAll('#reportTabs .tab');
+  const panes= {
+    realized: document.getElementById('tab-realized'),
+    open:     document.getElementById('tab-open')
+  };
+  tabs.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      tabs.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      panes.realized.classList.toggle('active', tab==='realized');
+      panes.open.classList.toggle('active', tab==='open');
+    });
   });
+
+  // Fill CLOSED trades table
+  {
+    const thead = panes.realized.querySelector('thead tr');
+    const tbody = panes.realized.querySelector('tbody');
+    thead.innerHTML = `
+      <th>Spread</th><th>Signal</th><th>Open Date</th><th>Close Date</th>
+      <th>Open Price</th><th>Close Price</th><th>Take Profit</th><th>Stop Loss</th><th>Return</th><th>Exit</th>
+    `;
+    tbody.innerHTML = '';
+    trades.forEach(t=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML = `
+        <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
+        <td>${t.entry_date}</td><td>${t.exit_date}</td>
+        <td>${num(t.entry).toFixed(4)}</td><td>${num(t.exit).toFixed(4)}</td>
+        <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
+        <td>${fmtPct(num(t.pnl))}</td><td>${t.exit_reason || ''}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+    if (!trades.length){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td colspan="10" style="text-align:center;opacity:.7">No closed trades</td>`;
+      tbody.appendChild(tr);
+    }
+  }
+
+  // Fill OPEN positions table
+  {
+    const thead = panes.open.querySelector('thead tr');
+    const tbody = panes.open.querySelector('tbody');
+    thead.innerHTML = `
+      <th>Spread</th><th>Signal</th><th>Open Date</th><th>Days Open</th>
+      <th>Entry</th><th>Last</th><th>Take Profit</th><th>Stop Loss</th><th>Return (MTM)</th>
+    `;
+    tbody.innerHTML = '';
+    openTrades.forEach(t=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML = `
+        <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
+        <td>${t.entry_date}</td><td>${num(t.days_open)}</td>
+        <td>${num(t.entry).toFixed(4)}</td><td>${num(t.last).toFixed(4)}</td>
+        <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
+        <td>${fmtPct(num(t.mtm_return))}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+    if (!openTrades.length){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td colspan="9" style="text-align:center;opacity:.7">No open positions</td>`;
+      tbody.appendChild(tr);
+    }
+  }
 }
 
 // ───────── Module 3 — Equity chart (Chart.js) ─────────
@@ -209,52 +250,6 @@ function renderModule4(alerts){
     tr.innerHTML = `
       <td>${a.spread}</td><td>${a.signal}</td>
       <td>${a.open}</td><td>${a.tp}</td><td>${a.sl}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-// ───────── Module 5 — Open Positions (NEW) ─────────
-// Creates the container if your HTML doesn't already have it.
-function ensureOpenModule(){
-  if (document.getElementById('module5')) return;
-  const wrapper = document.createElement('section');
-  wrapper.id = 'module5';
-  wrapper.className = 'module';
-  wrapper.innerHTML = `
-    <h2>Open Positions</h2>
-    <table class="report-table">
-      <thead><tr>
-        <th>Spread</th><th>Signal</th><th>Open Date</th><th>Days Open</th>
-        <th>Entry</th><th>Last</th><th>Take Profit</th><th>Stop Loss</th><th>Return (MTM)</th>
-      </tr></thead>
-      <tbody></tbody>
-    </table>
-  `;
-  // Append after Historical Report (module2) if present, else at end of body
-  const m2 = document.getElementById('module2');
-  if (m2 && m2.parentNode) m2.parentNode.insertBefore(wrapper, m2.nextSibling);
-  else document.body.appendChild(wrapper);
-}
-
-function renderModule5(openTrades){
-  const tbody = document.querySelector('#module5 tbody');
-  if (!tbody){ console.warn('module5 not found'); return; }
-  tbody.innerHTML = '';
-  if(!openTrades.length){
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td colspan="9" style="text-align:center;opacity:.7">No open positions</td>`;
-    tbody.appendChild(tr);
-    return;
-  }
-  openTrades.forEach(t=>{
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
-      <td>${t.entry_date}</td><td>${num(t.days_open)}</td>
-      <td>${num(t.entry).toFixed(4)}</td><td>${num(t.last).toFixed(4)}</td>
-      <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
-      <td>${fmtPct(num(t.mtm_return))}</td>
     `;
     tbody.appendChild(tr);
   });
