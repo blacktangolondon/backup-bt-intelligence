@@ -40,35 +40,33 @@ const fetchJSON = async (url) => {
     periodLabel = trades[0].entry_date + ' → ' + trades[trades.length-1].exit_date;
   }
 
-// KPI (realized) — P&L / Max DD unico
-const k = stats.portfolio_kpis || {};
-const totalPnl = num(k.total_pnl);
-const maxDD    = Math.max(0, num(k.max_drawdown));
-const pnlOverDD= (maxDD > 0) ? (totalPnl / maxDD) : NaN;
+  // ── KPI (realized) — P&L / Max DD con "×"
+  const k = stats.portfolio_kpis || {};
+  const totalPnl = num(k.total_pnl);
+  const maxDD    = Math.max(0, num(k.max_drawdown));
+  const pnlOverDD= (maxDD > 0) ? (totalPnl / maxDD) : NaN;
+  const pnlOverDDLabel = Number.isFinite(pnlOverDD) ? pnlOverDD.toFixed(2) + '×' : '—';
 
-// ▼ aggiungi la “×” qui
-const pnlOverDDLabel = Number.isFinite(pnlOverDD) ? pnlOverDD.toFixed(2) + '×' : '—';
+  const kpi = {
+    period:         periodLabel || '—',
+    totalTrades:    k.total_trades ?? trades.length,
+    winRate:        (k.win_rate_pct ?? 0).toFixed(1) + '%',
+    pnlOverDD:      pnlOverDDLabel,
+    avgDuration:    (k.avg_duration_days ?? 0).toFixed(1) + ' d',
+    openCount:      k.open_positions ?? openTrades.length
+  };
+  renderModule1(kpi); // ← importante
 
-const kpi = {
-  period:         periodLabel || '—',
-  totalTrades:    k.total_trades ?? trades.length,
-  winRate:        (k.win_rate_pct ?? 0).toFixed(1) + '%',
-  pnlOverDD:      pnlOverDDLabel,          // ← usa la label con “×”
-  avgDuration:    (k.avg_duration_days ?? 0).toFixed(1) + ' d',
-  openCount:      k.open_positions ?? openTrades.length
-};
-
-
-  // NON ricreo i tab (ci sono già in HTML); popolo solo le tabelle
+  // ── Modulo 2: usa i tab già presenti in HTML; popola solo le tabelle
   renderReportTabs(trades, openTrades);
 
-  // Equity → Portfolio Value Index (base=100)
+  // ── Modulo 3: Portfolio Value Index (base=100)
   const curve = Array.isArray(stats.equity_curve) && stats.equity_curve.length
     ? stats.equity_curve.map(p => ({ x: p.date, y: num(p.cumulative_pnl) }))
     : (() => { let cum=0; return trades.map(t => { cum += num(t.pnl); return { x: t.exit_date, y: cum }; }); })();
   renderModule3_asIndex(curve);
 
-  // New Strategies Alert
+  // ── Modulo 4: New Strategies Alert
   try {
     const channels = await fetchJSON(CHANNELS_FILE);
     renderModule4(computeNewAlertsFrom(channels));
@@ -78,6 +76,7 @@ const kpi = {
 // ───────── Module 1
 function renderModule1(k) {
   const cont = document.getElementById('module1');
+  if (!cont) return;
   cont.innerHTML = '';
   [
     { label: 'Period', value: k.period },
@@ -165,6 +164,7 @@ function renderReportTabs(trades, openTrades){
 // ───────── Module 3
 function renderModule3_asIndex(curve) {
   const el = document.getElementById('equityChart');
+  if (!el) return;
   const ctx = el.getContext('2d');
   const labels = curve.map(p=>p.x);
   const dataIdx= curve.map(p => (1 + num(p.y)) * 100);
@@ -213,8 +213,10 @@ function computeNewAlertsFrom(channels){
   }
   return out;
 }
+
 function renderModule4(alerts){
   const tbody = document.querySelector('#module4 tbody');
+  if (!tbody) return;
   tbody.innerHTML = '';
   if(!alerts.length){
     const tr = document.createElement('tr');
