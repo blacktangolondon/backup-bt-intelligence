@@ -5,24 +5,43 @@ Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
-// Files
-const STATS_FILE    = 'fx_long_short_stats.json';
-const CHANNELS_FILE = 'fx_channels.json';
+// ─── File paths (relative to THIS html file) ───
+// If your JSONs are in a subfolder (e.g. "data/"), set PATH_PREFIX = 'data/';
+const PATH_PREFIX   = '';  // '' = same folder as the HTML
+const STATS_FILE    = PATH_PREFIX + 'fx_long_short_stats.json';
+const CHANNELS_FILE = PATH_PREFIX + 'fx_channels.json';
 const STD_MULT      = 0.5;
 
-// Helpers
-const fmtPct = v => (v*100).toFixed(2) + '%';
+// ─── Helpers ───
+const fmtPct = v => (Number(v) * 100).toFixed(2) + '%';
+const num    = v => Number.isFinite(Number(v)) ? Number(v) : 0;
+const fetchJSON = async (url) => {
+  const u = url + (url.includes('?') ? '&' : '?') + 'ts=' + Date.now();
+  const r = await fetch(u, { cache: 'no-store' });
+  console.log('Loaded', r.url, r.ok ? '' : `status=${r.status}`);
+  if (!r.ok) throw new Error(`Failed to load ${u}: ${r.status}`);
+  return r.json();
+};
 
-// Boot
+// ─── Boot ───
 (async function () {
-  const resp = await fetch(STATS_FILE + '?ts=' + Date.now());
-  if (!resp.ok) { console.error('JSON load failed'); return; }
-  const stats = await resp.json();
+  let stats;
+  try {
+    stats = await fetchJSON(STATS_FILE);
+  } catch (e) {
+    console.error('JSON load failed for stats:', e);
+    return;
+  }
 
-  // Realized trades only (already sorted in JSON, but sort again just in case)
-  const trades = Array.isArray(stats.trades) ? stats.trades.slice().sort((a,b)=> new Date(a.exit_date) - new Date(b.exit_date)) : [];
-  // Open positions (optional)
-  const openTrades = Array.isArray(stats.open_trades) ? stats.open_trades.slice().sort((a,b)=> new Date(a.entry_date) - new Date(b.entry_date)) : [];
+  // Realized trades only (already sorted in JSON, but sort again for safety)
+  const trades = Array.isArray(stats.trades)
+    ? stats.trades.slice().sort((a,b)=> new Date(a.exit_date) - new Date(b.exit_date))
+    : [];
+
+  // Open positions (unrealized, MTM) from JSON
+  const openTrades = Array.isArray(stats.open_trades)
+    ? stats.open_trades.slice().sort((a,b)=> new Date(a.entry_date) - new Date(b.entry_date))
+    : [];
 
   // Period label
   let periodLabel = '';
@@ -34,17 +53,17 @@ const fmtPct = v => (v*100).toFixed(2) + '%';
     periodLabel = trades[0].entry_date + ' → ' + trades[trades.length-1].exit_date;
   }
 
-  // KPIs (realized only)
+  // KPIs (realized only), plus open positions badge
   const k = stats.portfolio_kpis || {};
   const kpi = {
     period:         periodLabel || '—',
     totalTrades:    k.total_trades ?? trades.length,
     winRate:        (k.win_rate_pct ?? 0).toFixed(1) + '%',
-    totalPnl:       fmtPct(k.total_pnl ?? (trades.reduce((s,t)=>s+(t.pnl||0),0))),
+    totalPnl:       fmtPct(k.total_pnl ?? trades.reduce((s,t)=>s+num(t.pnl),0)),
     maxDrawdown:    fmtPct(k.max_drawdown ?? 0),
     avgDuration:    (k.avg_duration_days ?? 0).toFixed(1) + ' d',
     openCount:      k.open_positions ?? openTrades.length,
-    openMtm:        fmtPct(k.mtm_open_pnl ?? (openTrades.reduce((s,t)=>s+(t.mtm_return||0),0)))
+    openMtm:        fmtPct(k.mtm_open_pnl ?? openTrades.reduce((s,t)=>s+num(t.mtm_return),0))
   };
 
   // Render KPI + badge for opens
@@ -55,22 +74,32 @@ const fmtPct = v => (v*100).toFixed(2) + '%';
 
   // Equity (realized only)
   const curve = Array.isArray(stats.equity_curve) && stats.equity_curve.length
-    ? stats.equity_curve.map(p => ({ x: p.date, y: p.cumulative_pnl }))
-    : (() => { let cum=0; return trades.map(t => { cum += t.pnl || 0; return { x: t.exit_date, y: cum }; }); })();
+    ? stats.equity_curve.map(p => ({ x: p.date, y: num(p.cumulative_pnl) }))
+    : (() => { let cum=0; return trades.map(t => { cum += num(t.pnl); return { x: t.exit_date, y: cum }; }); })();
   renderModule3(curve);
 
-  // New Strategies Alert (unchanged — prevUb/prevLb)
-  const alerts = await computeNewAlerts();
+  // New Strategies Alert (prevUb/prevLb) — computed from channels JSON
+  let alerts = [];
+  try {
+    const channels = await fetchJSON(CHANNELS_FILE);
+    alerts = computeNewAlertsFrom(channels);
+  } catch (e) {
+    console.warn('Channels load failed:', e);
+  }
   renderModule4(alerts);
 
   // Open Positions (new section)
   ensureOpenModule();
   renderModule5(openTrades);
+
+  // Diagnostics
+  console.log('open_trades length =', openTrades.length);
 })();
 
-// Module 1 — KPI
+// ───────── Module 1 — KPI cards ─────────
 function renderModule1(k) {
   const cont = document.getElementById('module1');
+  if (!cont) return;
   cont.innerHTML = '';
   const items = [
     { label: 'Period',        value: k.period },
@@ -89,7 +118,7 @@ function renderModule1(k) {
   });
 }
 
-// Module 2 — Historical Report (realized trades)
+// ───────── Module 2 — Historical Report (realized trades) ─────────
 function renderModule2(trades) {
   const tbody = document.querySelector('#module2 tbody');
   const thead = document.querySelector('#module2 thead tr');
@@ -104,19 +133,21 @@ function renderModule2(trades) {
     tr.innerHTML = `
       <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
       <td>${t.entry_date}</td><td>${t.exit_date}</td>
-      <td>${t.entry.toFixed(4)}</td><td>${t.exit.toFixed(4)}</td>
-      <td>${t.take_profit.toFixed(4)}</td><td>${t.stop_loss.toFixed(4)}</td>
-      <td>${fmtPct(t.pnl)}</td><td>${t.exit_reason || ''}</td>
+      <td>${num(t.entry).toFixed(4)}</td><td>${num(t.exit).toFixed(4)}</td>
+      <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
+      <td>${fmtPct(num(t.pnl))}</td><td>${t.exit_reason || ''}</td>
     `;
     tbody.appendChild(tr);
   });
 }
 
-// Module 3 — Equity chart (Chart.js)
+// ───────── Module 3 — Equity chart (Chart.js) ─────────
 function renderModule3(curve) {
-  const ctx = document.getElementById('equityChart').getContext('2d');
+  const el = document.getElementById('equityChart');
+  if (!el) return;
+  const ctx = el.getContext('2d');
   const labels = curve.map(p=>p.x);
-  const data   = curve.map(p=>p.y*100);
+  const data   = curve.map(p=>num(p.y)*100);
   new Chart(ctx,{
     type:'line',
     data:{ labels, datasets:[{ label:'Cumulative Return (%)', data, borderWidth:1, fill:false }]},
@@ -128,36 +159,39 @@ function renderModule3(curve) {
   });
 }
 
-// Module 4 — New Strategies Alert (prevUb/prevLb, σ=0.5)
-async function computeNewAlerts(){
-  try{
-    const r = await fetch(CHANNELS_FILE);
-    if(!r.ok) return [];
-    const channels = await r.json();
-    const out = [];
-    for(const key of Object.keys(channels)){
-      const rows = channels[key];
-      if(!Array.isArray(rows) || rows.length < 2) continue;
-      const last  = rows[rows.length-1];
-      const prev  = rows[rows.length-2];
-      // [date, ratio, lower1, lower2, upper1, upper2]
-      const r_now   = +last[1],  l1 = +last[2],  u1 = +last[4];
-      const r_prev  = +prev[1], pl1 = +prev[2], pu1 = +prev[4];
-      const t_now   = (u1 + l1)/2,   s_now = Math.abs(u1 - t_now);
-      const t_prev  = (pu1 + pl1)/2, s_prev= Math.abs(pu1 - t_prev);
-      const ub      = t_now  + s_now  * STD_MULT;
-      const lb      = t_now  - s_now  * STD_MULT;
-      const prevUb  = t_prev + s_prev * STD_MULT;
-      const prevLb  = t_prev - s_prev * STD_MULT;
+// ───────── Module 4 — New Strategies Alert (prevUb/prevLb) ─────────
+function computeNewAlertsFrom(channels){
+  const out = [];
+  if (!channels || typeof channels !== 'object') return out;
 
-      if (r_now > ub && r_prev <= prevUb){
-        out.push({spread:key, signal:'Short', open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now + Math.abs(r_now - t_now)).toFixed(4)});
-      } else if (r_now < lb && r_prev >= prevLb){
-        out.push({spread:key, signal:'Long',  open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now - Math.abs(t_now - r_now)).toFixed(4)});
-      }
+  for (const key of Object.keys(channels)){
+    const rows = channels[key];
+    if(!Array.isArray(rows) || rows.length < 2) continue;
+
+    const last  = rows[rows.length-1];
+    const prev  = rows[rows.length-2];
+
+    // [date, ratio, lower1, lower2, upper1, upper2]
+    const r_now   = num(last[1]),  l1 = num(last[2]),  u1 = num(last[4]);
+    const r_prev  = num(prev[1]), pl1 = num(prev[2]), pu1 = num(prev[4]);
+
+    const t_now   = (u1 + l1)/2;
+    const s_now   = Math.abs(u1 - t_now);
+    const t_prev  = (pu1 + pl1)/2;
+    const s_prev  = Math.abs(pu1 - t_prev);
+
+    const ub      = t_now  + s_now  * STD_MULT;
+    const lb      = t_now  - s_now  * STD_MULT;
+    const prevUb  = t_prev + s_prev * STD_MULT;
+    const prevLb  = t_prev - s_prev * STD_MULT;
+
+    if (r_now > ub && r_prev <= prevUb){
+      out.push({spread:key, signal:'Short', open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now + Math.abs(r_now - t_now)).toFixed(4)});
+    } else if (r_now < lb && r_prev >= prevLb){
+      out.push({spread:key, signal:'Long',  open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now - Math.abs(t_now - r_now)).toFixed(4)});
     }
-    return out;
-  }catch(e){ console.error(e); return []; }
+  }
+  return out;
 }
 
 function renderModule4(alerts){
@@ -180,7 +214,7 @@ function renderModule4(alerts){
   });
 }
 
-// Module 5 — Open Positions (NEW)
+// ───────── Module 5 — Open Positions (NEW) ─────────
 // Creates the container if your HTML doesn't already have it.
 function ensureOpenModule(){
   if (document.getElementById('module5')) return;
@@ -217,10 +251,10 @@ function renderModule5(openTrades){
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
-      <td>${t.entry_date}</td><td>${t.days_open}</td>
-      <td>${t.entry.toFixed(4)}</td><td>${t.last.toFixed(4)}</td>
-      <td>${t.take_profit.toFixed(4)}</td><td>${t.stop_loss.toFixed(4)}</td>
-      <td>${fmtPct(t.mtm_return)}</td>
+      <td>${t.entry_date}</td><td>${num(t.days_open)}</td>
+      <td>${num(t.entry).toFixed(4)}</td><td>${num(t.last).toFixed(4)}</td>
+      <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
+      <td>${fmtPct(num(t.mtm_return))}</td>
     `;
     tbody.appendChild(tr);
   });
