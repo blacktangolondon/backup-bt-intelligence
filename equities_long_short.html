@@ -6,52 +6,58 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <link rel="stylesheet" href="nondirectional.css"/>
   <style>
-    /* ── Tabs + sticky header (dark-theme friendly) ─────────────────────────── */
+    /* ---- Layout guardrails ---- */
+    .page{max-width:1280px;margin:0 auto;padding:0 16px;}
+    .module{margin:16px 0;padding:0;}        /* niente min-height “strani” */
+    .kpi-grid .kpi-card{min-height:auto;}    /* evita carte troppo alte */
+
+    /* Tabs + sticky header (dark) */
     .tabs{display:flex;gap:.5rem;margin-bottom:.5rem;position:sticky;top:0;z-index:5;background:transparent}
     .tab{border:1px solid var(--panel-border,#2a2a2a);border-radius:8px;padding:.35rem .75rem;cursor:pointer;background:#1a1b1f;color:#e9a624}
     .tab.active{background:#2a2b30;font-weight:600}
-    .tabpanes{}
     .tabpane{display:none}
     .tabpane.active{display:block}
 
+    /* Tabelle */
     .table-wrapper{max-height:420px;overflow:auto;border:1px solid var(--panel-border,#2a2a2a);border-radius:10px;-webkit-overflow-scrolling:touch}
     .report-table{width:100%;border-collapse:collapse}
-    .report-table th,.report-table td{padding:.55rem .65rem;text-align:left;white-space:nowrap}
+    .report-table th,.report-table td{padding:.55rem .65rem;white-space:nowrap}
     .report-table thead th{position:sticky;top:0;z-index:4;background:var(--panel-bg,#0f1012);border-bottom:1px solid var(--panel-border,#2a2a2a)}
 
-    #equityChart{width:100%;height:340px}
+    /* Grafico: dimensione controllata */
+    #equityChart{width:100%;height:340px;display:block}
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-  <header class="pagehead"><h1>Equities — Long/Short</h1></header>
+  <div class="page">
+    <header class="pagehead"><h1>Equities — Long/Short</h1></header>
 
-  <!-- Module 1: KPI -->
-  <section id="module1" class="module kpi-grid"></section>
+    <!-- Module 1: KPI -->
+    <section id="module1" class="module kpi-grid"></section>
 
-  <!-- Module 2: Closed/Open with tabs (injected by JS) -->
-  <section id="module2" class="module"></section>
+    <!-- Module 2: Closed/Open with tabs (injected by JS) -->
+    <section id="module2" class="module"></section>
 
-  <!-- Module 3: Portfolio Value Index -->
-  <section class="module">
-    <h2>Performance</h2>
-    <canvas id="equityChart"></canvas>
-  </section>
+    <!-- Module 3: Portfolio Value Index -->
+    <section class="module">
+      <h2>Performance</h2>
+      <canvas id="equityChart"></canvas>
+    </section>
 
-  <!-- Module 4: New Strategies Alert -->
-  <section id="module4" class="module">
-    <h2>New Strategies Alert</h2>
-    <div class="table-wrapper">
-      <table class="report-table">
-        <thead>
-          <tr>
-            <th>Ticker</th><th>Signal</th><th>Open</th><th>Target</th><th>Stop</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </section>
+    <!-- Module 4: New Strategies Alert -->
+    <section id="module4" class="module">
+      <h2>New Strategies Alert</h2>
+      <div class="table-wrapper">
+        <table class="report-table">
+          <thead>
+            <tr><th>Ticker</th><th>Signal</th><th>Open</th><th>Target</th><th>Stop</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
 
   <script src="equities_long_short.js"></script>
 </body>
