@@ -240,3 +240,40 @@ body {
 .tab.active { background:#2a2b30; font-weight:600; }
 #equityChart { width:100%; height:320px; }
 
+
+/* === Module 2 — Closed/Open tables (allinea a FX) === */
+#module2 .table-wrapper{
+  max-height: 420px;
+  overflow: auto;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+}
+
+#module2 .report-table{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;                /* colonne stabili e allineate */
+}
+
+#module2 .report-table thead{
+  position: sticky;                   /* sticky sull’intero thead, NON sui <th> */
+  top: 0;
+  z-index: 5;
+  background: var(--panel, #131313);  /* stesso bg del card */
+  box-shadow: 0 1px 0 rgba(255,255,255,0.06);
+}
+
+#module2 .report-table thead th{      /* niente sticky qui */
+  position: static;
+}
+
+#module2 .report-table th,
+#module2 .report-table td{
+  padding: .5rem .6rem;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  text-align: left;
+}
+
+
