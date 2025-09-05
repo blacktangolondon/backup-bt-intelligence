@@ -170,3 +170,10 @@ body {
   z-index: 2;
   border-bottom: 1px solid #333;
 }
+
+
+.tabs { display:flex; gap:.5rem; margin: .5rem 0 0.5rem; }
+.tab { background:#222; color:#ffa500; border:1px solid #444; padding:.35rem .6rem; border-radius:6px; cursor:pointer; }
+.tab.active { background:#ffa500; color:#111; border-color:#ffa500; }
+.tabpane { display:none; }
+.tabpane.active { display:block; }
