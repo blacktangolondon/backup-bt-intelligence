@@ -15,7 +15,7 @@ const fmtPct = v => (v*100).toFixed(2) + '%';
 
 // Boot
 (async function () {
-  const resp = await fetch(STATS_FILE);
+  const resp = await fetch(STATS_FILE + '?ts=' + Date.now());
   if (!resp.ok) { console.error('JSON load failed'); return; }
   const stats = await resp.json();
 
