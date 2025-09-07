@@ -20,8 +20,25 @@
       max-width: none !important;
       width: 100%;
     }
-    .table-wrapper table { width: 100%; }
-    canvas { width: 100% !important; height: auto; }
+    /* === Allineamento comportamento tabelle come FX === */
+    .tabs { display:flex; gap:.5rem; margin:.25rem 0 .5rem 0; }
+    .tab { border:1px solid #2a2a2a; border-radius:8px; padding:.35rem .75rem; cursor:pointer; background:#1a1a1a; }
+    .tab.active { background:#262a30; font-weight:600; }
+    .tabpanes { position:relative; }
+    .table-wrapper { max-height: 420px; overflow:auto; border:1px solid #2a2a2a; border-radius:10px; }
+    .report-table { width:100%; border-collapse:collapse; }
+    .report-table th, .report-table td { padding:.5rem .6rem; text-align:left; white-space:nowrap; }
+    .report-table thead th {
+      position: sticky;
+      top: var(--tabs-h, 0);          /* offset sotto i tabs */
+      background: #0f0f10;            /* evita il “trasparente” che copre la 1ª riga */
+      z-index: 2;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    /* === Chart area: serve un’altezza reale === */
+    #module3 { min-height: 360px; }
+    #equityChart { width: 100% !important; height: 100% !important; display:block; }
   </style>
 </head>
 <body>
@@ -44,18 +61,22 @@
       <div class="tabpanes">
         <!-- Realized trades -->
         <div class="tabpane active" id="tab-realized">
-          <table class="report-table">
-            <thead><tr></tr></thead>
-            <tbody></tbody>
-          </table>
+          <div class="table-wrapper">
+            <table class="report-table">
+              <thead><tr></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </div>
 
         <!-- Open positions -->
         <div class="tabpane" id="tab-open">
-          <table class="report-table">
-            <thead><tr></tr></thead>
-            <tbody></tbody>
-          </table>
+          <div class="table-wrapper">
+            <table class="report-table">
+              <thead><tr></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
@@ -69,7 +90,7 @@
     <section id="module4" class="card table-card">
       <h2>New Strategies Alert</h2>
       <div class="table-wrapper">
-        <table>
+        <table class="report-table">
           <thead>
             <tr>
               <th>Ticker</th>
