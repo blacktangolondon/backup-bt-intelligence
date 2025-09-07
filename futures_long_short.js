@@ -9,7 +9,7 @@ Chart.defaults.font.weight = 'normal';
 const PATH_PREFIX   = '';  // '' = stessa cartella del file HTML
 const STATS_FILE    = PATH_PREFIX + 'futures_long_short_stats.json';
 const CHANNELS_FILE = PATH_PREFIX + 'futures_channels.json';
-const STD_MULT      = 2.0; // ← futures: moltiplicatore σ
+const STD_MULT      = 2.25; // ← futures: moltiplicatore σ (default aggiornato)
 
 // ─── Helpers ───
 const fmtPct = v => (Number(v) * 100).toFixed(2) + '%';
