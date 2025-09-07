@@ -28,41 +28,6 @@ function setStickyOffsets(){
   if (m2 && tabs) m2.style.setProperty('--tabs-h', tabs.offsetHeight + 'px');
 }
 
-// 👉 crea/sincronizza l'header sticky per una pane (id: "tab-realized" / "tab-open")
-function ensureStickyHeader(paneId){
-  const pane = document.getElementById(paneId);
-  if (!pane) return;
-  const wrap  = pane.querySelector('.table-wrapper');
-  const table = wrap ? wrap.querySelector('table') : null;
-  if (!table) return;
-
-  let sticky = pane.querySelector('.sticky-head');
-  if (!sticky) {
-    sticky = document.createElement('div');
-    sticky.className = 'sticky-head';
-    sticky.innerHTML = `<table class="report-table"><thead>${table.querySelector('thead').innerHTML}</thead></table>`;
-    pane.insertBefore(sticky, wrap);
-  } else {
-    sticky.querySelector('thead').innerHTML = table.querySelector('thead').innerHTML;
-  }
-
-  const sync = () => {
-    const bodyTh = table.querySelectorAll('thead th');
-    const headTh = sticky.querySelectorAll('thead th');
-    if (!bodyTh.length || bodyTh.length !== headTh.length) return;
-    const widths = Array.from(bodyTh).map(th => th.getBoundingClientRect().width);
-    sticky.style.width = wrap.getBoundingClientRect().width + 'px';
-    sticky.querySelector('table').style.tableLayout = 'fixed';
-    table.style.tableLayout = 'fixed';
-    widths.forEach((w,i) => {
-      headTh[i].style.width = w + 'px';
-      bodyTh[i].style.width = w + 'px';
-    });
-  };
-  sync(); requestAnimationFrame(sync);
-  window.addEventListener('resize', sync);
-}
-
 // ─── Boot ───
 (async function () {
   window.addEventListener('load', setStickyOffsets);
@@ -106,55 +71,54 @@ function ensureStickyHeader(paneId){
     period:         periodLabel || '—',
     totalTrades:    k.total_trades ?? trades.length,
     winRate:        (k.win_rate_pct ?? 0).toFixed(1) + '%',
-    ratio_pnl_dd:   ratioDD,                      // nuovo KPI
+    ratio_pnl_dd:   ratioDD,
     avgDuration:    (k.avg_duration_days ?? 0).toFixed(1) + ' d',
     openCount:      k.open_positions ?? openTrades.length
   };
 
-  // Render KPI
   renderModule1(kpi);
-
-  // Modulo 2 (tabs + tabelle) — crea/sincronizza struttura e sticky header
-  cleanModule2Chrome();
   renderReportTabs(trades, openTrades);
-  setStickyOffsets();
-  ensureStickyHeader('tab-realized');
-  ensureStickyHeader('tab-open');
+  renderModule3(buildEquityCurve(stats, trades));
 
-  // Equity (area chart stile indice)
-  const curve = Array.isArray(stats.equity_curve) && stats.equity_curve.length
-    ? stats.equity_curve.map(p => ({ x: p.date, y: num(p.cumulative_pnl) }))
-    : (() => { let cum=0; return trades.map(t => { cum += num(t.pnl); return { x: t.exit_date, y: cum }; }); })();
-  renderModule3(curve);
-
-  // New Strategies Alert da channels (prevUb/prevLb)
+  // New Strategies Alert (prevUb/prevLb, σ=STD_MULT)
   try {
     const channels = await fetchJSON(CHANNELS_FILE);
-    const alerts = computeNewAlertsFrom(channels);
-    renderModule4(alerts);
+    renderModule4(computeNewAlertsFrom(channels));
   } catch (e) {
     console.warn('Channels load failed:', e);
   }
 })();
 
-// ───────── Modulo 1 — KPI cards ─────────
+// ───────── Helpers
+function buildEquityCurve(stats, trades){
+  if (Array.isArray(stats.equity_curve) && stats.equity_curve.length) {
+    return stats.equity_curve.map(p => ({ x: p.date, y: num(p.cumulative_pnl) }));
+  }
+  // fallback: ricostruzione dai trade chiusi
+  let cum = 0;
+  return trades.map(t => {
+    cum += num(t.pnl);
+    return { x: t.exit_date, y: cum };
+  });
+}
+
+// ───────── Modulo 1 — KPI cards
 function renderModule1(k) {
   const cont = document.getElementById('module1');
   if (!cont) return;
   cont.innerHTML = '';
 
-  // valore formattato (es. 2.08× oppure —)
   const ratioText = (k.ratio_pnl_dd == null || !isFinite(k.ratio_pnl_dd))
     ? '—'
     : k.ratio_pnl_dd.toFixed(2) + '×';
 
   const items = [
-    { label: 'Period',              value: k.period },
-    { label: '# Trades',            value: k.totalTrades },
-    { label: 'Win Rate',            value: k.winRate },
-    { label: 'P&L / Max DD',        value: ratioText },
-    { label: 'Avg Duration',        value: k.avgDuration },
-    { label: 'Open Positions',      value: `${k.openCount}` },
+    { label: 'Period',         value: k.period },
+    { label: '# Trades',       value: k.totalTrades },
+    { label: 'Win Rate',       value: k.winRate },
+    { label: 'P&L / Max DD',   value: ratioText },
+    { label: 'Avg Duration',   value: k.avgDuration },
+    { label: 'Open Positions', value: `${k.openCount}` },
   ];
 
   items.forEach(c => {
@@ -165,66 +129,19 @@ function renderModule1(k) {
   });
 }
 
-// ───────── Modulo 2 — Tabs (Closed / Open) ─────────
-function cleanModule2Chrome() {
-  const m2 = document.getElementById('module2');
-  if (!m2) return;
-  const h2 = m2.querySelector(':scope > h2'); if (h2) h2.remove();
-
-  // se manca la struttura tab, creala (compatibile con l’HTML esistente)
-  if (!m2.querySelector('#reportTabs')) {
-    m2.insertAdjacentHTML('afterbegin', `
-      <div class="tabs" id="reportTabs">
-        <button class="tab active" data-tab="realized">Closed Trades</button>
-        <button class="tab" data-tab="open">Open Positions</button>
-      </div>
-      <div class="tabpanes">
-        <div class="tabpane active" id="tab-realized">
-          <div class="sticky-head"></div>
-          <div class="table-wrapper">
-            <table class="report-table">
-              <thead><tr></tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-        <div class="tabpane" id="tab-open">
-          <div class="sticky-head"></div>
-          <div class="table-wrapper">
-            <table class="report-table">
-              <thead><tr></tr></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    `);
-  } else {
-    // se i wrapper non ci sono, aggiungili
-    ['tab-realized','tab-open'].forEach(id=>{
-      const pane = m2.querySelector('#'+id);
-      if (pane && !pane.querySelector('.table-wrapper')) {
-        const tbl = pane.querySelector('table');
-        const wrap = document.createElement('div');
-        wrap.className = 'table-wrapper';
-        tbl.parentNode.insertBefore(wrap, tbl);
-        wrap.appendChild(tbl);
-      }
-      if (pane && !pane.querySelector('.sticky-head')) {
-        const sticky = document.createElement('div');
-        sticky.className = 'sticky-head';
-        pane.insertBefore(sticky, pane.firstChild);
-      }
-    });
-  }
-}
-
+// ───────── Modulo 2 — Tabs (Closed / Open) + sticky offset
 function renderReportTabs(trades, openTrades){
-  const tabs = document.querySelectorAll('#reportTabs .tab');
+  const m2   = document.getElementById('module2');
+  const tabs = m2.querySelectorAll('#reportTabs .tab');
   const panes= {
     realized: document.getElementById('tab-realized'),
     open:     document.getElementById('tab-open')
   };
+
+  // (re)calcolo offset sticky in base all’altezza dei tab
+  const setOffset = () => setStickyOffsets();
+  setOffset(); window.addEventListener('resize', setOffset);
+
   tabs.forEach(btn=>{
     btn.addEventListener('click', ()=>{
       tabs.forEach(b=>b.classList.remove('active'));
@@ -232,8 +149,7 @@ function renderReportTabs(trades, openTrades){
       const tab = btn.dataset.tab;
       panes.realized.classList.toggle('active', tab==='realized');
       panes.open.classList.toggle('active', tab==='open');
-      setStickyOffsets();
-      ensureStickyHeader(tab === 'realized' ? 'tab-realized' : 'tab-open');
+      setOffset();
     });
   });
 
@@ -290,13 +206,9 @@ function renderReportTabs(trades, openTrades){
       tbody.appendChild(tr);
     }
   }
-
-  // sincronizza subito la sticky head
-  ensureStickyHeader('tab-realized');
-  ensureStickyHeader('tab-open');
 }
 
-// ───────── Modulo 3 — Equity chart (indice) ─────────
+// ───────── Modulo 3 — Equity chart (indice)
 function renderModule3(curve) {
   const el = document.getElementById('equityChart');
   if (!el) return;
@@ -339,7 +251,7 @@ function renderModule3(curve) {
   });
 }
 
-// ───────── Modulo 4 — New Strategies Alert (prevUb/prevLb, σ=STD_MULT) ─────────
+// ───────── Modulo 4 — New Strategies Alert (prevUb/prevLb, σ=STD_MULT)
 function computeNewAlertsFrom(channels){
   const out = [];
   if (!channels || typeof channels !== 'object') return out;
@@ -373,7 +285,6 @@ function computeNewAlertsFrom(channels){
   }
   return out;
 }
-
 function renderModule4(alerts){
   const tbody = document.querySelector('#module4 tbody');
   if (!tbody) return;
