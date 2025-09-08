@@ -107,8 +107,7 @@ function ensureStickyHeader(paneId){
     period:         periodLabel || '—',
     totalTrades:    k.total_trades ?? trades.length,
     winRate:        (k.win_rate_pct ?? 0).toFixed(1) + '%',
-    // totalPnl & maxDrawdown NON più mostrati singolarmente
-    ratio_pnl_dd:   ratioDD,                      // nuovo KPI
+    ratio_pnl_dd:   ratioDD,                      // KPI unico
     avgDuration:    (k.avg_duration_days ?? 0).toFixed(1) + ' d',
     openCount:      k.open_positions ?? openTrades.length
   };
@@ -131,13 +130,32 @@ function ensureStickyHeader(paneId){
     : (() => { let cum=0; return trades.map(t => { cum += num(t.pnl); return { x: t.exit_date, y: cum }; }); })();
   renderModule3(curve);
 
-  // New Strategies Alert da channels (prevUb/prevLb)
-  try {
-    const channels = await fetchJSON(CHANNELS_FILE);
-    const alerts = computeNewAlertsFrom(channels);
-    renderModule4(alerts);
-  } catch (e) {
-    console.warn('Channels load failed:', e);
+  // ── New Strategies Alert — PRIORITÀ: stats.new_signals (stessa fonte delle Open)
+  const alertsFromStats = Array.isArray(stats.new_signals) && stats.new_signals.length
+    ? {
+        asof:  (stats.portfolio_kpis && stats.portfolio_kpis.last_date) ? stats.portfolio_kpis.last_date : '',
+        items: stats.new_signals.map(a => ({
+          spread: a.spread,
+          signal: a.signal,
+          open:   num(a.open).toFixed(4),
+          tp:     num(a.tp).toFixed(4),
+          sl:     num(a.sl).toFixed(4)
+        }))
+      }
+    : null;
+
+  if (alertsFromStats) {
+    renderModule4(alertsFromStats);
+  } else {
+    // Fallback: calcolo dagli ultimi canali (ignorando la riga "di oggi")
+    try {
+      const channels = await fetchJSON(CHANNELS_FILE);
+      const alerts = computeNewAlertsFrom(channels);
+      renderModule4(alerts);
+    } catch (e) {
+      console.warn('Channels load failed:', e);
+      renderModule4({ asof: '', items: [] });
+    }
   }
 })();
 
@@ -156,7 +174,7 @@ function renderModule1(k) {
     { label: 'Period',              value: k.period },
     { label: '# Trades',            value: k.totalTrades },
     { label: 'Win Rate',            value: k.winRate },
-    { label: 'P&L / Max DD',        value: ratioText },            // <— nuovo KPI unico
+    { label: 'P&L / Max DD',        value: ratioText },
     { label: 'Avg Duration',        value: k.avgDuration },
     { label: 'Open Positions',      value: `${k.openCount}` },
   ];
@@ -330,7 +348,7 @@ function renderModule3(curve) {
 }
 
 // ───────── Modulo 4 — New Strategies Alert ─────────
-// ✅ sostituisci TUTTA la funzione
+// Calcolo fallback dagli "channels": ignora la riga "di oggi" (provvisoria)
 function computeNewAlertsFrom(channels){
   const out = [];
   let asof = null; // data dell’ultimo giorno COMPLETATO usato per gli alert
@@ -389,7 +407,7 @@ function computeNewAlertsFrom(channels){
   return { asof, items: out };
 }
 
-// ✅ aggiorna per supportare {asof, items}
+// Render tabella Alert: accetta { asof, items } oppure array puro
 function renderModule4(alertsOrObj){
   const tbody = document.querySelector('#module4 tbody');
   if (!tbody) return;
