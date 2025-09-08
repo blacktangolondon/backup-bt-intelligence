@@ -330,16 +330,28 @@ function renderModule3(curve) {
 }
 
 // ───────── Modulo 4 — New Strategies Alert ─────────
+// ✅ sostituisci TUTTA la funzione
 function computeNewAlertsFrom(channels){
   const out = [];
-  if (!channels || typeof channels !== 'object') return out;
+  let asof = null; // data dell’ultimo giorno COMPLETATO usato per gli alert
+
+  if (!channels || typeof channels !== 'object') return { asof:null, items: out };
+
+  const today = new Date().toISOString().slice(0,10); // YYYY-MM-DD (UTC)
 
   for (const key of Object.keys(channels)){
     const rows = channels[key];
     if(!Array.isArray(rows) || rows.length < 2) continue;
 
-    const last  = rows[rows.length-1];
-    const prev  = rows[rows.length-2];
+    // usa l’ultima riga SOLO se non è "oggi" (giorno in corso)
+    let li = rows.length - 1;
+    const lastDateStr = String(rows[li][0]);
+    if (lastDateStr === today) li -= 1;         // salta il giorno in corso (provvisorio)
+    if (li < 1) continue;                       // serve almeno una "prev"
+
+    const last = rows[li];
+    const prev = rows[li - 1];
+    asof = asof || String(last[0]);             // memorizza la data usata dagli alert
 
     // [date, ratio, lower1, lower2, upper1, upper2]
     const r_now   = num(last[1]),  l1 = num(last[2]),  u1 = num(last[4]);
@@ -356,21 +368,42 @@ function computeNewAlertsFrom(channels){
     const prevLb  = t_prev - s_prev * STD_MULT;
 
     if (r_now > ub && r_prev <= prevUb){
-      out.push({spread:key, signal:'Short', open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now + Math.abs(r_now - t_now)).toFixed(4)});
+      out.push({
+        spread: key,
+        signal: 'Short',
+        open:   r_now.toFixed(4),
+        tp:     t_now.toFixed(4),
+        sl:     (r_now + Math.abs(r_now - t_now)).toFixed(4)
+      });
     } else if (r_now < lb && r_prev >= prevLb){
-      out.push({spread:key, signal:'Long',  open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now - Math.abs(t_now - r_now)).toFixed(4)});
+      out.push({
+        spread: key,
+        signal: 'Long',
+        open:   r_now.toFixed(4),
+        tp:     t_now.toFixed(4),
+        sl:     (r_now - Math.abs(r_now - t_now)).toFixed(4)
+      });
     }
   }
-  return out;
+
+  return { asof, items: out };
 }
 
-function renderModule4(alerts){
+// ✅ aggiorna per supportare {asof, items}
+function renderModule4(alertsOrObj){
   const tbody = document.querySelector('#module4 tbody');
   if (!tbody) return;
   tbody.innerHTML = '';
+
+  const alerts = Array.isArray(alertsOrObj) ? alertsOrObj : (alertsOrObj.items || []);
+  const asof   = Array.isArray(alertsOrObj) ? null : alertsOrObj.asof;
+
+  const asofEl = document.getElementById('alerts-asof');
+  if (asofEl) asofEl.textContent = asof ? `as of ${asof}` : '';
+
   if(!alerts.length){
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td colspan="5" style="text-align:center;opacity:.7">No new signals today</td>`;
+    tr.innerHTML = `<td colspan="5" style="text-align:center;opacity:.7">No new signals</td>`;
     tbody.appendChild(tr);
     return;
   }
