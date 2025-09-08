@@ -2,20 +2,21 @@
   "portfolio_kpis": {
     "period": {
       "start": "2023-11-21",
-      "end": "2025-09-08"
+      "end": "2025-09-07"
     },
-    "total_trades": 260,
+    "last_date": "2025-09-08",
+    "total_trades": 259,
     "wins": 148,
-    "losses": 112,
-    "win_rate_pct": 56.9,
-    "total_pnl": 1.1115,
-    "avg_pnl_per_trade": 0.004275,
+    "losses": 111,
+    "win_rate_pct": 57.1,
+    "total_pnl": 1.131826,
+    "avg_pnl_per_trade": 0.00437,
     "max_win": 0.047297,
     "max_loss": -0.020669,
     "max_drawdown": 0.256336,
     "avg_duration_days": 27.0,
-    "open_positions": 16,
-    "mtm_open_pnl": 0.028446
+    "open_positions": 17,
+    "mtm_open_pnl": 0.006516
   },
   "by_spread": [
     {
@@ -174,14 +175,14 @@
     },
     {
       "key": "GBPCHF=X",
-      "trades": 13,
+      "trades": 12,
       "wins": 8,
-      "losses": 5,
-      "win_rate_pct": 61.5,
-      "avg_pnl": 0.008929,
+      "losses": 4,
+      "win_rate_pct": 66.7,
+      "avg_pnl": 0.011368,
       "max_win": 0.047297,
       "max_loss": -0.020515,
-      "avg_duration_days": 17.3
+      "avg_duration_days": 17
     },
     {
       "key": "GBPAUD=X",
@@ -222,7 +223,7 @@
       "wins": 4,
       "losses": 3,
       "win_rate_pct": 57.1,
-      "avg_pnl": 0.001942,
+      "avg_pnl": 0.001941,
       "max_win": 0.025626,
       "max_loss": -0.020243,
       "avg_duration_days": 27.7
@@ -3890,13 +3891,13 @@
       "exit_date": "2025-08-20",
       "type": "short",
       "entry": 97.039,
-      "exit": 94.719,
-      "pnl": 0.023053,
+      "exit": 94.72,
+      "pnl": 0.023043,
       "take_profit": 95.043095,
       "stop_loss": 99.034905,
       "duration": 24,
       "exit_reason": "TP",
-      "cum_pnl": 1.117964
+      "cum_pnl": 1.117954
     },
     {
       "spread": "NZDJPY=X",
@@ -3910,7 +3911,7 @@
       "stop_loss": 90.220886,
       "duration": 36,
       "exit_reason": "TP",
-      "cum_pnl": 1.148087
+      "cum_pnl": 1.148077
     },
     {
       "spread": "AUDCAD=X",
@@ -3924,7 +3925,7 @@
       "stop_loss": 0.885698,
       "duration": 60,
       "exit_reason": "TimeCap",
-      "cum_pnl": 1.157292
+      "cum_pnl": 1.157282
     },
     {
       "spread": "AUDNZD=X",
@@ -3938,7 +3939,7 @@
       "stop_loss": 1.111925,
       "duration": 14,
       "exit_reason": "SL",
-      "cum_pnl": 1.136734
+      "cum_pnl": 1.136724
     },
     {
       "spread": "AUDUSD=X",
@@ -3952,21 +3953,7 @@
       "stop_loss": 0.664702,
       "duration": 61,
       "exit_reason": "TimeCap",
-      "cum_pnl": 1.131836
-    },
-    {
-      "spread": "GBPCHF=X",
-      "entry_date": "2025-08-18",
-      "exit_date": "2025-09-08",
-      "type": "long",
-      "entry": 1.08863,
-      "exit": 1.075659,
-      "pnl": -0.020336,
-      "take_profit": 1.1016,
-      "stop_loss": 1.075659,
-      "duration": 21,
-      "exit_reason": "SL",
-      "cum_pnl": 1.1115
+      "cum_pnl": 1.131826
     }
   ],
   "equity_curve": [
@@ -4988,27 +4975,23 @@
     },
     {
       "date": "2025-08-20",
-      "cumulative_pnl": 1.117964
+      "cumulative_pnl": 1.117954
     },
     {
       "date": "2025-08-20",
-      "cumulative_pnl": 1.148087
+      "cumulative_pnl": 1.148077
     },
     {
       "date": "2025-08-31",
-      "cumulative_pnl": 1.157292
+      "cumulative_pnl": 1.157282
     },
     {
       "date": "2025-09-03",
-      "cumulative_pnl": 1.136734
+      "cumulative_pnl": 1.136724
     },
     {
       "date": "2025-09-07",
-      "cumulative_pnl": 1.131836
-    },
-    {
-      "date": "2025-09-08",
-      "cumulative_pnl": 1.1115
+      "cumulative_pnl": 1.131826
     }
   ],
   "open_trades": [
@@ -5018,8 +5001,8 @@
       "last_date": "2025-09-08",
       "type": "short",
       "entry": 107.638,
-      "last": 106.85,
-      "mtm_return": 0.006681,
+      "last": 107.009,
+      "mtm_return": 0.005295,
       "take_profit": 105.343445,
       "stop_loss": 109.932555,
       "days_open": 59,
@@ -5031,8 +5014,8 @@
       "last_date": "2025-09-08",
       "type": "long",
       "entry": 0.4777,
-      "last": 0.47148,
-      "mtm_return": -0.011258,
+      "last": 0.47187,
+      "mtm_return": -0.010563,
       "take_profit": 0.48892,
       "stop_loss": 0.466481,
       "days_open": 45,
@@ -5044,8 +5027,8 @@
       "last_date": "2025-09-08",
       "type": "long",
       "entry": 0.52113,
-      "last": 0.52413,
-      "mtm_return": 0.004044,
+      "last": 0.52433,
+      "mtm_return": 0.004323,
       "take_profit": 0.535453,
       "stop_loss": 0.506807,
       "days_open": 39,
@@ -5057,8 +5040,8 @@
       "last_date": "2025-09-08",
       "type": "short",
       "entry": 1.78984,
-      "last": 1.78077,
-      "mtm_return": 0.004378,
+      "last": 1.78065,
+      "mtm_return": 0.004438,
       "take_profit": 1.750036,
       "stop_loss": 1.829644,
       "days_open": 38,
@@ -5070,8 +5053,8 @@
       "last_date": "2025-09-08",
       "type": "short",
       "entry": 1.59689,
-      "last": 1.62032,
-      "mtm_return": -0.017578,
+      "last": 1.61939,
+      "mtm_return": -0.016889,
       "take_profit": 1.569868,
       "stop_loss": 1.623912,
       "days_open": 38,
@@ -5083,8 +5066,8 @@
       "last_date": "2025-09-08",
       "type": "short",
       "entry": 0.94123,
-      "last": 0.93343,
-      "mtm_return": 0.019351,
+      "last": 0.93377,
+      "mtm_return": 0.018487,
       "take_profit": 0.933363,
       "stop_loss": 0.949097,
       "days_open": 29,
@@ -5096,8 +5079,8 @@
       "last_date": "2025-09-08",
       "type": "short",
       "entry": 1.3574,
-      "last": 1.35094,
-      "mtm_return": 0.0049,
+      "last": 1.35074,
+      "mtm_return": 0.005058,
       "take_profit": 1.33214,
       "stop_loss": 1.38266,
       "days_open": 26,
@@ -5109,11 +5092,24 @@
       "last_date": "2025-09-08",
       "type": "short",
       "entry": 200.04,
-      "last": 199.505,
-      "mtm_return": 0.003191,
+      "last": 199.683,
+      "mtm_return": 0.002043,
       "take_profit": 196.937263,
       "stop_loss": 203.142737,
       "days_open": 26,
+      "status": "open"
+    },
+    {
+      "spread": "GBPCHF=X",
+      "entry_date": "2025-08-18",
+      "last_date": "2025-09-08",
+      "type": "long",
+      "entry": 1.08863,
+      "last": 1.07598,
+      "mtm_return": -0.019842,
+      "take_profit": 1.1016,
+      "stop_loss": 1.075659,
+      "days_open": 21,
       "status": "open"
     },
     {
@@ -5122,8 +5118,8 @@
       "last_date": "2025-09-08",
       "type": "long",
       "entry": 0.80721,
-      "last": 0.81848,
-      "mtm_return": 0.019585,
+      "last": 0.81834,
+      "mtm_return": 0.019338,
       "take_profit": 0.818554,
       "stop_loss": 0.795866,
       "days_open": 19,
@@ -5135,10 +5131,10 @@
       "last_date": "2025-09-08",
       "type": "short",
       "entry": 96.401,
-      "last": 97.217,
-      "mtm_return": -0.008228,
-      "take_profit": 94.370615,
-      "stop_loss": 98.431385,
+      "last": 97.313,
+      "mtm_return": -0.009173,
+      "take_profit": 94.370608,
+      "stop_loss": 98.431392,
       "days_open": 7,
       "status": "open"
     },
@@ -5148,8 +5144,8 @@
       "last_date": "2025-09-08",
       "type": "long",
       "entry": 1.84386,
-      "last": 1.86714,
-      "mtm_return": 0.015297,
+      "last": 1.86597,
+      "mtm_return": 0.014516,
       "take_profit": 1.873816,
       "stop_loss": 1.813905,
       "days_open": 6,
@@ -5161,8 +5157,8 @@
       "last_date": "2025-09-08",
       "type": "long",
       "entry": 0.79777,
-      "last": 0.79619,
-      "mtm_return": -0.001447,
+      "last": 0.79657,
+      "mtm_return": -0.001131,
       "take_profit": 0.82182,
       "stop_loss": 0.77372,
       "days_open": 3,
@@ -5174,8 +5170,8 @@
       "last_date": "2025-09-08",
       "type": "short",
       "entry": 0.90575,
-      "last": 0.9098,
-      "mtm_return": -0.009827,
+      "last": 0.90934,
+      "mtm_return": -0.008758,
       "take_profit": 0.897139,
       "stop_loss": 0.914362,
       "days_open": 3,
@@ -5186,11 +5182,11 @@
       "entry_date": "2025-09-08",
       "last_date": "2025-09-08",
       "type": "short",
-      "entry": 0.5922,
-      "last": 0.5922,
-      "mtm_return": -0.000218,
-      "take_profit": 0.581309,
-      "stop_loss": 0.60309,
+      "entry": 0.59239,
+      "last": 0.59239,
+      "mtm_return": -0.000214,
+      "take_profit": 0.581311,
+      "stop_loss": 0.603468,
       "days_open": 0,
       "status": "open"
     },
@@ -5199,11 +5195,11 @@
       "entry_date": "2025-09-08",
       "last_date": "2025-09-08",
       "type": "long",
-      "entry": 2.05207,
-      "last": 2.05207,
-      "mtm_return": -0.000221,
-      "take_profit": 2.089181,
-      "stop_loss": 2.014959,
+      "entry": 2.05181,
+      "last": 2.05181,
+      "mtm_return": -0.00022,
+      "take_profit": 2.089179,
+      "stop_loss": 2.014441,
       "days_open": 0,
       "status": "open"
     },
@@ -5212,13 +5208,36 @@
       "entry_date": "2025-09-08",
       "last_date": "2025-09-08",
       "type": "short",
-      "entry": 87.458,
-      "last": 87.458,
-      "mtm_return": -0.000204,
-      "take_profit": 85.743571,
-      "stop_loss": 89.172429,
+      "entry": 87.572,
+      "last": 87.572,
+      "mtm_return": -0.000192,
+      "take_profit": 85.74448,
+      "stop_loss": 89.39952,
       "days_open": 0,
       "status": "open"
+    }
+  ],
+  "new_signals": [
+    {
+      "spread": "GBPAUD=X",
+      "signal": "Long",
+      "open": 2.05181,
+      "tp": 2.089179,
+      "sl": 2.014441
+    },
+    {
+      "spread": "NZDJPY=X",
+      "signal": "Short",
+      "open": 87.572,
+      "tp": 85.74448,
+      "sl": 89.39952
+    },
+    {
+      "spread": "NZDUSD=X",
+      "signal": "Short",
+      "open": 0.59239,
+      "tp": 0.581311,
+      "sl": 0.603468
     }
   ]
 }
