@@ -6,7 +6,7 @@ Chart.defaults.font.weight = 'normal';
 
 const STATS_FILE    = 'fx_long_short_stats.json';
 const CHANNELS_FILE = 'fx_channels.json';
-const STD_MULT      = 2.0;
+const STD_MULT      = 0.5;
 
 const fmtPct = v => (Number(v) * 100).toFixed(2) + '%';
 const num    = v => Number.isFinite(Number(v)) ? Number(v) : 0;
