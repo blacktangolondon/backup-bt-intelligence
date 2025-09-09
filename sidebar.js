@@ -272,7 +272,7 @@ export async function generateSidebarContent() {
     subUlTS.classList.add('sub-list');
 
     const ITEMS = [
-      { label: 'LONG-SHORT EQUITY', url: 'https://backup-bt-intelligence.netlify.app/equities_long_short.html' },
+      { label: 'TACTICAL EQUITY LONG-ONLY', url: 'https://backup-bt-intelligence.netlify.app/equities_long_short.html' },
       { label: 'TACTICAL FX',                url: 'https://backup-bt-intelligence.netlify.app/fx_long_short.html' },
       { label: 'TACTICAL FUTURES',            url: 'https://backup-bt-intelligence.netlify.app/futures_long_short.html' },
       { label: 'ARBITRAGE', url: 'https://backup-bt-intelligence.netlify.app/nondirectional-2sd.html' },
