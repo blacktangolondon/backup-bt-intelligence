@@ -1,245 +1,232 @@
-// nondirectional-2sd.js
+// Dashboard glue (Chart.js required in HTML)
 
-// ─── Config per la conversione in £ ───
-const CONFIG = {
-  accountGBP: 18000,    // capitale conto
-  allocPerTrade: 1.0,   // quota di capitale allocata per trade (1.0 = 100%; 0.25 = 25%)
-  // commissionGBP: 0,  // se vuoi, possiamo sottrarre costi fissi/variabili qui
-};
-
-// ─── Global Chart.js font defaults ───
 Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
-// ——— Helper: t.pnl è il PnL assoluto in GBP ———
-// (da non_directional_stats-2sd.json / trades[])
-function pnl(t) { return t.pnl; }
+const STATS_FILE    = 'non_directional_stats-2sd.json';
+const CHANNELS_FILE = 'non_directional_stats-2sd.json';
+const STD_MULT      = 0.5;
 
-(async function() {
-  // 1) Load stats & trades (2σ backtest output)
-  const resp   = await fetch('non_directional_stats-2sd.json');
-  if (!resp.ok) {
-    console.error('JSON load failed');
-    return;
+const fmtPct = v => (Number(v) * 100).toFixed(2) + '%';
+const num    = v => Number.isFinite(Number(v)) ? Number(v) : 0;
+const fetchJSON = async (url) => {
+  const u = url + (url.includes('?') ? '&' : '?') + 'ts=' + Date.now();
+  const r = await fetch(u, { cache: 'no-store' });
+  if (!r.ok) throw new Error(`Failed to load ${u}: ${r.status}`);
+  return r.json();
+};
+
+(async function () {
+  let stats;
+  try { stats = await fetchJSON(STATS_FILE); }
+  catch (e) { console.error('JSON load failed for stats:', e); return; }
+
+  const trades = Array.isArray(stats.trades)
+    ? stats.trades.slice().sort((a,b)=> new Date(a.exit_date) - new Date(b.exit_date))
+    : [];
+
+  const openTrades = Array.isArray(stats.open_trades)
+    ? stats.open_trades.slice().sort((a,b)=> new Date(a.entry_date) - new Date(b.entry_date))
+    : [];
+
+  // Period label
+  let periodLabel = '';
+  if (stats.portfolio_kpis && stats.portfolio_kpis.period) {
+    const p = stats.portfolio_kpis.period;
+    if (p.start && p.end) periodLabel = p.start + ' → ' + p.end;
+    else if (typeof p === 'string') periodLabel = p;
+  } else if (trades.length) {
+    periodLabel = trades[0].entry_date + ' → ' + trades[trades.length-1].exit_date;
   }
-  const stats  = await resp.json();
-  const trades = stats.trades;
 
-  // 2) Build PnL-in-GBP array (fractions in t.pnl → *100 later)
-  const pnls = trades.map(pnl);
+  // ── KPI (realized) — P&L / Max DD con "×"
+  const k = stats.portfolio_kpis || {};
+  const totalPnl = num(k.total_pnl);
+  const maxDD    = Math.max(0, num(k.max_drawdown));
+  const pnlOverDD= (maxDD > 0) ? (totalPnl / maxDD) : NaN;
+  const pnlOverDDLabel = Number.isFinite(pnlOverDD) ? pnlOverDD.toFixed(2) + '×' : '—';
 
-  // 3) Compute durations (in days)
-  const durations = trades
-    .map(t => (new Date(t.exit_date) - new Date(t.entry_date)) / (1000 * 60 * 60 * 24))
-    .sort((a, b) => a - b);
+  const kpi = {
+    period:         periodLabel || '—',
+    totalTrades:    k.total_trades ?? trades.length,
+    winRate:        (k.win_rate_pct ?? 0).toFixed(1) + '%',
+    pnlOverDD:      pnlOverDDLabel,
+    avgDuration:    (k.avg_duration_days ?? 0).toFixed(1) + ' d',
+    openCount:      k.open_positions ?? openTrades.length
+  };
+  renderModule1(kpi); // ← importante
 
-  // 4) Compute period string
-  const entryDates = trades.map(t => new Date(t.entry_date));
-  const exitDates  = trades.map(t => new Date(t.exit_date));
-  const startDate  = new Date(Math.min(...entryDates));
-  const endDate    = new Date(Math.max(...exitDates));
-  const fmt = d => d.toLocaleString('default', { month: 'short', year: 'numeric' });
-  const period = `${fmt(startDate)} – ${fmt(endDate)}`;
+  // ── Modulo 2: usa i tab già presenti in HTML; popola solo le tabelle
+  renderReportTabs(trades, openTrades);
 
-  // 5) Compute metrics
-  const numTrades   = trades.length;
-  const mid         = Math.floor(durations.length / 2);
-  const medDur      = durations.length % 2 === 1
-    ? durations[mid]
-    : (durations[mid - 1] + durations[mid]) / 2;
-  const quickestDur = Math.min(...durations);
+  // ── Modulo 3: Portfolio Value Index (base=100)
+  const curve = Array.isArray(stats.equity_curve) && stats.equity_curve.length
+    ? stats.equity_curve.map(p => ({ x: p.date, y: num(p.cumulative_pnl) }))
+    : (() => { let cum=0; return trades.map(t => { cum += num(t.pnl); return { x: t.exit_date, y: cum }; }); })();
+  renderModule3_asIndex(curve);
 
-  // pull max-drawdown from stats
-  const maxDrawdown = stats.portfolio_kpis.max_drawdown; // Value is already in GBP
-  // Note: the original code expected a percentage. The new code should not multiply by 100.
-
-  // compute Sortino
-  const avgPnl     = pnls.reduce((sum, p) => sum + p, 0) / pnls.length;
-  const downsidePnls = pnls.filter(p => p < 0);
-  const downsideSD = downsidePnls.length
-    ? Math.sqrt(downsidePnls.reduce((sum, p) => sum + p*p, 0) / downsidePnls.length)
-    : 0;
-  const sortino    = downsideSD > 0 ? avgPnl / downsideSD : 0;
-
-  // 6) Render everything
-  renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino });
-  renderModule2(trades);
-  renderModule3(pnls);
-  renderModule4();   // 2σ alerts
+  // ── Modulo 4: New Strategies Alert
+  try {
+    const channels = await fetchJSON(CHANNELS_FILE);
+    renderModule4(computeNewAlertsFrom(channels));
+  } catch (e) { console.warn('Channels load failed:', e); }
 })();
 
-// ——— Module 1 — Portfolio KPI Cards —–––
-function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino }) {
+// ───────── Module 1
+function renderModule1(k) {
   const cont = document.getElementById('module1');
+  if (!cont) return;
   cont.innerHTML = '';
   [
-    { label: 'Period',           value: period },
-    { label: '# Trades',         value: numTrades },
-    { label: 'Median Duration',  value: medDur.toFixed(0)    + ' days' },
-    { label: 'Quickest Trade',   value: quickestDur.toFixed(0) + ' days' },
-    { label: 'Max Drawdown',     value: '£' + maxDrawdown.toFixed(2) }, // Now correctly displayed in GBP
-    { label: 'Sortino Ratio',    value: sortino.toFixed(2)     }
+    { label: 'Period', value: k.period },
+    { label: '# Trades', value: k.totalTrades },
+    { label: 'Win Rate', value: k.winRate },
+    { label: 'P&L / Max DD', value: k.pnlOverDD },
+    { label: 'Avg Duration', value: k.avgDuration },
+    { label: 'Open Positions', value: k.openCount },
   ].forEach(c => {
     const d = document.createElement('div');
     d.className = 'kpi-card';
-    d.innerHTML = `
-      <div class="kpi-value">${c.value}</div>
-      <div class="kpi-label">${c.label}</div>
-    `;
+    d.innerHTML = `<div class="kpi-value">${c.value}</div><div class="kpi-label">${c.label}</div>`;
     cont.appendChild(d);
   });
 }
 
-// —––– Module 2 — Historical Report —–––
-// Colonna "Delta" = |(take_profit - entry) / entry| * 100
-// P&L ora in £: t.pnl (valore assoluto in GBP)
-function renderModule2(trades) {
-  const tbody = document.querySelector('#module2 tbody');
-  tbody.innerHTML = '';
-
-  // rebuild header
-  const thead = document.querySelector('#module2 thead tr');
-  thead.innerHTML = `
-    <th>Spread</th>
-    <th>Signal</th>
-    <th>Delta</th>
-    <th>Open Date</th>
-    <th>Close Date</th>
-    <th>Open Price</th>
-    <th>Close Price</th>
-    <th>Take Profit</th>
-    <th>Stop Loss</th>
-    <th>P&L (£)</th>
-  `;
-
-  const money = (gbp) => '£' + gbp.toFixed(2);
-
-  trades
-    .slice()
-    .sort((a, b) => new Date(a.entry_date) - new Date(b.entry_date))
-    .forEach(t => {
-      const deltaPct   = (Math.abs((t.take_profit - t.entry) / t.entry) * 100).toFixed(2) + '%';
-      const pnlGBP     = t.pnl; // ← Corretto: usa il valore PnL assoluto fornito dal backtest
-
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td class="instrument-item" data-key="${t.spread}">${t.spread}</td>
-        <td>${t.type === 'long' ? 'Long' : 'Short'}</td>
-        <td>${deltaPct}</td>
-        <td>${t.entry_date}</td>
-        <td>${t.exit_date}</td>
-        <td>${t.entry.toFixed(4)}</td>
-        <td>${t.exit.toFixed(4)}</td>
-        <td>${t.take_profit.toFixed(4)}</td>
-        <td>${t.stop_loss.toFixed(4)}</td>
-        <td>${money(pnlGBP)}</td>
-      `;
-      tbody.appendChild(tr);
+// ───────── Module 2 (riusa i tab già presenti)
+function renderReportTabs(trades, openTrades){
+  const tabs = document.querySelectorAll('#reportTabs .tab');
+  const panes = {
+    realized: document.getElementById('tab-realized'),
+    open:     document.getElementById('tab-open')
+  };
+  tabs.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      tabs.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      panes.realized.classList.toggle('active', tab==='realized');
+      panes.open.classList.toggle('active', tab==='open');
     });
-}
-
-// —––– Module 3 — Arithmetic Equity Curve —–––
-function renderModule3(pnls) {
-  // Calcola il capitale iniziale del portafoglio in GBP
-  // Il backtest usa TOTAL_PORTFOLIO_CAPITAL_USD = 18000 e GBP_USD_EXCHANGE_RATE = 1.27
-  const initialCapitalUSD = 18000;
-  const exchangeRate = 1.27;
-  const initialCapitalGBP = initialCapitalUSD / exchangeRate;
-  
-  const cum = [];
-  let sumGBP = 0;
-  pnls.forEach(pnl => {
-    sumGBP += pnl;
-    // Calcola il ritorno percentuale cumulativo rispetto al capitale iniziale in GBP
-    const cumulativeReturnPct = (sumGBP / initialCapitalGBP) * 100;
-    cum.push(cumulativeReturnPct);
   });
 
-  new Chart(
-    document.getElementById('equityChart').getContext('2d'),
-    {
-      type: 'line',
-      data: {
-        labels: cum.map((_, i) => i + 1),
-        datasets: [{
-          label: 'Cumulative Return',
-          data: cum,
-          borderColor: '#FFA500',
-          fill: false
-        }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        layout: { padding: { bottom: 20 } },
-        scales: {
-          y: {
-            title: {
-              display: true,
-              text: 'Cumulative Return (%)',
-              font: { size: 14 }
-            },
-            ticks: { callback: v => v.toFixed(1) + '%' }
-          },
-          x: { display: false }
-        },
-        plugins: { legend: { display: false } }
-      }
-    }
-  );
-}
-
-// —––– Module 4 — New Strategies Alert (2σ) —–––
-async function renderModule4() {
-  try {
-    const resp = await fetch('spreads.json');
-    const data = await resp.json();
-
-    const alerts = Object.entries(data)
-      .filter(([_, series]) => Array.isArray(series) && series.length >= 2)
-      .map(([spread, series]) => {
-        const prev = series[series.length - 2];
-        const last = series[series.length - 1];
-        // unpack both 1σ and 2σ levels
-        const [, prevPrice, prevL1, prevL2, prevU1, prevU2] = prev;
-        const [, price,     lower1, lower2, upper1, upper2] = last;
-
-        // trigger only on ±2σ crossings
-        const justBrokeLong  = price < lower2  && prevPrice >= prevL2;
-        const justBrokeShort = price > upper2  && prevPrice <= prevU2;
-        if (!justBrokeLong && !justBrokeShort) return;
-
-        const signal = justBrokeLong ? 'Long' : 'Short';
-        // TP/SL still based on mid-of-1σ band
-        const mid    = (lower1 + upper1) / 2;
-        const half   = Math.abs(price - mid);
-
-        return {
-          spread,
-          signal,
-          entry:      price,
-          takeProfit: mid,
-          stopLoss:   signal === 'Long'
-                        ? price - half
-                        : price + half
-        };
-      })
-      .filter(Boolean);
-
-    const tbody = document.querySelector('#module4 tbody');
+  // CLOSED
+  {
+    const thead = panes.realized.querySelector('thead tr');
+    const tbody = panes.realized.querySelector('tbody');
+    thead.innerHTML = `
+      <th>Ticker</th><th>Signal</th><th>Open Date</th><th>Close Date</th>
+      <th>Open Price</th><th>Close Price</th><th>Target</th><th>Stop</th><th>Return</th><th>Exit</th>`;
     tbody.innerHTML = '';
-    alerts.forEach(a => {
-      const tr = document.createElement('tr');
+    trades.forEach(t=>{
+      const tr=document.createElement('tr');
       tr.innerHTML = `
-        <td class="instrument-item" data-key="${a.spread}">${a.spread}</td>
-        <td>${a.signal}</td>
-        <td>${a.entry.toFixed(4)}</td>
-        <td>${a.takeProfit.toFixed(4)}</td>
-        <td>${a.stopLoss.toFixed(4)}</td>
-      `;
+        <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
+        <td>${t.entry_date}</td><td>${t.exit_date}</td>
+        <td>${num(t.entry).toFixed(4)}</td><td>${num(t.exit).toFixed(4)}</td>
+        <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
+        <td>${fmtPct(num(t.pnl))}</td><td>${t.exit_reason || ''}</td>`;
       tbody.appendChild(tr);
     });
-  } catch (err) {
-    console.error('Module 4 render error:', err);
+    if (!trades.length){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td colspan="10" style="text-align:center;opacity:.7">No closed trades</td>`;
+      tbody.appendChild(tr);
+    }
   }
+
+  // OPEN
+  {
+    const thead = panes.open.querySelector('thead tr');
+    const tbody = panes.open.querySelector('tbody');
+    thead.innerHTML = `
+      <th>Ticker</th><th>Signal</th><th>Open Date</th><th>Days Open</th>
+      <th>Entry</th><th>Last</th><th>Target</th><th>Stop</th><th>Return (MTM)</th>`;
+    tbody.innerHTML = '';
+    openTrades.forEach(t=>{
+      const tr=document.createElement('tr');
+      tr.innerHTML = `
+        <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
+        <td>${t.entry_date}</td><td>${num(t.days_open)}</td>
+        <td>${num(t.entry).toFixed(4)}</td><td>${num(t.last).toFixed(4)}</td>
+        <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
+        <td>${fmtPct(num(t.mtm_return))}</td>`;
+      tbody.appendChild(tr);
+    });
+    if (!openTrades.length){
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td colspan="9" style="text-align:center;opacity:.7">No open positions</td>`;
+      tbody.appendChild(tr);
+    }
+  }
+}
+
+// ───────── Module 3
+function renderModule3_asIndex(curve) {
+  const el = document.getElementById('equityChart');
+  if (!el) return;
+  const ctx = el.getContext('2d');
+  const labels = curve.map(p=>p.x);
+  const dataIdx= curve.map(p => (1 + num(p.y)) * 100);
+
+  const grad = ctx.createLinearGradient(0, 0, 0, el.height);
+  grad.addColorStop(0, 'rgba(246,163,19,0.35)');
+  grad.addColorStop(1, 'rgba(246,163,19,0.00)');
+
+  new Chart(ctx,{
+    type:'line',
+    data:{ labels, datasets:[{
+      label:'Portfolio Value (Index)', data:dataIdx,
+      borderColor:'#F6A313', backgroundColor:grad, fill:true,
+      pointRadius:0, tension:0.25, borderWidth:2
+    }]},
+    options:{
+      maintainAspectRatio:false,
+      layout:{padding:{bottom:12,left:8,right:8,top:8}},
+      scales:{
+        y:{ grid:{color:'#2a2a2a'}, ticks:{ callback:v => Number(v).toFixed(0) } },
+        x:{ grid:{display:false}, ticks:{ maxRotation:0, autoSkip:true } }
+      },
+      plugins:{ legend:{display:false} }
+    }
+  });
+}
+
+// ───────── Module 4
+function computeNewAlertsFrom(channels){
+  const out = [];
+  if (!channels || typeof channels !== 'object') return out;
+  for (const key of Object.keys(channels)){
+    const rows = channels[key];
+    if(!Array.isArray(rows) || rows.length < 2) continue;
+    const last = rows[rows.length-1], prev = rows[rows.length-2];
+    const r_now = num(last[1]), l1 = num(last[2]), u1 = num(last[4]);
+    const r_prev= num(prev[1]), pl1= num(prev[2]), pu1= num(prev[4]);
+    const t_now = (u1 + l1)/2,  s_now = Math.abs(u1 - t_now);
+    const t_prev= (pu1 + pl1)/2, s_prev= Math.abs(pu1 - t_prev);
+    const ub = t_now + s_now*STD_MULT, lb = t_now - s_now*STD_MULT;
+    const prevUb = t_prev + s_prev*STD_MULT, prevLb = t_prev - s_prev*STD_MULT;
+    if (r_now > ub && r_prev <= prevUb)
+      out.push({spread:key, signal:'Short', open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now + Math.abs(r_now - t_now)).toFixed(4)});
+    else if (r_now < lb && r_prev >= prevLb)
+      out.push({spread:key, signal:'Long',  open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now - Math.abs(t_now - r_now)).toFixed(4)});
+  }
+  return out;
+}
+
+function renderModule4(alerts){
+  const tbody = document.querySelector('#module4 tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  if(!alerts.length){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td colspan="5" style="text-align:center;opacity:.7">No new signals today</td>`;
+    tbody.appendChild(tr);
+    return;
+  }
+  alerts.forEach(a=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${a.spread}</td><td>${a.signal}</td><td>${a.open}</td><td>${a.tp}</td><td>${a.sl}</td>`;
+    tbody.appendChild(tr);
+  });
 }
