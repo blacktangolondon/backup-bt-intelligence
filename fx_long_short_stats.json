@@ -2,25 +2,18 @@
   "portfolio_kpis": {
     "period": {
       "start": "2023-11-21",
-      "end": "2025-09-09"
+      "end": "2025-09-08"
     },
-    "total_trades": 264,
-    "wins": 152,
-    "losses": 112,
-    "win_rate_pct": 57.6,
-    "total_pnl": 1.1684213193,
-    "max_drawdown": 0.2563347849,
-    "avg_duration_days": 26.9,
-    "open_positions": 12
+    "total_trades": 204,
+    "wins": 108,
+    "losses": 96,
+    "win_rate_pct": 52.9,
+    "total_pnl": 0.5877372567,
+    "max_drawdown": 0.3192886188,
+    "avg_duration_days": 27.7,
+    "open_positions": 10
   },
   "by_spread": [
-    {
-      "spread": "AUDCAD=X",
-      "count": 11,
-      "avg_pnl": 0.000972,
-      "max_win": 0.027444,
-      "max_loss": -0.020389
-    },
     {
       "spread": "AUDCHF=X",
       "count": 6,
@@ -57,13 +50,6 @@
       "max_loss": -0.020212
     },
     {
-      "spread": "CADJPY=X",
-      "count": 7,
-      "avg_pnl": -0.007276,
-      "max_win": 0.022578,
-      "max_loss": -0.020174
-    },
-    {
       "spread": "CHFJPY=X",
       "count": 7,
       "avg_pnl": 0.008821,
@@ -76,13 +62,6 @@
       "avg_pnl": -0.005186,
       "max_win": 0.020366,
       "max_loss": -0.020546
-    },
-    {
-      "spread": "EURCAD=X",
-      "count": 12,
-      "avg_pnl": 0.007545,
-      "max_win": 0.034357,
-      "max_loss": -0.020603
     },
     {
       "spread": "EURCHF=X",
@@ -127,13 +106,6 @@
       "max_loss": -0.02035
     },
     {
-      "spread": "GBPCAD=X",
-      "count": 9,
-      "avg_pnl": 0.017908,
-      "max_win": 0.022267,
-      "max_loss": 0.002694
-    },
-    {
       "spread": "GBPCHF=X",
       "count": 13,
       "avg_pnl": 0.008929,
@@ -160,13 +132,6 @@
       "avg_pnl": 0.006309,
       "max_win": 0.024376,
       "max_loss": -0.020364
-    },
-    {
-      "spread": "NZDCAD=X",
-      "count": 21,
-      "avg_pnl": 0.017581,
-      "max_win": 0.029295,
-      "max_loss": -0.020455
     },
     {
       "spread": "NZDCHF=X",
@@ -234,18 +199,6 @@
       "take_profit": 0.950572,
       "stop_loss": 0.979808,
       "pnl": 0.0281255466,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "EURCAD=X",
-      "type": "short",
-      "entry_date": "2023-11-17",
-      "exit_date": "2023-12-06",
-      "entry": 1.49647,
-      "exit": 1.46257,
-      "take_profit": 1.466185,
-      "stop_loss": 1.526755,
-      "pnl": 0.0221896688,
       "exit_reason": "TP"
     },
     {
@@ -333,18 +286,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "AUDCAD=X",
-      "type": "short",
-      "entry_date": "2023-11-17",
-      "exit_date": "2024-01-16",
-      "entry": 0.89343,
-      "exit": 0.88816,
-      "take_profit": 0.882194,
-      "stop_loss": 0.904666,
-      "pnl": 0.0090625027,
-      "exit_reason": "TimeCap"
-    },
-    {
       "spread": "GBPNZD=X",
       "type": "long",
       "entry_date": "2023-12-19",
@@ -355,18 +296,6 @@
       "stop_loss": 1.990196,
       "pnl": 0.022331523,
       "exit_reason": "TP"
-    },
-    {
-      "spread": "NZDCAD=X",
-      "type": "short",
-      "entry_date": "2023-11-20",
-      "exit_date": "2024-01-19",
-      "entry": 0.82847,
-      "exit": 0.8203,
-      "take_profit": 0.813552,
-      "stop_loss": 0.843388,
-      "pnl": 0.0107310712,
-      "exit_reason": "TimeCap"
     },
     {
       "spread": "AUDNZD=X",
@@ -477,18 +406,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "NZDCAD=X",
-      "type": "short",
-      "entry_date": "2024-02-23",
-      "exit_date": "2024-03-15",
-      "entry": 0.83635,
-      "exit": 0.82332,
-      "take_profit": 0.824365,
-      "stop_loss": 0.848335,
-      "pnl": 0.0214647142,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "GBPUSD=X",
       "type": "short",
       "entry_date": "2024-01-17",
@@ -585,18 +502,6 @@
       "exit_reason": "TimeCap"
     },
     {
-      "spread": "EURCAD=X",
-      "type": "long",
-      "entry_date": "2024-01-23",
-      "exit_date": "2024-03-25",
-      "entry": 1.46041,
-      "exit": 1.47182,
-      "take_profit": 1.491996,
-      "stop_loss": 1.428824,
-      "pnl": 0.0070397759,
-      "exit_reason": "TimeCap"
-    },
-    {
       "spread": "USDCAD=X",
       "type": "long",
       "entry_date": "2024-02-06",
@@ -619,18 +524,6 @@
       "stop_loss": 0.597102,
       "pnl": -0.0201027588,
       "exit_reason": "SL"
-    },
-    {
-      "spread": "CADJPY=X",
-      "type": "short",
-      "entry_date": "2024-02-08",
-      "exit_date": "2024-04-08",
-      "entry": 110.907,
-      "exit": 111.851,
-      "take_profit": 108.014907,
-      "stop_loss": 113.799093,
-      "pnl": -0.0066815376,
-      "exit_reason": "TimeCap"
     },
     {
       "spread": "NZDUSD=X",
@@ -681,18 +574,6 @@
       "exit_reason": "SL"
     },
     {
-      "spread": "AUDCAD=X",
-      "type": "short",
-      "entry_date": "2024-04-08",
-      "exit_date": "2024-04-18",
-      "entry": 0.89613,
-      "exit": 0.88362,
-      "take_profit": 0.885008,
-      "stop_loss": 0.907251,
-      "pnl": 0.0221756569,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "USDJPY=X",
       "type": "short",
       "entry_date": "2024-04-10",
@@ -714,18 +595,6 @@
       "take_profit": 89.855691,
       "stop_loss": 92.678309,
       "pnl": -0.0202586733,
-      "exit_reason": "SL"
-    },
-    {
-      "spread": "CADJPY=X",
-      "type": "short",
-      "entry_date": "2024-04-15",
-      "exit_date": "2024-04-26",
-      "entry": 111.877,
-      "exit": 114.473026,
-      "take_profit": 109.280974,
-      "stop_loss": 114.473026,
-      "pnl": -0.0201723819,
       "exit_reason": "SL"
     },
     {
@@ -765,30 +634,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "AUDCAD=X",
-      "type": "short",
-      "entry_date": "2024-04-29",
-      "exit_date": "2024-05-15",
-      "entry": 0.89668,
-      "exit": 0.908365,
-      "take_profit": 0.884995,
-      "stop_loss": 0.908365,
-      "pnl": -0.0203069508,
-      "exit_reason": "SL"
-    },
-    {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2024-03-22",
-      "exit_date": "2024-05-15",
-      "entry": 0.81519,
-      "exit": 0.8318,
-      "take_profit": 0.827917,
-      "stop_loss": 0.802463,
-      "pnl": 0.0258457798,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "EURUSD=X",
       "type": "long",
       "entry_date": "2024-03-22",
@@ -799,18 +644,6 @@
       "stop_loss": 1.061204,
       "pnl": 0.0046297985,
       "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GBPCAD=X",
-      "type": "long",
-      "entry_date": "2024-04-01",
-      "exit_date": "2024-05-22",
-      "entry": 1.70179,
-      "exit": 1.74082,
-      "take_profit": 1.738948,
-      "stop_loss": 1.664632,
-      "pnl": 0.0208243942,
-      "exit_reason": "TP"
     },
     {
       "spread": "USDCAD=X",
@@ -846,18 +679,6 @@
       "take_profit": 150.160603,
       "stop_loss": 157.571397,
       "pnl": -0.0201660993,
-      "exit_reason": "SL"
-    },
-    {
-      "spread": "CADJPY=X",
-      "type": "short",
-      "entry_date": "2024-05-06",
-      "exit_date": "2024-05-31",
-      "entry": 112.54,
-      "exit": 115.150916,
-      "take_profit": 109.929085,
-      "stop_loss": 115.150916,
-      "pnl": -0.0201724146,
       "exit_reason": "SL"
     },
     {
@@ -907,18 +728,6 @@
       "stop_loss": 0.976018,
       "pnl": 0.0313825835,
       "exit_reason": "TP"
-    },
-    {
-      "spread": "CADJPY=X",
-      "type": "short",
-      "entry_date": "2024-06-05",
-      "exit_date": "2024-06-21",
-      "entry": 113.944,
-      "exit": 116.557723,
-      "take_profit": 111.330277,
-      "stop_loss": 116.557723,
-      "pnl": -0.0201743781,
-      "exit_reason": "SL"
     },
     {
       "spread": "GBPJPY=X",
@@ -1053,18 +862,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "NZDCAD=X",
-      "type": "short",
-      "entry_date": "2024-05-29",
-      "exit_date": "2024-07-16",
-      "entry": 0.83841,
-      "exit": 0.82671,
-      "take_profit": 0.826909,
-      "stop_loss": 0.849911,
-      "pnl": 0.0200544614,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "EURJPY=X",
       "type": "short",
       "entry_date": "2024-07-03",
@@ -1113,18 +910,6 @@
       "exit_reason": "SL"
     },
     {
-      "spread": "EURCAD=X",
-      "type": "long",
-      "entry_date": "2024-05-31",
-      "exit_date": "2024-07-30",
-      "entry": 1.47736,
-      "exit": 1.49766,
-      "take_profit": 1.506295,
-      "stop_loss": 1.448425,
-      "pnl": 0.0138272182,
-      "exit_reason": "TimeCap"
-    },
-    {
       "spread": "GBPJPY=X",
       "type": "short",
       "entry_date": "2024-07-01",
@@ -1147,18 +932,6 @@
       "stop_loss": 1.146061,
       "pnl": 0.0472968676,
       "exit_reason": "TP"
-    },
-    {
-      "spread": "CADJPY=X",
-      "type": "long",
-      "entry_date": "2024-07-26",
-      "exit_date": "2024-08-01",
-      "entry": 111.076,
-      "exit": 108.302471,
-      "take_profit": 113.849529,
-      "stop_loss": 108.302471,
-      "pnl": -0.0201601945,
-      "exit_reason": "SL"
     },
     {
       "spread": "CADCHF=X",
@@ -1281,18 +1054,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2024-07-25",
-      "exit_date": "2024-08-13",
-      "entry": 0.81343,
-      "exit": 0.83236,
-      "take_profit": 0.827533,
-      "stop_loss": 0.799327,
-      "pnl": 0.0266146409,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "EURCHF=X",
       "type": "long",
       "entry_date": "2024-08-01",
@@ -1327,18 +1088,6 @@
       "stop_loss": 1.243722,
       "pnl": 0.0232019773,
       "exit_reason": "TP"
-    },
-    {
-      "spread": "AUDCAD=X",
-      "type": "short",
-      "entry_date": "2024-08-08",
-      "exit_date": "2024-08-19",
-      "entry": 0.90508,
-      "exit": 0.916713,
-      "take_profit": 0.893447,
-      "stop_loss": 0.916713,
-      "pnl": -0.0203112112,
-      "exit_reason": "SL"
     },
     {
       "spread": "NZDCHF=X",
@@ -1425,18 +1174,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "AUDCAD=X",
-      "type": "short",
-      "entry_date": "2024-09-10",
-      "exit_date": "2024-09-16",
-      "entry": 0.905,
-      "exit": 0.914897,
-      "take_profit": 0.895103,
-      "stop_loss": 0.914897,
-      "pnl": -0.0203657674,
-      "exit_reason": "SL"
-    },
-    {
       "spread": "GBPCHF=X",
       "type": "long",
       "entry_date": "2024-08-20",
@@ -1473,18 +1210,6 @@
       "exit_reason": "SL"
     },
     {
-      "spread": "NZDCAD=X",
-      "type": "short",
-      "entry_date": "2024-08-20",
-      "exit_date": "2024-09-24",
-      "entry": 0.83771,
-      "exit": 0.850122,
-      "take_profit": 0.825298,
-      "stop_loss": 0.850122,
-      "pnl": -0.0202699678,
-      "exit_reason": "SL"
-    },
-    {
       "spread": "EURNZD=X",
       "type": "long",
       "entry_date": "2024-08-27",
@@ -1507,18 +1232,6 @@
       "stop_loss": 162.598446,
       "pnl": -0.0024266587,
       "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "EURCAD=X",
-      "type": "short",
-      "entry_date": "2024-09-16",
-      "exit_date": "2024-10-01",
-      "entry": 1.51157,
-      "exit": 1.49243,
-      "take_profit": 1.495219,
-      "stop_loss": 1.527921,
-      "pnl": 0.0230416317,
-      "exit_reason": "TP"
     },
     {
       "spread": "CADCHF=X",
@@ -1773,30 +1486,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "EURCAD=X",
-      "type": "short",
-      "entry_date": "2024-10-29",
-      "exit_date": "2024-11-08",
-      "entry": 1.50423,
-      "exit": 1.49004,
-      "take_profit": 1.492142,
-      "stop_loss": 1.516317,
-      "pnl": 0.0229819707,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "NZDCAD=X",
-      "type": "short",
-      "entry_date": "2024-10-10",
-      "exit_date": "2024-11-13",
-      "entry": 0.83649,
-      "exit": 0.82233,
-      "take_profit": 0.822464,
-      "stop_loss": 0.850516,
-      "pnl": 0.0199525196,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "USDJPY=X",
       "type": "long",
       "entry_date": "2024-10-24",
@@ -1821,18 +1510,6 @@
       "exit_reason": "SL"
     },
     {
-      "spread": "GBPCAD=X",
-      "type": "short",
-      "entry_date": "2024-09-16",
-      "exit_date": "2024-11-15",
-      "entry": 1.79434,
-      "exit": 1.77632,
-      "take_profit": 1.764806,
-      "stop_loss": 1.823874,
-      "pnl": 0.0119598646,
-      "exit_reason": "TimeCap"
-    },
-    {
       "spread": "EURAUD=X",
       "type": "long",
       "entry_date": "2024-11-06",
@@ -1842,18 +1519,6 @@
       "take_profit": 1.65189,
       "stop_loss": 1.61329,
       "pnl": -0.0203383606,
-      "exit_reason": "SL"
-    },
-    {
-      "spread": "EURCAD=X",
-      "type": "long",
-      "entry_date": "2024-11-12",
-      "exit_date": "2024-11-21",
-      "entry": 1.4807,
-      "exit": 1.468318,
-      "take_profit": 1.493081,
-      "stop_loss": 1.468318,
-      "pnl": -0.0204783395,
       "exit_reason": "SL"
     },
     {
@@ -1905,18 +1570,6 @@
       "exit_reason": "SL"
     },
     {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2024-11-22",
-      "exit_date": "2024-11-27",
-      "entry": 0.81466,
-      "exit": 0.82637,
-      "take_profit": 0.824226,
-      "stop_loss": 0.805095,
-      "pnl": 0.0241444182,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "CADCHF=X",
       "type": "short",
       "entry_date": "2024-11-22",
@@ -1926,18 +1579,6 @@
       "take_profit": 0.628359,
       "stop_loss": 0.648681,
       "pnl": 0.0201009664,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "GBPCAD=X",
-      "type": "long",
-      "entry_date": "2024-11-22",
-      "exit_date": "2024-11-29",
-      "entry": 1.75045,
-      "exit": 1.78224,
-      "take_profit": 1.780805,
-      "stop_loss": 1.720095,
-      "pnl": 0.0207148147,
       "exit_reason": "TP"
     },
     {
@@ -2049,18 +1690,6 @@
       "exit_reason": "SL"
     },
     {
-      "spread": "AUDCAD=X",
-      "type": "short",
-      "entry_date": "2024-11-18",
-      "exit_date": "2024-12-18",
-      "entry": 0.91141,
-      "exit": 0.89743,
-      "take_profit": 0.901355,
-      "stop_loss": 0.921465,
-      "pnl": 0.0274444913,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "USDJPY=X",
       "type": "long",
       "entry_date": "2024-11-27",
@@ -2095,18 +1724,6 @@
       "stop_loss": 1.249808,
       "pnl": -0.0202048369,
       "exit_reason": "SL"
-    },
-    {
-      "spread": "GBPCAD=X",
-      "type": "short",
-      "entry_date": "2024-12-10",
-      "exit_date": "2025-01-02",
-      "entry": 1.80958,
-      "exit": 1.78213,
-      "take_profit": 1.783987,
-      "stop_loss": 1.835173,
-      "pnl": 0.0211683538,
-      "exit_reason": "TP"
     },
     {
       "spread": "EURGBP=X",
@@ -2169,18 +1786,6 @@
       "exit_reason": "TimeCap"
     },
     {
-      "spread": "EURCAD=X",
-      "type": "long",
-      "entry_date": "2025-01-02",
-      "exit_date": "2025-01-22",
-      "entry": 1.47791,
-      "exit": 1.4953,
-      "take_profit": 1.494159,
-      "stop_loss": 1.461661,
-      "pnl": 0.0210405785,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "AUDCHF=X",
       "type": "long",
       "entry_date": "2024-12-20",
@@ -2202,18 +1807,6 @@
       "take_profit": 1.127131,
       "stop_loss": 1.108249,
       "pnl": 0.024778015,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "GBPCAD=X",
-      "type": "long",
-      "entry_date": "2025-01-10",
-      "exit_date": "2025-01-27",
-      "entry": 1.75938,
-      "exit": 1.79566,
-      "take_profit": 1.791651,
-      "stop_loss": 1.727109,
-      "pnl": 0.022266508,
       "exit_reason": "TP"
     },
     {
@@ -2241,18 +1834,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "EURCAD=X",
-      "type": "short",
-      "entry_date": "2025-01-24",
-      "exit_date": "2025-02-03",
-      "entry": 1.50409,
-      "exit": 1.48937,
-      "take_profit": 1.493664,
-      "stop_loss": 1.514516,
-      "pnl": 0.027660046,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "EURCHF=X",
       "type": "short",
       "entry_date": "2025-01-24",
@@ -2263,18 +1844,6 @@
       "stop_loss": 0.961227,
       "pnl": 0.02044135,
       "exit_reason": "TP"
-    },
-    {
-      "spread": "EURCAD=X",
-      "type": "long",
-      "entry_date": "2025-02-06",
-      "exit_date": "2025-02-07",
-      "entry": 1.48458,
-      "exit": 1.474727,
-      "take_profit": 1.494433,
-      "stop_loss": 1.474727,
-      "pnl": -0.0206026916,
-      "exit_reason": "SL"
     },
     {
       "spread": "GBPAUD=X",
@@ -2313,18 +1882,6 @@
       "exit_reason": "TimeCap"
     },
     {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2024-12-18",
-      "exit_date": "2025-02-17",
-      "entry": 0.81151,
-      "exit": 0.81281,
-      "take_profit": 0.825219,
-      "stop_loss": 0.7978,
-      "pnl": 0.0016596616,
-      "exit_reason": "TimeCap"
-    },
-    {
       "spread": "EURAUD=X",
       "type": "short",
       "entry_date": "2025-02-12",
@@ -2337,30 +1894,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "GBPCAD=X",
-      "type": "long",
-      "entry_date": "2025-02-07",
-      "exit_date": "2025-02-20",
-      "entry": 1.77064,
-      "exit": 1.79413,
-      "take_profit": 1.792925,
-      "stop_loss": 1.748355,
-      "pnl": 0.0207636276,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "AUDCAD=X",
-      "type": "long",
-      "entry_date": "2024-12-24",
-      "exit_date": "2025-02-20",
-      "entry": 0.89498,
-      "exit": 0.90637,
-      "take_profit": 0.905161,
-      "stop_loss": 0.884799,
-      "pnl": 0.0220233847,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "EURCHF=X",
       "type": "short",
       "entry_date": "2025-02-12",
@@ -2370,18 +1903,6 @@
       "take_profit": 0.938373,
       "stop_loss": 0.958368,
       "pnl": 0.0202246969,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "EURCAD=X",
-      "type": "long",
-      "entry_date": "2025-02-18",
-      "exit_date": "2025-02-25",
-      "entry": 1.48251,
-      "exit": 1.50367,
-      "take_profit": 1.494655,
-      "stop_loss": 1.470365,
-      "pnl": 0.0343573454,
       "exit_reason": "TP"
     },
     {
@@ -2505,18 +2026,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "EURCAD=X",
-      "type": "short",
-      "entry_date": "2025-03-03",
-      "exit_date": "2025-03-05",
-      "entry": 1.51797,
-      "exit": 1.539608,
-      "take_profit": 1.496332,
-      "stop_loss": 1.539608,
-      "pnl": -0.0202806119,
-      "exit_reason": "SL"
-    },
-    {
       "spread": "GBPCHF=X",
       "type": "short",
       "entry_date": "2025-02-11",
@@ -2565,30 +2074,6 @@
       "exit_reason": "SL"
     },
     {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2025-02-26",
-      "exit_date": "2025-03-11",
-      "entry": 0.81578,
-      "exit": 0.8244,
-      "take_profit": 0.824099,
-      "stop_loss": 0.807461,
-      "pnl": 0.0203313956,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "AUDCAD=X",
-      "type": "long",
-      "entry_date": "2025-02-27",
-      "exit_date": "2025-03-17",
-      "entry": 0.89952,
-      "exit": 0.91152,
-      "take_profit": 0.910016,
-      "stop_loss": 0.889024,
-      "pnl": 0.0225230488,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "EURUSD=X",
       "type": "short",
       "entry_date": "2025-03-05",
@@ -2599,18 +2084,6 @@
       "stop_loss": 1.093477,
       "pnl": -0.0202927977,
       "exit_reason": "SL"
-    },
-    {
-      "spread": "NZDCAD=X",
-      "type": "short",
-      "entry_date": "2025-03-18",
-      "exit_date": "2025-03-20",
-      "entry": 0.83125,
-      "exit": 0.82389,
-      "take_profit": 0.824706,
-      "stop_loss": 0.837794,
-      "pnl": 0.0219857885,
-      "exit_reason": "TP"
     },
     {
       "spread": "AUDUSD=X",
@@ -2697,18 +2170,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "AUDCAD=X",
-      "type": "long",
-      "entry_date": "2025-03-20",
-      "exit_date": "2025-04-03",
-      "entry": 0.90219,
-      "exit": 0.892918,
-      "take_profit": 0.911462,
-      "stop_loss": 0.892918,
-      "pnl": -0.0203892105,
-      "exit_reason": "SL"
-    },
-    {
       "spread": "NZDCHF=X",
       "type": "long",
       "entry_date": "2025-02-26",
@@ -2742,18 +2203,6 @@
       "take_profit": 1.104107,
       "stop_loss": 1.088273,
       "pnl": -0.0205538411,
-      "exit_reason": "SL"
-    },
-    {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2025-03-25",
-      "exit_date": "2025-04-04",
-      "entry": 0.8177,
-      "exit": 0.810519,
-      "take_profit": 0.824881,
-      "stop_loss": 0.810519,
-      "pnl": -0.0204554797,
       "exit_reason": "SL"
     },
     {
@@ -2817,30 +2266,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "GBPCAD=X",
-      "type": "short",
-      "entry_date": "2025-03-03",
-      "exit_date": "2025-05-02",
-      "entry": 1.83824,
-      "exit": 1.83249,
-      "take_profit": 1.79828,
-      "stop_loss": 1.878201,
-      "pnl": 0.0026938025,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2025-04-30",
-      "exit_date": "2025-05-06",
-      "entry": 0.81799,
-      "exit": 0.82628,
-      "take_profit": 0.824429,
-      "stop_loss": 0.811551,
-      "pnl": 0.0252411927,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "CHFJPY=X",
       "type": "short",
       "entry_date": "2025-05-01",
@@ -2865,18 +2290,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2025-05-12",
-      "exit_date": "2025-05-13",
-      "entry": 0.81744,
-      "exit": 0.82687,
-      "take_profit": 0.824219,
-      "stop_loss": 0.810661,
-      "pnl": 0.0273388759,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "EURJPY=X",
       "type": "long",
       "entry_date": "2025-03-19",
@@ -2887,18 +2300,6 @@
       "stop_loss": 158.610403,
       "pnl": 0.0023155116,
       "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "AUDCAD=X",
-      "type": "long",
-      "entry_date": "2025-05-14",
-      "exit_date": "2025-05-22",
-      "entry": 0.89819,
-      "exit": 0.888565,
-      "take_profit": 0.907815,
-      "stop_loss": 0.888565,
-      "pnl": -0.0203732738,
-      "exit_reason": "SL"
     },
     {
       "spread": "USDCAD=X",
@@ -2922,18 +2323,6 @@
       "take_profit": 173.478867,
       "stop_loss": 177.549133,
       "pnl": 0.0200468195,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2025-05-22",
-      "exit_date": "2025-05-25",
-      "entry": 0.81645,
-      "exit": 0.82517,
-      "take_profit": 0.823986,
-      "stop_loss": 0.808914,
-      "pnl": 0.0227088907,
       "exit_reason": "TP"
     },
     {
@@ -2985,18 +2374,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2025-06-13",
-      "exit_date": "2025-06-18",
-      "entry": 0.81673,
-      "exit": 0.82441,
-      "take_profit": 0.824153,
-      "stop_loss": 0.809306,
-      "pnl": 0.0202496067,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "EURNZD=X",
       "type": "short",
       "entry_date": "2025-05-14",
@@ -3045,18 +2422,6 @@
       "exit_reason": "SL"
     },
     {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2025-06-22",
-      "exit_date": "2025-06-25",
-      "entry": 0.81477,
-      "exit": 0.82799,
-      "take_profit": 0.823692,
-      "stop_loss": 0.805848,
-      "pnl": 0.0292693253,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "GBPNZD=X",
       "type": "short",
       "entry_date": "2025-04-29",
@@ -3079,30 +2444,6 @@
       "stop_loss": 0.658103,
       "pnl": -0.0202896976,
       "exit_reason": "SL"
-    },
-    {
-      "spread": "NZDCAD=X",
-      "type": "short",
-      "entry_date": "2025-06-29",
-      "exit_date": "2025-07-06",
-      "entry": 0.82947,
-      "exit": 0.8204,
-      "take_profit": 0.823391,
-      "stop_loss": 0.835549,
-      "pnl": 0.0292946406,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "CADJPY=X",
-      "type": "long",
-      "entry_date": "2025-05-14",
-      "exit_date": "2025-07-08",
-      "entry": 104.93,
-      "exit": 107.253,
-      "take_profit": 106.969184,
-      "stop_loss": 102.890816,
-      "pnl": 0.0225777958,
-      "exit_reason": "TP"
     },
     {
       "spread": "NZDCHF=X",
@@ -3138,18 +2479,6 @@
       "take_profit": 88.254024,
       "stop_loss": 84.769976,
       "pnl": 0.0226368592,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2025-07-15",
-      "exit_date": "2025-07-24",
-      "entry": 0.81506,
-      "exit": 0.82232,
-      "take_profit": 0.822317,
-      "stop_loss": 0.807803,
-      "pnl": 0.0195590134,
       "exit_reason": "TP"
     },
     {
@@ -3189,18 +2518,6 @@
       "exit_reason": "TimeCap"
     },
     {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2025-07-30",
-      "exit_date": "2025-08-13",
-      "entry": 0.815,
-      "exit": 0.82149,
-      "take_profit": 0.820607,
-      "stop_loss": 0.809392,
-      "pnl": 0.022564194,
-      "exit_reason": "TP"
-    },
-    {
       "spread": "GBPNZD=X",
       "type": "long",
       "entry_date": "2025-07-25",
@@ -3210,18 +2527,6 @@
       "take_profit": 2.272002,
       "stop_loss": 2.192798,
       "pnl": 0.0265307409,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "GBPCAD=X",
-      "type": "long",
-      "entry_date": "2025-07-28",
-      "exit_date": "2025-08-14",
-      "entry": 1.83403,
-      "exit": 1.86804,
-      "take_profit": 1.867497,
-      "stop_loss": 1.800563,
-      "pnl": 0.0201052942,
       "exit_reason": "TP"
     },
     {
@@ -3273,18 +2578,6 @@
       "exit_reason": "TP"
     },
     {
-      "spread": "AUDCAD=X",
-      "type": "long",
-      "entry_date": "2025-07-02",
-      "exit_date": "2025-08-31",
-      "entry": 0.89463,
-      "exit": 0.89892,
-      "take_profit": 0.903562,
-      "stop_loss": 0.885698,
-      "pnl": 0.0092052709,
-      "exit_reason": "TimeCap"
-    },
-    {
       "spread": "AUDNZD=X",
       "type": "short",
       "entry_date": "2025-08-20",
@@ -3331,54 +2624,6 @@
       "stop_loss": 1.075659,
       "pnl": -0.020335712,
       "exit_reason": "SL"
-    },
-    {
-      "spread": "NZDCAD=X",
-      "type": "long",
-      "entry_date": "2025-08-20",
-      "exit_date": "2025-09-08",
-      "entry": 0.80721,
-      "exit": 0.81924,
-      "take_profit": 0.818554,
-      "stop_loss": 0.795866,
-      "pnl": 0.0209248202,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "EURCAD=X",
-      "type": "short",
-      "entry_date": "2025-08-01",
-      "exit_date": "2025-09-09",
-      "entry": 1.59689,
-      "exit": 1.623912,
-      "take_profit": 1.569868,
-      "stop_loss": 1.623912,
-      "pnl": -0.0202363837,
-      "exit_reason": "SL"
-    },
-    {
-      "spread": "GBPCAD=X",
-      "type": "long",
-      "entry_date": "2025-09-02",
-      "exit_date": "2025-09-09",
-      "entry": 1.84386,
-      "exit": 1.8752,
-      "take_profit": 1.873816,
-      "stop_loss": 1.813905,
-      "pnl": 0.0206785031,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "CADJPY=X",
-      "type": "short",
-      "entry_date": "2025-07-11",
-      "exit_date": "2025-09-09",
-      "entry": 107.638,
-      "exit": 106.027,
-      "take_profit": 105.343445,
-      "stop_loss": 109.932555,
-      "pnl": 0.0138542977,
-      "exit_reason": "TimeCap"
     }
   ],
   "equity_curve": [
@@ -3391,1052 +2636,812 @@
       "cumulative_pnl": 0.0079716676
     },
     {
-      "date": "2023-12-06",
-      "cumulative_pnl": 0.0301613364
+      "date": "2023-12-07",
+      "cumulative_pnl": 0.0284951118
     },
     {
       "date": "2023-12-07",
-      "cumulative_pnl": 0.0506847806
-    },
-    {
-      "date": "2023-12-07",
-      "cumulative_pnl": 0.076310981
+      "cumulative_pnl": 0.0541213122
     },
     {
       "date": "2023-12-13",
-      "cumulative_pnl": 0.0993439718
+      "cumulative_pnl": 0.077154303
     },
     {
       "date": "2023-12-19",
-      "cumulative_pnl": 0.0791877323
+      "cumulative_pnl": 0.0569980635
     },
     {
       "date": "2024-01-15",
-      "cumulative_pnl": 0.0735462947
+      "cumulative_pnl": 0.0513566259
     },
     {
       "date": "2024-01-16",
-      "cumulative_pnl": 0.0935454632
+      "cumulative_pnl": 0.0713557944
     },
     {
       "date": "2024-01-16",
-      "cumulative_pnl": 0.1154825042
-    },
-    {
-      "date": "2024-01-16",
-      "cumulative_pnl": 0.1245450069
+      "cumulative_pnl": 0.0932928354
     },
     {
       "date": "2024-01-17",
-      "cumulative_pnl": 0.1468765299
-    },
-    {
-      "date": "2024-01-19",
-      "cumulative_pnl": 0.1576076011
+      "cumulative_pnl": 0.1156243584
     },
     {
       "date": "2024-01-29",
-      "cumulative_pnl": 0.167528973
+      "cumulative_pnl": 0.1255457303
     },
     {
       "date": "2024-02-05",
-      "cumulative_pnl": 0.1851682962
+      "cumulative_pnl": 0.1431850535
     },
     {
       "date": "2024-02-13",
-      "cumulative_pnl": 0.2077186398
+      "cumulative_pnl": 0.1657353971
     },
     {
       "date": "2024-02-21",
-      "cumulative_pnl": 0.1875303616
+      "cumulative_pnl": 0.1455471189
     },
     {
       "date": "2024-02-26",
-      "cumulative_pnl": 0.1834677125
+      "cumulative_pnl": 0.1414844698
     },
     {
       "date": "2024-03-07",
-      "cumulative_pnl": 0.2066280091
+      "cumulative_pnl": 0.1646447664
     },
     {
       "date": "2024-03-11",
-      "cumulative_pnl": 0.2111133313
+      "cumulative_pnl": 0.1691300886
     },
     {
       "date": "2024-03-12",
-      "cumulative_pnl": 0.2320944653
+      "cumulative_pnl": 0.1901112226
     },
     {
       "date": "2024-03-15",
-      "cumulative_pnl": 0.2530895487
-    },
-    {
-      "date": "2024-03-15",
-      "cumulative_pnl": 0.2745542629
+      "cumulative_pnl": 0.211106306
     },
     {
       "date": "2024-03-18",
-      "cumulative_pnl": 0.270507298
+      "cumulative_pnl": 0.2070593411
     },
     {
       "date": "2024-03-18",
-      "cumulative_pnl": 0.2720603798
+      "cumulative_pnl": 0.2086124229
     },
     {
       "date": "2024-03-18",
-      "cumulative_pnl": 0.2518716968
+      "cumulative_pnl": 0.1884237399
     },
     {
       "date": "2024-03-20",
-      "cumulative_pnl": 0.2316290398
+      "cumulative_pnl": 0.1681810829
     },
     {
       "date": "2024-03-21",
-      "cumulative_pnl": 0.2113418638
+      "cumulative_pnl": 0.1478939069
     },
     {
       "date": "2024-03-22",
-      "cumulative_pnl": 0.1908744753
+      "cumulative_pnl": 0.1274265184
     },
     {
       "date": "2024-03-25",
-      "cumulative_pnl": 0.2055477796
+      "cumulative_pnl": 0.1420998227
     },
     {
       "date": "2024-03-25",
-      "cumulative_pnl": 0.2101196562
-    },
-    {
-      "date": "2024-03-25",
-      "cumulative_pnl": 0.2171594321
+      "cumulative_pnl": 0.1466716993
     },
     {
       "date": "2024-04-07",
-      "cumulative_pnl": 0.2322231685
+      "cumulative_pnl": 0.1617354357
     },
     {
       "date": "2024-04-08",
-      "cumulative_pnl": 0.2121204097
-    },
-    {
-      "date": "2024-04-08",
-      "cumulative_pnl": 0.2054388721
+      "cumulative_pnl": 0.1416326769
     },
     {
       "date": "2024-04-09",
-      "cumulative_pnl": 0.2258710062
+      "cumulative_pnl": 0.162064811
     },
     {
       "date": "2024-04-10",
-      "cumulative_pnl": 0.2057239976
+      "cumulative_pnl": 0.1419178024
     },
     {
       "date": "2024-04-12",
-      "cumulative_pnl": 0.2261724216
+      "cumulative_pnl": 0.1623662264
     },
     {
       "date": "2024-04-16",
-      "cumulative_pnl": 0.2057319387
-    },
-    {
-      "date": "2024-04-18",
-      "cumulative_pnl": 0.2279075956
+      "cumulative_pnl": 0.1419257435
     },
     {
       "date": "2024-04-26",
-      "cumulative_pnl": 0.2077548003
+      "cumulative_pnl": 0.1217729482
     },
     {
       "date": "2024-04-26",
-      "cumulative_pnl": 0.187496127
+      "cumulative_pnl": 0.1015142749
     },
     {
       "date": "2024-04-26",
-      "cumulative_pnl": 0.1673237451
-    },
-    {
-      "date": "2024-04-26",
-      "cumulative_pnl": 0.187933469
+      "cumulative_pnl": 0.1221239988
     },
     {
       "date": "2024-05-14",
-      "cumulative_pnl": 0.1677052604
+      "cumulative_pnl": 0.1018957902
     },
     {
       "date": "2024-05-15",
-      "cumulative_pnl": 0.1985182392
-    },
-    {
-      "date": "2024-05-15",
-      "cumulative_pnl": 0.1782112884
-    },
-    {
-      "date": "2024-05-15",
-      "cumulative_pnl": 0.2040570682
+      "cumulative_pnl": 0.132708769
     },
     {
       "date": "2024-05-21",
-      "cumulative_pnl": 0.2086868667
-    },
-    {
-      "date": "2024-05-22",
-      "cumulative_pnl": 0.2295112609
+      "cumulative_pnl": 0.1373385675
     },
     {
       "date": "2024-05-23",
-      "cumulative_pnl": 0.2088426509
+      "cumulative_pnl": 0.1166699575
     },
     {
       "date": "2024-05-27",
-      "cumulative_pnl": 0.2292691873
+      "cumulative_pnl": 0.1370964939
     },
     {
       "date": "2024-05-29",
-      "cumulative_pnl": 0.209103088
-    },
-    {
-      "date": "2024-05-31",
-      "cumulative_pnl": 0.1889306734
+      "cumulative_pnl": 0.1169303946
     },
     {
       "date": "2024-06-03",
-      "cumulative_pnl": 0.1869510859
+      "cumulative_pnl": 0.1149508071
     },
     {
       "date": "2024-06-05",
-      "cumulative_pnl": 0.16672967
+      "cumulative_pnl": 0.0947293912
     },
     {
       "date": "2024-06-10",
-      "cumulative_pnl": 0.146270698
+      "cumulative_pnl": 0.0742704192
     },
     {
       "date": "2024-06-14",
-      "cumulative_pnl": 0.1776532815
-    },
-    {
-      "date": "2024-06-21",
-      "cumulative_pnl": 0.1574789034
+      "cumulative_pnl": 0.1056530027
     },
     {
       "date": "2024-06-25",
-      "cumulative_pnl": 0.1428340544
+      "cumulative_pnl": 0.0910081537
     },
     {
       "date": "2024-06-26",
-      "cumulative_pnl": 0.1225917537
+      "cumulative_pnl": 0.070765853
     },
     {
       "date": "2024-06-26",
-      "cumulative_pnl": 0.1024409955
+      "cumulative_pnl": 0.0506150948
     },
     {
       "date": "2024-06-26",
-      "cumulative_pnl": 0.0820074485
+      "cumulative_pnl": 0.0301815478
     },
     {
       "date": "2024-07-01",
-      "cumulative_pnl": 0.0616112911
+      "cumulative_pnl": 0.0097853904
     },
     {
       "date": "2024-07-02",
-      "cumulative_pnl": 0.0523659746
+      "cumulative_pnl": 0.0005400739
     },
     {
       "date": "2024-07-08",
-      "cumulative_pnl": 0.0596957249
+      "cumulative_pnl": 0.0078698242
     },
     {
       "date": "2024-07-11",
-      "cumulative_pnl": 0.0828633879
+      "cumulative_pnl": 0.0310374872
     },
     {
       "date": "2024-07-12",
-      "cumulative_pnl": 0.0623984922
+      "cumulative_pnl": 0.0105725915
     },
     {
       "date": "2024-07-15",
-      "cumulative_pnl": 0.0882468507
+      "cumulative_pnl": 0.03642095
     },
     {
       "date": "2024-07-16",
-      "cumulative_pnl": 0.1098836234
-    },
-    {
-      "date": "2024-07-16",
-      "cumulative_pnl": 0.1299380848
+      "cumulative_pnl": 0.0580577227
     },
     {
       "date": "2024-07-23",
-      "cumulative_pnl": 0.1516529997
+      "cumulative_pnl": 0.0797726376
     },
     {
       "date": "2024-07-24",
-      "cumulative_pnl": 0.1311889481
+      "cumulative_pnl": 0.059308586
     },
     {
       "date": "2024-07-25",
-      "cumulative_pnl": 0.1513857281
+      "cumulative_pnl": 0.079505366
     },
     {
       "date": "2024-07-29",
-      "cumulative_pnl": 0.1311511621
+      "cumulative_pnl": 0.0592708
     },
     {
       "date": "2024-07-30",
-      "cumulative_pnl": 0.1449783803
-    },
-    {
-      "date": "2024-07-30",
-      "cumulative_pnl": 0.1702685483
+      "cumulative_pnl": 0.084560968
     },
     {
       "date": "2024-08-01",
-      "cumulative_pnl": 0.2175654159
+      "cumulative_pnl": 0.1318578356
     },
     {
       "date": "2024-08-01",
-      "cumulative_pnl": 0.1974052214
-    },
-    {
-      "date": "2024-08-01",
-      "cumulative_pnl": 0.222295467
+      "cumulative_pnl": 0.1567480812
     },
     {
       "date": "2024-08-02",
-      "cumulative_pnl": 0.2521355333
+      "cumulative_pnl": 0.1865881475
     },
     {
       "date": "2024-08-02",
-      "cumulative_pnl": 0.2788131496
+      "cumulative_pnl": 0.2132657638
     },
     {
       "date": "2024-08-02",
-      "cumulative_pnl": 0.2586940427
+      "cumulative_pnl": 0.1931466569
     },
     {
       "date": "2024-08-05",
-      "cumulative_pnl": 0.2385726669
+      "cumulative_pnl": 0.1730252811
     },
     {
       "date": "2024-08-05",
-      "cumulative_pnl": 0.2184741019
+      "cumulative_pnl": 0.1529267161
     },
     {
       "date": "2024-08-05",
-      "cumulative_pnl": 0.1983716801
+      "cumulative_pnl": 0.1328242943
     },
     {
       "date": "2024-08-07",
-      "cumulative_pnl": 0.2238812002
+      "cumulative_pnl": 0.1583338144
     },
     {
       "date": "2024-08-08",
-      "cumulative_pnl": 0.2483835761
+      "cumulative_pnl": 0.1828361903
     },
     {
       "date": "2024-08-13",
-      "cumulative_pnl": 0.2689085546
-    },
-    {
-      "date": "2024-08-13",
-      "cumulative_pnl": 0.2955231955
+      "cumulative_pnl": 0.2033611688
     },
     {
       "date": "2024-08-15",
-      "cumulative_pnl": 0.3176942988
+      "cumulative_pnl": 0.2255322721
     },
     {
       "date": "2024-08-16",
-      "cumulative_pnl": 0.3390835551
+      "cumulative_pnl": 0.2469215284
     },
     {
       "date": "2024-08-19",
-      "cumulative_pnl": 0.3622855324
+      "cumulative_pnl": 0.2701235057
     },
     {
       "date": "2024-08-19",
-      "cumulative_pnl": 0.3419743212
-    },
-    {
-      "date": "2024-08-19",
-      "cumulative_pnl": 0.3628498793
+      "cumulative_pnl": 0.2909990638
     },
     {
       "date": "2024-08-23",
-      "cumulative_pnl": 0.3425985277
+      "cumulative_pnl": 0.2707477122
     },
     {
       "date": "2024-08-23",
-      "cumulative_pnl": 0.3668837197
+      "cumulative_pnl": 0.2950329042
     },
     {
       "date": "2024-08-27",
-      "cumulative_pnl": 0.3467834971
+      "cumulative_pnl": 0.2749326816
     },
     {
       "date": "2024-08-29",
-      "cumulative_pnl": 0.3265291916
+      "cumulative_pnl": 0.2546783761
     },
     {
       "date": "2024-09-06",
-      "cumulative_pnl": 0.3561099658
+      "cumulative_pnl": 0.2842591503
     },
     {
       "date": "2024-09-06",
-      "cumulative_pnl": 0.3772960214
-    },
-    {
-      "date": "2024-09-16",
-      "cumulative_pnl": 0.356930254
+      "cumulative_pnl": 0.3054452059
     },
     {
       "date": "2024-09-19",
-      "cumulative_pnl": 0.3815176802
+      "cumulative_pnl": 0.3300326321
     },
     {
       "date": "2024-09-23",
-      "cumulative_pnl": 0.3609655318
+      "cumulative_pnl": 0.3094804837
     },
     {
       "date": "2024-09-24",
-      "cumulative_pnl": 0.3406933711
-    },
-    {
-      "date": "2024-09-24",
-      "cumulative_pnl": 0.3204234033
+      "cumulative_pnl": 0.289208323
     },
     {
       "date": "2024-09-27",
-      "cumulative_pnl": 0.3001675089
+      "cumulative_pnl": 0.2689524286
     },
     {
       "date": "2024-09-29",
-      "cumulative_pnl": 0.2977408502
+      "cumulative_pnl": 0.2665257699
     },
     {
       "date": "2024-10-01",
-      "cumulative_pnl": 0.3207824819
-    },
-    {
-      "date": "2024-10-01",
-      "cumulative_pnl": 0.3308653753
+      "cumulative_pnl": 0.2766086633
     },
     {
       "date": "2024-10-03",
-      "cumulative_pnl": 0.3573761866
+      "cumulative_pnl": 0.3031194746
     },
     {
       "date": "2024-10-04",
-      "cumulative_pnl": 0.3796411698
+      "cumulative_pnl": 0.3253844578
     },
     {
       "date": "2024-10-07",
-      "cumulative_pnl": 0.380108731
+      "cumulative_pnl": 0.325852019
     },
     {
       "date": "2024-10-07",
-      "cumulative_pnl": 0.3594816808
+      "cumulative_pnl": 0.3052249688
     },
     {
       "date": "2024-10-09",
-      "cumulative_pnl": 0.3831338876
+      "cumulative_pnl": 0.3288771756
     },
     {
       "date": "2024-10-09",
-      "cumulative_pnl": 0.4121685997
+      "cumulative_pnl": 0.3579118877
     },
     {
       "date": "2024-10-21",
-      "cumulative_pnl": 0.3915096523
+      "cumulative_pnl": 0.3372529403
     },
     {
       "date": "2024-10-21",
-      "cumulative_pnl": 0.4112682481
+      "cumulative_pnl": 0.3570115361
     },
     {
       "date": "2024-10-22",
-      "cumulative_pnl": 0.4282230452
+      "cumulative_pnl": 0.3739663332
     },
     {
       "date": "2024-10-22",
-      "cumulative_pnl": 0.446407282
+      "cumulative_pnl": 0.39215057
     },
     {
       "date": "2024-10-23",
-      "cumulative_pnl": 0.4683198313
+      "cumulative_pnl": 0.4140631193
     },
     {
       "date": "2024-10-28",
-      "cumulative_pnl": 0.4563700082
+      "cumulative_pnl": 0.4021132962
     },
     {
       "date": "2024-10-29",
-      "cumulative_pnl": 0.4830975334
+      "cumulative_pnl": 0.4288408214
     },
     {
       "date": "2024-10-30",
-      "cumulative_pnl": 0.5093024661
+      "cumulative_pnl": 0.4550457541
     },
     {
       "date": "2024-10-31",
-      "cumulative_pnl": 0.536608581
+      "cumulative_pnl": 0.482351869
     },
     {
       "date": "2024-11-02",
-      "cumulative_pnl": 0.5573746987
+      "cumulative_pnl": 0.5031179867
     },
     {
       "date": "2024-11-07",
-      "cumulative_pnl": 0.5782417777
+      "cumulative_pnl": 0.5239850657
     },
     {
       "date": "2024-11-07",
-      "cumulative_pnl": 0.5576362971
+      "cumulative_pnl": 0.5033795851
     },
     {
       "date": "2024-11-08",
-      "cumulative_pnl": 0.5372414807
+      "cumulative_pnl": 0.4829847687
     },
     {
       "date": "2024-11-08",
-      "cumulative_pnl": 0.5572056949
-    },
-    {
-      "date": "2024-11-08",
-      "cumulative_pnl": 0.5801876656
-    },
-    {
-      "date": "2024-11-13",
-      "cumulative_pnl": 0.6001401852
+      "cumulative_pnl": 0.5029489829
     },
     {
       "date": "2024-11-14",
-      "cumulative_pnl": 0.6200111487
+      "cumulative_pnl": 0.5228199464
     },
     {
       "date": "2024-11-14",
-      "cumulative_pnl": 0.5997437549
-    },
-    {
-      "date": "2024-11-15",
-      "cumulative_pnl": 0.6117036195
+      "cumulative_pnl": 0.5025525526
     },
     {
       "date": "2024-11-21",
-      "cumulative_pnl": 0.5913652589
+      "cumulative_pnl": 0.482214192
     },
     {
       "date": "2024-11-21",
-      "cumulative_pnl": 0.5708869194
-    },
-    {
-      "date": "2024-11-21",
-      "cumulative_pnl": 0.5940102293
+      "cumulative_pnl": 0.5053375019
     },
     {
       "date": "2024-11-22",
-      "cumulative_pnl": 0.5737553272
+      "cumulative_pnl": 0.4850825998
     },
     {
       "date": "2024-11-22",
-      "cumulative_pnl": 0.5716811028
+      "cumulative_pnl": 0.4830083754
     },
     {
       "date": "2024-11-26",
-      "cumulative_pnl": 0.5515442227
+      "cumulative_pnl": 0.4628714953
     },
     {
       "date": "2024-11-27",
-      "cumulative_pnl": 0.5756886409
-    },
-    {
-      "date": "2024-11-27",
-      "cumulative_pnl": 0.5957896073
+      "cumulative_pnl": 0.4829724617
     },
     {
       "date": "2024-11-29",
-      "cumulative_pnl": 0.616504422
-    },
-    {
-      "date": "2024-11-29",
-      "cumulative_pnl": 0.596337467
+      "cumulative_pnl": 0.4628055067
     },
     {
       "date": "2024-12-04",
-      "cumulative_pnl": 0.6169863608
+      "cumulative_pnl": 0.4834544005
     },
     {
       "date": "2024-12-06",
-      "cumulative_pnl": 0.5967138616
+      "cumulative_pnl": 0.4631819013
     },
     {
       "date": "2024-12-06",
-      "cumulative_pnl": 0.6223758963
+      "cumulative_pnl": 0.488843936
     },
     {
       "date": "2024-12-06",
-      "cumulative_pnl": 0.6150520078
+      "cumulative_pnl": 0.4815200475
     },
     {
       "date": "2024-12-09",
-      "cumulative_pnl": 0.6354178386
+      "cumulative_pnl": 0.5018858783
     },
     {
       "date": "2024-12-10",
-      "cumulative_pnl": 0.6561832814
+      "cumulative_pnl": 0.5226513211
     },
     {
       "date": "2024-12-18",
-      "cumulative_pnl": 0.6356375263
+      "cumulative_pnl": 0.502105566
     },
     {
       "date": "2024-12-18",
-      "cumulative_pnl": 0.615147398
-    },
-    {
-      "date": "2024-12-18",
-      "cumulative_pnl": 0.6425918893
+      "cumulative_pnl": 0.4816154377
     },
     {
       "date": "2024-12-19",
-      "cumulative_pnl": 0.6649334045
+      "cumulative_pnl": 0.5039569529
     },
     {
       "date": "2024-12-25",
-      "cumulative_pnl": 0.6444166484
+      "cumulative_pnl": 0.4834401968
     },
     {
       "date": "2025-01-02",
-      "cumulative_pnl": 0.6242118115
-    },
-    {
-      "date": "2025-01-02",
-      "cumulative_pnl": 0.6453801653
+      "cumulative_pnl": 0.4632353599
     },
     {
       "date": "2025-01-07",
-      "cumulative_pnl": 0.644557961
+      "cumulative_pnl": 0.4624131556
     },
     {
       "date": "2025-01-07",
-      "cumulative_pnl": 0.6425154616
+      "cumulative_pnl": 0.4603706562
     },
     {
       "date": "2025-01-08",
-      "cumulative_pnl": 0.6656466944
+      "cumulative_pnl": 0.483501889
     },
     {
       "date": "2025-01-14",
-      "cumulative_pnl": 0.6862325612
+      "cumulative_pnl": 0.5040877558
     },
     {
       "date": "2025-01-20",
-      "cumulative_pnl": 0.7084931281
-    },
-    {
-      "date": "2025-01-22",
-      "cumulative_pnl": 0.7295337066
+      "cumulative_pnl": 0.5263483227
     },
     {
       "date": "2025-01-23",
-      "cumulative_pnl": 0.7510572657
+      "cumulative_pnl": 0.5478718818
     },
     {
       "date": "2025-01-24",
-      "cumulative_pnl": 0.7758352807
-    },
-    {
-      "date": "2025-01-27",
-      "cumulative_pnl": 0.7981017887
+      "cumulative_pnl": 0.5726498968
     },
     {
       "date": "2025-02-02",
-      "cumulative_pnl": 0.8183664085
+      "cumulative_pnl": 0.5929145166
     },
     {
       "date": "2025-02-02",
-      "cumulative_pnl": 0.8483375425
-    },
-    {
-      "date": "2025-02-03",
-      "cumulative_pnl": 0.8759975885
+      "cumulative_pnl": 0.6228856506
     },
     {
       "date": "2025-02-05",
-      "cumulative_pnl": 0.8964389385
-    },
-    {
-      "date": "2025-02-07",
-      "cumulative_pnl": 0.8758362469
+      "cumulative_pnl": 0.6433270006
     },
     {
       "date": "2025-02-10",
-      "cumulative_pnl": 0.8983990709
+      "cumulative_pnl": 0.6658898246
     },
     {
       "date": "2025-02-10",
-      "cumulative_pnl": 0.9030061364
+      "cumulative_pnl": 0.6704968901
     },
     {
       "date": "2025-02-17",
-      "cumulative_pnl": 0.919316717
-    },
-    {
-      "date": "2025-02-17",
-      "cumulative_pnl": 0.9209763786
+      "cumulative_pnl": 0.6868074707
     },
     {
       "date": "2025-02-20",
-      "cumulative_pnl": 0.9413002085
-    },
-    {
-      "date": "2025-02-20",
-      "cumulative_pnl": 0.9620638361
-    },
-    {
-      "date": "2025-02-20",
-      "cumulative_pnl": 0.9840872208
+      "cumulative_pnl": 0.7071313006
     },
     {
       "date": "2025-02-21",
-      "cumulative_pnl": 1.0043119177
+      "cumulative_pnl": 0.7273559975
     },
     {
       "date": "2025-02-25",
-      "cumulative_pnl": 1.0386692631
-    },
-    {
-      "date": "2025-02-25",
-      "cumulative_pnl": 1.0591166046
+      "cumulative_pnl": 0.747803339
     },
     {
       "date": "2025-02-27",
-      "cumulative_pnl": 1.0387573103
+      "cumulative_pnl": 0.7274440447
     },
     {
       "date": "2025-02-27",
-      "cumulative_pnl": 1.0184077595
+      "cumulative_pnl": 0.7070944939
     },
     {
       "date": "2025-02-27",
-      "cumulative_pnl": 0.9981092838
+      "cumulative_pnl": 0.6867960182
     },
     {
       "date": "2025-03-02",
-      "cumulative_pnl": 0.9777050589
+      "cumulative_pnl": 0.6663917933
     },
     {
       "date": "2025-03-03",
-      "cumulative_pnl": 0.9574022343
+      "cumulative_pnl": 0.6460889687
     },
     {
       "date": "2025-03-03",
-      "cumulative_pnl": 0.9436083014
+      "cumulative_pnl": 0.6322950358
     },
     {
       "date": "2025-03-03",
-      "cumulative_pnl": 0.9407575119
+      "cumulative_pnl": 0.6294442463
     },
     {
       "date": "2025-03-04",
-      "cumulative_pnl": 0.9606763717
+      "cumulative_pnl": 0.6493631061
     },
     {
       "date": "2025-03-05",
-      "cumulative_pnl": 0.9985599927
+      "cumulative_pnl": 0.6872467271
     },
     {
       "date": "2025-03-05",
-      "cumulative_pnl": 0.9782793808
-    },
-    {
-      "date": "2025-03-05",
-      "cumulative_pnl": 0.9577639946
+      "cumulative_pnl": 0.6667313409
     },
     {
       "date": "2025-03-06",
-      "cumulative_pnl": 0.9376238443
+      "cumulative_pnl": 0.6465911906
     },
     {
       "date": "2025-03-06",
-      "cumulative_pnl": 0.9614281396
+      "cumulative_pnl": 0.6703954859
     },
     {
       "date": "2025-03-07",
-      "cumulative_pnl": 0.9411210641
-    },
-    {
-      "date": "2025-03-11",
-      "cumulative_pnl": 0.9614524597
-    },
-    {
-      "date": "2025-03-17",
-      "cumulative_pnl": 0.9839755085
+      "cumulative_pnl": 0.6500884104
     },
     {
       "date": "2025-03-18",
-      "cumulative_pnl": 0.9636827108
-    },
-    {
-      "date": "2025-03-20",
-      "cumulative_pnl": 0.9856684993
+      "cumulative_pnl": 0.6297956127
     },
     {
       "date": "2025-03-31",
-      "cumulative_pnl": 0.9654027588
+      "cumulative_pnl": 0.6095298722
     },
     {
       "date": "2025-04-03",
-      "cumulative_pnl": 0.9451001574
+      "cumulative_pnl": 0.5892272708
     },
     {
       "date": "2025-04-03",
-      "cumulative_pnl": 0.9247602244
+      "cumulative_pnl": 0.5688873378
     },
     {
       "date": "2025-04-03",
-      "cumulative_pnl": 0.9044501403
+      "cumulative_pnl": 0.5485772537
     },
     {
       "date": "2025-04-03",
-      "cumulative_pnl": 0.9328384768
+      "cumulative_pnl": 0.5769655902
     },
     {
       "date": "2025-04-03",
-      "cumulative_pnl": 0.9123307784
+      "cumulative_pnl": 0.5564578918
     },
     {
       "date": "2025-04-03",
-      "cumulative_pnl": 0.9423778323
+      "cumulative_pnl": 0.5865049457
     },
     {
       "date": "2025-04-03",
-      "cumulative_pnl": 0.9219886218
-    },
-    {
-      "date": "2025-04-03",
-      "cumulative_pnl": 0.9017310914
+      "cumulative_pnl": 0.5662474153
     },
     {
       "date": "2025-04-04",
-      "cumulative_pnl": 0.881526512
+      "cumulative_pnl": 0.5460428359
     },
     {
       "date": "2025-04-04",
-      "cumulative_pnl": 0.8609726709
-    },
-    {
-      "date": "2025-04-04",
-      "cumulative_pnl": 0.8405171912
+      "cumulative_pnl": 0.5254889948
     },
     {
       "date": "2025-04-06",
-      "cumulative_pnl": 0.8635040768
+      "cumulative_pnl": 0.5484758804
     },
     {
       "date": "2025-04-06",
-      "cumulative_pnl": 0.8433403839
+      "cumulative_pnl": 0.5283121875
     },
     {
       "date": "2025-04-06",
-      "cumulative_pnl": 0.8231459222
+      "cumulative_pnl": 0.5081177258
     },
     {
       "date": "2025-04-14",
-      "cumulative_pnl": 0.8027818197
+      "cumulative_pnl": 0.4877536233
     },
     {
       "date": "2025-04-22",
-      "cumulative_pnl": 0.8267503314
-    },
-    {
-      "date": "2025-05-02",
-      "cumulative_pnl": 0.8294441339
+      "cumulative_pnl": 0.511722135
     },
     {
       "date": "2025-05-06",
-      "cumulative_pnl": 0.8546853266
-    },
-    {
-      "date": "2025-05-06",
-      "cumulative_pnl": 0.8765579464
+      "cumulative_pnl": 0.5335947548
     },
     {
       "date": "2025-05-08",
-      "cumulative_pnl": 0.8970107847
-    },
-    {
-      "date": "2025-05-13",
-      "cumulative_pnl": 0.9243496606
+      "cumulative_pnl": 0.5540475931
     },
     {
       "date": "2025-05-18",
-      "cumulative_pnl": 0.9266651722
-    },
-    {
-      "date": "2025-05-22",
-      "cumulative_pnl": 0.9062918984
+      "cumulative_pnl": 0.5563631047
     },
     {
       "date": "2025-05-23",
-      "cumulative_pnl": 0.8860662907
+      "cumulative_pnl": 0.536137497
     },
     {
       "date": "2025-05-23",
-      "cumulative_pnl": 0.9061131102
-    },
-    {
-      "date": "2025-05-25",
-      "cumulative_pnl": 0.9288220009
+      "cumulative_pnl": 0.5561843165
     },
     {
       "date": "2025-06-08",
-      "cumulative_pnl": 0.9426905894
+      "cumulative_pnl": 0.570052905
     },
     {
       "date": "2025-06-12",
-      "cumulative_pnl": 0.9224980188
+      "cumulative_pnl": 0.5498603344
     },
     {
       "date": "2025-06-13",
-      "cumulative_pnl": 0.9021291601
+      "cumulative_pnl": 0.5294914757
     },
     {
       "date": "2025-06-15",
-      "cumulative_pnl": 0.9244991038
-    },
-    {
-      "date": "2025-06-18",
-      "cumulative_pnl": 0.9447487105
+      "cumulative_pnl": 0.5518614194
     },
     {
       "date": "2025-06-20",
-      "cumulative_pnl": 0.9244755442
+      "cumulative_pnl": 0.5315882531
     },
     {
       "date": "2025-06-21",
-      "cumulative_pnl": 0.9041952576
+      "cumulative_pnl": 0.5113079665
     },
     {
       "date": "2025-06-22",
-      "cumulative_pnl": 0.8839155507
+      "cumulative_pnl": 0.4910282596
     },
     {
       "date": "2025-06-24",
-      "cumulative_pnl": 0.8637030758
-    },
-    {
-      "date": "2025-06-25",
-      "cumulative_pnl": 0.8929724011
+      "cumulative_pnl": 0.4708157847
     },
     {
       "date": "2025-06-29",
-      "cumulative_pnl": 0.8911016547
+      "cumulative_pnl": 0.4689450383
     },
     {
       "date": "2025-07-01",
-      "cumulative_pnl": 0.8708119571
-    },
-    {
-      "date": "2025-07-06",
-      "cumulative_pnl": 0.9001065977
-    },
-    {
-      "date": "2025-07-08",
-      "cumulative_pnl": 0.9226843935
+      "cumulative_pnl": 0.4486553407
     },
     {
       "date": "2025-07-09",
-      "cumulative_pnl": 0.902543773
+      "cumulative_pnl": 0.4285147202
     },
     {
       "date": "2025-07-10",
-      "cumulative_pnl": 0.9234857803
+      "cumulative_pnl": 0.4494567275
     },
     {
       "date": "2025-07-11",
-      "cumulative_pnl": 0.9461226395
-    },
-    {
-      "date": "2025-07-24",
-      "cumulative_pnl": 0.9656816529
+      "cumulative_pnl": 0.4720935867
     },
     {
       "date": "2025-07-30",
-      "cumulative_pnl": 0.9900577241
+      "cumulative_pnl": 0.4964696579
     },
     {
       "date": "2025-08-01",
-      "cumulative_pnl": 1.0153600349
+      "cumulative_pnl": 0.5217719687
     },
     {
       "date": "2025-08-10",
-      "cumulative_pnl": 1.0244134681
-    },
-    {
-      "date": "2025-08-13",
-      "cumulative_pnl": 1.0469776621
+      "cumulative_pnl": 0.5308254019
     },
     {
       "date": "2025-08-14",
-      "cumulative_pnl": 1.073508403
-    },
-    {
-      "date": "2025-08-14",
-      "cumulative_pnl": 1.0936136972
+      "cumulative_pnl": 0.5573561428
     },
     {
       "date": "2025-08-20",
-      "cumulative_pnl": 1.1162132132
+      "cumulative_pnl": 0.5799556588
     },
     {
       "date": "2025-08-20",
-      "cumulative_pnl": 1.0960129062
+      "cumulative_pnl": 0.5597553518
     },
     {
       "date": "2025-08-20",
-      "cumulative_pnl": 1.1190660295
+      "cumulative_pnl": 0.5828084751
     },
     {
       "date": "2025-08-20",
-      "cumulative_pnl": 1.1491891051
-    },
-    {
-      "date": "2025-08-31",
-      "cumulative_pnl": 1.158394376
+      "cumulative_pnl": 0.6129315507
     },
     {
       "date": "2025-09-03",
-      "cumulative_pnl": 1.137836443
+      "cumulative_pnl": 0.5923736177
     },
     {
       "date": "2025-09-07",
-      "cumulative_pnl": 1.1329389871
+      "cumulative_pnl": 0.5874761618
     },
     {
       "date": "2025-09-08",
-      "cumulative_pnl": 1.153535794
+      "cumulative_pnl": 0.6080729687
     },
     {
       "date": "2025-09-08",
-      "cumulative_pnl": 1.133200082
-    },
-    {
-      "date": "2025-09-08",
-      "cumulative_pnl": 1.1541249022
-    },
-    {
-      "date": "2025-09-09",
-      "cumulative_pnl": 1.1338885185
-    },
-    {
-      "date": "2025-09-09",
-      "cumulative_pnl": 1.1545670216
-    },
-    {
-      "date": "2025-09-09",
-      "cumulative_pnl": 1.1684213193
+      "cumulative_pnl": 0.5877372567
     }
   ],
   "open_trades": [
@@ -4446,10 +3451,10 @@
       "entry_date": "2025-07-25",
       "days_open": 46,
       "entry": 0.4777,
-      "last": 0.47229,
+      "last": 0.47192,
       "take_profit": 0.48892,
       "stop_loss": 0.466481,
-      "mtm_return": -0.0097295124
+      "mtm_return": -0.0103891078
     },
     {
       "spread": "AUDCHF=X",
@@ -4457,10 +3462,10 @@
       "entry_date": "2025-07-31",
       "days_open": 40,
       "entry": 0.52113,
-      "last": 0.52463,
+      "last": 0.52448,
       "take_profit": 0.535453,
       "stop_loss": 0.506807,
-      "mtm_return": 0.004814476
+      "mtm_return": 0.0046050227
     },
     {
       "spread": "EURAUD=X",
@@ -4468,10 +3473,10 @@
       "entry_date": "2025-08-01",
       "days_open": 39,
       "entry": 1.78984,
-      "last": 1.77803,
+      "last": 1.77914,
       "take_profit": 1.750036,
       "stop_loss": 1.829644,
-      "mtm_return": 0.0058441443
+      "mtm_return": 0.0052864114
     },
     {
       "spread": "GBPUSD=X",
@@ -4479,10 +3484,10 @@
       "entry_date": "2025-08-13",
       "days_open": 27,
       "entry": 1.3574,
-      "last": 1.35873,
+      "last": 1.35302,
       "take_profit": 1.33214,
       "stop_loss": 1.38266,
-      "mtm_return": -0.0011605226
+      "mtm_return": 0.0033604592
     },
     {
       "spread": "GBPJPY=X",
@@ -4490,10 +3495,10 @@
       "entry_date": "2025-08-13",
       "days_open": 27,
       "entry": 200.04,
-      "last": 198.823,
+      "last": 199.167,
       "take_profit": 196.937287,
       "stop_loss": 203.142712,
-      "mtm_return": 0.0077158048
+      "mtm_return": 0.0054983898
     },
     {
       "spread": "AUDJPY=X",
@@ -4501,10 +3506,10 @@
       "entry_date": "2025-09-01",
       "days_open": 8,
       "entry": 96.401,
-      "last": 96.847,
+      "last": 96.987,
       "take_profit": 94.370615,
       "stop_loss": 98.431385,
-      "mtm_return": -0.0044882138
+      "mtm_return": -0.0058672626
     },
     {
       "spread": "USDCHF=X",
@@ -4512,21 +3517,10 @@
       "entry_date": "2025-09-05",
       "days_open": 4,
       "entry": 0.79777,
-      "last": 0.79277,
+      "last": 0.79596,
       "take_profit": 0.82182,
       "stop_loss": 0.77372,
-      "mtm_return": -0.0042243468
-    },
-    {
-      "spread": "AUDCAD=X",
-      "type": "short",
-      "entry_date": "2025-09-05",
-      "days_open": 4,
-      "entry": 0.90575,
-      "last": 0.91341,
-      "take_profit": 0.897139,
-      "stop_loss": 0.914362,
-      "mtm_return": -0.0179994775
+      "mtm_return": -0.0015715401
     },
     {
       "spread": "NZDUSD=X",
@@ -4534,10 +3528,10 @@
       "entry_date": "2025-09-08",
       "days_open": 1,
       "entry": 0.59398,
-      "last": 0.59573,
+      "last": 0.59294,
       "take_profit": 0.581325,
       "stop_loss": 0.606635,
-      "mtm_return": -0.002859578
+      "mtm_return": 0.0015497463
     },
     {
       "spread": "GBPAUD=X",
@@ -4545,10 +3539,10 @@
       "entry_date": "2025-09-08",
       "days_open": 1,
       "entry": 2.05457,
-      "last": 2.0529,
+      "last": 2.05339,
       "take_profit": 2.089201,
       "stop_loss": 2.019939,
-      "mtm_return": -0.0010831088
+      "mtm_return": -0.0008001253
     },
     {
       "spread": "NZDJPY=X",
@@ -4556,21 +3550,10 @@
       "entry_date": "2025-09-08",
       "days_open": 1,
       "entry": 87.574,
-      "last": 87.176,
+      "last": 87.276,
       "take_profit": 85.744496,
       "stop_loss": 89.403504,
-      "mtm_return": 0.0042551708
-    },
-    {
-      "spread": "NZDCAD=X",
-      "type": "short",
-      "entry_date": "2025-09-09",
-      "days_open": 0,
-      "entry": 0.82215,
-      "last": 0.82215,
-      "take_profit": 0.816145,
-      "stop_loss": 0.828156,
-      "mtm_return": -0.0002737762
+      "mtm_return": 0.0031619783
     }
   ]
 }
