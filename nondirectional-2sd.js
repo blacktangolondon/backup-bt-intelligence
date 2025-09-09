@@ -5,7 +5,7 @@ Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
 const STATS_FILE    = 'non_directional_stats-2sd.json';
-const CHANNELS_FILE = 'non_directional_stats-2sd.json';
+const CHANNELS_FILE = 'spreads.json';
 const STD_MULT      = 0.5;
 
 const fmtPct = v => (Number(v) * 100).toFixed(2) + '%';
