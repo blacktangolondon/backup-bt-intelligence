@@ -1,66 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Non‑Directional Strategies Dashboard (2σ)</title>
-  <link rel="stylesheet" href="nondirectional.css" />
+  <meta charset="utf-8"/>
+  <title>Arbitrage Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <link rel="stylesheet" href="nondirectional.css"/>
+
+  <!-- Stesse guardrail di Equities -->
+  <style>
+    html, body { margin: 0; height: 100%; }
+    #container {
+      max-width: none !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 12px 16px;
+      box-sizing: border-box;
+    }
+    .card, .card-grid, .charts-card, .table-card, .table-wrapper {
+      max-width: none !important;
+      width: 100%;
+    }
+    .table-wrapper table { width: 100%; }
+    canvas { width: 100% !important; height: auto; }
+    /* sticky header (come FX, tema scuro) */
+    .table-wrapper { max-height: 420px; overflow: auto; border: 1px solid #2a2a2a; border-radius: 10px; }
+    .report-table { width: 100%; border-collapse: collapse; }
+    .report-table th, .report-table td { padding: .55rem .65rem; white-space: nowrap; text-align: left; }
+    .report-table thead th { position: sticky; top: 0; z-index: 2; background: #0f1012; border-bottom: 1px solid #2a2a2a; }
+    /* grafico */
+    #equityChart { height: 340px; display: block; }
+    /* tabs */
+    .tabs{display:flex;gap:.5rem;margin:.25rem 0 .5rem 0}
+    .tab{border:1px solid #2a2a2a;border-radius:8px;padding:.35rem .75rem;cursor:pointer;background:#1a1b1f;color:#e9a624}
+    .tab.active{background:#2a2b30;font-weight:600}
+    .tabpane{display:none}
+    .tabpane.active{display:block}
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
   <div id="container">
-    <!-- Module 1: Portfolio KPI Cards -->
+
+    <!-- Module 1: KPI (stesse classi di FX) -->
     <section id="module1" class="card-grid"></section>
 
-    <!-- Module 2: Historical Report -->
+    <!-- Module 2: Closed/Open (come FX: card tabella) -->
     <section id="module2" class="card table-card">
-      <h2>Historical Report</h2>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Spread</th>
-              <th>Open Date</th>
-              <th>Close Date</th>
-              <th>Open Price</th>
-              <th>Close Price</th>
-              <th>Direction</th>
-              <th>% Movement</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+      <div class="tabs" id="reportTabs">
+        <button class="tab active" data-tab="realized">Closed Trades</button>
+        <button class="tab" data-tab="open">Open Positions</button>
+      </div>
+      <div class="tabpanes">
+        <div class="tabpane active" id="tab-realized">
+          <div class="table-wrapper">
+            <table class="report-table">
+              <thead><tr></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="tabpane" id="tab-open">
+          <div class="table-wrapper">
+            <table class="report-table">
+              <thead><tr></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Module 3: Performance Visuals -->
+    <!-- Module 3: Performance (stesse classi di FX) -->
     <section id="module3" class="card charts-card">
       <canvas id="equityChart"></canvas>
     </section>
 
-    <!-- Module 4: New Strategies Alert (2σ) -->
+    <!-- Module 4: New Strategies Alert (stesse classi di FX) -->
     <section id="module4" class="card table-card">
-      <h2>New Strategies Alert (2σ)</h2>
+      <h2>New Strategies Alert</h2>
       <div class="table-wrapper">
-        <table>
+        <table class="report-table">
           <thead>
-            <tr>
-              <th>Spread</th>
-              <th>Signal</th>
-              <th>Open Price</th>
-              <th>Take Profit</th>
-              <th>Stop Loss</th>
-            </tr>
+            <tr><th>Ticker</th><th>Signal</th><th>Open</th><th>Target</th><th>Stop</th></tr>
           </thead>
           <tbody></tbody>
         </table>
       </div>
     </section>
+
   </div>
 
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- 2σ version logic -->
   <script src="nondirectional-2sd.js"></script>
 </body>
 </html>
-
