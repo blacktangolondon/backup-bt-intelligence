@@ -17,6 +17,13 @@ function formatFxKeyArea(str) {
   return String(str).replace(/-?\d+(\.\d+)?/g, n => (+n).toFixed(4));
 }
 
+// Safe helpers
+function getEl(id) { return document.getElementById(id); }
+function setDisplayById(id, display) {
+  const el = getEl(id);
+  if (el) el.style.display = display;
+}
+
 // Label arrays for Block 3
 export const leftLabels        = [
   "SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MICRO","MATH","STATS","TECH"
@@ -58,7 +65,6 @@ export const equityExcelRightLabels = [
 ];
 
 /* Block 1: TradingView Advanced Chart */
-function getEl(id) { return document.getElementById(id); }
 function updateChartGeneric(instrumentName, groupData, containerId = "block1") {
   // Fallback per vecchi id
   let container = getEl(containerId) || getEl("block1-chart") || getEl("block1-container");
@@ -203,8 +209,13 @@ function getEquityExcelRightVal(label, info) {
 }
 
 function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, rightLabelArr, tradingViewUpdater) {
-  const trendScoreContainer = document.getElementById("block3-trendscore");
+  const trendScoreContainer = getEl("block3-trendscore");
+  if (!trendScoreContainer) {
+    console.warn("[Block3] #block3-trendscore not found");
+    return;
+  }
   trendScoreContainer.innerHTML = '<div class="loading-message"><span>CALCULATING.</span></div>';
+
   setTimeout(() => {
     const info = groupData[instrumentName];
     trendScoreContainer.innerHTML = "";
@@ -276,14 +287,10 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
     }
     trendScoreContainer.appendChild(table);
 
-    if (
-      groupData === window.futuresFullData ||
-      ["CAC 40","FTSE MIB"].includes(instrumentName)
-    ) {
-      document.getElementById("block3-tv-tab").style.display = "none";
-    } else {
-      document.getElementById("block3-tv-tab").style.display = "";
-    }
+    // Safe toggle of the TV tab button if present
+    const hideTv = (groupData === window.futuresFullData) || ["CAC 40","FTSE MIB"].includes(instrumentName);
+    const tvTab = getEl("block3-tv-tab");
+    if (tvTab) tvTab.style.display = hideTv ? "none" : "";
 
     tradingViewUpdater(instrumentName);
     showBlock3Tab("trendscore");
@@ -293,7 +300,11 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
 function updateBlock3TradingViewGeneric(instrumentName, groupData) {
   const info   = groupData[instrumentName];
   const symbol = ((info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN").replace(/-/g, '_');
-  const tvContainer = document.getElementById("block3-tradingview");
+  const tvContainer = getEl("block3-tradingview");
+  if (!tvContainer) {
+    console.warn("[Block3] #block3-tradingview not found");
+    return;
+  }
   tvContainer.innerHTML = "";
   const widgetDiv = document.createElement("div");
   widgetDiv.className = "tradingview-widget-container";
@@ -343,14 +354,14 @@ export function initBlock3Tabs() {
 export function showBlock3Tab(tabName) {
   const sections = ["trendscore", "tradingview"];
   sections.forEach(sec => {
-    document.getElementById(`block3-${sec}`).style.display = (sec === tabName ? "block" : "none");
+    const el = getEl(`block3-${sec}`);
+    if (el) el.style.display = (sec === tabName ? "block" : "none");
   });
 }
 
 /* Block 4: Correlation Bar Chart */
-export function updateBlock4(instrumentName, correlationsOrData, maybeReturns) {
-  // Container esistente in index.html
-  const host = document.getElementById("block4");
+export function updateBlock4(instrumentName, correlationsOrData) {
+  const host = getEl("block4");
   if (!host) {
     console.warn("[Block4] Container #block4 non trovato");
     return;
@@ -360,7 +371,6 @@ export function updateBlock4(instrumentName, correlationsOrData, maybeReturns) {
   const ctxId = "block4-correlation-chart";
   destroyChartIfExists(ctxId);
 
-  // Accetta sia un array di correlazioni sia un map globale
   let corrList = [];
   if (Array.isArray(correlationsOrData)) {
     corrList = correlationsOrData;
@@ -381,8 +391,9 @@ export function updateBlock4(instrumentName, correlationsOrData, maybeReturns) {
 
 /* Sidebar interaction: select item -> update all blocks */
 export function attachSidebarHandlers() {
-  const sidebar = document.getElementById("sidebar");
+  const sidebar = getEl("sidebar");
   if (!sidebar) return;
+
   sidebar.addEventListener("click", (e) => {
     const item = e.target.closest(".sidebar-item");
     if (!item) return;
@@ -426,10 +437,10 @@ function toggleFullscreen(el) {
   else document.exitFullscreen?.();
 }
 export function initFullscreenButtons() {
-  const btn1 = document.getElementById("btn-fullscreen-block1");
-  const btn2 = document.getElementById("btn-fullscreen-block2");
-  if (btn1) btn1.addEventListener("click", () => toggleFullscreen(document.getElementById("block1")));
-  if (btn2) btn2.addEventListener("click", () => toggleFullscreen(document.getElementById("block2")));
+  const btn1 = getEl("btn-fullscreen-block1");
+  const btn2 = getEl("btn-fullscreen-block2");
+  if (btn1) btn1.addEventListener("click", () => toggleFullscreen(getEl("block1")));
+  if (btn2) btn2.addEventListener("click", () => toggleFullscreen(getEl("block2")));
 }
 
 /* YouTube popup (if used somewhere) */
