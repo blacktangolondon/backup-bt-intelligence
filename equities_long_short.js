@@ -8,6 +8,21 @@ const STATS_FILE    = 'equities_long_short_stats.json';
 const CHANNELS_FILE = 'eq_channels.json';
 const STD_MULT      = 2.0;
 
+// --- CSS fix (Ticker col) injected via JS ---
+{
+  const css = `
+#tab-realized table, #tab-open table, #module4 table { table-layout: fixed; width: 100%; }
+#tab-realized th:nth-child(1), #tab-realized td:nth-child(1),
+#tab-open th:nth-child(1), #tab-open td:nth-child(1),
+#module4 th:nth-child(1), #module4 td:nth-child(1) { width: 28ch; } /* regola qui la larghezza */
+.col-ticker { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }`;
+  const s = document.createElement('style');
+  s.id = 'ticker-col-fix';
+  s.textContent = css;
+  document.head.appendChild(s);
+}
+
+
 const fmtPct = v => (Number(v) * 100).toFixed(2) + '%';
 const num    = v => Number.isFinite(Number(v)) ? Number(v) : 0;
 const fetchJSON = async (url) => {
@@ -128,12 +143,17 @@ function renderReportTabs(trades, openTrades){
     tbody.innerHTML = '';
     trades.forEach(t=>{
       const tr=document.createElement('tr');
-      tr.innerHTML = `
-        <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
-        <td>${t.entry_date}</td><td>${t.exit_date}</td>
-        <td>${num(t.entry).toFixed(4)}</td><td>${num(t.exit).toFixed(4)}</td>
-        <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
-        <td>${fmtPct(num(t.pnl))}</td><td>${t.exit_reason || ''}</td>`;
+tr.innerHTML = `
+  <td class="col-ticker" title="${t.spread}">${t.spread}</td>
+  <td>Long</td>
+  <td>${t.entry_date}</td>
+  <td>${t.exit_date}</td>
+  <td>${num(t.entry).toFixed(4)}</td>
+  <td>${num(t.exit).toFixed(4)}</td>
+  <td>${num(t.take_profit).toFixed(4)}</td>
+  <td>${num(t.stop_loss).toFixed(4)}</td>
+  <td>${fmtPct(num(t.pnl))}</td>
+  <td>${t.exit_reason || ''}</td>`;
       tbody.appendChild(tr);
     });
     if (!trades.length){
@@ -153,12 +173,17 @@ function renderReportTabs(trades, openTrades){
     tbody.innerHTML = '';
     openTrades.forEach(t=>{
       const tr=document.createElement('tr');
-      tr.innerHTML = `
-        <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
-        <td>${t.entry_date}</td><td>${num(t.days_open)}</td>
-        <td>${num(t.entry).toFixed(4)}</td><td>${num(t.last).toFixed(4)}</td>
-        <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
-        <td>${fmtPct(num(t.mtm_return))}</td>`;
+tr.innerHTML = `
+  <td class="col-ticker" title="${t.spread}">${t.spread}</td>
+  <td>Long</td>
+  <td>${t.entry_date}</td>
+  <td>${num(t.days_open)}</td>
+  <td>${num(t.entry).toFixed(4)}</td>
+  <td>${num(t.last).toFixed(4)}</td>
+  <td>${num(t.take_profit).toFixed(4)}</td>
+  <td>${num(t.stop_loss).toFixed(4)}</td>
+  <td>${fmtPct(num(t.mtm_return))}</td>`;
+
       tbody.appendChild(tr);
     });
     if (!openTrades.length){
@@ -234,7 +259,7 @@ function renderModule4(alerts){
   }
   alerts.forEach(a=>{
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${a.spread}</td><td>${a.signal}</td><td>${a.open}</td><td>${a.tp}</td><td>${a.sl}</td>`;
+    tr.innerHTML = `<td class="col-ticker" title="${a.spread}">${a.spread}</td><td>${a.signal}</td><td>${a.open}</td><td>${a.tp}</td><td>${a.sl}</td>`;
     tbody.appendChild(tr);
   });
 }
