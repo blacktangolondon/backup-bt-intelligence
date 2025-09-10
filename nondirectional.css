@@ -304,5 +304,14 @@ body {
 /* (Opzionale) variante a capo invece di ellissi: */
 /* .col-ticker { white-space: normal; overflow-wrap: anywhere; } */
 
+@media (max-width: 900px) {
+  #tab-realized th:nth-child(1),
+  #tab-realized td:nth-child(1),
+  #tab-open     th:nth-child(1),
+  #tab-open     td:nth-child(1),
+  #module4      th:nth-child(1),
+  #module4      td:nth-child(1) { width: 20ch; }
+}
+
 
 
