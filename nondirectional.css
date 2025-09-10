@@ -276,4 +276,33 @@ body {
   text-align: left;
 }
 
+/* Tabelle dei moduli 2 e 4 */
+#tab-realized table,
+#tab-open table,
+#module4 table {
+  table-layout: fixed;   /* colonne con larghezze stabili */
+  width: 100%;
+}
+
+/* Prima colonna (Ticker) – larghezza comoda */
+#tab-realized th:nth-child(1),
+#tab-realized td:nth-child(1),
+#tab-open     th:nth-child(1),
+#tab-open     td:nth-child(1),
+#module4      th:nth-child(1),
+#module4      td:nth-child(1) {
+  width: 28ch;          /* regola qui la larghezza desiderata */
+}
+
+/* Troncamento elegante con ellissi + tooltip */
+.col-ticker {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* (Opzionale) variante a capo invece di ellissi: */
+/* .col-ticker { white-space: normal; overflow-wrap: anywhere; } */
+
+
 
