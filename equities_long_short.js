@@ -216,7 +216,7 @@ function computeNewAlertsFrom(channels){
     const prevUb = t_prev + s_prev*STD_MULT, prevLb = t_prev - s_prev*STD_MULT;
     //if (r_now > ub && r_prev <= prevUb)
     //out.push({spread:key, signal:'Short', open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now + Math.abs(r_now - t_now)).toFixed(4)});
-    else if (r_now < lb && r_prev >= prevLb)
+    if (r_now < lb && r_prev >= prevLb)
       out.push({spread:key, signal:'Long',  open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now - Math.abs(t_now - r_now)).toFixed(4)});
   }
   return out;
