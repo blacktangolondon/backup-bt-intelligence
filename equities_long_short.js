@@ -22,13 +22,21 @@ const fetchJSON = async (url) => {
   try { stats = await fetchJSON(STATS_FILE); }
   catch (e) { console.error('JSON load failed for stats:', e); return; }
 
-  const trades = Array.isArray(stats.trades)
-    ? stats.trades.slice().sort((a,b)=> new Date(a.exit_date) - new Date(b.exit_date))
-    : [];
+const trades = Array.isArray(stats.trades)
+  ? stats.trades
+      .filter(t => t.type === 'long') // <— SOLO LONG
+      .slice()
+      .sort((a,b)=> new Date(a.exit_date) - new Date(b.exit_date))
+  : [];
 
-  const openTrades = Array.isArray(stats.open_trades)
-    ? stats.open_trades.slice().sort((a,b)=> new Date(a.entry_date) - new Date(b.entry_date))
-    : [];
+
+const openTrades = Array.isArray(stats.open_trades)
+  ? stats.open_trades
+      .filter(t => t.type === 'long') // <— SOLO LONG
+      .slice()
+      .sort((a,b)=> new Date(a.entry_date) - new Date(b.entry_date))
+  : [];
+
 
   // Period label
   let periodLabel = '';
@@ -206,8 +214,8 @@ function computeNewAlertsFrom(channels){
     const t_prev= (pu1 + pl1)/2, s_prev= Math.abs(pu1 - t_prev);
     const ub = t_now + s_now*STD_MULT, lb = t_now - s_now*STD_MULT;
     const prevUb = t_prev + s_prev*STD_MULT, prevLb = t_prev - s_prev*STD_MULT;
-    if (r_now > ub && r_prev <= prevUb)
-      out.push({spread:key, signal:'Short', open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now + Math.abs(r_now - t_now)).toFixed(4)});
+    //if (r_now > ub && r_prev <= prevUb)
+    //out.push({spread:key, signal:'Short', open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now + Math.abs(r_now - t_now)).toFixed(4)});
     else if (r_now < lb && r_prev >= prevLb)
       out.push({spread:key, signal:'Long',  open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now - Math.abs(t_now - r_now)).toFixed(4)});
   }
