@@ -58,8 +58,14 @@ export const equityExcelRightLabels = [
 ];
 
 /* Block 1: TradingView Advanced Chart */
-function updateChartGeneric(instrumentName, groupData, containerId) {
-  const container = document.getElementById(containerId);
+function getEl(id) { return document.getElementById(id); }
+function updateChartGeneric(instrumentName, groupData, containerId = "block1") {
+  // Fallback per vecchi id
+  let container = getEl(containerId) || getEl("block1-chart") || getEl("block1-container");
+  if (!container) {
+    console.warn("[Block1] Container not found. Tried:", containerId, "block1-chart", "block1-container");
+    return;
+  }
   container.innerHTML = "";
 
   const info = groupData[instrumentName];
@@ -93,12 +99,17 @@ function updateChartGeneric(instrumentName, groupData, containerId) {
   container.appendChild(script);
 }
 export function updateChart(instrumentName, groupData) {
-  updateChartGeneric(instrumentName, groupData, "block1-chart");
+  updateChartGeneric(instrumentName, groupData, "block1");
 }
 
 /* Block 2: Symbol Overview (Right big chart) */
 export function updateSymbolOverview(instrumentName, groupData) {
-  const container = document.getElementById("block2-symbol-overview");
+  // Fallback su vecchi id se necessario
+  const container = getEl("block2") || getEl("block2-symbol-overview") || getEl("block2-container");
+  if (!container) {
+    console.warn("[Block2] Container not found.");
+    return;
+  }
   container.innerHTML = "";
 
   const info = groupData[instrumentName];
@@ -233,7 +244,6 @@ function updateBlock3Generic(instrumentName, groupData, rowCount, leftLabelArr, 
       }
 
       const td2 = document.createElement("td");
-      // Special-case: display 0% for 0 gap values
       if (
         typeof val === "string" &&
         (leftLabelArr[i].includes("GAP") || leftLabelArr[i].includes("TO VALLEY")) &&
@@ -338,14 +348,33 @@ export function showBlock3Tab(tabName) {
 }
 
 /* Block 4: Correlation Bar Chart */
-export function updateBlock4(instrumentName, correlations) {
+export function updateBlock4(instrumentName, correlationsOrData, maybeReturns) {
+  // Container esistente in index.html
+  const host = document.getElementById("block4");
+  if (!host) {
+    console.warn("[Block4] Container #block4 non trovato");
+    return;
+  }
+  host.innerHTML = '<canvas id="block4-correlation-chart"></canvas>';
+
   const ctxId = "block4-correlation-chart";
   destroyChartIfExists(ctxId);
+
+  // Accetta sia un array di correlazioni sia un map globale
+  let corrList = [];
+  if (Array.isArray(correlationsOrData)) {
+    corrList = correlationsOrData;
+  } else if (window.correlationMap && window.correlationMap[instrumentName]) {
+    corrList = window.correlationMap[instrumentName];
+  } else if (correlationsOrData && correlationsOrData[instrumentName] && correlationsOrData[instrumentName].correlations) {
+    corrList = correlationsOrData[instrumentName].correlations;
+  }
+
   const labels = [];
   const values = [];
-  correlations.slice(0, 10).forEach(item => {
-    labels.push(item.symbol);
-    values.push(+item.value);
+  (corrList || []).slice(0, 10).forEach(item => {
+    labels.push(item.symbol || item.ticker || "");
+    values.push(+item.value || 0);
   });
   renderBarChart(ctxId, labels, values);
 }
@@ -382,7 +411,6 @@ export function attachSidebarHandlers() {
     updateSymbolOverview(name, dataRef);
     updateBlock3(name, dataRef, opts);
 
-    // Correlations (if available)
     try {
       const corr = (window.correlationMap && window.correlationMap[name]) ? window.correlationMap[name] : [];
       updateBlock4(name, corr);
@@ -394,14 +422,14 @@ export function attachSidebarHandlers() {
 
 /* Fullscreen handlers for Block 1 & 2 */
 function toggleFullscreen(el) {
-  if (!document.fullscreenElement) el.requestFullscreen?.();
+  if (!document.fullscreenElement) el?.requestFullscreen?.();
   else document.exitFullscreen?.();
 }
 export function initFullscreenButtons() {
   const btn1 = document.getElementById("btn-fullscreen-block1");
   const btn2 = document.getElementById("btn-fullscreen-block2");
-  if (btn1) btn1.addEventListener("click", () => toggleFullscreen(document.getElementById("block1-container")));
-  if (btn2) btn2.addEventListener("click", () => toggleFullscreen(document.getElementById("block2-container")));
+  if (btn1) btn1.addEventListener("click", () => toggleFullscreen(document.getElementById("block1")));
+  if (btn2) btn2.addEventListener("click", () => toggleFullscreen(document.getElementById("block2")));
 }
 
 /* YouTube popup (if used somewhere) */
