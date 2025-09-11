@@ -55,6 +55,7 @@ const fetchJSON = async (url) => {
     avgDuration:    (k.avg_duration_days ?? 0).toFixed(1) + ' d',
     openCount:      k.open_positions ?? openTrades.length
   };
+  initModule1Tabs();
   renderModule1(kpi); // ← importante
 
   // ── Modulo 2: usa i tab già presenti in HTML; popola solo le tabelle
@@ -75,7 +76,7 @@ const fetchJSON = async (url) => {
 
 // ───────── Module 1
 function renderModule1(k) {
-  const cont = document.getElementById('module1');
+  const cont = document.getElementById('module1-kpi');
   if (!cont) return;
   cont.innerHTML = '';
   [
@@ -90,6 +91,23 @@ function renderModule1(k) {
     d.className = 'kpi-card';
     d.innerHTML = `<div class="kpi-value">${c.value}</div><div class="kpi-label">${c.label}</div>`;
     cont.appendChild(d);
+  });
+}
+// ───────── Module 1 (tabs: Statistics / Strategy Description)
+function initModule1Tabs(){
+  const tabs = document.querySelectorAll('#statsTabs .tab');
+  const panes = {
+    stats: document.getElementById('tab-stats'),
+    desc:  document.getElementById('tab-desc')
+  };
+  tabs.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      tabs.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      panes.stats.classList.toggle('active', tab === 'stats');
+      panes.desc.classList.toggle('active',  tab === 'desc');
+    });
   });
 }
 
