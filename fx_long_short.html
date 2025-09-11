@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <title>FX — Long/Short Dashboard</title>
+  <title>Equities — Long/Short Dashboard</title>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <link rel="stylesheet" href="nondirectional.css"/>
 
-  <!-- Stesse guardrail di Equities -->
+  <!-- Stesse guardrail di Equity -->
   <style>
     html, body { margin: 0; height: 100%; }
     #container {
@@ -29,20 +29,172 @@
     .report-table thead th { position: sticky; top: 0; z-index: 2; background: #0f1012; border-bottom: 1px solid #2a2a2a; }
     /* grafico */
     #equityChart { height: 340px; display: block; }
-    /* tabs */
-    .tabs{display:flex;gap:.5rem;margin:.25rem 0 .5rem 0}
-    .tab{border:1px solid #2a2a2a;border-radius:8px;padding:.35rem .75rem;cursor:pointer;background:#1a1b1f;color:#e9a624}
-    .tab.active{background:#2a2b30;font-weight:600}
-    .tabpane{display:none}
-    .tabpane.active{display:block}
+
+    /* Module 1 — tabs identici al Modulo 2 */
+/* Module 1 — tabs identici al Modulo 2 */
+#module1{
+  display:flex;
+  flex-direction:column;
+  padding:12px;
+  height:54vh;                 /* stessa logica del modulo 2 */
+  overflow:auto;
+  background:#1e1e1e;
+  border:1px solid #333;
+  border-radius:8px;
+}
+#module1 .tabs{
+  position:sticky;
+  top:0;
+  z-index:5;
+  background:#1e1e1e;
+  padding-top:4px;
+  margin:.25rem 0 .5rem;
+}
+#module1 .tab{
+  background:#222;
+  color:#ffa500;
+  border:1px solid #444;
+  padding:.35rem .6rem;
+  border-radius:6px;
+  cursor:pointer;
+}
+#module1 .tab.active{
+  background:#ffa500;
+  color:#111;
+  border-color:#ffa500;
+}
+#module1 .tabpane{ display:none; }
+#module1 .tabpane.active{ display:block; }
+
+/* griglia KPI dentro il pane Statistics */
+#module1-kpi{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+
+/* DESCRIPTION pane — allineato al look delle card/tabelle */
+#module1 #tab-desc .table-wrapper{
+  background:#141416;
+  border:1px solid #2a2a2a;
+  border-radius:10px;
+}
+
+.desc-box{
+  min-height:200px;
+  padding:12px 14px;
+  background:transparent;      /* niente riquadro pieno */
+  border:none;                  /* niente bordo tratteggiato */
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size:13.5px;            /* leggermente più compatto */
+  line-height:1.30;            /* interlinea più stretta */
+  color:#d7d7d7;
+  letter-spacing:.1px;
+  white-space:pre-wrap;         /* mantiene le interruzioni di riga */
+}
+
+.desc-box h3{
+  margin:0 0 6px 0;
+  font-size:16px;
+  font-weight:700;
+  color:#F6A313;                /* arancione come gli altri titoli */
+  letter-spacing:.2px;
+}
+
+.desc-box h4{
+  margin:10px 0 4px 0;
+  font-size:12.5px;
+  text-transform:uppercase;
+  color:#E9A624;
+  letter-spacing:.35px;
+}
+
+.desc-box p{ margin:3px 0; }    /* meno spazio tra paragrafi */
+
+.desc-box ul{
+  margin:3px 0 0 0;            /* lista più compatta */
+  padding:0;
+  list-style:none;
+}
+
+.desc-box ul li{
+  position:relative;
+  margin:2px 0 2px 14px;       /* meno spazio tra bullet */
+  padding-left:8px;
+}
+
+.desc-box ul li::before{
+  content:"•";
+  position:absolute;
+  left:-12px;
+  color:#E9A624;
+}
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
   <div id="container">
 
-    <!-- Module 1: KPI (stesse classi di FX) -->
-    <section id="module1" class="card-grid"></section>
+<!-- Module 1: KPI + Description con tab -->
+<section id="module1" class="card table-card">
+  <div class="tabs" id="statsTabs">
+    <button class="tab active" data-tab="stats">Statistics</button>
+    <button class="tab" data-tab="desc">Strategy Description</button>
+  </div>
+  <div class="tabpanes">
+    <!-- Pane STATISTICS: mostra le KPI esistenti -->
+    <div class="tabpane active" id="tab-stats">
+      <div id="module1-kpi" class="card-grid"></div>
+    </div>
+    <!-- Pane DESCRIPTION: area vuota da riempire a piacere -->
+    <div class="tabpane" id="tab-desc">
+      <div class="table-wrapper">
+        <div id="strategyDescription" class="desc-box"><h3>Core Strategy Element: Equity Market ‘Long Bias’</h3>
+<p>
+  The strategy is built on the historical bullish bias of equity markets. It is a
+  <strong>long-only</strong> approach that applies a systematic “buy-the-dip” method to equities.
+</p>
+
+<h4>Markets</h4>
+<p>The system monitors stocks from the following indices:</p>
+<ul>
+  <li>FTSE 100</li>
+  <li>FTSE MIB</li>
+  <li>DAX 40</li>
+  <li>IBEX 35</li>
+  <li>S&amp;P 500</li>
+  <li>NASDAQ 100</li>
+</ul>
+
+<h4>Other Information</h4>
+<ul>
+  <li>
+    When the system detects a dip that meets all required characteristics, it opens
+    a long position with a <strong>risk-reward ratio of 1:1</strong>.
+  </li>
+  <li>
+    The <strong>holding period is capped at 60 days</strong>; any position still open at that point
+    is closed automatically.
+  </li>
+<li>
+    A risk of 2% per trade is used in the simulation. SL and TP in 'Closed Trades' may differ from 
+    +-2% due to market gaps and commissions.
+  </li>
+  <li>
+    Simulated data are based on a fixed 0.4% commission.
+  </li>
+
+  
+  
+<h4>RISK</h4>
+<p>A sudden markets downturn or a spike in volatility, may causes substantial losses to this strategy.</p>
+</ul>
+</div>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- Module 2: Closed/Open (come FX: card tabella) -->
     <section id="module2" class="card table-card">
