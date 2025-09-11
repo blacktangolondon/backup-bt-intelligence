@@ -35,14 +35,41 @@
     .tab.active{background:#2a2b30;font-weight:600}
     .tabpane{display:none}
     .tabpane.active{display:block}
+        /* description box (module 1) */
+    .desc-box{
+      min-height: 200px;
+      padding: .75rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      background:#0f1012;
+      border: 1px dashed #2a2a2a;
+      border-radius: 10px;
+      white-space: pre-wrap;
+    }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
   <div id="container">
 
-    <!-- Module 1: KPI (stesse classi di FX) -->
-    <section id="module1" class="card-grid"></section>
+<!-- Module 1: KPI + Description con tab -->
+<section id="module1" class="card table-card">
+  <div class="tabs" id="statsTabs">
+    <button class="tab active" data-tab="stats">Statistics</button>
+    <button class="tab" data-tab="desc">Strategy Description</button>
+  </div>
+  <div class="tabpanes">
+    <!-- Pane STATISTICS: mostra le KPI esistenti -->
+    <div class="tabpane active" id="tab-stats">
+      <div id="module1-kpi" class="card-grid"></div>
+    </div>
+    <!-- Pane DESCRIPTION: area vuota da riempire a piacere -->
+    <div class="tabpane" id="tab-desc">
+      <div class="table-wrapper">
+        <div id="strategyDescription" class="desc-box"><!-- Scrivi qui la descrizione della strategia --></div>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- Module 2: Closed/Open (come FX: card tabella) -->
     <section id="module2" class="card table-card">
