@@ -31,6 +31,7 @@
     #equityChart { height: 340px; display: block; }
 
     /* Module 1 — tabs identici al Modulo 2 */
+/* Module 1 — tabs identici al Modulo 2 */
 #module1{
   display:flex;
   flex-direction:column;
@@ -72,7 +73,6 @@
   gap:16px;
 }
 
-        /* description box (module 1) */
 /* DESCRIPTION pane — allineato al look delle card/tabelle */
 #module1 #tab-desc .table-wrapper{
   background:#141416;
@@ -86,15 +86,15 @@
   background:transparent;      /* niente riquadro pieno */
   border:none;                  /* niente bordo tratteggiato */
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-size:14px;
-  line-height:1.30;
+  font-size:13.5px;            /* leggermente più compatto */
+  line-height:1.30;            /* interlinea più stretta */
   color:#d7d7d7;
   letter-spacing:.1px;
   white-space:pre-wrap;         /* mantiene le interruzioni di riga */
 }
 
 .desc-box h3{
-  margin:0 0 3px 0;
+  margin:0 0 6px 0;
   font-size:16px;
   font-weight:700;
   color:#F6A313;                /* arancione come gli altri titoli */
@@ -102,25 +102,25 @@
 }
 
 .desc-box h4{
-  margin:16px 0 6px 0;
+  margin:10px 0 4px 0;
   font-size:12.5px;
   text-transform:uppercase;
   color:#E9A624;
   letter-spacing:.35px;
 }
 
-.desc-box p{ margin:6px 0; }
+.desc-box p{ margin:3px 0; }    /* meno spazio tra paragrafi */
 
 .desc-box ul{
-  margin:6px 0 0 0;
+  margin:3px 0 0 0;            /* lista più compatta */
   padding:0;
   list-style:none;
 }
 
 .desc-box ul li{
   position:relative;
-  margin:4px 0 4px 16px;
-  padding-left:10px;
+  margin:2px 0 2px 14px;       /* meno spazio tra bullet */
+  padding-left:8px;
 }
 
 .desc-box ul li::before{
@@ -129,6 +129,7 @@
   left:-12px;
   color:#E9A624;
 }
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
