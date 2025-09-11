@@ -8,21 +8,6 @@ const STATS_FILE    = 'fx_long_short_stats.json';
 const CHANNELS_FILE = 'fx_channels.json';
 const STD_MULT      = 0.5;
 
-// --- CSS fix (Ticker col) injected via JS ---
-{
-  const css = `
-#tab-realized table, #tab-open table, #module4 table { table-layout: fixed; width: 100%; }
-#tab-realized th:nth-child(1), #tab-realized td:nth-child(1),
-#tab-open th:nth-child(1), #tab-open td:nth-child(1),
-#module4 th:nth-child(1), #module4 td:nth-child(1) { width: 28ch; } /* regola qui la larghezza */
-.col-ticker { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }`;
-  const s = document.createElement('style');
-  s.id = 'ticker-col-fix';
-  s.textContent = css;
-  document.head.appendChild(s);
-}
-
-
 const fmtPct = v => (Number(v) * 100).toFixed(2) + '%';
 const num    = v => Number.isFinite(Number(v)) ? Number(v) : 0;
 const fetchJSON = async (url) => {
@@ -37,21 +22,13 @@ const fetchJSON = async (url) => {
   try { stats = await fetchJSON(STATS_FILE); }
   catch (e) { console.error('JSON load failed for stats:', e); return; }
 
-const trades = Array.isArray(stats.trades)
-  ? stats.trades
-      .filter(t => t.type === 'long') // <— SOLO LONG
-      .slice()
-      .sort((a,b)=> new Date(a.exit_date) - new Date(b.exit_date))
-  : [];
+  const trades = Array.isArray(stats.trades)
+    ? stats.trades.slice().sort((a,b)=> new Date(a.exit_date) - new Date(b.exit_date))
+    : [];
 
-
-const openTrades = Array.isArray(stats.open_trades)
-  ? stats.open_trades
-      .filter(t => t.type === 'long') // <— SOLO LONG
-      .slice()
-      .sort((a,b)=> new Date(a.entry_date) - new Date(b.entry_date))
-  : [];
-
+  const openTrades = Array.isArray(stats.open_trades)
+    ? stats.open_trades.slice().sort((a,b)=> new Date(a.entry_date) - new Date(b.entry_date))
+    : [];
 
   // Period label
   let periodLabel = '';
@@ -78,7 +55,6 @@ const openTrades = Array.isArray(stats.open_trades)
     avgDuration:    (k.avg_duration_days ?? 0).toFixed(1) + ' d',
     openCount:      k.open_positions ?? openTrades.length
   };
-  initModule1Tabs();
   renderModule1(kpi); // ← importante
 
   // ── Modulo 2: usa i tab già presenti in HTML; popola solo le tabelle
@@ -99,7 +75,7 @@ const openTrades = Array.isArray(stats.open_trades)
 
 // ───────── Module 1
 function renderModule1(k) {
-  const cont = document.getElementById('module1-kpi');
+  const cont = document.getElementById('module1');
   if (!cont) return;
   cont.innerHTML = '';
   [
@@ -114,23 +90,6 @@ function renderModule1(k) {
     d.className = 'kpi-card';
     d.innerHTML = `<div class="kpi-value">${c.value}</div><div class="kpi-label">${c.label}</div>`;
     cont.appendChild(d);
-  });
-}
-// ───────── Module 1 (tabs: Statistics / Strategy Description)
-function initModule1Tabs(){
-  const tabs = document.querySelectorAll('#statsTabs .tab');
-  const panes = {
-    stats: document.getElementById('tab-stats'),
-    desc:  document.getElementById('tab-desc')
-  };
-  tabs.forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      tabs.forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      const tab = btn.dataset.tab;
-      panes.stats.classList.toggle('active', tab === 'stats');
-      panes.desc.classList.toggle('active',  tab === 'desc');
-    });
   });
 }
 
@@ -161,17 +120,12 @@ function renderReportTabs(trades, openTrades){
     tbody.innerHTML = '';
     trades.forEach(t=>{
       const tr=document.createElement('tr');
-tr.innerHTML = `
-  <td class="col-ticker" title="${t.spread}">${t.spread}</td>
-  <td>Long</td>
-  <td>${t.entry_date}</td>
-  <td>${t.exit_date}</td>
-  <td>${num(t.entry).toFixed(4)}</td>
-  <td>${num(t.exit).toFixed(4)}</td>
-  <td>${num(t.take_profit).toFixed(4)}</td>
-  <td>${num(t.stop_loss).toFixed(4)}</td>
-  <td>${fmtPct(num(t.pnl))}</td>
-  <td>${t.exit_reason || ''}</td>`;
+      tr.innerHTML = `
+        <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
+        <td>${t.entry_date}</td><td>${t.exit_date}</td>
+        <td>${num(t.entry).toFixed(4)}</td><td>${num(t.exit).toFixed(4)}</td>
+        <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
+        <td>${fmtPct(num(t.pnl))}</td><td>${t.exit_reason || ''}</td>`;
       tbody.appendChild(tr);
     });
     if (!trades.length){
@@ -191,17 +145,12 @@ tr.innerHTML = `
     tbody.innerHTML = '';
     openTrades.forEach(t=>{
       const tr=document.createElement('tr');
-tr.innerHTML = `
-  <td class="col-ticker" title="${t.spread}">${t.spread}</td>
-  <td>Long</td>
-  <td>${t.entry_date}</td>
-  <td>${num(t.days_open)}</td>
-  <td>${num(t.entry).toFixed(4)}</td>
-  <td>${num(t.last).toFixed(4)}</td>
-  <td>${num(t.take_profit).toFixed(4)}</td>
-  <td>${num(t.stop_loss).toFixed(4)}</td>
-  <td>${fmtPct(num(t.mtm_return))}</td>`;
-
+      tr.innerHTML = `
+        <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
+        <td>${t.entry_date}</td><td>${num(t.days_open)}</td>
+        <td>${num(t.entry).toFixed(4)}</td><td>${num(t.last).toFixed(4)}</td>
+        <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
+        <td>${fmtPct(num(t.mtm_return))}</td>`;
       tbody.appendChild(tr);
     });
     if (!openTrades.length){
@@ -257,9 +206,9 @@ function computeNewAlertsFrom(channels){
     const t_prev= (pu1 + pl1)/2, s_prev= Math.abs(pu1 - t_prev);
     const ub = t_now + s_now*STD_MULT, lb = t_now - s_now*STD_MULT;
     const prevUb = t_prev + s_prev*STD_MULT, prevLb = t_prev - s_prev*STD_MULT;
-    //if (r_now > ub && r_prev <= prevUb)
-    //out.push({spread:key, signal:'Short', open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now + Math.abs(r_now - t_now)).toFixed(4)});
-    if (r_now < lb && r_prev >= prevLb)
+    if (r_now > ub && r_prev <= prevUb)
+      out.push({spread:key, signal:'Short', open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now + Math.abs(r_now - t_now)).toFixed(4)});
+    else if (r_now < lb && r_prev >= prevLb)
       out.push({spread:key, signal:'Long',  open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now - Math.abs(t_now - r_now)).toFixed(4)});
   }
   return out;
@@ -277,7 +226,7 @@ function renderModule4(alerts){
   }
   alerts.forEach(a=>{
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td class="col-ticker" title="${a.spread}">${a.spread}</td><td>${a.signal}</td><td>${a.open}</td><td>${a.tp}</td><td>${a.sl}</td>`;
+    tr.innerHTML = `<td>${a.spread}</td><td>${a.signal}</td><td>${a.open}</td><td>${a.tp}</td><td>${a.sl}</td>`;
     tbody.appendChild(tr);
   });
 }
