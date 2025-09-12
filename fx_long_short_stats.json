@@ -1,14 +1,14 @@
 {
   "portfolio_kpis": {
     "period": {
-      "start": "2023-11-21",
-      "end": "2025-09-10"
+      "start": "2023-11-23",
+      "end": "2025-09-11"
     },
     "total_trades": 324,
-    "wins": 190,
-    "losses": 134,
-    "win_rate_pct": 58.6,
-    "total_pnl": 0.9373192041,
+    "wins": 189,
+    "losses": 135,
+    "win_rate_pct": 58.3,
+    "total_pnl": 0.9037573746,
     "max_drawdown": 0.2751969456,
     "avg_duration_days": 15.9,
     "open_positions": 8
@@ -100,15 +100,15 @@
     },
     {
       "spread": "EURMXN=X",
-      "count": 5,
-      "avg_pnl": 0.004603,
+      "count": 4,
+      "avg_pnl": 0.002466,
       "max_win": 0.017213,
       "max_loss": -0.020152
     },
     {
       "spread": "EURNOK=X",
-      "count": 12,
-      "avg_pnl": -0.000914,
+      "count": 13,
+      "avg_pnl": -0.002414,
       "max_win": 0.02413,
       "max_loss": -0.020474
     },
@@ -264,13 +264,13 @@
     {
       "spread": "NZDUSD=X",
       "type": "short",
-      "entry_date": "2023-11-21",
+      "entry_date": "2023-11-23",
       "exit_date": "2023-12-01",
-      "entry": 0.60486,
-      "exit": 0.620583,
-      "take_profit": 0.589136,
-      "stop_loss": 0.620583,
-      "pnl": -0.020153879,
+      "entry": 0.60483,
+      "exit": 0.620463,
+      "take_profit": 0.589197,
+      "stop_loss": 0.620463,
+      "pnl": -0.0201547572,
       "exit_reason": "SL"
     },
     {
@@ -415,18 +415,6 @@
       "take_profit": 0.641568,
       "stop_loss": 0.672952,
       "pnl": 0.0062306245,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "EURMXN=X",
-      "type": "short",
-      "entry_date": "2024-01-23",
-      "exit_date": "2024-02-14",
-      "entry": 18.77824,
-      "exit": 18.3271,
-      "take_profit": 18.097736,
-      "stop_loss": 19.458744,
-      "pnl": 0.0131486178,
       "exit_reason": "TimeCap"
     },
     {
@@ -4148,1304 +4136,1316 @@
       "stop_loss": 1.813905,
       "pnl": 0.0201844286,
       "exit_reason": "TP"
+    },
+    {
+      "spread": "EURNOK=X",
+      "type": "long",
+      "entry_date": "2025-09-02",
+      "exit_date": "2025-09-11",
+      "entry": 11.6778,
+      "exit": 11.564515,
+      "take_profit": 11.791085,
+      "stop_loss": 11.564515,
+      "pnl": -0.0204123335,
+      "exit_reason": "SL"
     }
   ],
   "equity_curve": [
     {
       "date": "2023-12-01",
-      "cumulative_pnl": -0.020153879
+      "cumulative_pnl": -0.0201547572
     },
     {
       "date": "2023-12-01",
-      "cumulative_pnl": 0.0079716676
+      "cumulative_pnl": 0.0079707894
     },
     {
       "date": "2023-12-07",
-      "cumulative_pnl": 0.033597868
+      "cumulative_pnl": 0.0335969898
     },
     {
       "date": "2023-12-15",
-      "cumulative_pnl": 0.0307329098
+      "cumulative_pnl": 0.0307320316
     },
     {
       "date": "2023-12-22",
-      "cumulative_pnl": 0.04380483
+      "cumulative_pnl": 0.0438039518
     },
     {
       "date": "2023-12-29",
-      "cumulative_pnl": 0.0316368251
+      "cumulative_pnl": 0.0316359469
     },
     {
       "date": "2024-01-04",
-      "cumulative_pnl": 0.0440912835
+      "cumulative_pnl": 0.0440904053
     },
     {
       "date": "2024-01-05",
-      "cumulative_pnl": 0.0374174836
+      "cumulative_pnl": 0.0374166054
     },
     {
       "date": "2024-01-10",
-      "cumulative_pnl": 0.0464398812
+      "cumulative_pnl": 0.046439003
     },
     {
       "date": "2024-01-22",
-      "cumulative_pnl": 0.0672602638
+      "cumulative_pnl": 0.0672593856
     },
     {
       "date": "2024-02-01",
-      "cumulative_pnl": 0.0810966513
+      "cumulative_pnl": 0.0810957731
     },
     {
       "date": "2024-02-01",
-      "cumulative_pnl": 0.0891515275
+      "cumulative_pnl": 0.0891506493
     },
     {
       "date": "2024-02-09",
-      "cumulative_pnl": 0.095382152
-    },
-    {
-      "date": "2024-02-14",
-      "cumulative_pnl": 0.1085307698
+      "cumulative_pnl": 0.0953812738
     },
     {
       "date": "2024-02-15",
-      "cumulative_pnl": 0.1090261578
+      "cumulative_pnl": 0.0958766618
     },
     {
       "date": "2024-02-19",
-      "cumulative_pnl": 0.088800578
+      "cumulative_pnl": 0.075651082
     },
     {
       "date": "2024-02-21",
-      "cumulative_pnl": 0.0685374836
+      "cumulative_pnl": 0.0553879876
     },
     {
       "date": "2024-02-28",
-      "cumulative_pnl": 0.0776900542
+      "cumulative_pnl": 0.0645405582
     },
     {
       "date": "2024-02-29",
-      "cumulative_pnl": 0.0732855919
+      "cumulative_pnl": 0.0601360959
     },
     {
       "date": "2024-03-01",
-      "cumulative_pnl": 0.0804578553
+      "cumulative_pnl": 0.0673083593
     },
     {
       "date": "2024-03-04",
-      "cumulative_pnl": 0.0963880838
+      "cumulative_pnl": 0.0832385878
     },
     {
       "date": "2024-03-05",
-      "cumulative_pnl": 0.0903432774
+      "cumulative_pnl": 0.0771937814
     },
     {
       "date": "2024-03-06",
-      "cumulative_pnl": 0.1086735989
+      "cumulative_pnl": 0.0955241029
     },
     {
       "date": "2024-03-06",
-      "cumulative_pnl": 0.1126697789
+      "cumulative_pnl": 0.0995202829
     },
     {
       "date": "2024-03-06",
-      "cumulative_pnl": 0.1310796231
+      "cumulative_pnl": 0.1179301271
     },
     {
       "date": "2024-03-08",
-      "cumulative_pnl": 0.1330498427
+      "cumulative_pnl": 0.1199003467
     },
     {
       "date": "2024-03-21",
-      "cumulative_pnl": 0.1127626667
+      "cumulative_pnl": 0.0996131707
     },
     {
       "date": "2024-03-22",
-      "cumulative_pnl": 0.1347531886
+      "cumulative_pnl": 0.1216036926
     },
     {
       "date": "2024-03-22",
-      "cumulative_pnl": 0.1370405329
+      "cumulative_pnl": 0.1238910369
     },
     {
       "date": "2024-03-22",
-      "cumulative_pnl": 0.1286473435
+      "cumulative_pnl": 0.1154978475
     },
     {
       "date": "2024-03-22",
-      "cumulative_pnl": 0.108179955
+      "cumulative_pnl": 0.095030459
     },
     {
       "date": "2024-03-28",
-      "cumulative_pnl": 0.1053018825
+      "cumulative_pnl": 0.0921523865
     },
     {
       "date": "2024-04-09",
-      "cumulative_pnl": 0.1257340166
+      "cumulative_pnl": 0.1125845206
     },
     {
       "date": "2024-04-12",
-      "cumulative_pnl": 0.1476655931
+      "cumulative_pnl": 0.1345160971
     },
     {
       "date": "2024-04-15",
-      "cumulative_pnl": 0.1286831383
+      "cumulative_pnl": 0.1155336423
     },
     {
       "date": "2024-04-15",
-      "cumulative_pnl": 0.1258497322
+      "cumulative_pnl": 0.1127002362
     },
     {
       "date": "2024-04-15",
-      "cumulative_pnl": 0.1067728484
+      "cumulative_pnl": 0.0936233524
     },
     {
       "date": "2024-04-16",
-      "cumulative_pnl": 0.0863323655
+      "cumulative_pnl": 0.0731828695
     },
     {
       "date": "2024-04-16",
-      "cumulative_pnl": 0.0896028692
+      "cumulative_pnl": 0.0764533732
     },
     {
       "date": "2024-04-22",
-      "cumulative_pnl": 0.0990562466
+      "cumulative_pnl": 0.0859067506
     },
     {
       "date": "2024-04-23",
-      "cumulative_pnl": 0.0980333939
+      "cumulative_pnl": 0.0848838979
     },
     {
       "date": "2024-04-24",
-      "cumulative_pnl": 0.1075561569
+      "cumulative_pnl": 0.0944066609
     },
     {
       "date": "2024-04-26",
-      "cumulative_pnl": 0.1043576744
+      "cumulative_pnl": 0.0912081784
     },
     {
       "date": "2024-05-03",
-      "cumulative_pnl": 0.1262752709
+      "cumulative_pnl": 0.1131257749
     },
     {
       "date": "2024-05-06",
-      "cumulative_pnl": 0.1336022879
+      "cumulative_pnl": 0.1204527919
     },
     {
       "date": "2024-05-06",
-      "cumulative_pnl": 0.145369206
+      "cumulative_pnl": 0.13221971
     },
     {
       "date": "2024-05-06",
-      "cumulative_pnl": 0.1511116929
+      "cumulative_pnl": 0.1379621969
     },
     {
       "date": "2024-05-08",
-      "cumulative_pnl": 0.1554098565
+      "cumulative_pnl": 0.1422603605
     },
     {
       "date": "2024-05-15",
-      "cumulative_pnl": 0.1818039289
+      "cumulative_pnl": 0.1686544329
     },
     {
       "date": "2024-05-17",
-      "cumulative_pnl": 0.1990172564
+      "cumulative_pnl": 0.1858677604
     },
     {
       "date": "2024-05-20",
-      "cumulative_pnl": 0.1970551305
+      "cumulative_pnl": 0.1839056345
     },
     {
       "date": "2024-05-23",
-      "cumulative_pnl": 0.1763865205
+      "cumulative_pnl": 0.1632370245
     },
     {
       "date": "2024-05-24",
-      "cumulative_pnl": 0.1924734237
+      "cumulative_pnl": 0.1793239277
     },
     {
       "date": "2024-05-27",
-      "cumulative_pnl": 0.1778266102
+      "cumulative_pnl": 0.1646771142
     },
     {
       "date": "2024-05-27",
-      "cumulative_pnl": 0.2011655276
+      "cumulative_pnl": 0.1880160316
     },
     {
       "date": "2024-05-28",
-      "cumulative_pnl": 0.1847085932
+      "cumulative_pnl": 0.1715590972
     },
     {
       "date": "2024-05-31",
-      "cumulative_pnl": 0.1836115295
+      "cumulative_pnl": 0.1704620335
     },
     {
       "date": "2024-06-03",
-      "cumulative_pnl": 0.1635081467
+      "cumulative_pnl": 0.1503586507
     },
     {
       "date": "2024-06-04",
-      "cumulative_pnl": 0.1433563889
+      "cumulative_pnl": 0.1302068929
     },
     {
       "date": "2024-06-06",
-      "cumulative_pnl": 0.1341908099
+      "cumulative_pnl": 0.1210413139
     },
     {
       "date": "2024-06-07",
-      "cumulative_pnl": 0.1246553706
+      "cumulative_pnl": 0.1115058746
     },
     {
       "date": "2024-06-10",
-      "cumulative_pnl": 0.1044524166
+      "cumulative_pnl": 0.0913029206
     },
     {
       "date": "2024-06-11",
-      "cumulative_pnl": 0.09128615
+      "cumulative_pnl": 0.078136654
     },
     {
       "date": "2024-06-11",
-      "cumulative_pnl": 0.0793945863
+      "cumulative_pnl": 0.0662450903
     },
     {
       "date": "2024-06-14",
-      "cumulative_pnl": 0.1107771698
+      "cumulative_pnl": 0.0976276738
     },
     {
       "date": "2024-06-20",
-      "cumulative_pnl": 0.1123462821
+      "cumulative_pnl": 0.0991967861
     },
     {
       "date": "2024-06-24",
-      "cumulative_pnl": 0.1039028938
+      "cumulative_pnl": 0.0907533978
     },
     {
       "date": "2024-06-25",
-      "cumulative_pnl": 0.1146192059
+      "cumulative_pnl": 0.1014697099
     },
     {
       "date": "2024-06-26",
-      "cumulative_pnl": 0.1100832168
+      "cumulative_pnl": 0.0969337208
     },
     {
       "date": "2024-06-26",
-      "cumulative_pnl": 0.0896496698
+      "cumulative_pnl": 0.0765001738
     },
     {
       "date": "2024-06-27",
-      "cumulative_pnl": 0.1110787928
+      "cumulative_pnl": 0.0979292968
     },
     {
       "date": "2024-07-01",
-      "cumulative_pnl": 0.0906826354
+      "cumulative_pnl": 0.0775331394
     },
     {
       "date": "2024-07-02",
-      "cumulative_pnl": 0.0792781064
+      "cumulative_pnl": 0.0661286104
     },
     {
       "date": "2024-07-02",
-      "cumulative_pnl": 0.0804151982
+      "cumulative_pnl": 0.0672657022
     },
     {
       "date": "2024-07-04",
-      "cumulative_pnl": 0.1000796097
+      "cumulative_pnl": 0.0869301137
     },
     {
       "date": "2024-07-08",
-      "cumulative_pnl": 0.0865554219
+      "cumulative_pnl": 0.0734059259
     },
     {
       "date": "2024-07-11",
-      "cumulative_pnl": 0.1097230849
+      "cumulative_pnl": 0.0965735889
     },
     {
       "date": "2024-07-15",
-      "cumulative_pnl": 0.1357373724
+      "cumulative_pnl": 0.1225878764
     },
     {
       "date": "2024-07-19",
-      "cumulative_pnl": 0.144269411
+      "cumulative_pnl": 0.131119915
     },
     {
       "date": "2024-07-19",
-      "cumulative_pnl": 0.1681358988
+      "cumulative_pnl": 0.1549864028
     },
     {
       "date": "2024-07-23",
-      "cumulative_pnl": 0.1709223824
+      "cumulative_pnl": 0.1577728864
     },
     {
       "date": "2024-07-24",
-      "cumulative_pnl": 0.1502687963
+      "cumulative_pnl": 0.1371193003
     },
     {
       "date": "2024-07-26",
-      "cumulative_pnl": 0.1703892877
+      "cumulative_pnl": 0.1572397917
     },
     {
       "date": "2024-07-29",
-      "cumulative_pnl": 0.1501547217
+      "cumulative_pnl": 0.1370052257
     },
     {
       "date": "2024-08-01",
-      "cumulative_pnl": 0.1974515893
+      "cumulative_pnl": 0.1843020933
     },
     {
       "date": "2024-08-02",
-      "cumulative_pnl": 0.2272916556
+      "cumulative_pnl": 0.2141421596
     },
     {
       "date": "2024-08-02",
-      "cumulative_pnl": 0.2539692719
+      "cumulative_pnl": 0.2408197759
     },
     {
       "date": "2024-08-02",
-      "cumulative_pnl": 0.233850165
+      "cumulative_pnl": 0.220700669
     },
     {
       "date": "2024-08-05",
-      "cumulative_pnl": 0.2137287892
+      "cumulative_pnl": 0.2005792932
     },
     {
       "date": "2024-08-05",
-      "cumulative_pnl": 0.1936302242
+      "cumulative_pnl": 0.1804807282
     },
     {
       "date": "2024-08-05",
-      "cumulative_pnl": 0.1735278024
+      "cumulative_pnl": 0.1603783064
     },
     {
       "date": "2024-08-06",
-      "cumulative_pnl": 0.197194195
+      "cumulative_pnl": 0.184044699
     },
     {
       "date": "2024-08-07",
-      "cumulative_pnl": 0.2201618722
+      "cumulative_pnl": 0.2070123762
     },
     {
       "date": "2024-08-08",
-      "cumulative_pnl": 0.2446642481
+      "cumulative_pnl": 0.2315147521
     },
     {
       "date": "2024-08-13",
-      "cumulative_pnl": 0.2651892266
+      "cumulative_pnl": 0.2520397306
     },
     {
       "date": "2024-08-13",
-      "cumulative_pnl": 0.2918038675
+      "cumulative_pnl": 0.2786543715
     },
     {
       "date": "2024-08-15",
-      "cumulative_pnl": 0.306902577
+      "cumulative_pnl": 0.293753081
     },
     {
       "date": "2024-08-15",
-      "cumulative_pnl": 0.3290736803
+      "cumulative_pnl": 0.3159241843
     },
     {
       "date": "2024-08-15",
-      "cumulative_pnl": 0.3440399653
+      "cumulative_pnl": 0.3308904693
     },
     {
       "date": "2024-08-19",
-      "cumulative_pnl": 0.3672419426
+      "cumulative_pnl": 0.3540924466
     },
     {
       "date": "2024-08-22",
-      "cumulative_pnl": 0.3548738049
+      "cumulative_pnl": 0.3417243089
     },
     {
       "date": "2024-08-22",
-      "cumulative_pnl": 0.3570889312
+      "cumulative_pnl": 0.3439394352
     },
     {
       "date": "2024-08-23",
-      "cumulative_pnl": 0.3368375796
+      "cumulative_pnl": 0.3236880836
     },
     {
       "date": "2024-08-23",
-      "cumulative_pnl": 0.3611227716
+      "cumulative_pnl": 0.3479732756
     },
     {
       "date": "2024-08-23",
-      "cumulative_pnl": 0.3408971406
+      "cumulative_pnl": 0.3277476446
     },
     {
       "date": "2024-08-29",
-      "cumulative_pnl": 0.3206428351
+      "cumulative_pnl": 0.3074933391
     },
     {
       "date": "2024-08-29",
-      "cumulative_pnl": 0.3070942868
+      "cumulative_pnl": 0.2939447908
     },
     {
       "date": "2024-08-30",
-      "cumulative_pnl": 0.3102238732
+      "cumulative_pnl": 0.2970743772
     },
     {
       "date": "2024-08-30",
-      "cumulative_pnl": 0.3280318601
+      "cumulative_pnl": 0.3148823641
     },
     {
       "date": "2024-09-06",
-      "cumulative_pnl": 0.3576126343
+      "cumulative_pnl": 0.3444631383
     },
     {
       "date": "2024-09-09",
-      "cumulative_pnl": 0.381742741
+      "cumulative_pnl": 0.368593245
     },
     {
       "date": "2024-09-10",
-      "cumulative_pnl": 0.3897860043
+      "cumulative_pnl": 0.3766365083
     },
     {
       "date": "2024-09-10",
-      "cumulative_pnl": 0.3947820279
+      "cumulative_pnl": 0.3816325319
     },
     {
       "date": "2024-09-11",
-      "cumulative_pnl": 0.3887441256
+      "cumulative_pnl": 0.3755946296
     },
     {
       "date": "2024-09-11",
-      "cumulative_pnl": 0.3968692593
+      "cumulative_pnl": 0.3837197633
     },
     {
       "date": "2024-09-11",
-      "cumulative_pnl": 0.4114673413
+      "cumulative_pnl": 0.3983178453
     },
     {
       "date": "2024-09-11",
-      "cumulative_pnl": 0.4315018497
+      "cumulative_pnl": 0.4183523537
     },
     {
       "date": "2024-09-12",
-      "cumulative_pnl": 0.4407407426
+      "cumulative_pnl": 0.4275912466
     },
     {
       "date": "2024-09-15",
-      "cumulative_pnl": 0.4411555077
+      "cumulative_pnl": 0.4280060117
     },
     {
       "date": "2024-09-15",
-      "cumulative_pnl": 0.4494186354
+      "cumulative_pnl": 0.4362691394
     },
     {
       "date": "2024-09-16",
-      "cumulative_pnl": 0.4485511202
+      "cumulative_pnl": 0.4354016242
     },
     {
       "date": "2024-09-18",
-      "cumulative_pnl": 0.4497336629
+      "cumulative_pnl": 0.4365841669
     },
     {
       "date": "2024-09-18",
-      "cumulative_pnl": 0.4431322447
+      "cumulative_pnl": 0.4299827487
     },
     {
       "date": "2024-09-20",
-      "cumulative_pnl": 0.4319449412
+      "cumulative_pnl": 0.4187954452
     },
     {
       "date": "2024-09-23",
-      "cumulative_pnl": 0.4116219094
+      "cumulative_pnl": 0.3984724134
     },
     {
       "date": "2024-09-23",
-      "cumulative_pnl": 0.426805653
+      "cumulative_pnl": 0.413656157
     },
     {
       "date": "2024-09-24",
-      "cumulative_pnl": 0.4062830434
+      "cumulative_pnl": 0.3931335474
     },
     {
       "date": "2024-09-24",
-      "cumulative_pnl": 0.41236768
+      "cumulative_pnl": 0.399218184
     },
     {
       "date": "2024-09-24",
-      "cumulative_pnl": 0.3921735084
+      "cumulative_pnl": 0.3790240124
     },
     {
       "date": "2024-09-25",
-      "cumulative_pnl": 0.4047869599
+      "cumulative_pnl": 0.3916374639
     },
     {
       "date": "2024-09-27",
-      "cumulative_pnl": 0.3845650294
+      "cumulative_pnl": 0.3714155334
     },
     {
       "date": "2024-09-29",
-      "cumulative_pnl": 0.3877490489
+      "cumulative_pnl": 0.3745995529
     },
     {
       "date": "2024-10-01",
-      "cumulative_pnl": 0.4107906806
+      "cumulative_pnl": 0.3976411846
     },
     {
       "date": "2024-10-03",
-      "cumulative_pnl": 0.4373014919
+      "cumulative_pnl": 0.4241519959
     },
     {
       "date": "2024-10-04",
-      "cumulative_pnl": 0.4499918935
+      "cumulative_pnl": 0.4368423975
     },
     {
       "date": "2024-10-07",
-      "cumulative_pnl": 0.4293648433
+      "cumulative_pnl": 0.4162153473
     },
     {
       "date": "2024-10-08",
-      "cumulative_pnl": 0.4478308621
+      "cumulative_pnl": 0.4346813661
     },
     {
       "date": "2024-10-08",
-      "cumulative_pnl": 0.4519624609
+      "cumulative_pnl": 0.4388129649
     },
     {
       "date": "2024-10-09",
-      "cumulative_pnl": 0.4761541064
+      "cumulative_pnl": 0.4630046104
     },
     {
       "date": "2024-10-15",
-      "cumulative_pnl": 0.4766467818
+      "cumulative_pnl": 0.4634972858
     },
     {
       "date": "2024-10-15",
-      "cumulative_pnl": 0.4872164962
+      "cumulative_pnl": 0.4740670002
     },
     {
       "date": "2024-10-15",
-      "cumulative_pnl": 0.4902252675
+      "cumulative_pnl": 0.4770757715
     },
     {
       "date": "2024-10-16",
-      "cumulative_pnl": 0.5060329222
+      "cumulative_pnl": 0.4928834262
     },
     {
       "date": "2024-10-21",
-      "cumulative_pnl": 0.4853739748
+      "cumulative_pnl": 0.4722244788
     },
     {
       "date": "2024-10-21",
-      "cumulative_pnl": 0.5051325706
+      "cumulative_pnl": 0.4919830746
     },
     {
       "date": "2024-10-21",
-      "cumulative_pnl": 0.5014873499
+      "cumulative_pnl": 0.4883378539
     },
     {
       "date": "2024-10-21",
-      "cumulative_pnl": 0.5082567266
+      "cumulative_pnl": 0.4951072306
     },
     {
       "date": "2024-10-29",
-      "cumulative_pnl": 0.5236627441
+      "cumulative_pnl": 0.5105132481
     },
     {
       "date": "2024-10-30",
-      "cumulative_pnl": 0.5498676768
+      "cumulative_pnl": 0.5367181808
     },
     {
       "date": "2024-10-31",
-      "cumulative_pnl": 0.5810642617
+      "cumulative_pnl": 0.5679147657
     },
     {
       "date": "2024-11-01",
-      "cumulative_pnl": 0.5736957401
+      "cumulative_pnl": 0.5605462441
     },
     {
       "date": "2024-11-01",
-      "cumulative_pnl": 0.5806153209
+      "cumulative_pnl": 0.5674658249
     },
     {
       "date": "2024-11-01",
-      "cumulative_pnl": 0.5796073763
+      "cumulative_pnl": 0.5664578803
     },
     {
       "date": "2024-11-02",
-      "cumulative_pnl": 0.600373494
+      "cumulative_pnl": 0.587223998
     },
     {
       "date": "2024-11-04",
-      "cumulative_pnl": 0.5813209365
+      "cumulative_pnl": 0.5681714405
     },
     {
       "date": "2024-11-05",
-      "cumulative_pnl": 0.6019945845
+      "cumulative_pnl": 0.5888450885
     },
     {
       "date": "2024-11-06",
-      "cumulative_pnl": 0.6147457472
+      "cumulative_pnl": 0.6015962512
     },
     {
       "date": "2024-11-06",
-      "cumulative_pnl": 0.5944474267
+      "cumulative_pnl": 0.5812979307
     },
     {
       "date": "2024-11-07",
-      "cumulative_pnl": 0.6153145057
+      "cumulative_pnl": 0.6021650097
     },
     {
       "date": "2024-11-07",
-      "cumulative_pnl": 0.5947090251
+      "cumulative_pnl": 0.5815595291
     },
     {
       "date": "2024-11-08",
-      "cumulative_pnl": 0.5736452941
+      "cumulative_pnl": 0.5604957981
     },
     {
       "date": "2024-11-08",
-      "cumulative_pnl": 0.5936095083
+      "cumulative_pnl": 0.5804600123
     },
     {
       "date": "2024-11-08",
-      "cumulative_pnl": 0.616591479
+      "cumulative_pnl": 0.603441983
     },
     {
       "date": "2024-11-08",
-      "cumulative_pnl": 0.6225363183
+      "cumulative_pnl": 0.6093868223
     },
     {
       "date": "2024-11-13",
-      "cumulative_pnl": 0.6233883254
+      "cumulative_pnl": 0.6102388294
     },
     {
       "date": "2024-11-13",
-      "cumulative_pnl": 0.6445089041
+      "cumulative_pnl": 0.6313594081
     },
     {
       "date": "2024-11-14",
-      "cumulative_pnl": 0.6643798676
+      "cumulative_pnl": 0.6512303716
     },
     {
       "date": "2024-11-14",
-      "cumulative_pnl": 0.6441124738
+      "cumulative_pnl": 0.6309629778
     },
     {
       "date": "2024-11-14",
-      "cumulative_pnl": 0.6238671463
+      "cumulative_pnl": 0.6107176503
     },
     {
       "date": "2024-11-21",
-      "cumulative_pnl": 0.6035287857
+      "cumulative_pnl": 0.5903792897
     },
     {
       "date": "2024-11-21",
-      "cumulative_pnl": 0.5830504462
+      "cumulative_pnl": 0.5699009502
     },
     {
       "date": "2024-11-22",
-      "cumulative_pnl": 0.5627955441
+      "cumulative_pnl": 0.5496460481
     },
     {
       "date": "2024-11-22",
-      "cumulative_pnl": 0.5450698461
+      "cumulative_pnl": 0.5319203501
     },
     {
       "date": "2024-11-22",
-      "cumulative_pnl": 0.5674936212
+      "cumulative_pnl": 0.5543441252
     },
     {
       "date": "2024-11-25",
-      "cumulative_pnl": 0.562348609
+      "cumulative_pnl": 0.549199113
     },
     {
       "date": "2024-11-27",
-      "cumulative_pnl": 0.5864930272
+      "cumulative_pnl": 0.5733435312
     },
     {
       "date": "2024-11-27",
-      "cumulative_pnl": 0.6065939936
+      "cumulative_pnl": 0.5934444976
     },
     {
       "date": "2024-11-29",
-      "cumulative_pnl": 0.6273088083
+      "cumulative_pnl": 0.6141593123
     },
     {
       "date": "2024-11-29",
-      "cumulative_pnl": 0.6071488785
+      "cumulative_pnl": 0.5939993825
     },
     {
       "date": "2024-11-30",
-      "cumulative_pnl": 0.6101787727
+      "cumulative_pnl": 0.5970292767
     },
     {
       "date": "2024-12-01",
-      "cumulative_pnl": 0.5956590253
+      "cumulative_pnl": 0.5825095293
     },
     {
       "date": "2024-12-03",
-      "cumulative_pnl": 0.5970452256
+      "cumulative_pnl": 0.5838957296
     },
     {
       "date": "2024-12-04",
-      "cumulative_pnl": 0.5930962139
+      "cumulative_pnl": 0.5799467179
     },
     {
       "date": "2024-12-04",
-      "cumulative_pnl": 0.6137451077
+      "cumulative_pnl": 0.6005956117
     },
     {
       "date": "2024-12-04",
-      "cumulative_pnl": 0.6335945008
+      "cumulative_pnl": 0.6204450048
     },
     {
       "date": "2024-12-05",
-      "cumulative_pnl": 0.6263674896
+      "cumulative_pnl": 0.6132179936
     },
     {
       "date": "2024-12-09",
-      "cumulative_pnl": 0.6467333204
+      "cumulative_pnl": 0.6335838244
     },
     {
       "date": "2024-12-09",
-      "cumulative_pnl": 0.6546945322
+      "cumulative_pnl": 0.6415450362
     },
     {
       "date": "2024-12-09",
-      "cumulative_pnl": 0.6495662754
+      "cumulative_pnl": 0.6364167794
     },
     {
       "date": "2024-12-10",
-      "cumulative_pnl": 0.6703317182
+      "cumulative_pnl": 0.6571822222
     },
     {
       "date": "2024-12-12",
-      "cumulative_pnl": 0.6715807678
+      "cumulative_pnl": 0.6584312718
     },
     {
       "date": "2024-12-18",
-      "cumulative_pnl": 0.6510350127
+      "cumulative_pnl": 0.6378855167
     },
     {
       "date": "2024-12-18",
-      "cumulative_pnl": 0.6305448844
+      "cumulative_pnl": 0.6173953884
     },
     {
       "date": "2024-12-19",
-      "cumulative_pnl": 0.6528863996
+      "cumulative_pnl": 0.6397369036
     },
     {
       "date": "2024-12-25",
-      "cumulative_pnl": 0.6247916194
+      "cumulative_pnl": 0.6116421234
     },
     {
       "date": "2024-12-25",
-      "cumulative_pnl": 0.5876406198
+      "cumulative_pnl": 0.5744911238
     },
     {
       "date": "2024-12-26",
-      "cumulative_pnl": 0.5983904069
+      "cumulative_pnl": 0.5852409109
     },
     {
       "date": "2025-01-01",
-      "cumulative_pnl": 0.5842959988
+      "cumulative_pnl": 0.5711465028
     },
     {
       "date": "2025-01-01",
-      "cumulative_pnl": 0.566572176
+      "cumulative_pnl": 0.55342268
     },
     {
       "date": "2025-01-08",
-      "cumulative_pnl": 0.5897034088
+      "cumulative_pnl": 0.5765539128
     },
     {
       "date": "2025-01-09",
-      "cumulative_pnl": 0.5804950908
+      "cumulative_pnl": 0.5673455948
     },
     {
       "date": "2025-01-09",
-      "cumulative_pnl": 0.5874202829
+      "cumulative_pnl": 0.5742707869
     },
     {
       "date": "2025-01-13",
-      "cumulative_pnl": 0.6081830523
+      "cumulative_pnl": 0.5950335563
     },
     {
       "date": "2025-01-13",
-      "cumulative_pnl": 0.6236735905
+      "cumulative_pnl": 0.6105240945
     },
     {
       "date": "2025-01-16",
-      "cumulative_pnl": 0.6054797073
+      "cumulative_pnl": 0.5923302113
     },
     {
       "date": "2025-01-20",
-      "cumulative_pnl": 0.6094711645
+      "cumulative_pnl": 0.5963216685
     },
     {
       "date": "2025-01-22",
-      "cumulative_pnl": 0.630511743
+      "cumulative_pnl": 0.617362247
     },
     {
       "date": "2025-01-22",
-      "cumulative_pnl": 0.6293991734
+      "cumulative_pnl": 0.6162496774
     },
     {
       "date": "2025-01-24",
-      "cumulative_pnl": 0.6541771884
+      "cumulative_pnl": 0.6410276924
     },
     {
       "date": "2025-01-24",
-      "cumulative_pnl": 0.6534452673
+      "cumulative_pnl": 0.6402957713
     },
     {
       "date": "2025-01-27",
-      "cumulative_pnl": 0.6757117753
+      "cumulative_pnl": 0.6625622793
     },
     {
       "date": "2025-02-01",
-      "cumulative_pnl": 0.6937600048
+      "cumulative_pnl": 0.6806105088
     },
     {
       "date": "2025-02-02",
-      "cumulative_pnl": 0.7140246246
+      "cumulative_pnl": 0.7008751286
     },
     {
       "date": "2025-02-03",
-      "cumulative_pnl": 0.7416846706
+      "cumulative_pnl": 0.7285351746
     },
     {
       "date": "2025-02-03",
-      "cumulative_pnl": 0.7479700087
+      "cumulative_pnl": 0.7348205127
     },
     {
       "date": "2025-02-05",
-      "cumulative_pnl": 0.7684113587
+      "cumulative_pnl": 0.7552618627
     },
     {
       "date": "2025-02-07",
-      "cumulative_pnl": 0.7478086671
+      "cumulative_pnl": 0.7346591711
     },
     {
       "date": "2025-02-10",
-      "cumulative_pnl": 0.7703714911
+      "cumulative_pnl": 0.7572219951
     },
     {
       "date": "2025-02-13",
-      "cumulative_pnl": 0.7500029478
+      "cumulative_pnl": 0.7368534518
     },
     {
       "date": "2025-02-14",
-      "cumulative_pnl": 0.7739723199
+      "cumulative_pnl": 0.7608228239
     },
     {
       "date": "2025-02-18",
-      "cumulative_pnl": 0.7535966518
+      "cumulative_pnl": 0.7404471558
     },
     {
       "date": "2025-02-20",
-      "cumulative_pnl": 0.7739204817
+      "cumulative_pnl": 0.7607709857
     },
     {
       "date": "2025-02-20",
-      "cumulative_pnl": 0.7946841093
+      "cumulative_pnl": 0.7815346133
     },
     {
       "date": "2025-02-21",
-      "cumulative_pnl": 0.8149088062
+      "cumulative_pnl": 0.8017593102
     },
     {
       "date": "2025-02-25",
-      "cumulative_pnl": 0.8492661516
+      "cumulative_pnl": 0.8361166556
     },
     {
       "date": "2025-02-25",
-      "cumulative_pnl": 0.8494334107
+      "cumulative_pnl": 0.8362839147
     },
     {
       "date": "2025-02-25",
-      "cumulative_pnl": 0.8485877056
+      "cumulative_pnl": 0.8354382096
     },
     {
       "date": "2025-02-25",
-      "cumulative_pnl": 0.8690350471
+      "cumulative_pnl": 0.8558855511
     },
     {
       "date": "2025-02-26",
-      "cumulative_pnl": 0.8536686945
+      "cumulative_pnl": 0.8405191985
     },
     {
       "date": "2025-02-27",
-      "cumulative_pnl": 0.8407520346
+      "cumulative_pnl": 0.8276025386
     },
     {
       "date": "2025-02-27",
-      "cumulative_pnl": 0.8203927403
+      "cumulative_pnl": 0.8072432443
     },
     {
       "date": "2025-02-27",
-      "cumulative_pnl": 0.8000431895
+      "cumulative_pnl": 0.7868936935
     },
     {
       "date": "2025-03-02",
-      "cumulative_pnl": 0.7796389646
+      "cumulative_pnl": 0.7664894686
     },
     {
       "date": "2025-03-03",
-      "cumulative_pnl": 0.7988964893
+      "cumulative_pnl": 0.7857469933
     },
     {
       "date": "2025-03-04",
-      "cumulative_pnl": 0.8188153491
+      "cumulative_pnl": 0.8056658531
     },
     {
       "date": "2025-03-04",
-      "cumulative_pnl": 0.829290227
+      "cumulative_pnl": 0.816140731
     },
     {
       "date": "2025-03-04",
-      "cumulative_pnl": 0.8523826419
+      "cumulative_pnl": 0.8392331459
     },
     {
       "date": "2025-03-05",
-      "cumulative_pnl": 0.83210203
+      "cumulative_pnl": 0.818952534
     },
     {
       "date": "2025-03-05",
-      "cumulative_pnl": 0.869985651
+      "cumulative_pnl": 0.856836155
     },
     {
       "date": "2025-03-05",
-      "cumulative_pnl": 0.8422274385
+      "cumulative_pnl": 0.8290779425
     },
     {
       "date": "2025-03-05",
-      "cumulative_pnl": 0.822024387
+      "cumulative_pnl": 0.808874891
     },
     {
       "date": "2025-03-06",
-      "cumulative_pnl": 0.8458286823
+      "cumulative_pnl": 0.8326791863
     },
     {
       "date": "2025-03-07",
-      "cumulative_pnl": 0.8255216068
+      "cumulative_pnl": 0.8123721108
     },
     {
       "date": "2025-03-11",
-      "cumulative_pnl": 0.8458530024
+      "cumulative_pnl": 0.8327035064
     },
     {
       "date": "2025-03-11",
-      "cumulative_pnl": 0.8256187649
+      "cumulative_pnl": 0.8124692689
     },
     {
       "date": "2025-03-17",
-      "cumulative_pnl": 0.8052128935
+      "cumulative_pnl": 0.7920633975
     },
     {
       "date": "2025-03-17",
-      "cumulative_pnl": 0.7850479455
+      "cumulative_pnl": 0.7718984495
     },
     {
       "date": "2025-03-18",
-      "cumulative_pnl": 0.7647551478
+      "cumulative_pnl": 0.7516056518
     },
     {
       "date": "2025-03-20",
-      "cumulative_pnl": 0.7867409363
+      "cumulative_pnl": 0.7735914403
     },
     {
       "date": "2025-03-20",
-      "cumulative_pnl": 0.7819540537
+      "cumulative_pnl": 0.7688045577
     },
     {
       "date": "2025-03-27",
-      "cumulative_pnl": 0.7903325956
+      "cumulative_pnl": 0.7771830996
     },
     {
       "date": "2025-03-27",
-      "cumulative_pnl": 0.7893151245
+      "cumulative_pnl": 0.7761656285
     },
     {
       "date": "2025-03-28",
-      "cumulative_pnl": 0.7902336133
+      "cumulative_pnl": 0.7770841173
     },
     {
       "date": "2025-03-29",
-      "cumulative_pnl": 0.7981715619
+      "cumulative_pnl": 0.7850220659
     },
     {
       "date": "2025-03-31",
-      "cumulative_pnl": 0.7779058214
+      "cumulative_pnl": 0.7647563254
     },
     {
       "date": "2025-04-02",
-      "cumulative_pnl": 0.7703822256
+      "cumulative_pnl": 0.7572327296
     },
     {
       "date": "2025-04-02",
-      "cumulative_pnl": 0.7643411492
+      "cumulative_pnl": 0.7511916532
     },
     {
       "date": "2025-04-03",
-      "cumulative_pnl": 0.7440385478
+      "cumulative_pnl": 0.7308890518
     },
     {
       "date": "2025-04-03",
-      "cumulative_pnl": 0.7237284637
+      "cumulative_pnl": 0.7105789677
     },
     {
       "date": "2025-04-03",
-      "cumulative_pnl": 0.7521168002
+      "cumulative_pnl": 0.7389673042
     },
     {
       "date": "2025-04-04",
-      "cumulative_pnl": 0.7316809268
+      "cumulative_pnl": 0.7185314308
     },
     {
       "date": "2025-04-04",
-      "cumulative_pnl": 0.7399629759
+      "cumulative_pnl": 0.7268134799
     },
     {
       "date": "2025-04-04",
-      "cumulative_pnl": 0.7195154167
+      "cumulative_pnl": 0.7063659207
     },
     {
       "date": "2025-04-04",
-      "cumulative_pnl": 0.6989615756
+      "cumulative_pnl": 0.6858120796
     },
     {
       "date": "2025-04-04",
-      "cumulative_pnl": 0.6785060959
+      "cumulative_pnl": 0.6653565999
     },
     {
       "date": "2025-04-06",
-      "cumulative_pnl": 0.658342403
+      "cumulative_pnl": 0.645192907
     },
     {
       "date": "2025-04-07",
-      "cumulative_pnl": 0.6378682402
+      "cumulative_pnl": 0.6247187442
     },
     {
       "date": "2025-04-10",
-      "cumulative_pnl": 0.6353419346
+      "cumulative_pnl": 0.6221924386
     },
     {
       "date": "2025-04-14",
-      "cumulative_pnl": 0.6149778321
+      "cumulative_pnl": 0.6018283361
     },
     {
       "date": "2025-04-17",
-      "cumulative_pnl": 0.5947887054
+      "cumulative_pnl": 0.5816392094
     },
     {
       "date": "2025-04-22",
-      "cumulative_pnl": 0.6187572171
+      "cumulative_pnl": 0.6056077211
     },
     {
       "date": "2025-04-29",
-      "cumulative_pnl": 0.6238625609
+      "cumulative_pnl": 0.6107130649
     },
     {
       "date": "2025-04-30",
-      "cumulative_pnl": 0.6330236435
+      "cumulative_pnl": 0.6198741475
     },
     {
       "date": "2025-05-01",
-      "cumulative_pnl": 0.6543870747
+      "cumulative_pnl": 0.6412375787
     },
     {
       "date": "2025-05-02",
-      "cumulative_pnl": 0.6408604177
+      "cumulative_pnl": 0.6277109217
     },
     {
       "date": "2025-05-06",
-      "cumulative_pnl": 0.6661016104
+      "cumulative_pnl": 0.6529521144
     },
     {
       "date": "2025-05-06",
-      "cumulative_pnl": 0.6879742302
+      "cumulative_pnl": 0.6748247342
     },
     {
       "date": "2025-05-08",
-      "cumulative_pnl": 0.7084270685
+      "cumulative_pnl": 0.6952775725
     },
     {
       "date": "2025-05-08",
-      "cumulative_pnl": 0.7129245336
+      "cumulative_pnl": 0.6997750376
     },
     {
       "date": "2025-05-13",
-      "cumulative_pnl": 0.7402634095
+      "cumulative_pnl": 0.7271139135
     },
     {
       "date": "2025-05-14",
-      "cumulative_pnl": 0.7615718822
+      "cumulative_pnl": 0.7484223862
     },
     {
       "date": "2025-05-21",
-      "cumulative_pnl": 0.7411876473
+      "cumulative_pnl": 0.7280381513
     },
     {
       "date": "2025-05-23",
-      "cumulative_pnl": 0.7612344668
+      "cumulative_pnl": 0.7480849708
     },
     {
       "date": "2025-05-25",
-      "cumulative_pnl": 0.7409896113
+      "cumulative_pnl": 0.7278401153
     },
     {
       "date": "2025-05-25",
-      "cumulative_pnl": 0.763698502
+      "cumulative_pnl": 0.750549006
     },
     {
       "date": "2025-06-01",
-      "cumulative_pnl": 0.7350972659
+      "cumulative_pnl": 0.7219477699
     },
     {
       "date": "2025-06-05",
-      "cumulative_pnl": 0.7413400053
+      "cumulative_pnl": 0.7281905093
     },
     {
       "date": "2025-06-09",
-      "cumulative_pnl": 0.757818085
+      "cumulative_pnl": 0.744668589
     },
     {
       "date": "2025-06-13",
-      "cumulative_pnl": 0.7374492263
+      "cumulative_pnl": 0.7242997303
     },
     {
       "date": "2025-06-15",
-      "cumulative_pnl": 0.7419570295
+      "cumulative_pnl": 0.7288075335
     },
     {
       "date": "2025-06-18",
-      "cumulative_pnl": 0.7635936727
+      "cumulative_pnl": 0.7504441767
     },
     {
       "date": "2025-06-18",
-      "cumulative_pnl": 0.7838432794
+      "cumulative_pnl": 0.7706937834
     },
     {
       "date": "2025-06-21",
-      "cumulative_pnl": 0.7635629928
+      "cumulative_pnl": 0.7504134968
     },
     {
       "date": "2025-06-22",
-      "cumulative_pnl": 0.7857657696
+      "cumulative_pnl": 0.7726162736
     },
     {
       "date": "2025-06-22",
-      "cumulative_pnl": 0.7654860627
+      "cumulative_pnl": 0.7523365667
     },
     {
       "date": "2025-06-25",
-      "cumulative_pnl": 0.7587644891
+      "cumulative_pnl": 0.7456149931
     },
     {
       "date": "2025-06-25",
-      "cumulative_pnl": 0.7880338144
+      "cumulative_pnl": 0.7748843184
     },
     {
       "date": "2025-06-29",
-      "cumulative_pnl": 0.7945950971
+      "cumulative_pnl": 0.7814456011
     },
     {
       "date": "2025-07-06",
-      "cumulative_pnl": 0.8238897377
+      "cumulative_pnl": 0.8107402417
     },
     {
       "date": "2025-07-15",
-      "cumulative_pnl": 0.8280654146
+      "cumulative_pnl": 0.8149159186
     },
     {
       "date": "2025-07-17",
-      "cumulative_pnl": 0.8326217332
+      "cumulative_pnl": 0.8194722372
     },
     {
       "date": "2025-07-22",
-      "cumulative_pnl": 0.8332254916
+      "cumulative_pnl": 0.8200759956
     },
     {
       "date": "2025-07-23",
-      "cumulative_pnl": 0.8129414562
+      "cumulative_pnl": 0.7997919602
     },
     {
       "date": "2025-07-24",
-      "cumulative_pnl": 0.8161946159
+      "cumulative_pnl": 0.8030451199
     },
     {
       "date": "2025-07-24",
-      "cumulative_pnl": 0.8357536293
+      "cumulative_pnl": 0.8226041333
     },
     {
       "date": "2025-08-01",
-      "cumulative_pnl": 0.8610559401
+      "cumulative_pnl": 0.8479064441
     },
     {
       "date": "2025-08-03",
-      "cumulative_pnl": 0.872730162
+      "cumulative_pnl": 0.859580666
     },
     {
       "date": "2025-08-05",
-      "cumulative_pnl": 0.8734495352
+      "cumulative_pnl": 0.8603000392
     },
     {
       "date": "2025-08-10",
-      "cumulative_pnl": 0.8729846352
+      "cumulative_pnl": 0.8598351392
     },
     {
       "date": "2025-08-10",
-      "cumulative_pnl": 0.8525815326
+      "cumulative_pnl": 0.8394320366
     },
     {
       "date": "2025-08-13",
-      "cumulative_pnl": 0.8751457266
+      "cumulative_pnl": 0.8619962306
     },
     {
       "date": "2025-08-14",
-      "cumulative_pnl": 0.8952510208
+      "cumulative_pnl": 0.8821015248
     },
     {
       "date": "2025-08-14",
-      "cumulative_pnl": 0.9217817617
+      "cumulative_pnl": 0.9086322657
     },
     {
       "date": "2025-08-18",
-      "cumulative_pnl": 0.9324395054
+      "cumulative_pnl": 0.9192900094
     },
     {
       "date": "2025-08-20",
-      "cumulative_pnl": 0.9548734774
+      "cumulative_pnl": 0.9417239814
     },
     {
       "date": "2025-08-20",
-      "cumulative_pnl": 0.9811394983
+      "cumulative_pnl": 0.9679900023
     },
     {
       "date": "2025-08-28",
-      "cumulative_pnl": 0.9748584157
+      "cumulative_pnl": 0.9617089197
     },
     {
       "date": "2025-08-28",
-      "cumulative_pnl": 0.9498835159
+      "cumulative_pnl": 0.9367340199
     },
     {
       "date": "2025-09-01",
-      "cumulative_pnl": 0.9599553451
+      "cumulative_pnl": 0.9468058491
     },
     {
       "date": "2025-09-03",
-      "cumulative_pnl": 0.9393974121
+      "cumulative_pnl": 0.9262479161
     },
     {
       "date": "2025-09-04",
-      "cumulative_pnl": 0.9503621944
+      "cumulative_pnl": 0.9372126984
     },
     {
       "date": "2025-09-04",
-      "cumulative_pnl": 0.954236173
+      "cumulative_pnl": 0.941086677
     },
     {
       "date": "2025-09-08",
-      "cumulative_pnl": 0.9171347755
+      "cumulative_pnl": 0.9039852795
     },
     {
       "date": "2025-09-10",
-      "cumulative_pnl": 0.9373192041
+      "cumulative_pnl": 0.9241697081
+    },
+    {
+      "date": "2025-09-11",
+      "cumulative_pnl": 0.9037573746
     }
   ],
   "open_trades": [
@@ -5453,89 +5453,89 @@
       "spread": "AUDJPY=X",
       "type": "short",
       "entry_date": "2025-09-01",
-      "days_open": 10,
+      "days_open": 11,
       "entry": 96.401,
-      "last": 97.634,
+      "last": 98.306,
       "take_profit": 94.370615,
       "stop_loss": 98.431385,
-      "mtm_return": -0.0122404381
-    },
-    {
-      "spread": "EURNOK=X",
-      "type": "long",
-      "entry_date": "2025-09-02",
-      "days_open": 9,
-      "entry": 11.6778,
-      "last": 11.63109,
-      "take_profit": 11.791085,
-      "stop_loss": 11.564515,
-      "mtm_return": -0.0084526248
+      "mtm_return": -0.0188598724
     },
     {
       "spread": "GBPJPY=X",
       "type": "short",
       "entry_date": "2025-09-07",
-      "days_open": 4,
+      "days_open": 5,
       "entry": 200.008,
-      "last": 199.709,
+      "last": 200.175,
       "take_profit": 197.228627,
       "stop_loss": 202.787373,
-      "mtm_return": 0.0020076413
+      "mtm_return": -0.001345633
     },
     {
       "spread": "NZDUSD=X",
       "type": "short",
       "entry_date": "2025-09-08",
-      "days_open": 3,
+      "days_open": 4,
       "entry": 0.59398,
-      "last": 0.59315,
+      "last": 0.59521,
       "take_profit": 0.581325,
       "stop_loss": 0.606635,
-      "mtm_return": 0.0012178617
+      "mtm_return": -0.0020377685
     },
     {
       "spread": "GBPAUD=X",
       "type": "long",
       "entry_date": "2025-09-08",
-      "days_open": 3,
+      "days_open": 4,
       "entry": 2.05457,
-      "last": 2.04546,
+      "last": 2.03642,
       "take_profit": 2.089205,
       "stop_loss": 2.019935,
-      "mtm_return": -0.0053792158
+      "mtm_return": -0.0105993688
     },
     {
       "spread": "NZDJPY=X",
       "type": "short",
       "entry_date": "2025-09-08",
-      "days_open": 3,
+      "days_open": 4,
       "entry": 87.574,
-      "last": 87.63,
-      "take_profit": 85.744496,
-      "stop_loss": 89.403504,
-      "mtm_return": -0.000707923
+      "last": 88.032,
+      "take_profit": 85.74394,
+      "stop_loss": 89.40406,
+      "mtm_return": -0.0051010065
     },
     {
       "spread": "EURSEK=X",
       "type": "long",
       "entry_date": "2025-09-10",
-      "days_open": 1,
+      "days_open": 2,
       "entry": 10.9139,
-      "last": 10.94753,
+      "last": 10.95632,
       "take_profit": 11.067313,
       "stop_loss": 10.760487,
-      "mtm_return": 0.0042419625
+      "mtm_return": 0.0053878889
     },
     {
       "spread": "NZDCAD=X",
       "type": "short",
       "entry_date": "2025-09-10",
-      "days_open": 1,
+      "days_open": 2,
       "entry": 0.82323,
-      "last": 0.82257,
-      "take_profit": 0.81611,
-      "stop_loss": 0.83035,
-      "mtm_return": 0.0016226882
+      "last": 0.82415,
+      "take_profit": 0.816099,
+      "stop_loss": 0.830361,
+      "mtm_return": -0.0028111709
+    },
+    {
+      "spread": "GBPUSD=X",
+      "type": "short",
+      "entry_date": "2025-09-11",
+      "days_open": 1,
+      "entry": 1.35705,
+      "last": 1.35353,
+      "take_profit": 1.337645,
+      "stop_loss": 1.376455,
+      "mtm_return": 0.0034880649
     }
   ]
 }
