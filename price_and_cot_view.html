@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <title>Price & COT Viewer</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+  <style>
+    body{margin:0;background:#0b0b0b;color:#ffa500;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial}
+    .wrap{max-width:1100px;margin:24px auto;padding:0 16px}
+    .row{display:grid;grid-template-rows:420px 200px;gap:16px}
+    #price,#cot{background:#000;border:1px solid #222;border-radius:8px}
+    .toolbar{display:flex;gap:8px;margin-bottom:12px;align-items:center}
+    select{background:#111;color:#ffa500;border:1px solid #333;padding:6px 8px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="toolbar">
+      <label for="sel">Ticker:</label>
+      <select id="sel"></select>
+    </div>
+    <div class="row">
+      <div id="price"></div>
+      <div id="cot"></div>
+    </div>
+  </div>
+  <script>
+    const priceDiv = document.getElementById('price');
+    const cotDiv   = document.getElementById('cot');
+    const sel      = document.getElementById('sel');
+
+    let priceChart, cotChart, priceSeries, cotSeries;
+
+    async function loadData() {
+      const resp = await fetch('./price_and_cot.json');
+      if (!resp.ok) throw new Error('price_and_cot.json non trovato');
+      return await resp.json();
+    }
+    function mkChart(container){
+      return LightweightCharts.createChart(container,{
+        width:container.clientWidth, height:container.clientHeight,
+        layout:{ background:{type:'solid', color:'black'}, textColor:'#ff9800' },
+        grid:{ vertLines:{color:'rgba(255,255,255,0.1)'}, horzLines:{color:'rgba(255,255,255,0.1)'} },
+        timeScale:{ timeVisible:true, borderColor:'rgba(255,255,255,0.2)' },
+        rightPriceScale:{ borderColor:'rgba(255,255,255,0.2)' }
+      });
+    }
+    function resizeAll(){
+      priceChart && priceChart.resize(priceDiv.clientWidth, priceDiv.clientHeight);
+      cotChart   && cotChart.resize(cotDiv.clientWidth, cotDiv.clientHeight);
+    }
+    window.addEventListener('resize', resizeAll);
+
+    (async () => {
+      const db = await loadData();
+      const tickers = Object.keys(db).sort();
+      tickers.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t; opt.textContent = `${t} — ${db[t].market}`;
+        sel.appendChild(opt);
+      });
+
+      priceChart = mkChart(priceDiv);
+      cotChart   = mkChart(cotDiv);
+      priceSeries = priceChart.addLineSeries({ lineWidth:2 });
+      cotSeries   = cotChart.addLineSeries({ lineWidth:2 });
+
+      function show(ticker){
+        const arr = db[ticker].data;
+        const price = arr.map(([d,p,_]) => ({time:d, value:p}));
+        const cot   = arr.map(([d,_,ci]) => ({time:d, value:ci}));
+        priceSeries.setData(price);
+        cotSeries.setData(cot);
+        priceChart.timeScale().fitContent();
+        cotChart.timeScale().fitContent();
+      }
+      sel.addEventListener('change', e => show(e.target.value));
+      if (tickers.length){ sel.value = tickers[0]; show(sel.value); }
+      resizeAll();
+    })();
+  </script>
+</body>
+</html>
