@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"/>
+  <title>COT Backtest — KPI & Equity</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <!-- Pin v4 per API addLineSeries -->
+  <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+  <style>
+    :root{
+      --bg:#0b0b0b; --panel:#111; --muted:#888; --accent:#ffb300; --line:#222;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:#eee;font:14px/1.4 system-ui,Segoe UI,Roboto,Helvetica,Arial}
+    .wrap{max-width:1200px;margin:24px auto;padding:0 16px}
+    h1{font-size:20px;margin:0 0 12px;color:var(--accent)}
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 1px 10px rgba(0,0,0,.3)}
+    .card h2{margin:0;padding:12px 14px;border-bottom:1px solid var(--line);font-size:16px;color:var(--accent)}
+    .content{padding:12px 14px}
+    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    label{color:#bbb}
+    select,input{background:#0e0e0e;color:#eee;border:1px solid #333;border-radius:8px;padding:6px 8px}
+    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+    .kpi{background:#0d0d0d;border:1px solid #222;border-radius:10px;padding:8px}
+    .kpi .v{font-weight:600;color:#fff}
+    .muted{color:var(--muted)}
+    #chart{height:420px}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:8px;border-bottom:1px solid #1d1d1d}
+    th{cursor:pointer;color:#ddd;user-select:none;white-space:nowrap}
+    tr:hover{background:#0f0f0f}
+    .right{text-align:right}
+    .tiny{font-size:12px}
+    .note{color:#aaa;margin-top:6px}
+    .tag{display:inline-block;background:#101010;border:1px solid #333;border-radius:999px;padding:2px 8px;margin-left:6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>COT Backtest — KPI & Equity <span class="tag">viewer</span></h1>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Equity line</h2>
+        <div class="content">
+          <div class="row" style="margin-bottom:8px">
+            <label for="seriesSel">Serie:</label>
+            <select id="seriesSel">
+              <option value="overall">Overall (pooled)</option>
+            </select>
+            <label for="minTrades">Min trades:</label>
+            <input id="minTrades" type="number" min="0" step="1" value="0" style="width:90px">
+          </div>
+          <div id="chart"></div>
+          <div class="note tiny">
+            Nota: la linea “Overall (pooled)” compone i trade in sequenza (ordinati per data di uscita),
+            <b>non</b> gestisce sovrapposizioni multi-ticker come un portafoglio reale.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Riepilogo</h2>
+        <div class="content">
+          <div class="kpis" id="summary">
+            <!-- riempito da JS -->
+          </div>
+          <div class="note tiny" id="meta"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h2>KPIs per ticker</h2>
+      <div class="content">
+        <div class="row" style="margin-bottom:8px">
+          <label for="search">Filtro ticker/mercato:</label>
+          <input id="search" type="text" placeholder="es. ES=F o S&P..." style="flex:1">
+        </div>
+        <div style="overflow:auto">
+          <table id="tbl">
+            <thead>
+              <tr>
+                <th data-k="ticker">Ticker</th>
+                <th data-k="market">Market</th>
+                <th class="right" data-k="trades">Trades</th>
+                <th class="right" data-k="win_rate">Win rate</th>
+                <th class="right" data-k="avg_ret">Avg trade</th>
+                <th class="right" data-k="profit_factor">Profit factor</th>
+                <th class="right" data-k="expectancy">Expectancy</th>
+                <th class="right" data-k="cum_ret">Cum. return</th>
+                <th class="right" data-k="cagr">CAGR</th>
+                <th class="right" data-k="max_drawdown">Max DD</th>
+                <th class="right" data-k="sharpe_est">Sharpe*</th>
+                <th class="right" data-k="tp_rate">%TP</th>
+                <th class="right" data-k="sl_rate">%SL</th>
+              </tr>
+            </thead>
+            <tbody><!-- rows --></tbody>
+          </table>
+        </div>
+        <div class="note tiny">Clicca l’intestazione per ordinare. I valori sono decimali (es. 0.12 = 12%).</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+const $ = (sel) => document.querySelector(sel);
+const fmtPct = (x) => (x===null || x===undefined || isNaN(x)) ? '—' : (x*100).toFixed(2)+'%';
+const fmtNum = (x, d=4) => (x===null || x===undefined || (typeof x==='string' && x.toLowerCase()==='inf')) ? String(x) : Number(x).toFixed(d);
+
+// ====== CHART ======
+let chart, series;
+function makeChart(){
+  const el = document.getElementById('chart');
+  chart = LightweightCharts.createChart(el,{
+    width: el.clientWidth, height: el.clientHeight,
+    layout:{background:{type:'solid',color:'black'},textColor:'#ffb300'},
+    grid:{vertLines:{color:'rgba(255,255,255,0.1)'},horzLines:{color:'rgba(255,255,255,0.1)'}},
+    timeScale:{timeVisible:true,borderColor:'rgba(255,255,255,0.2)'},
+    rightPriceScale:{borderColor:'rgba(255,255,255,0.2)'}
+  });
+  series = chart.addLineSeries({ lineWidth: 2 });
+  window.addEventListener('resize', () => chart.resize(el.clientWidth, el.clientHeight));
+}
+
+function equityFromTrades(trades){
+  // trades: {exit_date, ret_pct}
+  const sorted = trades.slice().sort((a,b) => a.exit_date.localeCompare(b.exit_date));
+  let eq = 1.0;
+  const out = [];
+  for(const t of sorted){
+    const r = Number(t.ret_pct);
+    if (!isFinite(r)) continue;
+    eq *= (1+r);
+    out.push({ time: t.exit_date, value: eq });
+  }
+  return out;
+}
+
+function equityForTicker(db, ticker){
+  const t = db.by_ticker[ticker];
+  if(!t || !t.trades || !t.trades.length) return [];
+  return equityFromTrades(t.trades.map(x => ({ exit_date:x.exit_date, ret_pct:x.ret_pct })));
+}
+
+function equityOverall(db, minTrades=0){
+  // pooled: concat di tutti i trades
+  const all = [];
+  for(const [tic, obj] of Object.entries(db.by_ticker)){
+    if(minTrades && (obj.stats?.trades||0) < minTrades) continue;
+    (obj.trades||[]).forEach(tr => all.push({ exit_date: tr.exit_date, ret_pct: tr.ret_pct }));
+  }
+  return equityFromTrades(all);
+}
+
+function setChartData(points){
+  if(!points.length){
+    series.setData([]);
+    return;
+  }
+  series.setData(points);
+  chart.timeScale().fitContent();
+}
+
+// ====== TABLE ======
+let sortKey = 'cum_ret', sortDir = -1; // default: desc cum_ret
+function renderTable(rows){
+  const tbody = $('#tbl tbody');
+  tbody.innerHTML = '';
+  rows.sort((a,b)=>{
+    const av = a.stats[sortKey] ?? (a[sortKey]);
+    const bv = b.stats[sortKey] ?? (b[sortKey]);
+    const va = (typeof av==='string' && av.toLowerCase()==='inf') ? Number.POSITIVE_INFINITY : Number(av);
+    const vb = (typeof bv==='string' && bv.toLowerCase()==='inf') ? Number.POSITIVE_INFINITY : Number(bv);
+    return sortDir * (va - vb);
+  });
+  for(const r of rows){
+    const s = r.stats;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><a href="#" class="tickerLink" data-t="${r.ticker}">${r.ticker}</a></td>
+      <td class="tiny">${r.market}</td>
+      <td class="right">${s.trades}</td>
+      <td class="right">${fmtPct(s.win_rate)}</td>
+      <td class="right">${fmtPct(s.avg_ret)}</td>
+      <td class="right">${fmtNum(s.profit_factor,3)}</td>
+      <td class="right">${fmtPct(s.expectancy)}</td>
+      <td class="right">${fmtPct(s.cum_ret)}</td>
+      <td class="right">${fmtPct(s.cagr)}</td>
+      <td class="right">${fmtPct(s.max_drawdown)}</td>
+      <td class="right">${fmtNum(s.sharpe_est,2)}</td>
+      <td class="right">${fmtPct(s.tp_rate)}</td>
+      <td class="right">${fmtPct(s.sl_rate)}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+  // click per cambiare equity
+  document.querySelectorAll('.tickerLink').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const t = e.currentTarget.dataset.t;
+      $('#seriesSel').value = t;
+      updateChartForSelection();
+    });
+  });
+}
+
+function attachSortHandlers(){
+  document.querySelectorAll('#tbl thead th').forEach(th=>{
+    th.addEventListener('click', ()=>{
+      const k = th.dataset.k;
+      if(!k) return;
+      if(sortKey===k){ sortDir*=-1; } else { sortKey=k; sortDir=-1; }
+      applyFiltersAndRender();
+    });
+  });
+}
+
+// ====== UI FILTERS & SUMMARY ======
+let DB=null;
+function applyFiltersAndRender(){
+  const q = $('#search').value.trim().toLowerCase();
+  const minT = Number($('#minTrades').value||0);
+  const rows = [];
+  const sel = $('#seriesSel');
+
+  // rebuild dropdown
+  const curSel = sel.value;
+  sel.innerHTML = `<option value="overall">Overall (pooled)</option>`;
+
+  for(const [ticker, obj] of Object.entries(DB.by_ticker)){
+    const s = obj.stats || {};
+    if (s.trades < minT) continue;
+    if (q && !(ticker.toLowerCase().includes(q) || (obj.market||'').toLowerCase().includes(q))) continue;
+    rows.push({ ticker, market: obj.market||'', stats: s });
+    const opt = document.createElement('option');
+    opt.value = ticker; opt.textContent = `${ticker} — ${obj.market||''}`;
+    sel.appendChild(opt);
+  }
+
+  // restore selection if still present
+  sel.value = [...sel.options].some(o=>o.value===curSel) ? curSel : 'overall';
+  renderTable(rows);
+  updateChartForSelection();
+}
+
+function updateChartForSelection(){
+  const sel = $('#seriesSel').value;
+  const minT = Number($('#minTrades').value||0);
+  if(sel==='overall'){
+    setChartData(equityOverall(DB, minT));
+  }else{
+    setChartData(equityForTicker(DB, sel));
+  }
+}
+
+function renderSummary(){
+  const ov = DB.overall || {};
+  const host = $('#summary');
+  const cell = (label, val) => `<div class="kpi"><div class="muted tiny">${label}</div><div class="v">${val}</div></div>`;
+  host.innerHTML = [
+    cell('Tickers', (ov.tickers ?? Object.keys(DB.by_ticker||{}).length)),
+    cell('Trades', ov.trades ?? '—'),
+    cell('Win rate', fmtPct(ov.win_rate)),
+    cell('Avg trade', fmtPct(ov.avg_ret)),
+    cell('Expectancy', fmtPct(ov.expectancy)),
+    cell('Profit factor', fmtNum(ov.profit_factor,3)),
+    cell('Cum. return', fmtPct(ov.cum_ret)),
+    cell('CAGR', fmtPct(ov.cagr)),
+    cell('Max DD', fmtPct(ov.max_drawdown)),
+    cell('Sharpe*', fmtNum(ov.sharpe_est,2)),
+  ].join('');
+  $('#meta').textContent = `Parametri: BUY COT>${DB.meta?.buy_trig} | SELL COT<${DB.meta?.sell_trig} | TP ${fmtPct(DB.meta?.tp_pct)} | SL ${fmtPct(DB.meta?.sl_pct)} | cross=${DB.meta?.use_cross}`;
+}
+
+// ====== BOOT ======
+makeChart();
+fetch('./backtest_cot.json')
+  .then(r => { if(!r.ok) throw new Error('Impossibile leggere backtest_cot.json'); return r.json(); })
+  .then(db => {
+    DB = db;
+    renderSummary();
+    attachSortHandlers();
+    $('#search').addEventListener('input', applyFiltersAndRender);
+    $('#minTrades').addEventListener('change', applyFiltersAndRender);
+    $('#seriesSel').addEventListener('change', updateChartForSelection);
+    applyFiltersAndRender();
+  })
+  .catch(err => {
+    console.error(err);
+    alert(err.message);
+  });
+</script>
+</body>
+</html>
