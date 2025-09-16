@@ -11,7 +11,7 @@
     "total_pnl": 0.9131513716,
     "max_drawdown": 0.2751969456,
     "avg_duration_days": 15.9,
-    "open_positions": 8
+    "open_positions": 9
   },
   "by_spread": [
     {
@@ -5389,89 +5389,100 @@
       "spread": "AUDJPY=X",
       "type": "short",
       "entry_date": "2025-09-01",
-      "days_open": 14,
+      "days_open": 15,
       "entry": 96.401,
-      "last": 98.109,
+      "last": 97.898,
       "take_profit": 94.370615,
       "stop_loss": 98.431385,
-      "mtm_return": -0.0169193537
+      "mtm_return": -0.0148409302
     },
     {
       "spread": "GBPJPY=X",
       "type": "short",
       "entry_date": "2025-09-07",
-      "days_open": 8,
+      "days_open": 9,
       "entry": 200.008,
-      "last": 200.231,
+      "last": 200.323,
       "take_profit": 197.228627,
       "stop_loss": 202.787373,
-      "mtm_return": -0.0017486016
+      "mtm_return": -0.0024106214
     },
     {
       "spread": "NZDUSD=X",
       "type": "short",
       "entry_date": "2025-09-08",
-      "days_open": 7,
+      "days_open": 8,
       "entry": 0.59398,
-      "last": 0.59598,
+      "last": 0.59708,
       "take_profit": 0.581325,
       "stop_loss": 0.606635,
-      "mtm_return": -0.0032546788
+      "mtm_return": -0.0049931221
     },
     {
       "spread": "GBPAUD=X",
       "type": "long",
       "entry_date": "2025-09-08",
-      "days_open": 7,
+      "days_open": 8,
       "entry": 2.05457,
-      "last": 2.04071,
+      "last": 2.04505,
       "take_profit": 2.089205,
       "stop_loss": 2.019935,
-      "mtm_return": -0.008122106
+      "mtm_return": -0.0056159706
     },
     {
       "spread": "NZDJPY=X",
       "type": "short",
       "entry_date": "2025-09-08",
-      "days_open": 7,
+      "days_open": 8,
       "entry": 87.574,
-      "last": 87.827,
+      "last": 87.761,
       "take_profit": 85.74394,
       "stop_loss": 89.40406,
-      "mtm_return": -0.0028606428
+      "mtm_return": -0.002139355
     },
     {
       "spread": "EURSEK=X",
       "type": "long",
       "entry_date": "2025-09-10",
-      "days_open": 5,
+      "days_open": 6,
       "entry": 10.9139,
-      "last": 10.93592,
+      "last": 10.92895,
       "take_profit": 11.067313,
       "stop_loss": 10.760487,
-      "mtm_return": 0.0027284011
+      "mtm_return": 0.0018197428
     },
     {
       "spread": "NZDCAD=X",
       "type": "short",
       "entry_date": "2025-09-10",
-      "days_open": 5,
+      "days_open": 6,
       "entry": 0.82323,
-      "last": 0.82435,
+      "last": 0.82219,
       "take_profit": 0.816099,
       "stop_loss": 0.830361,
-      "mtm_return": -0.0033721021
+      "mtm_return": 0.0026859543
     },
     {
       "spread": "GBPUSD=X",
       "type": "short",
       "entry_date": "2025-09-11",
-      "days_open": 4,
+      "days_open": 5,
       "entry": 1.35705,
-      "last": 1.35853,
+      "last": 1.36262,
       "take_profit": 1.337645,
       "stop_loss": 1.376455,
-      "mtm_return": -0.0016652461
+      "mtm_return": -0.0058806545
+    },
+    {
+      "spread": "EURDKK=X",
+      "type": "short",
+      "entry_date": "2025-09-15",
+      "days_open": 1,
+      "entry": 7.46504,
+      "last": 7.46408,
+      "take_profit": 7.463339,
+      "stop_loss": 7.466741,
+      "mtm_return": 0.002510241
     }
   ]
 }
