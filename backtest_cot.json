@@ -18,19 +18,19 @@
         "shorts": 2,
         "win_rate_long": 1.0,
         "win_rate_short": 0.5,
-        "avg_ret": 0.044213,
-        "median_ret": 0.103748,
-        "payoff_ratio": 1.3355,
-        "profit_factor": 2.6711,
-        "expectancy": 0.044213,
+        "avg_ret": 0.040209,
+        "median_ret": 0.1,
+        "payoff_ratio": 1.2599,
+        "profit_factor": 2.5197,
+        "expectancy": 0.040209,
         "avg_hold_weeks": 76.67,
         "median_hold_weeks": 84.0,
         "tp_rate": 0.6667,
         "sl_rate": 0.0,
-        "cum_ret": 0.126151,
-        "cagr": 0.024046,
+        "cum_ret": 0.113959,
+        "cagr": 0.021819,
         "max_drawdown": -0.079373,
-        "sharpe_est": 3.9169,
+        "sharpe_est": 3.753,
         "horizon_weeks": 260
       },
       "trades": [
@@ -41,10 +41,10 @@
           "entry_date": "2020-09-18",
           "entry_price": 1.186,
           "exit_date": "2022-04-29",
-          "exit_price": 1.0576,
+          "exit_price": 1.0674,
           "reason": "TP",
           "holding_weeks": 84,
-          "ret_pct": 0.108263
+          "ret_pct": 0.1
         },
         {
           "ticker": "6E=F",
@@ -53,10 +53,10 @@
           "entry_date": "2022-07-08",
           "entry_price": 1.01785,
           "exit_date": "2023-07-14",
-          "exit_price": 1.12345,
+          "exit_price": 1.119635,
           "reason": "TP",
           "holding_weeks": 53,
-          "ret_pct": 0.103748
+          "ret_pct": 0.1
         },
         {
           "ticker": "6E=F",
@@ -82,19 +82,19 @@
         "shorts": 1,
         "win_rate_long": 0.5,
         "win_rate_short": 1.0,
-        "avg_ret": 0.002956,
+        "avg_ret": 0.000177,
         "median_ret": 0.000886,
-        "payoff_ratio": 0.7126,
-        "profit_factor": 1.069,
-        "expectancy": 0.002956,
+        "payoff_ratio": 0.6696,
+        "profit_factor": 1.0044,
+        "expectancy": 0.000177,
         "avg_hold_weeks": 45.8,
         "median_hold_weeks": 35.0,
         "tp_rate": 0.4,
         "sl_rate": 0.4,
-        "cum_ret": -0.009692,
-        "cagr": -0.001946,
-        "max_drawdown": -0.111036,
-        "sharpe_est": -0.4552,
+        "cum_ret": -0.019032,
+        "cagr": -0.003836,
+        "max_drawdown": -0.109,
+        "sharpe_est": -0.7179,
         "horizon_weeks": 260
       },
       "trades": [
@@ -105,10 +105,10 @@
           "entry_date": "2020-09-18",
           "entry_price": 0.009569,
           "exit_date": "2022-03-11",
-          "exit_price": 0.008522,
+          "exit_price": 0.008612,
           "reason": "TP",
           "holding_weeks": 77,
-          "ret_pct": 0.109416
+          "ret_pct": 0.1
         },
         {
           "ticker": "6J=F",
@@ -117,10 +117,10 @@
           "entry_date": "2022-03-25",
           "entry_price": 0.008191,
           "exit_date": "2022-07-08",
-          "exit_price": 0.007345,
+          "exit_price": 0.007372,
           "reason": "SL",
           "holding_weeks": 15,
-          "ret_pct": -0.103284
+          "ret_pct": -0.1
         },
         {
           "ticker": "6J=F",
@@ -129,10 +129,10 @@
           "entry_date": "2022-09-16",
           "entry_price": 0.006995,
           "exit_date": "2023-01-13",
-          "exit_price": 0.007826,
+          "exit_price": 0.007694,
           "reason": "TP",
           "holding_weeks": 17,
-          "ret_pct": 0.118799
+          "ret_pct": 0.1
         },
         {
           "ticker": "6J=F",
@@ -141,10 +141,10 @@
           "entry_date": "2023-03-10",
           "entry_price": 0.007421,
           "exit_date": "2023-11-10",
-          "exit_price": 0.006597,
+          "exit_price": 0.006679,
           "reason": "SL",
           "holding_weeks": 35,
-          "ret_pct": -0.111036
+          "ret_pct": -0.1
         },
         {
           "ticker": "6J=F",
@@ -170,17 +170,17 @@
         "shorts": 1,
         "win_rate_long": 0.0,
         "win_rate_short": 1.0,
-        "avg_ret": 0.102955,
-        "median_ret": 0.102955,
+        "avg_ret": 0.1,
+        "median_ret": 0.1,
         "payoff_ratio": 0.0,
         "profit_factor": "inf",
-        "expectancy": 0.102955,
+        "expectancy": 0.1,
         "avg_hold_weeks": 206.0,
         "median_hold_weeks": 206.0,
         "tp_rate": 1.0,
         "sl_rate": 0.0,
-        "cum_ret": 0.102955,
-        "cagr": 0.025045,
+        "cum_ret": 0.1,
+        "cagr": 0.024351,
         "max_drawdown": 0.0,
         "sharpe_est": 0.0,
         "horizon_weeks": 206
@@ -193,10 +193,10 @@
           "entry_date": "2021-01-01",
           "entry_price": 0.78335,
           "exit_date": "2024-12-13",
-          "exit_price": 0.7027,
+          "exit_price": 0.705015,
           "reason": "TP",
           "holding_weeks": 206,
-          "ret_pct": 0.102955
+          "ret_pct": 0.1
         }
       ]
     },
@@ -210,19 +210,19 @@
         "shorts": 0,
         "win_rate_long": 0.5,
         "win_rate_short": 0.0,
-        "avg_ret": -0.012542,
-        "median_ret": -0.022131,
-        "payoff_ratio": 0.7715,
-        "profit_factor": 0.7715,
-        "expectancy": -0.012541,
+        "avg_ret": -0.010004,
+        "median_ret": -0.020007,
+        "payoff_ratio": 0.7999,
+        "profit_factor": 0.7999,
+        "expectancy": -0.010003,
         "avg_hold_weeks": 45.25,
         "median_hold_weeks": 43.0,
         "tp_rate": 0.25,
         "sl_rate": 0.5,
-        "cum_ret": -0.068092,
-        "cagr": -0.016834,
-        "max_drawdown": -0.12083,
-        "sharpe_est": 2.9169,
+        "cum_ret": -0.055552,
+        "cagr": -0.013665,
+        "max_drawdown": -0.109,
+        "sharpe_est": 3.0173,
         "horizon_weeks": 216
       },
       "trades": [
@@ -233,10 +233,10 @@
           "entry_date": "2021-07-23",
           "entry_price": 0.7365,
           "exit_date": "2022-09-23",
-          "exit_price": 0.6516,
+          "exit_price": 0.66285,
           "reason": "SL",
           "holding_weeks": 61,
-          "ret_pct": -0.115275
+          "ret_pct": -0.1
         },
         {
           "ticker": "6A=F",
@@ -245,10 +245,10 @@
           "entry_date": "2022-10-28",
           "entry_price": 0.6414,
           "exit_date": "2023-01-27",
-          "exit_price": 0.71155,
+          "exit_price": 0.70554,
           "reason": "TP",
           "holding_weeks": 13,
-          "ret_pct": 0.10937
+          "ret_pct": 0.1
         },
         {
           "ticker": "6A=F",
@@ -257,10 +257,10 @@
           "entry_date": "2023-06-16",
           "entry_price": 0.68635,
           "exit_date": "2025-01-10",
-          "exit_price": 0.6148,
+          "exit_price": 0.617715,
           "reason": "SL",
           "holding_weeks": 82,
-          "ret_pct": -0.104247
+          "ret_pct": -0.1
         },
         {
           "ticker": "6A=F",
@@ -326,18 +326,18 @@
         "shorts": 1,
         "win_rate_long": 0.0,
         "win_rate_short": 0.0,
-        "avg_ret": -0.120064,
-        "median_ret": -0.120064,
+        "avg_ret": -0.1,
+        "median_ret": -0.1,
         "payoff_ratio": 0.0,
         "profit_factor": 0.0,
-        "expectancy": -0.120064,
+        "expectancy": -0.1,
         "avg_hold_weeks": 238.0,
         "median_hold_weeks": 238.0,
         "tp_rate": 0.0,
         "sl_rate": 1.0,
-        "cum_ret": -0.120064,
-        "cagr": -0.027559,
-        "max_drawdown": -0.120064,
+        "cum_ret": -0.1,
+        "cagr": -0.022757,
+        "max_drawdown": -0.1,
         "sharpe_est": 0.0,
         "horizon_weeks": 238
       },
@@ -349,10 +349,10 @@
           "entry_date": "2020-09-18",
           "entry_price": 1.1015,
           "exit_date": "2025-04-11",
-          "exit_price": 1.23375,
+          "exit_price": 1.21165,
           "reason": "SL",
           "holding_weeks": 238,
-          "ret_pct": -0.120064
+          "ret_pct": -0.1
         }
       ]
     },
@@ -366,19 +366,19 @@
         "shorts": 1,
         "win_rate_long": 1.0,
         "win_rate_short": 1.0,
-        "avg_ret": 0.110127,
-        "median_ret": 0.103399,
+        "avg_ret": 0.1,
+        "median_ret": 0.1,
         "payoff_ratio": 0.0,
         "profit_factor": "inf",
-        "expectancy": 0.110127,
+        "expectancy": 0.1,
         "avg_hold_weeks": 53.67,
         "median_hold_weeks": 41.0,
         "tp_rate": 1.0,
         "sl_rate": 0.0,
-        "cum_ret": 0.367909,
-        "cagr": 0.072099,
+        "cum_ret": 0.331,
+        "cagr": 0.065602,
         "max_drawdown": 0.0,
-        "sharpe_est": 9.0253,
+        "sharpe_est": 10.4231,
         "horizon_weeks": 234
       },
       "trades": [
@@ -389,10 +389,10 @@
           "entry_date": "2021-03-19",
           "entry_price": 0.04861,
           "exit_date": "2023-02-10",
-          "exit_price": 0.05355,
+          "exit_price": 0.053471,
           "reason": "TP",
           "holding_weeks": 99,
-          "ret_pct": 0.101625
+          "ret_pct": 0.1
         },
         {
           "ticker": "6M=F",
@@ -401,10 +401,10 @@
           "entry_date": "2024-03-08",
           "entry_price": 0.05943,
           "exit_date": "2024-08-02",
-          "exit_price": 0.05198,
+          "exit_price": 0.053487,
           "reason": "TP",
           "holding_weeks": 21,
-          "ret_pct": 0.125358
+          "ret_pct": 0.1
         },
         {
           "ticker": "6M=F",
@@ -413,10 +413,10 @@
           "entry_date": "2024-11-29",
           "entry_price": 0.04913,
           "exit_date": "2025-09-12",
-          "exit_price": 0.05421,
+          "exit_price": 0.054043,
           "reason": "TP",
           "holding_weeks": 41,
-          "ret_pct": 0.103399
+          "ret_pct": 0.1
         }
       ]
     },
@@ -430,19 +430,19 @@
         "shorts": 2,
         "win_rate_long": 1.0,
         "win_rate_short": 0.5,
-        "avg_ret": 0.08397,
-        "median_ret": 0.115673,
-        "payoff_ratio": 3.6653,
-        "profit_factor": 10.9959,
-        "expectancy": 0.08397,
+        "avg_ret": 0.0666,
+        "median_ret": 0.1,
+        "payoff_ratio": 2.976,
+        "profit_factor": 8.928,
+        "expectancy": 0.0666,
         "avg_hold_weeks": 54.75,
         "median_hold_weeks": 47.0,
         "tp_rate": 0.75,
         "sl_rate": 0.0,
-        "cum_ret": 0.369048,
-        "cagr": 0.066691,
+        "cum_ret": 0.286276,
+        "cagr": 0.053105,
         "max_drawdown": -0.033602,
-        "sharpe_est": 3.1351,
+        "sharpe_est": 2.6198,
         "horizon_weeks": 253
       },
       "trades": [
@@ -453,10 +453,10 @@
           "entry_date": "2020-11-06",
           "entry_price": 0.1846,
           "exit_date": "2022-03-25",
-          "exit_price": 0.2101,
+          "exit_price": 0.20306,
           "reason": "TP",
           "holding_weeks": 72,
-          "ret_pct": 0.138137
+          "ret_pct": 0.1
         },
         {
           "ticker": "6L=F",
@@ -465,10 +465,10 @@
           "entry_date": "2022-09-09",
           "entry_price": 0.1929,
           "exit_date": "2024-11-01",
-          "exit_price": 0.1698,
+          "exit_price": 0.17361,
           "reason": "TP",
           "holding_weeks": 112,
-          "ret_pct": 0.119751
+          "ret_pct": 0.1
         },
         {
           "ticker": "6L=F",
@@ -477,10 +477,10 @@
           "entry_date": "2025-01-03",
           "entry_price": 0.16085,
           "exit_date": "2025-06-06",
-          "exit_price": 0.1788,
+          "exit_price": 0.176935,
           "reason": "TP",
           "holding_weeks": 22,
-          "ret_pct": 0.111595
+          "ret_pct": 0.1
         },
         {
           "ticker": "6L=F",
@@ -506,19 +506,19 @@
         "shorts": 5,
         "win_rate_long": 1.0,
         "win_rate_short": 0.4,
-        "avg_ret": 0.01495,
-        "median_ret": 0.005978,
-        "payoff_ratio": 1.2824,
-        "profit_factor": 1.2824,
-        "expectancy": 0.01495,
+        "avg_ret": 0.0,
+        "median_ret": 0.0,
+        "payoff_ratio": 1.0,
+        "profit_factor": 1.0,
+        "expectancy": 0.0,
         "avg_hold_weeks": 22.67,
         "median_hold_weeks": 19.5,
         "tp_rate": 0.5,
         "sl_rate": 0.5,
-        "cum_ret": 0.046906,
-        "cagr": 0.013793,
-        "max_drawdown": -0.285223,
-        "sharpe_est": -0.8599,
+        "cum_ret": -0.029701,
+        "cagr": -0.00897,
+        "max_drawdown": -0.271,
+        "sharpe_est": -1.6745,
         "horizon_weeks": 174
       },
       "trades": [
@@ -529,10 +529,10 @@
           "entry_date": "2021-12-03",
           "entry_price": 4537.5,
           "exit_date": "2022-05-13",
-          "exit_price": 4019.75,
+          "exit_price": 4083.75,
           "reason": "TP",
           "holding_weeks": 23,
-          "ret_pct": 0.114105
+          "ret_pct": 0.1
         },
         {
           "ticker": "ES=F",
@@ -541,10 +541,10 @@
           "entry_date": "2022-06-24",
           "entry_price": 3916.25,
           "exit_date": "2023-06-16",
-          "exit_price": 4453.350098,
+          "exit_price": 4307.875,
           "reason": "TP",
           "holding_weeks": 51,
-          "ret_pct": 0.137147
+          "ret_pct": 0.1
         },
         {
           "ticker": "ES=F",
@@ -553,10 +553,10 @@
           "entry_date": "2023-09-29",
           "entry_price": 4325.5,
           "exit_date": "2023-12-22",
-          "exit_price": 4805.25,
+          "exit_price": 4758.05,
           "reason": "SL",
           "holding_weeks": 12,
-          "ret_pct": -0.110912
+          "ret_pct": -0.1
         },
         {
           "ticker": "ES=F",
@@ -565,10 +565,10 @@
           "entry_date": "2024-01-12",
           "entry_price": 4816.5,
           "exit_date": "2024-03-29",
-          "exit_price": 5308.5,
+          "exit_price": 5298.15,
           "reason": "SL",
           "holding_weeks": 11,
-          "ret_pct": -0.102149
+          "ret_pct": -0.1
         },
         {
           "ticker": "ES=F",
@@ -577,10 +577,10 @@
           "entry_date": "2024-06-28",
           "entry_price": 5521.5,
           "exit_date": "2024-12-06",
-          "exit_price": 6099.0,
+          "exit_price": 6073.65,
           "reason": "SL",
           "holding_weeks": 23,
-          "ret_pct": -0.104591
+          "ret_pct": -0.1
         },
         {
           "ticker": "ES=F",
@@ -589,10 +589,10 @@
           "entry_date": "2024-12-13",
           "entry_price": 6055.5,
           "exit_date": "2025-04-04",
-          "exit_price": 5110.25,
+          "exit_price": 5449.95,
           "reason": "TP",
           "holding_weeks": 16,
-          "ret_pct": 0.156098
+          "ret_pct": 0.1
         }
       ]
     },
@@ -606,19 +606,19 @@
         "shorts": 9,
         "win_rate_long": 1.0,
         "win_rate_short": 0.2222,
-        "avg_ret": -0.033187,
-        "median_ret": -0.1006,
-        "payoff_ratio": 1.3081,
-        "profit_factor": 0.5606,
-        "expectancy": -0.033187,
+        "avg_ret": -0.035267,
+        "median_ret": -0.1,
+        "payoff_ratio": 1.0725,
+        "profit_factor": 0.4597,
+        "expectancy": -0.035267,
         "avg_hold_weeks": 11.4,
         "median_hold_weeks": 10.0,
         "tp_rate": 0.3,
         "sl_rate": 0.6,
-        "cum_ret": -0.334427,
-        "cagr": -0.078195,
-        "max_drawdown": -0.407817,
-        "sharpe_est": -2.5568,
+        "cum_ret": -0.329908,
+        "cagr": -0.076946,
+        "max_drawdown": -0.390825,
+        "sharpe_est": -2.8881,
         "horizon_weeks": 260
       },
       "trades": [
@@ -629,10 +629,10 @@
           "entry_date": "2020-09-18",
           "entry_price": 11144.80957,
           "exit_date": "2020-12-04",
-          "exit_price": 12526.0,
+          "exit_price": 12259.290527,
           "reason": "TP",
           "holding_weeks": 11,
-          "ret_pct": 0.123931
+          "ret_pct": 0.1
         },
         {
           "ticker": "NQ=F",
@@ -641,10 +641,10 @@
           "entry_date": "2022-06-17",
           "entry_price": 11130.389648,
           "exit_date": "2022-07-22",
-          "exit_price": 12423.5,
+          "exit_price": 12243.428613,
           "reason": "SL",
           "holding_weeks": 5,
-          "ret_pct": -0.116178
+          "ret_pct": -0.1
         },
         {
           "ticker": "NQ=F",
@@ -653,10 +653,10 @@
           "entry_date": "2022-08-26",
           "entry_price": 12620.5,
           "exit_date": "2022-09-30",
-          "exit_price": 11035.5,
+          "exit_price": 11358.45,
           "reason": "TP",
           "holding_weeks": 5,
-          "ret_pct": 0.125589
+          "ret_pct": 0.1
         },
         {
           "ticker": "NQ=F",
@@ -665,10 +665,10 @@
           "entry_date": "2022-12-02",
           "entry_price": 12010.25,
           "exit_date": "2023-03-31",
-          "exit_price": 13301.75,
+          "exit_price": 13211.275,
           "reason": "SL",
           "holding_weeks": 17,
-          "ret_pct": -0.107533
+          "ret_pct": -0.1
         },
         {
           "ticker": "NQ=F",
@@ -677,10 +677,10 @@
           "entry_date": "2023-05-05",
           "entry_price": 13317.75,
           "exit_date": "2023-06-16",
-          "exit_price": 15316.610352,
+          "exit_price": 14649.525,
           "reason": "SL",
           "holding_weeks": 6,
-          "ret_pct": -0.15009
+          "ret_pct": -0.1
         },
         {
           "ticker": "NQ=F",
@@ -689,10 +689,10 @@
           "entry_date": "2023-06-23",
           "entry_price": 15058.25,
           "exit_date": "2023-12-22",
-          "exit_price": 16980.0,
+          "exit_price": 16564.075,
           "reason": "SL",
           "holding_weeks": 26,
-          "ret_pct": -0.127621
+          "ret_pct": -0.1
         },
         {
           "ticker": "NQ=F",
@@ -701,10 +701,10 @@
           "entry_date": "2024-08-09",
           "entry_price": 18616.0,
           "exit_date": "2024-10-18",
-          "exit_price": 20483.5,
+          "exit_price": 20477.6,
           "reason": "SL",
           "holding_weeks": 10,
-          "ret_pct": -0.100317
+          "ret_pct": -0.1
         },
         {
           "ticker": "NQ=F",
@@ -713,10 +713,10 @@
           "entry_date": "2024-11-08",
           "entry_price": 21231.25,
           "exit_date": "2025-04-04",
-          "exit_price": 17539.0,
+          "exit_price": 19108.125,
           "reason": "TP",
           "holding_weeks": 21,
-          "ret_pct": 0.173906
+          "ret_pct": 0.1
         },
         {
           "ticker": "NQ=F",
@@ -725,10 +725,10 @@
           "entry_date": "2025-04-25",
           "entry_price": 19535.25,
           "exit_date": "2025-05-16",
-          "exit_price": 21506.0,
+          "exit_price": 21488.775,
           "reason": "SL",
           "holding_weeks": 3,
-          "ret_pct": -0.100882
+          "ret_pct": -0.1
         },
         {
           "ticker": "NQ=F",
@@ -754,19 +754,19 @@
         "shorts": 0,
         "win_rate_long": 1.0,
         "win_rate_short": 0.0,
-        "avg_ret": 0.057668,
-        "median_ret": 0.057668,
+        "avg_ret": 0.050387,
+        "median_ret": 0.050387,
         "payoff_ratio": 0.0,
         "profit_factor": "inf",
-        "expectancy": 0.057668,
+        "expectancy": 0.050387,
         "avg_hold_weeks": 22.0,
         "median_hold_weeks": 22.0,
         "tp_rate": 0.5,
         "sl_rate": 0.0,
-        "cum_ret": 0.115425,
-        "cagr": 0.082087,
+        "cum_ret": 0.10085,
+        "cagr": 0.071858,
         "max_drawdown": 0.0,
-        "sharpe_est": 5.1385,
+        "sharpe_est": 5.1443,
         "horizon_weeks": 72
       },
       "trades": [
@@ -777,10 +777,10 @@
           "entry_date": "2020-09-18",
           "entry_price": 27807.300781,
           "exit_date": "2021-01-08",
-          "exit_price": 30993.0,
+          "exit_price": 30588.030859,
           "reason": "TP",
           "holding_weeks": 16,
-          "ret_pct": 0.114563
+          "ret_pct": 0.1
         },
         {
           "ticker": "YM=F",
@@ -806,19 +806,19 @@
         "shorts": 0,
         "win_rate_long": 0.5,
         "win_rate_short": 0.0,
-        "avg_ret": -0.019994,
-        "median_ret": 0.000131,
-        "payoff_ratio": 0.731,
-        "profit_factor": 0.731,
-        "expectancy": -0.019994,
+        "avg_ret": 0.0,
+        "median_ret": 0.0,
+        "payoff_ratio": 1.0,
+        "profit_factor": 1.0,
+        "expectancy": 0.0,
         "avg_hold_weeks": 27.25,
         "median_hold_weeks": 27.5,
         "tp_rate": 0.5,
         "sl_rate": 0.5,
-        "cum_ret": -0.11159,
-        "cagr": -0.033241,
-        "max_drawdown": -0.19333,
-        "sharpe_est": -1.7083,
+        "cum_ret": -0.0199,
+        "cagr": -0.005727,
+        "max_drawdown": -0.1,
+        "sharpe_est": -0.8674,
         "horizon_weeks": 182
       },
       "trades": [
@@ -829,10 +829,10 @@
           "entry_date": "2021-10-08",
           "entry_price": 28000.0,
           "exit_date": "2022-03-11",
-          "exit_price": 25090.0,
+          "exit_price": 25200.0,
           "reason": "SL",
           "holding_weeks": 22,
-          "ret_pct": -0.103929
+          "ret_pct": -0.1
         },
         {
           "ticker": "NIY=F",
@@ -841,10 +841,10 @@
           "entry_date": "2022-10-07",
           "entry_price": 26730.0,
           "exit_date": "2023-05-05",
-          "exit_price": 29515.0,
+          "exit_price": 29403.0,
           "reason": "TP",
           "holding_weeks": 30,
-          "ret_pct": 0.10419
+          "ret_pct": 0.1
         },
         {
           "ticker": "NIY=F",
@@ -853,10 +853,10 @@
           "entry_date": "2023-06-02",
           "entry_price": 31965.0,
           "exit_date": "2024-01-12",
-          "exit_price": 35580.0,
+          "exit_price": 35161.5,
           "reason": "TP",
           "holding_weeks": 32,
-          "ret_pct": 0.113092
+          "ret_pct": 0.1
         },
         {
           "ticker": "NIY=F",
@@ -865,10 +865,10 @@
           "entry_date": "2024-10-11",
           "entry_price": 39880.0,
           "exit_date": "2025-04-04",
-          "exit_price": 32170.0,
+          "exit_price": 35892.0,
           "reason": "SL",
           "holding_weeks": 25,
-          "ret_pct": -0.19333
+          "ret_pct": -0.1
         }
       ]
     },
@@ -882,19 +882,19 @@
         "shorts": 5,
         "win_rate_long": 1.0,
         "win_rate_short": 0.4,
-        "avg_ret": 0.021661,
-        "median_ret": 0.105038,
-        "payoff_ratio": 1.1235,
-        "profit_factor": 1.498,
-        "expectancy": 0.021661,
+        "avg_ret": 0.015057,
+        "median_ret": 0.1,
+        "payoff_ratio": 1.0183,
+        "profit_factor": 1.3578,
+        "expectancy": 0.015057,
         "avg_hold_weeks": 18.43,
         "median_hold_weeks": 14.0,
         "tp_rate": 0.5714,
         "sl_rate": 0.2857,
-        "cum_ret": 0.117006,
-        "cagr": 0.022377,
-        "max_drawdown": -0.274661,
-        "sharpe_est": -1.5006,
+        "cum_ret": 0.073732,
+        "cagr": 0.01433,
+        "max_drawdown": -0.266627,
+        "sharpe_est": -1.7864,
         "horizon_weeks": 260
       },
       "trades": [
@@ -905,10 +905,10 @@
           "entry_date": "2020-09-18",
           "entry_price": 1952.099976,
           "exit_date": "2021-02-26",
-          "exit_price": 1728.099976,
+          "exit_price": 1756.889978,
           "reason": "TP",
           "holding_weeks": 23,
-          "ret_pct": 0.114748
+          "ret_pct": 0.1
         },
         {
           "ticker": "GC=F",
@@ -917,10 +917,10 @@
           "entry_date": "2021-11-12",
           "entry_price": 1867.900024,
           "exit_date": "2022-09-16",
-          "exit_price": 1671.699951,
+          "exit_price": 1681.110022,
           "reason": "TP",
           "holding_weeks": 44,
-          "ret_pct": 0.105038
+          "ret_pct": 0.1
         },
         {
           "ticker": "GC=F",
@@ -929,10 +929,10 @@
           "entry_date": "2022-09-23",
           "entry_price": 1645.300049,
           "exit_date": "2022-12-30",
-          "exit_price": 1819.699951,
+          "exit_price": 1809.830054,
           "reason": "TP",
           "holding_weeks": 14,
-          "ret_pct": 0.105999
+          "ret_pct": 0.1
         },
         {
           "ticker": "GC=F",
@@ -941,10 +941,10 @@
           "entry_date": "2023-10-13",
           "entry_price": 1927.400024,
           "exit_date": "2024-03-08",
-          "exit_price": 2178.600098,
+          "exit_price": 2120.140027,
           "reason": "TP",
           "holding_weeks": 21,
-          "ret_pct": 0.130331
+          "ret_pct": 0.1
         },
         {
           "ticker": "GC=F",
@@ -953,10 +953,10 @@
           "entry_date": "2024-07-19",
           "entry_price": 2395.5,
           "exit_date": "2024-09-27",
-          "exit_price": 2644.300049,
+          "exit_price": 2635.05,
           "reason": "SL",
           "holding_weeks": 10,
-          "ret_pct": -0.103861
+          "ret_pct": -0.1
         },
         {
           "ticker": "GC=F",
@@ -965,10 +965,10 @@
           "entry_date": "2024-12-13",
           "entry_price": 2656.0,
           "exit_date": "2025-02-21",
-          "exit_price": 2937.600098,
+          "exit_price": 2921.6,
           "reason": "SL",
           "holding_weeks": 10,
-          "ret_pct": -0.106024
+          "ret_pct": -0.1
         },
         {
           "ticker": "GC=F",
@@ -994,19 +994,19 @@
         "shorts": 3,
         "win_rate_long": 1.0,
         "win_rate_short": 0.3333,
-        "avg_ret": 0.02573,
-        "median_ret": 0.102119,
-        "payoff_ratio": 1.0568,
-        "profit_factor": 1.5851,
-        "expectancy": 0.02573,
+        "avg_ret": 0.02,
+        "median_ret": 0.1,
+        "payoff_ratio": 1.0,
+        "profit_factor": 1.5,
+        "expectancy": 0.02,
         "avg_hold_weeks": 9.4,
         "median_hold_weeks": 8.0,
         "tp_rate": 0.6,
         "sl_rate": 0.4,
-        "cum_ret": 0.101474,
-        "cagr": 0.03577,
-        "max_drawdown": -0.207776,
-        "sharpe_est": 2.7525,
+        "cum_ret": 0.07811,
+        "cagr": 0.027726,
+        "max_drawdown": -0.19,
+        "sharpe_est": 2.6726,
         "horizon_weeks": 143
       },
       "trades": [
@@ -1017,10 +1017,10 @@
           "entry_date": "2022-07-08",
           "entry_price": 19.167,
           "exit_date": "2022-11-11",
-          "exit_price": 21.646,
+          "exit_price": 21.0837,
           "reason": "TP",
           "holding_weeks": 18,
-          "ret_pct": 0.129337
+          "ret_pct": 0.1
         },
         {
           "ticker": "SI=F",
@@ -1029,10 +1029,10 @@
           "entry_date": "2023-03-03",
           "entry_price": 21.093,
           "exit_date": "2023-03-24",
-          "exit_price": 23.247,
+          "exit_price": 23.2023,
           "reason": "TP",
           "holding_weeks": 3,
-          "ret_pct": 0.102119
+          "ret_pct": 0.1
         },
         {
           "ticker": "SI=F",
@@ -1041,10 +1041,10 @@
           "entry_date": "2024-04-12",
           "entry_price": 28.254999,
           "exit_date": "2024-07-05",
-          "exit_price": 31.388,
+          "exit_price": 31.080499,
           "reason": "SL",
           "holding_weeks": 12,
-          "ret_pct": -0.110883
+          "ret_pct": -0.1
         },
         {
           "ticker": "SI=F",
@@ -1053,10 +1053,10 @@
           "entry_date": "2024-08-23",
           "entry_price": 29.785999,
           "exit_date": "2024-10-18",
-          "exit_price": 33.032001,
+          "exit_price": 32.764599,
           "reason": "SL",
           "holding_weeks": 8,
-          "ret_pct": -0.108977
+          "ret_pct": -0.1
         },
         {
           "ticker": "SI=F",
@@ -1065,10 +1065,10 @@
           "entry_date": "2025-02-21",
           "entry_price": 32.976002,
           "exit_date": "2025-04-04",
-          "exit_price": 29.115999,
+          "exit_price": 29.678402,
           "reason": "TP",
           "holding_weeks": 6,
-          "ret_pct": 0.117055
+          "ret_pct": 0.1
         }
       ]
     },
@@ -1082,19 +1082,19 @@
         "shorts": 2,
         "win_rate_long": 0.0,
         "win_rate_short": 0.5,
-        "avg_ret": -0.059622,
-        "median_ret": -0.059622,
-        "payoff_ratio": 0.073,
-        "profit_factor": 0.073,
-        "expectancy": -0.059622,
+        "avg_ret": -0.045305,
+        "median_ret": -0.045305,
+        "payoff_ratio": 0.0939,
+        "profit_factor": 0.0939,
+        "expectancy": -0.045305,
         "avg_hold_weeks": 13.0,
         "median_hold_weeks": 13.0,
         "tp_rate": 0.0,
         "sl_rate": 0.5,
-        "cum_ret": -0.120451,
-        "cagr": -0.088528,
-        "max_drawdown": -0.128633,
-        "sharpe_est": -4.5808,
+        "cum_ret": -0.091549,
+        "cagr": -0.066994,
+        "max_drawdown": -0.1,
+        "sharpe_est": -4.442,
         "horizon_weeks": 72
       },
       "trades": [
@@ -1105,10 +1105,10 @@
           "entry_date": "2020-09-18",
           "entry_price": 3.1135,
           "exit_date": "2020-12-04",
-          "exit_price": 3.514,
+          "exit_price": 3.42485,
           "reason": "SL",
           "holding_weeks": 11,
-          "ret_pct": -0.128633
+          "ret_pct": -0.1
         },
         {
           "ticker": "HG=F",
@@ -1134,19 +1134,19 @@
         "shorts": 1,
         "win_rate_long": 0.0,
         "win_rate_short": 1.0,
-        "avg_ret": 0.027304,
-        "median_ret": 0.027304,
-        "payoff_ratio": 1.5342,
-        "profit_factor": 1.5342,
-        "expectancy": 0.027304,
+        "avg_ret": 0.0,
+        "median_ret": 0.0,
+        "payoff_ratio": 1.0,
+        "profit_factor": 1.0,
+        "expectancy": 0.0,
         "avg_hold_weeks": 18.5,
         "median_hold_weeks": 18.5,
         "tp_rate": 0.5,
         "sl_rate": 0.5,
-        "cum_ret": 0.038577,
-        "cagr": 0.042768,
-        "max_drawdown": -0.10222,
-        "sharpe_est": -4.277,
+        "cum_ret": -0.01,
+        "cagr": -0.011058,
+        "max_drawdown": -0.1,
+        "sharpe_est": -4.5478,
         "horizon_weeks": 47
       },
       "trades": [
@@ -1157,10 +1157,10 @@
           "entry_date": "2024-08-02",
           "entry_price": 73.519997,
           "exit_date": "2025-04-04",
-          "exit_price": 61.990002,
+          "exit_price": 66.167997,
           "reason": "TP",
           "holding_weeks": 35,
-          "ret_pct": 0.156828
+          "ret_pct": 0.1
         },
         {
           "ticker": "CL=F",
@@ -1169,10 +1169,10 @@
           "entry_date": "2025-06-13",
           "entry_price": 72.980003,
           "exit_date": "2025-06-27",
-          "exit_price": 65.519997,
+          "exit_price": 65.682003,
           "reason": "SL",
           "holding_weeks": 2,
-          "ret_pct": -0.10222
+          "ret_pct": -0.1
         }
       ]
     },
@@ -1186,19 +1186,19 @@
         "shorts": 2,
         "win_rate_long": 0.0,
         "win_rate_short": 1.0,
-        "avg_ret": 0.126223,
-        "median_ret": 0.126223,
+        "avg_ret": 0.1,
+        "median_ret": 0.1,
         "payoff_ratio": 0.0,
         "profit_factor": "inf",
-        "expectancy": 0.126223,
+        "expectancy": 0.1,
         "avg_hold_weeks": 3.5,
         "median_hold_weeks": 3.5,
         "tp_rate": 1.0,
         "sl_rate": 0.0,
-        "cum_ret": 0.268341,
-        "cagr": 0.855297,
+        "cum_ret": 0.21,
+        "cagr": 0.641504,
         "max_drawdown": 0.0,
-        "sharpe_est": 10.9097,
+        "sharpe_est": 11.8977,
         "horizon_weeks": 20
       },
       "trades": [
@@ -1209,10 +1209,10 @@
           "entry_date": "2025-03-28",
           "entry_price": 4.065,
           "exit_date": "2025-04-11",
-          "exit_price": 3.527,
+          "exit_price": 3.6585,
           "reason": "TP",
           "holding_weeks": 2,
-          "ret_pct": 0.132349
+          "ret_pct": 0.1
         },
         {
           "ticker": "NG=F",
@@ -1221,10 +1221,10 @@
           "entry_date": "2025-07-11",
           "entry_price": 3.314,
           "exit_date": "2025-08-15",
-          "exit_price": 2.916,
+          "exit_price": 2.9826,
           "reason": "TP",
           "holding_weeks": 5,
-          "ret_pct": 0.120097
+          "ret_pct": 0.1
         }
       ]
     },
@@ -1238,19 +1238,19 @@
         "shorts": 1,
         "win_rate_long": 1.0,
         "win_rate_short": 0.0,
-        "avg_ret": 0.082631,
-        "median_ret": 0.113916,
-        "payoff_ratio": 6.552,
-        "profit_factor": 19.6559,
-        "expectancy": 0.082632,
+        "avg_ret": 0.070571,
+        "median_ret": 0.1,
+        "payoff_ratio": 5.6443,
+        "profit_factor": 16.9329,
+        "expectancy": 0.070571,
         "avg_hold_weeks": 10.5,
         "median_hold_weeks": 6.0,
         "tp_rate": 0.75,
         "sl_rate": 0.0,
-        "cum_ret": 0.365577,
-        "cagr": 0.064298,
+        "cum_ret": 0.307419,
+        "cagr": 0.055074,
         "max_drawdown": -0.017717,
-        "sharpe_est": 6.1629,
+        "sharpe_est": 6.1075,
         "horizon_weeks": 260
       },
       "trades": [
@@ -1261,10 +1261,10 @@
           "entry_date": "2020-09-18",
           "entry_price": 2364.0,
           "exit_date": "2021-03-19",
-          "exit_price": 2626.600098,
+          "exit_price": 2600.4,
           "reason": "TP",
           "holding_weeks": 26,
-          "ret_pct": 0.111083
+          "ret_pct": 0.1
         },
         {
           "ticker": "PA=F",
@@ -1273,10 +1273,10 @@
           "entry_date": "2024-12-27",
           "entry_price": 893.599976,
           "exit_date": "2025-01-24",
-          "exit_price": 1001.200012,
+          "exit_price": 982.959973,
           "reason": "TP",
           "holding_weeks": 4,
-          "ret_pct": 0.120412
+          "ret_pct": 0.1
         },
         {
           "ticker": "PA=F",
@@ -1285,10 +1285,10 @@
           "entry_date": "2025-04-11",
           "entry_price": 896.799988,
           "exit_date": "2025-05-23",
-          "exit_price": 1001.5,
+          "exit_price": 986.479987,
           "reason": "TP",
           "holding_weeks": 6,
-          "ret_pct": 0.116748
+          "ret_pct": 0.1
         },
         {
           "ticker": "PA=F",
@@ -1314,19 +1314,19 @@
         "shorts": 1,
         "win_rate_long": 0.8889,
         "win_rate_short": 0.0,
-        "avg_ret": 0.090452,
-        "median_ret": 0.112682,
-        "payoff_ratio": 1.2857,
-        "profit_factor": 5.1429,
-        "expectancy": 0.090452,
+        "avg_ret": 0.06,
+        "median_ret": 0.1,
+        "payoff_ratio": 1.0,
+        "profit_factor": 4.0,
+        "expectancy": 0.06,
         "avg_hold_weeks": 12.6,
         "median_hold_weeks": 9.0,
         "tp_rate": 0.8,
         "sl_rate": 0.2,
-        "cum_ret": 1.258346,
-        "cagr": 0.187086,
-        "max_drawdown": -0.110882,
-        "sharpe_est": 2.0928,
+        "cum_ret": 0.736307,
+        "cagr": 0.123176,
+        "max_drawdown": -0.1,
+        "sharpe_est": 1.4425,
         "horizon_weeks": 247
       },
       "trades": [
@@ -1337,10 +1337,10 @@
           "entry_date": "2020-10-02",
           "entry_price": 883.400024,
           "exit_date": "2020-12-04",
-          "exit_price": 1071.199951,
+          "exit_price": 971.740027,
           "reason": "TP",
           "holding_weeks": 9,
-          "ret_pct": 0.212588
+          "ret_pct": 0.1
         },
         {
           "ticker": "PL=F",
@@ -1349,10 +1349,10 @@
           "entry_date": "2021-08-06",
           "entry_price": 972.299988,
           "exit_date": "2021-11-12",
-          "exit_price": 1088.099976,
+          "exit_price": 1069.529987,
           "reason": "TP",
           "holding_weeks": 14,
-          "ret_pct": 0.119099
+          "ret_pct": 0.1
         },
         {
           "ticker": "PL=F",
@@ -1361,10 +1361,10 @@
           "entry_date": "2021-12-03",
           "entry_price": 925.5,
           "exit_date": "2022-01-21",
-          "exit_price": 1034.699951,
+          "exit_price": 1018.05,
           "reason": "TP",
           "holding_weeks": 7,
-          "ret_pct": 0.11799
+          "ret_pct": 0.1
         },
         {
           "ticker": "PL=F",
@@ -1373,10 +1373,10 @@
           "entry_date": "2022-02-11",
           "entry_price": 1017.299988,
           "exit_date": "2022-06-24",
-          "exit_price": 904.5,
+          "exit_price": 915.569989,
           "reason": "SL",
           "holding_weeks": 19,
-          "ret_pct": -0.110882
+          "ret_pct": -0.1
         },
         {
           "ticker": "PL=F",
@@ -1385,10 +1385,10 @@
           "entry_date": "2023-02-10",
           "entry_price": 945.599976,
           "exit_date": "2023-04-14",
-          "exit_price": 1044.599976,
+          "exit_price": 1040.159973,
           "reason": "TP",
           "holding_weeks": 9,
-          "ret_pct": 0.104695
+          "ret_pct": 0.1
         },
         {
           "ticker": "PL=F",
@@ -1397,10 +1397,10 @@
           "entry_date": "2023-07-07",
           "entry_price": 910.099976,
           "exit_date": "2024-05-17",
-          "exit_price": 1084.599976,
+          "exit_price": 1001.109973,
           "reason": "TP",
           "holding_weeks": 45,
-          "ret_pct": 0.191737
+          "ret_pct": 0.1
         },
         {
           "ticker": "PL=F",
@@ -1409,10 +1409,10 @@
           "entry_date": "2024-08-09",
           "entry_price": 927.599976,
           "exit_date": "2024-10-25",
-          "exit_price": 1027.199951,
+          "exit_price": 1020.359973,
           "reason": "TP",
           "holding_weeks": 11,
-          "ret_pct": 0.107374
+          "ret_pct": 0.1
         },
         {
           "ticker": "PL=F",
@@ -1421,10 +1421,10 @@
           "entry_date": "2025-01-03",
           "entry_price": 934.599976,
           "exit_date": "2025-01-31",
-          "exit_price": 1033.199951,
+          "exit_price": 1028.059973,
           "reason": "TP",
           "holding_weeks": 4,
-          "ret_pct": 0.1055
+          "ret_pct": 0.1
         },
         {
           "ticker": "PL=F",
@@ -1433,10 +1433,10 @@
           "entry_date": "2025-04-11",
           "entry_price": 934.299988,
           "exit_date": "2025-05-23",
-          "exit_price": 1087.400024,
+          "exit_price": 1027.729987,
           "reason": "TP",
           "holding_weeks": 6,
-          "ret_pct": 0.163866
+          "ret_pct": 0.1
         },
         {
           "ticker": "PL=F",
@@ -1445,10 +1445,10 @@
           "entry_date": "2025-06-13",
           "entry_price": 1210.800049,
           "exit_date": "2025-06-27",
-          "exit_price": 1340.900024,
+          "exit_price": 1331.880054,
           "reason": "SL",
           "holding_weeks": 2,
-          "ret_pct": -0.10745
+          "ret_pct": -0.1
         }
       ]
     },
@@ -1462,19 +1462,19 @@
         "shorts": 3,
         "win_rate_long": 0.0,
         "win_rate_short": 0.3333,
-        "avg_ret": -0.094947,
-        "median_ret": -0.122234,
-        "payoff_ratio": 0.9092,
-        "profit_factor": 0.1515,
-        "expectancy": -0.094947,
+        "avg_ret": -0.071429,
+        "median_ret": -0.1,
+        "payoff_ratio": 1.0,
+        "profit_factor": 0.1667,
+        "expectancy": -0.071429,
         "avg_hold_weeks": 12.0,
         "median_hold_weeks": 10.0,
         "tp_rate": 0.1429,
         "sl_rate": 0.8571,
-        "cum_ret": -0.517149,
-        "cagr": -0.144266,
-        "max_drawdown": -0.568384,
-        "sharpe_est": -4.5384,
+        "cum_ret": -0.415415,
+        "cagr": -0.108529,
+        "max_drawdown": -0.468559,
+        "sharpe_est": -4.327,
         "horizon_weeks": 243
       },
       "trades": [
@@ -1485,10 +1485,10 @@
           "entry_date": "2020-10-23",
           "entry_price": 419.25,
           "exit_date": "2021-01-01",
-          "exit_price": 484.0,
+          "exit_price": 461.175,
           "reason": "SL",
           "holding_weeks": 10,
-          "ret_pct": -0.154442
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZC=F",
@@ -1497,10 +1497,10 @@
           "entry_date": "2021-11-05",
           "entry_price": 553.0,
           "exit_date": "2022-01-21",
-          "exit_price": 616.25,
+          "exit_price": 608.3,
           "reason": "SL",
           "holding_weeks": 11,
-          "ret_pct": -0.114376
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZC=F",
@@ -1509,10 +1509,10 @@
           "entry_date": "2023-03-17",
           "entry_price": 634.25,
           "exit_date": "2023-05-19",
-          "exit_price": 554.5,
+          "exit_price": 570.825,
           "reason": "SL",
           "holding_weeks": 9,
-          "ret_pct": -0.125739
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZC=F",
@@ -1521,10 +1521,10 @@
           "entry_date": "2023-07-14",
           "entry_price": 599.75,
           "exit_date": "2023-07-21",
-          "exit_price": 527.0,
+          "exit_price": 539.775,
           "reason": "SL",
           "holding_weeks": 1,
-          "ret_pct": -0.121301
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZC=F",
@@ -1533,10 +1533,10 @@
           "entry_date": "2023-08-11",
           "entry_price": 474.5,
           "exit_date": "2024-02-16",
-          "exit_price": 416.5,
+          "exit_price": 427.05,
           "reason": "SL",
           "holding_weeks": 27,
-          "ret_pct": -0.122234
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZC=F",
@@ -1545,10 +1545,10 @@
           "entry_date": "2024-05-24",
           "entry_price": 464.75,
           "exit_date": "2024-06-28",
-          "exit_price": 397.25,
+          "exit_price": 418.275,
           "reason": "SL",
           "holding_weeks": 5,
-          "ret_pct": -0.145239
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZC=F",
@@ -1557,10 +1557,10 @@
           "entry_date": "2025-01-24",
           "entry_price": 486.5,
           "exit_date": "2025-06-20",
-          "exit_price": 428.75,
+          "exit_price": 437.85,
           "reason": "TP",
           "holding_weeks": 21,
-          "ret_pct": 0.118705
+          "ret_pct": 0.1
         }
       ]
     },
@@ -1574,19 +1574,19 @@
         "shorts": 4,
         "win_rate_long": 0.6,
         "win_rate_short": 0.25,
-        "avg_ret": -0.058044,
+        "avg_ret": -0.007035,
         "median_ret": -0.063315,
-        "payoff_ratio": 0.6422,
-        "profit_factor": 0.5137,
-        "expectancy": -0.058044,
+        "payoff_ratio": 1.0792,
+        "profit_factor": 0.8633,
+        "expectancy": -0.007035,
         "avg_hold_weeks": 14.11,
         "median_hold_weeks": 10.0,
         "tp_rate": 0.4444,
         "sl_rate": 0.4444,
-        "cum_ret": -0.61857,
-        "cagr": -0.177805,
-        "max_drawdown": -0.729778,
-        "sharpe_est": -0.3379,
+        "cum_ret": -0.100224,
+        "cagr": -0.021223,
+        "max_drawdown": -0.27829,
+        "sharpe_est": 0.9639,
         "horizon_weeks": 256
       },
       "trades": [
@@ -1597,10 +1597,10 @@
           "entry_date": "2020-10-16",
           "entry_price": 625.25,
           "exit_date": "2021-04-23",
-          "exit_price": 710.25,
+          "exit_price": 687.775,
           "reason": "SL",
           "holding_weeks": 27,
-          "ret_pct": -0.135946
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZW=F",
@@ -1609,10 +1609,10 @@
           "entry_date": "2021-08-06",
           "entry_price": 719.0,
           "exit_date": "2021-11-12",
-          "exit_price": 817.0,
+          "exit_price": 790.9,
           "reason": "SL",
           "holding_weeks": 14,
-          "ret_pct": -0.1363
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZW=F",
@@ -1621,10 +1621,10 @@
           "entry_date": "2021-11-19",
           "entry_price": 823.0,
           "exit_date": "2022-03-04",
-          "exit_price": 1348.0,
+          "exit_price": 905.3,
           "reason": "SL",
           "holding_weeks": 15,
-          "ret_pct": -0.63791
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZW=F",
@@ -1633,10 +1633,10 @@
           "entry_date": "2022-04-15",
           "entry_price": 1096.5,
           "exit_date": "2022-06-24",
-          "exit_price": 923.75,
+          "exit_price": 986.85,
           "reason": "TP",
           "holding_weeks": 10,
-          "ret_pct": 0.157547
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZW=F",
@@ -1645,10 +1645,10 @@
           "entry_date": "2023-01-20",
           "entry_price": 741.5,
           "exit_date": "2023-03-10",
-          "exit_price": 666.75,
+          "exit_price": 667.35,
           "reason": "SL",
           "holding_weeks": 7,
-          "ret_pct": -0.100809
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZW=F",
@@ -1657,10 +1657,10 @@
           "entry_date": "2023-09-29",
           "entry_price": 541.5,
           "exit_date": "2023-12-08",
-          "exit_price": 615.0,
+          "exit_price": 595.65,
           "reason": "TP",
           "holding_weeks": 10,
-          "ret_pct": 0.135734
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZW=F",
@@ -1669,10 +1669,10 @@
           "entry_date": "2024-03-29",
           "entry_price": 560.25,
           "exit_date": "2024-05-10",
-          "exit_price": 645.75,
+          "exit_price": 616.275,
           "reason": "TP",
           "holding_weeks": 6,
-          "ret_pct": 0.15261
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZW=F",
@@ -1681,10 +1681,10 @@
           "entry_date": "2024-12-06",
           "entry_price": 542.5,
           "exit_date": "2025-02-14",
-          "exit_price": 600.0,
+          "exit_price": 596.75,
           "reason": "TP",
           "holding_weeks": 10,
-          "ret_pct": 0.105991
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZW=F",
@@ -1710,19 +1710,19 @@
         "shorts": 3,
         "win_rate_long": 0.0,
         "win_rate_short": 0.3333,
-        "avg_ret": -0.058081,
-        "median_ret": -0.112338,
-        "payoff_ratio": 1.0447,
-        "profit_factor": 0.3482,
-        "expectancy": -0.058081,
+        "avg_ret": -0.05,
+        "median_ret": -0.1,
+        "payoff_ratio": 1.0,
+        "profit_factor": 0.3333,
+        "expectancy": -0.05,
         "avg_hold_weeks": 15.0,
         "median_hold_weeks": 13.0,
         "tp_rate": 0.25,
         "sl_rate": 0.75,
-        "cum_ret": -0.231061,
-        "cagr": -0.066032,
-        "max_drawdown": -0.231061,
-        "sharpe_est": -0.516,
+        "cum_ret": -0.1981,
+        "cagr": -0.055784,
+        "max_drawdown": -0.1981,
+        "sharpe_est": -0.5772,
         "horizon_weeks": 200
       },
       "trades": [
@@ -1733,10 +1733,10 @@
           "entry_date": "2020-09-18",
           "entry_price": 1043.5,
           "exit_date": "2020-11-20",
-          "exit_price": 1181.0,
+          "exit_price": 1147.85,
           "reason": "SL",
           "holding_weeks": 9,
-          "ret_pct": -0.131768
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZS=F",
@@ -1745,10 +1745,10 @@
           "entry_date": "2022-02-11",
           "entry_price": 1583.0,
           "exit_date": "2022-06-10",
-          "exit_price": 1745.5,
+          "exit_price": 1741.3,
           "reason": "SL",
           "holding_weeks": 17,
-          "ret_pct": -0.102653
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZS=F",
@@ -1757,10 +1757,10 @@
           "entry_date": "2023-04-07",
           "entry_price": 1492.5,
           "exit_date": "2023-05-19",
-          "exit_price": 1307.25,
+          "exit_price": 1343.25,
           "reason": "TP",
           "holding_weeks": 6,
-          "ret_pct": 0.124121
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZS=F",
@@ -1769,10 +1769,10 @@
           "entry_date": "2024-01-05",
           "entry_price": 1249.75,
           "exit_date": "2024-07-19",
-          "exit_price": 1097.25,
+          "exit_price": 1124.775,
           "reason": "SL",
           "holding_weeks": 28,
-          "ret_pct": -0.122024
+          "ret_pct": -0.1
         }
       ]
     },
@@ -1786,19 +1786,19 @@
         "shorts": 9,
         "win_rate_long": 0.6667,
         "win_rate_short": 0.6667,
-        "avg_ret": 0.047629,
-        "median_ret": 0.104332,
-        "payoff_ratio": 1.3416,
-        "profit_factor": 2.6832,
-        "expectancy": 0.047629,
+        "avg_ret": 0.041407,
+        "median_ret": 0.1,
+        "payoff_ratio": 1.3196,
+        "profit_factor": 2.6393,
+        "expectancy": 0.041407,
         "avg_hold_weeks": 10.33,
         "median_hold_weeks": 5.5,
         "tp_rate": 0.6667,
         "sl_rate": 0.25,
-        "cum_ret": 0.652563,
-        "cagr": 0.106983,
-        "max_drawdown": -0.125701,
-        "sharpe_est": 3.405,
+        "cum_ret": 0.557813,
+        "cagr": 0.093837,
+        "max_drawdown": -0.109,
+        "sharpe_est": 3.3179,
         "horizon_weeks": 257
       },
       "trades": [
@@ -1809,10 +1809,10 @@
           "entry_date": "2020-10-09",
           "entry_price": 363.100006,
           "exit_date": "2020-12-18",
-          "exit_price": 405.5,
+          "exit_price": 399.410007,
           "reason": "SL",
           "holding_weeks": 10,
-          "ret_pct": -0.116772
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZM=F",
@@ -1821,10 +1821,10 @@
           "entry_date": "2021-05-14",
           "entry_price": 423.5,
           "exit_date": "2021-06-18",
-          "exit_price": 373.399994,
+          "exit_price": 381.15,
           "reason": "TP",
           "holding_weeks": 5,
-          "ret_pct": 0.1183
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZM=F",
@@ -1833,10 +1833,10 @@
           "entry_date": "2021-10-08",
           "entry_price": 317.5,
           "exit_date": "2021-11-12",
-          "exit_price": 362.100006,
+          "exit_price": 349.25,
           "reason": "TP",
           "holding_weeks": 5,
-          "ret_pct": 0.140472
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZM=F",
@@ -1845,10 +1845,10 @@
           "entry_date": "2022-02-04",
           "entry_price": 443.899994,
           "exit_date": "2022-03-11",
-          "exit_price": 493.100006,
+          "exit_price": 488.289993,
           "reason": "SL",
           "holding_weeks": 5,
-          "ret_pct": -0.110836
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZM=F",
@@ -1857,10 +1857,10 @@
           "entry_date": "2022-07-29",
           "entry_price": 495.299988,
           "exit_date": "2022-09-02",
-          "exit_price": 444.100006,
+          "exit_price": 445.769989,
           "reason": "TP",
           "holding_weeks": 5,
-          "ret_pct": 0.103372
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZM=F",
@@ -1869,10 +1869,10 @@
           "entry_date": "2022-10-28",
           "entry_price": 425.399994,
           "exit_date": "2022-12-09",
-          "exit_price": 471.700012,
+          "exit_price": 467.939993,
           "reason": "SL",
           "holding_weeks": 6,
-          "ret_pct": -0.108839
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZM=F",
@@ -1881,10 +1881,10 @@
           "entry_date": "2023-04-14",
           "entry_price": 459.700012,
           "exit_date": "2023-05-19",
-          "exit_price": 409.100006,
+          "exit_price": 413.730011,
           "reason": "TP",
           "holding_weeks": 5,
-          "ret_pct": 0.110072
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZM=F",
@@ -1893,10 +1893,10 @@
           "entry_date": "2023-11-03",
           "entry_price": 442.100006,
           "exit_date": "2023-12-29",
-          "exit_price": 386.0,
+          "exit_price": 397.890005,
           "reason": "TP",
           "holding_weeks": 8,
-          "ret_pct": 0.126894
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZM=F",
@@ -1905,10 +1905,10 @@
           "entry_date": "2024-01-12",
           "entry_price": 351.299988,
           "exit_date": "2024-05-24",
-          "exit_price": 386.5,
+          "exit_price": 386.429987,
           "reason": "TP",
           "holding_weeks": 19,
-          "ret_pct": 0.100199
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZM=F",
@@ -1917,10 +1917,10 @@
           "entry_date": "2024-05-31",
           "entry_price": 364.700012,
           "exit_date": "2024-08-09",
-          "exit_price": 326.299988,
+          "exit_price": 328.230011,
           "reason": "TP",
           "holding_weeks": 10,
-          "ret_pct": 0.105292
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZM=F",
@@ -1929,10 +1929,10 @@
           "entry_date": "2024-10-04",
           "entry_price": 330.5,
           "exit_date": "2024-11-01",
-          "exit_price": 295.299988,
+          "exit_price": 297.45,
           "reason": "TP",
           "holding_weeks": 4,
-          "ret_pct": 0.106505
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZM=F",
@@ -1958,19 +1958,19 @@
         "shorts": 6,
         "win_rate_long": 0.0,
         "win_rate_short": 0.1667,
-        "avg_ret": -0.083589,
-        "median_ret": -0.107319,
-        "payoff_ratio": 0.9238,
-        "profit_factor": 0.154,
-        "expectancy": -0.083589,
+        "avg_ret": -0.071429,
+        "median_ret": -0.1,
+        "payoff_ratio": 1.0,
+        "profit_factor": 0.1667,
+        "expectancy": -0.071429,
         "avg_hold_weeks": 22.43,
         "median_hold_weeks": 25.0,
         "tp_rate": 0.1429,
         "sl_rate": 0.8571,
-        "cum_ret": -0.4696,
-        "cagr": -0.133026,
-        "max_drawdown": -0.4696,
-        "sharpe_est": -1.5863,
+        "cum_ret": -0.415415,
+        "cagr": -0.113833,
+        "max_drawdown": -0.415415,
+        "sharpe_est": -1.378,
         "horizon_weeks": 231
       },
       "trades": [
@@ -1981,10 +1981,10 @@
           "entry_date": "2020-09-18",
           "entry_price": 1251.5,
           "exit_date": "2021-05-07",
-          "exit_price": 1419.0,
+          "exit_price": 1376.65,
           "reason": "SL",
           "holding_weeks": 33,
-          "ret_pct": -0.133839
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZR=F",
@@ -1993,10 +1993,10 @@
           "entry_date": "2021-11-26",
           "entry_price": 1429.0,
           "exit_date": "2022-03-04",
-          "exit_price": 1612.0,
+          "exit_price": 1571.9,
           "reason": "SL",
           "holding_weeks": 14,
-          "ret_pct": -0.128062
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZR=F",
@@ -2005,10 +2005,10 @@
           "entry_date": "2022-04-08",
           "entry_price": 1578.0,
           "exit_date": "2022-05-27",
-          "exit_price": 1747.0,
+          "exit_price": 1735.8,
           "reason": "SL",
           "holding_weeks": 7,
-          "ret_pct": -0.107098
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZR=F",
@@ -2017,10 +2017,10 @@
           "entry_date": "2022-08-12",
           "entry_price": 1715.5,
           "exit_date": "2023-06-09",
-          "exit_price": 1902.5,
+          "exit_price": 1887.05,
           "reason": "SL",
           "holding_weeks": 43,
-          "ret_pct": -0.109006
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZR=F",
@@ -2029,10 +2029,10 @@
           "entry_date": "2023-06-16",
           "entry_price": 1779.5,
           "exit_date": "2023-07-21",
-          "exit_price": 1590.0,
+          "exit_price": 1601.55,
           "reason": "TP",
           "holding_weeks": 5,
-          "ret_pct": 0.106491
+          "ret_pct": 0.1
         },
         {
           "ticker": "ZR=F",
@@ -2041,10 +2041,10 @@
           "entry_date": "2023-11-17",
           "entry_price": 1740.5,
           "exit_date": "2024-05-10",
-          "exit_price": 1925.5,
+          "exit_price": 1914.55,
           "reason": "SL",
           "holding_weeks": 25,
-          "ret_pct": -0.106291
+          "ret_pct": -0.1
         },
         {
           "ticker": "ZR=F",
@@ -2053,10 +2053,10 @@
           "entry_date": "2024-07-26",
           "entry_price": 1523.5,
           "exit_date": "2025-02-21",
-          "exit_price": 1360.0,
+          "exit_price": 1371.15,
           "reason": "SL",
           "holding_weeks": 30,
-          "ret_pct": -0.107319
+          "ret_pct": -0.1
         }
       ]
     },
@@ -2070,19 +2070,19 @@
         "shorts": 2,
         "win_rate_long": 0.6667,
         "win_rate_short": 0.5,
-        "avg_ret": 0.017415,
-        "median_ret": 0.110621,
-        "payoff_ratio": 0.8746,
-        "profit_factor": 1.3119,
-        "expectancy": 0.017415,
+        "avg_ret": 0.02,
+        "median_ret": 0.1,
+        "payoff_ratio": 1.0,
+        "profit_factor": 1.5,
+        "expectancy": 0.02,
         "avg_hold_weeks": 11.0,
         "median_hold_weeks": 10.0,
         "tp_rate": 0.6,
         "sl_rate": 0.4,
-        "cum_ret": 0.045077,
-        "cagr": 0.012205,
-        "max_drawdown": -0.260181,
-        "sharpe_est": -3.0191,
+        "cum_ret": 0.07811,
+        "cagr": 0.020908,
+        "max_drawdown": -0.19,
+        "sharpe_est": -2.9046,
         "horizon_weeks": 189
       },
       "trades": [
@@ -2093,10 +2093,10 @@
           "entry_date": "2021-12-03",
           "entry_price": 2435.0,
           "exit_date": "2022-02-11",
-          "exit_price": 2766.0,
+          "exit_price": 2678.5,
           "reason": "TP",
           "holding_weeks": 10,
-          "ret_pct": 0.135934
+          "ret_pct": 0.1
         },
         {
           "ticker": "CC=F",
@@ -2105,10 +2105,10 @@
           "entry_date": "2022-02-18",
           "entry_price": 2573.0,
           "exit_date": "2022-07-01",
-          "exit_price": 2265.0,
+          "exit_price": 2315.7,
           "reason": "TP",
           "holding_weeks": 19,
-          "ret_pct": 0.119705
+          "ret_pct": 0.1
         },
         {
           "ticker": "CC=F",
@@ -2117,10 +2117,10 @@
           "entry_date": "2022-07-08",
           "entry_price": 2269.0,
           "exit_date": "2022-11-11",
-          "exit_price": 2520.0,
+          "exit_price": 2495.9,
           "reason": "TP",
           "holding_weeks": 18,
-          "ret_pct": 0.110621
+          "ret_pct": 0.1
         },
         {
           "ticker": "CC=F",
@@ -2129,10 +2129,10 @@
           "entry_date": "2023-03-03",
           "entry_price": 2730.0,
           "exit_date": "2023-04-21",
-          "exit_price": 3171.0,
+          "exit_price": 3003.0,
           "reason": "SL",
           "holding_weeks": 7,
-          "ret_pct": -0.161538
+          "ret_pct": -0.1
         },
         {
           "ticker": "CC=F",
@@ -2141,10 +2141,10 @@
           "entry_date": "2025-07-11",
           "entry_price": 8840.0,
           "exit_date": "2025-07-18",
-          "exit_price": 7800.0,
+          "exit_price": 7956.0,
           "reason": "SL",
           "holding_weeks": 1,
-          "ret_pct": -0.117647
+          "ret_pct": -0.1
         }
       ]
     },
@@ -2158,19 +2158,19 @@
         "shorts": 5,
         "win_rate_long": 0.0,
         "win_rate_short": 0.6,
-        "avg_ret": 0.037926,
-        "median_ret": 0.131951,
-        "payoff_ratio": 1.2661,
-        "profit_factor": 1.8992,
-        "expectancy": 0.037926,
+        "avg_ret": 0.02,
+        "median_ret": 0.1,
+        "payoff_ratio": 1.0,
+        "profit_factor": 1.5,
+        "expectancy": 0.02,
         "avg_hold_weeks": 10.2,
         "median_hold_weeks": 9.0,
         "tp_rate": 0.6,
         "sl_rate": 0.4,
-        "cum_ret": 0.16541,
-        "cagr": 0.033023,
-        "max_drawdown": -0.108715,
-        "sharpe_est": 4.0482,
+        "cum_ret": 0.07811,
+        "cagr": 0.016091,
+        "max_drawdown": -0.1,
+        "sharpe_est": 3.5331,
         "horizon_weeks": 245
       },
       "trades": [
@@ -2181,10 +2181,10 @@
           "entry_date": "2020-09-18",
           "entry_price": 113.599998,
           "exit_date": "2020-12-25",
-          "exit_price": 125.949997,
+          "exit_price": 124.959998,
           "reason": "SL",
           "holding_weeks": 14,
-          "ret_pct": -0.108715
+          "ret_pct": -0.1
         },
         {
           "ticker": "KC=F",
@@ -2193,10 +2193,10 @@
           "entry_date": "2022-08-12",
           "entry_price": 226.600006,
           "exit_date": "2022-10-14",
-          "exit_price": 196.699997,
+          "exit_price": 203.940005,
           "reason": "TP",
           "holding_weeks": 9,
-          "ret_pct": 0.131951
+          "ret_pct": 0.1
         },
         {
           "ticker": "KC=F",
@@ -2205,10 +2205,10 @@
           "entry_date": "2023-04-21",
           "entry_price": 194.199997,
           "exit_date": "2023-06-23",
-          "exit_price": 168.050003,
+          "exit_price": 174.779997,
           "reason": "TP",
           "holding_weeks": 9,
-          "ret_pct": 0.134655
+          "ret_pct": 0.1
         },
         {
           "ticker": "KC=F",
@@ -2217,10 +2217,10 @@
           "entry_date": "2023-12-22",
           "entry_price": 192.800003,
           "exit_date": "2024-04-05",
-          "exit_price": 212.5,
+          "exit_price": 212.080003,
           "reason": "SL",
           "holding_weeks": 15,
-          "ret_pct": -0.102178
+          "ret_pct": -0.1
         },
         {
           "ticker": "KC=F",
@@ -2229,10 +2229,10 @@
           "entry_date": "2025-05-02",
           "entry_price": 395.399994,
           "exit_date": "2025-05-30",
-          "exit_price": 342.450012,
+          "exit_price": 355.859995,
           "reason": "TP",
           "holding_weeks": 4,
-          "ret_pct": 0.133915
+          "ret_pct": 0.1
         }
       ]
     },
@@ -2246,19 +2246,19 @@
         "shorts": 3,
         "win_rate_long": 0.5,
         "win_rate_short": 0.3333,
-        "avg_ret": -0.008869,
-        "median_ret": -0.101109,
-        "payoff_ratio": 1.1504,
-        "profit_factor": 0.8628,
-        "expectancy": -0.008869,
+        "avg_ret": -0.014286,
+        "median_ret": -0.1,
+        "payoff_ratio": 1.0,
+        "profit_factor": 0.75,
+        "expectancy": -0.014286,
         "avg_hold_weeks": 9.43,
         "median_hold_weeks": 8.0,
         "tp_rate": 0.4286,
         "sl_rate": 0.5714,
-        "cum_ret": -0.107443,
-        "cagr": -0.031782,
-        "max_drawdown": -0.2988,
-        "sharpe_est": -0.5481,
+        "cum_ret": -0.126731,
+        "cagr": -0.037774,
+        "max_drawdown": -0.271,
+        "sharpe_est": -0.9761,
         "horizon_weeks": 183
       },
       "trades": [
@@ -2269,10 +2269,10 @@
           "entry_date": "2020-12-18",
           "entry_price": 77.160004,
           "exit_date": "2021-02-12",
-          "exit_price": 87.269997,
+          "exit_price": 84.876004,
           "reason": "SL",
           "holding_weeks": 8,
-          "ret_pct": -0.131026
+          "ret_pct": -0.1
         },
         {
           "ticker": "CT=F",
@@ -2281,10 +2281,10 @@
           "entry_date": "2021-04-30",
           "entry_price": 87.43,
           "exit_date": "2021-08-27",
-          "exit_price": 96.269997,
+          "exit_price": 96.173,
           "reason": "SL",
           "holding_weeks": 17,
-          "ret_pct": -0.101109
+          "ret_pct": -0.1
         },
         {
           "ticker": "CT=F",
@@ -2293,10 +2293,10 @@
           "entry_date": "2023-01-20",
           "entry_price": 86.699997,
           "exit_date": "2023-03-17",
-          "exit_price": 77.830002,
+          "exit_price": 78.029997,
           "reason": "SL",
           "holding_weeks": 8,
-          "ret_pct": -0.102307
+          "ret_pct": -0.1
         },
         {
           "ticker": "CT=F",
@@ -2305,10 +2305,10 @@
           "entry_date": "2023-06-23",
           "entry_price": 78.059998,
           "exit_date": "2023-08-11",
-          "exit_price": 89.290001,
+          "exit_price": 85.865997,
           "reason": "TP",
           "holding_weeks": 7,
-          "ret_pct": 0.143864
+          "ret_pct": 0.1
         },
         {
           "ticker": "CT=F",
@@ -2317,10 +2317,10 @@
           "entry_date": "2023-11-10",
           "entry_price": 77.32,
           "exit_date": "2024-02-02",
-          "exit_price": 87.110001,
+          "exit_price": 85.052,
           "reason": "TP",
           "holding_weeks": 12,
-          "ret_pct": 0.126617
+          "ret_pct": 0.1
         },
         {
           "ticker": "CT=F",
@@ -2329,10 +2329,10 @@
           "entry_date": "2024-02-16",
           "entry_price": 93.870003,
           "exit_date": "2024-04-12",
-          "exit_price": 82.620003,
+          "exit_price": 84.483002,
           "reason": "TP",
           "holding_weeks": 8,
-          "ret_pct": 0.119847
+          "ret_pct": 0.1
         },
         {
           "ticker": "CT=F",
@@ -2341,10 +2341,10 @@
           "entry_date": "2024-05-10",
           "entry_price": 77.309998,
           "exit_date": "2024-06-21",
-          "exit_price": 68.190002,
+          "exit_price": 69.578998,
           "reason": "SL",
           "holding_weeks": 6,
-          "ret_pct": -0.117967
+          "ret_pct": -0.1
         }
       ]
     },
@@ -2358,19 +2358,19 @@
         "shorts": 4,
         "win_rate_long": 0.0,
         "win_rate_short": 0.25,
-        "avg_ret": -0.070341,
-        "median_ret": -0.116399,
-        "payoff_ratio": 0.9834,
-        "profit_factor": 0.2458,
-        "expectancy": -0.070341,
+        "avg_ret": -0.06,
+        "median_ret": -0.1,
+        "payoff_ratio": 1.0,
+        "profit_factor": 0.25,
+        "expectancy": -0.06,
         "avg_hold_weeks": 12.2,
         "median_hold_weeks": 12.0,
         "tp_rate": 0.2,
         "sl_rate": 0.8,
-        "cum_ret": -0.321128,
-        "cagr": -0.080175,
-        "max_drawdown": -0.321128,
-        "sharpe_est": -4.4011,
+        "cum_ret": -0.27829,
+        "cagr": -0.06795,
+        "max_drawdown": -0.27829,
+        "sharpe_est": -4.351,
         "horizon_weeks": 241
       },
       "trades": [
@@ -2381,10 +2381,10 @@
           "entry_date": "2020-09-18",
           "entry_price": 12.77,
           "exit_date": "2020-10-09",
-          "exit_price": 14.23,
+          "exit_price": 14.047001,
           "reason": "SL",
           "holding_weeks": 3,
-          "ret_pct": -0.11433
+          "ret_pct": -0.1
         },
         {
           "ticker": "SB=F",
@@ -2393,10 +2393,10 @@
           "entry_date": "2021-04-16",
           "entry_price": 16.719999,
           "exit_date": "2021-08-06",
-          "exit_price": 18.68,
+          "exit_price": 18.391999,
           "reason": "SL",
           "holding_weeks": 16,
-          "ret_pct": -0.117225
+          "ret_pct": -0.1
         },
         {
           "ticker": "SB=F",
@@ -2405,10 +2405,10 @@
           "entry_date": "2022-04-08",
           "entry_price": 20.41,
           "exit_date": "2022-07-01",
-          "exit_price": 18.07,
+          "exit_price": 18.369,
           "reason": "TP",
           "holding_weeks": 12,
-          "ret_pct": 0.11465
+          "ret_pct": 0.1
         },
         {
           "ticker": "SB=F",
@@ -2417,10 +2417,10 @@
           "entry_date": "2022-11-25",
           "entry_price": 19.33,
           "exit_date": "2023-02-10",
-          "exit_price": 21.58,
+          "exit_price": 21.263,
           "reason": "SL",
           "holding_weeks": 11,
-          "ret_pct": -0.116399
+          "ret_pct": -0.1
         },
         {
           "ticker": "SB=F",
@@ -2429,10 +2429,10 @@
           "entry_date": "2024-12-20",
           "entry_price": 19.51,
           "exit_date": "2025-05-02",
-          "exit_price": 17.200001,
+          "exit_price": 17.559,
           "reason": "SL",
           "holding_weeks": 19,
-          "ret_pct": -0.118401
+          "ret_pct": -0.1
         }
       ]
     },
@@ -2522,14 +2522,14 @@
     "trades": 139,
     "wins": 74,
     "win_rate": 0.5324,
-    "avg_ret": 0.005624,
-    "payoff_ratio_est": 0.9678,
-    "profit_factor": 1.1018,
-    "expectancy": 0.005624,
-    "cum_ret": -0.415968,
-    "cagr": -0.101977,
-    "max_drawdown": -0.817218,
-    "sharpe_est": -0.2667,
+    "avg_ret": 0.005293,
+    "payoff_ratio_est": 0.9836,
+    "profit_factor": 1.1197,
+    "expectancy": 0.005293,
+    "cum_ret": 0.097906,
+    "cagr": 0.018856,
+    "max_drawdown": -0.563831,
+    "sharpe_est": -0.3248,
     "horizon_weeks": 260,
     "note": "Overall basato su sequenza di trade pooled (approssimazione; non tiene conto di sovrapposizioni)."
   }
