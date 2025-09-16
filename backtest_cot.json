@@ -4,6 +4,11 @@
     "sell_trig": 28.0,
     "tp_pct": 0.1,
     "sl_pct": 0.1,
+    "risk_mode": "fixed_pct",
+    "vol_win_weeks": 14,
+    "tp_mult": 3.0,
+    "sl_mult": 2.0,
+    "min_pct_floor": 0.005,
     "use_cross": true,
     "source": "price_and_cot.json"
   },
@@ -2531,6 +2536,6 @@
     "max_drawdown": -0.563831,
     "sharpe_est": -0.3248,
     "horizon_weeks": 260,
-    "note": "Overall basato su sequenza di trade pooled (approssimazione; non tiene conto di sovrapposizioni)."
+    "note": "RISK_MODE=fixed_pct. Overall sequenziale (pooled)."
   }
 }
