@@ -55,7 +55,7 @@
           <div id="chart"></div>
           <div class="note tiny">
             Nota: la linea “Overall (pooled)” compone i trade in sequenza (ordinati per data di uscita),
-            <b>non</b> gestisce sovrapposizioni multi-ticker come un portafoglio reale.
+            <b>non</b> gestisce sovrapposizioni multi-ticker come in un portafoglio reale.
           </div>
         </div>
       </div>
@@ -63,9 +63,7 @@
       <div class="card">
         <h2>Riepilogo</h2>
         <div class="content">
-          <div class="kpis" id="summary">
-            <!-- riempito da JS -->
-          </div>
+          <div class="kpis" id="summary"></div>
           <div class="note tiny" id="meta"></div>
         </div>
       </div>
@@ -125,18 +123,37 @@ function makeChart(){
   window.addEventListener('resize', () => chart.resize(el.clientWidth, el.clientHeight));
 }
 
+// --- helper: "YYYY-MM-DD" -> BusinessDay object ---
+function toBD(s){
+  if (!s || typeof s !== 'string') return null;
+  const [y,m,d] = s.split('-').map(Number);
+  if (!y || !m || !d) return null;
+  return { year: y, month: m, day: d };
+}
+
+// --- costruzione equity pulita (no NaN/null, dedup su stessa data) ---
 function equityFromTrades(trades){
-  // trades: {exit_date, ret_pct}
   const sorted = trades.slice().sort((a,b) => a.exit_date.localeCompare(b.exit_date));
   let eq = 1.0;
   const out = [];
   for(const t of sorted){
     const r = Number(t.ret_pct);
-    if (!isFinite(r)) continue;
-    eq *= (1+r);
-    out.push({ time: t.exit_date, value: eq });
+    const bd = toBD(t.exit_date);
+    if (!isFinite(r) || !bd) continue;
+    eq *= (1 + r);
+    out.push({ time: bd, value: Number(eq.toFixed(6)) });
   }
-  return out;
+  // dedup: se più trade chiudono lo stesso giorno, tieni l'ultimo punto
+  const dedup = [];
+  for (const p of out){
+    const last = dedup[dedup.length - 1];
+    if (last && last.time.year===p.time.year && last.time.month===p.time.month && last.time.day===p.time.day){
+      dedup[dedup.length - 1] = p;
+    } else {
+      dedup.push(p);
+    }
+  }
+  return dedup;
 }
 
 function equityForTicker(db, ticker){
@@ -146,7 +163,6 @@ function equityForTicker(db, ticker){
 }
 
 function equityOverall(db, minTrades=0){
-  // pooled: concat di tutti i trades
   const all = [];
   for(const [tic, obj] of Object.entries(db.by_ticker)){
     if(minTrades && (obj.stats?.trades||0) < minTrades) continue;
@@ -155,12 +171,10 @@ function equityOverall(db, minTrades=0){
   return equityFromTrades(all);
 }
 
+// --- set data con guardie ---
 function setChartData(points){
-  if(!points.length){
-    series.setData([]);
-    return;
-  }
-  series.setData(points);
+  const clean = (points || []).filter(p => p && p.time && Number.isFinite(p.value));
+  series.setData(clean);
   chart.timeScale().fitContent();
 }
 
@@ -173,7 +187,7 @@ function renderTable(rows){
     const av = a.stats[sortKey] ?? (a[sortKey]);
     const bv = b.stats[sortKey] ?? (b[sortKey]);
     const va = (typeof av==='string' && av.toLowerCase()==='inf') ? Number.POSITIVE_INFINITY : Number(av);
-    const vb = (typeof bv==='string' && bv.toLowerCase()==='inf') ? Number.POSITIVE_INFINITY : Number(bv);
+    const vb = (typeof bv==='string' && vb.toLowerCase()==='inf') ? Number.POSITIVE_INFINITY : Number(bv);
     return sortDir * (va - vb);
   });
   for(const r of rows){
@@ -196,7 +210,6 @@ function renderTable(rows){
     `;
     tbody.appendChild(tr);
   }
-  // click per cambiare equity
   document.querySelectorAll('.tickerLink').forEach(a=>{
     a.addEventListener('click', (e)=>{
       e.preventDefault();
@@ -240,7 +253,6 @@ function applyFiltersAndRender(){
     sel.appendChild(opt);
   }
 
-  // restore selection if still present
   sel.value = [...sel.options].some(o=>o.value===curSel) ? curSel : 'overall';
   renderTable(rows);
   updateChartForSelection();
