@@ -1,116 +1,139 @@
-// cot.js
-
-// ─── Global Chart.js font defaults ───
+<script>
+// ─── Global Chart.js defaults ───
 Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
-// ——— Position-sizing & fees settings ———
-const ACCOUNT_SIZE   = 20000;   // your Saxo account equity in $
-const RISK_PCT       = 0.02;    // risk per trade (2%)
-const COMMISSION_PCT = 0.004;   // commission (0.4%)
+// ─── File di input ───
+const STATS_FILE     = 'cot_long_short_stats.json';
+const PRICE_COT_FILE = 'price_and_cot.json';
 
-// ——— Helper at top-level so every renderModule can use it ———
-function ret(t) {
-  // for Module 3: return the fractional sized & net return
-  return t.returnPct;
-}
+// ─── Parametri di sizing & commissioni (solo per stima) ───
+const ACCOUNT_SIZE   = 20000;
+const RISK_PCT       = 0.02;
+const COMMISSION_PCT = 0.004;
 
-// Compute Max Drawdown on the SAME arithmetic cumulative series used by Module 3
+// ─── Helper numerici safe ───
+const num   = v => Number.isFinite(Number(v)) ? Number(v) : NaN;
+const d4    = v => Number.isFinite(Number(v)) ? Number(v).toFixed(4) : '—';
+const pct   = v => Number.isFinite(Number(v)) ? (Number(v)*100).toFixed(2)+'%' : '—';
+
+// ─── Equity utils ───
 function calcMDDFromRets(rets) {
-  let cum = 0;     // arithmetic cumulative return (starts at 0)
-  let peak = 0;    // running max of cum
-  let maxDD = 0;   // most negative drawdown (cum - peak)
-
+  let cum = 0, peak = 0, maxDD = 0;
   for (const r of rets) {
     cum += r;
     if (cum > peak) peak = cum;
-    const dd = cum - peak;       // <= 0
-    if (dd < maxDD) maxDD = dd;  // track the lowest (most negative)
+    const dd = cum - peak;          // <= 0
+    if (dd < maxDD) maxDD = dd;
   }
-  return Math.abs(maxDD) * 100;  // as percentage points
+  return Math.abs(maxDD) * 100;     // %
 }
 
-(async function() {
-  // 1) Load stats & trades
-  const resp   = await fetch('cot_backtest_stats.json');
-  if (!resp.ok) {
-    console.error('JSON load failed');
-    return;
-  }
-  const stats  = await resp.json();
-  const trades = stats.trades;
+(async function main() {
+  // 1) Carico stats
+  const r = await fetch(STATS_FILE, { cache:'no-store' });
+  if (!r.ok) { console.error('JSON load failed', STATS_FILE); return; }
+  const stats = await r.json();
 
-  // 1a) Compute net P&L and return% for each trade (sized & net of commissions)
+  const trades = Array.isArray(stats.trades) ? stats.trades.slice() : [];
+  // Alcuni converter non includono meta → fallback
+  const meta = stats.meta || {};
+  const BUY  = Number.isFinite(Number(meta.buy_trig))  ? Number(meta.buy_trig)  : 95;
+  const SELL = Number.isFinite(Number(meta.sell_trig)) ? Number(meta.sell_trig) : 5;
+  const TP_P = Number.isFinite(Number(meta.tp_pct))    ? Number(meta.tp_pct)    : null;
+  const SL_P = Number.isFinite(Number(meta.sl_pct))    ? Number(meta.sl_pct)    : null;
+  const RISK_MODE = (meta.risk_mode || 'fixed_pct');
+
+  // 2) Return per trade (dimensionato se possibile, altrimenti grezzo)
   const riskAmt = ACCOUNT_SIZE * RISK_PCT;
-
   trades.forEach(t => {
-    // sizing basato sulla distanza dallo STOP (FIX precedente)
-    const dist       = Math.abs(t.entry - t.stop_loss);
-    const shares     = dist > 0 ? (riskAmt / dist) : 0;   // pezzi
-    const notional   = shares * t.entry;                  // valore monetario
-    const commission = notional * COMMISSION_PCT;         // round-trip stimato
+    // normalizzo campi attesi
+    const entry = num(t.entry), exit = num(t.exit);
+    const sl    = num(t.stop_loss);  // può essere NaN se assente
+    const dir   = (t.type || '').toLowerCase();
 
-    const grossPnl = (t.type === 'long'
-      ? (t.exit - t.entry) * shares
-      : (t.entry - t.exit) * shares);
+    // gross return grezzo se serve (fractions)
+    const grossRet = (dir === 'long')
+      ? (num(exit) - num(entry)) / num(entry)
+      : (num(entry) - num(exit)) / num(entry);
 
-    const netPnl = grossPnl - commission;
-    t.returnPct  = netPnl / ACCOUNT_SIZE;                 // frazione (es. 0.0123 = 1.23%)
+    // dimensionato se ho distanza dallo stop (sensata)
+    const dist = Math.abs(entry - sl);
+    if (Number.isFinite(dist) && dist > 0) {
+      const shares     = riskAmt / dist;
+      const notional   = shares * entry;
+      const commission = notional * COMMISSION_PCT;
+      const grossPnl = (dir === 'long')
+        ? (exit - entry) * shares
+        : (entry - exit) * shares;
+      const netPnl = grossPnl - commission;
+      t.returnPct = netPnl / ACCOUNT_SIZE;   // frazione
+    } else {
+      t.returnPct = Number.isFinite(grossRet) ? grossRet : 0; // fallback robusto
+    }
   });
 
-  // 1b) Build percent-return array (fractions) for Module 3
-  const rets = trades.map(ret);
-
-  // 2) Compute durations (in days)
+  // 3) KPI principali
   const durations = trades
-    .map(t => (new Date(t.exit_date) - new Date(t.entry_date)) / (1000 * 60 * 60 * 24))
-    .sort((a, b) => a - b);
+    .map(t => (new Date(t.exit_date) - new Date(t.entry_date)) / 86400000)
+    .filter(x => Number.isFinite(x))
+    .sort((a,b)=>a-b);
 
-  // 3) Compute period string
-  const entryDates = trades.map(t => new Date(t.entry_date));
-  const exitDates  = trades.map(t => new Date(t.exit_date));
-  const startDate  = new Date(Math.min(...entryDates));
-  const endDate    = new Date(Math.max(...exitDates));
-  const fmt = d => d.toLocaleString('default', { month: 'short', year: 'numeric' });
-  const period = `${fmt(startDate)} – ${fmt(endDate)}`;
+  const entryDates = trades.map(t => new Date(t.entry_date)).filter(d=>!isNaN(d));
+  const exitDates  = trades.map(t => new Date(t.exit_date)).filter(d=>!isNaN(d));
+  const startDate  = entryDates.length ? new Date(Math.min(...entryDates)) : null;
+  const endDate    = exitDates.length  ? new Date(Math.max(...exitDates))  : null;
+  const fmtMonthYr = d => d.toLocaleString('default', { month:'short', year:'numeric' });
+  const period     = (startDate && endDate) ? `${fmtMonthYr(startDate)} – ${fmtMonthYr(endDate)}` : '—';
 
-  // 4) Compute metrics (all on sized returns for coherence)
   const numTrades   = trades.length;
-  const mid         = Math.floor(durations.length / 2);
-  const medDur      = durations.length % 2 === 1
-    ? durations[mid]
-    : (durations[mid - 1] + durations[mid]) / 2;
-  const quickestDur = Math.min(...durations);
+  const mid         = Math.floor(durations.length/2);
+  const medDur      = durations.length ? (durations.length%2 ? durations[mid] : (durations[mid-1]+durations[mid])/2) : 0;
+  const quickestDur = durations.length ? durations[0] : 0;
 
-  // ✅ NEW: Max Drawdown calcolato sui ritorni dimensionati (stessa curva del grafico)
+  const rets = trades.map(t => num(t.returnPct)).filter(x => Number.isFinite(x));
   const maxDrawdown = calcMDDFromRets(rets);
+  const avgRet = rets.length ? rets.reduce((s,r)=>s+r,0)/rets.length : 0;
+  const downside = rets.filter(r=>r<0);
+  const downsideSD = downside.length ? Math.sqrt(downside.reduce((s,r)=>s+r*r,0)/downside.length) : 0;
+  const sortino = downsideSD>0 ? avgRet/downsideSD : NaN;
 
-  const avgRet      = rets.length ? (rets.reduce((s, r) => s + r, 0) / rets.length) : 0;
-  const downsideRs  = rets.filter(r => r < 0);
-  const downsideSD  = downsideRs.length
-    ? Math.sqrt(downsideRs.reduce((sum, r) => sum + r*r, 0) / downsideRs.length)
-    : 0;
-  const sortino     = downsideSD > 0 ? avgRet / downsideSD : 0;
+  renderModule1({
+    period,
+    numTrades,
+    medDur,
+    quickestDur,
+    maxDrawdown,
+    sortino
+  });
 
-  // 5) Render everything
-  renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino });
   renderModule2(trades);
   renderModule3(rets);
-  renderModule4();
+
+  // 4) New Strategies Alert da price_and_cot.json (cross su BUY/SELL)
+  try {
+    const pr = await fetch(PRICE_COT_FILE, { cache:'no-store' });
+    if (pr.ok) {
+      const pc = await pr.json();
+      renderModule4_fromPriceCot(pc, { BUY, SELL, TP_P, SL_P });
+    }
+  } catch(e) {
+    console.warn('Alert module skipped:', e);
+  }
 })();
 
-// —––– Module 1 — Portfolio KPI Cards —–––
+// —––– Module 1 — KPI
 function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, sortino }) {
   const cont = document.getElementById('module1');
   cont.innerHTML = '';
   [
     { label: 'Period',           value: period },
     { label: '# Trades',         value: numTrades },
-    { label: 'Median Duration',  value: medDur.toFixed(0)      + ' days' },
-    { label: 'Quickest Trade',   value: quickestDur.toFixed(0) + ' days' },
-    { label: 'Max Drawdown',     value: maxDrawdown.toFixed(1) + '%' },
-    { label: 'Sortino Ratio',    value: sortino.toFixed(2)     }
+    { label: 'Median Duration',  value: (Number(medDur)||0).toFixed(0)      + ' days' },
+    { label: 'Quickest Trade',   value: (Number(quickestDur)||0).toFixed(0) + ' days' },
+    { label: 'Max Drawdown',     value: (Number(maxDrawdown)||0).toFixed(1) + '%' },
+    { label: 'Sortino Ratio',    value: Number.isFinite(Number(sortino)) ? Number(sortino).toFixed(2) : '—' }
   ].forEach(c => {
     const d = document.createElement('div');
     d.className = 'kpi-card';
@@ -122,14 +145,12 @@ function renderModule1({ period, numTrades, medDur, quickestDur, maxDrawdown, so
   });
 }
 
-// —––– Module 2 — Historical Report
+// —––– Module 2 — Closed trades table (safe cells)
 function renderModule2(trades) {
-  const tbody = document.querySelector('#module2 tbody');
-  tbody.innerHTML = '';
+  const tbody = document.querySelector('#module2 #tab-realized tbody');
+  const thead = document.querySelector('#module2 #tab-realized thead tr');
+  if (!tbody || !thead) return;
 
-  // rebuild header
-  const thead = document.querySelector('#module2 thead tr');
-  // (fix precedente) intestazione Market + t.market
   thead.innerHTML = `
     <th>Market</th>
     <th>Signal</th>
@@ -141,118 +162,102 @@ function renderModule2(trades) {
     <th>Stop Loss</th>
     <th>Return</th>
   `;
+  tbody.innerHTML = '';
 
   trades
     .slice()
-    .sort((a, b) => new Date(a.exit_date) - new Date(b.exit_date))
+    .sort((a,b)=> new Date(a.exit_date) - new Date(b.exit_date))
     .forEach(t => {
-      const retPct = (t.returnPct * 100).toFixed(2) + '%';
+      const mkt = t.market || t.spread || '';
+      const retPct = pct(t.returnPct);
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${t.market}</td>
-        <td>${t.type === 'long' ? 'Long' : 'Short'}</td>
-        <td>${t.entry_date}</td>
-        <td>${t.exit_date}</td>
-        <td>${t.entry.toFixed(4)}</td>
-        <td>${t.exit.toFixed(4)}</td>
-        <td>${t.take_profit.toFixed(4)}</td>
-        <td>${t.stop_loss.toFixed(4)}</td>
+        <td>${mkt}</td>
+        <td>${(t.type||'').toLowerCase()==='long'?'Long':'Short'}</td>
+        <td>${t.entry_date || ''}</td>
+        <td>${t.exit_date  || ''}</td>
+        <td>${d4(t.entry)}</td>
+        <td>${d4(t.exit)}</td>
+        <td>${d4(t.take_profit)}</td>
+        <td>${d4(t.stop_loss)}</td>
         <td>${retPct}</td>
       `;
       tbody.appendChild(tr);
     });
 }
 
-// —––– Module 3 — Arithmetic Equity Curve (same series used for MDD)
+// —––– Module 3 — Equity (aritmetica sugli stessi rets usati per MDD)
 function renderModule3(rets) {
-  const cum = [];
-  let sum   = 0;
-  rets.forEach(r => {
-    sum += r;
-    cum.push(sum * 100);
-  });
+  const el = document.getElementById('equityChart');
+  if (!el) return;
+  const ctx = el.getContext('2d');
 
-  new Chart(
-    document.getElementById('equityChart').getContext('2d'),
-    {
-      type: 'line',
-      data: {
-        labels: cum.map((_, i) => i + 1),
-        datasets: [{
-          label: 'Cumulative Return',
-          data: cum,
-          borderColor: '#FFA500',
-          fill: false
-        }]
+  let cum=0;
+  const curve = rets.map(r => (cum+=r)*100); // %
+
+  new Chart(ctx,{
+    type:'line',
+    data:{ labels: curve.map((_,i)=>i+1), datasets:[{
+      label:'Cumulative Return', data:curve, borderColor:'#FFA500', fill:false, tension:0.25, pointRadius:0
+    }]},
+    options:{
+      maintainAspectRatio:false,
+      layout:{ padding:{ bottom:20 } },
+      scales:{
+        y:{ title:{ display:true, text:'Cumulative Return (%)', font:{ size:14 } },
+            ticks:{ callback:v => Number(v).toFixed(1)+'%' },
+            grid:{ color:'#2a2a2a' } },
+        x:{ display:false }
       },
-      options: {
-        maintainAspectRatio: false,
-        layout: { padding: { bottom: 20 } },
-        scales: {
-          y: {
-            title: {
-              display: true,
-              text: 'Cumulative Return (%)',
-              font: { size: 14 }
-            },
-            ticks: { callback: v => v.toFixed(1) + '%' }
-          },
-          x: { display: false }
-        },
-        plugins: { legend: { display: false } }
+      plugins:{ legend:{ display:false } }
+    }
+  });
+}
+
+// —––– Module 4 — New Strategies Alert da price_and_cot.json
+function renderModule4_fromPriceCot(priceCot, { BUY, SELL, TP_P, SL_P }) {
+  const tbody = document.querySelector('#module4 tbody');
+  if (!tbody || !priceCot) return;
+  tbody.innerHTML = '';
+
+  Object.entries(priceCot).forEach(([ticker, obj])=>{
+    const rows = Array.isArray(obj.data) ? obj.data : [];
+    if (rows.length < 2) return;
+
+    const [dPrev, closePrev, ciPrev] = rows[rows.length-2];
+    const [dNow,  closeNow,  ciNow ] = rows[rows.length-1];
+
+    // cross su soglie
+    const longNow  = (ciNow  > BUY)  && (ciPrev <= BUY);
+    const shortNow = (ciNow  < SELL) && (ciPrev >= SELL);
+    if (!longNow && !shortNow) return;
+
+    // Open = ultimo close; TP/SL solo se percentuali disponibili
+    let tp = '—', sl = '—';
+    if (Number.isFinite(TP_P) && Number.isFinite(SL_P)) {
+      if (longNow) {
+        tp = d4(closeNow * (1 + TP_P));
+        sl = d4(closeNow * (1 - SL_P));
+      } else if (shortNow) {
+        tp = d4(closeNow * (1 - TP_P));
+        sl = d4(closeNow * (1 + SL_P));
       }
     }
-  );
-}
 
-// —––– Module 4 — New Strategies Alert (placeholder legacy; optional to replace) —–––
-async function renderModule4() {
-  try {
-    const resp = await fetch('eq_channels.json');
-    const data = await resp.json();
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${ticker}</td>
+      <td>${longNow ? 'Long' : 'Short'}</td>
+      <td>${d4(closeNow)}</td>
+      <td>${tp}</td>
+      <td>${sl}</td>`;
+    tbody.appendChild(tr);
+  });
 
-    const alerts = Object.entries(data)
-      .filter(([_, series]) => Array.isArray(series) && series.length >= 2)
-      .map(([spread, series]) => {
-        const prev = series[series.length - 2];
-        const last = series[series.length - 1];
-
-        // [date, ratio, lower1, lower2, upper1, upper2]
-        const [, prevPrice, , prevLower2, , prevUpper2] = prev;
-        const [, price,     , lower2,     , upper2]     = last;
-
-        const justBrokeLong  = (price <  lower2) && (prevPrice >= prevLower2);
-        const justBrokeShort = (price >  upper2) && (prevPrice <= prevUpper2);
-        if (!(justBrokeLong || justBrokeShort)) return;
-
-        const signal = justBrokeLong ? 'Long' : 'Short';
-        const mid    = (lower2 + upper2) / 2;     // == trend
-        const half   = Math.abs(price - mid);     // distanza simmetrica
-
-        return {
-          spread,
-          signal,
-          entry:      price,
-          takeProfit: mid,
-          stopLoss:   signal === 'Long' ? price - half : price + half
-        };
-      })
-      .filter(Boolean);
-
-    const tbody = document.querySelector('#module4 tbody');
-    tbody.innerHTML = '';
-    alerts.forEach(a => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${a.spread}</td>
-        <td>${a.signal}</td>
-        <td>${a.entry.toFixed(4)}</td>
-        <td>${a.takeProfit.toFixed(4)}</td>
-        <td>${a.stopLoss.toFixed(4)}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-  } catch (err) {
-    console.error('Module 4 render error:', err);
+  if (!tbody.children.length){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td colspan="5" style="text-align:center;opacity:.7">No fresh signals</td>`;
+    tbody.appendChild(tr);
   }
 }
+</script>
