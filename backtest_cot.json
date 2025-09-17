@@ -533,46 +533,6 @@
         }
       ]
     },
-    "6N=F": {
-      "market": "NEW ZEALAND DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "stats": {
-        "trades": 1,
-        "wins": 1,
-        "win_rate": 1.0,
-        "longs": 0,
-        "shorts": 1,
-        "win_rate_long": 0.0,
-        "win_rate_short": 1.0,
-        "avg_ret": 0.074471,
-        "median_ret": 0.074471,
-        "payoff_ratio": 0.0,
-        "profit_factor": "inf",
-        "expectancy": 0.074471,
-        "avg_hold_weeks": 59.0,
-        "median_hold_weeks": 59.0,
-        "tp_rate": 0.0,
-        "sl_rate": 0.0,
-        "cum_ret": 0.074471,
-        "cagr": 0.065353,
-        "max_drawdown": 0.0,
-        "sharpe_est": 0.0,
-        "horizon_weeks": 59
-      },
-      "trades": [
-        {
-          "ticker": "6N=F",
-          "market": "NEW ZEALAND DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-          "direction": "SHORT",
-          "entry_date": "2020-12-18",
-          "entry_price": 0.7137,
-          "exit_date": "2022-02-04",
-          "exit_price": 0.66055,
-          "reason": "EOD",
-          "holding_weeks": 59,
-          "ret_pct": 0.074471
-        }
-      ]
-    },
     "6S=F": {
       "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
       "stats": {
@@ -1301,94 +1261,6 @@
         }
       ]
     },
-    "YM=F": {
-      "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
-      "stats": {
-        "trades": 5,
-        "wins": 3,
-        "win_rate": 0.6,
-        "longs": 5,
-        "shorts": 0,
-        "win_rate_long": 0.6,
-        "win_rate_short": 0.0,
-        "avg_ret": 0.021081,
-        "median_ret": 0.018837,
-        "payoff_ratio": 2.5904,
-        "profit_factor": 3.8856,
-        "expectancy": 0.021081,
-        "avg_hold_weeks": 7.0,
-        "median_hold_weeks": 2.0,
-        "tp_rate": 0.6,
-        "sl_rate": 0.4,
-        "cum_ret": 0.105103,
-        "cagr": 0.077065,
-        "max_drawdown": -0.01884,
-        "sharpe_est": -0.1059,
-        "horizon_weeks": 70
-      },
-      "trades": [
-        {
-          "ticker": "YM=F",
-          "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
-          "direction": "LONG",
-          "entry_date": "2020-09-18",
-          "entry_price": 27807.300781,
-          "exit_date": "2021-01-08",
-          "exit_price": 30588.030859,
-          "reason": "TP",
-          "holding_weeks": 16,
-          "ret_pct": 0.1
-        },
-        {
-          "ticker": "YM=F",
-          "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
-          "direction": "LONG",
-          "entry_date": "2021-07-23",
-          "entry_price": 34951.0,
-          "exit_date": "2021-11-05",
-          "exit_price": 35758.184712,
-          "reason": "TP",
-          "holding_weeks": 15,
-          "ret_pct": 0.023095
-        },
-        {
-          "ticker": "YM=F",
-          "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
-          "direction": "LONG",
-          "entry_date": "2021-11-12",
-          "entry_price": 36013.0,
-          "exit_date": "2021-11-26",
-          "exit_price": 35376.007821,
-          "reason": "SL",
-          "holding_weeks": 2,
-          "ret_pct": -0.017688
-        },
-        {
-          "ticker": "YM=F",
-          "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
-          "direction": "LONG",
-          "entry_date": "2021-12-03",
-          "entry_price": 34566.0,
-          "exit_date": "2021-12-10",
-          "exit_price": 35217.113953,
-          "reason": "TP",
-          "holding_weeks": 1,
-          "ret_pct": 0.018837
-        },
-        {
-          "ticker": "YM=F",
-          "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
-          "direction": "LONG",
-          "entry_date": "2022-01-14",
-          "entry_price": 35796.0,
-          "exit_date": "2022-01-21",
-          "exit_price": 35121.605426,
-          "reason": "SL",
-          "holding_weeks": 1,
-          "ret_pct": -0.01884
-        }
-      ]
-    },
     "NIY=F": {
       "market": "NIKKEI STOCK AVERAGE YEN DENOM - CHICAGO MERCANTILE EXCHANGE",
       "stats": {
@@ -1758,58 +1630,6 @@
           "reason": "TP",
           "holding_weeks": 1,
           "ret_pct": 0.044605
-        }
-      ]
-    },
-    "HG=F": {
-      "market": "COPPER-GRADE #1 - COMMODITY EXCHANGE INC.",
-      "stats": {
-        "trades": 2,
-        "wins": 1,
-        "win_rate": 0.5,
-        "longs": 0,
-        "shorts": 2,
-        "win_rate_long": 0.0,
-        "win_rate_short": 0.5,
-        "avg_ret": -0.045305,
-        "median_ret": -0.045305,
-        "payoff_ratio": 0.0939,
-        "profit_factor": 0.0939,
-        "expectancy": -0.045305,
-        "avg_hold_weeks": 13.0,
-        "median_hold_weeks": 13.0,
-        "tp_rate": 0.0,
-        "sl_rate": 0.5,
-        "cum_ret": -0.091549,
-        "cagr": -0.066994,
-        "max_drawdown": -0.1,
-        "sharpe_est": -4.442,
-        "horizon_weeks": 72
-      },
-      "trades": [
-        {
-          "ticker": "HG=F",
-          "market": "COPPER-GRADE #1 - COMMODITY EXCHANGE INC.",
-          "direction": "SHORT",
-          "entry_date": "2020-09-18",
-          "entry_price": 3.1135,
-          "exit_date": "2020-12-04",
-          "exit_price": 3.42485,
-          "reason": "SL",
-          "holding_weeks": 11,
-          "ret_pct": -0.1
-        },
-        {
-          "ticker": "HG=F",
-          "market": "COPPER-GRADE #1 - COMMODITY EXCHANGE INC.",
-          "direction": "SHORT",
-          "entry_date": "2021-10-22",
-          "entry_price": 4.526,
-          "exit_date": "2022-02-04",
-          "exit_price": 4.4835,
-          "reason": "EOD",
-          "holding_weeks": 15,
-          "ret_pct": 0.00939
         }
       ]
     },
@@ -3353,7 +3173,7 @@
         }
       ]
     },
-    "DX-Y.NYB": {
+    "DX=F": {
       "market": "U.S. DOLLAR INDEX - ICE FUTURES U.S.",
       "stats": {
         "trades": 1,
@@ -3363,90 +3183,50 @@
         "shorts": 0,
         "win_rate_long": 1.0,
         "win_rate_short": 0.0,
-        "avg_ret": 0.02744,
-        "median_ret": 0.02744,
+        "avg_ret": 0.027197,
+        "median_ret": 0.027197,
         "payoff_ratio": 0.0,
         "profit_factor": "inf",
-        "expectancy": 0.02744,
+        "expectancy": 0.027197,
         "avg_hold_weeks": 72.0,
         "median_hold_weeks": 72.0,
         "tp_rate": 0.0,
         "sl_rate": 0.0,
-        "cum_ret": 0.02744,
-        "cagr": 0.019743,
+        "cum_ret": 0.027197,
+        "cagr": 0.019569,
         "max_drawdown": 0.0,
         "sharpe_est": 0.0,
         "horizon_weeks": 72
       },
       "trades": [
         {
-          "ticker": "DX-Y.NYB",
+          "ticker": "DX=F",
           "market": "U.S. DOLLAR INDEX - ICE FUTURES U.S.",
           "direction": "LONG",
           "entry_date": "2020-09-18",
-          "entry_price": 92.93,
+          "entry_price": 92.952003,
           "exit_date": "2022-02-04",
           "exit_price": 95.480003,
           "reason": "EOD",
           "holding_weeks": 72,
-          "ret_pct": 0.02744
-        }
-      ]
-    },
-    "EURGBP=X": {
-      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "stats": {
-        "trades": 1,
-        "wins": 1,
-        "win_rate": 1.0,
-        "longs": 1,
-        "shorts": 0,
-        "win_rate_long": 1.0,
-        "win_rate_short": 0.0,
-        "avg_ret": 0.007167,
-        "median_ret": 0.007167,
-        "payoff_ratio": 0.0,
-        "profit_factor": "inf",
-        "expectancy": 0.007167,
-        "avg_hold_weeks": 210.0,
-        "median_hold_weeks": 210.0,
-        "tp_rate": 0.0,
-        "sl_rate": 0.0,
-        "cum_ret": 0.007167,
-        "cagr": 0.00177,
-        "max_drawdown": 0.0,
-        "sharpe_est": 0.0,
-        "horizon_weeks": 210
-      },
-      "trades": [
-        {
-          "ticker": "EURGBP=X",
-          "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
-          "direction": "LONG",
-          "entry_date": "2021-09-03",
-          "entry_price": 0.85811,
-          "exit_date": "2025-09-12",
-          "exit_price": 0.86426,
-          "reason": "EOD",
-          "holding_weeks": 210,
-          "ret_pct": 0.007167
+          "ret_pct": 0.027197
         }
       ]
     }
   },
   "overall": {
-    "tickers": 30,
-    "trades": 215,
-    "wins": 118,
-    "win_rate": 0.5488,
-    "avg_ret": 0.006399,
-    "payoff_ratio_est": 1.0733,
-    "profit_factor": 1.3192,
-    "expectancy": 0.00619,
-    "cum_ret": 1.869674,
-    "cagr": 0.234714,
+    "tickers": 26,
+    "trades": 206,
+    "wins": 112,
+    "win_rate": 0.5437,
+    "avg_ret": 0.006209,
+    "payoff_ratio_est": 1.0849,
+    "profit_factor": 1.3065,
+    "expectancy": 0.005991,
+    "cum_ret": 1.640764,
+    "cagr": 0.214356,
     "max_drawdown": -0.307521,
-    "sharpe_est": 0.8451,
+    "sharpe_est": 0.8825,
     "horizon_weeks": 260,
     "note": "RISK_MODE=std. Overall sequenziale (pooled)."
   }
