@@ -1,4 +1,3 @@
-<script>
 // ─── Global Chart.js defaults ───
 Chart.defaults.font.family = 'Helvetica Neue, Arial, sans-serif';
 Chart.defaults.font.size   = 12;
@@ -260,4 +259,3 @@ function renderModule4_fromPriceCot(priceCot, { BUY, SELL, TP_P, SL_P }) {
     tbody.appendChild(tr);
   }
 }
-</script>
