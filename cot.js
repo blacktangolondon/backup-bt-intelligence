@@ -5,7 +5,7 @@ Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
 const STATS_FILE    = 'cot_backtest_stats.json';
-const CHANNELS_FILE = 'price_and_cot.json';
+const PRICE_COT_FILE = 'price_and_cot.json';
 const STD_MULT      = 0.5;
 
 const fmtPct = v => (Number(v) * 100).toFixed(2) + '%';
@@ -69,9 +69,9 @@ const fetchJSON = async (url) => {
 
   // ── Modulo 4: New Strategies Alert
   try {
-    const channels = await fetchJSON(CHANNELS_FILE);
-    renderModule4(computeNewAlertsFrom(channels));
-  } catch (e) { console.warn('Channels load failed:', e); }
+  const db = await fetchJSON(PRICE_COT_FILE);
+  renderModule4(computeNewAlertsFrom(db));
+  } catch (e) { console.warn('Data load failed:', e); }
 })();
 
 // ───────── Module 1
