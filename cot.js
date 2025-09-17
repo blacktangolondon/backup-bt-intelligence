@@ -5,7 +5,7 @@ Chart.defaults.font.size   = 12;
 Chart.defaults.font.weight = 'normal';
 
 const STATS_FILE    = 'cot_backtest_stats.json';
-const CHANNELS_FILE = 'fx_channels.json';
+const CHANNELS_FILE = 'price_and_cot.json';
 const STD_MULT      = 0.5;
 
 const fmtPct = v => (Number(v) * 100).toFixed(2) + '%';
