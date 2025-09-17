@@ -29,9 +29,7 @@ const pct = v => Number.isFinite(Number(v)) ? (Number(v)*100).toFixed(2)+'%' : '
 
 function calcMDDFromRets(rets){
   let cum=0, peak=0, maxDD=0;
-  for(const r of rets){
-    cum+=r; if(cum>peak) peak=cum; const dd=cum-peak; if(dd<maxDD) maxDD=dd;
-  }
+  for(const r of rets){ cum+=r; if(cum>peak) peak=cum; const dd=cum-peak; if(dd<maxDD) maxDD=dd; }
   return Math.abs(maxDD)*100;
 }
 
@@ -40,7 +38,7 @@ async function loadJSON(cands){
     try{
       const r = await fetch(url,{cache:'no-store'});
       if(r.ok) return await r.json();
-    }catch(_){ }
+    }catch(_){}
   }
   throw new Error('All JSON sources failed: '+cands.join(' | '));
 }
@@ -100,7 +98,7 @@ async function loadJSON(cands){
   try{
     const pc=await loadJSON(PRICE_COT_CANDIDATES);
     renderModule4_fromPriceCot(pc,{BUY,SELL,TP_P,SL_P});
-  }catch(_){ }
+  }catch(_){}
 })();
 
 function renderModule1({period,numTrades,medDur,quickestDur,maxDrawdown,sortino}){
@@ -142,7 +140,19 @@ function renderModule3(rets){
   if(!el) return;
   const ctx=el.getContext('2d');
   let cum=0; const curve=rets.map(r=>(cum+=r)*100);
-  new Chart(ctx,{type:'line',data:{labels:curve.map((_,i)=>i+1),datasets:[{label:'Cumulative Return',data:curve,borderColor:'#FFA500',fill:false,tension:0.25,pointRadius:0}]},options:{maintainAspectRatio:false,layout:{padding:{bottom:20}},scales:{y:{title:{display:true,text:'Cumulative Return (%)',font:{size:14}},ticks:{callback:v=>Number(v).toFixed(1)+'%'},grid:{color:'#2a2a2a'}},x:{display:false}},plugins:{legend:{display:false}}});
+  new Chart(ctx,{
+    type:'line',
+    data:{labels:curve.map((_,i)=>i+1),datasets:[{label:'Cumulative Return',data:curve,borderColor:'#FFA500',fill:false,tension:0.25,pointRadius:0}]},
+    options:{
+      maintainAspectRatio:false,
+      layout:{padding:{bottom:20}},
+      scales:{
+        y:{title:{display:true,text:'Cumulative Return (%)',font:{size:14}},ticks:{callback:v=>Number(v).toFixed(1)+'%'},grid:{color:'#2a2a2a'}},
+        x:{display:false}
+      },
+      plugins:{legend:{display:false}}
+    }
+  });
 }
 
 function renderModule4_fromPriceCot(priceCot,{BUY,SELL,TP_P,SL_P}){
