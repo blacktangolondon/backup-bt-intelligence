@@ -211,26 +211,89 @@ function renderModule3_asIndex(curve) {
 }
 
 // ───────── Module 4
-function computeNewAlertsFrom(channels){
+// ====== Segnali COT (senza canali) ======
+const BUY_TRIG      = 72.0;   // COT sopra → LONG
+const SELL_TRIG     = 28.0;   // COT sotto → SHORT
+const USE_CROSS     = true;   // entra solo su "cross" della soglia
+
+// TP/SL come nello script di backtest
+const RISK_MODE     = 'std';  // 'std' | 'fixed_pct'
+const TP_PCT        = 0.10;   // usati se RISK_MODE='fixed_pct' o come fallback
+const SL_PCT        = 0.10;
+
+const VOL_WIN_WKS   = 25;     // rolling su rendimenti weekly
+const TP_MULT       = 1.4;
+const SL_MULT       = 1.4;
+const MIN_PCT_FLOOR = 0.005;  // 0.5%
+
+function _std(arr){
+  const xs = arr.filter(v => Number.isFinite(v));
+  if (xs.length < 2) return NaN;
+  const m = xs.reduce((a,b)=>a+b,0) / xs.length;
+  const v = xs.reduce((a,b)=>a + (b-m)*(b-m), 0) / (xs.length - 1);
+  return Math.sqrt(v);
+}
+
+function _tpSl(signal, priceNow, closes){
+  // closes = array dei Close storici
+  if (RISK_MODE === 'fixed_pct'){
+    const tpPct = TP_PCT, slPct = SL_PCT;
+    return (signal === 'Long')
+      ? [priceNow*(1+tpPct), priceNow*(1-slPct)]
+      : [priceNow*(1-tpPct), priceNow*(1+slPct)];
+  }
+  // std rolling (default)
+  const rets = [];
+  for (let i=1;i<closes.length;i++){
+    const a = Number(closes[i-1]), b = Number(closes[i]);
+    rets.push((a && isFinite(a) && isFinite(b)) ? (b/a - 1) : NaN);
+  }
+  const vol   = _std(rets.slice(-VOL_WIN_WKS));
+  const tpPct = Math.max(MIN_PCT_FLOOR, TP_MULT * (isFinite(vol) ? vol : MIN_PCT_FLOOR));
+  const slPct = Math.max(MIN_PCT_FLOOR, SL_MULT * (isFinite(vol) ? vol : MIN_PCT_FLOOR));
+  return (signal === 'Long')
+    ? [priceNow*(1+tpPct), priceNow*(1-slPct)]
+    : [priceNow*(1-tpPct), priceNow*(1+slPct)];
+}
+
+// db = price_and_cot.json → { "TICKER": {market, data: [[Date, Close, COT_Index], ...]}, ... }
+function computeNewAlertsFrom(db){
   const out = [];
-  if (!channels || typeof channels !== 'object') return out;
-  for (const key of Object.keys(channels)){
-    const rows = channels[key];
-    if(!Array.isArray(rows) || rows.length < 2) continue;
-    const last = rows[rows.length-1], prev = rows[rows.length-2];
-    const r_now = num(last[1]), l1 = num(last[2]), u1 = num(last[4]);
-    const r_prev= num(prev[1]), pl1= num(prev[2]), pu1= num(prev[4]);
-    const t_now = (u1 + l1)/2,  s_now = Math.abs(u1 - t_now);
-    const t_prev= (pu1 + pl1)/2, s_prev= Math.abs(pu1 - t_prev);
-    const ub = t_now + s_now*STD_MULT, lb = t_now - s_now*STD_MULT;
-    const prevUb = t_prev + s_prev*STD_MULT, prevLb = t_prev - s_prev*STD_MULT;
-    if (r_now > ub && r_prev <= prevUb)
-      out.push({spread:key, signal:'Short', open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now + Math.abs(r_now - t_now)).toFixed(4)});
-    else if (r_now < lb && r_prev >= prevLb)
-      out.push({spread:key, signal:'Long',  open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now - Math.abs(t_now - r_now)).toFixed(4)});
+  if (!db || typeof db !== 'object') return out;
+
+  for (const [ticker, payload] of Object.entries(db)){
+    const rows = Array.isArray(payload?.data) ? payload.data : [];
+    if (rows.length < 2) continue;
+
+    const prev = rows[rows.length-2];
+    const last = rows[rows.length-1];
+
+    const cotPrev  = Number(prev[2]);
+    const cotNow   = Number(last[2]);
+    const priceNow = Number(last[1]);
+
+    const longCross  = USE_CROSS ? (cotPrev <= BUY_TRIG  && cotNow >  BUY_TRIG) : (cotNow >  BUY_TRIG);
+    const shortCross = USE_CROSS ? (cotPrev >= SELL_TRIG && cotNow <  SELL_TRIG) : (cotNow <  SELL_TRIG);
+
+    let signal = null;
+    if (longCross) signal = 'Long';
+    else if (shortCross) signal = 'Short';
+    if (!signal) continue;
+
+    const closes = rows.map(r => Number(r[1]));
+    const [tp, sl] = _tpSl(signal, priceNow, closes);
+
+    out.push({
+      spread: ticker,
+      signal,
+      open: priceNow.toFixed(4),
+      tp: isFinite(tp) ? tp.toFixed(4) : '—',
+      sl: isFinite(sl) ? sl.toFixed(4) : '—'
+    });
   }
   return out;
 }
+
 
 function renderModule4(alerts){
   const tbody = document.querySelector('#module4 tbody');
