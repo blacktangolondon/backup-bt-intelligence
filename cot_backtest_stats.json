@@ -1,2835 +1,3501 @@
 {
-  "params_fixed": {
-    "entry_long": "COT >= 90 AND price < trend - 1\u03c3",
-    "entry_short": "COT <= 10 AND price > trend + 1\u03c3",
-    "tp": "trend on entry day",
-    "sl": "1:1 vs distance to TP",
-    "time_stop_days": 22,
-    "bands_lookback": 500,
-    "bands_min_bars": 250,
-    "std_mult": 1.0,
-    "require_cross": false,
-    "cooldown_days": 20,
-    "one_trade_per_ticker": true
-  },
   "portfolio_kpis": {
-    "total_trades": 213,
-    "win_rate": 0.4694835680751174,
-    "avg_trade": -0.013952406702129924,
-    "max_profit": 0.2446764499936367
+    "period": {
+      "start": "2020-09-18",
+      "end": "2025-09-12"
+    },
+    "total_trades": 206,
+    "wins": 112,
+    "losses": 93,
+    "win_rate_pct": 54.4,
+    "total_pnl": 1.279079,
+    "max_drawdown": 0.426927,
+    "avg_duration_days": 63.0,
+    "open_positions": 0
   },
-  "portfolio_kpis_sized": {
-    "total_trades": 213,
-    "win_rate": 0.4131455399061033,
-    "avg_trade": -0.0011680832748249541,
-    "max_profit": 0.019673037597193844
-  },
-  "by_market": [
+  "by_spread": [
     {
-      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "total_trades": 4,
-      "win_rate": 0.5,
-      "avg_trade": 0.00012223495305346832,
-      "max_profit": 0.015810308650754168,
-      "avg_duration_days": 28.0
+      "spread": "SB=F",
+      "count": 5,
+      "avg_pnl": -0.0176406,
+      "max_win": 0.066536,
+      "max_loss": -0.1
     },
     {
-      "market": "CANADIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "total_trades": 6,
-      "win_rate": 0.8333333333333334,
-      "avg_trade": 0.012062524795419508,
-      "max_profit": 0.02813968737224326,
-      "avg_duration_days": 28.0
+      "spread": "ZS=F",
+      "count": 5,
+      "avg_pnl": -0.032383800000000004,
+      "max_win": 0.029137,
+      "max_loss": -0.1
     },
     {
-      "market": "COCOA - ICE FUTURES U.S.",
-      "total_trades": 8,
-      "win_rate": 0.25,
-      "avg_trade": -0.047566338901906785,
-      "max_profit": 0.11415525114155245,
-      "avg_duration_days": 26.25
+      "spread": "NQ=F",
+      "count": 14,
+      "avg_pnl": -0.005766214285714283,
+      "max_win": 0.1,
+      "max_loss": -0.052639
     },
     {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "total_trades": 18,
-      "win_rate": 0.2777777777777778,
-      "avg_trade": -0.02295232228718396,
-      "max_profit": 0.18729864876508096,
-      "avg_duration_days": 27.61111111111111
+      "spread": "PL=F",
+      "count": 14,
+      "avg_pnl": 0.041179428571428575,
+      "max_win": 0.1,
+      "max_loss": -0.063674
     },
     {
-      "market": "COPPER-GRADE #1 - COMMODITY EXCHANGE INC.",
-      "total_trades": 4,
-      "win_rate": 0.25,
-      "avg_trade": -0.02920713657023366,
-      "max_profit": 0.011193062975466184,
-      "avg_duration_days": 28.0
+      "spread": "ZM=F",
+      "count": 12,
+      "avg_pnl": -0.004459083333333334,
+      "max_win": 0.073679,
+      "max_loss": -0.1
     },
     {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "total_trades": 18,
-      "win_rate": 0.4444444444444444,
-      "avg_trade": -0.007669617255297178,
-      "max_profit": 0.1071039777555518,
-      "avg_duration_days": 27.22222222222222
+      "spread": "KC=F",
+      "count": 6,
+      "avg_pnl": 0.018436166666666667,
+      "max_win": 0.070823,
+      "max_loss": -0.1
     },
     {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "total_trades": 14,
-      "win_rate": 0.5,
-      "avg_trade": 0.012559391332556449,
-      "max_profit": 0.1306653341998456,
-      "avg_duration_days": 26.0
+      "spread": "ZC=F",
+      "count": 9,
+      "avg_pnl": -0.04036788888888889,
+      "max_win": 0.030498,
+      "max_loss": -0.1
     },
     {
-      "market": "DJIA Consolidated - CHICAGO BOARD OF TRADE",
-      "total_trades": 2,
-      "win_rate": 1.0,
-      "avg_trade": 0.09116293975217205,
-      "max_profit": 0.11554621848739499,
-      "avg_duration_days": 28.0
+      "spread": "CT=F",
+      "count": 9,
+      "avg_pnl": 0.0032813333333333336,
+      "max_win": 0.058278,
+      "max_loss": -0.1
     },
     {
-      "market": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
-      "total_trades": 3,
-      "win_rate": 0.6666666666666666,
-      "avg_trade": -0.0013348086456211512,
-      "max_profit": 0.005761181211516142,
-      "avg_duration_days": 28.0
+      "spread": "GC=F",
+      "count": 11,
+      "avg_pnl": 0.00836,
+      "max_win": 0.1,
+      "max_loss": -0.039197
     },
     {
-      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "total_trades": 6,
-      "win_rate": 0.8333333333333334,
-      "avg_trade": 0.009966138583991183,
-      "max_profit": 0.025914105230639972,
-      "avg_duration_days": 28.0
+      "spread": "PA=F",
+      "count": 4,
+      "avg_pnl": 0.08650725000000001,
+      "max_win": 0.1,
+      "max_loss": 0.071873
     },
     {
-      "market": "GASOLINE RBOB - NEW YORK MERCANTILE EXCHANGE",
-      "total_trades": 1,
-      "win_rate": 1.0,
-      "avg_trade": 0.10646527860408361,
-      "max_profit": 0.10646527860408361,
-      "avg_duration_days": 28.0
+      "spread": "6M=F",
+      "count": 10,
+      "avg_pnl": 0.0128968,
+      "max_win": 0.027947,
+      "max_loss": -0.024992
     },
     {
-      "market": "GOLD - COMMODITY EXCHANGE INC.",
-      "total_trades": 8,
-      "win_rate": 0.25,
-      "avg_trade": -0.012875536322348613,
-      "max_profit": 0.006819242501225453,
-      "avg_duration_days": 28.0
+      "spread": "ZW=F",
+      "count": 10,
+      "avg_pnl": 0.020977799999999998,
+      "max_win": 0.186397,
+      "max_loss": -0.1
     },
     {
-      "market": "HENRY HUB - NEW YORK MERCANTILE EXCHANGE",
-      "total_trades": 8,
-      "win_rate": 0.5,
-      "avg_trade": 0.01985489393890906,
-      "max_profit": 0.2446764499936367,
-      "avg_duration_days": 27.125
+      "spread": "ZR=F",
+      "count": 12,
+      "avg_pnl": -0.03259516666666667,
+      "max_win": 0.056696,
+      "max_loss": -0.104586
     },
     {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "total_trades": 11,
-      "win_rate": 0.5454545454545454,
-      "avg_trade": 0.0027674280069985542,
-      "max_profit": 0.09562280451618155,
-      "avg_duration_days": 28.0
+      "spread": "6A=F",
+      "count": 13,
+      "avg_pnl": 0.005916923076923077,
+      "max_win": 0.025576,
+      "max_loss": -0.021279
     },
     {
-      "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
-      "total_trades": 7,
-      "win_rate": 0.42857142857142855,
-      "avg_trade": -0.004235998121338125,
-      "max_profit": 0.033275899631940664,
-      "avg_duration_days": 28.0
+      "spread": "NIY=F",
+      "count": 7,
+      "avg_pnl": 0.009583428571428573,
+      "max_win": 0.032732,
+      "max_loss": -0.053492
     },
     {
-      "market": "MICRO E-MINI NASDAQ-100 INDEX - CHICAGO MERCANTILE EXCHANGE",
-      "total_trades": 1,
-      "win_rate": 1.0,
-      "avg_trade": 0.1195780716897521,
-      "max_profit": 0.1195780716897521,
-      "avg_duration_days": 28.0
+      "spread": "ES=F",
+      "count": 12,
+      "avg_pnl": 0.007131833333333334,
+      "max_win": 0.046814,
+      "max_loss": -0.037509
     },
     {
-      "market": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
-      "total_trades": 3,
-      "win_rate": 0.3333333333333333,
-      "avg_trade": -0.014985979820694753,
-      "max_profit": 0.003113082730173522,
-      "avg_duration_days": 28.0
+      "spread": "CC=F",
+      "count": 8,
+      "avg_pnl": -0.006474374999999999,
+      "max_win": 0.05246,
+      "max_loss": -0.106971
     },
     {
-      "market": "NEW ZEALAND DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "total_trades": 1,
-      "win_rate": 1.0,
-      "avg_trade": 0.017043624752391073,
-      "max_profit": 0.017043624752391073,
-      "avg_duration_days": 28.0
+      "spread": "DX=F",
+      "count": 1,
+      "avg_pnl": 0.027197,
+      "max_win": 0.027197,
+      "max_loss": 0.027197
     },
     {
-      "market": "NIKKEI STOCK AVERAGE YEN DENOM - CHICAGO MERCANTILE EXCHANGE",
-      "total_trades": 1,
-      "win_rate": 0.0,
-      "avg_trade": -0.03410163094756702,
-      "max_profit": null,
-      "avg_duration_days": 28.0
+      "spread": "6J=F",
+      "count": 11,
+      "avg_pnl": 0.004686363636363636,
+      "max_win": 0.1,
+      "max_loss": -0.028205
     },
     {
-      "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
-      "total_trades": 12,
-      "win_rate": 0.4166666666666667,
-      "avg_trade": -0.02351854505723173,
-      "max_profit": 0.18036356809113707,
-      "avg_duration_days": 28.0
+      "spread": "6L=F",
+      "count": 12,
+      "avg_pnl": 0.00533575,
+      "max_win": 0.1,
+      "max_loss": -0.040653
     },
     {
-      "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
-      "total_trades": 3,
-      "win_rate": 1.0,
-      "avg_trade": 0.0836633775847746,
-      "max_profit": 0.19382695218822876,
-      "avg_duration_days": 23.333333333333332
+      "spread": "6E=F",
+      "count": 9,
+      "avg_pnl": 0.0067654444444444455,
+      "max_win": 0.1,
+      "max_loss": -0.020154
     },
     {
-      "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
-      "total_trades": 9,
-      "win_rate": 0.1111111111111111,
-      "avg_trade": -0.04293017103655486,
-      "max_profit": 0.1071863580998782,
-      "avg_duration_days": 24.88888888888889
+      "spread": "SI=F",
+      "count": 6,
+      "avg_pnl": 0.035589166666666665,
+      "max_win": 0.063083,
+      "max_loss": -0.068915
     },
     {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "total_trades": 10,
-      "win_rate": 0.6,
-      "avg_trade": 0.018295299298398238,
-      "max_profit": 0.11436462161312577,
-      "avg_duration_days": 28.0
+      "spread": "6C=F",
+      "count": 1,
+      "avg_pnl": 0.1,
+      "max_win": 0.1,
+      "max_loss": 0.1
     },
     {
-      "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
-      "total_trades": 12,
-      "win_rate": 0.5,
-      "avg_trade": -0.0019605585631966016,
-      "max_profit": 0.1014384738547165,
-      "avg_duration_days": 28.0
+      "spread": "CL=F",
+      "count": 2,
+      "avg_pnl": 0.017027,
+      "max_win": 0.1,
+      "max_loss": -0.065946
     },
     {
-      "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
-      "total_trades": 8,
-      "win_rate": 0.375,
-      "avg_trade": -0.037342449348872125,
-      "max_profit": 0.06926595512960132,
-      "avg_duration_days": 28.0
+      "spread": "6S=F",
+      "count": 1,
+      "avg_pnl": -0.1,
+      "max_win": -0.1,
+      "max_loss": -0.1
     },
     {
-      "market": "SUGAR NO. 11 - ICE FUTURES U.S.",
-      "total_trades": 10,
-      "win_rate": 0.5,
-      "avg_trade": 0.007098088209073516,
-      "max_profit": 0.11940300245664948,
-      "avg_duration_days": 25.9
-    },
-    {
-      "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
-      "total_trades": 8,
-      "win_rate": 0.5,
-      "avg_trade": -0.002443749350109048,
-      "max_profit": 0.015716248702588587,
-      "avg_duration_days": 28.0
-    },
-    {
-      "market": "U.S. DOLLAR INDEX - ICE FUTURES U.S.",
-      "total_trades": 4,
-      "win_rate": 0.75,
-      "avg_trade": 0.004354869237314374,
-      "max_profit": 0.009008064996469445,
-      "avg_duration_days": 28.0
-    },
-    {
-      "market": "UST 5Y NOTE - CHICAGO BOARD OF TRADE",
-      "total_trades": 6,
-      "win_rate": 0.5,
-      "avg_trade": -0.002181091670217572,
-      "max_profit": 0.02045186060248083,
-      "avg_duration_days": 28.0
-    },
-    {
-      "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
-      "total_trades": 3,
-      "win_rate": 0.6666666666666666,
-      "avg_trade": -0.007047393979156953,
-      "max_profit": 0.04323827046918116,
-      "avg_duration_days": 28.0
-    },
-    {
-      "market": "WTI FINANCIAL CRUDE OIL - NEW YORK MERCANTILE EXCHANGE",
-      "total_trades": 4,
-      "win_rate": 0.25,
-      "avg_trade": -0.5271196694637472,
-      "max_profit": 0.11199183406687441,
-      "avg_duration_days": 21.0
+      "spread": "NG=F",
+      "count": 2,
+      "avg_pnl": 0.1477245,
+      "max_win": 0.148262,
+      "max_loss": 0.147187
     }
   ],
   "trades": [
     {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "short",
-      "entry_date": "2019-07-01T00:00:00",
-      "exit_date": "2019-07-29T00:00:00",
-      "entry": 424.25,
-      "exit": 413.25,
-      "take_profit": 368.61506355530264,
-      "stop_loss": 479.88493644469736,
-      "return_pct": 0.02661826981246218
-    },
-    {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
-      "type": "long",
-      "entry_date": "2019-07-08T00:00:00",
-      "exit_date": "2019-08-05T00:00:00",
-      "entry": 62.33000183105469,
-      "exit": 59.0099983215332,
-      "take_profit": 80.49650070884012,
-      "stop_loss": 44.16350295326926,
-      "return_pct": -0.053264935215634135
-    },
-    {
-      "market": "HENRY HUB - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "NG=F",
-      "type": "long",
-      "entry_date": "2019-07-22T00:00:00",
-      "exit_date": "2019-08-19T00:00:00",
-      "entry": 2.242000102996826,
-      "exit": 2.1640000343322754,
-      "take_profit": 2.8815073630830748,
-      "stop_loss": 1.6024928429105776,
-      "return_pct": -0.03479039477308232
-    },
-    {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
-      "type": "long",
-      "entry_date": "2019-08-19T00:00:00",
-      "exit_date": "2019-09-16T00:00:00",
-      "entry": 59.68000030517578,
-      "exit": 61.29999923706055,
-      "take_profit": 79.11066382420329,
-      "stop_loss": 40.24933678614828,
-      "return_pct": 0.027144754081783518
-    },
-    {
-      "market": "GOLD - COMMODITY EXCHANGE INC.",
-      "ticker": "GC=F",
-      "type": "short",
-      "entry_date": "2019-08-19T00:00:00",
-      "exit_date": "2019-09-16T00:00:00",
-      "entry": 1507.199951171875,
-      "exit": 1506.5999755859375,
-      "take_profit": 1327.6343231781175,
-      "stop_loss": 1686.7655791656325,
-      "return_pct": 0.000398231511788083
-    },
-    {
-      "market": "HENRY HUB - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "NG=F",
-      "type": "long",
-      "entry_date": "2019-09-02T00:00:00",
-      "exit_date": "2019-09-30T00:00:00",
-      "entry": 2.2880001068115234,
-      "exit": 2.380000114440918,
-      "take_profit": 2.823548453577212,
-      "stop_loss": 1.752451760045835,
-      "return_pct": 0.040209791667187744
-    },
-    {
-      "market": "NEW ZEALAND DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6N=F",
-      "type": "long",
-      "entry_date": "2019-09-23T00:00:00",
-      "exit_date": "2019-10-21T00:00:00",
-      "entry": 0.6277999877929688,
-      "exit": 0.6384999752044678,
-      "take_profit": 0.6685783784672993,
-      "stop_loss": 0.5870215971186382,
-      "return_pct": 0.017043624752391073
-    },
-    {
-      "market": "GOLD - COMMODITY EXCHANGE INC.",
-      "ticker": "GC=F",
-      "type": "short",
-      "entry_date": "2019-09-30T00:00:00",
-      "exit_date": "2019-10-28T00:00:00",
-      "entry": 1495.9000244140625,
-      "exit": 1504.0999755859375,
-      "take_profit": 1347.037542333761,
-      "stop_loss": 1644.762506494364,
-      "return_pct": -0.005451732800328402
-    },
-    {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
-      "type": "long",
-      "entry_date": "2019-10-07T00:00:00",
-      "exit_date": "2019-11-04T00:00:00",
-      "entry": 60.75,
-      "exit": 64.7300033569336,
-      "take_profit": 77.6254609174941,
-      "stop_loss": 43.874539082505905,
-      "return_pct": 0.06551445855034732
-    },
-    {
-      "market": "HENRY HUB - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "NG=F",
-      "type": "long",
-      "entry_date": "2019-10-14T00:00:00",
-      "exit_date": "2019-11-04T00:00:00",
-      "entry": 2.23799991607666,
-      "exit": 2.785585790628354,
-      "take_profit": 2.785585790628354,
-      "stop_loss": 1.6904140415249662,
-      "return_pct": 0.2446764499936367
-    },
-    {
-      "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PL=F",
-      "type": "short",
-      "entry_date": "2019-11-04T00:00:00",
-      "exit_date": "2019-12-02T00:00:00",
-      "entry": 935.0999755859376,
-      "exit": 897.2999877929688,
-      "take_profit": 800.7466583541875,
-      "stop_loss": 1069.4532928176877,
-      "return_pct": 0.042126366106326474
-    },
-    {
-      "market": "GOLD - COMMODITY EXCHANGE INC.",
-      "ticker": "GC=F",
-      "type": "short",
-      "entry_date": "2019-11-18T00:00:00",
-      "exit_date": "2019-12-16T00:00:00",
-      "entry": 1472.0,
-      "exit": 1473.800048828125,
-      "take_profit": 1365.3854112238023,
-      "stop_loss": 1578.6145887761977,
-      "return_pct": -0.0012213656998832922
-    },
-    {
-      "market": "COCOA - ICE FUTURES U.S.",
-      "ticker": "CC=F",
-      "type": "short",
-      "entry_date": "2019-11-25T00:00:00",
-      "exit_date": "2019-12-23T00:00:00",
-      "entry": 2684.0,
-      "exit": 2409.0,
-      "take_profit": 2052.327327084678,
-      "stop_loss": 3315.672672915322,
-      "return_pct": 0.11415525114155245
-    },
-    {
-      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "EURGBP=X",
-      "type": "long",
-      "entry_date": "2019-12-23T00:00:00",
-      "exit_date": "2020-01-20T00:00:00",
-      "entry": 0.8518999814987183,
-      "exit": 0.8528900146484375,
-      "take_profit": 0.9229760116328435,
-      "stop_loss": 0.780823951364593,
-      "return_pct": 0.0011621471665927974
-    },
-    {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2019-12-23T00:00:00",
-      "exit_date": "2020-01-20T00:00:00",
-      "entry": 130.39999389648438,
-      "exit": 111.5,
-      "take_profit": 97.82084136337775,
-      "stop_loss": 162.979146429591,
-      "return_pct": 0.16950667171734857
-    },
-    {
-      "market": "GOLD - COMMODITY EXCHANGE INC.",
-      "ticker": "GC=F",
-      "type": "short",
-      "entry_date": "2020-01-06T00:00:00",
-      "exit_date": "2020-02-03T00:00:00",
-      "entry": 1580.0,
-      "exit": 1592.9000244140625,
-      "take_profit": 1383.896081770546,
-      "stop_loss": 1776.103918229454,
-      "return_pct": -0.00809845201603765
-    },
-    {
-      "market": "HENRY HUB - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "NG=F",
-      "type": "long",
-      "entry_date": "2020-01-06T00:00:00",
-      "exit_date": "2020-02-03T00:00:00",
-      "entry": 2.111999988555908,
-      "exit": 1.8519999980926516,
-      "take_profit": 2.7178923186619937,
-      "stop_loss": 1.5061076584498228,
-      "return_pct": -0.1231060567576201
-    },
-    {
-      "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZR=F",
-      "type": "short",
-      "entry_date": "2020-01-06T00:00:00",
-      "exit_date": "2020-02-03T00:00:00",
-      "entry": 1286.5,
-      "exit": 1357.5,
-      "take_profit": 1143.6126711533998,
-      "stop_loss": 1429.3873288466002,
-      "return_pct": -0.05230202578268872
-    },
-    {
-      "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PL=F",
-      "type": "short",
-      "entry_date": "2020-01-13T00:00:00",
-      "exit_date": "2020-02-10T00:00:00",
-      "entry": 978.7999877929688,
-      "exit": 964.2999877929688,
-      "take_profit": 808.1843139820322,
-      "stop_loss": 1149.4156616039054,
-      "return_pct": 0.015036814459768566
-    },
-    {
-      "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6S=F",
-      "type": "short",
-      "entry_date": "2020-02-03T00:00:00",
-      "exit_date": "2020-03-02T00:00:00",
-      "entry": 1.041200041770935,
-      "exit": 1.0391000509262085,
-      "take_profit": 1.0095734247584016,
-      "stop_loss": 1.0728266587834685,
-      "return_pct": 0.002020970784146092
-    },
-    {
-      "market": "COCOA - ICE FUTURES U.S.",
-      "ticker": "CC=F",
-      "type": "short",
-      "entry_date": "2020-02-03T00:00:00",
-      "exit_date": "2020-03-02T00:00:00",
-      "entry": 2753.0,
-      "exit": 2748.0,
-      "take_profit": 2101.1445254742757,
-      "stop_loss": 3404.8554745257243,
-      "return_pct": 0.001819505094614371
-    },
-    {
-      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "EURGBP=X",
-      "type": "long",
-      "entry_date": "2020-02-03T00:00:00",
-      "exit_date": "2020-03-02T00:00:00",
-      "entry": 0.8412399888038635,
-      "exit": 0.8630399703979492,
-      "take_profit": 0.9203804876635082,
-      "stop_loss": 0.7620994899442188,
-      "return_pct": 0.025914105230639972
-    },
-    {
-      "market": "GOLD - COMMODITY EXCHANGE INC.",
-      "ticker": "GC=F",
-      "type": "short",
-      "entry_date": "2020-02-17T00:00:00",
-      "exit_date": "2020-03-16T00:00:00",
-      "entry": 1579.800048828125,
-      "exit": 1569.0999755859375,
-      "take_profit": 1405.528164507709,
-      "stop_loss": 1754.071933148541,
-      "return_pct": 0.006819242501225453
-    },
-    {
-      "market": "HENRY HUB - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "NG=F",
-      "type": "long",
-      "entry_date": "2020-02-17T00:00:00",
-      "exit_date": "2020-03-16T00:00:00",
-      "entry": 1.8799999952316284,
-      "exit": 1.8539999723434448,
-      "take_profit": 2.645072943365424,
-      "stop_loss": 1.114927047097833,
-      "return_pct": -0.013829799443685786
-    },
-    {
-      "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZR=F",
-      "type": "short",
-      "entry_date": "2020-02-17T00:00:00",
-      "exit_date": "2020-03-16T00:00:00",
-      "entry": 1330.5,
-      "exit": 1334.5,
-      "take_profit": 1161.9640845070423,
-      "stop_loss": 1499.0359154929577,
-      "return_pct": -0.002997377294867043
-    },
-    {
-      "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PL=F",
-      "type": "short",
-      "entry_date": "2020-02-24T00:00:00",
-      "exit_date": "2020-03-09T00:00:00",
-      "entry": 971.7000122070312,
-      "exit": 813.9370705494216,
-      "take_profit": 813.9370705494216,
-      "stop_loss": 1129.462953864641,
-      "return_pct": 0.19382695218822876
-    },
-    {
-      "market": "HENRY HUB - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "NG=F",
-      "type": "long",
-      "entry_date": "2020-03-30T00:00:00",
-      "exit_date": "2020-04-27T00:00:00",
-      "entry": 1.6299999952316284,
-      "exit": 1.7009999752044678,
-      "take_profit": 2.561011659060769,
-      "stop_loss": 0.6989883314024876,
-      "return_pct": 0.04355827004941193
-    },
-    {
-      "market": "DJIA Consolidated - CHICAGO BOARD OF TRADE",
-      "ticker": "YM=F",
-      "type": "long",
-      "entry_date": "2020-04-06T00:00:00",
-      "exit_date": "2020-05-04T00:00:00",
-      "entry": 20944.0,
-      "exit": 23364.0,
-      "take_profit": 27933.880770696895,
-      "stop_loss": 13954.119229303105,
-      "return_pct": 0.11554621848739499
-    },
-    {
-      "market": "WTI FINANCIAL CRUDE OIL - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "CL=F",
-      "type": "long",
-      "entry_date": "2020-04-20T00:00:00",
-      "exit_date": "2020-04-20T00:00:00",
-      "entry": 17.729999542236328,
-      "exit": -19.739391254500227,
-      "take_profit": 55.19939033897288,
-      "stop_loss": -19.739391254500227,
-      "return_pct": -2.1133328688180244
-    },
-    {
-      "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6S=F",
-      "type": "short",
-      "entry_date": "2020-05-04T00:00:00",
-      "exit_date": "2020-06-01T00:00:00",
-      "entry": 1.0406999588012695,
-      "exit": 1.0405000448226929,
-      "take_profit": 1.0127744769400215,
-      "stop_loss": 1.0686254406625175,
-      "return_pct": 0.00019213259967787444
-    },
-    {
-      "market": "HENRY HUB - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "NG=F",
-      "type": "long",
-      "entry_date": "2020-05-11T00:00:00",
-      "exit_date": "2020-06-08T00:00:00",
-      "entry": 1.838000059127808,
-      "exit": 1.809999942779541,
-      "take_profit": 2.4891778597277177,
-      "stop_loss": 1.1868222585278985,
-      "return_pct": -0.01523401275708014
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "long",
-      "entry_date": "2020-05-11T00:00:00",
-      "exit_date": "2020-06-08T00:00:00",
-      "entry": 320.0,
-      "exit": 333.5,
-      "take_profit": 369.4005596505598,
-      "stop_loss": 270.5994403494402,
-      "return_pct": 0.042187500000000044
-    },
-    {
-      "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZR=F",
-      "type": "short",
-      "entry_date": "2020-05-11T00:00:00",
-      "exit_date": "2020-06-01T00:00:00",
-      "entry": 1751.0,
-      "exit": 2288.058592683592,
-      "take_profit": 1213.9414073164078,
-      "stop_loss": 2288.058592683592,
-      "return_pct": -0.23472239496004033
-    },
-    {
-      "market": "DJIA Consolidated - CHICAGO BOARD OF TRADE",
-      "ticker": "YM=F",
-      "type": "long",
-      "entry_date": "2020-05-18T00:00:00",
-      "exit_date": "2020-06-15T00:00:00",
-      "entry": 23600.0,
-      "exit": 25176.0,
-      "take_profit": 27862.80895702869,
-      "stop_loss": 19337.19104297131,
-      "return_pct": 0.0667796610169491
-    },
-    {
-      "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6S=F",
-      "type": "short",
-      "entry_date": "2020-06-15T00:00:00",
-      "exit_date": "2020-07-13T00:00:00",
-      "entry": 1.0499000549316406,
-      "exit": 1.0652999877929688,
-      "take_profit": 1.0144290863301786,
-      "stop_loss": 1.0853710235331027,
-      "return_pct": -0.014455958920297052
-    },
-    {
-      "market": "HENRY HUB - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "NG=F",
-      "type": "long",
-      "entry_date": "2020-06-22T00:00:00",
-      "exit_date": "2020-07-20T00:00:00",
-      "entry": 1.6710000038146973,
-      "exit": 1.7000000476837158,
-      "take_profit": 2.4179579681134213,
-      "stop_loss": 0.9240420395159732,
-      "return_pct": 0.017354903532504462
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "long",
-      "entry_date": "2020-06-22T00:00:00",
-      "exit_date": "2020-07-20T00:00:00",
-      "entry": 332.0,
-      "exit": 333.0,
-      "take_profit": 366.0307684741983,
-      "stop_loss": 297.9692315258017,
-      "return_pct": 0.003012048192771122
-    },
-    {
-      "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZR=F",
-      "type": "short",
-      "entry_date": "2020-06-22T00:00:00",
-      "exit_date": "2020-06-29T00:00:00",
-      "entry": 1404.0,
-      "exit": 1558.9660677988327,
-      "take_profit": 1249.0339322011673,
-      "stop_loss": 1558.9660677988327,
-      "return_pct": -0.09940310504489402
-    },
-    {
-      "market": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "NQ=F",
-      "type": "short",
-      "entry_date": "2020-07-13T00:00:00",
-      "exit_date": "2020-08-10T00:00:00",
-      "entry": 10848.25,
-      "exit": 11140.25,
-      "take_profit": 8795.987527372632,
-      "stop_loss": 12900.512472627368,
-      "return_pct": -0.026211260968111105
-    },
-    {
-      "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6S=F",
-      "type": "short",
-      "entry_date": "2020-07-27T00:00:00",
-      "exit_date": "2020-08-24T00:00:00",
-      "entry": 1.0871000289916992,
-      "exit": 1.0972000360488892,
-      "take_profit": 1.0184231161430775,
-      "stop_loss": 1.155776941840321,
-      "return_pct": -0.009205255856134409
-    },
-    {
-      "market": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6E=F",
-      "type": "short",
-      "entry_date": "2020-08-03T00:00:00",
-      "exit_date": "2020-08-31T00:00:00",
-      "entry": 1.1778000593185425,
-      "exit": 1.1914000511169434,
-      "take_profit": 1.127743560298967,
-      "stop_loss": 1.227856558338118,
-      "return_pct": -0.011415134476157496
-    },
-    {
-      "market": "U.S. DOLLAR INDEX - ICE FUTURES U.S.",
-      "ticker": "DX-Y.NYB",
-      "type": "long",
-      "entry_date": "2020-08-10T00:00:00",
-      "exit_date": "2020-09-07T00:00:00",
-      "entry": 93.38999938964844,
-      "exit": 93.0500030517578,
-      "take_profit": 97.49206759991132,
-      "stop_loss": 89.28793117938555,
-      "return_pct": -0.0036406075609025645
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "long",
-      "entry_date": "2020-08-17T00:00:00",
-      "exit_date": "2020-09-07T00:00:00",
-      "entry": 327.0,
-      "exit": 362.02300072606545,
-      "take_profit": 362.02300072606545,
-      "stop_loss": 291.97699927393455,
-      "return_pct": 0.1071039777555518
-    },
-    {
-      "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6S=F",
-      "type": "short",
-      "entry_date": "2020-09-07T00:00:00",
-      "exit_date": "2020-10-05T00:00:00",
-      "entry": 1.0946999788284302,
-      "exit": 1.0889999866485596,
-      "take_profit": 1.0242229362020356,
-      "stop_loss": 1.1651770214548247,
-      "return_pct": 0.0052341526627677215
-    },
-    {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2020-09-07T00:00:00",
-      "exit_date": "2020-10-05T00:00:00",
-      "entry": 129.0,
-      "exit": 108.6500015258789,
-      "take_profit": 97.12825201105998,
-      "stop_loss": 160.87174798894,
-      "return_pct": 0.18729864876508096
-    },
-    {
-      "market": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6E=F",
-      "type": "short",
-      "entry_date": "2020-09-14T00:00:00",
-      "exit_date": "2020-10-12T00:00:00",
-      "entry": 1.1840499639511108,
-      "exit": 1.1821000576019287,
-      "take_profit": 1.1317604125178797,
-      "stop_loss": 1.236339515384342,
-      "return_pct": 0.0016495273277779
-    },
-    {
-      "market": "U.S. DOLLAR INDEX - ICE FUTURES U.S.",
-      "ticker": "DX-Y.NYB",
-      "type": "long",
-      "entry_date": "2020-09-21T00:00:00",
-      "exit_date": "2020-10-19T00:00:00",
-      "entry": 93.01000213623048,
-      "exit": 93.72000122070312,
-      "take_profit": 97.22967374915456,
-      "stop_loss": 88.79033052330641,
-      "return_pct": 0.0076335777676117544
-    },
-    {
-      "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
-      "ticker": "ZS=F",
-      "type": "short",
-      "entry_date": "2020-09-21T00:00:00",
-      "exit_date": "2020-10-19T00:00:00",
-      "entry": 1041.0,
-      "exit": 1051.25,
-      "take_profit": 887.5715390797675,
-      "stop_loss": 1194.4284609202325,
-      "return_pct": -0.009750297265160524
-    },
-    {
-      "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6S=F",
-      "type": "short",
-      "entry_date": "2020-10-19T00:00:00",
-      "exit_date": "2020-11-16T00:00:00",
-      "entry": 1.0946999788284302,
-      "exit": 1.096400022506714,
-      "take_profit": 1.029359137755015,
-      "stop_loss": 1.1600408199018453,
-      "return_pct": -0.001550568810092745
-    },
-    {
-      "market": "COPPER-GRADE #1 - COMMODITY EXCHANGE INC.",
-      "ticker": "HG=F",
-      "type": "short",
-      "entry_date": "2020-10-26T00:00:00",
-      "exit_date": "2020-11-23T00:00:00",
-      "entry": 3.1085000038146973,
-      "exit": 3.2785000801086426,
-      "take_profit": 2.8106313529067517,
-      "stop_loss": 3.406368654722643,
-      "return_pct": -0.05185300355042599
-    },
-    {
-      "market": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "NQ=F",
-      "type": "short",
-      "entry_date": "2020-10-26T00:00:00",
-      "exit_date": "2020-11-23T00:00:00",
-      "entry": 11634.0,
-      "exit": 11894.0,
-      "take_profit": 9489.062060204622,
-      "stop_loss": 13778.937939795378,
-      "return_pct": -0.02185976122414668
-    },
-    {
-      "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
-      "ticker": "ZS=F",
-      "type": "short",
-      "entry_date": "2020-11-02T00:00:00",
-      "exit_date": "2020-11-30T00:00:00",
-      "entry": 1053.5,
-      "exit": 1198.0,
-      "take_profit": 898.4645372574059,
-      "stop_loss": 1208.535462742594,
-      "return_pct": -0.12061769616026707
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "short",
-      "entry_date": "2020-11-09T00:00:00",
-      "exit_date": "2020-12-07T00:00:00",
-      "entry": 405.75,
-      "exit": 415.25,
-      "take_profit": 365.00010095571395,
-      "stop_loss": 446.49989904428605,
-      "return_pct": -0.022877784467188467
-    },
-    {
-      "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6S=F",
-      "type": "short",
-      "entry_date": "2020-11-30T00:00:00",
-      "exit_date": "2020-12-28T00:00:00",
-      "entry": 1.1059000492095947,
-      "exit": 1.125599980354309,
-      "take_profit": 1.0348419054548046,
-      "stop_loss": 1.1769581929643849,
-      "return_pct": -0.017501715963528452
-    },
-    {
-      "market": "COPPER-GRADE #1 - COMMODITY EXCHANGE INC.",
-      "ticker": "HG=F",
-      "type": "short",
-      "entry_date": "2020-12-07T00:00:00",
-      "exit_date": "2021-01-04T00:00:00",
-      "entry": 3.49399995803833,
-      "exit": 3.559000015258789,
-      "take_profit": 2.854770342157816,
-      "stop_loss": 4.133229573918844,
-      "return_pct": -0.018263573178358805
-    },
-    {
-      "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
-      "ticker": "ZS=F",
-      "type": "short",
-      "entry_date": "2020-12-14T00:00:00",
-      "exit_date": "2021-01-11T00:00:00",
-      "entry": 1164.75,
-      "exit": 1381.5,
-      "take_profit": 916.8994042291337,
-      "stop_loss": 1412.6005957708662,
-      "return_pct": -0.1568946796959826
-    },
-    {
-      "market": "U.S. DOLLAR INDEX - ICE FUTURES U.S.",
-      "ticker": "DX-Y.NYB",
-      "type": "long",
-      "entry_date": "2020-12-21T00:00:00",
-      "exit_date": "2021-01-18T00:00:00",
-      "entry": 89.91999816894531,
-      "exit": 90.7300033569336,
-      "take_profit": 96.5589604469304,
-      "stop_loss": 83.28103589096023,
-      "return_pct": 0.009008064996469445
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "short",
-      "entry_date": "2020-12-21T00:00:00",
-      "exit_date": "2021-01-11T00:00:00",
-      "entry": 438.0,
-      "exit": 506.41095522277385,
-      "take_profit": 369.58904477722615,
-      "stop_loss": 506.41095522277385,
-      "return_pct": -0.13508980111356272
-    },
-    {
-      "market": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "NQ=F",
-      "type": "short",
-      "entry_date": "2021-01-04T00:00:00",
-      "exit_date": "2021-02-01T00:00:00",
-      "entry": 12889.0,
-      "exit": 12849.0,
-      "take_profit": 10024.582186026619,
-      "stop_loss": 15753.417813973381,
-      "return_pct": 0.003113082730173522
-    },
-    {
-      "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6S=F",
-      "type": "short",
-      "entry_date": "2021-01-11T00:00:00",
-      "exit_date": "2021-02-08T00:00:00",
-      "entry": 1.13100004196167,
-      "exit": 1.1134999990463257,
-      "take_profit": 1.0416868253351799,
-      "stop_loss": 1.22031325858816,
-      "return_pct": 0.015716248702588587
-    },
-    {
-      "market": "COPPER-GRADE #1 - COMMODITY EXCHANGE INC.",
-      "ticker": "HG=F",
-      "type": "short",
-      "entry_date": "2021-01-18T00:00:00",
-      "exit_date": "2021-02-15T00:00:00",
-      "entry": 3.619999885559082,
-      "exit": 3.8424999713897705,
-      "take_profit": 2.9145130050450185,
-      "stop_loss": 4.325486766073146,
-      "return_pct": -0.05790503252761603
-    },
-    {
-      "market": "SUGAR NO. 11 - ICE FUTURES U.S.",
-      "ticker": "SB=F",
-      "type": "short",
-      "entry_date": "2021-01-18T00:00:00",
-      "exit_date": "2021-02-15T00:00:00",
-      "entry": 16.5,
-      "exit": 16.540000915527344,
-      "take_profit": 12.441448011266854,
-      "stop_loss": 20.558551988733146,
-      "return_pct": -0.002418434904062905
-    },
-    {
-      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6A=F",
-      "type": "short",
-      "entry_date": "2021-01-25T00:00:00",
-      "exit_date": "2021-02-22T00:00:00",
-      "entry": 0.7717499732971191,
-      "exit": 0.7872499823570251,
-      "take_profit": 0.6892133367198592,
-      "stop_loss": 0.8542866098743791,
-      "return_pct": -0.01968880204163237
-    },
-    {
-      "market": "U.S. DOLLAR INDEX - ICE FUTURES U.S.",
-      "ticker": "DX-Y.NYB",
-      "type": "long",
-      "entry_date": "2021-02-01T00:00:00",
-      "exit_date": "2021-03-01T00:00:00",
-      "entry": 90.52999877929688,
-      "exit": 90.93000030517578,
-      "take_profit": 96.15676485682651,
-      "stop_loss": 84.90323270176724,
-      "return_pct": 0.0044184417460788605
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "short",
-      "entry_date": "2021-02-01T00:00:00",
-      "exit_date": "2021-03-01T00:00:00",
-      "entry": 549.0,
-      "exit": 560.5,
-      "take_profit": 380.1393645544732,
-      "stop_loss": 717.8606354455268,
-      "return_pct": -0.020517395182872433
-    },
-    {
-      "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
-      "ticker": "ZS=F",
-      "type": "short",
-      "entry_date": "2021-02-15T00:00:00",
-      "exit_date": "2021-03-15T00:00:00",
-      "entry": 1385.75,
-      "exit": 1409.25,
-      "take_profit": 960.8868650204885,
-      "stop_loss": 1810.6131349795114,
-      "return_pct": -0.01667553663296084
-    },
-    {
-      "market": "COPPER-GRADE #1 - COMMODITY EXCHANGE INC.",
-      "ticker": "HG=F",
-      "type": "short",
-      "entry_date": "2021-03-01T00:00:00",
-      "exit_date": "2021-03-29T00:00:00",
-      "entry": 4.110499858856201,
-      "exit": 4.065000057220459,
-      "take_profit": 2.990103976460734,
-      "stop_loss": 5.230895741251668,
-      "return_pct": 0.011193062975466184
-    },
-    {
-      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6A=F",
-      "type": "short",
-      "entry_date": "2021-03-08T00:00:00",
-      "exit_date": "2021-04-05T00:00:00",
-      "entry": 0.7696499824523926,
-      "exit": 0.7620499730110168,
-      "take_profit": 0.6934091099812796,
-      "stop_loss": 0.8458908549235056,
-      "return_pct": 0.00997311162068093
-    },
-    {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2021-03-08T00:00:00",
-      "exit_date": "2021-04-05T00:00:00",
-      "entry": 129.0500030517578,
-      "exit": 121.4000015258789,
-      "take_profit": 99.68329727236402,
-      "stop_loss": 158.4167088311516,
-      "return_pct": 0.06301483879510617
-    },
-    {
-      "market": "SUGAR NO. 11 - ICE FUTURES U.S.",
-      "ticker": "SB=F",
-      "type": "short",
-      "entry_date": "2021-03-08T00:00:00",
-      "exit_date": "2021-04-05T00:00:00",
-      "entry": 16.5,
-      "exit": 14.739999771118164,
-      "take_profit": 12.711534665753273,
-      "stop_loss": 20.288465334246727,
-      "return_pct": 0.11940300245664948
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "short",
-      "entry_date": "2021-03-15T00:00:00",
-      "exit_date": "2021-04-12T00:00:00",
-      "entry": 537.0,
-      "exit": 577.75,
-      "take_profit": 392.33283163705346,
-      "stop_loss": 681.6671683629465,
-      "return_pct": -0.07053223712678491
-    },
-    {
-      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6A=F",
-      "type": "short",
-      "entry_date": "2021-04-19T00:00:00",
-      "exit_date": "2021-05-17T00:00:00",
-      "entry": 0.7716500163078308,
-      "exit": 0.7760000228881836,
-      "take_profit": 0.696983905620308,
-      "stop_loss": 0.8463161269953536,
-      "return_pct": -0.005605678417588855
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "short",
-      "entry_date": "2021-04-26T00:00:00",
-      "exit_date": "2021-05-24T00:00:00",
-      "entry": 661.0,
-      "exit": 652.25,
-      "take_profit": 407.9694074728055,
-      "stop_loss": 914.0305925271945,
-      "return_pct": 0.013415101571483401
-    },
-    {
-      "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
-      "ticker": "ZS=F",
-      "type": "short",
-      "entry_date": "2021-05-03T00:00:00",
-      "exit_date": "2021-05-31T00:00:00",
-      "entry": 1579.0,
-      "exit": 1542.0,
-      "take_profit": 1022.5432028222208,
-      "stop_loss": 2135.456797177779,
-      "return_pct": 0.023994811932555038
-    },
-    {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2021-05-10T00:00:00",
-      "exit_date": "2021-06-07T00:00:00",
-      "entry": 153.0,
-      "exit": 161.8000030517578,
-      "take_profit": 101.91809471629648,
-      "stop_loss": 204.08190528370352,
-      "return_pct": -0.05438815133361152
-    },
-    {
-      "market": "SUGAR NO. 11 - ICE FUTURES U.S.",
-      "ticker": "SB=F",
-      "type": "short",
-      "entry_date": "2021-05-10T00:00:00",
-      "exit_date": "2021-06-07T00:00:00",
-      "entry": 17.350000381469727,
-      "exit": 17.729999542236328,
-      "take_profit": 12.997993308062515,
-      "stop_loss": 21.702007454876938,
-      "return_pct": -0.0214325533320725
-    },
-    {
-      "market": "CANADIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6C=F",
-      "type": "short",
-      "entry_date": "2021-05-17T00:00:00",
-      "exit_date": "2021-06-14T00:00:00",
-      "entry": 0.8268499970436096,
-      "exit": 0.8220499753952026,
-      "take_profit": 0.7492912065206953,
-      "stop_loss": 0.904408787566524,
-      "return_pct": 0.005839087393803899
-    },
-    {
-      "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6A=F",
-      "type": "short",
-      "entry_date": "2021-05-31T00:00:00",
-      "exit_date": "2021-06-28T00:00:00",
-      "entry": 0.7710000276565552,
-      "exit": 0.7590000033378601,
-      "take_profit": 0.7008487437585182,
-      "stop_loss": 0.8411513115545921,
-      "return_pct": 0.015810308650754168
-    },
-    {
-      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "EURGBP=X",
-      "type": "long",
-      "entry_date": "2021-05-31T00:00:00",
-      "exit_date": "2021-06-28T00:00:00",
-      "entry": 0.8595399856567383,
-      "exit": 0.8592699766159058,
-      "take_profit": 0.9230864812262746,
-      "stop_loss": 0.795993490087202,
-      "return_pct": -0.00031413203031649406
-    },
-    {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2021-06-21T00:00:00",
-      "exit_date": "2021-07-19T00:00:00",
-      "entry": 149.0500030517578,
-      "exit": 159.5,
-      "take_profit": 104.80590702948399,
-      "stop_loss": 193.29409907403164,
-      "return_pct": -0.06551722224603251
-    },
-    {
-      "market": "SUGAR NO. 11 - ICE FUTURES U.S.",
-      "ticker": "SB=F",
-      "type": "short",
-      "entry_date": "2021-06-21T00:00:00",
-      "exit_date": "2021-07-19T00:00:00",
-      "entry": 16.420000076293945,
-      "exit": 17.700000762939453,
-      "take_profit": 13.228862608476057,
-      "stop_loss": 19.611137544111834,
-      "return_pct": -0.07231641985720105
-    },
-    {
-      "market": "CANADIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6C=F",
-      "type": "short",
-      "entry_date": "2021-06-28T00:00:00",
-      "exit_date": "2021-07-26T00:00:00",
-      "entry": 0.812749981880188,
-      "exit": 0.7958999872207642,
-      "take_profit": 0.7531147363320203,
-      "stop_loss": 0.8723852274283557,
-      "return_pct": 0.021170995011902116
-    },
-    {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2021-08-02T00:00:00",
-      "exit_date": "2021-08-30T00:00:00",
-      "entry": 179.35000610351562,
-      "exit": 190.5500030517578,
-      "take_profit": 108.31503652242121,
-      "stop_loss": 250.38497568461003,
-      "return_pct": -0.058777206868897314
-    },
-    {
-      "market": "SUGAR NO. 11 - ICE FUTURES U.S.",
-      "ticker": "SB=F",
-      "type": "short",
-      "entry_date": "2021-08-09T00:00:00",
-      "exit_date": "2021-09-06T00:00:00",
-      "entry": 18.59000015258789,
-      "exit": 19.6299991607666,
-      "take_profit": 13.57099802921218,
-      "stop_loss": 23.6090022759636,
-      "return_pct": -0.05298008418957545
-    },
-    {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
-      "type": "short",
-      "entry_date": "2021-08-16T00:00:00",
-      "exit_date": "2021-09-13T00:00:00",
-      "entry": 94.9800033569336,
-      "exit": 94.18000030517578,
-      "take_profit": 76.68962693435405,
-      "stop_loss": 113.27037977951314,
-      "return_pct": 0.008494404854167747
-    },
-    {
-      "market": "SUGAR NO. 11 - ICE FUTURES U.S.",
-      "ticker": "SB=F",
-      "type": "short",
-      "entry_date": "2021-09-20T00:00:00",
-      "exit_date": "2021-10-18T00:00:00",
-      "entry": 19.0,
-      "exit": 19.770000457763672,
-      "take_profit": 13.918381627695414,
-      "stop_loss": 24.081618372304586,
-      "return_pct": -0.03894792311253048
-    },
-    {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
-      "type": "short",
-      "entry_date": "2021-09-27T00:00:00",
-      "exit_date": "2021-10-25T00:00:00",
-      "entry": 98.91000366210938,
-      "exit": 107.83999633789062,
-      "take_profit": 78.21145764472593,
-      "stop_loss": 119.60854967949282,
-      "return_pct": -0.08280779839607255
-    },
-    {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2021-09-27T00:00:00",
-      "exit_date": "2021-10-25T00:00:00",
-      "entry": 193.6000061035156,
-      "exit": 199.9499969482422,
-      "take_profit": 114.46626222003012,
-      "stop_loss": 272.7337499870011,
-      "return_pct": -0.031757894181765445
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "long",
-      "entry_date": "2021-11-01T00:00:00",
-      "exit_date": "2021-11-29T00:00:00",
-      "entry": 0.0087649999186396,
-      "exit": 0.0088170003145933,
-      "take_profit": 0.009422798572956945,
-      "stop_loss": 0.008107201264322253,
-      "return_pct": 0.005932732052069678
-    },
-    {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2021-11-08T00:00:00",
-      "exit_date": "2021-12-06T00:00:00",
-      "entry": 203.6000061035156,
-      "exit": 244.5,
-      "take_profit": 119.81300523988445,
-      "stop_loss": 287.38700696714676,
-      "return_pct": -0.16728013863592806
-    },
-    {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
-      "type": "short",
-      "entry_date": "2021-11-15T00:00:00",
-      "exit_date": "2021-12-13T00:00:00",
-      "entry": 117.6500015258789,
-      "exit": 106.2300033569336,
-      "take_profit": 81.07288388240082,
-      "stop_loss": 154.227119169357,
-      "return_pct": 0.10750256808873515
-    },
-    {
-      "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
-      "ticker": "ZW=F",
-      "type": "short",
-      "entry_date": "2021-12-06T00:00:00",
-      "exit_date": "2022-01-03T00:00:00",
-      "entry": 799.75,
-      "exit": 774.0,
-      "take_profit": 609.4240726780304,
-      "stop_loss": 990.0759273219696,
-      "return_pct": 0.033268733850129184
-    },
-    {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2021-12-20T00:00:00",
-      "exit_date": "2022-01-17T00:00:00",
-      "entry": 224.3999938964844,
-      "exit": 236.6499938964844,
-      "take_profit": 126.8315270459855,
-      "stop_loss": 321.9684607469833,
-      "return_pct": -0.05176421008216214
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "long",
-      "entry_date": "2022-01-24T00:00:00",
-      "exit_date": "2022-02-21T00:00:00",
-      "entry": 0.0087879998609423,
-      "exit": 0.0087000001221895,
-      "take_profit": 0.00936775689170158,
-      "stop_loss": 0.008208242830183019,
-      "return_pct": -0.010013625414801108
-    },
-    {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2022-01-31T00:00:00",
-      "exit_date": "2022-02-28T00:00:00",
-      "entry": 235.3500061035156,
-      "exit": 239.5,
-      "take_profit": 133.46456783785143,
-      "stop_loss": 337.23544436917973,
-      "return_pct": -0.01732774069513321
-    },
-    {
-      "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZM=F",
-      "type": "short",
-      "entry_date": "2022-02-21T00:00:00",
-      "exit_date": "2022-03-21T00:00:00",
-      "entry": 448.5,
-      "exit": 477.1000061035156,
-      "take_profit": 353.47949411740365,
-      "stop_loss": 543.5205058825964,
-      "return_pct": -0.05994551611326182
-    },
-    {
-      "market": "WTI FINANCIAL CRUDE OIL - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "CL=F",
-      "type": "short",
-      "entry_date": "2022-03-14T00:00:00",
-      "exit_date": "2022-04-11T00:00:00",
-      "entry": 109.41999816894533,
-      "exit": 98.4000015258789,
-      "take_profit": 62.30943522332224,
-      "stop_loss": 156.5305611145684,
-      "return_pct": 0.11199183406687441
-    },
-    {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2022-03-14T00:00:00",
-      "exit_date": "2022-04-11T00:00:00",
-      "entry": 220.5,
-      "exit": 231.6499938964844,
-      "take_profit": 139.60039121619198,
-      "stop_loss": 301.39960878380805,
-      "return_pct": -0.04813293412589903
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "short",
-      "entry_date": "2022-03-21T00:00:00",
-      "exit_date": "2022-04-18T00:00:00",
-      "entry": 746.5,
-      "exit": 791.0,
-      "take_profit": 502.65443161416147,
-      "stop_loss": 990.3455683858385,
-      "return_pct": -0.05625790139064479
-    },
-    {
-      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "EURGBP=X",
-      "type": "long",
-      "entry_date": "2022-03-28T00:00:00",
-      "exit_date": "2022-04-25T00:00:00",
-      "entry": 0.8335999846458435,
-      "exit": 0.8425999879837036,
-      "take_profit": 0.9067883847558404,
-      "stop_loss": 0.7604115845358466,
-      "return_pct": 0.010796549308579761
-    },
-    {
-      "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZM=F",
-      "type": "short",
-      "entry_date": "2022-04-04T00:00:00",
-      "exit_date": "2022-05-02T00:00:00",
-      "entry": 451.0,
-      "exit": 441.7000122070313,
-      "take_profit": 361.3618569359818,
-      "stop_loss": 540.6381430640182,
-      "return_pct": 0.021054986497509143
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "long",
-      "entry_date": "2022-04-11T00:00:00",
-      "exit_date": "2022-05-09T00:00:00",
-      "entry": 0.0080500002950429,
-      "exit": 0.0076509998179972,
-      "take_profit": 0.009284026086270835,
-      "stop_loss": 0.006815974503814964,
-      "return_pct": -0.04956527483500839
-    },
-    {
-      "market": "WTI FINANCIAL CRUDE OIL - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "CL=F",
-      "type": "short",
-      "entry_date": "2022-04-25T00:00:00",
-      "exit_date": "2022-05-23T00:00:00",
-      "entry": 101.37999725341795,
-      "exit": 110.55999755859376,
-      "take_profit": 65.00915587871276,
-      "stop_loss": 137.75083862812315,
-      "return_pct": -0.08303184250986129
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "short",
-      "entry_date": "2022-05-16T00:00:00",
-      "exit_date": "2022-06-13T00:00:00",
-      "entry": 795.0,
-      "exit": 781.0,
-      "take_profit": 528.490639073957,
-      "stop_loss": 1061.509360926043,
-      "return_pct": 0.017925736235595346
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "long",
-      "entry_date": "2022-05-23T00:00:00",
-      "exit_date": "2022-06-20T00:00:00",
-      "entry": 0.0078260004520416,
-      "exit": 0.0074109998531639,
-      "take_profit": 0.009203091534787334,
-      "stop_loss": 0.006448909369295866,
-      "return_pct": -0.053028440442964286
-    },
-    {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "ticker": "SI=F",
-      "type": "long",
-      "entry_date": "2022-07-25T00:00:00",
-      "exit_date": "2022-08-22T00:00:00",
-      "entry": 18.40999984741211,
-      "exit": 18.84000015258789,
-      "take_profit": 22.920930192547882,
-      "stop_loss": 13.899069502276337,
-      "return_pct": 0.02335688803583702
-    },
-    {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "ticker": "SI=F",
-      "type": "long",
-      "entry_date": "2022-09-05T00:00:00",
-      "exit_date": "2022-10-03T00:00:00",
-      "entry": 18.100000381469727,
-      "exit": 20.170000076293945,
-      "take_profit": 22.831021320082193,
-      "stop_loss": 13.36897944285726,
-      "return_pct": 0.11436462161312577
-    },
-    {
-      "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZM=F",
-      "type": "short",
-      "entry_date": "2022-09-05T00:00:00",
-      "exit_date": "2022-10-03T00:00:00",
-      "entry": 444.1000061035156,
-      "exit": 403.2000122070313,
-      "take_profit": 381.9740631634707,
-      "stop_loss": 506.22594904356055,
-      "return_pct": 0.1014384738547165
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "long",
-      "entry_date": "2022-11-07T00:00:00",
-      "exit_date": "2022-12-05T00:00:00",
-      "entry": 0.0068080001510679,
-      "exit": 0.0074590002186596,
-      "take_profit": 0.008791858556515543,
-      "stop_loss": 0.004824141745620257,
-      "return_pct": 0.09562280451618155
-    },
-    {
-      "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZM=F",
-      "type": "short",
-      "entry_date": "2022-12-19T00:00:00",
-      "exit_date": "2023-01-16T00:00:00",
-      "entry": 461.0,
-      "exit": 473.7000122070313,
-      "take_profit": 390.8448827653963,
-      "stop_loss": 531.1551172346037,
-      "return_pct": -0.026810242515849403
-    },
-    {
-      "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZM=F",
-      "type": "short",
-      "entry_date": "2023-01-30T00:00:00",
-      "exit_date": "2023-02-27T00:00:00",
-      "entry": 475.7999877929688,
-      "exit": 497.6000061035156,
-      "take_profit": 397.395792754328,
-      "stop_loss": 554.2041828316096,
-      "return_pct": -0.04381032564941678
-    },
-    {
-      "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PA=F",
-      "type": "long",
-      "entry_date": "2023-02-06T00:00:00",
-      "exit_date": "2023-03-06T00:00:00",
-      "entry": 1575.5999755859375,
-      "exit": 1407.4000244140625,
-      "take_profit": 2456.196842422534,
-      "stop_loss": 695.0031087493412,
-      "return_pct": -0.10675295365457493
-    },
-    {
-      "market": "CANADIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6C=F",
-      "type": "long",
-      "entry_date": "2023-03-13T00:00:00",
-      "exit_date": "2023-04-10T00:00:00",
-      "entry": 0.7239999771118164,
-      "exit": 0.7401000261306763,
-      "take_profit": 0.7586824395532537,
-      "stop_loss": 0.6893175146703792,
-      "return_pct": 0.022237637469390892
-    },
-    {
-      "market": "COCOA - ICE FUTURES U.S.",
-      "ticker": "CC=F",
-      "type": "short",
-      "entry_date": "2023-03-13T00:00:00",
-      "exit_date": "2023-03-27T00:00:00",
-      "entry": 2613.0,
-      "exit": 2921.6109221581155,
-      "take_profit": 2304.3890778418845,
-      "stop_loss": 2921.6109221581155,
-      "return_pct": -0.1056303971954462
-    },
-    {
-      "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PA=F",
-      "type": "long",
-      "entry_date": "2023-03-20T00:00:00",
-      "exit_date": "2023-04-17T00:00:00",
-      "entry": 1390.5,
-      "exit": 1557.199951171875,
-      "take_profit": 2427.955141056684,
-      "stop_loss": 353.04485894331583,
-      "return_pct": 0.1198848983616505
-    },
-    {
-      "market": "UST 5Y NOTE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZF=F",
-      "type": "long",
-      "entry_date": "2023-03-20T00:00:00",
-      "exit_date": "2023-04-17T00:00:00",
-      "entry": 110.53125,
-      "exit": 109.453125,
-      "take_profit": 116.95617450055418,
-      "stop_loss": 104.10632549944582,
-      "return_pct": -0.009754028837998252
-    },
-    {
-      "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZM=F",
-      "type": "short",
-      "entry_date": "2023-03-20T00:00:00",
-      "exit_date": "2023-04-17T00:00:00",
-      "entry": 465.0,
-      "exit": 459.7000122070313,
-      "take_profit": 404.45100334053325,
-      "stop_loss": 525.5489966594668,
-      "return_pct": 0.011529231351383507
-    },
-    {
-      "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6M=F",
-      "type": "short",
-      "entry_date": "2023-03-27T00:00:00",
-      "exit_date": "2023-04-24T00:00:00",
-      "entry": 0.0540199987590312,
-      "exit": 0.0554100014269351,
-      "take_profit": 0.04562735367474068,
-      "stop_loss": 0.062412643843321715,
-      "return_pct": -0.025085772100850612
-    },
-    {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
-      "type": "long",
-      "entry_date": "2023-03-27T00:00:00",
-      "exit_date": "2023-04-24T00:00:00",
-      "entry": 76.83999633789062,
-      "exit": 80.95999908447266,
-      "take_profit": 97.18854567376539,
-      "stop_loss": 56.49144700201586,
-      "return_pct": 0.0536179456394692
-    },
-    {
-      "market": "COCOA - ICE FUTURES U.S.",
-      "ticker": "CC=F",
-      "type": "short",
-      "entry_date": "2023-04-10T00:00:00",
-      "exit_date": "2023-05-08T00:00:00",
-      "entry": 2919.0,
-      "exit": 3188.0,
-      "take_profit": 2322.4942928730493,
-      "stop_loss": 3515.5057071269507,
-      "return_pct": -0.08437892095357591
-    },
-    {
-      "market": "SUGAR NO. 11 - ICE FUTURES U.S.",
-      "ticker": "SB=F",
-      "type": "short",
-      "entry_date": "2023-05-01T00:00:00",
-      "exit_date": "2023-05-29T00:00:00",
-      "entry": 26.38999938964844,
-      "exit": 25.3799991607666,
-      "take_profit": 17.47371723240058,
-      "stop_loss": 35.3062815468963,
-      "return_pct": 0.03979512459729073
-    },
-    {
-      "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PA=F",
-      "type": "long",
-      "entry_date": "2023-05-08T00:00:00",
-      "exit_date": "2023-06-05T00:00:00",
-      "entry": 1571.4000244140625,
-      "exit": 1391.0,
-      "take_profit": 2402.8518982890464,
-      "stop_loss": 739.9481505390786,
-      "return_pct": -0.11480210106355915
-    },
-    {
-      "market": "UST 5Y NOTE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZF=F",
-      "type": "long",
-      "entry_date": "2023-05-08T00:00:00",
-      "exit_date": "2023-06-05T00:00:00",
-      "entry": 110.328125,
-      "exit": 107.9765625,
-      "take_profit": 116.47098688499972,
-      "stop_loss": 104.18526311500028,
-      "return_pct": -0.02131426143605719
-    },
-    {
-      "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6M=F",
-      "type": "short",
-      "entry_date": "2023-05-15T00:00:00",
-      "exit_date": "2023-06-12T00:00:00",
-      "entry": 0.0567199997603893,
-      "exit": 0.0577200017869472,
-      "take_profit": 0.04601575619579423,
-      "stop_loss": 0.06742424332498437,
-      "return_pct": -0.017325051898803734
-    },
-    {
-      "market": "COCOA - ICE FUTURES U.S.",
-      "ticker": "CC=F",
-      "type": "short",
-      "entry_date": "2023-05-22T00:00:00",
-      "exit_date": "2023-06-19T00:00:00",
-      "entry": 3074.0,
-      "exit": 3192.0,
-      "take_profit": 2358.7180616740084,
-      "stop_loss": 3789.2819383259916,
-      "return_pct": -0.03696741854636587
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "long",
-      "entry_date": "2023-06-19T00:00:00",
-      "exit_date": "2023-07-17T00:00:00",
-      "entry": 0.0070799998939037,
-      "exit": 0.0072039999067783,
-      "take_profit": 0.008419646214919453,
-      "stop_loss": 0.005740353572887947,
-      "return_pct": 0.017514126374686967
-    },
-    {
-      "market": "UST 5Y NOTE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZF=F",
-      "type": "long",
-      "entry_date": "2023-06-19T00:00:00",
-      "exit_date": "2023-07-17T00:00:00",
-      "entry": 107.3046875,
-      "exit": 107.4765625,
-      "take_profit": 115.97409011366551,
-      "stop_loss": 98.63528488633449,
-      "return_pct": 0.0016017473607572441
-    },
-    {
-      "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6M=F",
-      "type": "short",
-      "entry_date": "2023-06-26T00:00:00",
-      "exit_date": "2023-07-24T00:00:00",
-      "entry": 0.0581399984657764,
-      "exit": 0.0590399987995624,
-      "take_profit": 0.04643182897610511,
-      "stop_loss": 0.0698481679554477,
-      "return_pct": -0.01524390840252976
-    },
-    {
-      "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PA=F",
-      "type": "long",
-      "entry_date": "2023-07-03T00:00:00",
-      "exit_date": "2023-07-31T00:00:00",
-      "entry": 1218.4000244140625,
-      "exit": 1264.699951171875,
-      "take_profit": 2364.253849450118,
-      "stop_loss": 72.5461993780068,
-      "return_pct": 0.038000595723952424
-    },
-    {
-      "market": "COCOA - ICE FUTURES U.S.",
-      "ticker": "CC=F",
-      "type": "short",
-      "entry_date": "2023-07-10T00:00:00",
-      "exit_date": "2023-08-07T00:00:00",
-      "entry": 3309.0,
-      "exit": 3498.0,
-      "take_profit": 2403.7522607544297,
-      "stop_loss": 4214.24773924557,
-      "return_pct": -0.054030874785591765
-    },
-    {
-      "market": "UST 5Y NOTE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZF=F",
-      "type": "long",
-      "entry_date": "2023-07-31T00:00:00",
-      "exit_date": "2023-08-28T00:00:00",
-      "entry": 106.8515625,
-      "exit": 105.6171875,
-      "take_profit": 115.45571012062008,
-      "stop_loss": 98.24741487937992,
-      "return_pct": -0.011552240988520923
-    },
-    {
-      "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6M=F",
-      "type": "short",
-      "entry_date": "2023-08-07T00:00:00",
-      "exit_date": "2023-09-04T00:00:00",
-      "entry": 0.0585700012743473,
-      "exit": 0.0582600012421608,
-      "take_profit": 0.04689770243799593,
-      "stop_loss": 0.07024230011069867,
-      "return_pct": 0.005320975378939163
-    },
-    {
-      "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PA=F",
-      "type": "long",
-      "entry_date": "2023-08-14T00:00:00",
-      "exit_date": "2023-09-11T00:00:00",
-      "entry": 1262.0,
-      "exit": 1203.5,
-      "take_profit": 2332.410874115508,
-      "stop_loss": 191.5891258844922,
-      "return_pct": -0.046354992076069745
-    },
-    {
-      "market": "COCOA - ICE FUTURES U.S.",
-      "ticker": "CC=F",
-      "type": "short",
-      "entry_date": "2023-08-21T00:00:00",
-      "exit_date": "2023-09-18T00:00:00",
-      "entry": 3355.0,
-      "exit": 3747.0,
-      "take_profit": 2451.743315214407,
-      "stop_loss": 4258.256684785592,
-      "return_pct": -0.10461702695489727
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "long",
-      "entry_date": "2023-08-28T00:00:00",
-      "exit_date": "2023-09-25T00:00:00",
-      "entry": 476.25,
-      "exit": 475.25,
-      "take_profit": 612.6350003644782,
-      "stop_loss": 339.8649996355218,
-      "return_pct": -0.0020997375328084544
-    },
-    {
-      "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PA=F",
-      "type": "long",
-      "entry_date": "2023-09-25T00:00:00",
-      "exit_date": "2023-10-23T00:00:00",
-      "entry": 1223.300048828125,
-      "exit": 1132.0,
-      "take_profit": 2300.0945277512556,
-      "stop_loss": 146.50556990499445,
-      "return_pct": -0.07463422315366286
+      "spread": "SB=F",
+      "type": "short",
+      "entry_date": "2020-09-18",
+      "exit_date": "2020-10-09",
+      "entry": 12.77,
+      "exit": 14.047001,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.1,
+      "exit_reason": "SL"
     },
     {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "long",
-      "entry_date": "2023-10-02T00:00:00",
-      "exit_date": "2023-10-30T00:00:00",
-      "entry": 0.0066999997943639,
-      "exit": 0.0067019998095929,
-      "take_profit": 0.008211149314737067,
-      "stop_loss": 0.005188850273990733,
-      "return_pct": 0.000298509744833364
-    },
-    {
-      "market": "COCOA - ICE FUTURES U.S.",
-      "ticker": "CC=F",
-      "type": "short",
-      "entry_date": "2023-10-02T00:00:00",
-      "exit_date": "2023-10-30T00:00:00",
-      "entry": 3432.0,
-      "exit": 3860.0,
-      "take_profit": 2504.7435437685654,
-      "stop_loss": 4359.256456231435,
-      "return_pct": -0.11088082901554408
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "long",
-      "entry_date": "2023-10-30T00:00:00",
-      "exit_date": "2023-11-27T00:00:00",
-      "entry": 480.0,
-      "exit": 464.25,
-      "take_profit": 609.0729059761585,
-      "stop_loss": 350.9270940238415,
-      "return_pct": -0.03281250000000002
-    },
-    {
-      "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PA=F",
-      "type": "long",
-      "entry_date": "2023-11-06T00:00:00",
-      "exit_date": "2023-12-04T00:00:00",
-      "entry": 1110.4000244140625,
-      "exit": 975.0,
-      "take_profit": 2263.044993983878,
-      "stop_loss": -42.24494515575316,
-      "return_pct": -0.12193805965153015
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "long",
-      "entry_date": "2023-11-20T00:00:00",
-      "exit_date": "2023-12-18T00:00:00",
-      "entry": 0.006713000126183,
-      "exit": 0.0070319999940693,
-      "take_profit": 0.008108926298216444,
-      "stop_loss": 0.0053170739541495565,
-      "return_pct": 0.0475197172486399
-    },
-    {
-      "market": "UST 5Y NOTE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZF=F",
-      "type": "long",
-      "entry_date": "2023-11-20T00:00:00",
-      "exit_date": "2023-12-18T00:00:00",
-      "entry": 105.8125,
-      "exit": 107.9765625,
-      "take_profit": 113.98739598222016,
-      "stop_loss": 97.63760401777984,
-      "return_pct": 0.02045186060248083
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "long",
-      "entry_date": "2023-12-11T00:00:00",
-      "exit_date": "2024-01-08T00:00:00",
-      "entry": 465.5,
-      "exit": 461.0,
-      "take_profit": 606.1042725390553,
-      "stop_loss": 324.8957274609447,
-      "return_pct": -0.009667024704618665
-    },
-    {
-      "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PA=F",
-      "type": "long",
-      "entry_date": "2023-12-18T00:00:00",
-      "exit_date": "2024-01-15T00:00:00",
-      "entry": 1195.0999755859375,
-      "exit": 931.4000244140624,
-      "take_profit": 2226.1770184916923,
-      "stop_loss": 164.02293268018275,
-      "return_pct": -0.22065095519944888
-    },
-    {
-      "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6M=F",
-      "type": "short",
-      "entry_date": "2024-01-01T00:00:00",
-      "exit_date": "2024-01-29T00:00:00",
-      "entry": 0.0586000010371208,
-      "exit": 0.0578299984335899,
-      "take_profit": 0.04813875087237837,
-      "stop_loss": 0.06906125120186322,
-      "return_pct": 0.013314933847268673
-    },
-    {
-      "market": "NIKKEI STOCK AVERAGE YEN DENOM - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "NIY=F",
-      "type": "short",
-      "entry_date": "2024-01-15T00:00:00",
-      "exit_date": "2024-02-12T00:00:00",
-      "entry": 35830.0,
-      "exit": 37095.0,
-      "take_profit": 30588.898376360492,
-      "stop_loss": 41071.10162363951,
-      "return_pct": -0.03410163094756702
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "long",
-      "entry_date": "2024-01-22T00:00:00",
-      "exit_date": "2024-02-19T00:00:00",
-      "entry": 445.5,
-      "exit": 416.25,
-      "take_profit": 602.7180251241602,
-      "stop_loss": 288.28197487583975,
-      "return_pct": -0.06565656565656564
-    },
-    {
-      "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZM=F",
-      "type": "long",
-      "entry_date": "2024-01-22T00:00:00",
-      "exit_date": "2024-02-19T00:00:00",
-      "entry": 356.5,
-      "exit": 346.6000061035156,
-      "take_profit": 417.34654849031614,
-      "stop_loss": 295.65345150968386,
-      "return_pct": -0.027769968854093663
-    },
-    {
-      "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PA=F",
-      "type": "long",
-      "entry_date": "2024-01-29T00:00:00",
-      "exit_date": "2024-02-26T00:00:00",
-      "entry": 974.2999877929688,
-      "exit": 953.7000122070312,
-      "take_profit": 2186.4433069726438,
-      "stop_loss": -237.84333138670627,
-      "return_pct": -0.021143360201206107
-    },
-    {
-      "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6M=F",
-      "type": "short",
-      "entry_date": "2024-02-19T00:00:00",
-      "exit_date": "2024-03-18T00:00:00",
-      "entry": 0.0583800002932548,
-      "exit": 0.0598100014030933,
-      "take_profit": 0.04856842770530563,
-      "stop_loss": 0.06819157288120396,
-      "return_pct": -0.02390906330533127
-    },
-    {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "long",
-      "entry_date": "2024-03-04T00:00:00",
-      "exit_date": "2024-04-01T00:00:00",
-      "entry": 0.0066780000925064,
-      "exit": 0.0066229999065399,
-      "take_profit": 0.007924669077841385,
-      "stop_loss": 0.005431331107171415,
-      "return_pct": -0.008236026535581753
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "long",
-      "entry_date": "2024-03-04T00:00:00",
-      "exit_date": "2024-04-01T00:00:00",
-      "entry": 412.0,
-      "exit": 441.75,
-      "take_profit": 597.7151067122844,
-      "stop_loss": 226.2848932877156,
-      "return_pct": 0.07220873786407767
-    },
-    {
-      "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZM=F",
-      "type": "long",
-      "entry_date": "2024-03-04T00:00:00",
-      "exit_date": "2024-04-01T00:00:00",
-      "entry": 337.8999938964844,
-      "exit": 338.29998779296875,
-      "take_profit": 415.29131159728007,
-      "stop_loss": 260.5086761956887,
-      "return_pct": 0.0011837641423779743
-    },
-    {
-      "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PA=F",
-      "type": "long",
-      "entry_date": "2024-03-11T00:00:00",
-      "exit_date": "2024-04-08T00:00:00",
-      "entry": 1032.5999755859375,
-      "exit": 1038.5,
-      "take_profit": 2147.4947260375498,
-      "stop_loss": -82.29477486567475,
-      "return_pct": 0.005713756104550161
-    },
-    {
-      "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6M=F",
-      "type": "short",
-      "entry_date": "2024-04-01T00:00:00",
-      "exit_date": "2024-04-29T00:00:00",
-      "entry": 0.0599300004541873,
-      "exit": 0.0579999983310699,
-      "take_profit": 0.04897875068702533,
-      "stop_loss": 0.07088125022134928,
-      "return_pct": 0.033275899631940664
-    },
-    {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2024-04-15T00:00:00",
-      "exit_date": "2024-05-13T00:00:00",
-      "entry": 221.6499938964844,
-      "exit": 200.0,
-      "take_profit": 176.75500687266805,
-      "stop_loss": 266.54498092030076,
-      "return_pct": 0.10824996948242194
-    },
-    {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "ticker": "SI=F",
-      "type": "short",
-      "entry_date": "2024-04-15T00:00:00",
-      "exit_date": "2024-05-13T00:00:00",
-      "entry": 28.25,
-      "exit": 28.059999465942383,
-      "take_profit": 24.2992986199613,
-      "stop_loss": 32.2007013800387,
-      "return_pct": 0.006771223723230246
-    },
-    {
-      "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
-      "ticker": "ZS=F",
-      "type": "long",
-      "entry_date": "2024-04-22T00:00:00",
-      "exit_date": "2024-05-20T00:00:00",
-      "entry": 1147.75,
-      "exit": 1227.25,
-      "take_profit": 1412.25059281437,
-      "stop_loss": 883.2494071856299,
-      "return_pct": 0.06926595512960132
+      "spread": "ZS=F",
+      "type": "short",
+      "entry_date": "2020-09-18",
+      "exit_date": "2020-11-20",
+      "entry": 1043.5,
+      "exit": 1147.85,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.1,
+      "exit_reason": "SL"
     },
     {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "long",
-      "entry_date": "2024-04-29T00:00:00",
-      "exit_date": "2024-05-27T00:00:00",
-      "entry": 0.006337999831885,
-      "exit": 0.0063919997774064,
-      "take_profit": 0.007814159101276728,
-      "stop_loss": 0.004861840562493272,
-      "return_pct": 0.008520029497277593
-    },
-    {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "long",
-      "entry_date": "2024-04-29T00:00:00",
-      "exit_date": "2024-05-27T00:00:00",
-      "entry": 440.0,
-      "exit": 467.0,
-      "take_profit": 592.7189640718559,
-      "stop_loss": 287.2810359281441,
-      "return_pct": 0.06136363636363629
-    },
-    {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "ticker": "SI=F",
-      "type": "short",
-      "entry_date": "2024-05-27T00:00:00",
-      "exit_date": "2024-06-24T00:00:00",
-      "entry": 31.540000915527344,
-      "exit": 29.5,
-      "take_profit": 24.704764247346056,
-      "stop_loss": 38.37523758370863,
-      "return_pct": 0.06915257340770653
-    },
-    {
-      "market": "UST 5Y NOTE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZF=F",
-      "type": "long",
-      "entry_date": "2024-05-27T00:00:00",
-      "exit_date": "2024-06-24T00:00:00",
-      "entry": 105.484375,
-      "exit": 106.2734375,
-      "take_profit": 112.0698826721556,
-      "stop_loss": 98.8988673278444,
-      "return_pct": 0.007480373278032859
+      "spread": "NQ=F",
+      "type": "long",
+      "entry_date": "2020-09-18",
+      "exit_date": "2020-12-04",
+      "entry": 11144.80957,
+      "exit": 12259.290527,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.1,
+      "exit_reason": "TP"
     },
     {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
-      "type": "long",
-      "entry_date": "2024-06-03T00:00:00",
-      "exit_date": "2024-07-01T00:00:00",
-      "entry": 76.1500015258789,
-      "exit": 71.9000015258789,
-      "take_profit": 95.56086163796061,
-      "stop_loss": 56.7391414137972,
-      "return_pct": -0.05581089842205289
+      "spread": "PL=F",
+      "type": "long",
+      "entry_date": "2020-10-02",
+      "exit_date": "2020-12-04",
+      "entry": 883.400024,
+      "exit": 971.740027,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.1,
+      "exit_reason": "TP"
     },
     {
-      "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6J=F",
-      "type": "long",
-      "entry_date": "2024-06-10T00:00:00",
-      "exit_date": "2024-07-08T00:00:00",
-      "entry": 0.0063840001821517,
-      "exit": 0.0062299999408423,
-      "take_profit": 0.007720391770367432,
-      "stop_loss": 0.0050476085939359676,
-      "return_pct": -0.02412284412834942
+      "spread": "ZM=F",
+      "type": "short",
+      "entry_date": "2020-10-09",
+      "exit_date": "2020-12-18",
+      "entry": 363.100006,
+      "exit": 399.410007,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.1,
+      "exit_reason": "SL"
     },
     {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2024-06-17T00:00:00",
-      "exit_date": "2024-07-15T00:00:00",
-      "entry": 225.6999969482422,
-      "exit": 249.3000030517578,
-      "take_profit": 183.80972173889512,
-      "stop_loss": 267.59027215758925,
-      "return_pct": -0.09466508549787689
+      "spread": "KC=F",
+      "type": "short",
+      "entry_date": "2020-09-18",
+      "exit_date": "2020-12-25",
+      "entry": 113.599998,
+      "exit": 124.959998,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.1,
+      "exit_reason": "SL"
     },
     {
-      "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PA=F",
-      "type": "long",
-      "entry_date": "2024-06-17T00:00:00",
-      "exit_date": "2024-07-15T00:00:00",
-      "entry": 876.5,
-      "exit": 946.7000122070312,
-      "take_profit": 2064.999349677353,
-      "stop_loss": -311.99934967735317,
-      "return_pct": 0.0800912860319809
+      "spread": "ZC=F",
+      "type": "short",
+      "entry_date": "2020-10-23",
+      "exit_date": "2021-01-01",
+      "entry": 419.25,
+      "exit": 461.175,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.1,
+      "exit_reason": "SL"
     },
     {
-      "market": "MICRO E-MINI NASDAQ-100 INDEX - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "MNQ=F",
-      "type": "short",
-      "entry_date": "2024-07-08T00:00:00",
-      "exit_date": "2024-08-05T00:00:00",
-      "entry": 20591.0,
-      "exit": 18391.75,
-      "take_profit": 17388.522350663894,
-      "stop_loss": 23793.477649336106,
-      "return_pct": 0.1195780716897521
+      "spread": "CT=F",
+      "type": "short",
+      "entry_date": "2020-12-18",
+      "exit_date": "2021-02-12",
+      "entry": 77.160004,
+      "exit": 84.876004,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.1,
+      "exit_reason": "SL"
     },
     {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "ticker": "SI=F",
-      "type": "short",
-      "entry_date": "2024-07-08T00:00:00",
-      "exit_date": "2024-08-05T00:00:00",
-      "entry": 31.200000762939453,
-      "exit": 28.165000915527344,
-      "take_profit": 25.128681193071905,
-      "stop_loss": 37.271320332807,
-      "return_pct": 0.10775784657400522
+      "spread": "GC=F",
+      "type": "short",
+      "entry_date": "2020-09-18",
+      "exit_date": "2021-02-26",
+      "entry": 1952.099976,
+      "exit": 1756.889978,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.1,
+      "exit_reason": "TP"
     },
     {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
-      "type": "long",
-      "entry_date": "2024-07-15T00:00:00",
-      "exit_date": "2024-08-12T00:00:00",
-      "entry": 69.33000183105469,
-      "exit": 67.55000305175781,
-      "take_profit": 94.68731744147198,
-      "stop_loss": 43.9726862206374,
-      "return_pct": -0.02567429297974677
+      "spread": "PA=F",
+      "type": "long",
+      "entry_date": "2020-09-18",
+      "exit_date": "2021-03-19",
+      "entry": 2364.0,
+      "exit": 2600.4,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.1,
+      "exit_reason": "TP"
     },
     {
-      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "EURGBP=X",
-      "type": "long",
-      "entry_date": "2024-07-15T00:00:00",
-      "exit_date": "2024-08-12T00:00:00",
-      "entry": 0.8394500017166138,
-      "exit": 0.8559200167655945,
-      "take_profit": 0.8931551041959997,
-      "stop_loss": 0.7857448992372278,
-      "return_pct": 0.019620007165764175
+      "spread": "6M=F",
+      "type": "long",
+      "entry_date": "2021-03-19",
+      "exit_date": "2021-04-16",
+      "entry": 0.04861,
+      "exit": 0.049783,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.024137,
+      "exit_reason": "TP"
     },
     {
-      "market": "CORN - CHICAGO BOARD OF TRADE",
-      "ticker": "ZC=F",
-      "type": "long",
-      "entry_date": "2024-07-15T00:00:00",
-      "exit_date": "2024-08-12T00:00:00",
-      "entry": 403.0,
-      "exit": 376.25,
-      "take_profit": 587.9242874251493,
-      "stop_loss": 218.07571257485074,
-      "return_pct": -0.06637717121588094
+      "spread": "ZW=F",
+      "type": "short",
+      "entry_date": "2020-10-16",
+      "exit_date": "2021-04-23",
+      "entry": 625.25,
+      "exit": 687.775,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.1,
+      "exit_reason": "SL"
     },
     {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2024-07-29T00:00:00",
-      "exit_date": "2024-08-26T00:00:00",
-      "entry": 230.3500061035156,
-      "exit": 249.3999938964844,
-      "take_profit": 188.71950736186304,
-      "stop_loss": 271.9805048451682,
-      "return_pct": -0.07638327289164115
+      "spread": "ZR=F",
+      "type": "short",
+      "entry_date": "2020-09-18",
+      "exit_date": "2021-05-07",
+      "entry": 1251.5,
+      "exit": 1376.65,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.1,
+      "exit_reason": "SL"
     },
     {
-      "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
-      "ticker": "ZS=F",
-      "type": "long",
-      "entry_date": "2024-07-29T00:00:00",
-      "exit_date": "2024-08-26T00:00:00",
-      "entry": 1073.75,
-      "exit": 943.5,
-      "take_profit": 1411.3580179640712,
-      "stop_loss": 736.1419820359288,
-      "return_pct": -0.12130384167636787
+      "spread": "CT=F",
+      "type": "short",
+      "entry_date": "2021-04-30",
+      "exit_date": "2021-05-14",
+      "entry": 87.43,
+      "exit": 83.777336,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.041778,
+      "exit_reason": "TP"
     },
     {
-      "market": "CANADIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6C=F",
-      "type": "long",
-      "entry_date": "2024-08-05T00:00:00",
-      "exit_date": "2024-09-02T00:00:00",
-      "entry": 0.7214000225067139,
-      "exit": 0.7416999936103821,
-      "take_profit": 0.7516873347031137,
-      "stop_loss": 0.6911127103103141,
-      "return_pct": 0.02813968737224326
+      "spread": "ZM=F",
+      "type": "short",
+      "entry_date": "2021-05-14",
+      "exit_date": "2021-05-21",
+      "entry": 423.5,
+      "exit": 403.24152,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.047836,
+      "exit_reason": "TP"
     },
     {
-      "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "PA=F",
-      "type": "long",
-      "entry_date": "2024-08-19T00:00:00",
-      "exit_date": "2024-09-16T00:00:00",
-      "entry": 918.7000122070312,
-      "exit": 1084.4000244140625,
-      "take_profit": 2011.5489755091858,
-      "stop_loss": -174.14895109512327,
-      "return_pct": 0.18036356809113707
+      "spread": "SB=F",
+      "type": "short",
+      "entry_date": "2021-04-16",
+      "exit_date": "2021-06-04",
+      "entry": 16.719999,
+      "exit": 17.61647,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.053617,
+      "exit_reason": "SL"
     },
     {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
-      "type": "long",
-      "entry_date": "2024-08-26T00:00:00",
-      "exit_date": "2024-09-23T00:00:00",
-      "entry": 71.97000122070312,
-      "exit": 74.04000091552734,
-      "take_profit": 93.7303660463801,
-      "stop_loss": 50.20963639502615,
-      "return_pct": 0.028761979431907392
+      "spread": "6M=F",
+      "type": "long",
+      "entry_date": "2021-06-18",
+      "exit_date": "2021-06-25",
+      "entry": 0.0483,
+      "exit": 0.049389,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.022539,
+      "exit_reason": "TP"
     },
     {
-      "market": "GOLD - COMMODITY EXCHANGE INC.",
-      "ticker": "GC=F",
-      "type": "short",
-      "entry_date": "2024-08-26T00:00:00",
-      "exit_date": "2024-09-23T00:00:00",
-      "entry": 2509.89990234375,
-      "exit": 2626.5,
-      "take_profit": 2130.3049501046726,
-      "stop_loss": 2889.4948545828274,
-      "return_pct": -0.04439371698315253
+      "spread": "CT=F",
+      "type": "short",
+      "entry_date": "2021-07-30",
+      "exit_date": "2021-08-13",
+      "entry": 89.830002,
+      "exit": 93.995183,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.046367,
+      "exit_reason": "SL"
     },
     {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2024-09-09T00:00:00",
-      "exit_date": "2024-10-07T00:00:00",
-      "entry": 249.4499969482422,
-      "exit": 252.8500061035156,
-      "take_profit": 193.9974162301617,
-      "stop_loss": 304.9025776663227,
-      "return_pct": -0.013446743417840579
+      "spread": "6M=F",
+      "type": "long",
+      "entry_date": "2021-07-16",
+      "exit_date": "2021-08-20",
+      "entry": 0.05032,
+      "exit": 0.049062,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.024992,
+      "exit_reason": "SL"
     },
     {
-      "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
-      "ticker": "ZS=F",
+      "spread": "6A=F",
       "type": "long",
-      "entry_date": "2024-09-09T00:00:00",
-      "exit_date": "2024-10-07T00:00:00",
-      "entry": 1000.25,
-      "exit": 1033.5,
-      "take_profit": 1401.6788502994004,
-      "stop_loss": 598.8211497005996,
-      "return_pct": 0.03324168957760554
+      "entry_date": "2021-07-23",
+      "exit_date": "2021-08-20",
+      "entry": 0.7365,
+      "exit": 0.725094,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.015487,
+      "exit_reason": "SL"
     },
     {
-      "market": "GASOLINE RBOB - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "RB=F",
+      "spread": "6M=F",
       "type": "long",
-      "entry_date": "2024-09-16T00:00:00",
-      "exit_date": "2024-10-14T00:00:00",
-      "entry": 1.9395999908447263,
-      "exit": 2.1461000442504883,
-      "take_profit": 2.579033681374109,
-      "stop_loss": 1.3001663003153436,
-      "return_pct": 0.10646527860408361
-    },
-    {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "ticker": "SI=F",
-      "type": "short",
-      "entry_date": "2024-09-30T00:00:00",
-      "exit_date": "2024-10-28T00:00:00",
-      "entry": 31.604999542236328,
-      "exit": 33.77000045776367,
-      "take_profit": 25.91582277814212,
-      "stop_loss": 37.294176306330534,
-      "return_pct": -0.06411018318566863
-    },
-    {
-      "market": "GOLD - COMMODITY EXCHANGE INC.",
-      "ticker": "GC=F",
-      "type": "short",
-      "entry_date": "2024-10-07T00:00:00",
-      "exit_date": "2024-11-04T00:00:00",
-      "entry": 2648.699951171875,
-      "exit": 2736.5,
-      "take_profit": 2170.470199098872,
-      "stop_loss": 3126.929703244878,
-      "return_pct": -0.032084797671523835
+      "entry_date": "2021-08-27",
+      "exit_date": "2021-10-08",
+      "entry": 0.04943,
+      "exit": 0.048305,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.022754,
+      "exit_reason": "SL"
     },
     {
-      "market": "EURO FX/BRITISH POUND XRATE - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "EURGBP=X",
+      "spread": "PL=F",
       "type": "long",
-      "entry_date": "2024-10-21T00:00:00",
-      "exit_date": "2024-11-18T00:00:00",
-      "entry": 0.8326399922370911,
-      "exit": 0.8348199725151062,
-      "take_profit": 0.8862371004341594,
-      "stop_loss": 0.7790428840400228,
-      "return_pct": 0.002618154662686889
+      "entry_date": "2021-08-06",
+      "exit_date": "2021-10-15",
+      "entry": 972.299988,
+      "exit": 1026.828519,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.056082,
+      "exit_reason": "TP"
     },
     {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
-      "type": "short",
-      "entry_date": "2024-10-28T00:00:00",
-      "exit_date": "2024-11-18T00:00:00",
-      "entry": 247.25,
-      "exit": 294.86297914918464,
-      "take_profit": 199.63702085081536,
-      "stop_loss": 294.86297914918464,
-      "return_pct": -0.16147493078503783
-    },
-    {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "ticker": "SI=F",
-      "type": "short",
-      "entry_date": "2024-11-11T00:00:00",
-      "exit_date": "2024-12-09T00:00:00",
-      "entry": 31.114999771118164,
-      "exit": 31.440000534057617,
-      "take_profit": 26.411714852498655,
-      "stop_loss": 35.81828468973767,
-      "return_pct": -0.010337174218155387
-    },
-    {
-      "market": "CANADIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6C=F",
+      "spread": "NIY=F",
       "type": "long",
-      "entry_date": "2024-11-18T00:00:00",
-      "exit_date": "2024-12-16T00:00:00",
-      "entry": 0.7102000117301941,
-      "exit": 0.7027999758720398,
-      "take_profit": 0.7500226542464269,
-      "stop_loss": 0.6703773692139613,
-      "return_pct": -0.010419650430765648
+      "entry_date": "2021-10-08",
+      "exit_date": "2021-10-15",
+      "entry": 28000.0,
+      "exit": 28916.492031,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.032732,
+      "exit_reason": "TP"
     },
     {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
+      "spread": "ZW=F",
       "type": "short",
-      "entry_date": "2024-12-16T00:00:00",
-      "exit_date": "2025-01-13T00:00:00",
-      "entry": 328.25,
-      "exit": 322.8999938964844,
-      "take_profit": 207.91270698300656,
-      "stop_loss": 448.58729301699344,
-      "return_pct": 0.01656861630425044
-    },
-    {
-      "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZR=F",
-      "type": "long",
-      "entry_date": "2025-01-06T00:00:00",
-      "exit_date": "2025-02-03T00:00:00",
-      "entry": 1385.0,
-      "exit": 1383.5,
-      "take_profit": 1725.3652934131728,
-      "stop_loss": 1044.6347065868272,
-      "return_pct": -0.0010830324909747446
-    },
-    {
-      "market": "CANADIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6C=F",
-      "type": "long",
-      "entry_date": "2025-01-13T00:00:00",
-      "exit_date": "2025-02-10T00:00:00",
-      "entry": 0.6934999823570251,
-      "exit": 0.6972500085830688,
-      "take_profit": 0.7478910328599504,
-      "stop_loss": 0.6391089318540999,
-      "return_pct": 0.005407391955942531
+      "entry_date": "2021-08-06",
+      "exit_date": "2021-10-29",
+      "entry": 719.0,
+      "exit": 766.011375,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.065384,
+      "exit_reason": "SL"
     },
     {
-      "market": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
-      "ticker": "6E=F",
+      "spread": "ZM=F",
       "type": "long",
-      "entry_date": "2025-01-13T00:00:00",
-      "exit_date": "2025-02-10T00:00:00",
-      "entry": 1.0240999460220337,
-      "exit": 1.0299999713897705,
-      "take_profit": 1.090474071765373,
-      "stop_loss": 0.9577258202786945,
-      "return_pct": 0.005761181211516142
+      "entry_date": "2021-10-08",
+      "exit_date": "2021-11-12",
+      "entry": 317.5,
+      "exit": 334.112984,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.052324,
+      "exit_reason": "TP"
     },
     {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
-      "type": "long",
-      "entry_date": "2025-01-13T00:00:00",
-      "exit_date": "2025-02-10T00:00:00",
-      "entry": 67.08000183105469,
-      "exit": 65.7300033569336,
-      "take_profit": 91.18365736946511,
-      "stop_loss": 42.976346292644266,
-      "return_pct": -0.020125200317095304
-    },
-    {
-      "market": "COFFEE C - ICE FUTURES U.S.",
-      "ticker": "KC=F",
+      "spread": "GC=F",
       "type": "short",
-      "entry_date": "2025-01-27T00:00:00",
-      "exit_date": "2025-02-24T00:00:00",
-      "entry": 348.75,
-      "exit": 394.8999938964844,
-      "take_profit": 216.17021836478398,
-      "stop_loss": 481.329781635216,
-      "return_pct": -0.1168650154716937
+      "entry_date": "2021-11-12",
+      "exit_date": "2021-11-26",
+      "entry": 1867.900024,
+      "exit": 1820.259127,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.025505,
+      "exit_reason": "TP"
     },
     {
-      "market": "GOLD - COMMODITY EXCHANGE INC.",
-      "ticker": "GC=F",
+      "spread": "ES=F",
       "type": "short",
-      "entry_date": "2025-02-03T00:00:00",
-      "exit_date": "2025-03-03T00:00:00",
-      "entry": 2818.199951171875,
-      "exit": 2872.699951171875,
-      "take_profit": 2289.26868100615,
-      "stop_loss": 3347.1312213376,
-      "return_pct": -0.01897169942087673
-    },
-    {
-      "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZR=F",
-      "type": "long",
-      "entry_date": "2025-02-17T00:00:00",
-      "exit_date": "2025-03-17T00:00:00",
-      "entry": 1408.0,
-      "exit": 1367.5,
-      "take_profit": 1721.724047904191,
-      "stop_loss": 1094.275952095809,
-      "return_pct": -0.028764204545454586
-    },
-    {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
-      "type": "long",
-      "entry_date": "2025-02-24T00:00:00",
-      "exit_date": "2025-03-24T00:00:00",
-      "entry": 65.87999725341797,
-      "exit": 65.38999938964844,
-      "take_profit": 90.25874409649319,
-      "stop_loss": 41.50125041034275,
-      "return_pct": -0.007437733518486311
-    },
-    {
-      "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZM=F",
-      "type": "long",
-      "entry_date": "2025-03-17T00:00:00",
-      "exit_date": "2025-04-14T00:00:00",
-      "entry": 305.8999938964844,
-      "exit": 299.6000061035156,
-      "take_profit": 399.26485740067676,
-      "stop_loss": 212.535130392292,
-      "return_pct": -0.020594926180680595
+      "entry_date": "2021-12-03",
+      "exit_date": "2021-12-10",
+      "entry": 4537.5,
+      "exit": 4623.135974,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.018873,
+      "exit_reason": "SL"
     },
     {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "ticker": "SI=F",
+      "spread": "ZC=F",
       "type": "short",
-      "entry_date": "2025-03-24T00:00:00",
-      "exit_date": "2025-04-21T00:00:00",
-      "entry": 33.474998474121094,
-      "exit": 32.650001525878906,
-      "take_profit": 27.7811034820922,
-      "stop_loss": 39.16889346614999,
-      "return_pct": 0.025267899224699297
-    },
-    {
-      "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZR=F",
-      "type": "long",
-      "entry_date": "2025-03-31T00:00:00",
-      "exit_date": "2025-04-28T00:00:00",
-      "entry": 1352.5,
-      "exit": 1295.0,
-      "take_profit": 1716.907976047903,
-      "stop_loss": 988.092023952097,
-      "return_pct": -0.04251386321626616
-    },
-    {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
-      "type": "long",
-      "entry_date": "2025-04-07T00:00:00",
-      "exit_date": "2025-05-05T00:00:00",
-      "entry": 62.220001220703125,
-      "exit": 70.3499984741211,
-      "take_profit": 89.28732280278913,
-      "stop_loss": 35.152679638617116,
-      "return_pct": 0.1306653341998456
-    },
-    {
-      "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
-      "ticker": "ZW=F",
-      "type": "long",
-      "entry_date": "2025-04-14T00:00:00",
-      "exit_date": "2025-05-12T00:00:00",
+      "entry_date": "2021-11-05",
+      "exit_date": "2021-12-17",
       "entry": 553.0,
-      "exit": 499.0,
-      "take_profit": 723.1404431137719,
-      "stop_loss": 382.8595568862281,
-      "return_pct": -0.0976491862567812
+      "exit": 590.955962,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.068636,
+      "exit_reason": "SL"
     },
     {
-      "market": "WTI FINANCIAL CRUDE OIL - NEW YORK MERCANTILE EXCHANGE",
-      "ticker": "CL=F",
-      "type": "long",
-      "entry_date": "2025-04-21T00:00:00",
-      "exit_date": "2025-05-19T00:00:00",
-      "entry": 64.30000305175781,
-      "exit": 62.75,
-      "take_profit": 83.74941617255294,
-      "stop_loss": 44.850589930962684,
-      "return_pct": -0.024105800593977378
-    },
-    {
-      "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZM=F",
-      "type": "long",
-      "entry_date": "2025-05-12T00:00:00",
-      "exit_date": "2025-06-09T00:00:00",
-      "entry": 291.5,
-      "exit": 296.20001220703125,
-      "take_profit": 394.1523882340297,
-      "stop_loss": 188.84761176597033,
-      "return_pct": 0.016123541018975063
-    },
-    {
-      "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZR=F",
-      "type": "long",
-      "entry_date": "2025-05-12T00:00:00",
-      "exit_date": "2025-06-09T00:00:00",
-      "entry": 1231.5,
-      "exit": 1363.5,
-      "take_profit": 1713.1581796407177,
-      "stop_loss": 749.8418203592823,
-      "return_pct": 0.1071863580998782
-    },
-    {
-      "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
-      "ticker": "ZW=F",
-      "type": "long",
-      "entry_date": "2025-05-26T00:00:00",
-      "exit_date": "2025-06-23T00:00:00",
-      "entry": 543.5,
-      "exit": 567.0,
-      "take_profit": 718.995820359281,
-      "stop_loss": 368.00417964071903,
-      "return_pct": 0.04323827046918116
-    },
-    {
-      "market": "SUGAR NO. 11 - ICE FUTURES U.S.",
-      "ticker": "SB=F",
-      "type": "long",
-      "entry_date": "2025-06-16T00:00:00",
-      "exit_date": "2025-07-14T00:00:00",
-      "entry": 16.100000381469727,
-      "exit": 16.59000015258789,
-      "take_profit": 20.86628217295114,
-      "stop_loss": 11.333718589988312,
-      "return_pct": 0.03043476767131814
-    },
-    {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "ticker": "SI=F",
+      "spread": "ZR=F",
       "type": "short",
-      "entry_date": "2025-06-16T00:00:00",
-      "exit_date": "2025-07-14T00:00:00",
-      "entry": 36.25,
-      "exit": 39.09999847412109,
-      "take_profit": 28.680476642265994,
-      "stop_loss": 43.819523357734006,
-      "return_pct": -0.07288998939494584
+      "entry_date": "2021-11-26",
+      "exit_date": "2021-12-17",
+      "entry": 1429.0,
+      "exit": 1375.862884,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.037185,
+      "exit_reason": "TP"
     },
     {
-      "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZM=F",
-      "type": "long",
-      "entry_date": "2025-06-30T00:00:00",
-      "exit_date": "2025-07-28T00:00:00",
-      "entry": 271.1000061035156,
-      "exit": 267.5,
-      "take_profit": 388.9324792984828,
-      "stop_loss": 153.26753290854845,
-      "return_pct": -0.013279254970363308
-    },
-    {
-      "market": "SUGAR NO. 11 - ICE FUTURES U.S.",
-      "ticker": "SB=F",
-      "type": "long",
-      "entry_date": "2025-07-28T00:00:00",
-      "exit_date": "2025-08-25T00:00:00",
-      "entry": 16.280000686645508,
-      "exit": 16.440000534057617,
-      "take_profit": 20.784551395370563,
-      "stop_loss": 11.775449977920452,
-      "return_pct": 0.009828000040771334
-    },
-    {
-      "market": "SILVER - COMMODITY EXCHANGE INC.",
-      "ticker": "SI=F",
+      "spread": "ZW=F",
       "type": "short",
-      "entry_date": "2025-07-28T00:00:00",
-      "exit_date": "2025-08-25T00:00:00",
-      "entry": 38.130001068115234,
-      "exit": 38.76499938964844,
-      "take_profit": 29.28632579394585,
-      "stop_loss": 46.97367634228462,
-      "return_pct": -0.01638071279585185
+      "entry_date": "2021-11-19",
+      "exit_date": "2021-12-31",
+      "entry": 823.0,
+      "exit": 771.70395,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.062328,
+      "exit_reason": "TP"
     },
     {
-      "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
-      "ticker": "ZR=F",
+      "spread": "CC=F",
       "type": "long",
-      "entry_date": "2025-08-04T00:00:00",
-      "exit_date": "2025-09-01T00:00:00",
-      "entry": 1227.5,
-      "exit": 1188.5,
-      "take_profit": 1699.475580838323,
-      "stop_loss": 755.5244191616771,
-      "return_pct": -0.031771894093686304
+      "entry_date": "2021-12-03",
+      "exit_date": "2022-01-14",
+      "entry": 2435.0,
+      "exit": 2539.221602,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.042801,
+      "exit_reason": "TP"
     },
     {
-      "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
-      "ticker": "ZM=F",
+      "spread": "PL=F",
       "type": "long",
-      "entry_date": "2025-08-11T00:00:00",
-      "exit_date": "2025-09-08T00:00:00",
-      "entry": 276.6000061035156,
-      "exit": 281.3999938964844,
-      "take_profit": 383.2481749845032,
-      "stop_loss": 169.95183722252807,
-      "return_pct": 0.017353534660344172
+      "entry_date": "2021-12-03",
+      "exit_date": "2022-01-21",
+      "entry": 925.5,
+      "exit": 983.293038,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.062445,
+      "exit_reason": "TP"
     },
     {
-      "market": "SUGAR NO. 11 - ICE FUTURES U.S.",
-      "ticker": "SB=F",
+      "spread": "DX=F",
       "type": "long",
-      "entry_date": "2025-09-08T00:00:00",
-      "exit_date": "2025-09-15T00:00:00",
-      "entry": 15.600000381469728,
-      "exit": 16.530000686645508,
-      "take_profit": 20.66383787146013,
-      "stop_loss": 10.536162891479325,
-      "return_pct": 0.05961540272014787
+      "entry_date": "2020-09-18",
+      "exit_date": "2022-02-04",
+      "entry": 92.952003,
+      "exit": 95.480003,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.027197,
+      "exit_reason": "EOD"
     },
     {
-      "market": "COTTON NO. 2 - ICE FUTURES U.S.",
-      "ticker": "CT=F",
+      "spread": "6M=F",
       "type": "long",
-      "entry_date": "2025-09-15T00:00:00",
-      "exit_date": "2025-09-15T00:00:00",
-      "entry": 66.73999786376953,
-      "exit": 66.69000244140625,
-      "take_profit": 85.33128952684223,
-      "stop_loss": 48.148706200696836,
-      "return_pct": -0.000749107341377675
+      "entry_date": "2022-01-28",
+      "exit_date": "2022-02-18",
+      "entry": 0.04782,
+      "exit": 0.048917,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.022935,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "PL=F",
+      "type": "long",
+      "entry_date": "2022-02-11",
+      "exit_date": "2022-02-18",
+      "entry": 1017.299988,
+      "exit": 1070.612448,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.052406,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NIY=F",
+      "type": "long",
+      "entry_date": "2022-01-21",
+      "exit_date": "2022-03-04",
+      "entry": 27495.0,
+      "exit": 26530.016852,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.035097,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZR=F",
+      "type": "short",
+      "entry_date": "2022-01-28",
+      "exit_date": "2022-03-04",
+      "entry": 1497.5,
+      "exit": 1548.012085,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.033731,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZS=F",
+      "type": "short",
+      "entry_date": "2022-02-11",
+      "exit_date": "2022-03-04",
+      "entry": 1583.0,
+      "exit": 1648.807088,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.041571,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6J=F",
+      "type": "short",
+      "entry_date": "2020-09-18",
+      "exit_date": "2022-03-11",
+      "entry": 0.009569,
+      "exit": 0.008612,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.1,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ES=F",
+      "type": "short",
+      "entry_date": "2022-01-21",
+      "exit_date": "2022-03-11",
+      "entry": 4390.0,
+      "exit": 4271.8327,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.026917,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZM=F",
+      "type": "short",
+      "entry_date": "2022-02-04",
+      "exit_date": "2022-03-11",
+      "entry": 443.899994,
+      "exit": 470.992291,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.061032,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6L=F",
+      "type": "long",
+      "entry_date": "2020-11-06",
+      "exit_date": "2022-03-25",
+      "entry": 0.1846,
+      "exit": 0.20306,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.1,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6M=F",
+      "type": "long",
+      "entry_date": "2022-03-18",
+      "exit_date": "2022-04-01",
+      "entry": 0.04886,
+      "exit": 0.049993,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.023182,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6J=F",
+      "type": "long",
+      "entry_date": "2022-03-25",
+      "exit_date": "2022-04-08",
+      "entry": 0.008191,
+      "exit": 0.008081,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.013436,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "SB=F",
+      "type": "short",
+      "entry_date": "2022-04-08",
+      "exit_date": "2022-04-22",
+      "entry": 20.41,
+      "exit": 19.515234,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.04384,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "PL=F",
+      "type": "long",
+      "entry_date": "2022-04-15",
+      "exit_date": "2022-04-22",
+      "entry": 989.599976,
+      "exit": 937.123637,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.053028,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6E=F",
+      "type": "short",
+      "entry_date": "2020-09-18",
+      "exit_date": "2022-04-29",
+      "entry": 1.186,
+      "exit": 1.0674,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.1,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "GC=F",
+      "type": "short",
+      "entry_date": "2022-03-04",
+      "exit_date": "2022-04-29",
+      "entry": 1965.099976,
+      "exit": 1916.086975,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.024942,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZR=F",
+      "type": "short",
+      "entry_date": "2022-04-08",
+      "exit_date": "2022-04-29",
+      "entry": 1578.0,
+      "exit": 1641.197733,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.040049,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "CC=F",
+      "type": "short",
+      "entry_date": "2022-02-18",
+      "exit_date": "2022-05-20",
+      "entry": 2573.0,
+      "exit": 2438.019254,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.05246,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6A=F",
+      "type": "long",
+      "entry_date": "2022-05-20",
+      "exit_date": "2022-06-03",
+      "entry": 0.7022,
+      "exit": 0.716826,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.020829,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6M=F",
+      "type": "long",
+      "entry_date": "2022-06-17",
+      "exit_date": "2022-06-24",
+      "entry": 0.04882,
+      "exit": 0.049729,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.018622,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NQ=F",
+      "type": "short",
+      "entry_date": "2022-06-17",
+      "exit_date": "2022-06-24",
+      "entry": 11130.389648,
+      "exit": 11698.197408,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.051014,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZW=F",
+      "type": "short",
+      "entry_date": "2022-04-15",
+      "exit_date": "2022-07-01",
+      "entry": 1096.5,
+      "exit": 892.116064,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.186397,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ES=F",
+      "type": "long",
+      "entry_date": "2022-06-24",
+      "exit_date": "2022-07-29",
+      "entry": 3916.25,
+      "exit": 4099.585735,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.046814,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6A=F",
+      "type": "long",
+      "entry_date": "2022-07-08",
+      "exit_date": "2022-07-29",
+      "entry": 0.685,
+      "exit": 0.699263,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.020822,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "SI=F",
+      "type": "long",
+      "entry_date": "2022-07-08",
+      "exit_date": "2022-08-12",
+      "entry": 19.167,
+      "exit": 20.267903,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.057437,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6A=F",
+      "type": "long",
+      "entry_date": "2022-08-05",
+      "exit_date": "2022-08-12",
+      "entry": 0.69085,
+      "exit": 0.70489,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.020323,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZM=F",
+      "type": "short",
+      "entry_date": "2022-07-29",
+      "exit_date": "2022-08-19",
+      "entry": 495.299988,
+      "exit": 458.806549,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.073679,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6E=F",
+      "type": "long",
+      "entry_date": "2022-07-08",
+      "exit_date": "2022-08-26",
+      "entry": 1.01785,
+      "exit": 0.998449,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.019061,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "CC=F",
+      "type": "long",
+      "entry_date": "2022-07-08",
+      "exit_date": "2022-08-26",
+      "entry": 2269.0,
+      "exit": 2362.768384,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.041326,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "KC=F",
+      "type": "short",
+      "entry_date": "2022-08-12",
+      "exit_date": "2022-08-26",
+      "entry": 226.600006,
+      "exit": 238.555607,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.052761,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZR=F",
+      "type": "short",
+      "entry_date": "2022-08-12",
+      "exit_date": "2022-09-16",
+      "entry": 1715.5,
+      "exit": 1780.240637,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.037739,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "NQ=F",
+      "type": "short",
+      "entry_date": "2022-08-26",
+      "exit_date": "2022-09-16",
+      "entry": 12620.5,
+      "exit": 11842.163255,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.061672,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "CC=F",
+      "type": "long",
+      "entry_date": "2022-09-09",
+      "exit_date": "2022-09-23",
+      "entry": 2360.0,
+      "exit": 2289.716471,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.029781,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6L=F",
+      "type": "short",
+      "entry_date": "2022-09-09",
+      "exit_date": "2022-09-30",
+      "entry": 0.1929,
+      "exit": 0.185379,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.03899,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "GC=F",
+      "type": "long",
+      "entry_date": "2022-09-23",
+      "exit_date": "2022-10-07",
+      "entry": 1645.300049,
+      "exit": 1685.766152,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.024595,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6J=F",
+      "type": "long",
+      "entry_date": "2022-09-16",
+      "exit_date": "2022-10-14",
+      "entry": 0.006995,
+      "exit": 0.006861,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.019227,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZR=F",
+      "type": "long",
+      "entry_date": "2022-10-28",
+      "exit_date": "2022-11-04",
+      "entry": 1612.5,
+      "exit": 1655.361933,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.026581,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "CC=F",
+      "type": "long",
+      "entry_date": "2022-10-28",
+      "exit_date": "2022-11-04",
+      "entry": 2302.0,
+      "exit": 2375.463468,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.031913,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NIY=F",
+      "type": "long",
+      "entry_date": "2022-10-07",
+      "exit_date": "2022-11-11",
+      "entry": 26730.0,
+      "exit": 27557.421527,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.030955,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6J=F",
+      "type": "long",
+      "entry_date": "2022-10-21",
+      "exit_date": "2022-11-11",
+      "entry": 0.006801,
+      "exit": 0.006936,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.019847,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6A=F",
+      "type": "long",
+      "entry_date": "2022-10-28",
+      "exit_date": "2022-11-11",
+      "entry": 0.6414,
+      "exit": 0.657805,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.025576,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "GC=F",
+      "type": "long",
+      "entry_date": "2022-10-28",
+      "exit_date": "2022-11-11",
+      "entry": 1639.599976,
+      "exit": 1682.514716,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.026174,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZM=F",
+      "type": "short",
+      "entry_date": "2022-10-28",
+      "exit_date": "2022-12-09",
+      "entry": 425.399994,
+      "exit": 461.551967,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.084983,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "SB=F",
+      "type": "short",
+      "entry_date": "2022-11-25",
+      "exit_date": "2022-12-23",
+      "entry": 19.33,
+      "exit": 20.199118,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.044962,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "NQ=F",
+      "type": "short",
+      "entry_date": "2022-12-02",
+      "exit_date": "2022-12-23",
+      "entry": 12010.25,
+      "exit": 11249.257068,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.063362,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6J=F",
+      "type": "long",
+      "entry_date": "2022-12-02",
+      "exit_date": "2022-12-30",
+      "entry": 0.007452,
+      "exit": 0.007648,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.026261,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6M=F",
+      "type": "long",
+      "entry_date": "2022-12-23",
+      "exit_date": "2023-01-13",
+      "entry": 0.05147,
+      "exit": 0.052324,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.016596,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6E=F",
+      "type": "short",
+      "entry_date": "2022-12-23",
+      "exit_date": "2023-01-20",
+      "entry": 1.06405,
+      "exit": 1.085495,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.020154,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ES=F",
+      "type": "long",
+      "entry_date": "2022-12-30",
+      "exit_date": "2023-01-27",
+      "entry": 3861.0,
+      "exit": 4029.165089,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.043555,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZW=F",
+      "type": "long",
+      "entry_date": "2023-01-20",
+      "exit_date": "2023-02-10",
+      "entry": 741.5,
+      "exit": 781.858852,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.054429,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZR=F",
+      "type": "long",
+      "entry_date": "2022-12-23",
+      "exit_date": "2023-02-24",
+      "entry": 1801.5,
+      "exit": 1728.626113,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.040452,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "CT=F",
+      "type": "long",
+      "entry_date": "2023-01-20",
+      "exit_date": "2023-03-10",
+      "entry": 86.699997,
+      "exit": 78.225151,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.097749,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZR=F",
+      "type": "long",
+      "entry_date": "2023-03-03",
+      "exit_date": "2023-03-10",
+      "entry": 1699.5,
+      "exit": 1623.387301,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.044785,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "SI=F",
+      "type": "long",
+      "entry_date": "2023-03-03",
+      "exit_date": "2023-03-17",
+      "entry": 21.093,
+      "exit": 22.346457,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.059425,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6J=F",
+      "type": "long",
+      "entry_date": "2023-03-10",
+      "exit_date": "2023-03-17",
+      "entry": 0.007421,
+      "exit": 0.007621,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.026931,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "CC=F",
+      "type": "short",
+      "entry_date": "2023-03-03",
+      "exit_date": "2023-03-24",
+      "entry": 2730.0,
+      "exit": 2846.150543,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.042546,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZC=F",
+      "type": "long",
+      "entry_date": "2023-03-17",
+      "exit_date": "2023-03-31",
+      "entry": 634.25,
+      "exit": 653.324978,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.030075,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "PL=F",
+      "type": "long",
+      "entry_date": "2023-02-10",
+      "exit_date": "2023-04-07",
+      "entry": 945.599976,
+      "exit": 997.319625,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.054695,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6L=F",
+      "type": "short",
+      "entry_date": "2023-01-06",
+      "exit_date": "2023-04-14",
+      "entry": 0.1896,
+      "exit": 0.197308,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.040653,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "CC=F",
+      "type": "short",
+      "entry_date": "2023-03-31",
+      "exit_date": "2023-04-21",
+      "entry": 2933.0,
+      "exit": 3053.24458,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.040997,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZS=F",
+      "type": "short",
+      "entry_date": "2023-04-07",
+      "exit_date": "2023-04-28",
+      "entry": 1492.5,
+      "exit": 1449.012741,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.029137,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZM=F",
+      "type": "short",
+      "entry_date": "2023-04-14",
+      "exit_date": "2023-05-05",
+      "entry": 459.700012,
+      "exit": 432.509144,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.059149,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZC=F",
+      "type": "long",
+      "entry_date": "2023-04-28",
+      "exit_date": "2023-05-19",
+      "entry": 636.0,
+      "exit": 613.469302,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.035426,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "NQ=F",
+      "type": "short",
+      "entry_date": "2023-05-05",
+      "exit_date": "2023-05-19",
+      "entry": 13317.75,
+      "exit": 13818.366773,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.03759,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "NIY=F",
+      "type": "long",
+      "entry_date": "2023-05-05",
+      "exit_date": "2023-05-19",
+      "entry": 29515.0,
+      "exit": 30384.050894,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.029444,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "KC=F",
+      "type": "short",
+      "entry_date": "2023-04-21",
+      "exit_date": "2023-06-02",
+      "entry": 194.199997,
+      "exit": 180.446198,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.070823,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZR=F",
+      "type": "short",
+      "entry_date": "2023-05-19",
+      "exit_date": "2023-06-09",
+      "entry": 1706.5,
+      "exit": 1801.435057,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.055631,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6L=F",
+      "type": "short",
+      "entry_date": "2023-05-05",
+      "exit_date": "2023-06-16",
+      "entry": 0.2014,
+      "exit": 0.206861,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.027116,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "NIY=F",
+      "type": "long",
+      "entry_date": "2023-06-02",
+      "exit_date": "2023-06-16",
+      "entry": 31965.0,
+      "exit": 32952.820766,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.030903,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6J=F",
+      "type": "long",
+      "entry_date": "2023-05-26",
+      "exit_date": "2023-06-23",
+      "entry": 0.007134,
+      "exit": 0.006981,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.021477,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6A=F",
+      "type": "long",
+      "entry_date": "2023-06-16",
+      "exit_date": "2023-06-23",
+      "entry": 0.68635,
+      "exit": 0.671745,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.021279,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "KC=F",
+      "type": "short",
+      "entry_date": "2023-06-16",
+      "exit_date": "2023-06-23",
+      "entry": 184.899994,
+      "exit": 173.569175,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.061281,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "CT=F",
+      "type": "long",
+      "entry_date": "2023-06-23",
+      "exit_date": "2023-06-30",
+      "entry": 78.059998,
+      "exit": 82.609158,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.058278,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NQ=F",
+      "type": "short",
+      "entry_date": "2023-06-23",
+      "exit_date": "2023-07-14",
+      "entry": 15058.25,
+      "exit": 15613.094983,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.036847,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "PL=F",
+      "type": "long",
+      "entry_date": "2023-07-07",
+      "exit_date": "2023-07-14",
+      "entry": 910.099976,
+      "exit": 954.909458,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.049236,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZR=F",
+      "type": "short",
+      "entry_date": "2023-06-16",
+      "exit_date": "2023-07-21",
+      "entry": 1779.5,
+      "exit": 1678.609442,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.056696,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZC=F",
+      "type": "long",
+      "entry_date": "2023-07-14",
+      "exit_date": "2023-07-21",
+      "entry": 599.75,
+      "exit": 559.151743,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.067692,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6L=F",
+      "type": "short",
+      "entry_date": "2023-06-30",
+      "exit_date": "2023-08-18",
+      "entry": 0.2075,
+      "exit": 0.202713,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.023072,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "PL=F",
+      "type": "long",
+      "entry_date": "2023-08-11",
+      "exit_date": "2023-09-01",
+      "entry": 907.900024,
+      "exit": 954.54537,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.051377,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NIY=F",
+      "type": "long",
+      "entry_date": "2023-08-04",
+      "exit_date": "2023-09-15",
+      "entry": 32020.0,
+      "exit": 33033.072543,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.031639,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZW=F",
+      "type": "long",
+      "entry_date": "2023-09-29",
+      "exit_date": "2023-10-20",
+      "entry": 541.5,
+      "exit": 582.57403,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.075852,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "GC=F",
+      "type": "long",
+      "entry_date": "2023-10-13",
+      "exit_date": "2023-10-20",
+      "entry": 1927.400024,
+      "exit": 1973.978733,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.024167,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NQ=F",
+      "type": "long",
+      "entry_date": "2023-08-11",
+      "exit_date": "2023-10-27",
+      "entry": 15095.75,
+      "exit": 14540.68455,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.03677,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ES=F",
+      "type": "short",
+      "entry_date": "2023-09-29",
+      "exit_date": "2023-10-27",
+      "entry": 4325.5,
+      "exit": 4227.774332,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.022593,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6A=F",
+      "type": "long",
+      "entry_date": "2023-08-25",
+      "exit_date": "2023-11-24",
+      "entry": 0.6424,
+      "exit": 0.655904,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.02102,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "CT=F",
+      "type": "long",
+      "entry_date": "2023-11-10",
+      "exit_date": "2023-12-08",
+      "entry": 77.32,
+      "exit": 81.109439,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.04901,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZM=F",
+      "type": "short",
+      "entry_date": "2023-11-03",
+      "exit_date": "2023-12-15",
+      "entry": 442.100006,
+      "exit": 417.956376,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.054611,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NQ=F",
+      "type": "short",
+      "entry_date": "2023-11-24",
+      "exit_date": "2023-12-22",
+      "entry": 16021.0,
+      "exit": 16614.993139,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.037076,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6E=F",
+      "type": "short",
+      "entry_date": "2023-12-01",
+      "exit_date": "2023-12-29",
+      "entry": 1.0879,
+      "exit": 1.102686,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.013591,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "KC=F",
+      "type": "short",
+      "entry_date": "2023-12-22",
+      "exit_date": "2024-01-12",
+      "entry": 192.800003,
+      "exit": 180.366548,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.064489,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZS=F",
+      "type": "long",
+      "entry_date": "2024-01-05",
+      "exit_date": "2024-01-12",
+      "entry": 1249.75,
+      "exit": 1222.009514,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.022197,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "CT=F",
+      "type": "long",
+      "entry_date": "2023-12-22",
+      "exit_date": "2024-01-19",
+      "entry": 79.760002,
+      "exit": 83.250433,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.043762,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZR=F",
+      "type": "short",
+      "entry_date": "2023-11-17",
+      "exit_date": "2024-02-02",
+      "entry": 1740.5,
+      "exit": 1835.584747,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.054631,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ES=F",
+      "type": "short",
+      "entry_date": "2024-01-12",
+      "exit_date": "2024-02-02",
+      "entry": 4816.5,
+      "exit": 4952.175173,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.028169,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZC=F",
+      "type": "long",
+      "entry_date": "2023-08-11",
+      "exit_date": "2024-02-09",
+      "entry": 474.5,
+      "exit": 437.999849,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.076923,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6J=F",
+      "type": "long",
+      "entry_date": "2024-01-26",
+      "exit_date": "2024-02-16",
+      "entry": 0.006775,
+      "exit": 0.006664,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.016407,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZM=F",
+      "type": "long",
+      "entry_date": "2024-01-12",
+      "exit_date": "2024-02-23",
+      "entry": 351.299988,
+      "exit": 331.59867,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.056081,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6L=F",
+      "type": "short",
+      "entry_date": "2023-11-10",
+      "exit_date": "2024-04-05",
+      "entry": 0.203,
+      "exit": 0.198367,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.022821,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "CT=F",
+      "type": "short",
+      "entry_date": "2024-02-16",
+      "exit_date": "2024-04-05",
+      "entry": 93.870003,
+      "exit": 89.987364,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.041362,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "PL=F",
+      "type": "long",
+      "entry_date": "2024-01-19",
+      "exit_date": "2024-04-12",
+      "entry": 897.299988,
+      "exit": 947.871149,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.056359,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ES=F",
+      "type": "short",
+      "entry_date": "2024-03-29",
+      "exit_date": "2024-04-12",
+      "entry": 5308.5,
+      "exit": 5176.159962,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.02493,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6M=F",
+      "type": "short",
+      "entry_date": "2024-03-08",
+      "exit_date": "2024-04-19",
+      "entry": 0.05943,
+      "exit": 0.058196,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.020756,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZW=F",
+      "type": "long",
+      "entry_date": "2024-03-29",
+      "exit_date": "2024-04-26",
+      "entry": 560.25,
+      "exit": 584.808237,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.043834,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "SI=F",
+      "type": "short",
+      "entry_date": "2024-04-12",
+      "exit_date": "2024-05-03",
+      "entry": 28.254999,
+      "exit": 26.619028,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.0579,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "PL=F",
+      "type": "long",
+      "entry_date": "2024-04-26",
+      "exit_date": "2024-05-10",
+      "entry": 914.299988,
+      "exit": 967.048181,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.057692,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6A=F",
+      "type": "long",
+      "entry_date": "2024-02-09",
+      "exit_date": "2024-05-17",
+      "entry": 0.6522,
+      "exit": 0.664516,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.018884,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6E=F",
+      "type": "long",
+      "entry_date": "2024-04-26",
+      "exit_date": "2024-05-17",
+      "entry": 1.0712,
+      "exit": 1.084011,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.01196,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "CT=F",
+      "type": "long",
+      "entry_date": "2024-05-10",
+      "exit_date": "2024-05-24",
+      "entry": 77.309998,
+      "exit": 80.360507,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.039458,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6L=F",
+      "type": "long",
+      "entry_date": "2024-05-10",
+      "exit_date": "2024-05-31",
+      "entry": 0.19365,
+      "exit": 0.191163,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.012843,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZC=F",
+      "type": "long",
+      "entry_date": "2024-05-24",
+      "exit_date": "2024-05-31",
+      "entry": 464.75,
+      "exit": 450.504461,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.030652,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6L=F",
+      "type": "long",
+      "entry_date": "2024-06-14",
+      "exit_date": "2024-06-28",
+      "entry": 0.1857,
+      "exit": 0.183328,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.012776,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZM=F",
+      "type": "short",
+      "entry_date": "2024-05-31",
+      "exit_date": "2024-07-05",
+      "entry": 364.700012,
+      "exit": 381.023608,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.044759,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6E=F",
+      "type": "long",
+      "entry_date": "2024-06-28",
+      "exit_date": "2024-07-05",
+      "entry": 1.07195,
+      "exit": 1.08141,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.008825,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZS=F",
+      "type": "long",
+      "entry_date": "2024-06-07",
+      "exit_date": "2024-07-12",
+      "entry": 1179.25,
+      "exit": 1147.070855,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.027288,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ES=F",
+      "type": "short",
+      "entry_date": "2024-06-28",
+      "exit_date": "2024-07-12",
+      "entry": 5521.5,
+      "exit": 5630.819686,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.019799,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6A=F",
+      "type": "short",
+      "entry_date": "2024-07-05",
+      "exit_date": "2024-07-26",
+      "entry": 0.67535,
+      "exit": 0.665835,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.014088,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "GC=F",
+      "type": "short",
+      "entry_date": "2024-07-19",
+      "exit_date": "2024-08-16",
+      "entry": 2395.5,
+      "exit": 2462.937445,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.028152,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "NQ=F",
+      "type": "short",
+      "entry_date": "2024-08-09",
+      "exit_date": "2024-08-16",
+      "entry": 18616.0,
+      "exit": 19259.583909,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.034572,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6J=F",
+      "type": "short",
+      "entry_date": "2024-08-16",
+      "exit_date": "2024-08-23",
+      "entry": 0.006773,
+      "exit": 0.006927,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.022737,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "SI=F",
+      "type": "short",
+      "entry_date": "2024-08-23",
+      "exit_date": "2024-09-06",
+      "entry": 29.785999,
+      "exit": 27.907018,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.063083,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ES=F",
+      "type": "short",
+      "entry_date": "2024-08-30",
+      "exit_date": "2024-09-06",
+      "entry": 5661.0,
+      "exit": 5523.821605,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.024232,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NQ=F",
+      "type": "short",
+      "entry_date": "2024-08-30",
+      "exit_date": "2024-09-06",
+      "entry": 19623.0,
+      "exit": 18900.789494,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.036804,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "PL=F",
+      "type": "long",
+      "entry_date": "2024-08-09",
+      "exit_date": "2024-09-13",
+      "entry": 927.599976,
+      "exit": 980.791474,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.057343,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "GC=F",
+      "type": "short",
+      "entry_date": "2024-08-23",
+      "exit_date": "2024-09-13",
+      "entry": 2508.399902,
+      "exit": 2579.364641,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.028291,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6A=F",
+      "type": "short",
+      "entry_date": "2024-08-30",
+      "exit_date": "2024-09-27",
+      "entry": 0.67695,
+      "exit": 0.687581,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.015704,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "SI=F",
+      "type": "short",
+      "entry_date": "2024-09-20",
+      "exit_date": "2024-10-25",
+      "entry": 31.176001,
+      "exit": 33.324493,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.068915,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZM=F",
+      "type": "short",
+      "entry_date": "2024-10-04",
+      "exit_date": "2024-10-25",
+      "entry": 330.5,
+      "exit": 308.475301,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.066641,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ES=F",
+      "type": "short",
+      "entry_date": "2024-09-27",
+      "exit_date": "2024-11-08",
+      "entry": 5791.25,
+      "exit": 5951.460987,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.027664,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6E=F",
+      "type": "long",
+      "entry_date": "2024-10-25",
+      "exit_date": "2024-11-15",
+      "entry": 1.08135,
+      "exit": 1.069745,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.010732,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6E=F",
+      "type": "long",
+      "entry_date": "2024-11-22",
+      "exit_date": "2024-11-29",
+      "entry": 1.042,
+      "exit": 1.054565,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.012058,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6C=F",
+      "type": "short",
+      "entry_date": "2021-01-01",
+      "exit_date": "2024-12-13",
+      "entry": 0.78335,
+      "exit": 0.705015,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.1,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ES=F",
+      "type": "short",
+      "entry_date": "2024-12-13",
+      "exit_date": "2024-12-20",
+      "entry": 6055.5,
+      "exit": 5882.582742,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.028555,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6A=F",
+      "type": "long",
+      "entry_date": "2024-12-20",
+      "exit_date": "2025-01-10",
+      "entry": 0.6267,
+      "exit": 0.615703,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.017547,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "PL=F",
+      "type": "long",
+      "entry_date": "2025-01-03",
+      "exit_date": "2025-01-10",
+      "entry": 934.599976,
+      "exit": 977.006979,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.045374,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "GC=F",
+      "type": "short",
+      "entry_date": "2024-12-13",
+      "exit_date": "2025-01-17",
+      "entry": 2656.0,
+      "exit": 2729.740525,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.027764,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "PA=F",
+      "type": "long",
+      "entry_date": "2024-12-27",
+      "exit_date": "2025-01-24",
+      "entry": 893.599976,
+      "exit": 978.087709,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.094548,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6L=F",
+      "type": "long",
+      "entry_date": "2025-01-03",
+      "exit_date": "2025-01-24",
+      "entry": 0.16085,
+      "exit": 0.165015,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.025896,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZW=F",
+      "type": "long",
+      "entry_date": "2024-12-06",
+      "exit_date": "2025-02-07",
+      "entry": 542.5,
+      "exit": 569.904492,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.050515,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NQ=F",
+      "type": "short",
+      "entry_date": "2024-11-08",
+      "exit_date": "2025-02-14",
+      "entry": 21231.25,
+      "exit": 22085.303374,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.040226,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZR=F",
+      "type": "long",
+      "entry_date": "2024-07-26",
+      "exit_date": "2025-02-21",
+      "entry": 1523.5,
+      "exit": 1364.163669,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.104586,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6J=F",
+      "type": "short",
+      "entry_date": "2024-12-13",
+      "exit_date": "2025-02-21",
+      "entry": 0.006507,
+      "exit": 0.006691,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.028205,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "SB=F",
+      "type": "long",
+      "entry_date": "2024-12-20",
+      "exit_date": "2025-02-21",
+      "entry": 19.51,
+      "exit": 20.808117,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.066536,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NIY=F",
+      "type": "long",
+      "entry_date": "2024-10-11",
+      "exit_date": "2025-02-28",
+      "entry": 39880.0,
+      "exit": 37746.737403,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.053492,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZC=F",
+      "type": "short",
+      "entry_date": "2025-01-24",
+      "exit_date": "2025-02-28",
+      "entry": 486.5,
+      "exit": 471.662605,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.030498,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "SI=F",
+      "type": "short",
+      "entry_date": "2025-02-21",
+      "exit_date": "2025-02-28",
+      "entry": 32.976002,
+      "exit": 31.505114,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.044605,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NQ=F",
+      "type": "short",
+      "entry_date": "2025-02-28",
+      "exit_date": "2025-03-14",
+      "entry": 20919.5,
+      "exit": 20155.861832,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.036504,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "CL=F",
+      "type": "short",
+      "entry_date": "2024-08-02",
+      "exit_date": "2025-04-04",
+      "entry": 73.519997,
+      "exit": 66.167997,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.1,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6A=F",
+      "type": "long",
+      "entry_date": "2025-03-21",
+      "exit_date": "2025-04-04",
+      "entry": 0.62765,
+      "exit": 0.617101,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.016807,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6S=F",
+      "type": "short",
+      "entry_date": "2020-09-18",
+      "exit_date": "2025-04-11",
+      "entry": 1.1015,
+      "exit": 1.21165,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.1,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ES=F",
+      "type": "short",
+      "entry_date": "2025-04-04",
+      "exit_date": "2025-04-11",
+      "entry": 5110.25,
+      "exit": 5301.927818,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.037509,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6M=F",
+      "type": "long",
+      "entry_date": "2024-11-29",
+      "exit_date": "2025-04-18",
+      "entry": 0.04913,
+      "exit": 0.050503,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.027947,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NG=F",
+      "type": "short",
+      "entry_date": "2025-03-28",
+      "exit_date": "2025-04-18",
+      "entry": 4.065,
+      "exit": 3.462313,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.148262,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ZW=F",
+      "type": "long",
+      "entry_date": "2025-02-28",
+      "exit_date": "2025-05-09",
+      "entry": 537.0,
+      "exit": 513.320972,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.044095,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6L=F",
+      "type": "short",
+      "entry_date": "2025-03-07",
+      "exit_date": "2025-05-09",
+      "entry": 0.17175,
+      "exit": 0.17581,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.023639,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "PA=F",
+      "type": "long",
+      "entry_date": "2025-04-11",
+      "exit_date": "2025-05-09",
+      "entry": 896.799988,
+      "exit": 968.192716,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.079608,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "PL=F",
+      "type": "long",
+      "entry_date": "2025-04-11",
+      "exit_date": "2025-05-09",
+      "entry": 934.299988,
+      "exit": 981.206304,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.050205,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NQ=F",
+      "type": "short",
+      "entry_date": "2025-04-25",
+      "exit_date": "2025-05-16",
+      "entry": 19535.25,
+      "exit": 20563.563516,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.052639,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "KC=F",
+      "type": "short",
+      "entry_date": "2025-05-02",
+      "exit_date": "2025-05-23",
+      "entry": 395.399994,
+      "exit": 368.993217,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.066785,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "6L=F",
+      "type": "short",
+      "entry_date": "2025-05-16",
+      "exit_date": "2025-06-13",
+      "entry": 0.1758,
+      "exit": 0.179453,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.020777,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZM=F",
+      "type": "long",
+      "entry_date": "2024-11-22",
+      "exit_date": "2025-06-27",
+      "entry": 289.200012,
+      "exit": 271.589515,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.060894,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZC=F",
+      "type": "long",
+      "entry_date": "2025-06-06",
+      "exit_date": "2025-06-27",
+      "entry": 442.5,
+      "exit": 422.784557,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.044555,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "CL=F",
+      "type": "long",
+      "entry_date": "2025-06-13",
+      "exit_date": "2025-06-27",
+      "entry": 72.980003,
+      "exit": 68.16729,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.065946,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "PL=F",
+      "type": "short",
+      "entry_date": "2025-06-13",
+      "exit_date": "2025-06-27",
+      "entry": 1210.800049,
+      "exit": 1287.896471,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.063674,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "CC=F",
+      "type": "long",
+      "entry_date": "2025-07-11",
+      "exit_date": "2025-07-18",
+      "entry": 8840.0,
+      "exit": 7894.38051,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.106971,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ZW=F",
+      "type": "long",
+      "entry_date": "2025-07-18",
+      "exit_date": "2025-08-08",
+      "entry": 546.25,
+      "exit": 516.698719,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.054098,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "PA=F",
+      "type": "short",
+      "entry_date": "2025-08-01",
+      "exit_date": "2025-08-15",
+      "entry": 1207.900024,
+      "exit": 1121.085208,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.071873,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "NG=F",
+      "type": "short",
+      "entry_date": "2025-07-11",
+      "exit_date": "2025-08-22",
+      "entry": 3.314,
+      "exit": 2.826223,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.147187,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "GC=F",
+      "type": "short",
+      "entry_date": "2025-07-25",
+      "exit_date": "2025-08-29",
+      "entry": 3334.0,
+      "exit": 3464.682131,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.039197,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "NQ=F",
+      "type": "short",
+      "entry_date": "2025-07-04",
+      "exit_date": "2025-09-12",
+      "entry": 22906.75,
+      "exit": 24105.578267,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.052335,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6E=F",
+      "type": "short",
+      "entry_date": "2025-07-18",
+      "exit_date": "2025-09-12",
+      "entry": 1.16445,
+      "exit": 1.17425,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.008416,
+      "exit_reason": "EOD"
+    },
+    {
+      "spread": "6A=F",
+      "type": "long",
+      "entry_date": "2025-07-18",
+      "exit_date": "2025-09-12",
+      "entry": 0.65085,
+      "exit": 0.6653,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.022202,
+      "exit_reason": "EOD"
+    },
+    {
+      "spread": "6L=F",
+      "type": "short",
+      "entry_date": "2025-08-15",
+      "exit_date": "2025-09-12",
+      "entry": 0.18445,
+      "exit": 0.1861,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.008946,
+      "exit_reason": "EOD"
+    },
+    {
+      "spread": "GC=F",
+      "type": "short",
+      "entry_date": "2025-09-05",
+      "exit_date": "2025-09-12",
+      "entry": 3613.199951,
+      "exit": 3649.399902,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": -0.010019,
+      "exit_reason": "EOD"
+    },
+    {
+      "spread": "6J=F",
+      "type": "short",
+      "entry_date": "2025-09-12",
+      "exit_date": "2025-09-12",
+      "entry": 0.006781,
+      "exit": 0.006781,
+      "take_profit": null,
+      "stop_loss": null,
+      "pnl": 0.0,
+      "exit_reason": "EOD"
+    }
+  ],
+  "open_trades": [],
+  "equity_curve": [
+    {
+      "date": "2020-10-09",
+      "cumulative_pnl": -0.1
+    },
+    {
+      "date": "2020-11-20",
+      "cumulative_pnl": -0.2
+    },
+    {
+      "date": "2020-12-04",
+      "cumulative_pnl": -0.1
+    },
+    {
+      "date": "2020-12-04",
+      "cumulative_pnl": 0.0
+    },
+    {
+      "date": "2020-12-18",
+      "cumulative_pnl": -0.1
+    },
+    {
+      "date": "2020-12-25",
+      "cumulative_pnl": -0.2
+    },
+    {
+      "date": "2021-01-01",
+      "cumulative_pnl": -0.3
+    },
+    {
+      "date": "2021-02-12",
+      "cumulative_pnl": -0.4
+    },
+    {
+      "date": "2021-02-26",
+      "cumulative_pnl": -0.3
+    },
+    {
+      "date": "2021-03-19",
+      "cumulative_pnl": -0.2
+    },
+    {
+      "date": "2021-04-16",
+      "cumulative_pnl": -0.175863
+    },
+    {
+      "date": "2021-04-23",
+      "cumulative_pnl": -0.275863
+    },
+    {
+      "date": "2021-05-07",
+      "cumulative_pnl": -0.375863
+    },
+    {
+      "date": "2021-05-14",
+      "cumulative_pnl": -0.334085
+    },
+    {
+      "date": "2021-05-21",
+      "cumulative_pnl": -0.286249
+    },
+    {
+      "date": "2021-06-04",
+      "cumulative_pnl": -0.339866
+    },
+    {
+      "date": "2021-06-25",
+      "cumulative_pnl": -0.317327
+    },
+    {
+      "date": "2021-08-13",
+      "cumulative_pnl": -0.363694
+    },
+    {
+      "date": "2021-08-20",
+      "cumulative_pnl": -0.388686
+    },
+    {
+      "date": "2021-08-20",
+      "cumulative_pnl": -0.404173
+    },
+    {
+      "date": "2021-10-08",
+      "cumulative_pnl": -0.426927
+    },
+    {
+      "date": "2021-10-15",
+      "cumulative_pnl": -0.370845
+    },
+    {
+      "date": "2021-10-15",
+      "cumulative_pnl": -0.338113
+    },
+    {
+      "date": "2021-10-29",
+      "cumulative_pnl": -0.403497
+    },
+    {
+      "date": "2021-11-12",
+      "cumulative_pnl": -0.351173
+    },
+    {
+      "date": "2021-11-26",
+      "cumulative_pnl": -0.325668
+    },
+    {
+      "date": "2021-12-10",
+      "cumulative_pnl": -0.344541
+    },
+    {
+      "date": "2021-12-17",
+      "cumulative_pnl": -0.413177
+    },
+    {
+      "date": "2021-12-17",
+      "cumulative_pnl": -0.375992
+    },
+    {
+      "date": "2021-12-31",
+      "cumulative_pnl": -0.313664
+    },
+    {
+      "date": "2022-01-14",
+      "cumulative_pnl": -0.270863
+    },
+    {
+      "date": "2022-01-21",
+      "cumulative_pnl": -0.208418
+    },
+    {
+      "date": "2022-02-04",
+      "cumulative_pnl": -0.181221
+    },
+    {
+      "date": "2022-02-18",
+      "cumulative_pnl": -0.158286
+    },
+    {
+      "date": "2022-02-18",
+      "cumulative_pnl": -0.10588
+    },
+    {
+      "date": "2022-03-04",
+      "cumulative_pnl": -0.140977
+    },
+    {
+      "date": "2022-03-04",
+      "cumulative_pnl": -0.174708
+    },
+    {
+      "date": "2022-03-04",
+      "cumulative_pnl": -0.216279
+    },
+    {
+      "date": "2022-03-11",
+      "cumulative_pnl": -0.116279
+    },
+    {
+      "date": "2022-03-11",
+      "cumulative_pnl": -0.089362
+    },
+    {
+      "date": "2022-03-11",
+      "cumulative_pnl": -0.150394
+    },
+    {
+      "date": "2022-03-25",
+      "cumulative_pnl": -0.050394
+    },
+    {
+      "date": "2022-04-01",
+      "cumulative_pnl": -0.027212
+    },
+    {
+      "date": "2022-04-08",
+      "cumulative_pnl": -0.040648
+    },
+    {
+      "date": "2022-04-22",
+      "cumulative_pnl": 0.003192
+    },
+    {
+      "date": "2022-04-22",
+      "cumulative_pnl": -0.049836
+    },
+    {
+      "date": "2022-04-29",
+      "cumulative_pnl": 0.050164
+    },
+    {
+      "date": "2022-04-29",
+      "cumulative_pnl": 0.075106
+    },
+    {
+      "date": "2022-04-29",
+      "cumulative_pnl": 0.035057
+    },
+    {
+      "date": "2022-05-20",
+      "cumulative_pnl": 0.087517
+    },
+    {
+      "date": "2022-06-03",
+      "cumulative_pnl": 0.108346
+    },
+    {
+      "date": "2022-06-24",
+      "cumulative_pnl": 0.126968
+    },
+    {
+      "date": "2022-06-24",
+      "cumulative_pnl": 0.075954
+    },
+    {
+      "date": "2022-07-01",
+      "cumulative_pnl": 0.262351
+    },
+    {
+      "date": "2022-07-29",
+      "cumulative_pnl": 0.309165
+    },
+    {
+      "date": "2022-07-29",
+      "cumulative_pnl": 0.329987
+    },
+    {
+      "date": "2022-08-12",
+      "cumulative_pnl": 0.387424
+    },
+    {
+      "date": "2022-08-12",
+      "cumulative_pnl": 0.407747
+    },
+    {
+      "date": "2022-08-19",
+      "cumulative_pnl": 0.481426
+    },
+    {
+      "date": "2022-08-26",
+      "cumulative_pnl": 0.462365
+    },
+    {
+      "date": "2022-08-26",
+      "cumulative_pnl": 0.503691
+    },
+    {
+      "date": "2022-08-26",
+      "cumulative_pnl": 0.45093
+    },
+    {
+      "date": "2022-09-16",
+      "cumulative_pnl": 0.413191
+    },
+    {
+      "date": "2022-09-16",
+      "cumulative_pnl": 0.474863
+    },
+    {
+      "date": "2022-09-23",
+      "cumulative_pnl": 0.445082
+    },
+    {
+      "date": "2022-09-30",
+      "cumulative_pnl": 0.484072
+    },
+    {
+      "date": "2022-10-07",
+      "cumulative_pnl": 0.508667
+    },
+    {
+      "date": "2022-10-14",
+      "cumulative_pnl": 0.48944
+    },
+    {
+      "date": "2022-11-04",
+      "cumulative_pnl": 0.516021
+    },
+    {
+      "date": "2022-11-04",
+      "cumulative_pnl": 0.547934
+    },
+    {
+      "date": "2022-11-11",
+      "cumulative_pnl": 0.578889
+    },
+    {
+      "date": "2022-11-11",
+      "cumulative_pnl": 0.598736
+    },
+    {
+      "date": "2022-11-11",
+      "cumulative_pnl": 0.624312
+    },
+    {
+      "date": "2022-11-11",
+      "cumulative_pnl": 0.650486
+    },
+    {
+      "date": "2022-12-09",
+      "cumulative_pnl": 0.565503
+    },
+    {
+      "date": "2022-12-23",
+      "cumulative_pnl": 0.520541
+    },
+    {
+      "date": "2022-12-23",
+      "cumulative_pnl": 0.583903
+    },
+    {
+      "date": "2022-12-30",
+      "cumulative_pnl": 0.610164
+    },
+    {
+      "date": "2023-01-13",
+      "cumulative_pnl": 0.62676
+    },
+    {
+      "date": "2023-01-20",
+      "cumulative_pnl": 0.606606
+    },
+    {
+      "date": "2023-01-27",
+      "cumulative_pnl": 0.650161
+    },
+    {
+      "date": "2023-02-10",
+      "cumulative_pnl": 0.70459
+    },
+    {
+      "date": "2023-02-24",
+      "cumulative_pnl": 0.664138
+    },
+    {
+      "date": "2023-03-10",
+      "cumulative_pnl": 0.566389
+    },
+    {
+      "date": "2023-03-10",
+      "cumulative_pnl": 0.521604
+    },
+    {
+      "date": "2023-03-17",
+      "cumulative_pnl": 0.581029
+    },
+    {
+      "date": "2023-03-17",
+      "cumulative_pnl": 0.60796
+    },
+    {
+      "date": "2023-03-24",
+      "cumulative_pnl": 0.565414
+    },
+    {
+      "date": "2023-03-31",
+      "cumulative_pnl": 0.595489
+    },
+    {
+      "date": "2023-04-07",
+      "cumulative_pnl": 0.650184
+    },
+    {
+      "date": "2023-04-14",
+      "cumulative_pnl": 0.609531
+    },
+    {
+      "date": "2023-04-21",
+      "cumulative_pnl": 0.568534
+    },
+    {
+      "date": "2023-04-28",
+      "cumulative_pnl": 0.597671
+    },
+    {
+      "date": "2023-05-05",
+      "cumulative_pnl": 0.65682
+    },
+    {
+      "date": "2023-05-19",
+      "cumulative_pnl": 0.621394
+    },
+    {
+      "date": "2023-05-19",
+      "cumulative_pnl": 0.583804
+    },
+    {
+      "date": "2023-05-19",
+      "cumulative_pnl": 0.613248
+    },
+    {
+      "date": "2023-06-02",
+      "cumulative_pnl": 0.684071
+    },
+    {
+      "date": "2023-06-09",
+      "cumulative_pnl": 0.62844
+    },
+    {
+      "date": "2023-06-16",
+      "cumulative_pnl": 0.601324
+    },
+    {
+      "date": "2023-06-16",
+      "cumulative_pnl": 0.632227
+    },
+    {
+      "date": "2023-06-23",
+      "cumulative_pnl": 0.61075
+    },
+    {
+      "date": "2023-06-23",
+      "cumulative_pnl": 0.589471
+    },
+    {
+      "date": "2023-06-23",
+      "cumulative_pnl": 0.650752
+    },
+    {
+      "date": "2023-06-30",
+      "cumulative_pnl": 0.70903
+    },
+    {
+      "date": "2023-07-14",
+      "cumulative_pnl": 0.672183
+    },
+    {
+      "date": "2023-07-14",
+      "cumulative_pnl": 0.721419
+    },
+    {
+      "date": "2023-07-21",
+      "cumulative_pnl": 0.778115
+    },
+    {
+      "date": "2023-07-21",
+      "cumulative_pnl": 0.710423
+    },
+    {
+      "date": "2023-08-18",
+      "cumulative_pnl": 0.733495
+    },
+    {
+      "date": "2023-09-01",
+      "cumulative_pnl": 0.784872
+    },
+    {
+      "date": "2023-09-15",
+      "cumulative_pnl": 0.816511
+    },
+    {
+      "date": "2023-10-20",
+      "cumulative_pnl": 0.892363
+    },
+    {
+      "date": "2023-10-20",
+      "cumulative_pnl": 0.91653
+    },
+    {
+      "date": "2023-10-27",
+      "cumulative_pnl": 0.87976
+    },
+    {
+      "date": "2023-10-27",
+      "cumulative_pnl": 0.902353
+    },
+    {
+      "date": "2023-11-24",
+      "cumulative_pnl": 0.923373
+    },
+    {
+      "date": "2023-12-08",
+      "cumulative_pnl": 0.972383
+    },
+    {
+      "date": "2023-12-15",
+      "cumulative_pnl": 1.026994
+    },
+    {
+      "date": "2023-12-22",
+      "cumulative_pnl": 0.989918
+    },
+    {
+      "date": "2023-12-29",
+      "cumulative_pnl": 0.976327
+    },
+    {
+      "date": "2024-01-12",
+      "cumulative_pnl": 1.040816
+    },
+    {
+      "date": "2024-01-12",
+      "cumulative_pnl": 1.018619
+    },
+    {
+      "date": "2024-01-19",
+      "cumulative_pnl": 1.062381
+    },
+    {
+      "date": "2024-02-02",
+      "cumulative_pnl": 1.00775
+    },
+    {
+      "date": "2024-02-02",
+      "cumulative_pnl": 0.979581
+    },
+    {
+      "date": "2024-02-09",
+      "cumulative_pnl": 0.902658
+    },
+    {
+      "date": "2024-02-16",
+      "cumulative_pnl": 0.886251
+    },
+    {
+      "date": "2024-02-23",
+      "cumulative_pnl": 0.83017
+    },
+    {
+      "date": "2024-04-05",
+      "cumulative_pnl": 0.852991
+    },
+    {
+      "date": "2024-04-05",
+      "cumulative_pnl": 0.894353
+    },
+    {
+      "date": "2024-04-12",
+      "cumulative_pnl": 0.950712
+    },
+    {
+      "date": "2024-04-12",
+      "cumulative_pnl": 0.975642
+    },
+    {
+      "date": "2024-04-19",
+      "cumulative_pnl": 0.996398
+    },
+    {
+      "date": "2024-04-26",
+      "cumulative_pnl": 1.040232
+    },
+    {
+      "date": "2024-05-03",
+      "cumulative_pnl": 1.098132
+    },
+    {
+      "date": "2024-05-10",
+      "cumulative_pnl": 1.155824
+    },
+    {
+      "date": "2024-05-17",
+      "cumulative_pnl": 1.174708
+    },
+    {
+      "date": "2024-05-17",
+      "cumulative_pnl": 1.186668
+    },
+    {
+      "date": "2024-05-24",
+      "cumulative_pnl": 1.226126
+    },
+    {
+      "date": "2024-05-31",
+      "cumulative_pnl": 1.213283
+    },
+    {
+      "date": "2024-05-31",
+      "cumulative_pnl": 1.182631
+    },
+    {
+      "date": "2024-06-28",
+      "cumulative_pnl": 1.169855
+    },
+    {
+      "date": "2024-07-05",
+      "cumulative_pnl": 1.125096
+    },
+    {
+      "date": "2024-07-05",
+      "cumulative_pnl": 1.133921
+    },
+    {
+      "date": "2024-07-12",
+      "cumulative_pnl": 1.106633
+    },
+    {
+      "date": "2024-07-12",
+      "cumulative_pnl": 1.086834
+    },
+    {
+      "date": "2024-07-26",
+      "cumulative_pnl": 1.100922
+    },
+    {
+      "date": "2024-08-16",
+      "cumulative_pnl": 1.07277
+    },
+    {
+      "date": "2024-08-16",
+      "cumulative_pnl": 1.038198
+    },
+    {
+      "date": "2024-08-23",
+      "cumulative_pnl": 1.015461
+    },
+    {
+      "date": "2024-09-06",
+      "cumulative_pnl": 1.078544
+    },
+    {
+      "date": "2024-09-06",
+      "cumulative_pnl": 1.102776
+    },
+    {
+      "date": "2024-09-06",
+      "cumulative_pnl": 1.13958
+    },
+    {
+      "date": "2024-09-13",
+      "cumulative_pnl": 1.196923
+    },
+    {
+      "date": "2024-09-13",
+      "cumulative_pnl": 1.168632
+    },
+    {
+      "date": "2024-09-27",
+      "cumulative_pnl": 1.152928
+    },
+    {
+      "date": "2024-10-25",
+      "cumulative_pnl": 1.084013
+    },
+    {
+      "date": "2024-10-25",
+      "cumulative_pnl": 1.150654
+    },
+    {
+      "date": "2024-11-08",
+      "cumulative_pnl": 1.12299
+    },
+    {
+      "date": "2024-11-15",
+      "cumulative_pnl": 1.112258
+    },
+    {
+      "date": "2024-11-29",
+      "cumulative_pnl": 1.124316
+    },
+    {
+      "date": "2024-12-13",
+      "cumulative_pnl": 1.224316
+    },
+    {
+      "date": "2024-12-20",
+      "cumulative_pnl": 1.252871
+    },
+    {
+      "date": "2025-01-10",
+      "cumulative_pnl": 1.235324
+    },
+    {
+      "date": "2025-01-10",
+      "cumulative_pnl": 1.280698
+    },
+    {
+      "date": "2025-01-17",
+      "cumulative_pnl": 1.252934
+    },
+    {
+      "date": "2025-01-24",
+      "cumulative_pnl": 1.347482
+    },
+    {
+      "date": "2025-01-24",
+      "cumulative_pnl": 1.373378
+    },
+    {
+      "date": "2025-02-07",
+      "cumulative_pnl": 1.423893
+    },
+    {
+      "date": "2025-02-14",
+      "cumulative_pnl": 1.383667
+    },
+    {
+      "date": "2025-02-21",
+      "cumulative_pnl": 1.279081
+    },
+    {
+      "date": "2025-02-21",
+      "cumulative_pnl": 1.250876
+    },
+    {
+      "date": "2025-02-21",
+      "cumulative_pnl": 1.317412
+    },
+    {
+      "date": "2025-02-28",
+      "cumulative_pnl": 1.26392
+    },
+    {
+      "date": "2025-02-28",
+      "cumulative_pnl": 1.294418
+    },
+    {
+      "date": "2025-02-28",
+      "cumulative_pnl": 1.339023
+    },
+    {
+      "date": "2025-03-14",
+      "cumulative_pnl": 1.375527
+    },
+    {
+      "date": "2025-04-04",
+      "cumulative_pnl": 1.475527
+    },
+    {
+      "date": "2025-04-04",
+      "cumulative_pnl": 1.45872
+    },
+    {
+      "date": "2025-04-11",
+      "cumulative_pnl": 1.35872
+    },
+    {
+      "date": "2025-04-11",
+      "cumulative_pnl": 1.321211
+    },
+    {
+      "date": "2025-04-18",
+      "cumulative_pnl": 1.349158
+    },
+    {
+      "date": "2025-04-18",
+      "cumulative_pnl": 1.49742
+    },
+    {
+      "date": "2025-05-09",
+      "cumulative_pnl": 1.453325
+    },
+    {
+      "date": "2025-05-09",
+      "cumulative_pnl": 1.429686
+    },
+    {
+      "date": "2025-05-09",
+      "cumulative_pnl": 1.509294
+    },
+    {
+      "date": "2025-05-09",
+      "cumulative_pnl": 1.559499
+    },
+    {
+      "date": "2025-05-16",
+      "cumulative_pnl": 1.50686
+    },
+    {
+      "date": "2025-05-23",
+      "cumulative_pnl": 1.573645
+    },
+    {
+      "date": "2025-06-13",
+      "cumulative_pnl": 1.552868
+    },
+    {
+      "date": "2025-06-27",
+      "cumulative_pnl": 1.491974
+    },
+    {
+      "date": "2025-06-27",
+      "cumulative_pnl": 1.447419
+    },
+    {
+      "date": "2025-06-27",
+      "cumulative_pnl": 1.381473
+    },
+    {
+      "date": "2025-06-27",
+      "cumulative_pnl": 1.317799
+    },
+    {
+      "date": "2025-07-18",
+      "cumulative_pnl": 1.210828
+    },
+    {
+      "date": "2025-08-08",
+      "cumulative_pnl": 1.15673
+    },
+    {
+      "date": "2025-08-15",
+      "cumulative_pnl": 1.228603
+    },
+    {
+      "date": "2025-08-22",
+      "cumulative_pnl": 1.37579
+    },
+    {
+      "date": "2025-08-29",
+      "cumulative_pnl": 1.336593
+    },
+    {
+      "date": "2025-09-12",
+      "cumulative_pnl": 1.284258
+    },
+    {
+      "date": "2025-09-12",
+      "cumulative_pnl": 1.275842
+    },
+    {
+      "date": "2025-09-12",
+      "cumulative_pnl": 1.298044
+    },
+    {
+      "date": "2025-09-12",
+      "cumulative_pnl": 1.289098
+    },
+    {
+      "date": "2025-09-12",
+      "cumulative_pnl": 1.279079
+    },
+    {
+      "date": "2025-09-12",
+      "cumulative_pnl": 1.279079
     }
   ]
 }
