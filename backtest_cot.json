@@ -4,10 +4,10 @@
     "sell_trig": 28.0,
     "tp_pct": 0.1,
     "sl_pct": 0.1,
-    "risk_mode": "fixed_pct",
-    "vol_win_weeks": 14,
-    "tp_mult": 3.0,
-    "sl_mult": 2.0,
+    "risk_mode": "std",
+    "vol_win_weeks": 25,
+    "tp_mult": 1.4,
+    "sl_mult": 1.4,
     "min_pct_floor": 0.005,
     "use_cross": true,
     "source": "price_and_cot.json"
@@ -16,26 +16,26 @@
     "6E=F": {
       "market": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
       "stats": {
-        "trades": 3,
-        "wins": 2,
-        "win_rate": 0.6667,
-        "longs": 1,
-        "shorts": 2,
-        "win_rate_long": 1.0,
-        "win_rate_short": 0.5,
-        "avg_ret": 0.040209,
-        "median_ret": 0.1,
-        "payoff_ratio": 1.2599,
-        "profit_factor": 2.5197,
-        "expectancy": 0.040209,
-        "avg_hold_weeks": 76.67,
-        "median_hold_weeks": 84.0,
-        "tp_rate": 0.6667,
-        "sl_rate": 0.0,
-        "cum_ret": 0.113959,
-        "cagr": 0.021819,
-        "max_drawdown": -0.079373,
-        "sharpe_est": 3.753,
+        "trades": 9,
+        "wins": 4,
+        "win_rate": 0.4444,
+        "longs": 5,
+        "shorts": 4,
+        "win_rate_long": 0.6,
+        "win_rate_short": 0.25,
+        "avg_ret": 0.006765,
+        "median_ret": -0.008416,
+        "payoff_ratio": 2.3078,
+        "profit_factor": 1.8462,
+        "expectancy": 0.006765,
+        "avg_hold_weeks": 12.78,
+        "median_hold_weeks": 4.0,
+        "tp_rate": 0.4444,
+        "sl_rate": 0.4444,
+        "cum_ret": 0.057006,
+        "cagr": 0.01115,
+        "max_drawdown": -0.051894,
+        "sharpe_est": 1.3738,
         "horizon_weeks": 260
       },
       "trades": [
@@ -57,11 +57,23 @@
           "direction": "LONG",
           "entry_date": "2022-07-08",
           "entry_price": 1.01785,
-          "exit_date": "2023-07-14",
-          "exit_price": 1.119635,
-          "reason": "TP",
-          "holding_weeks": 53,
-          "ret_pct": 0.1
+          "exit_date": "2022-08-26",
+          "exit_price": 0.998449,
+          "reason": "SL",
+          "holding_weeks": 7,
+          "ret_pct": -0.019061
+        },
+        {
+          "ticker": "6E=F",
+          "market": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2022-12-23",
+          "entry_price": 1.06405,
+          "exit_date": "2023-01-20",
+          "exit_price": 1.085495,
+          "reason": "SL",
+          "holding_weeks": 4,
+          "ret_pct": -0.020154
         },
         {
           "ticker": "6E=F",
@@ -69,37 +81,97 @@
           "direction": "SHORT",
           "entry_date": "2023-12-01",
           "entry_price": 1.0879,
+          "exit_date": "2023-12-29",
+          "exit_price": 1.102686,
+          "reason": "SL",
+          "holding_weeks": 4,
+          "ret_pct": -0.013591
+        },
+        {
+          "ticker": "6E=F",
+          "market": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2024-04-26",
+          "entry_price": 1.0712,
+          "exit_date": "2024-05-17",
+          "exit_price": 1.084011,
+          "reason": "TP",
+          "holding_weeks": 3,
+          "ret_pct": 0.01196
+        },
+        {
+          "ticker": "6E=F",
+          "market": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2024-06-28",
+          "entry_price": 1.07195,
+          "exit_date": "2024-07-05",
+          "exit_price": 1.08141,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.008825
+        },
+        {
+          "ticker": "6E=F",
+          "market": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2024-10-25",
+          "entry_price": 1.08135,
+          "exit_date": "2024-11-15",
+          "exit_price": 1.069745,
+          "reason": "SL",
+          "holding_weeks": 3,
+          "ret_pct": -0.010732
+        },
+        {
+          "ticker": "6E=F",
+          "market": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2024-11-22",
+          "entry_price": 1.042,
+          "exit_date": "2024-11-29",
+          "exit_price": 1.054565,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.012058
+        },
+        {
+          "ticker": "6E=F",
+          "market": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2025-07-18",
+          "entry_price": 1.16445,
           "exit_date": "2025-09-12",
           "exit_price": 1.17425,
           "reason": "EOD",
-          "holding_weeks": 93,
-          "ret_pct": -0.079373
+          "holding_weeks": 8,
+          "ret_pct": -0.008416
         }
       ]
     },
     "6J=F": {
       "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
       "stats": {
-        "trades": 5,
-        "wins": 3,
-        "win_rate": 0.6,
-        "longs": 4,
-        "shorts": 1,
-        "win_rate_long": 0.5,
-        "win_rate_short": 1.0,
-        "avg_ret": 0.000177,
-        "median_ret": 0.000886,
-        "payoff_ratio": 0.6696,
-        "profit_factor": 1.0044,
-        "expectancy": 0.000177,
-        "avg_hold_weeks": 45.8,
-        "median_hold_weeks": 35.0,
-        "tp_rate": 0.4,
-        "sl_rate": 0.4,
-        "cum_ret": -0.019032,
-        "cagr": -0.003836,
-        "max_drawdown": -0.109,
-        "sharpe_est": -0.7179,
+        "trades": 11,
+        "wins": 4,
+        "win_rate": 0.3636,
+        "longs": 7,
+        "shorts": 4,
+        "win_rate_long": 0.4286,
+        "win_rate_short": 0.25,
+        "avg_ret": 0.004686,
+        "median_ret": -0.013436,
+        "payoff_ratio": 2.1365,
+        "profit_factor": 1.4243,
+        "expectancy": 0.002846,
+        "avg_hold_weeks": 10.0,
+        "median_hold_weeks": 3.0,
+        "tp_rate": 0.3636,
+        "sl_rate": 0.5455,
+        "cum_ret": 0.045666,
+        "cagr": 0.008971,
+        "max_drawdown": -0.085944,
+        "sharpe_est": -0.353,
         "horizon_weeks": 260
       },
       "trades": [
@@ -121,11 +193,11 @@
           "direction": "LONG",
           "entry_date": "2022-03-25",
           "entry_price": 0.008191,
-          "exit_date": "2022-07-08",
-          "exit_price": 0.007372,
+          "exit_date": "2022-04-08",
+          "exit_price": 0.008081,
           "reason": "SL",
-          "holding_weeks": 15,
-          "ret_pct": -0.1
+          "holding_weeks": 2,
+          "ret_pct": -0.013436
         },
         {
           "ticker": "6J=F",
@@ -133,11 +205,35 @@
           "direction": "LONG",
           "entry_date": "2022-09-16",
           "entry_price": 0.006995,
-          "exit_date": "2023-01-13",
-          "exit_price": 0.007694,
+          "exit_date": "2022-10-14",
+          "exit_price": 0.006861,
+          "reason": "SL",
+          "holding_weeks": 4,
+          "ret_pct": -0.019227
+        },
+        {
+          "ticker": "6J=F",
+          "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2022-10-21",
+          "entry_price": 0.006801,
+          "exit_date": "2022-11-11",
+          "exit_price": 0.006936,
           "reason": "TP",
-          "holding_weeks": 17,
-          "ret_pct": 0.1
+          "holding_weeks": 3,
+          "ret_pct": 0.019847
+        },
+        {
+          "ticker": "6J=F",
+          "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2022-12-02",
+          "entry_price": 0.007452,
+          "exit_date": "2022-12-30",
+          "exit_price": 0.007648,
+          "reason": "TP",
+          "holding_weeks": 4,
+          "ret_pct": 0.026261
         },
         {
           "ticker": "6J=F",
@@ -145,11 +241,23 @@
           "direction": "LONG",
           "entry_date": "2023-03-10",
           "entry_price": 0.007421,
-          "exit_date": "2023-11-10",
-          "exit_price": 0.006679,
+          "exit_date": "2023-03-17",
+          "exit_price": 0.007621,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.026931
+        },
+        {
+          "ticker": "6J=F",
+          "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2023-05-26",
+          "entry_price": 0.007134,
+          "exit_date": "2023-06-23",
+          "exit_price": 0.006981,
           "reason": "SL",
-          "holding_weeks": 35,
-          "ret_pct": -0.1
+          "holding_weeks": 4,
+          "ret_pct": -0.021477
         },
         {
           "ticker": "6J=F",
@@ -157,11 +265,47 @@
           "direction": "LONG",
           "entry_date": "2024-01-26",
           "entry_price": 0.006775,
+          "exit_date": "2024-02-16",
+          "exit_price": 0.006664,
+          "reason": "SL",
+          "holding_weeks": 3,
+          "ret_pct": -0.016407
+        },
+        {
+          "ticker": "6J=F",
+          "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2024-08-16",
+          "entry_price": 0.006773,
+          "exit_date": "2024-08-23",
+          "exit_price": 0.006927,
+          "reason": "SL",
+          "holding_weeks": 1,
+          "ret_pct": -0.022737
+        },
+        {
+          "ticker": "6J=F",
+          "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2024-12-13",
+          "entry_price": 0.006507,
+          "exit_date": "2025-02-21",
+          "exit_price": 0.006691,
+          "reason": "SL",
+          "holding_weeks": 10,
+          "ret_pct": -0.028205
+        },
+        {
+          "ticker": "6J=F",
+          "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2025-09-12",
+          "entry_price": 0.006781,
           "exit_date": "2025-09-12",
           "exit_price": 0.006781,
           "reason": "EOD",
-          "holding_weeks": 85,
-          "ret_pct": 0.000886
+          "holding_weeks": 0,
+          "ret_pct": 0.0
         }
       ]
     },
@@ -208,26 +352,26 @@
     "6A=F": {
       "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
       "stats": {
-        "trades": 4,
-        "wins": 2,
-        "win_rate": 0.5,
-        "longs": 4,
-        "shorts": 0,
-        "win_rate_long": 0.5,
-        "win_rate_short": 0.0,
-        "avg_ret": -0.010004,
-        "median_ret": -0.020007,
-        "payoff_ratio": 0.7999,
-        "profit_factor": 0.7999,
-        "expectancy": -0.010003,
-        "avg_hold_weeks": 45.25,
-        "median_hold_weeks": 43.0,
-        "tp_rate": 0.25,
-        "sl_rate": 0.5,
-        "cum_ret": -0.055552,
-        "cagr": -0.013665,
-        "max_drawdown": -0.109,
-        "sharpe_est": 3.0173,
+        "trades": 13,
+        "wins": 8,
+        "win_rate": 0.6154,
+        "longs": 11,
+        "shorts": 2,
+        "win_rate_long": 0.6364,
+        "win_rate_short": 0.5,
+        "avg_ret": 0.005917,
+        "median_ret": 0.018884,
+        "payoff_ratio": 1.1787,
+        "profit_factor": 1.8859,
+        "expectancy": 0.005917,
+        "avg_hold_weeks": 4.62,
+        "median_hold_weeks": 3.0,
+        "tp_rate": 0.5385,
+        "sl_rate": 0.3846,
+        "cum_ret": 0.0773,
+        "cagr": 0.018087,
+        "max_drawdown": -0.049228,
+        "sharpe_est": 0.9254,
         "horizon_weeks": 216
       },
       "trades": [
@@ -237,11 +381,47 @@
           "direction": "LONG",
           "entry_date": "2021-07-23",
           "entry_price": 0.7365,
-          "exit_date": "2022-09-23",
-          "exit_price": 0.66285,
+          "exit_date": "2021-08-20",
+          "exit_price": 0.725094,
           "reason": "SL",
-          "holding_weeks": 61,
-          "ret_pct": -0.1
+          "holding_weeks": 4,
+          "ret_pct": -0.015487
+        },
+        {
+          "ticker": "6A=F",
+          "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2022-05-20",
+          "entry_price": 0.7022,
+          "exit_date": "2022-06-03",
+          "exit_price": 0.716826,
+          "reason": "TP",
+          "holding_weeks": 2,
+          "ret_pct": 0.020829
+        },
+        {
+          "ticker": "6A=F",
+          "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2022-07-08",
+          "entry_price": 0.685,
+          "exit_date": "2022-07-29",
+          "exit_price": 0.699263,
+          "reason": "TP",
+          "holding_weeks": 3,
+          "ret_pct": 0.020822
+        },
+        {
+          "ticker": "6A=F",
+          "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2022-08-05",
+          "entry_price": 0.69085,
+          "exit_date": "2022-08-12",
+          "exit_price": 0.70489,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.020323
         },
         {
           "ticker": "6A=F",
@@ -249,11 +429,11 @@
           "direction": "LONG",
           "entry_date": "2022-10-28",
           "entry_price": 0.6414,
-          "exit_date": "2023-01-27",
-          "exit_price": 0.70554,
+          "exit_date": "2022-11-11",
+          "exit_price": 0.657805,
           "reason": "TP",
-          "holding_weeks": 13,
-          "ret_pct": 0.1
+          "holding_weeks": 2,
+          "ret_pct": 0.025576
         },
         {
           "ticker": "6A=F",
@@ -261,11 +441,71 @@
           "direction": "LONG",
           "entry_date": "2023-06-16",
           "entry_price": 0.68635,
-          "exit_date": "2025-01-10",
-          "exit_price": 0.617715,
+          "exit_date": "2023-06-23",
+          "exit_price": 0.671745,
           "reason": "SL",
-          "holding_weeks": 82,
-          "ret_pct": -0.1
+          "holding_weeks": 1,
+          "ret_pct": -0.021279
+        },
+        {
+          "ticker": "6A=F",
+          "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2023-08-25",
+          "entry_price": 0.6424,
+          "exit_date": "2023-11-24",
+          "exit_price": 0.655904,
+          "reason": "TP",
+          "holding_weeks": 13,
+          "ret_pct": 0.02102
+        },
+        {
+          "ticker": "6A=F",
+          "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2024-02-09",
+          "entry_price": 0.6522,
+          "exit_date": "2024-05-17",
+          "exit_price": 0.664516,
+          "reason": "TP",
+          "holding_weeks": 14,
+          "ret_pct": 0.018884
+        },
+        {
+          "ticker": "6A=F",
+          "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2024-07-05",
+          "entry_price": 0.67535,
+          "exit_date": "2024-07-26",
+          "exit_price": 0.665835,
+          "reason": "TP",
+          "holding_weeks": 3,
+          "ret_pct": 0.014088
+        },
+        {
+          "ticker": "6A=F",
+          "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2024-08-30",
+          "entry_price": 0.67695,
+          "exit_date": "2024-09-27",
+          "exit_price": 0.687581,
+          "reason": "SL",
+          "holding_weeks": 4,
+          "ret_pct": -0.015704
+        },
+        {
+          "ticker": "6A=F",
+          "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2024-12-20",
+          "entry_price": 0.6267,
+          "exit_date": "2025-01-10",
+          "exit_price": 0.615703,
+          "reason": "SL",
+          "holding_weeks": 3,
+          "ret_pct": -0.017547
         },
         {
           "ticker": "6A=F",
@@ -273,11 +513,23 @@
           "direction": "LONG",
           "entry_date": "2025-03-21",
           "entry_price": 0.62765,
+          "exit_date": "2025-04-04",
+          "exit_price": 0.617101,
+          "reason": "SL",
+          "holding_weeks": 2,
+          "ret_pct": -0.016807
+        },
+        {
+          "ticker": "6A=F",
+          "market": "AUSTRALIAN DOLLAR - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2025-07-18",
+          "entry_price": 0.65085,
           "exit_date": "2025-09-12",
           "exit_price": 0.6653,
           "reason": "EOD",
-          "holding_weeks": 25,
-          "ret_pct": 0.059986
+          "holding_weeks": 8,
+          "ret_pct": 0.022202
         }
       ]
     },
@@ -364,27 +616,27 @@
     "6M=F": {
       "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
       "stats": {
-        "trades": 3,
-        "wins": 3,
-        "win_rate": 1.0,
-        "longs": 2,
+        "trades": 10,
+        "wins": 8,
+        "win_rate": 0.8,
+        "longs": 9,
         "shorts": 1,
-        "win_rate_long": 1.0,
+        "win_rate_long": 0.7778,
         "win_rate_short": 1.0,
-        "avg_ret": 0.1,
-        "median_ret": 0.1,
-        "payoff_ratio": 0.0,
-        "profit_factor": "inf",
-        "expectancy": 0.1,
-        "avg_hold_weeks": 53.67,
-        "median_hold_weeks": 41.0,
-        "tp_rate": 1.0,
-        "sl_rate": 0.0,
-        "cum_ret": 0.331,
-        "cagr": 0.065602,
-        "max_drawdown": 0.0,
-        "sharpe_est": 10.4231,
-        "horizon_weeks": 234
+        "avg_ret": 0.012897,
+        "median_ret": 0.021648,
+        "payoff_ratio": 0.9253,
+        "profit_factor": 3.7011,
+        "expectancy": 0.012897,
+        "avg_hold_weeks": 5.1,
+        "median_hold_weeks": 3.5,
+        "tp_rate": 0.8,
+        "sl_rate": 0.2,
+        "cum_ret": 0.134763,
+        "cagr": 0.031345,
+        "max_drawdown": -0.047177,
+        "sharpe_est": 5.5424,
+        "horizon_weeks": 213
       },
       "trades": [
         {
@@ -393,11 +645,95 @@
           "direction": "LONG",
           "entry_date": "2021-03-19",
           "entry_price": 0.04861,
-          "exit_date": "2023-02-10",
-          "exit_price": 0.053471,
+          "exit_date": "2021-04-16",
+          "exit_price": 0.049783,
           "reason": "TP",
-          "holding_weeks": 99,
-          "ret_pct": 0.1
+          "holding_weeks": 4,
+          "ret_pct": 0.024137
+        },
+        {
+          "ticker": "6M=F",
+          "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2021-06-18",
+          "entry_price": 0.0483,
+          "exit_date": "2021-06-25",
+          "exit_price": 0.049389,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.022539
+        },
+        {
+          "ticker": "6M=F",
+          "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2021-07-16",
+          "entry_price": 0.05032,
+          "exit_date": "2021-08-20",
+          "exit_price": 0.049062,
+          "reason": "SL",
+          "holding_weeks": 5,
+          "ret_pct": -0.024992
+        },
+        {
+          "ticker": "6M=F",
+          "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2021-08-27",
+          "entry_price": 0.04943,
+          "exit_date": "2021-10-08",
+          "exit_price": 0.048305,
+          "reason": "SL",
+          "holding_weeks": 6,
+          "ret_pct": -0.022754
+        },
+        {
+          "ticker": "6M=F",
+          "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2022-01-28",
+          "entry_price": 0.04782,
+          "exit_date": "2022-02-18",
+          "exit_price": 0.048917,
+          "reason": "TP",
+          "holding_weeks": 3,
+          "ret_pct": 0.022935
+        },
+        {
+          "ticker": "6M=F",
+          "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2022-03-18",
+          "entry_price": 0.04886,
+          "exit_date": "2022-04-01",
+          "exit_price": 0.049993,
+          "reason": "TP",
+          "holding_weeks": 2,
+          "ret_pct": 0.023182
+        },
+        {
+          "ticker": "6M=F",
+          "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2022-06-17",
+          "entry_price": 0.04882,
+          "exit_date": "2022-06-24",
+          "exit_price": 0.049729,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.018622
+        },
+        {
+          "ticker": "6M=F",
+          "market": "MEXICAN PESO - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2022-12-23",
+          "entry_price": 0.05147,
+          "exit_date": "2023-01-13",
+          "exit_price": 0.052324,
+          "reason": "TP",
+          "holding_weeks": 3,
+          "ret_pct": 0.016596
         },
         {
           "ticker": "6M=F",
@@ -405,11 +741,11 @@
           "direction": "SHORT",
           "entry_date": "2024-03-08",
           "entry_price": 0.05943,
-          "exit_date": "2024-08-02",
-          "exit_price": 0.053487,
+          "exit_date": "2024-04-19",
+          "exit_price": 0.058196,
           "reason": "TP",
-          "holding_weeks": 21,
-          "ret_pct": 0.1
+          "holding_weeks": 6,
+          "ret_pct": 0.020756
         },
         {
           "ticker": "6M=F",
@@ -417,37 +753,37 @@
           "direction": "LONG",
           "entry_date": "2024-11-29",
           "entry_price": 0.04913,
-          "exit_date": "2025-09-12",
-          "exit_price": 0.054043,
+          "exit_date": "2025-04-18",
+          "exit_price": 0.050503,
           "reason": "TP",
-          "holding_weeks": 41,
-          "ret_pct": 0.1
+          "holding_weeks": 20,
+          "ret_pct": 0.027947
         }
       ]
     },
     "6L=F": {
       "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
       "stats": {
-        "trades": 4,
-        "wins": 3,
-        "win_rate": 0.75,
-        "longs": 2,
-        "shorts": 2,
-        "win_rate_long": 1.0,
-        "win_rate_short": 0.5,
-        "avg_ret": 0.0666,
-        "median_ret": 0.1,
-        "payoff_ratio": 2.976,
-        "profit_factor": 8.928,
-        "expectancy": 0.0666,
-        "avg_hold_weeks": 54.75,
-        "median_hold_weeks": 47.0,
-        "tp_rate": 0.75,
-        "sl_rate": 0.0,
-        "cum_ret": 0.286276,
-        "cagr": 0.053105,
-        "max_drawdown": -0.033602,
-        "sharpe_est": 2.6198,
+        "trades": 12,
+        "wins": 5,
+        "win_rate": 0.4167,
+        "longs": 4,
+        "shorts": 8,
+        "win_rate_long": 0.5,
+        "win_rate_short": 0.375,
+        "avg_ret": 0.005336,
+        "median_ret": -0.010861,
+        "payoff_ratio": 2.0108,
+        "profit_factor": 1.4363,
+        "expectancy": 0.005336,
+        "avg_hold_weeks": 12.33,
+        "median_hold_weeks": 5.0,
+        "tp_rate": 0.4167,
+        "sl_rate": 0.5,
+        "cum_ret": 0.057405,
+        "cagr": 0.011538,
+        "max_drawdown": -0.074797,
+        "sharpe_est": -0.0762,
         "horizon_weeks": 253
       },
       "trades": [
@@ -469,11 +805,83 @@
           "direction": "SHORT",
           "entry_date": "2022-09-09",
           "entry_price": 0.1929,
-          "exit_date": "2024-11-01",
-          "exit_price": 0.17361,
+          "exit_date": "2022-09-30",
+          "exit_price": 0.185379,
           "reason": "TP",
-          "holding_weeks": 112,
-          "ret_pct": 0.1
+          "holding_weeks": 3,
+          "ret_pct": 0.03899
+        },
+        {
+          "ticker": "6L=F",
+          "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2023-01-06",
+          "entry_price": 0.1896,
+          "exit_date": "2023-04-14",
+          "exit_price": 0.197308,
+          "reason": "SL",
+          "holding_weeks": 14,
+          "ret_pct": -0.040653
+        },
+        {
+          "ticker": "6L=F",
+          "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2023-05-05",
+          "entry_price": 0.2014,
+          "exit_date": "2023-06-16",
+          "exit_price": 0.206861,
+          "reason": "SL",
+          "holding_weeks": 6,
+          "ret_pct": -0.027116
+        },
+        {
+          "ticker": "6L=F",
+          "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2023-06-30",
+          "entry_price": 0.2075,
+          "exit_date": "2023-08-18",
+          "exit_price": 0.202713,
+          "reason": "TP",
+          "holding_weeks": 7,
+          "ret_pct": 0.023072
+        },
+        {
+          "ticker": "6L=F",
+          "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2023-11-10",
+          "entry_price": 0.203,
+          "exit_date": "2024-04-05",
+          "exit_price": 0.198367,
+          "reason": "TP",
+          "holding_weeks": 21,
+          "ret_pct": 0.022821
+        },
+        {
+          "ticker": "6L=F",
+          "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2024-05-10",
+          "entry_price": 0.19365,
+          "exit_date": "2024-05-31",
+          "exit_price": 0.191163,
+          "reason": "SL",
+          "holding_weeks": 3,
+          "ret_pct": -0.012843
+        },
+        {
+          "ticker": "6L=F",
+          "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2024-06-14",
+          "entry_price": 0.1857,
+          "exit_date": "2024-06-28",
+          "exit_price": 0.183328,
+          "reason": "SL",
+          "holding_weeks": 2,
+          "ret_pct": -0.012776
         },
         {
           "ticker": "6L=F",
@@ -481,50 +889,74 @@
           "direction": "LONG",
           "entry_date": "2025-01-03",
           "entry_price": 0.16085,
-          "exit_date": "2025-06-06",
-          "exit_price": 0.176935,
+          "exit_date": "2025-01-24",
+          "exit_price": 0.165015,
           "reason": "TP",
-          "holding_weeks": 22,
-          "ret_pct": 0.1
+          "holding_weeks": 3,
+          "ret_pct": 0.025896
         },
         {
           "ticker": "6L=F",
           "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
           "direction": "SHORT",
-          "entry_date": "2025-06-13",
-          "entry_price": 0.18005,
+          "entry_date": "2025-03-07",
+          "entry_price": 0.17175,
+          "exit_date": "2025-05-09",
+          "exit_price": 0.17581,
+          "reason": "SL",
+          "holding_weeks": 9,
+          "ret_pct": -0.023639
+        },
+        {
+          "ticker": "6L=F",
+          "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2025-05-16",
+          "entry_price": 0.1758,
+          "exit_date": "2025-06-13",
+          "exit_price": 0.179453,
+          "reason": "SL",
+          "holding_weeks": 4,
+          "ret_pct": -0.020777
+        },
+        {
+          "ticker": "6L=F",
+          "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2025-08-15",
+          "entry_price": 0.18445,
           "exit_date": "2025-09-12",
           "exit_price": 0.1861,
           "reason": "EOD",
-          "holding_weeks": 13,
-          "ret_pct": -0.033602
+          "holding_weeks": 4,
+          "ret_pct": -0.008946
         }
       ]
     },
     "ES=F": {
       "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
       "stats": {
-        "trades": 6,
-        "wins": 3,
-        "win_rate": 0.5,
-        "longs": 1,
-        "shorts": 5,
+        "trades": 12,
+        "wins": 7,
+        "win_rate": 0.5833,
+        "longs": 2,
+        "shorts": 10,
         "win_rate_long": 1.0,
-        "win_rate_short": 0.4,
-        "avg_ret": 0.0,
-        "median_ret": 0.0,
-        "payoff_ratio": 1.0,
-        "profit_factor": 1.0,
-        "expectancy": 0.0,
-        "avg_hold_weeks": 22.67,
-        "median_hold_weeks": 19.5,
-        "tp_rate": 0.5,
-        "sl_rate": 0.5,
-        "cum_ret": -0.029701,
-        "cagr": -0.00897,
-        "max_drawdown": -0.271,
-        "sharpe_est": -1.6745,
-        "horizon_weeks": 174
+        "win_rate_short": 0.5,
+        "avg_ret": 0.007132,
+        "median_ret": 0.023412,
+        "payoff_ratio": 1.1773,
+        "profit_factor": 1.6483,
+        "expectancy": 0.007132,
+        "avg_hold_weeks": 3.08,
+        "median_hold_weeks": 2.5,
+        "tp_rate": 0.5833,
+        "sl_rate": 0.4167,
+        "cum_ret": 0.083396,
+        "cagr": 0.024087,
+        "max_drawdown": -0.037509,
+        "sharpe_est": 0.4781,
+        "horizon_weeks": 175
       },
       "trades": [
         {
@@ -533,11 +965,23 @@
           "direction": "SHORT",
           "entry_date": "2021-12-03",
           "entry_price": 4537.5,
-          "exit_date": "2022-05-13",
-          "exit_price": 4083.75,
+          "exit_date": "2021-12-10",
+          "exit_price": 4623.135974,
+          "reason": "SL",
+          "holding_weeks": 1,
+          "ret_pct": -0.018873
+        },
+        {
+          "ticker": "ES=F",
+          "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2022-01-21",
+          "entry_price": 4390.0,
+          "exit_date": "2022-03-11",
+          "exit_price": 4271.8327,
           "reason": "TP",
-          "holding_weeks": 23,
-          "ret_pct": 0.1
+          "holding_weeks": 7,
+          "ret_pct": 0.026917
         },
         {
           "ticker": "ES=F",
@@ -545,11 +989,23 @@
           "direction": "LONG",
           "entry_date": "2022-06-24",
           "entry_price": 3916.25,
-          "exit_date": "2023-06-16",
-          "exit_price": 4307.875,
+          "exit_date": "2022-07-29",
+          "exit_price": 4099.585735,
           "reason": "TP",
-          "holding_weeks": 51,
-          "ret_pct": 0.1
+          "holding_weeks": 5,
+          "ret_pct": 0.046814
+        },
+        {
+          "ticker": "ES=F",
+          "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2022-12-30",
+          "entry_price": 3861.0,
+          "exit_date": "2023-01-27",
+          "exit_price": 4029.165089,
+          "reason": "TP",
+          "holding_weeks": 4,
+          "ret_pct": 0.043555
         },
         {
           "ticker": "ES=F",
@@ -557,11 +1013,11 @@
           "direction": "SHORT",
           "entry_date": "2023-09-29",
           "entry_price": 4325.5,
-          "exit_date": "2023-12-22",
-          "exit_price": 4758.05,
-          "reason": "SL",
-          "holding_weeks": 12,
-          "ret_pct": -0.1
+          "exit_date": "2023-10-27",
+          "exit_price": 4227.774332,
+          "reason": "TP",
+          "holding_weeks": 4,
+          "ret_pct": 0.022593
         },
         {
           "ticker": "ES=F",
@@ -569,11 +1025,23 @@
           "direction": "SHORT",
           "entry_date": "2024-01-12",
           "entry_price": 4816.5,
-          "exit_date": "2024-03-29",
-          "exit_price": 5298.15,
+          "exit_date": "2024-02-02",
+          "exit_price": 4952.175173,
           "reason": "SL",
-          "holding_weeks": 11,
-          "ret_pct": -0.1
+          "holding_weeks": 3,
+          "ret_pct": -0.028169
+        },
+        {
+          "ticker": "ES=F",
+          "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2024-03-29",
+          "entry_price": 5308.5,
+          "exit_date": "2024-04-12",
+          "exit_price": 5176.159962,
+          "reason": "TP",
+          "holding_weeks": 2,
+          "ret_pct": 0.02493
         },
         {
           "ticker": "ES=F",
@@ -581,11 +1049,35 @@
           "direction": "SHORT",
           "entry_date": "2024-06-28",
           "entry_price": 5521.5,
-          "exit_date": "2024-12-06",
-          "exit_price": 6073.65,
+          "exit_date": "2024-07-12",
+          "exit_price": 5630.819686,
           "reason": "SL",
-          "holding_weeks": 23,
-          "ret_pct": -0.1
+          "holding_weeks": 2,
+          "ret_pct": -0.019799
+        },
+        {
+          "ticker": "ES=F",
+          "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2024-08-30",
+          "entry_price": 5661.0,
+          "exit_date": "2024-09-06",
+          "exit_price": 5523.821605,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.024232
+        },
+        {
+          "ticker": "ES=F",
+          "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2024-09-27",
+          "entry_price": 5791.25,
+          "exit_date": "2024-11-08",
+          "exit_price": 5951.460987,
+          "reason": "SL",
+          "holding_weeks": 6,
+          "ret_pct": -0.027664
         },
         {
           "ticker": "ES=F",
@@ -593,37 +1085,49 @@
           "direction": "SHORT",
           "entry_date": "2024-12-13",
           "entry_price": 6055.5,
-          "exit_date": "2025-04-04",
-          "exit_price": 5449.95,
+          "exit_date": "2024-12-20",
+          "exit_price": 5882.582742,
           "reason": "TP",
-          "holding_weeks": 16,
-          "ret_pct": 0.1
+          "holding_weeks": 1,
+          "ret_pct": 0.028555
+        },
+        {
+          "ticker": "ES=F",
+          "market": "S&P 500 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2025-04-04",
+          "entry_price": 5110.25,
+          "exit_date": "2025-04-11",
+          "exit_price": 5301.927818,
+          "reason": "SL",
+          "holding_weeks": 1,
+          "ret_pct": -0.037509
         }
       ]
     },
     "NQ=F": {
       "market": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
       "stats": {
-        "trades": 10,
-        "wins": 3,
-        "win_rate": 0.3,
-        "longs": 1,
-        "shorts": 9,
-        "win_rate_long": 1.0,
-        "win_rate_short": 0.2222,
-        "avg_ret": -0.035267,
-        "median_ret": -0.1,
-        "payoff_ratio": 1.0725,
-        "profit_factor": 0.4597,
-        "expectancy": -0.035267,
-        "avg_hold_weeks": 11.4,
-        "median_hold_weeks": 10.0,
-        "tp_rate": 0.3,
-        "sl_rate": 0.6,
-        "cum_ret": -0.329908,
-        "cagr": -0.076946,
-        "max_drawdown": -0.390825,
-        "sharpe_est": -2.8881,
+        "trades": 14,
+        "wins": 5,
+        "win_rate": 0.3571,
+        "longs": 2,
+        "shorts": 12,
+        "win_rate_long": 0.5,
+        "win_rate_short": 0.3333,
+        "avg_ret": -0.005766,
+        "median_ret": -0.036808,
+        "payoff_ratio": 1.4167,
+        "profit_factor": 0.787,
+        "expectancy": -0.005766,
+        "avg_hold_weeks": 4.93,
+        "median_hold_weeks": 3.0,
+        "tp_rate": 0.3571,
+        "sl_rate": 0.6429,
+        "cum_ret": -0.094208,
+        "cagr": -0.019595,
+        "max_drawdown": -0.231393,
+        "sharpe_est": -1.074,
         "horizon_weeks": 260
       },
       "trades": [
@@ -645,11 +1149,11 @@
           "direction": "SHORT",
           "entry_date": "2022-06-17",
           "entry_price": 11130.389648,
-          "exit_date": "2022-07-22",
-          "exit_price": 12243.428613,
+          "exit_date": "2022-06-24",
+          "exit_price": 11698.197408,
           "reason": "SL",
-          "holding_weeks": 5,
-          "ret_pct": -0.1
+          "holding_weeks": 1,
+          "ret_pct": -0.051014
         },
         {
           "ticker": "NQ=F",
@@ -657,11 +1161,11 @@
           "direction": "SHORT",
           "entry_date": "2022-08-26",
           "entry_price": 12620.5,
-          "exit_date": "2022-09-30",
-          "exit_price": 11358.45,
+          "exit_date": "2022-09-16",
+          "exit_price": 11842.163255,
           "reason": "TP",
-          "holding_weeks": 5,
-          "ret_pct": 0.1
+          "holding_weeks": 3,
+          "ret_pct": 0.061672
         },
         {
           "ticker": "NQ=F",
@@ -669,11 +1173,11 @@
           "direction": "SHORT",
           "entry_date": "2022-12-02",
           "entry_price": 12010.25,
-          "exit_date": "2023-03-31",
-          "exit_price": 13211.275,
-          "reason": "SL",
-          "holding_weeks": 17,
-          "ret_pct": -0.1
+          "exit_date": "2022-12-23",
+          "exit_price": 11249.257068,
+          "reason": "TP",
+          "holding_weeks": 3,
+          "ret_pct": 0.063362
         },
         {
           "ticker": "NQ=F",
@@ -681,11 +1185,11 @@
           "direction": "SHORT",
           "entry_date": "2023-05-05",
           "entry_price": 13317.75,
-          "exit_date": "2023-06-16",
-          "exit_price": 14649.525,
+          "exit_date": "2023-05-19",
+          "exit_price": 13818.366773,
           "reason": "SL",
-          "holding_weeks": 6,
-          "ret_pct": -0.1
+          "holding_weeks": 2,
+          "ret_pct": -0.03759
         },
         {
           "ticker": "NQ=F",
@@ -693,11 +1197,35 @@
           "direction": "SHORT",
           "entry_date": "2023-06-23",
           "entry_price": 15058.25,
-          "exit_date": "2023-12-22",
-          "exit_price": 16564.075,
+          "exit_date": "2023-07-14",
+          "exit_price": 15613.094983,
           "reason": "SL",
-          "holding_weeks": 26,
-          "ret_pct": -0.1
+          "holding_weeks": 3,
+          "ret_pct": -0.036847
+        },
+        {
+          "ticker": "NQ=F",
+          "market": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2023-08-11",
+          "entry_price": 15095.75,
+          "exit_date": "2023-10-27",
+          "exit_price": 14540.68455,
+          "reason": "SL",
+          "holding_weeks": 11,
+          "ret_pct": -0.03677
+        },
+        {
+          "ticker": "NQ=F",
+          "market": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2023-11-24",
+          "entry_price": 16021.0,
+          "exit_date": "2023-12-22",
+          "exit_price": 16614.993139,
+          "reason": "SL",
+          "holding_weeks": 4,
+          "ret_pct": -0.037076
         },
         {
           "ticker": "NQ=F",
@@ -705,11 +1233,23 @@
           "direction": "SHORT",
           "entry_date": "2024-08-09",
           "entry_price": 18616.0,
-          "exit_date": "2024-10-18",
-          "exit_price": 20477.6,
+          "exit_date": "2024-08-16",
+          "exit_price": 19259.583909,
           "reason": "SL",
-          "holding_weeks": 10,
-          "ret_pct": -0.1
+          "holding_weeks": 1,
+          "ret_pct": -0.034572
+        },
+        {
+          "ticker": "NQ=F",
+          "market": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2024-08-30",
+          "entry_price": 19623.0,
+          "exit_date": "2024-09-06",
+          "exit_price": 18900.789494,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.036804
         },
         {
           "ticker": "NQ=F",
@@ -717,11 +1257,23 @@
           "direction": "SHORT",
           "entry_date": "2024-11-08",
           "entry_price": 21231.25,
-          "exit_date": "2025-04-04",
-          "exit_price": 19108.125,
+          "exit_date": "2025-02-14",
+          "exit_price": 22085.303374,
+          "reason": "SL",
+          "holding_weeks": 14,
+          "ret_pct": -0.040226
+        },
+        {
+          "ticker": "NQ=F",
+          "market": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2025-02-28",
+          "entry_price": 20919.5,
+          "exit_date": "2025-03-14",
+          "exit_price": 20155.861832,
           "reason": "TP",
-          "holding_weeks": 21,
-          "ret_pct": 0.1
+          "holding_weeks": 2,
+          "ret_pct": 0.036504
         },
         {
           "ticker": "NQ=F",
@@ -730,10 +1282,10 @@
           "entry_date": "2025-04-25",
           "entry_price": 19535.25,
           "exit_date": "2025-05-16",
-          "exit_price": 21488.775,
+          "exit_price": 20563.563516,
           "reason": "SL",
           "holding_weeks": 3,
-          "ret_pct": -0.1
+          "ret_pct": -0.052639
         },
         {
           "ticker": "NQ=F",
@@ -742,37 +1294,37 @@
           "entry_date": "2025-07-04",
           "entry_price": 22906.75,
           "exit_date": "2025-09-12",
-          "exit_price": 24113.25,
-          "reason": "EOD",
+          "exit_price": 24105.578267,
+          "reason": "SL",
           "holding_weeks": 10,
-          "ret_pct": -0.05267
+          "ret_pct": -0.052335
         }
       ]
     },
     "YM=F": {
       "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
       "stats": {
-        "trades": 2,
-        "wins": 2,
-        "win_rate": 1.0,
-        "longs": 2,
+        "trades": 5,
+        "wins": 3,
+        "win_rate": 0.6,
+        "longs": 5,
         "shorts": 0,
-        "win_rate_long": 1.0,
+        "win_rate_long": 0.6,
         "win_rate_short": 0.0,
-        "avg_ret": 0.050387,
-        "median_ret": 0.050387,
-        "payoff_ratio": 0.0,
-        "profit_factor": "inf",
-        "expectancy": 0.050387,
-        "avg_hold_weeks": 22.0,
-        "median_hold_weeks": 22.0,
-        "tp_rate": 0.5,
-        "sl_rate": 0.0,
-        "cum_ret": 0.10085,
-        "cagr": 0.071858,
-        "max_drawdown": 0.0,
-        "sharpe_est": 5.1443,
-        "horizon_weeks": 72
+        "avg_ret": 0.021081,
+        "median_ret": 0.018837,
+        "payoff_ratio": 2.5904,
+        "profit_factor": 3.8856,
+        "expectancy": 0.021081,
+        "avg_hold_weeks": 7.0,
+        "median_hold_weeks": 2.0,
+        "tp_rate": 0.6,
+        "sl_rate": 0.4,
+        "cum_ret": 0.105103,
+        "cagr": 0.077065,
+        "max_drawdown": -0.01884,
+        "sharpe_est": -0.1059,
+        "horizon_weeks": 70
       },
       "trades": [
         {
@@ -793,38 +1345,74 @@
           "direction": "LONG",
           "entry_date": "2021-07-23",
           "entry_price": 34951.0,
-          "exit_date": "2022-02-04",
-          "exit_price": 34978.0,
-          "reason": "EOD",
-          "holding_weeks": 28,
-          "ret_pct": 0.000773
+          "exit_date": "2021-11-05",
+          "exit_price": 35758.184712,
+          "reason": "TP",
+          "holding_weeks": 15,
+          "ret_pct": 0.023095
+        },
+        {
+          "ticker": "YM=F",
+          "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
+          "direction": "LONG",
+          "entry_date": "2021-11-12",
+          "entry_price": 36013.0,
+          "exit_date": "2021-11-26",
+          "exit_price": 35376.007821,
+          "reason": "SL",
+          "holding_weeks": 2,
+          "ret_pct": -0.017688
+        },
+        {
+          "ticker": "YM=F",
+          "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
+          "direction": "LONG",
+          "entry_date": "2021-12-03",
+          "entry_price": 34566.0,
+          "exit_date": "2021-12-10",
+          "exit_price": 35217.113953,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.018837
+        },
+        {
+          "ticker": "YM=F",
+          "market": "DOW JONES INDUSTRIAL AVG- x $5 - CHICAGO BOARD OF TRADE",
+          "direction": "LONG",
+          "entry_date": "2022-01-14",
+          "entry_price": 35796.0,
+          "exit_date": "2022-01-21",
+          "exit_price": 35121.605426,
+          "reason": "SL",
+          "holding_weeks": 1,
+          "ret_pct": -0.01884
         }
       ]
     },
     "NIY=F": {
       "market": "NIKKEI STOCK AVERAGE YEN DENOM - CHICAGO MERCANTILE EXCHANGE",
       "stats": {
-        "trades": 4,
-        "wins": 2,
-        "win_rate": 0.5,
-        "longs": 4,
+        "trades": 7,
+        "wins": 5,
+        "win_rate": 0.7143,
+        "longs": 7,
         "shorts": 0,
-        "win_rate_long": 0.5,
+        "win_rate_long": 0.7143,
         "win_rate_short": 0.0,
-        "avg_ret": 0.0,
-        "median_ret": 0.0,
-        "payoff_ratio": 1.0,
-        "profit_factor": 1.0,
-        "expectancy": 0.0,
-        "avg_hold_weeks": 27.25,
-        "median_hold_weeks": 27.5,
-        "tp_rate": 0.5,
-        "sl_rate": 0.5,
-        "cum_ret": -0.0199,
-        "cagr": -0.005727,
-        "max_drawdown": -0.1,
-        "sharpe_est": -0.8674,
-        "horizon_weeks": 182
+        "avg_ret": 0.009583,
+        "median_ret": 0.030903,
+        "payoff_ratio": 0.7029,
+        "profit_factor": 1.7572,
+        "expectancy": 0.009583,
+        "avg_hold_weeks": 6.0,
+        "median_hold_weeks": 5.0,
+        "tp_rate": 0.7143,
+        "sl_rate": 0.2857,
+        "cum_ret": 0.064593,
+        "cagr": 0.018559,
+        "max_drawdown": -0.053492,
+        "sharpe_est": 5.2152,
+        "horizon_weeks": 177
       },
       "trades": [
         {
@@ -833,11 +1421,23 @@
           "direction": "LONG",
           "entry_date": "2021-10-08",
           "entry_price": 28000.0,
-          "exit_date": "2022-03-11",
-          "exit_price": 25200.0,
+          "exit_date": "2021-10-15",
+          "exit_price": 28916.492031,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.032732
+        },
+        {
+          "ticker": "NIY=F",
+          "market": "NIKKEI STOCK AVERAGE YEN DENOM - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2022-01-21",
+          "entry_price": 27495.0,
+          "exit_date": "2022-03-04",
+          "exit_price": 26530.016852,
           "reason": "SL",
-          "holding_weeks": 22,
-          "ret_pct": -0.1
+          "holding_weeks": 6,
+          "ret_pct": -0.035097
         },
         {
           "ticker": "NIY=F",
@@ -845,11 +1445,23 @@
           "direction": "LONG",
           "entry_date": "2022-10-07",
           "entry_price": 26730.0,
-          "exit_date": "2023-05-05",
-          "exit_price": 29403.0,
+          "exit_date": "2022-11-11",
+          "exit_price": 27557.421527,
           "reason": "TP",
-          "holding_weeks": 30,
-          "ret_pct": 0.1
+          "holding_weeks": 5,
+          "ret_pct": 0.030955
+        },
+        {
+          "ticker": "NIY=F",
+          "market": "NIKKEI STOCK AVERAGE YEN DENOM - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2023-05-05",
+          "entry_price": 29515.0,
+          "exit_date": "2023-05-19",
+          "exit_price": 30384.050894,
+          "reason": "TP",
+          "holding_weeks": 2,
+          "ret_pct": 0.029444
         },
         {
           "ticker": "NIY=F",
@@ -857,11 +1469,23 @@
           "direction": "LONG",
           "entry_date": "2023-06-02",
           "entry_price": 31965.0,
-          "exit_date": "2024-01-12",
-          "exit_price": 35161.5,
+          "exit_date": "2023-06-16",
+          "exit_price": 32952.820766,
           "reason": "TP",
-          "holding_weeks": 32,
-          "ret_pct": 0.1
+          "holding_weeks": 2,
+          "ret_pct": 0.030903
+        },
+        {
+          "ticker": "NIY=F",
+          "market": "NIKKEI STOCK AVERAGE YEN DENOM - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2023-08-04",
+          "entry_price": 32020.0,
+          "exit_date": "2023-09-15",
+          "exit_price": 33033.072543,
+          "reason": "TP",
+          "holding_weeks": 6,
+          "ret_pct": 0.031639
         },
         {
           "ticker": "NIY=F",
@@ -869,37 +1493,37 @@
           "direction": "LONG",
           "entry_date": "2024-10-11",
           "entry_price": 39880.0,
-          "exit_date": "2025-04-04",
-          "exit_price": 35892.0,
+          "exit_date": "2025-02-28",
+          "exit_price": 37746.737403,
           "reason": "SL",
-          "holding_weeks": 25,
-          "ret_pct": -0.1
+          "holding_weeks": 20,
+          "ret_pct": -0.053492
         }
       ]
     },
     "GC=F": {
       "market": "GOLD - COMMODITY EXCHANGE INC.",
       "stats": {
-        "trades": 7,
-        "wins": 4,
-        "win_rate": 0.5714,
-        "longs": 2,
-        "shorts": 5,
+        "trades": 11,
+        "wins": 6,
+        "win_rate": 0.5455,
+        "longs": 3,
+        "shorts": 8,
         "win_rate_long": 1.0,
-        "win_rate_short": 0.4,
-        "avg_ret": 0.015057,
-        "median_ret": 0.1,
-        "payoff_ratio": 1.0183,
-        "profit_factor": 1.3578,
-        "expectancy": 0.015057,
-        "avg_hold_weeks": 18.43,
-        "median_hold_weeks": 14.0,
-        "tp_rate": 0.5714,
-        "sl_rate": 0.2857,
-        "cum_ret": 0.073732,
-        "cagr": 0.01433,
-        "max_drawdown": -0.266627,
-        "sharpe_est": -1.7864,
+        "win_rate_short": 0.375,
+        "avg_ret": 0.00836,
+        "median_ret": 0.024167,
+        "payoff_ratio": 1.4077,
+        "profit_factor": 1.6892,
+        "expectancy": 0.00836,
+        "avg_hold_weeks": 5.09,
+        "median_hold_weeks": 3.0,
+        "tp_rate": 0.5455,
+        "sl_rate": 0.3636,
+        "cum_ret": 0.08728,
+        "cagr": 0.016877,
+        "max_drawdown": -0.126692,
+        "sharpe_est": 1.6879,
         "horizon_weeks": 260
       },
       "trades": [
@@ -921,11 +1545,23 @@
           "direction": "SHORT",
           "entry_date": "2021-11-12",
           "entry_price": 1867.900024,
-          "exit_date": "2022-09-16",
-          "exit_price": 1681.110022,
+          "exit_date": "2021-11-26",
+          "exit_price": 1820.259127,
           "reason": "TP",
-          "holding_weeks": 44,
-          "ret_pct": 0.1
+          "holding_weeks": 2,
+          "ret_pct": 0.025505
+        },
+        {
+          "ticker": "GC=F",
+          "market": "GOLD - COMMODITY EXCHANGE INC.",
+          "direction": "SHORT",
+          "entry_date": "2022-03-04",
+          "entry_price": 1965.099976,
+          "exit_date": "2022-04-29",
+          "exit_price": 1916.086975,
+          "reason": "TP",
+          "holding_weeks": 8,
+          "ret_pct": 0.024942
         },
         {
           "ticker": "GC=F",
@@ -933,11 +1569,23 @@
           "direction": "LONG",
           "entry_date": "2022-09-23",
           "entry_price": 1645.300049,
-          "exit_date": "2022-12-30",
-          "exit_price": 1809.830054,
+          "exit_date": "2022-10-07",
+          "exit_price": 1685.766152,
           "reason": "TP",
-          "holding_weeks": 14,
-          "ret_pct": 0.1
+          "holding_weeks": 2,
+          "ret_pct": 0.024595
+        },
+        {
+          "ticker": "GC=F",
+          "market": "GOLD - COMMODITY EXCHANGE INC.",
+          "direction": "LONG",
+          "entry_date": "2022-10-28",
+          "entry_price": 1639.599976,
+          "exit_date": "2022-11-11",
+          "exit_price": 1682.514716,
+          "reason": "TP",
+          "holding_weeks": 2,
+          "ret_pct": 0.026174
         },
         {
           "ticker": "GC=F",
@@ -945,11 +1593,11 @@
           "direction": "LONG",
           "entry_date": "2023-10-13",
           "entry_price": 1927.400024,
-          "exit_date": "2024-03-08",
-          "exit_price": 2120.140027,
+          "exit_date": "2023-10-20",
+          "exit_price": 1973.978733,
           "reason": "TP",
-          "holding_weeks": 21,
-          "ret_pct": 0.1
+          "holding_weeks": 1,
+          "ret_pct": 0.024167
         },
         {
           "ticker": "GC=F",
@@ -957,11 +1605,23 @@
           "direction": "SHORT",
           "entry_date": "2024-07-19",
           "entry_price": 2395.5,
-          "exit_date": "2024-09-27",
-          "exit_price": 2635.05,
+          "exit_date": "2024-08-16",
+          "exit_price": 2462.937445,
           "reason": "SL",
-          "holding_weeks": 10,
-          "ret_pct": -0.1
+          "holding_weeks": 4,
+          "ret_pct": -0.028152
+        },
+        {
+          "ticker": "GC=F",
+          "market": "GOLD - COMMODITY EXCHANGE INC.",
+          "direction": "SHORT",
+          "entry_date": "2024-08-23",
+          "entry_price": 2508.399902,
+          "exit_date": "2024-09-13",
+          "exit_price": 2579.364641,
+          "reason": "SL",
+          "holding_weeks": 3,
+          "ret_pct": -0.028291
         },
         {
           "ticker": "GC=F",
@@ -969,11 +1629,11 @@
           "direction": "SHORT",
           "entry_date": "2024-12-13",
           "entry_price": 2656.0,
-          "exit_date": "2025-02-21",
-          "exit_price": 2921.6,
+          "exit_date": "2025-01-17",
+          "exit_price": 2729.740525,
           "reason": "SL",
-          "holding_weeks": 10,
-          "ret_pct": -0.1
+          "holding_weeks": 5,
+          "ret_pct": -0.027764
         },
         {
           "ticker": "GC=F",
@@ -981,38 +1641,50 @@
           "direction": "SHORT",
           "entry_date": "2025-07-25",
           "entry_price": 3334.0,
+          "exit_date": "2025-08-29",
+          "exit_price": 3464.682131,
+          "reason": "SL",
+          "holding_weeks": 5,
+          "ret_pct": -0.039197
+        },
+        {
+          "ticker": "GC=F",
+          "market": "GOLD - COMMODITY EXCHANGE INC.",
+          "direction": "SHORT",
+          "entry_date": "2025-09-05",
+          "entry_price": 3613.199951,
           "exit_date": "2025-09-12",
           "exit_price": 3649.399902,
           "reason": "EOD",
-          "holding_weeks": 7,
-          "ret_pct": -0.094601
+          "holding_weeks": 1,
+          "ret_pct": -0.010019
         }
       ]
     },
     "SI=F": {
       "market": "SILVER - COMMODITY EXCHANGE INC.",
       "stats": {
-        "trades": 5,
-        "wins": 3,
-        "win_rate": 0.6,
+        "trades": 6,
+        "wins": 5,
+        "win_rate": 0.8333,
         "longs": 2,
-        "shorts": 3,
+        "shorts": 4,
         "win_rate_long": 1.0,
-        "win_rate_short": 0.3333,
-        "avg_ret": 0.02,
-        "median_ret": 0.1,
-        "payoff_ratio": 1.0,
-        "profit_factor": 1.5,
-        "expectancy": 0.02,
-        "avg_hold_weeks": 9.4,
-        "median_hold_weeks": 8.0,
-        "tp_rate": 0.6,
-        "sl_rate": 0.4,
-        "cum_ret": 0.07811,
-        "cagr": 0.027726,
-        "max_drawdown": -0.19,
-        "sharpe_est": 2.6726,
-        "horizon_weeks": 143
+        "win_rate_short": 0.75,
+        "avg_ret": 0.035589,
+        "median_ret": 0.057668,
+        "payoff_ratio": 0.8197,
+        "profit_factor": 4.0985,
+        "expectancy": 0.035589,
+        "avg_hold_weeks": 3.0,
+        "median_hold_weeks": 2.5,
+        "tp_rate": 0.8333,
+        "sl_rate": 0.1667,
+        "cum_ret": 0.2254,
+        "cagr": 0.079603,
+        "max_drawdown": -0.068915,
+        "sharpe_est": 7.3,
+        "horizon_weeks": 138
       },
       "trades": [
         {
@@ -1021,11 +1693,11 @@
           "direction": "LONG",
           "entry_date": "2022-07-08",
           "entry_price": 19.167,
-          "exit_date": "2022-11-11",
-          "exit_price": 21.0837,
+          "exit_date": "2022-08-12",
+          "exit_price": 20.267903,
           "reason": "TP",
-          "holding_weeks": 18,
-          "ret_pct": 0.1
+          "holding_weeks": 5,
+          "ret_pct": 0.057437
         },
         {
           "ticker": "SI=F",
@@ -1033,11 +1705,11 @@
           "direction": "LONG",
           "entry_date": "2023-03-03",
           "entry_price": 21.093,
-          "exit_date": "2023-03-24",
-          "exit_price": 23.2023,
+          "exit_date": "2023-03-17",
+          "exit_price": 22.346457,
           "reason": "TP",
-          "holding_weeks": 3,
-          "ret_pct": 0.1
+          "holding_weeks": 2,
+          "ret_pct": 0.059425
         },
         {
           "ticker": "SI=F",
@@ -1045,11 +1717,11 @@
           "direction": "SHORT",
           "entry_date": "2024-04-12",
           "entry_price": 28.254999,
-          "exit_date": "2024-07-05",
-          "exit_price": 31.080499,
-          "reason": "SL",
-          "holding_weeks": 12,
-          "ret_pct": -0.1
+          "exit_date": "2024-05-03",
+          "exit_price": 26.619028,
+          "reason": "TP",
+          "holding_weeks": 3,
+          "ret_pct": 0.0579
         },
         {
           "ticker": "SI=F",
@@ -1057,11 +1729,23 @@
           "direction": "SHORT",
           "entry_date": "2024-08-23",
           "entry_price": 29.785999,
-          "exit_date": "2024-10-18",
-          "exit_price": 32.764599,
+          "exit_date": "2024-09-06",
+          "exit_price": 27.907018,
+          "reason": "TP",
+          "holding_weeks": 2,
+          "ret_pct": 0.063083
+        },
+        {
+          "ticker": "SI=F",
+          "market": "SILVER - COMMODITY EXCHANGE INC.",
+          "direction": "SHORT",
+          "entry_date": "2024-09-20",
+          "entry_price": 31.176001,
+          "exit_date": "2024-10-25",
+          "exit_price": 33.324493,
           "reason": "SL",
-          "holding_weeks": 8,
-          "ret_pct": -0.1
+          "holding_weeks": 5,
+          "ret_pct": -0.068915
         },
         {
           "ticker": "SI=F",
@@ -1069,11 +1753,11 @@
           "direction": "SHORT",
           "entry_date": "2025-02-21",
           "entry_price": 32.976002,
-          "exit_date": "2025-04-04",
-          "exit_price": 29.678402,
+          "exit_date": "2025-02-28",
+          "exit_price": 31.505114,
           "reason": "TP",
-          "holding_weeks": 6,
-          "ret_pct": 0.1
+          "holding_weeks": 1,
+          "ret_pct": 0.044605
         }
       ]
     },
@@ -1139,19 +1823,19 @@
         "shorts": 1,
         "win_rate_long": 0.0,
         "win_rate_short": 1.0,
-        "avg_ret": 0.0,
-        "median_ret": 0.0,
-        "payoff_ratio": 1.0,
-        "profit_factor": 1.0,
-        "expectancy": 0.0,
+        "avg_ret": 0.017027,
+        "median_ret": 0.017027,
+        "payoff_ratio": 1.5164,
+        "profit_factor": 1.5164,
+        "expectancy": 0.017027,
         "avg_hold_weeks": 18.5,
         "median_hold_weeks": 18.5,
         "tp_rate": 0.5,
         "sl_rate": 0.5,
-        "cum_ret": -0.01,
-        "cagr": -0.011058,
-        "max_drawdown": -0.1,
-        "sharpe_est": -4.5478,
+        "cum_ret": 0.027459,
+        "cagr": 0.030425,
+        "max_drawdown": -0.065946,
+        "sharpe_est": -4.2858,
         "horizon_weeks": 47
       },
       "trades": [
@@ -1174,10 +1858,10 @@
           "entry_date": "2025-06-13",
           "entry_price": 72.980003,
           "exit_date": "2025-06-27",
-          "exit_price": 65.682003,
+          "exit_price": 68.16729,
           "reason": "SL",
           "holding_weeks": 2,
-          "ret_pct": -0.1
+          "ret_pct": -0.065946
         }
       ]
     },
@@ -1191,20 +1875,20 @@
         "shorts": 2,
         "win_rate_long": 0.0,
         "win_rate_short": 1.0,
-        "avg_ret": 0.1,
-        "median_ret": 0.1,
+        "avg_ret": 0.147725,
+        "median_ret": 0.147725,
         "payoff_ratio": 0.0,
         "profit_factor": "inf",
-        "expectancy": 0.1,
-        "avg_hold_weeks": 3.5,
-        "median_hold_weeks": 3.5,
+        "expectancy": 0.147725,
+        "avg_hold_weeks": 4.5,
+        "median_hold_weeks": 4.5,
         "tp_rate": 1.0,
         "sl_rate": 0.0,
-        "cum_ret": 0.21,
-        "cagr": 0.641504,
+        "cum_ret": 0.317271,
+        "cagr": 0.978512,
         "max_drawdown": 0.0,
-        "sharpe_est": 11.8977,
-        "horizon_weeks": 20
+        "sharpe_est": 15.1502,
+        "horizon_weeks": 21
       },
       "trades": [
         {
@@ -1213,11 +1897,11 @@
           "direction": "SHORT",
           "entry_date": "2025-03-28",
           "entry_price": 4.065,
-          "exit_date": "2025-04-11",
-          "exit_price": 3.6585,
+          "exit_date": "2025-04-18",
+          "exit_price": 3.462313,
           "reason": "TP",
-          "holding_weeks": 2,
-          "ret_pct": 0.1
+          "holding_weeks": 3,
+          "ret_pct": 0.148262
         },
         {
           "ticker": "NG=F",
@@ -1225,11 +1909,11 @@
           "direction": "SHORT",
           "entry_date": "2025-07-11",
           "entry_price": 3.314,
-          "exit_date": "2025-08-15",
-          "exit_price": 2.9826,
+          "exit_date": "2025-08-22",
+          "exit_price": 2.826223,
           "reason": "TP",
-          "holding_weeks": 5,
-          "ret_pct": 0.1
+          "holding_weeks": 6,
+          "ret_pct": 0.147187
         }
       ]
     },
@@ -1237,26 +1921,26 @@
       "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
       "stats": {
         "trades": 4,
-        "wins": 3,
-        "win_rate": 0.75,
+        "wins": 4,
+        "win_rate": 1.0,
         "longs": 3,
         "shorts": 1,
         "win_rate_long": 1.0,
-        "win_rate_short": 0.0,
-        "avg_ret": 0.070571,
-        "median_ret": 0.1,
-        "payoff_ratio": 5.6443,
-        "profit_factor": 16.9329,
-        "expectancy": 0.070571,
-        "avg_hold_weeks": 10.5,
-        "median_hold_weeks": 6.0,
-        "tp_rate": 0.75,
+        "win_rate_short": 1.0,
+        "avg_ret": 0.086507,
+        "median_ret": 0.087078,
+        "payoff_ratio": 0.0,
+        "profit_factor": "inf",
+        "expectancy": 0.086507,
+        "avg_hold_weeks": 9.0,
+        "median_hold_weeks": 4.0,
+        "tp_rate": 1.0,
         "sl_rate": 0.0,
-        "cum_ret": 0.307419,
-        "cagr": 0.055074,
-        "max_drawdown": -0.017717,
-        "sharpe_est": 6.1075,
-        "horizon_weeks": 260
+        "cum_ret": 0.393275,
+        "cagr": 0.069689,
+        "max_drawdown": 0.0,
+        "sharpe_est": 11.3505,
+        "horizon_weeks": 256
       },
       "trades": [
         {
@@ -1278,10 +1962,10 @@
           "entry_date": "2024-12-27",
           "entry_price": 893.599976,
           "exit_date": "2025-01-24",
-          "exit_price": 982.959973,
+          "exit_price": 978.087709,
           "reason": "TP",
           "holding_weeks": 4,
-          "ret_pct": 0.1
+          "ret_pct": 0.094548
         },
         {
           "ticker": "PA=F",
@@ -1289,11 +1973,11 @@
           "direction": "LONG",
           "entry_date": "2025-04-11",
           "entry_price": 896.799988,
-          "exit_date": "2025-05-23",
-          "exit_price": 986.479987,
+          "exit_date": "2025-05-09",
+          "exit_price": 968.192716,
           "reason": "TP",
-          "holding_weeks": 6,
-          "ret_pct": 0.1
+          "holding_weeks": 4,
+          "ret_pct": 0.079608
         },
         {
           "ticker": "PA=F",
@@ -1301,37 +1985,37 @@
           "direction": "SHORT",
           "entry_date": "2025-08-01",
           "entry_price": 1207.900024,
-          "exit_date": "2025-09-12",
-          "exit_price": 1229.300049,
-          "reason": "EOD",
-          "holding_weeks": 6,
-          "ret_pct": -0.017717
+          "exit_date": "2025-08-15",
+          "exit_price": 1121.085208,
+          "reason": "TP",
+          "holding_weeks": 2,
+          "ret_pct": 0.071873
         }
       ]
     },
     "PL=F": {
       "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
       "stats": {
-        "trades": 10,
-        "wins": 8,
-        "win_rate": 0.8,
-        "longs": 9,
+        "trades": 14,
+        "wins": 12,
+        "win_rate": 0.8571,
+        "longs": 13,
         "shorts": 1,
-        "win_rate_long": 0.8889,
+        "win_rate_long": 0.9231,
         "win_rate_short": 0.0,
-        "avg_ret": 0.06,
-        "median_ret": 0.1,
-        "payoff_ratio": 1.0,
-        "profit_factor": 4.0,
-        "expectancy": 0.06,
-        "avg_hold_weeks": 12.6,
-        "median_hold_weeks": 9.0,
-        "tp_rate": 0.8,
-        "sl_rate": 0.2,
-        "cum_ret": 0.736307,
-        "cagr": 0.123176,
-        "max_drawdown": -0.1,
-        "sharpe_est": 1.4425,
+        "avg_ret": 0.041179,
+        "median_ret": 0.053551,
+        "payoff_ratio": 0.99,
+        "profit_factor": 5.94,
+        "expectancy": 0.041179,
+        "avg_hold_weeks": 4.71,
+        "median_hold_weeks": 3.5,
+        "tp_rate": 0.8571,
+        "sl_rate": 0.1429,
+        "cum_ret": 0.737942,
+        "cagr": 0.123398,
+        "max_drawdown": -0.063674,
+        "sharpe_est": 3.0363,
         "horizon_weeks": 247
       },
       "trades": [
@@ -1353,11 +2037,11 @@
           "direction": "LONG",
           "entry_date": "2021-08-06",
           "entry_price": 972.299988,
-          "exit_date": "2021-11-12",
-          "exit_price": 1069.529987,
+          "exit_date": "2021-10-15",
+          "exit_price": 1026.828519,
           "reason": "TP",
-          "holding_weeks": 14,
-          "ret_pct": 0.1
+          "holding_weeks": 10,
+          "ret_pct": 0.056082
         },
         {
           "ticker": "PL=F",
@@ -1366,10 +2050,10 @@
           "entry_date": "2021-12-03",
           "entry_price": 925.5,
           "exit_date": "2022-01-21",
-          "exit_price": 1018.05,
+          "exit_price": 983.293038,
           "reason": "TP",
           "holding_weeks": 7,
-          "ret_pct": 0.1
+          "ret_pct": 0.062445
         },
         {
           "ticker": "PL=F",
@@ -1377,11 +2061,23 @@
           "direction": "LONG",
           "entry_date": "2022-02-11",
           "entry_price": 1017.299988,
-          "exit_date": "2022-06-24",
-          "exit_price": 915.569989,
+          "exit_date": "2022-02-18",
+          "exit_price": 1070.612448,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.052406
+        },
+        {
+          "ticker": "PL=F",
+          "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2022-04-15",
+          "entry_price": 989.599976,
+          "exit_date": "2022-04-22",
+          "exit_price": 937.123637,
           "reason": "SL",
-          "holding_weeks": 19,
-          "ret_pct": -0.1
+          "holding_weeks": 1,
+          "ret_pct": -0.053028
         },
         {
           "ticker": "PL=F",
@@ -1389,11 +2085,11 @@
           "direction": "LONG",
           "entry_date": "2023-02-10",
           "entry_price": 945.599976,
-          "exit_date": "2023-04-14",
-          "exit_price": 1040.159973,
+          "exit_date": "2023-04-07",
+          "exit_price": 997.319625,
           "reason": "TP",
-          "holding_weeks": 9,
-          "ret_pct": 0.1
+          "holding_weeks": 8,
+          "ret_pct": 0.054695
         },
         {
           "ticker": "PL=F",
@@ -1401,11 +2097,47 @@
           "direction": "LONG",
           "entry_date": "2023-07-07",
           "entry_price": 910.099976,
-          "exit_date": "2024-05-17",
-          "exit_price": 1001.109973,
+          "exit_date": "2023-07-14",
+          "exit_price": 954.909458,
           "reason": "TP",
-          "holding_weeks": 45,
-          "ret_pct": 0.1
+          "holding_weeks": 1,
+          "ret_pct": 0.049236
+        },
+        {
+          "ticker": "PL=F",
+          "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2023-08-11",
+          "entry_price": 907.900024,
+          "exit_date": "2023-09-01",
+          "exit_price": 954.54537,
+          "reason": "TP",
+          "holding_weeks": 3,
+          "ret_pct": 0.051377
+        },
+        {
+          "ticker": "PL=F",
+          "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2024-01-19",
+          "entry_price": 897.299988,
+          "exit_date": "2024-04-12",
+          "exit_price": 947.871149,
+          "reason": "TP",
+          "holding_weeks": 12,
+          "ret_pct": 0.056359
+        },
+        {
+          "ticker": "PL=F",
+          "market": "PLATINUM - NEW YORK MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2024-04-26",
+          "entry_price": 914.299988,
+          "exit_date": "2024-05-10",
+          "exit_price": 967.048181,
+          "reason": "TP",
+          "holding_weeks": 2,
+          "ret_pct": 0.057692
         },
         {
           "ticker": "PL=F",
@@ -1413,11 +2145,11 @@
           "direction": "LONG",
           "entry_date": "2024-08-09",
           "entry_price": 927.599976,
-          "exit_date": "2024-10-25",
-          "exit_price": 1020.359973,
+          "exit_date": "2024-09-13",
+          "exit_price": 980.791474,
           "reason": "TP",
-          "holding_weeks": 11,
-          "ret_pct": 0.1
+          "holding_weeks": 5,
+          "ret_pct": 0.057343
         },
         {
           "ticker": "PL=F",
@@ -1425,11 +2157,11 @@
           "direction": "LONG",
           "entry_date": "2025-01-03",
           "entry_price": 934.599976,
-          "exit_date": "2025-01-31",
-          "exit_price": 1028.059973,
+          "exit_date": "2025-01-10",
+          "exit_price": 977.006979,
           "reason": "TP",
-          "holding_weeks": 4,
-          "ret_pct": 0.1
+          "holding_weeks": 1,
+          "ret_pct": 0.045374
         },
         {
           "ticker": "PL=F",
@@ -1437,11 +2169,11 @@
           "direction": "LONG",
           "entry_date": "2025-04-11",
           "entry_price": 934.299988,
-          "exit_date": "2025-05-23",
-          "exit_price": 1027.729987,
+          "exit_date": "2025-05-09",
+          "exit_price": 981.206304,
           "reason": "TP",
-          "holding_weeks": 6,
-          "ret_pct": 0.1
+          "holding_weeks": 4,
+          "ret_pct": 0.050205
         },
         {
           "ticker": "PL=F",
@@ -1450,37 +2182,37 @@
           "entry_date": "2025-06-13",
           "entry_price": 1210.800049,
           "exit_date": "2025-06-27",
-          "exit_price": 1331.880054,
+          "exit_price": 1287.896471,
           "reason": "SL",
           "holding_weeks": 2,
-          "ret_pct": -0.1
+          "ret_pct": -0.063674
         }
       ]
     },
     "ZC=F": {
       "market": "CORN - CHICAGO BOARD OF TRADE",
       "stats": {
-        "trades": 7,
-        "wins": 1,
-        "win_rate": 0.1429,
-        "longs": 4,
+        "trades": 9,
+        "wins": 2,
+        "win_rate": 0.2222,
+        "longs": 6,
         "shorts": 3,
-        "win_rate_long": 0.0,
+        "win_rate_long": 0.1667,
         "win_rate_short": 0.3333,
-        "avg_ret": -0.071429,
-        "median_ret": -0.1,
-        "payoff_ratio": 1.0,
-        "profit_factor": 0.1667,
-        "expectancy": -0.071429,
-        "avg_hold_weeks": 12.0,
-        "median_hold_weeks": 10.0,
-        "tp_rate": 0.1429,
-        "sl_rate": 0.8571,
-        "cum_ret": -0.415415,
-        "cagr": -0.108529,
-        "max_drawdown": -0.468559,
-        "sharpe_est": -4.327,
-        "horizon_weeks": 243
+        "avg_ret": -0.040368,
+        "median_ret": -0.044555,
+        "payoff_ratio": 0.5001,
+        "profit_factor": 0.1429,
+        "expectancy": -0.040368,
+        "avg_hold_weeks": 6.33,
+        "median_hold_weeks": 3.0,
+        "tp_rate": 0.2222,
+        "sl_rate": 0.7778,
+        "cum_ret": -0.315937,
+        "cagr": -0.077733,
+        "max_drawdown": -0.315937,
+        "sharpe_est": -4.3061,
+        "horizon_weeks": 244
       },
       "trades": [
         {
@@ -1501,11 +2233,11 @@
           "direction": "SHORT",
           "entry_date": "2021-11-05",
           "entry_price": 553.0,
-          "exit_date": "2022-01-21",
-          "exit_price": 608.3,
+          "exit_date": "2021-12-17",
+          "exit_price": 590.955962,
           "reason": "SL",
-          "holding_weeks": 11,
-          "ret_pct": -0.1
+          "holding_weeks": 6,
+          "ret_pct": -0.068636
         },
         {
           "ticker": "ZC=F",
@@ -1513,11 +2245,23 @@
           "direction": "LONG",
           "entry_date": "2023-03-17",
           "entry_price": 634.25,
+          "exit_date": "2023-03-31",
+          "exit_price": 653.324978,
+          "reason": "TP",
+          "holding_weeks": 2,
+          "ret_pct": 0.030075
+        },
+        {
+          "ticker": "ZC=F",
+          "market": "CORN - CHICAGO BOARD OF TRADE",
+          "direction": "LONG",
+          "entry_date": "2023-04-28",
+          "entry_price": 636.0,
           "exit_date": "2023-05-19",
-          "exit_price": 570.825,
+          "exit_price": 613.469302,
           "reason": "SL",
-          "holding_weeks": 9,
-          "ret_pct": -0.1
+          "holding_weeks": 3,
+          "ret_pct": -0.035426
         },
         {
           "ticker": "ZC=F",
@@ -1526,10 +2270,10 @@
           "entry_date": "2023-07-14",
           "entry_price": 599.75,
           "exit_date": "2023-07-21",
-          "exit_price": 539.775,
+          "exit_price": 559.151743,
           "reason": "SL",
           "holding_weeks": 1,
-          "ret_pct": -0.1
+          "ret_pct": -0.067692
         },
         {
           "ticker": "ZC=F",
@@ -1537,11 +2281,11 @@
           "direction": "LONG",
           "entry_date": "2023-08-11",
           "entry_price": 474.5,
-          "exit_date": "2024-02-16",
-          "exit_price": 427.05,
+          "exit_date": "2024-02-09",
+          "exit_price": 437.999849,
           "reason": "SL",
-          "holding_weeks": 27,
-          "ret_pct": -0.1
+          "holding_weeks": 26,
+          "ret_pct": -0.076923
         },
         {
           "ticker": "ZC=F",
@@ -1549,11 +2293,11 @@
           "direction": "LONG",
           "entry_date": "2024-05-24",
           "entry_price": 464.75,
-          "exit_date": "2024-06-28",
-          "exit_price": 418.275,
+          "exit_date": "2024-05-31",
+          "exit_price": 450.504461,
           "reason": "SL",
-          "holding_weeks": 5,
-          "ret_pct": -0.1
+          "holding_weeks": 1,
+          "ret_pct": -0.030652
         },
         {
           "ticker": "ZC=F",
@@ -1561,38 +2305,50 @@
           "direction": "SHORT",
           "entry_date": "2025-01-24",
           "entry_price": 486.5,
-          "exit_date": "2025-06-20",
-          "exit_price": 437.85,
+          "exit_date": "2025-02-28",
+          "exit_price": 471.662605,
           "reason": "TP",
-          "holding_weeks": 21,
-          "ret_pct": 0.1
+          "holding_weeks": 5,
+          "ret_pct": 0.030498
+        },
+        {
+          "ticker": "ZC=F",
+          "market": "CORN - CHICAGO BOARD OF TRADE",
+          "direction": "LONG",
+          "entry_date": "2025-06-06",
+          "entry_price": 442.5,
+          "exit_date": "2025-06-27",
+          "exit_price": 422.784557,
+          "reason": "SL",
+          "holding_weeks": 3,
+          "ret_pct": -0.044555
         }
       ]
     },
     "ZW=F": {
       "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
       "stats": {
-        "trades": 9,
-        "wins": 4,
-        "win_rate": 0.4444,
-        "longs": 5,
+        "trades": 10,
+        "wins": 6,
+        "win_rate": 0.6,
+        "longs": 6,
         "shorts": 4,
-        "win_rate_long": 0.6,
-        "win_rate_short": 0.25,
-        "avg_ret": -0.007035,
-        "median_ret": -0.063315,
-        "payoff_ratio": 1.0792,
-        "profit_factor": 0.8633,
-        "expectancy": -0.007035,
-        "avg_hold_weeks": 14.11,
-        "median_hold_weeks": 10.0,
-        "tp_rate": 0.4444,
-        "sl_rate": 0.4444,
-        "cum_ret": -0.100224,
-        "cagr": -0.021223,
-        "max_drawdown": -0.27829,
-        "sharpe_est": 0.9639,
-        "horizon_weeks": 256
+        "win_rate_long": 0.6667,
+        "win_rate_short": 0.5,
+        "avg_ret": 0.020978,
+        "median_ret": 0.047174,
+        "payoff_ratio": 1.1973,
+        "profit_factor": 1.7959,
+        "expectancy": 0.020978,
+        "avg_hold_weeks": 8.8,
+        "median_hold_weeks": 7.5,
+        "tp_rate": 0.6,
+        "sl_rate": 0.4,
+        "cum_ret": 0.192419,
+        "cagr": 0.037132,
+        "max_drawdown": -0.158846,
+        "sharpe_est": 3.0216,
+        "horizon_weeks": 251
       },
       "trades": [
         {
@@ -1613,11 +2369,11 @@
           "direction": "SHORT",
           "entry_date": "2021-08-06",
           "entry_price": 719.0,
-          "exit_date": "2021-11-12",
-          "exit_price": 790.9,
+          "exit_date": "2021-10-29",
+          "exit_price": 766.011375,
           "reason": "SL",
-          "holding_weeks": 14,
-          "ret_pct": -0.1
+          "holding_weeks": 12,
+          "ret_pct": -0.065384
         },
         {
           "ticker": "ZW=F",
@@ -1625,11 +2381,11 @@
           "direction": "SHORT",
           "entry_date": "2021-11-19",
           "entry_price": 823.0,
-          "exit_date": "2022-03-04",
-          "exit_price": 905.3,
-          "reason": "SL",
-          "holding_weeks": 15,
-          "ret_pct": -0.1
+          "exit_date": "2021-12-31",
+          "exit_price": 771.70395,
+          "reason": "TP",
+          "holding_weeks": 6,
+          "ret_pct": 0.062328
         },
         {
           "ticker": "ZW=F",
@@ -1637,11 +2393,11 @@
           "direction": "SHORT",
           "entry_date": "2022-04-15",
           "entry_price": 1096.5,
-          "exit_date": "2022-06-24",
-          "exit_price": 986.85,
+          "exit_date": "2022-07-01",
+          "exit_price": 892.116064,
           "reason": "TP",
-          "holding_weeks": 10,
-          "ret_pct": 0.1
+          "holding_weeks": 11,
+          "ret_pct": 0.186397
         },
         {
           "ticker": "ZW=F",
@@ -1649,11 +2405,11 @@
           "direction": "LONG",
           "entry_date": "2023-01-20",
           "entry_price": 741.5,
-          "exit_date": "2023-03-10",
-          "exit_price": 667.35,
-          "reason": "SL",
-          "holding_weeks": 7,
-          "ret_pct": -0.1
+          "exit_date": "2023-02-10",
+          "exit_price": 781.858852,
+          "reason": "TP",
+          "holding_weeks": 3,
+          "ret_pct": 0.054429
         },
         {
           "ticker": "ZW=F",
@@ -1661,11 +2417,11 @@
           "direction": "LONG",
           "entry_date": "2023-09-29",
           "entry_price": 541.5,
-          "exit_date": "2023-12-08",
-          "exit_price": 595.65,
+          "exit_date": "2023-10-20",
+          "exit_price": 582.57403,
           "reason": "TP",
-          "holding_weeks": 10,
-          "ret_pct": 0.1
+          "holding_weeks": 3,
+          "ret_pct": 0.075852
         },
         {
           "ticker": "ZW=F",
@@ -1673,11 +2429,11 @@
           "direction": "LONG",
           "entry_date": "2024-03-29",
           "entry_price": 560.25,
-          "exit_date": "2024-05-10",
-          "exit_price": 616.275,
+          "exit_date": "2024-04-26",
+          "exit_price": 584.808237,
           "reason": "TP",
-          "holding_weeks": 6,
-          "ret_pct": 0.1
+          "holding_weeks": 4,
+          "ret_pct": 0.043834
         },
         {
           "ticker": "ZW=F",
@@ -1685,11 +2441,11 @@
           "direction": "LONG",
           "entry_date": "2024-12-06",
           "entry_price": 542.5,
-          "exit_date": "2025-02-14",
-          "exit_price": 596.75,
+          "exit_date": "2025-02-07",
+          "exit_price": 569.904492,
           "reason": "TP",
-          "holding_weeks": 10,
-          "ret_pct": 0.1
+          "holding_weeks": 9,
+          "ret_pct": 0.050515
         },
         {
           "ticker": "ZW=F",
@@ -1697,38 +2453,50 @@
           "direction": "LONG",
           "entry_date": "2025-02-28",
           "entry_price": 537.0,
-          "exit_date": "2025-09-12",
-          "exit_price": 503.0,
-          "reason": "EOD",
-          "holding_weeks": 28,
-          "ret_pct": -0.063315
+          "exit_date": "2025-05-09",
+          "exit_price": 513.320972,
+          "reason": "SL",
+          "holding_weeks": 10,
+          "ret_pct": -0.044095
+        },
+        {
+          "ticker": "ZW=F",
+          "market": "WHEAT-SRW - CHICAGO BOARD OF TRADE",
+          "direction": "LONG",
+          "entry_date": "2025-07-18",
+          "entry_price": 546.25,
+          "exit_date": "2025-08-08",
+          "exit_price": 516.698719,
+          "reason": "SL",
+          "holding_weeks": 3,
+          "ret_pct": -0.054098
         }
       ]
     },
     "ZS=F": {
       "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
       "stats": {
-        "trades": 4,
+        "trades": 5,
         "wins": 1,
-        "win_rate": 0.25,
-        "longs": 1,
+        "win_rate": 0.2,
+        "longs": 2,
         "shorts": 3,
         "win_rate_long": 0.0,
         "win_rate_short": 0.3333,
-        "avg_ret": -0.05,
-        "median_ret": -0.1,
-        "payoff_ratio": 1.0,
-        "profit_factor": 0.3333,
-        "expectancy": -0.05,
-        "avg_hold_weeks": 15.0,
-        "median_hold_weeks": 13.0,
-        "tp_rate": 0.25,
-        "sl_rate": 0.75,
-        "cum_ret": -0.1981,
-        "cagr": -0.055784,
-        "max_drawdown": -0.1981,
-        "sharpe_est": -0.5772,
-        "horizon_weeks": 200
+        "avg_ret": -0.032384,
+        "median_ret": -0.027288,
+        "payoff_ratio": 0.61,
+        "profit_factor": 0.1525,
+        "expectancy": -0.032384,
+        "avg_hold_weeks": 4.2,
+        "median_hold_weeks": 3.0,
+        "tp_rate": 0.2,
+        "sl_rate": 0.8,
+        "cum_ret": -0.155672,
+        "cagr": -0.043253,
+        "max_drawdown": -0.155672,
+        "sharpe_est": -5.2116,
+        "horizon_weeks": 199
       },
       "trades": [
         {
@@ -1749,11 +2517,11 @@
           "direction": "SHORT",
           "entry_date": "2022-02-11",
           "entry_price": 1583.0,
-          "exit_date": "2022-06-10",
-          "exit_price": 1741.3,
+          "exit_date": "2022-03-04",
+          "exit_price": 1648.807088,
           "reason": "SL",
-          "holding_weeks": 17,
-          "ret_pct": -0.1
+          "holding_weeks": 3,
+          "ret_pct": -0.041571
         },
         {
           "ticker": "ZS=F",
@@ -1761,11 +2529,11 @@
           "direction": "SHORT",
           "entry_date": "2023-04-07",
           "entry_price": 1492.5,
-          "exit_date": "2023-05-19",
-          "exit_price": 1343.25,
+          "exit_date": "2023-04-28",
+          "exit_price": 1449.012741,
           "reason": "TP",
-          "holding_weeks": 6,
-          "ret_pct": 0.1
+          "holding_weeks": 3,
+          "ret_pct": 0.029137
         },
         {
           "ticker": "ZS=F",
@@ -1773,11 +2541,23 @@
           "direction": "LONG",
           "entry_date": "2024-01-05",
           "entry_price": 1249.75,
-          "exit_date": "2024-07-19",
-          "exit_price": 1124.775,
+          "exit_date": "2024-01-12",
+          "exit_price": 1222.009514,
           "reason": "SL",
-          "holding_weeks": 28,
-          "ret_pct": -0.1
+          "holding_weeks": 1,
+          "ret_pct": -0.022197
+        },
+        {
+          "ticker": "ZS=F",
+          "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
+          "direction": "LONG",
+          "entry_date": "2024-06-07",
+          "entry_price": 1179.25,
+          "exit_date": "2024-07-12",
+          "exit_price": 1147.070855,
+          "reason": "SL",
+          "holding_weeks": 5,
+          "ret_pct": -0.027288
         }
       ]
     },
@@ -1785,26 +2565,26 @@
       "market": "SOYBEAN MEAL - CHICAGO BOARD OF TRADE",
       "stats": {
         "trades": 12,
-        "wins": 8,
-        "win_rate": 0.6667,
+        "wins": 6,
+        "win_rate": 0.5,
         "longs": 3,
         "shorts": 9,
-        "win_rate_long": 0.6667,
-        "win_rate_short": 0.6667,
-        "avg_ret": 0.041407,
-        "median_ret": 0.1,
-        "payoff_ratio": 1.3196,
-        "profit_factor": 2.6393,
-        "expectancy": 0.041407,
-        "avg_hold_weeks": 10.33,
-        "median_hold_weeks": 5.5,
-        "tp_rate": 0.6667,
-        "sl_rate": 0.25,
-        "cum_ret": 0.557813,
-        "cagr": 0.093837,
-        "max_drawdown": -0.109,
-        "sharpe_est": 3.3179,
-        "horizon_weeks": 257
+        "win_rate_long": 0.3333,
+        "win_rate_short": 0.5556,
+        "avg_ret": -0.004459,
+        "median_ret": 0.001538,
+        "payoff_ratio": 0.8688,
+        "profit_factor": 0.8688,
+        "expectancy": -0.004459,
+        "avg_hold_weeks": 7.0,
+        "median_hold_weeks": 5.0,
+        "tp_rate": 0.5,
+        "sl_rate": 0.5,
+        "cum_ret": -0.07643,
+        "cagr": -0.016666,
+        "max_drawdown": -0.1,
+        "sharpe_est": 2.4078,
+        "horizon_weeks": 246
       },
       "trades": [
         {
@@ -1825,11 +2605,11 @@
           "direction": "SHORT",
           "entry_date": "2021-05-14",
           "entry_price": 423.5,
-          "exit_date": "2021-06-18",
-          "exit_price": 381.15,
+          "exit_date": "2021-05-21",
+          "exit_price": 403.24152,
           "reason": "TP",
-          "holding_weeks": 5,
-          "ret_pct": 0.1
+          "holding_weeks": 1,
+          "ret_pct": 0.047836
         },
         {
           "ticker": "ZM=F",
@@ -1838,10 +2618,10 @@
           "entry_date": "2021-10-08",
           "entry_price": 317.5,
           "exit_date": "2021-11-12",
-          "exit_price": 349.25,
+          "exit_price": 334.112984,
           "reason": "TP",
           "holding_weeks": 5,
-          "ret_pct": 0.1
+          "ret_pct": 0.052324
         },
         {
           "ticker": "ZM=F",
@@ -1850,10 +2630,10 @@
           "entry_date": "2022-02-04",
           "entry_price": 443.899994,
           "exit_date": "2022-03-11",
-          "exit_price": 488.289993,
+          "exit_price": 470.992291,
           "reason": "SL",
           "holding_weeks": 5,
-          "ret_pct": -0.1
+          "ret_pct": -0.061032
         },
         {
           "ticker": "ZM=F",
@@ -1861,11 +2641,11 @@
           "direction": "SHORT",
           "entry_date": "2022-07-29",
           "entry_price": 495.299988,
-          "exit_date": "2022-09-02",
-          "exit_price": 445.769989,
+          "exit_date": "2022-08-19",
+          "exit_price": 458.806549,
           "reason": "TP",
-          "holding_weeks": 5,
-          "ret_pct": 0.1
+          "holding_weeks": 3,
+          "ret_pct": 0.073679
         },
         {
           "ticker": "ZM=F",
@@ -1874,10 +2654,10 @@
           "entry_date": "2022-10-28",
           "entry_price": 425.399994,
           "exit_date": "2022-12-09",
-          "exit_price": 467.939993,
+          "exit_price": 461.551967,
           "reason": "SL",
           "holding_weeks": 6,
-          "ret_pct": -0.1
+          "ret_pct": -0.084983
         },
         {
           "ticker": "ZM=F",
@@ -1885,11 +2665,11 @@
           "direction": "SHORT",
           "entry_date": "2023-04-14",
           "entry_price": 459.700012,
-          "exit_date": "2023-05-19",
-          "exit_price": 413.730011,
+          "exit_date": "2023-05-05",
+          "exit_price": 432.509144,
           "reason": "TP",
-          "holding_weeks": 5,
-          "ret_pct": 0.1
+          "holding_weeks": 3,
+          "ret_pct": 0.059149
         },
         {
           "ticker": "ZM=F",
@@ -1897,11 +2677,11 @@
           "direction": "SHORT",
           "entry_date": "2023-11-03",
           "entry_price": 442.100006,
-          "exit_date": "2023-12-29",
-          "exit_price": 397.890005,
+          "exit_date": "2023-12-15",
+          "exit_price": 417.956376,
           "reason": "TP",
-          "holding_weeks": 8,
-          "ret_pct": 0.1
+          "holding_weeks": 6,
+          "ret_pct": 0.054611
         },
         {
           "ticker": "ZM=F",
@@ -1909,11 +2689,11 @@
           "direction": "LONG",
           "entry_date": "2024-01-12",
           "entry_price": 351.299988,
-          "exit_date": "2024-05-24",
-          "exit_price": 386.429987,
-          "reason": "TP",
-          "holding_weeks": 19,
-          "ret_pct": 0.1
+          "exit_date": "2024-02-23",
+          "exit_price": 331.59867,
+          "reason": "SL",
+          "holding_weeks": 6,
+          "ret_pct": -0.056081
         },
         {
           "ticker": "ZM=F",
@@ -1921,11 +2701,11 @@
           "direction": "SHORT",
           "entry_date": "2024-05-31",
           "entry_price": 364.700012,
-          "exit_date": "2024-08-09",
-          "exit_price": 328.230011,
-          "reason": "TP",
-          "holding_weeks": 10,
-          "ret_pct": 0.1
+          "exit_date": "2024-07-05",
+          "exit_price": 381.023608,
+          "reason": "SL",
+          "holding_weeks": 5,
+          "ret_pct": -0.044759
         },
         {
           "ticker": "ZM=F",
@@ -1933,11 +2713,11 @@
           "direction": "SHORT",
           "entry_date": "2024-10-04",
           "entry_price": 330.5,
-          "exit_date": "2024-11-01",
-          "exit_price": 297.45,
+          "exit_date": "2024-10-25",
+          "exit_price": 308.475301,
           "reason": "TP",
-          "holding_weeks": 4,
-          "ret_pct": 0.1
+          "holding_weeks": 3,
+          "ret_pct": 0.066641
         },
         {
           "ticker": "ZM=F",
@@ -1945,37 +2725,37 @@
           "direction": "LONG",
           "entry_date": "2024-11-22",
           "entry_price": 289.200012,
-          "exit_date": "2025-09-12",
-          "exit_price": 288.299988,
-          "reason": "EOD",
-          "holding_weeks": 42,
-          "ret_pct": -0.003112
+          "exit_date": "2025-06-27",
+          "exit_price": 271.589515,
+          "reason": "SL",
+          "holding_weeks": 31,
+          "ret_pct": -0.060894
         }
       ]
     },
     "ZR=F": {
       "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
       "stats": {
-        "trades": 7,
-        "wins": 1,
-        "win_rate": 0.1429,
-        "longs": 1,
-        "shorts": 6,
-        "win_rate_long": 0.0,
-        "win_rate_short": 0.1667,
-        "avg_ret": -0.071429,
-        "median_ret": -0.1,
-        "payoff_ratio": 1.0,
-        "profit_factor": 0.1667,
-        "expectancy": -0.071429,
-        "avg_hold_weeks": 22.43,
-        "median_hold_weeks": 25.0,
-        "tp_rate": 0.1429,
-        "sl_rate": 0.8571,
-        "cum_ret": -0.415415,
-        "cagr": -0.113833,
-        "max_drawdown": -0.415415,
-        "sharpe_est": -1.378,
+        "trades": 12,
+        "wins": 3,
+        "win_rate": 0.25,
+        "longs": 4,
+        "shorts": 8,
+        "win_rate_long": 0.25,
+        "win_rate_short": 0.25,
+        "avg_ret": -0.032595,
+        "median_ret": -0.040251,
+        "payoff_ratio": 0.7064,
+        "profit_factor": 0.2355,
+        "expectancy": -0.032595,
+        "avg_hold_weeks": 9.08,
+        "median_hold_weeks": 5.0,
+        "tp_rate": 0.25,
+        "sl_rate": 0.75,
+        "cum_ret": -0.337758,
+        "cagr": -0.088599,
+        "max_drawdown": -0.337758,
+        "sharpe_est": -1.9307,
         "horizon_weeks": 231
       },
       "trades": [
@@ -1997,11 +2777,23 @@
           "direction": "SHORT",
           "entry_date": "2021-11-26",
           "entry_price": 1429.0,
+          "exit_date": "2021-12-17",
+          "exit_price": 1375.862884,
+          "reason": "TP",
+          "holding_weeks": 3,
+          "ret_pct": 0.037185
+        },
+        {
+          "ticker": "ZR=F",
+          "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
+          "direction": "SHORT",
+          "entry_date": "2022-01-28",
+          "entry_price": 1497.5,
           "exit_date": "2022-03-04",
-          "exit_price": 1571.9,
+          "exit_price": 1548.012085,
           "reason": "SL",
-          "holding_weeks": 14,
-          "ret_pct": -0.1
+          "holding_weeks": 5,
+          "ret_pct": -0.033731
         },
         {
           "ticker": "ZR=F",
@@ -2009,11 +2801,11 @@
           "direction": "SHORT",
           "entry_date": "2022-04-08",
           "entry_price": 1578.0,
-          "exit_date": "2022-05-27",
-          "exit_price": 1735.8,
+          "exit_date": "2022-04-29",
+          "exit_price": 1641.197733,
           "reason": "SL",
-          "holding_weeks": 7,
-          "ret_pct": -0.1
+          "holding_weeks": 3,
+          "ret_pct": -0.040049
         },
         {
           "ticker": "ZR=F",
@@ -2021,11 +2813,59 @@
           "direction": "SHORT",
           "entry_date": "2022-08-12",
           "entry_price": 1715.5,
-          "exit_date": "2023-06-09",
-          "exit_price": 1887.05,
+          "exit_date": "2022-09-16",
+          "exit_price": 1780.240637,
           "reason": "SL",
-          "holding_weeks": 43,
-          "ret_pct": -0.1
+          "holding_weeks": 5,
+          "ret_pct": -0.037739
+        },
+        {
+          "ticker": "ZR=F",
+          "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
+          "direction": "LONG",
+          "entry_date": "2022-10-28",
+          "entry_price": 1612.5,
+          "exit_date": "2022-11-04",
+          "exit_price": 1655.361933,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.026581
+        },
+        {
+          "ticker": "ZR=F",
+          "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
+          "direction": "LONG",
+          "entry_date": "2022-12-23",
+          "entry_price": 1801.5,
+          "exit_date": "2023-02-24",
+          "exit_price": 1728.626113,
+          "reason": "SL",
+          "holding_weeks": 9,
+          "ret_pct": -0.040452
+        },
+        {
+          "ticker": "ZR=F",
+          "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
+          "direction": "LONG",
+          "entry_date": "2023-03-03",
+          "entry_price": 1699.5,
+          "exit_date": "2023-03-10",
+          "exit_price": 1623.387301,
+          "reason": "SL",
+          "holding_weeks": 1,
+          "ret_pct": -0.044785
+        },
+        {
+          "ticker": "ZR=F",
+          "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
+          "direction": "SHORT",
+          "entry_date": "2023-05-19",
+          "entry_price": 1706.5,
+          "exit_date": "2023-06-09",
+          "exit_price": 1801.435057,
+          "reason": "SL",
+          "holding_weeks": 3,
+          "ret_pct": -0.055631
         },
         {
           "ticker": "ZR=F",
@@ -2034,10 +2874,10 @@
           "entry_date": "2023-06-16",
           "entry_price": 1779.5,
           "exit_date": "2023-07-21",
-          "exit_price": 1601.55,
+          "exit_price": 1678.609442,
           "reason": "TP",
           "holding_weeks": 5,
-          "ret_pct": 0.1
+          "ret_pct": 0.056696
         },
         {
           "ticker": "ZR=F",
@@ -2045,11 +2885,11 @@
           "direction": "SHORT",
           "entry_date": "2023-11-17",
           "entry_price": 1740.5,
-          "exit_date": "2024-05-10",
-          "exit_price": 1914.55,
+          "exit_date": "2024-02-02",
+          "exit_price": 1835.584747,
           "reason": "SL",
-          "holding_weeks": 25,
-          "ret_pct": -0.1
+          "holding_weeks": 11,
+          "ret_pct": -0.054631
         },
         {
           "ticker": "ZR=F",
@@ -2058,36 +2898,36 @@
           "entry_date": "2024-07-26",
           "entry_price": 1523.5,
           "exit_date": "2025-02-21",
-          "exit_price": 1371.15,
+          "exit_price": 1364.163669,
           "reason": "SL",
           "holding_weeks": 30,
-          "ret_pct": -0.1
+          "ret_pct": -0.104586
         }
       ]
     },
     "CC=F": {
       "market": "COCOA - ICE FUTURES U.S.",
       "stats": {
-        "trades": 5,
-        "wins": 3,
-        "win_rate": 0.6,
-        "longs": 3,
-        "shorts": 2,
-        "win_rate_long": 0.6667,
-        "win_rate_short": 0.5,
-        "avg_ret": 0.02,
-        "median_ret": 0.1,
-        "payoff_ratio": 1.0,
-        "profit_factor": 1.5,
-        "expectancy": 0.02,
-        "avg_hold_weeks": 11.0,
-        "median_hold_weeks": 10.0,
-        "tp_rate": 0.6,
-        "sl_rate": 0.4,
-        "cum_ret": 0.07811,
-        "cagr": 0.020908,
-        "max_drawdown": -0.19,
-        "sharpe_est": -2.9046,
+        "trades": 8,
+        "wins": 4,
+        "win_rate": 0.5,
+        "longs": 5,
+        "shorts": 3,
+        "win_rate_long": 0.6,
+        "win_rate_short": 0.3333,
+        "avg_ret": -0.006474,
+        "median_ret": 0.001066,
+        "payoff_ratio": 0.7649,
+        "profit_factor": 0.7649,
+        "expectancy": -0.006474,
+        "avg_hold_weeks": 4.5,
+        "median_hold_weeks": 3.0,
+        "tp_rate": 0.5,
+        "sl_rate": 0.5,
+        "cum_ret": -0.061768,
+        "cagr": -0.017389,
+        "max_drawdown": -0.18002,
+        "sharpe_est": -2.2016,
         "horizon_weeks": 189
       },
       "trades": [
@@ -2097,11 +2937,11 @@
           "direction": "LONG",
           "entry_date": "2021-12-03",
           "entry_price": 2435.0,
-          "exit_date": "2022-02-11",
-          "exit_price": 2678.5,
+          "exit_date": "2022-01-14",
+          "exit_price": 2539.221602,
           "reason": "TP",
-          "holding_weeks": 10,
-          "ret_pct": 0.1
+          "holding_weeks": 6,
+          "ret_pct": 0.042801
         },
         {
           "ticker": "CC=F",
@@ -2109,11 +2949,11 @@
           "direction": "SHORT",
           "entry_date": "2022-02-18",
           "entry_price": 2573.0,
-          "exit_date": "2022-07-01",
-          "exit_price": 2315.7,
+          "exit_date": "2022-05-20",
+          "exit_price": 2438.019254,
           "reason": "TP",
-          "holding_weeks": 19,
-          "ret_pct": 0.1
+          "holding_weeks": 13,
+          "ret_pct": 0.05246
         },
         {
           "ticker": "CC=F",
@@ -2121,11 +2961,35 @@
           "direction": "LONG",
           "entry_date": "2022-07-08",
           "entry_price": 2269.0,
-          "exit_date": "2022-11-11",
-          "exit_price": 2495.9,
+          "exit_date": "2022-08-26",
+          "exit_price": 2362.768384,
           "reason": "TP",
-          "holding_weeks": 18,
-          "ret_pct": 0.1
+          "holding_weeks": 7,
+          "ret_pct": 0.041326
+        },
+        {
+          "ticker": "CC=F",
+          "market": "COCOA - ICE FUTURES U.S.",
+          "direction": "LONG",
+          "entry_date": "2022-09-09",
+          "entry_price": 2360.0,
+          "exit_date": "2022-09-23",
+          "exit_price": 2289.716471,
+          "reason": "SL",
+          "holding_weeks": 2,
+          "ret_pct": -0.029781
+        },
+        {
+          "ticker": "CC=F",
+          "market": "COCOA - ICE FUTURES U.S.",
+          "direction": "LONG",
+          "entry_date": "2022-10-28",
+          "entry_price": 2302.0,
+          "exit_date": "2022-11-04",
+          "exit_price": 2375.463468,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.031913
         },
         {
           "ticker": "CC=F",
@@ -2133,11 +2997,23 @@
           "direction": "SHORT",
           "entry_date": "2023-03-03",
           "entry_price": 2730.0,
-          "exit_date": "2023-04-21",
-          "exit_price": 3003.0,
+          "exit_date": "2023-03-24",
+          "exit_price": 2846.150543,
           "reason": "SL",
-          "holding_weeks": 7,
-          "ret_pct": -0.1
+          "holding_weeks": 3,
+          "ret_pct": -0.042546
+        },
+        {
+          "ticker": "CC=F",
+          "market": "COCOA - ICE FUTURES U.S.",
+          "direction": "SHORT",
+          "entry_date": "2023-03-31",
+          "entry_price": 2933.0,
+          "exit_date": "2023-04-21",
+          "exit_price": 3053.24458,
+          "reason": "SL",
+          "holding_weeks": 3,
+          "ret_pct": -0.040997
         },
         {
           "ticker": "CC=F",
@@ -2146,37 +3022,37 @@
           "entry_date": "2025-07-11",
           "entry_price": 8840.0,
           "exit_date": "2025-07-18",
-          "exit_price": 7956.0,
+          "exit_price": 7894.38051,
           "reason": "SL",
           "holding_weeks": 1,
-          "ret_pct": -0.1
+          "ret_pct": -0.106971
         }
       ]
     },
     "KC=F": {
       "market": "COFFEE C - ICE FUTURES U.S.",
       "stats": {
-        "trades": 5,
-        "wins": 3,
-        "win_rate": 0.6,
+        "trades": 6,
+        "wins": 4,
+        "win_rate": 0.6667,
         "longs": 0,
-        "shorts": 5,
+        "shorts": 6,
         "win_rate_long": 0.0,
-        "win_rate_short": 0.6,
-        "avg_ret": 0.02,
-        "median_ret": 0.1,
-        "payoff_ratio": 1.0,
-        "profit_factor": 1.5,
-        "expectancy": 0.02,
-        "avg_hold_weeks": 10.2,
-        "median_hold_weeks": 9.0,
-        "tp_rate": 0.6,
-        "sl_rate": 0.4,
-        "cum_ret": 0.07811,
-        "cagr": 0.016091,
-        "max_drawdown": -0.1,
-        "sharpe_est": 3.5331,
-        "horizon_weeks": 245
+        "win_rate_short": 0.6667,
+        "avg_ret": 0.018436,
+        "median_ret": 0.062885,
+        "payoff_ratio": 0.8621,
+        "profit_factor": 1.7241,
+        "expectancy": 0.018436,
+        "avg_hold_weeks": 4.83,
+        "median_hold_weeks": 3.0,
+        "tp_rate": 0.6667,
+        "sl_rate": 0.3333,
+        "cum_ret": 0.100191,
+        "cagr": 0.020558,
+        "max_drawdown": -0.147485,
+        "sharpe_est": 3.3595,
+        "horizon_weeks": 244
       },
       "trades": [
         {
@@ -2197,11 +3073,11 @@
           "direction": "SHORT",
           "entry_date": "2022-08-12",
           "entry_price": 226.600006,
-          "exit_date": "2022-10-14",
-          "exit_price": 203.940005,
-          "reason": "TP",
-          "holding_weeks": 9,
-          "ret_pct": 0.1
+          "exit_date": "2022-08-26",
+          "exit_price": 238.555607,
+          "reason": "SL",
+          "holding_weeks": 2,
+          "ret_pct": -0.052761
         },
         {
           "ticker": "KC=F",
@@ -2209,11 +3085,23 @@
           "direction": "SHORT",
           "entry_date": "2023-04-21",
           "entry_price": 194.199997,
-          "exit_date": "2023-06-23",
-          "exit_price": 174.779997,
+          "exit_date": "2023-06-02",
+          "exit_price": 180.446198,
           "reason": "TP",
-          "holding_weeks": 9,
-          "ret_pct": 0.1
+          "holding_weeks": 6,
+          "ret_pct": 0.070823
+        },
+        {
+          "ticker": "KC=F",
+          "market": "COFFEE C - ICE FUTURES U.S.",
+          "direction": "SHORT",
+          "entry_date": "2023-06-16",
+          "entry_price": 184.899994,
+          "exit_date": "2023-06-23",
+          "exit_price": 173.569175,
+          "reason": "TP",
+          "holding_weeks": 1,
+          "ret_pct": 0.061281
         },
         {
           "ticker": "KC=F",
@@ -2221,11 +3109,11 @@
           "direction": "SHORT",
           "entry_date": "2023-12-22",
           "entry_price": 192.800003,
-          "exit_date": "2024-04-05",
-          "exit_price": 212.080003,
-          "reason": "SL",
-          "holding_weeks": 15,
-          "ret_pct": -0.1
+          "exit_date": "2024-01-12",
+          "exit_price": 180.366548,
+          "reason": "TP",
+          "holding_weeks": 3,
+          "ret_pct": 0.064489
         },
         {
           "ticker": "KC=F",
@@ -2233,38 +3121,38 @@
           "direction": "SHORT",
           "entry_date": "2025-05-02",
           "entry_price": 395.399994,
-          "exit_date": "2025-05-30",
-          "exit_price": 355.859995,
+          "exit_date": "2025-05-23",
+          "exit_price": 368.993217,
           "reason": "TP",
-          "holding_weeks": 4,
-          "ret_pct": 0.1
+          "holding_weeks": 3,
+          "ret_pct": 0.066785
         }
       ]
     },
     "CT=F": {
       "market": "COTTON NO. 2 - ICE FUTURES U.S.",
       "stats": {
-        "trades": 7,
-        "wins": 3,
-        "win_rate": 0.4286,
-        "longs": 4,
-        "shorts": 3,
-        "win_rate_long": 0.5,
-        "win_rate_short": 0.3333,
-        "avg_ret": -0.014286,
-        "median_ret": -0.1,
-        "payoff_ratio": 1.0,
-        "profit_factor": 0.75,
-        "expectancy": -0.014286,
-        "avg_hold_weeks": 9.43,
-        "median_hold_weeks": 8.0,
-        "tp_rate": 0.4286,
-        "sl_rate": 0.5714,
-        "cum_ret": -0.126731,
-        "cagr": -0.037774,
-        "max_drawdown": -0.271,
-        "sharpe_est": -0.9761,
-        "horizon_weeks": 183
+        "trades": 9,
+        "wins": 6,
+        "win_rate": 0.6667,
+        "longs": 5,
+        "shorts": 4,
+        "win_rate_long": 0.8,
+        "win_rate_short": 0.5,
+        "avg_ret": 0.003281,
+        "median_ret": 0.041362,
+        "payoff_ratio": 0.5605,
+        "profit_factor": 1.121,
+        "expectancy": 0.003281,
+        "avg_hold_weeks": 4.11,
+        "median_hold_weeks": 4.0,
+        "tp_rate": 0.6667,
+        "sl_rate": 0.3333,
+        "cum_ret": 0.011849,
+        "cagr": 0.003428,
+        "max_drawdown": -0.193273,
+        "sharpe_est": 2.5809,
+        "horizon_weeks": 179
       },
       "trades": [
         {
@@ -2285,11 +3173,23 @@
           "direction": "SHORT",
           "entry_date": "2021-04-30",
           "entry_price": 87.43,
-          "exit_date": "2021-08-27",
-          "exit_price": 96.173,
+          "exit_date": "2021-05-14",
+          "exit_price": 83.777336,
+          "reason": "TP",
+          "holding_weeks": 2,
+          "ret_pct": 0.041778
+        },
+        {
+          "ticker": "CT=F",
+          "market": "COTTON NO. 2 - ICE FUTURES U.S.",
+          "direction": "SHORT",
+          "entry_date": "2021-07-30",
+          "entry_price": 89.830002,
+          "exit_date": "2021-08-13",
+          "exit_price": 93.995183,
           "reason": "SL",
-          "holding_weeks": 17,
-          "ret_pct": -0.1
+          "holding_weeks": 2,
+          "ret_pct": -0.046367
         },
         {
           "ticker": "CT=F",
@@ -2297,11 +3197,11 @@
           "direction": "LONG",
           "entry_date": "2023-01-20",
           "entry_price": 86.699997,
-          "exit_date": "2023-03-17",
-          "exit_price": 78.029997,
+          "exit_date": "2023-03-10",
+          "exit_price": 78.225151,
           "reason": "SL",
-          "holding_weeks": 8,
-          "ret_pct": -0.1
+          "holding_weeks": 7,
+          "ret_pct": -0.097749
         },
         {
           "ticker": "CT=F",
@@ -2309,11 +3209,11 @@
           "direction": "LONG",
           "entry_date": "2023-06-23",
           "entry_price": 78.059998,
-          "exit_date": "2023-08-11",
-          "exit_price": 85.865997,
+          "exit_date": "2023-06-30",
+          "exit_price": 82.609158,
           "reason": "TP",
-          "holding_weeks": 7,
-          "ret_pct": 0.1
+          "holding_weeks": 1,
+          "ret_pct": 0.058278
         },
         {
           "ticker": "CT=F",
@@ -2321,11 +3221,23 @@
           "direction": "LONG",
           "entry_date": "2023-11-10",
           "entry_price": 77.32,
-          "exit_date": "2024-02-02",
-          "exit_price": 85.052,
+          "exit_date": "2023-12-08",
+          "exit_price": 81.109439,
           "reason": "TP",
-          "holding_weeks": 12,
-          "ret_pct": 0.1
+          "holding_weeks": 4,
+          "ret_pct": 0.04901
+        },
+        {
+          "ticker": "CT=F",
+          "market": "COTTON NO. 2 - ICE FUTURES U.S.",
+          "direction": "LONG",
+          "entry_date": "2023-12-22",
+          "entry_price": 79.760002,
+          "exit_date": "2024-01-19",
+          "exit_price": 83.250433,
+          "reason": "TP",
+          "holding_weeks": 4,
+          "ret_pct": 0.043762
         },
         {
           "ticker": "CT=F",
@@ -2333,11 +3245,11 @@
           "direction": "SHORT",
           "entry_date": "2024-02-16",
           "entry_price": 93.870003,
-          "exit_date": "2024-04-12",
-          "exit_price": 84.483002,
+          "exit_date": "2024-04-05",
+          "exit_price": 89.987364,
           "reason": "TP",
-          "holding_weeks": 8,
-          "ret_pct": 0.1
+          "holding_weeks": 7,
+          "ret_pct": 0.041362
         },
         {
           "ticker": "CT=F",
@@ -2345,11 +3257,11 @@
           "direction": "LONG",
           "entry_date": "2024-05-10",
           "entry_price": 77.309998,
-          "exit_date": "2024-06-21",
-          "exit_price": 69.578998,
-          "reason": "SL",
-          "holding_weeks": 6,
-          "ret_pct": -0.1
+          "exit_date": "2024-05-24",
+          "exit_price": 80.360507,
+          "reason": "TP",
+          "holding_weeks": 2,
+          "ret_pct": 0.039458
         }
       ]
     },
@@ -2357,26 +3269,26 @@
       "market": "SUGAR NO. 11 - ICE FUTURES U.S.",
       "stats": {
         "trades": 5,
-        "wins": 1,
-        "win_rate": 0.2,
+        "wins": 2,
+        "win_rate": 0.4,
         "longs": 1,
         "shorts": 4,
-        "win_rate_long": 0.0,
+        "win_rate_long": 1.0,
         "win_rate_short": 0.25,
-        "avg_ret": -0.06,
-        "median_ret": -0.1,
-        "payoff_ratio": 1.0,
-        "profit_factor": 0.25,
-        "expectancy": -0.06,
-        "avg_hold_weeks": 12.2,
-        "median_hold_weeks": 12.0,
-        "tp_rate": 0.2,
-        "sl_rate": 0.8,
-        "cum_ret": -0.27829,
-        "cagr": -0.06795,
-        "max_drawdown": -0.27829,
-        "sharpe_est": -4.351,
-        "horizon_weeks": 241
+        "avg_ret": -0.017641,
+        "median_ret": -0.044962,
+        "payoff_ratio": 0.8337,
+        "profit_factor": 0.5558,
+        "expectancy": -0.017641,
+        "avg_hold_weeks": 5.0,
+        "median_hold_weeks": 4.0,
+        "tp_rate": 0.4,
+        "sl_rate": 0.6,
+        "cum_ret": -0.094393,
+        "cagr": -0.022072,
+        "max_drawdown": -0.15089,
+        "sharpe_est": -1.5913,
+        "horizon_weeks": 231
       },
       "trades": [
         {
@@ -2397,11 +3309,11 @@
           "direction": "SHORT",
           "entry_date": "2021-04-16",
           "entry_price": 16.719999,
-          "exit_date": "2021-08-06",
-          "exit_price": 18.391999,
+          "exit_date": "2021-06-04",
+          "exit_price": 17.61647,
           "reason": "SL",
-          "holding_weeks": 16,
-          "ret_pct": -0.1
+          "holding_weeks": 7,
+          "ret_pct": -0.053617
         },
         {
           "ticker": "SB=F",
@@ -2409,11 +3321,11 @@
           "direction": "SHORT",
           "entry_date": "2022-04-08",
           "entry_price": 20.41,
-          "exit_date": "2022-07-01",
-          "exit_price": 18.369,
+          "exit_date": "2022-04-22",
+          "exit_price": 19.515234,
           "reason": "TP",
-          "holding_weeks": 12,
-          "ret_pct": 0.1
+          "holding_weeks": 2,
+          "ret_pct": 0.04384
         },
         {
           "ticker": "SB=F",
@@ -2421,11 +3333,11 @@
           "direction": "SHORT",
           "entry_date": "2022-11-25",
           "entry_price": 19.33,
-          "exit_date": "2023-02-10",
-          "exit_price": 21.263,
+          "exit_date": "2022-12-23",
+          "exit_price": 20.199118,
           "reason": "SL",
-          "holding_weeks": 11,
-          "ret_pct": -0.1
+          "holding_weeks": 4,
+          "ret_pct": -0.044962
         },
         {
           "ticker": "SB=F",
@@ -2433,11 +3345,11 @@
           "direction": "LONG",
           "entry_date": "2024-12-20",
           "entry_price": 19.51,
-          "exit_date": "2025-05-02",
-          "exit_price": 17.559,
-          "reason": "SL",
-          "holding_weeks": 19,
-          "ret_pct": -0.1
+          "exit_date": "2025-02-21",
+          "exit_price": 20.808117,
+          "reason": "TP",
+          "holding_weeks": 9,
+          "ret_pct": 0.066536
         }
       ]
     },
@@ -2524,18 +3436,18 @@
   },
   "overall": {
     "tickers": 30,
-    "trades": 139,
-    "wins": 74,
-    "win_rate": 0.5324,
-    "avg_ret": 0.005293,
-    "payoff_ratio_est": 0.9836,
-    "profit_factor": 1.1197,
-    "expectancy": 0.005293,
-    "cum_ret": 0.097906,
-    "cagr": 0.018856,
-    "max_drawdown": -0.563831,
-    "sharpe_est": -0.3248,
+    "trades": 215,
+    "wins": 118,
+    "win_rate": 0.5488,
+    "avg_ret": 0.006399,
+    "payoff_ratio_est": 1.0733,
+    "profit_factor": 1.3192,
+    "expectancy": 0.00619,
+    "cum_ret": 1.869674,
+    "cagr": 0.234714,
+    "max_drawdown": -0.307521,
+    "sharpe_est": 0.8451,
     "horizon_weeks": 260,
-    "note": "RISK_MODE=fixed_pct. Overall sequenziale (pooled)."
+    "note": "RISK_MODE=std. Overall sequenziale (pooled)."
   }
 }
