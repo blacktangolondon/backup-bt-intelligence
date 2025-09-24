@@ -29,30 +29,30 @@
         "payoff_ratio": 2.0908,
         "profit_factor": 2.0908,
         "expectancy": 0.008663,
-        "avg_hold_weeks": 13.38,
+        "avg_hold_weeks": 13.5,
         "median_hold_weeks": 3.5,
         "tp_rate": 0.5,
         "sl_rate": 0.5,
         "cum_ret": 0.065978,
-        "cagr": 0.015286,
+        "cagr": 0.015357,
         "max_drawdown": -0.051894,
-        "sharpe_est": 1.609,
-        "horizon_weeks": 219
+        "sharpe_est": 1.607,
+        "horizon_weeks": 218
       },
       "trades": [
         {
           "ticker": "6E=F",
           "market": "EURO FX - CHICAGO MERCANTILE EXCHANGE",
           "direction": "SHORT",
-          "entry_date": "2020-09-18",
-          "entry_price": 1.186,
-          "exit_date": "2022-04-29",
-          "exit_price": 1.0674,
+          "entry_date": "2020-09-25",
+          "entry_price": 1.16275,
+          "exit_date": "2022-05-13",
+          "exit_price": 1.046475,
           "reason": "TP",
-          "holding_weeks": 84,
+          "holding_weeks": 85,
           "ret_pct": 0.1,
-          "take_profit": 1.0674,
-          "stop_loss": 1.3046,
+          "take_profit": 1.046475,
+          "stop_loss": 1.279025,
           "name": "Euro Fx"
         },
         {
@@ -178,30 +178,30 @@
         "payoff_ratio": 2.1365,
         "profit_factor": 1.4243,
         "expectancy": 0.005155,
-        "avg_hold_weeks": 10.9,
+        "avg_hold_weeks": 10.8,
         "median_hold_weeks": 3.5,
         "tp_rate": 0.4,
         "sl_rate": 0.6,
         "cum_ret": 0.045666,
-        "cagr": 0.010103,
+        "cagr": 0.010147,
         "max_drawdown": -0.085944,
-        "sharpe_est": -0.3684,
-        "horizon_weeks": 231
+        "sharpe_est": -0.3674,
+        "horizon_weeks": 230
       },
       "trades": [
         {
           "ticker": "6J=F",
           "market": "JAPANESE YEN - CHICAGO MERCANTILE EXCHANGE",
           "direction": "SHORT",
-          "entry_date": "2020-09-18",
-          "entry_price": 0.009569,
+          "entry_date": "2020-09-25",
+          "entry_price": 0.009472,
           "exit_date": "2022-03-11",
-          "exit_price": 0.008612,
+          "exit_price": 0.008525,
           "reason": "TP",
-          "holding_weeks": 77,
+          "holding_weeks": 76,
           "ret_pct": 0.1,
-          "take_profit": 0.008612,
-          "stop_loss": 0.010526,
+          "take_profit": 0.008525,
+          "stop_loss": 0.010419,
           "name": "Japanese Yen"
         },
         {
@@ -598,42 +598,72 @@
       "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
       "name": "Swiss Franc",
       "stats": {
-        "trades": 1,
+        "trades": 3,
         "wins": 0,
         "win_rate": 0.0,
-        "longs": 0,
+        "longs": 2,
         "shorts": 1,
         "win_rate_long": 0.0,
         "win_rate_short": 0.0,
-        "avg_ret": -0.1,
-        "median_ret": -0.1,
+        "avg_ret": -0.04335,
+        "median_ret": -0.015596,
         "payoff_ratio": 0.0,
         "profit_factor": 0.0,
-        "expectancy": -0.1,
-        "avg_hold_weeks": 238.0,
-        "median_hold_weeks": 238.0,
+        "expectancy": -0.04335,
+        "avg_hold_weeks": 60.0,
+        "median_hold_weeks": 8.0,
         "tp_rate": 0.0,
         "sl_rate": 1.0,
-        "cum_ret": -0.1,
-        "cagr": -0.022757,
-        "max_drawdown": -0.1,
-        "sharpe_est": 0.0,
-        "horizon_weeks": 238
+        "cum_ret": -0.126842,
+        "cagr": -0.032126,
+        "max_drawdown": -0.126842,
+        "sharpe_est": -6.6935,
+        "horizon_weeks": 216
       },
       "trades": [
         {
           "ticker": "6S=F",
           "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
           "direction": "SHORT",
-          "entry_date": "2020-09-18",
-          "entry_price": 1.1015,
-          "exit_date": "2025-04-11",
-          "exit_price": 1.21165,
+          "entry_date": "2020-09-25",
+          "entry_price": 1.079,
+          "exit_date": "2023-12-29",
+          "exit_price": 1.1869,
           "reason": "SL",
-          "holding_weeks": 238,
+          "holding_weeks": 170,
           "ret_pct": -0.1,
-          "take_profit": 0.99135,
-          "stop_loss": 1.21165,
+          "take_profit": 0.9711,
+          "stop_loss": 1.1869,
+          "name": "Swiss Franc"
+        },
+        {
+          "ticker": "6S=F",
+          "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2024-03-29",
+          "entry_price": 1.1182,
+          "exit_date": "2024-05-24",
+          "exit_price": 1.100761,
+          "reason": "SL",
+          "holding_weeks": 8,
+          "ret_pct": -0.015596,
+          "take_profit": 1.135639,
+          "stop_loss": 1.100761,
+          "name": "Swiss Franc"
+        },
+        {
+          "ticker": "6S=F",
+          "market": "SWISS FRANC - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "LONG",
+          "entry_date": "2024-11-01",
+          "entry_price": 1.1542,
+          "exit_date": "2024-11-15",
+          "exit_price": 1.137518,
+          "reason": "SL",
+          "holding_weeks": 2,
+          "ret_pct": -0.014454,
+          "take_profit": 1.170882,
+          "stop_loss": 1.137518,
           "name": "Swiss Franc"
         }
       ]
@@ -821,27 +851,27 @@
       "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
       "name": "Brazilian Real",
       "stats": {
-        "trades": 11,
+        "trades": 12,
         "wins": 5,
-        "win_rate": 0.4545,
+        "win_rate": 0.4167,
         "longs": 4,
-        "shorts": 7,
+        "shorts": 8,
         "win_rate_long": 0.5,
-        "win_rate_short": 0.4286,
-        "avg_ret": 0.006634,
-        "median_ret": -0.012776,
-        "payoff_ratio": 1.8355,
-        "profit_factor": 1.5296,
-        "expectancy": 0.006634,
-        "avg_hold_weeks": 13.09,
-        "median_hold_weeks": 6.0,
-        "tp_rate": 0.4545,
-        "sl_rate": 0.5455,
-        "cum_ret": 0.06695,
-        "cagr": 0.01414,
-        "max_drawdown": -0.066667,
-        "sharpe_est": 0.1584,
-        "horizon_weeks": 240
+        "win_rate_short": 0.375,
+        "avg_ret": 0.004691,
+        "median_ret": -0.012809,
+        "payoff_ratio": 1.9102,
+        "profit_factor": 1.3644,
+        "expectancy": 0.004691,
+        "avg_hold_weeks": 12.42,
+        "median_hold_weeks": 5.5,
+        "tp_rate": 0.4167,
+        "sl_rate": 0.5833,
+        "cum_ret": 0.049152,
+        "cagr": 0.009872,
+        "max_drawdown": -0.082018,
+        "sharpe_est": -0.1866,
+        "horizon_weeks": 254
       },
       "trades": [
         {
@@ -1007,6 +1037,21 @@
           "ret_pct": -0.020777,
           "take_profit": 0.172147,
           "stop_loss": 0.179453,
+          "name": "Brazilian Real"
+        },
+        {
+          "ticker": "6L=F",
+          "market": "BRAZILIAN REAL - CHICAGO MERCANTILE EXCHANGE",
+          "direction": "SHORT",
+          "entry_date": "2025-08-15",
+          "entry_price": 0.18445,
+          "exit_date": "2025-09-19",
+          "exit_price": 0.187527,
+          "reason": "SL",
+          "holding_weeks": 5,
+          "ret_pct": -0.016681,
+          "take_profit": 0.181373,
+          "stop_loss": 0.187527,
           "name": "Brazilian Real"
         }
       ]
@@ -1236,30 +1281,30 @@
         "payoff_ratio": 1.4167,
         "profit_factor": 0.787,
         "expectancy": -0.005766,
-        "avg_hold_weeks": 4.93,
+        "avg_hold_weeks": 4.79,
         "median_hold_weeks": 3.0,
         "tp_rate": 0.3571,
         "sl_rate": 0.6429,
         "cum_ret": -0.094208,
-        "cagr": -0.019595,
+        "cagr": -0.01967,
         "max_drawdown": -0.231393,
-        "sharpe_est": -1.074,
-        "horizon_weeks": 260
+        "sharpe_est": -1.026,
+        "horizon_weeks": 259
       },
       "trades": [
         {
           "ticker": "NQ=F",
           "market": "NASDAQ-100 Consolidated - CHICAGO MERCANTILE EXCHANGE",
           "direction": "LONG",
-          "entry_date": "2020-09-18",
-          "entry_price": 11144.80957,
-          "exit_date": "2020-12-04",
-          "exit_price": 12259.290527,
+          "entry_date": "2020-09-25",
+          "entry_price": 11136.5,
+          "exit_date": "2020-11-27",
+          "exit_price": 12250.15,
           "reason": "TP",
-          "holding_weeks": 11,
+          "holding_weeks": 9,
           "ret_pct": 0.1,
-          "take_profit": 12259.290527,
-          "stop_loss": 10030.328613,
+          "take_profit": 12250.15,
+          "stop_loss": 10022.85,
           "name": "Nasdaq-100 Consolidated"
         },
         {
@@ -1609,30 +1654,30 @@
         "payoff_ratio": 1.2176,
         "profit_factor": 1.8264,
         "expectancy": 0.010198,
-        "avg_hold_weeks": 5.5,
+        "avg_hold_weeks": 5.4,
         "median_hold_weeks": 3.5,
         "tp_rate": 0.6,
         "sl_rate": 0.4,
         "cum_ret": 0.098283,
-        "cagr": 0.019075,
+        "cagr": 0.019225,
         "max_drawdown": -0.117854,
-        "sharpe_est": 2.5249,
-        "horizon_weeks": 258
+        "sharpe_est": 2.5372,
+        "horizon_weeks": 256
       },
       "trades": [
         {
           "ticker": "GC=F",
           "market": "GOLD - COMMODITY EXCHANGE INC.",
           "direction": "SHORT",
-          "entry_date": "2020-09-18",
-          "entry_price": 1952.099976,
-          "exit_date": "2021-02-26",
-          "exit_price": 1756.889978,
+          "entry_date": "2020-10-02",
+          "entry_price": 1900.199951,
+          "exit_date": "2021-03-05",
+          "exit_price": 1710.179956,
           "reason": "TP",
-          "holding_weeks": 23,
+          "holding_weeks": 22,
           "ret_pct": 0.1,
-          "take_profit": 1756.889978,
-          "stop_loss": 2147.309973,
+          "take_profit": 1710.179956,
+          "stop_loss": 2090.219946,
           "name": "Gold"
         },
         {
@@ -2025,30 +2070,30 @@
         "payoff_ratio": 0.0,
         "profit_factor": "inf",
         "expectancy": 0.086507,
-        "avg_hold_weeks": 9.0,
-        "median_hold_weeks": 4.0,
+        "avg_hold_weeks": 3.0,
+        "median_hold_weeks": 3.0,
         "tp_rate": 1.0,
         "sl_rate": 0.0,
         "cum_ret": 0.393275,
-        "cagr": 0.069689,
+        "cagr": 0.069972,
         "max_drawdown": 0.0,
-        "sharpe_est": 11.3505,
-        "horizon_weeks": 256
+        "sharpe_est": 17.1571,
+        "horizon_weeks": 255
       },
       "trades": [
         {
           "ticker": "PA=F",
           "market": "PALLADIUM - NEW YORK MERCANTILE EXCHANGE",
           "direction": "LONG",
-          "entry_date": "2020-09-18",
-          "entry_price": 2364.0,
-          "exit_date": "2021-03-19",
-          "exit_price": 2600.4,
+          "entry_date": "2020-09-25",
+          "entry_price": 2207.699951,
+          "exit_date": "2020-10-09",
+          "exit_price": 2428.469946,
           "reason": "TP",
-          "holding_weeks": 26,
+          "holding_weeks": 2,
           "ret_pct": 0.1,
-          "take_profit": 2600.4,
-          "stop_loss": 2127.6,
+          "take_profit": 2428.469946,
+          "stop_loss": 1986.929956,
           "name": "Palladium"
         },
         {
@@ -2696,30 +2741,30 @@
         "payoff_ratio": 0.61,
         "profit_factor": 0.1525,
         "expectancy": -0.032384,
-        "avg_hold_weeks": 4.2,
+        "avg_hold_weeks": 3.8,
         "median_hold_weeks": 3.0,
         "tp_rate": 0.2,
         "sl_rate": 0.8,
         "cum_ret": -0.155672,
-        "cagr": -0.043253,
+        "cagr": -0.043467,
         "max_drawdown": -0.155672,
-        "sharpe_est": -5.2116,
-        "horizon_weeks": 199
+        "sharpe_est": -5.4812,
+        "horizon_weeks": 198
       },
       "trades": [
         {
           "ticker": "ZS=F",
           "market": "SOYBEANS - CHICAGO BOARD OF TRADE",
           "direction": "SHORT",
-          "entry_date": "2020-09-18",
-          "entry_price": 1043.5,
-          "exit_date": "2020-11-20",
-          "exit_price": 1147.85,
+          "entry_date": "2020-09-25",
+          "entry_price": 1002.5,
+          "exit_date": "2020-11-13",
+          "exit_price": 1102.75,
           "reason": "SL",
-          "holding_weeks": 9,
+          "holding_weeks": 7,
           "ret_pct": -0.1,
-          "take_profit": 939.15,
-          "stop_loss": 1147.85,
+          "take_profit": 902.25,
+          "stop_loss": 1102.75,
           "name": "Soybeans"
         },
         {
@@ -3009,30 +3054,30 @@
         "payoff_ratio": 0.7064,
         "profit_factor": 0.2355,
         "expectancy": -0.032595,
-        "avg_hold_weeks": 9.08,
+        "avg_hold_weeks": 9.0,
         "median_hold_weeks": 5.0,
         "tp_rate": 0.25,
         "sl_rate": 0.75,
         "cum_ret": -0.337758,
-        "cagr": -0.088599,
+        "cagr": -0.088967,
         "max_drawdown": -0.337758,
-        "sharpe_est": -1.9307,
-        "horizon_weeks": 231
+        "sharpe_est": -1.934,
+        "horizon_weeks": 230
       },
       "trades": [
         {
           "ticker": "ZR=F",
           "market": "ROUGH RICE - CHICAGO BOARD OF TRADE",
           "direction": "SHORT",
-          "entry_date": "2020-09-18",
-          "entry_price": 1251.5,
+          "entry_date": "2020-09-25",
+          "entry_price": 1245.0,
           "exit_date": "2021-05-07",
-          "exit_price": 1376.65,
+          "exit_price": 1369.5,
           "reason": "SL",
-          "holding_weeks": 33,
+          "holding_weeks": 32,
           "ret_pct": -0.1,
-          "take_profit": 1126.35,
-          "stop_loss": 1376.65,
+          "take_profit": 1120.5,
+          "stop_loss": 1369.5,
           "name": "Rough Rice"
         },
         {
@@ -3367,30 +3412,30 @@
         "payoff_ratio": 0.8621,
         "profit_factor": 1.7241,
         "expectancy": 0.018436,
-        "avg_hold_weeks": 4.83,
+        "avg_hold_weeks": 4.67,
         "median_hold_weeks": 3.0,
         "tp_rate": 0.6667,
         "sl_rate": 0.3333,
         "cum_ret": 0.100191,
-        "cagr": 0.020558,
+        "cagr": 0.020643,
         "max_drawdown": -0.147485,
-        "sharpe_est": 3.3595,
-        "horizon_weeks": 244
+        "sharpe_est": 3.3286,
+        "horizon_weeks": 243
       },
       "trades": [
         {
           "ticker": "KC=F",
           "market": "COFFEE C - ICE FUTURES U.S.",
           "direction": "SHORT",
-          "entry_date": "2020-09-18",
-          "entry_price": 113.599998,
+          "entry_date": "2020-09-25",
+          "entry_price": 113.650002,
           "exit_date": "2020-12-25",
-          "exit_price": 124.959998,
+          "exit_price": 125.015002,
           "reason": "SL",
-          "holding_weeks": 14,
+          "holding_weeks": 13,
           "ret_pct": -0.1,
-          "take_profit": 102.239999,
-          "stop_loss": 124.959998,
+          "take_profit": 102.285001,
+          "stop_loss": 125.015002,
           "name": "Coffee C"
         },
         {
@@ -3655,25 +3700,25 @@
         "tp_rate": 0.4,
         "sl_rate": 0.6,
         "cum_ret": -0.094393,
-        "cagr": -0.022072,
+        "cagr": -0.022167,
         "max_drawdown": -0.15089,
         "sharpe_est": -1.5913,
-        "horizon_weeks": 231
+        "horizon_weeks": 230
       },
       "trades": [
         {
           "ticker": "SB=F",
           "market": "SUGAR NO. 11 - ICE FUTURES U.S.",
           "direction": "SHORT",
-          "entry_date": "2020-09-18",
-          "entry_price": 12.77,
-          "exit_date": "2020-10-09",
-          "exit_price": 14.047001,
+          "entry_date": "2020-09-25",
+          "entry_price": 13.0,
+          "exit_date": "2020-10-16",
+          "exit_price": 14.3,
           "reason": "SL",
           "holding_weeks": 3,
           "ret_pct": -0.1,
-          "take_profit": 11.493,
-          "stop_loss": 14.047001,
+          "take_profit": 11.7,
+          "stop_loss": 14.3,
           "name": "Sugar No. 11"
         },
         {
@@ -3741,18 +3786,18 @@
   },
   "overall": {
     "tickers": 25,
-    "trades": 200,
+    "trades": 203,
     "wins": 110,
-    "win_rate": 0.55,
-    "avg_ret": 0.006285,
-    "payoff_ratio_est": 1.0663,
-    "profit_factor": 1.3032,
-    "expectancy": 0.006285,
-    "cum_ret": 1.585148,
-    "cagr": 0.212791,
-    "max_drawdown": -0.307521,
-    "sharpe_est": 0.9144,
-    "horizon_weeks": 256,
+    "win_rate": 0.5419,
+    "avg_ret": 0.005962,
+    "payoff_ratio_est": 1.0895,
+    "profit_factor": 1.2887,
+    "expectancy": 0.005962,
+    "cum_ret": 1.46621,
+    "cagr": 0.19786,
+    "max_drawdown": -0.313661,
+    "sharpe_est": 0.9489,
+    "horizon_weeks": 260,
     "note": "RISK_MODE=std. Overall sequenziale (pooled)."
   },
   "trades": [
@@ -3760,12 +3805,12 @@
       "spread": "6E=F",
       "name": "Euro Fx",
       "type": "short",
-      "entry_date": "2020-09-18",
-      "exit_date": "2022-04-29",
-      "entry": 1.186,
-      "exit": 1.0674,
-      "take_profit": 1.0674,
-      "stop_loss": 1.3046,
+      "entry_date": "2020-09-25",
+      "exit_date": "2022-05-13",
+      "entry": 1.16275,
+      "exit": 1.046475,
+      "take_profit": 1.046475,
+      "stop_loss": 1.279025,
       "pnl": 0.1,
       "exit_reason": "TP"
     },
@@ -3864,12 +3909,12 @@
       "spread": "6J=F",
       "name": "Japanese Yen",
       "type": "short",
-      "entry_date": "2020-09-18",
+      "entry_date": "2020-09-25",
       "exit_date": "2022-03-11",
-      "entry": 0.009569,
-      "exit": 0.008612,
-      "take_profit": 0.008612,
-      "stop_loss": 0.010526,
+      "entry": 0.009472,
+      "exit": 0.008525,
+      "take_profit": 0.008525,
+      "stop_loss": 0.010419,
       "pnl": 0.1,
       "exit_reason": "TP"
     },
@@ -4163,13 +4208,39 @@
       "spread": "6S=F",
       "name": "Swiss Franc",
       "type": "short",
-      "entry_date": "2020-09-18",
-      "exit_date": "2025-04-11",
-      "entry": 1.1015,
-      "exit": 1.21165,
-      "take_profit": 0.99135,
-      "stop_loss": 1.21165,
+      "entry_date": "2020-09-25",
+      "exit_date": "2023-12-29",
+      "entry": 1.079,
+      "exit": 1.1869,
+      "take_profit": 0.9711,
+      "stop_loss": 1.1869,
       "pnl": -0.1,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6S=F",
+      "name": "Swiss Franc",
+      "type": "long",
+      "entry_date": "2024-03-29",
+      "exit_date": "2024-05-24",
+      "entry": 1.1182,
+      "exit": 1.100761,
+      "take_profit": 1.135639,
+      "stop_loss": 1.100761,
+      "pnl": -0.015596,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "6S=F",
+      "name": "Swiss Franc",
+      "type": "long",
+      "entry_date": "2024-11-01",
+      "exit_date": "2024-11-15",
+      "entry": 1.1542,
+      "exit": 1.137518,
+      "take_profit": 1.170882,
+      "stop_loss": 1.137518,
+      "pnl": -0.014454,
       "exit_reason": "SL"
     },
     {
@@ -4446,6 +4517,19 @@
       "exit_reason": "SL"
     },
     {
+      "spread": "6L=F",
+      "name": "Brazilian Real",
+      "type": "short",
+      "entry_date": "2025-08-15",
+      "exit_date": "2025-09-19",
+      "entry": 0.18445,
+      "exit": 0.187527,
+      "take_profit": 0.181373,
+      "stop_loss": 0.187527,
+      "pnl": -0.016681,
+      "exit_reason": "SL"
+    },
+    {
       "spread": "ES=F",
       "name": "S&P 500 Consolidated",
       "type": "short",
@@ -4605,12 +4689,12 @@
       "spread": "NQ=F",
       "name": "Nasdaq-100 Consolidated",
       "type": "long",
-      "entry_date": "2020-09-18",
-      "exit_date": "2020-12-04",
-      "entry": 11144.80957,
-      "exit": 12259.290527,
-      "take_profit": 12259.290527,
-      "stop_loss": 10030.328613,
+      "entry_date": "2020-09-25",
+      "exit_date": "2020-11-27",
+      "entry": 11136.5,
+      "exit": 12250.15,
+      "take_profit": 12250.15,
+      "stop_loss": 10022.85,
       "pnl": 0.1,
       "exit_reason": "TP"
     },
@@ -4878,12 +4962,12 @@
       "spread": "GC=F",
       "name": "Gold",
       "type": "short",
-      "entry_date": "2020-09-18",
-      "exit_date": "2021-02-26",
-      "entry": 1952.099976,
-      "exit": 1756.889978,
-      "take_profit": 1756.889978,
-      "stop_loss": 2147.309973,
+      "entry_date": "2020-10-02",
+      "exit_date": "2021-03-05",
+      "entry": 1900.199951,
+      "exit": 1710.179956,
+      "take_profit": 1710.179956,
+      "stop_loss": 2090.219946,
       "pnl": 0.1,
       "exit_reason": "TP"
     },
@@ -5138,12 +5222,12 @@
       "spread": "PA=F",
       "name": "Palladium",
       "type": "long",
-      "entry_date": "2020-09-18",
-      "exit_date": "2021-03-19",
-      "entry": 2364.0,
-      "exit": 2600.4,
-      "take_profit": 2600.4,
-      "stop_loss": 2127.6,
+      "entry_date": "2020-09-25",
+      "exit_date": "2020-10-09",
+      "entry": 2207.699951,
+      "exit": 2428.469946,
+      "take_profit": 2428.469946,
+      "stop_loss": 1986.929956,
       "pnl": 0.1,
       "exit_reason": "TP"
     },
@@ -5619,12 +5703,12 @@
       "spread": "ZS=F",
       "name": "Soybeans",
       "type": "short",
-      "entry_date": "2020-09-18",
-      "exit_date": "2020-11-20",
-      "entry": 1043.5,
-      "exit": 1147.85,
-      "take_profit": 939.15,
-      "stop_loss": 1147.85,
+      "entry_date": "2020-09-25",
+      "exit_date": "2020-11-13",
+      "entry": 1002.5,
+      "exit": 1102.75,
+      "take_profit": 902.25,
+      "stop_loss": 1102.75,
       "pnl": -0.1,
       "exit_reason": "SL"
     },
@@ -5840,12 +5924,12 @@
       "spread": "ZR=F",
       "name": "Rough Rice",
       "type": "short",
-      "entry_date": "2020-09-18",
+      "entry_date": "2020-09-25",
       "exit_date": "2021-05-07",
-      "entry": 1251.5,
-      "exit": 1376.65,
-      "take_profit": 1126.35,
-      "stop_loss": 1376.65,
+      "entry": 1245.0,
+      "exit": 1369.5,
+      "take_profit": 1120.5,
+      "stop_loss": 1369.5,
       "pnl": -0.1,
       "exit_reason": "SL"
     },
@@ -6100,12 +6184,12 @@
       "spread": "KC=F",
       "name": "Coffee C",
       "type": "short",
-      "entry_date": "2020-09-18",
+      "entry_date": "2020-09-25",
       "exit_date": "2020-12-25",
-      "entry": 113.599998,
-      "exit": 124.959998,
-      "take_profit": 102.239999,
-      "stop_loss": 124.959998,
+      "entry": 113.650002,
+      "exit": 125.015002,
+      "take_profit": 102.285001,
+      "stop_loss": 125.015002,
       "pnl": -0.1,
       "exit_reason": "SL"
     },
@@ -6295,12 +6379,12 @@
       "spread": "SB=F",
       "name": "Sugar No. 11",
       "type": "short",
-      "entry_date": "2020-09-18",
-      "exit_date": "2020-10-09",
-      "entry": 12.77,
-      "exit": 14.047001,
-      "take_profit": 11.493,
-      "stop_loss": 14.047001,
+      "entry_date": "2020-09-25",
+      "exit_date": "2020-10-16",
+      "entry": 13.0,
+      "exit": 14.3,
+      "take_profit": 11.7,
+      "stop_loss": 14.3,
       "pnl": -0.1,
       "exit_reason": "SL"
     },
@@ -6362,102 +6446,90 @@
       "spread": "6E=F",
       "type": "short",
       "entry_date": "2025-07-18",
-      "days_open": 8,
+      "days_open": 9,
       "entry": 1.16445,
-      "last": 1.17425,
+      "last": 1.17645,
       "take_profit": 1.142184,
       "stop_loss": 1.186716,
-      "mtm_return": -0.008416,
+      "mtm_return": -0.010305,
       "name": "Euro Fx"
     },
     {
       "spread": "6J=F",
       "type": "short",
       "entry_date": "2025-09-12",
-      "days_open": 0,
+      "days_open": 1,
       "entry": 0.006781,
-      "last": 0.006781,
+      "last": 0.006774,
       "take_profit": 0.006676,
       "stop_loss": 0.006886,
-      "mtm_return": 0.0,
+      "mtm_return": 0.001032,
       "name": "Japanese Yen"
     },
     {
       "spread": "6A=F",
       "type": "long",
       "entry_date": "2025-07-18",
-      "days_open": 8,
+      "days_open": 9,
       "entry": 0.65085,
-      "last": 0.6653,
+      "last": 0.6597,
       "take_profit": 0.665517,
       "stop_loss": 0.636183,
-      "mtm_return": 0.022202,
+      "mtm_return": 0.013598,
       "name": "Australian Dollar"
-    },
-    {
-      "spread": "6L=F",
-      "type": "short",
-      "entry_date": "2025-08-15",
-      "days_open": 4,
-      "entry": 0.18445,
-      "last": 0.1861,
-      "take_profit": 0.181373,
-      "stop_loss": 0.187527,
-      "mtm_return": -0.008946,
-      "name": "Brazilian Real"
     },
     {
       "spread": "GC=F",
       "type": "short",
       "entry_date": "2025-09-05",
-      "days_open": 1,
+      "days_open": 2,
       "entry": 3613.199951,
-      "last": 3649.399902,
+      "last": 3671.5,
       "take_profit": 3469.593712,
       "stop_loss": 3756.806191,
-      "mtm_return": -0.010019,
+      "mtm_return": -0.016135,
       "name": "Gold"
     }
   ],
   "equity_curve": [
     {
       "date": "2020-10-09",
-      "cumulative_pnl": -0.1
+      "cumulative_pnl": 0.1
     },
     {
-      "date": "2020-11-20",
-      "cumulative_pnl": -0.2
-    },
-    {
-      "date": "2020-12-04",
-      "cumulative_pnl": -0.1
-    },
-    {
-      "date": "2020-12-04",
+      "date": "2020-10-16",
       "cumulative_pnl": 0.0
     },
     {
-      "date": "2020-12-18",
+      "date": "2020-11-13",
       "cumulative_pnl": -0.1
     },
     {
+      "date": "2020-11-27",
+      "cumulative_pnl": 0.0
+    },
+    {
+      "date": "2020-12-04",
+      "cumulative_pnl": 0.1
+    },
+    {
+      "date": "2020-12-18",
+      "cumulative_pnl": 0.0
+    },
+    {
       "date": "2020-12-25",
-      "cumulative_pnl": -0.2
+      "cumulative_pnl": -0.1
     },
     {
       "date": "2021-01-01",
-      "cumulative_pnl": -0.3
+      "cumulative_pnl": -0.2
     },
     {
       "date": "2021-02-12",
-      "cumulative_pnl": -0.4
-    },
-    {
-      "date": "2021-02-26",
       "cumulative_pnl": -0.3
     },
     {
-      "date": "2021-03-19",
+      "date": "2021-03-05",
       "cumulative_pnl": -0.2
     },
     {
@@ -6602,14 +6674,14 @@
     },
     {
       "date": "2022-04-29",
-      "cumulative_pnl": 0.022967
+      "cumulative_pnl": -0.052091
     },
     {
       "date": "2022-04-29",
-      "cumulative_pnl": 0.047909
+      "cumulative_pnl": -0.09214
     },
     {
-      "date": "2022-04-29",
+      "date": "2022-05-13",
       "cumulative_pnl": 0.00786
     },
     {
@@ -6901,324 +6973,336 @@
       "cumulative_pnl": 0.94913
     },
     {
-      "date": "2024-01-12",
-      "cumulative_pnl": 0.926933
+      "date": "2023-12-29",
+      "cumulative_pnl": 0.84913
     },
     {
       "date": "2024-01-12",
-      "cumulative_pnl": 0.991422
+      "cumulative_pnl": 0.826933
+    },
+    {
+      "date": "2024-01-12",
+      "cumulative_pnl": 0.891422
     },
     {
       "date": "2024-01-19",
-      "cumulative_pnl": 1.035184
+      "cumulative_pnl": 0.935184
     },
     {
       "date": "2024-02-02",
-      "cumulative_pnl": 1.007015
+      "cumulative_pnl": 0.907015
     },
     {
       "date": "2024-02-02",
-      "cumulative_pnl": 0.952384
+      "cumulative_pnl": 0.852384
     },
     {
       "date": "2024-02-09",
-      "cumulative_pnl": 0.875461
+      "cumulative_pnl": 0.775461
     },
     {
       "date": "2024-02-16",
-      "cumulative_pnl": 0.859054
+      "cumulative_pnl": 0.759054
     },
     {
       "date": "2024-02-23",
-      "cumulative_pnl": 0.802973
+      "cumulative_pnl": 0.702973
     },
     {
       "date": "2024-04-05",
-      "cumulative_pnl": 0.825794
+      "cumulative_pnl": 0.725794
     },
     {
       "date": "2024-04-05",
-      "cumulative_pnl": 0.867156
+      "cumulative_pnl": 0.767156
     },
     {
       "date": "2024-04-12",
-      "cumulative_pnl": 0.892086
+      "cumulative_pnl": 0.792086
     },
     {
       "date": "2024-04-12",
-      "cumulative_pnl": 0.948445
+      "cumulative_pnl": 0.848445
     },
     {
       "date": "2024-04-19",
-      "cumulative_pnl": 0.969201
+      "cumulative_pnl": 0.869201
     },
     {
       "date": "2024-04-26",
-      "cumulative_pnl": 1.013035
+      "cumulative_pnl": 0.913035
     },
     {
       "date": "2024-05-03",
-      "cumulative_pnl": 1.070935
+      "cumulative_pnl": 0.970935
     },
     {
       "date": "2024-05-10",
-      "cumulative_pnl": 1.128627
+      "cumulative_pnl": 1.028627
     },
     {
       "date": "2024-05-17",
-      "cumulative_pnl": 1.140587
+      "cumulative_pnl": 1.040587
     },
     {
       "date": "2024-05-17",
-      "cumulative_pnl": 1.159471
+      "cumulative_pnl": 1.059471
     },
     {
       "date": "2024-05-24",
-      "cumulative_pnl": 1.198929
+      "cumulative_pnl": 1.043875
+    },
+    {
+      "date": "2024-05-24",
+      "cumulative_pnl": 1.083333
     },
     {
       "date": "2024-05-31",
-      "cumulative_pnl": 1.186086
+      "cumulative_pnl": 1.07049
     },
     {
       "date": "2024-05-31",
-      "cumulative_pnl": 1.155434
+      "cumulative_pnl": 1.039838
     },
     {
       "date": "2024-06-28",
-      "cumulative_pnl": 1.142658
+      "cumulative_pnl": 1.027062
     },
     {
       "date": "2024-07-05",
-      "cumulative_pnl": 1.151483
+      "cumulative_pnl": 1.035887
     },
     {
       "date": "2024-07-05",
-      "cumulative_pnl": 1.106724
+      "cumulative_pnl": 0.991128
     },
     {
       "date": "2024-07-12",
-      "cumulative_pnl": 1.086925
+      "cumulative_pnl": 0.971329
     },
     {
       "date": "2024-07-12",
-      "cumulative_pnl": 1.059637
+      "cumulative_pnl": 0.944041
     },
     {
       "date": "2024-07-26",
-      "cumulative_pnl": 1.073725
+      "cumulative_pnl": 0.958129
     },
     {
       "date": "2024-08-16",
-      "cumulative_pnl": 1.039153
+      "cumulative_pnl": 0.923557
     },
     {
       "date": "2024-08-16",
-      "cumulative_pnl": 1.011001
+      "cumulative_pnl": 0.895405
     },
     {
       "date": "2024-08-23",
-      "cumulative_pnl": 0.988264
+      "cumulative_pnl": 0.872668
     },
     {
       "date": "2024-09-06",
-      "cumulative_pnl": 1.012496
+      "cumulative_pnl": 0.8969
     },
     {
       "date": "2024-09-06",
-      "cumulative_pnl": 1.0493
+      "cumulative_pnl": 0.933704
     },
     {
       "date": "2024-09-06",
-      "cumulative_pnl": 1.112383
+      "cumulative_pnl": 0.996787
     },
     {
       "date": "2024-09-13",
-      "cumulative_pnl": 1.084092
+      "cumulative_pnl": 0.968496
     },
     {
       "date": "2024-09-13",
-      "cumulative_pnl": 1.141435
+      "cumulative_pnl": 1.025839
     },
     {
       "date": "2024-09-27",
-      "cumulative_pnl": 1.125731
+      "cumulative_pnl": 1.010135
     },
     {
       "date": "2024-10-25",
-      "cumulative_pnl": 1.056816
+      "cumulative_pnl": 0.94122
     },
     {
       "date": "2024-10-25",
-      "cumulative_pnl": 1.123457
+      "cumulative_pnl": 1.007861
     },
     {
       "date": "2024-11-08",
-      "cumulative_pnl": 1.095793
+      "cumulative_pnl": 0.980197
     },
     {
       "date": "2024-11-15",
-      "cumulative_pnl": 1.085061
+      "cumulative_pnl": 0.969465
+    },
+    {
+      "date": "2024-11-15",
+      "cumulative_pnl": 0.955011
     },
     {
       "date": "2024-11-29",
-      "cumulative_pnl": 1.097119
+      "cumulative_pnl": 0.967069
     },
     {
       "date": "2024-12-13",
-      "cumulative_pnl": 1.197119
+      "cumulative_pnl": 1.067069
     },
     {
       "date": "2024-12-20",
-      "cumulative_pnl": 1.225674
+      "cumulative_pnl": 1.095624
     },
     {
       "date": "2025-01-10",
-      "cumulative_pnl": 1.208127
+      "cumulative_pnl": 1.078077
     },
     {
       "date": "2025-01-10",
-      "cumulative_pnl": 1.253501
+      "cumulative_pnl": 1.123451
     },
     {
       "date": "2025-01-17",
-      "cumulative_pnl": 1.225737
+      "cumulative_pnl": 1.095687
     },
     {
       "date": "2025-01-24",
-      "cumulative_pnl": 1.251633
+      "cumulative_pnl": 1.121583
     },
     {
       "date": "2025-01-24",
-      "cumulative_pnl": 1.346181
+      "cumulative_pnl": 1.216131
     },
     {
       "date": "2025-02-07",
-      "cumulative_pnl": 1.396696
+      "cumulative_pnl": 1.266646
     },
     {
       "date": "2025-02-14",
-      "cumulative_pnl": 1.35647
+      "cumulative_pnl": 1.22642
     },
     {
       "date": "2025-02-21",
-      "cumulative_pnl": 1.328265
+      "cumulative_pnl": 1.198215
     },
     {
       "date": "2025-02-21",
-      "cumulative_pnl": 1.223679
+      "cumulative_pnl": 1.093629
     },
     {
       "date": "2025-02-21",
-      "cumulative_pnl": 1.290215
+      "cumulative_pnl": 1.160165
     },
     {
       "date": "2025-02-28",
-      "cumulative_pnl": 1.236723
+      "cumulative_pnl": 1.106673
     },
     {
       "date": "2025-02-28",
-      "cumulative_pnl": 1.281328
+      "cumulative_pnl": 1.151278
     },
     {
       "date": "2025-02-28",
-      "cumulative_pnl": 1.311826
+      "cumulative_pnl": 1.181776
     },
     {
       "date": "2025-03-14",
-      "cumulative_pnl": 1.34833
+      "cumulative_pnl": 1.21828
     },
     {
       "date": "2025-04-04",
-      "cumulative_pnl": 1.331523
+      "cumulative_pnl": 1.201473
     },
     {
       "date": "2025-04-04",
-      "cumulative_pnl": 1.431523
+      "cumulative_pnl": 1.301473
     },
     {
       "date": "2025-04-11",
-      "cumulative_pnl": 1.331523
-    },
-    {
-      "date": "2025-04-11",
-      "cumulative_pnl": 1.294014
+      "cumulative_pnl": 1.263964
     },
     {
       "date": "2025-04-18",
-      "cumulative_pnl": 1.321961
+      "cumulative_pnl": 1.291911
     },
     {
       "date": "2025-04-18",
-      "cumulative_pnl": 1.470223
+      "cumulative_pnl": 1.440173
     },
     {
       "date": "2025-05-09",
-      "cumulative_pnl": 1.446584
+      "cumulative_pnl": 1.416534
     },
     {
       "date": "2025-05-09",
-      "cumulative_pnl": 1.526192
+      "cumulative_pnl": 1.496142
     },
     {
       "date": "2025-05-09",
-      "cumulative_pnl": 1.576397
+      "cumulative_pnl": 1.546347
     },
     {
       "date": "2025-05-09",
-      "cumulative_pnl": 1.532302
+      "cumulative_pnl": 1.502252
     },
     {
       "date": "2025-05-16",
-      "cumulative_pnl": 1.479663
+      "cumulative_pnl": 1.449613
     },
     {
       "date": "2025-05-23",
-      "cumulative_pnl": 1.546448
+      "cumulative_pnl": 1.516398
     },
     {
       "date": "2025-06-13",
-      "cumulative_pnl": 1.525671
+      "cumulative_pnl": 1.495621
     },
     {
       "date": "2025-06-27",
-      "cumulative_pnl": 1.459725
+      "cumulative_pnl": 1.429675
     },
     {
       "date": "2025-06-27",
-      "cumulative_pnl": 1.396051
+      "cumulative_pnl": 1.366001
     },
     {
       "date": "2025-06-27",
-      "cumulative_pnl": 1.351496
+      "cumulative_pnl": 1.321446
     },
     {
       "date": "2025-06-27",
-      "cumulative_pnl": 1.290602
+      "cumulative_pnl": 1.260552
     },
     {
       "date": "2025-07-18",
-      "cumulative_pnl": 1.183631
+      "cumulative_pnl": 1.153581
     },
     {
       "date": "2025-08-08",
-      "cumulative_pnl": 1.129533
+      "cumulative_pnl": 1.099483
     },
     {
       "date": "2025-08-15",
-      "cumulative_pnl": 1.201406
+      "cumulative_pnl": 1.171356
     },
     {
       "date": "2025-08-22",
-      "cumulative_pnl": 1.348593
+      "cumulative_pnl": 1.318543
     },
     {
       "date": "2025-08-29",
-      "cumulative_pnl": 1.309396
+      "cumulative_pnl": 1.279346
     },
     {
       "date": "2025-09-12",
-      "cumulative_pnl": 1.257061
+      "cumulative_pnl": 1.227011
+    },
+    {
+      "date": "2025-09-19",
+      "cumulative_pnl": 1.21033
     }
   ],
   "labels": {
@@ -7250,14 +7334,14 @@
   },
   "portfolio_kpis": {
     "period": {
-      "start": "2020-09-18",
-      "end": "2025-08-15"
+      "start": "2020-09-25",
+      "end": "2025-09-19"
     },
-    "total_trades": 200,
-    "win_rate_pct": 55.0,
-    "avg_duration_days": 61.7,
-    "total_pnl": 1.585148,
-    "max_drawdown": 0.307521,
-    "open_positions": 5
+    "total_trades": 203,
+    "win_rate_pct": 54.2,
+    "avg_duration_days": 57.9,
+    "total_pnl": 1.46621,
+    "max_drawdown": 0.313661,
+    "open_positions": 4
   }
 }
