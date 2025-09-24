@@ -288,4 +288,43 @@ export async function generateSidebarContent() {
     li.textContent = txt;
     sidebarList.appendChild(li);
   });
+  // ───────────────────────────────────────
+// STRATEGIES (in fondo, sotto Portfolio Ideas)
+// ───────────────────────────────────────
+{
+  const liStrat = document.createElement('li');
+  liStrat.classList.add('expandable');
+
+  const toggleStrat = document.createElement('div');
+  toggleStrat.classList.add('toggle-btn');
+  toggleStrat.innerHTML = `STRATEGIES <span>+</span>`;
+  liStrat.appendChild(toggleStrat);
+
+  const subUlStrat = document.createElement('ul');
+  subUlStrat.classList.add('sub-list');
+
+  [
+    { label: 'Tactical FX', href: 'fx_long_short.html' },
+    { label: 'TACTICAL EQUITIES LONG-ONLY', href: 'equities_long_short.html' }
+  ].forEach(({ label, href }) => {
+    const li = document.createElement('li');
+    const a  = document.createElement('a');
+    a.textContent = label;
+    a.href = href;
+    a.style.color = 'inherit';
+    a.style.textDecoration = 'none';
+    li.appendChild(a);
+    subUlStrat.appendChild(li);
+  });
+
+  liStrat.appendChild(subUlStrat);
+  toggleStrat.addEventListener('click', () => {
+    liStrat.classList.toggle('expanded');
+    toggleStrat.querySelector('span').textContent =
+      liStrat.classList.contains('expanded') ? '-' : '+';
+  });
+
+  sidebarList.appendChild(liStrat);
+}
+
 }
