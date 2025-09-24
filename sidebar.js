@@ -1,4 +1,3 @@
-@@ -1,345 +1,345 @@
 // sidebar.js
 // Left sidebar: instruments sections + NON-DIRECTIONAL (flat spreads list) + Tactical Strategies + Portfolio link
 
