@@ -273,11 +273,11 @@ export async function generateSidebarContent() {
 
     const ITEMS = [
       { label: 'TACTICAL EQUITY LONG-ONLY', url: 'https://backup-bt-intelligence.netlify.app/equities_long_short.html' },
-      { label: 'TACTICAL FX BALANCED',                url: 'https://backup-bt-intelligence.netlify.app/fx_long_short.html' },
-      { label: 'COT REPORT TS', url: 'https://backup-bt-intelligence.netlify.app/cot.html' },
-      { label: 'COT INDEX FUTURES', url: 'https://backup-bt-intelligence.netlify.app/cot.html' },
-      { label: 'TACTICAL FUTURES',            url: 'https://backup-bt-intelligence.netlify.app/futures_long_short.html' },
-      { label: 'ARBITRAGE', url: 'https://backup-bt-intelligence.netlify.app/nondirectional-2sd.html' },
+      { label: 'TACTICAL FX BALANCED',      url: 'https://backup-bt-intelligence.netlify.app/fx_long_short.html' },
+      { label: 'COT REPORT TS',             url: 'https://backup-bt-intelligence.netlify.app/cot.html' },
+      { label: 'COT INDEX FUTURES',         url: 'https://backup-bt-intelligence.netlify.app/cot.html' },
+      { label: 'TACTICAL FUTURES',          url: 'https://backup-bt-intelligence.netlify.app/futures_long_short.html' },
+      { label: 'ARBITRAGE',                  url: 'https://backup-bt-intelligence.netlify.app/nondirectional-2sd.html' },
     ];
 
     ITEMS.forEach(({label, url}) => {
