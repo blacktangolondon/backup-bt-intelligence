@@ -304,7 +304,7 @@ export async function generateSidebarContent() {
   subUlStrat.classList.add('sub-list');
 
   [
-    { label: 'Tactical FX', href: 'fx_long_short.html' },
+    { label: 'TACTICAL FX', href: 'fx_long_short.html' },
     { label: 'TACTICAL EQUITIES LONG-ONLY', href: 'equities_long_short.html' }
   ].forEach(({ label, href }) => {
     const li = document.createElement('li');
