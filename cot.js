@@ -71,7 +71,7 @@ const fetchJSON = async (url) => {
   try {
   const db = await fetchJSON(PRICE_COT_FILE);
   renderModule4(computeNewAlertsFrom(db));
-  } catch (e) { console.warn('Data load failed:', e); }
+  } catch (e) { renderModule4([]); }
 })();
 
 // ───────── Module 1
