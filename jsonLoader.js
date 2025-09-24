@@ -1,15 +1,43 @@
-// jsonLoader.js  — updated to also load channels.json
+// jsonLoader.js — robusto ai diversi formati di instruments.json e channels.json
+
+function normalizeInstruments(raw) {
+  // Ritorna sempre un array di oggetti-strumento
+  if (!raw) return [];
+  if (Array.isArray(raw)) return raw;
+  if (Array.isArray(raw.entries)) return raw.entries;
+  if (Array.isArray(raw.items)) return raw.items;
+  if (typeof raw === 'object') return Object.values(raw); // mappa {TICKER: {...}}
+  return [];
+}
 
 // Loads instruments.json, buckets by asset class, and also loads channels.json
 export async function loadJSONData() {
-  // Fetch both JSONs in parallel
-  const [instResp, chanResp] = await Promise.all([
-    fetch('instruments.json'),
-    fetch('channels.json')
-  ]);
+  let instResp, chanResp;
+  try {
+    [instResp, chanResp] = await Promise.all([
+      fetch('./instruments.json'),
+      fetch('./channels.json')
+    ]);
+  } catch (e) {
+    console.error('Network error fetching JSONs:', e);
+  }
 
-  const entries       = await instResp.json();
-  window.channelsData = await chanResp.json(); // { TICKER: {close,L1,L2,U1,U2}, ... }
+  let rawInstruments = [];
+  try {
+    rawInstruments = instResp && instResp.ok ? await instResp.json() : [];
+  } catch (e) {
+    console.error('Failed to parse instruments.json:', e);
+    rawInstruments = [];
+  }
+
+  try {
+    window.channelsData = chanResp && chanResp.ok ? await chanResp.json() : {};
+  } catch (e) {
+    console.warn('Failed to parse channels.json (fallback to empty):', e);
+    window.channelsData = {};
+  }
+
+  const entries = normalizeInstruments(rawInstruments);
 
   const stocksFullData  = {};
   const etfFullData     = {};
@@ -17,68 +45,69 @@ export async function loadJSONData() {
   const fxFullData      = {};
 
   entries.forEach(item => {
+    if (!item) return;
+
+    const cls = (item.asset_class || '').toLowerCase();
     const bucket = {
       equity:  stocksFullData,
       etf:     etfFullData,
       future:  futuresFullData,
       fx:      fxFullData
-    }[item.asset_class];
+    }[cls];
     if (!bucket) return;
 
-    let summaryLeft, summaryRight;
-    if (item.asset_class === 'future' || item.asset_class === 'fx') {
-      // 7 columns for futures and FX
-      const statsLabel = item.stats.replace(/UP/g, 'BULLISH').replace(/DOWN/g, 'BEARISH');
+    // campi di sicurezza
+    const safe = (v) => (v === null || v === undefined ? '' : v);
+    const tvSymbol = item.tvSymbol || item.ticker || item.name || '';
 
+    let summaryLeft, summaryRight;
+    if (cls === 'future' || cls === 'fx') {
+      const statsLabel = safe(item.stats).toString().replace(/UP/g, 'BULLISH').replace(/DOWN/g, 'BEARISH');
       summaryLeft = [
-        String(item.final_score),         // SCORE
-        item.trend,                       // TREND
-        item.approach,                    // APPROACH
-        String(item.gap_to_peak),         // GAP TO PEAK
-        item.key_area,                    // KEY AREA
-        String(item.limit),               // LIMIT
-        String(item.extension)            // POTENTIAL EXTENSION
+        String(safe(item.final_score)),
+        safe(item.trend),
+        safe(item.approach),
+        String(safe(item.gap_to_peak)),
+        safe(item.key_area),
+        String(safe(item.limit)),
+        String(safe(item.extension))
       ];
       summaryRight = [
-        String(item.sp500_correlation),      // S&P500 CORRELATION
-        String(item.sp500_volatility_ratio), // S&P500 VOLATILITY RATIO
-        String(item.alpha_strength),         // ALPHA STRENGTH
-        String(item.projection_30),          // 30 DAYS PROJECTION
-        item.math,                           // MATH
-        statsLabel,                          // STATS (BULLISH/BEARISH)
-        item.tech                            // TECH
+        String(safe(item.sp500_correlation)),
+        String(safe(item.sp500_volatility_ratio)),
+        String(safe(item.alpha_strength)),
+        String(safe(item.projection_30)),
+        safe(item.math),
+        statsLabel,
+        safe(item.tech)
       ];
     } else {
-      // 9 columns for equity & ETF
       summaryLeft = [
-        String(item.final_score),
-        item.trend,
-        item.approach,
-        String(item.gap_to_peak),
-        item.key_area,
-        item.micro,
-        item.math,
-        item.stats,
-        item.tech
+        String(safe(item.final_score)),
+        safe(item.trend),
+        safe(item.approach),
+        String(safe(item.gap_to_peak)),
+        safe(item.key_area),
+        safe(item.micro),
+        safe(item.math),
+        safe(item.stats),
+        safe(item.tech)
       ];
       summaryRight = [
-        String(item.sp500_correlation),
-        String(item.sp500_volatility_ratio),
-        String(item.bullish_alpha),
-        String(item.bearish_alpha),
-        String(item.alpha_strength),
-        String(item.pe_ratio),
-        String(item.eps),
-        String(item.one_year_high),
-        String(item.one_year_low)
+        String(safe(item.sp500_correlation)),
+        String(safe(item.sp500_volatility_ratio)),
+        String(safe(item.bullish_alpha)),
+        String(safe(item.bearish_alpha)),
+        String(safe(item.alpha_strength)),
+        String(safe(item.pe_ratio)),
+        String(safe(item.eps)),
+        String(safe(item.one_year_high)),
+        String(safe(item.one_year_low))
       ];
     }
 
-    bucket[item.ticker] = {
-      summaryLeft,
-      summaryRight,
-      tvSymbol: item.tvSymbol
-    };
+    const key = item.ticker || item.name || tvSymbol || Math.random().toString(36).slice(2);
+    bucket[key] = { summaryLeft, summaryRight, tvSymbol };
   });
 
   return { stocksFullData, etfFullData, futuresFullData, fxFullData };
