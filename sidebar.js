@@ -4,6 +4,15 @@
 import { renderPortfolioPage } from './portfolio.js';
 import { showSpread, showSpreadPage } from './spreadView.js';
 
+function normalizeInstruments(raw) {
+  if (!raw) return [];
+  if (Array.isArray(raw)) return raw;
+  if (Array.isArray(raw.entries)) return raw.entries;
+  if (Array.isArray(raw.items)) return raw.items;
+  if (typeof raw === 'object') return Object.values(raw);
+  return [];
+}
+
 export async function generateSidebarContent() {
   const sidebarList = document.getElementById('sidebar-list');
   if (!sidebarList) {
@@ -11,12 +20,8 @@ export async function generateSidebarContent() {
     return;
   }
 
-  // Clear existing content
   sidebarList.innerHTML = '';
 
-  // ───────────────────────────────────────
-  // Pairs to hide (won't appear/click)
-  // ───────────────────────────────────────
   const HIDDEN_PAIRS = new Set([
     "SHEL.A/SHEL.B",
     "ESU25/ESZ25","GCN25/GCQ25","HGN25/HGQ25","HON25/HOQ25",
@@ -27,28 +32,24 @@ export async function generateSidebarContent() {
 
   const prettyName = name => name;
 
-  // ───────────────────────────────────────
-  // Load instruments.json (optional groups)
-  // ───────────────────────────────────────
-  let instruments = [];
+  // ── instruments.json (opzionale)
+  let instrumentsList = [];
   try {
     const resp = await fetch('./instruments.json');
-    if (resp.ok) instruments = await resp.json();
+    if (resp.ok) {
+      const raw = await resp.json();
+      instrumentsList = normalizeInstruments(raw);
+    }
   } catch (err) {
-    // Non-blocking for the NON-DIRECTIONAL requirement
     console.warn('Could not load instruments.json (non-blocking)', err);
   }
 
-  // ───────────────────────────────────────
-  // Load spreads.json (we only need flat keys)
-  // ───────────────────────────────────────
+  // ── spreads.json
   let spreadKeys = [];
   try {
     const resp = await fetch('./spreads.json');
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const spreadsObj = await resp.json();
-
-    // Flat list: exactly the keys in spreads.json (exclude only meta-keys)
     spreadKeys = Object.keys(spreadsObj || {})
       .filter(k => k !== '_groups' && !String(k).startsWith('_'))
       .sort((a, b) => a.localeCompare(b));
@@ -56,9 +57,7 @@ export async function generateSidebarContent() {
     console.error('Failed to load spreads.json', err);
   }
 
-  // ───────────────────────────────────────
-  // Prepare grouping structures for instruments (unchanged)
-  // ───────────────────────────────────────
+  // ── struttura gruppi
   const data = {
     EQUITIES: { 
       'NYSE': [], 'NASDAQ': [], 'FTSE MIB': [], 'DAX40': [], 'BOLSA DE MADRID': [],
@@ -79,10 +78,11 @@ export async function generateSidebarContent() {
     }
   };
 
-  // Build groups from instruments.json (unchanged)
-  instruments?.forEach(inst => {
-    const { name, asset_class, exchange, category, correlation_code } = inst || {};
-    const cls = (asset_class || '').toLowerCase();
+  // ── popolamento gruppi
+  instrumentsList.forEach(inst => {
+    const { name, asset_class, exchange, category, correlation_code, ticker } = inst || {};
+    const display = name || ticker || '';
+    const cls  = (asset_class || '').toLowerCase();
     const exch = exchange || '';
     const rawCat = category;
     const corrCode = correlation_code || '';
@@ -91,11 +91,11 @@ export async function generateSidebarContent() {
       case 'equity': {
         let ex = (exch||'').toUpperCase();
         if (ex === 'BME') ex = 'BOLSA DE MADRID';
-        if (data.EQUITIES[ex]) data.EQUITIES[ex].push(name);
+        if (data.EQUITIES[ex]) data.EQUITIES[ex].push(display);
         break;
       }
       case 'etf': {
-        data.ETF['EURONEXT'].push(name);
+        data.ETF['EURONEXT'].push(display);
         break;
       }
       case 'future':
@@ -104,20 +104,18 @@ export async function generateSidebarContent() {
           ? rawCat.toUpperCase()
           : null;
         const bucket = cat || classifyFutureByCode(corrCode||'');
-        data.FUTURES[bucket].push(name);
+        data.FUTURES[bucket].push(display);
         break;
       }
       case 'fx': {
         const fxCat = (exch||'').toUpperCase()==='MAJORS' ? 'MAJORS' : 'MINORS';
-        data.FX[fxCat].push(name);
+        data.FX[fxCat].push(display);
         break;
       }
     }
   });
 
-  // ───────────────────────────────────────
-  // Utility: create expandable category
-  // ───────────────────────────────────────
+  // ── helper UI
   function addCategory(title, content) {
     const li = document.createElement('li');
     li.classList.add('expandable');
@@ -173,17 +171,13 @@ export async function generateSidebarContent() {
     sidebarList.appendChild(li);
   }
 
-  // ───────────────────────────────────────
-  // Render instrument categories
-  // ───────────────────────────────────────
+  // ── render categorie
   addCategory('EQUITIES', data.EQUITIES);
   addCategory('ETF',      data.ETF);
   addCategory('FUTURES',  data.FUTURES);
   addCategory('FX',       data.FX);
 
-  // ───────────────────────────────────────
-  // Render NON-DIRECTIONAL (flat)
-  // ───────────────────────────────────────
+  // ── NON-DIRECTIONAL (flat)
   {
     const liND = document.createElement('li');
     liND.classList.add('expandable');
@@ -196,11 +190,12 @@ export async function generateSidebarContent() {
     subUlND.classList.add('sub-list');
 
     spreadKeys.forEach(pair => {
+      if (HIDDEN_PAIRS.has(pair)) return;
       const item = document.createElement('li');
       item.classList.add('nd-spread', 'instrument-item');
       item.dataset.pair = pair;
       item.dataset.key = pair;
-      item.textContent = pair; // or map to a friendly name if needed
+      item.textContent = pair;
       subUlND.appendChild(item);
     });
 
@@ -213,16 +208,12 @@ export async function generateSidebarContent() {
     sidebarList.appendChild(liND);
   }
 
-  // ───────────────────────────────────────
-  // Tactical Strategies (embed inside #block5 area)
-  // ───────────────────────────────────────
+  // ── Tactical Strategies (embed in #block5)
   {
     function showTacticalPage(url) {
-      // Hide other content blocks
       document.querySelectorAll('.content-block, .main-section')
         .forEach(el => (el.style.display = 'none'));
 
-      // Use block5 as host (same area used by NON-DIRECTIONAL)
       const block5 = document.getElementById('block5');
       if (!block5) return;
 
@@ -231,17 +222,15 @@ export async function generateSidebarContent() {
         block5.style.position = 'relative';
       }
 
-      // Hide the standard spread view if present
       const spreadPage = document.getElementById('spread-page');
       if (spreadPage) spreadPage.style.display = 'none';
 
-      // Create (once) the tactical container + iframe that fills block5
       let host = document.getElementById('tactical-embed');
       if (!host) {
         host = document.createElement('div');
         host.id = 'tactical-embed';
         host.style.position = 'absolute';
-        host.style.inset = '0';       // top/right/bottom/left: 0
+        host.style.inset = '0';
         host.style.display = 'block';
 
         const iframe = document.createElement('iframe');
@@ -297,9 +286,7 @@ export async function generateSidebarContent() {
     sidebarList.appendChild(liTS);
   }
 
-  // ───────────────────────────────────────
-  // Add Portfolio link
-  // ───────────────────────────────────────
+  // ── Portfolio
   const portfolioLi = document.createElement('li');
   portfolioLi.textContent = 'PORTFOLIO';
   portfolioLi.classList.add('sidebar-item');
@@ -313,7 +300,7 @@ export async function generateSidebarContent() {
   });
   sidebarList.appendChild(portfolioLi);
 
-  // Optional: other static links
+  // opzionali
   ['PORTFOLIO BUILDER','PORTFOLIO IDEAS'].forEach(txt => {
     const li = document.createElement('li');
     li.textContent = txt;
@@ -321,7 +308,7 @@ export async function generateSidebarContent() {
     sidebarList.appendChild(li);
   });
 
-  // Quando clicchi su uno spread NON-DIRECTIONAL, ritorna alla vista spread (nasconde l'embed tactical)
+  // click sugli spread ND: torna alla vista spread
   document.addEventListener('click', (e) => {
     if (e.target.closest('.nd-spread')) {
       const host = document.getElementById('tactical-embed');
