@@ -134,6 +134,21 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
+  <!-- Back to main menu -->
+<a href="index.html" id="back-menu" title="Back to main menu">☰ Menu</a>
+<style>
+  #back-menu{
+    position: fixed; top:12px; left:12px; z-index:9999;
+    background:#FFA500; color:#000; font:700 14px/1.2 Inter, Arial, sans-serif;
+    padding:8px 12px; border-radius:10px; text-decoration:none;
+    box-shadow:0 2px 10px rgba(0,0,0,.35);
+  }
+  #back-menu:hover{ filter:brightness(1.05); }
+  @media (max-width: 768px){
+    #back-menu{ top:8px; left:8px; padding:10px 14px; font-size:16px; }
+  }
+</style>
+
   <div id="container">
 
 <!-- Module 1: KPI + Description con tab -->
@@ -252,6 +267,5 @@
   </div>
 
   <script src="fx_long_short.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
