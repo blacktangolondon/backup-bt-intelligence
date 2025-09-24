@@ -5,77 +5,26 @@ import {
   updateBlock3,
   updateBlock4,
   initBlock3Tabs,
+  openYouTubePopup
 } from "./dashboard.js";
 import { showSpread } from "./spreadView.js";
-import { renderPortfolioPage } from "./portfolio.js";
 
 /**
- * Initialize global event handlers for the dashboard, including spreads and Portfolio navigation.
- * @param {Object} groupedData - All instruments grouped by asset class.
- * @param {Object} pricesData - Price history data for non-spread instruments.
- * @param {Object} returnsData - Historical returns for correlation analysis.
+ * Initialize global event handlers for the dashboard, including spreads.
+ * @param {Object} groupedData - All instruments grouped by asset class (stocks, etfs, futures, fx, spreads, crypto).
+ * @param {Object} pricesData - Price history data for non-spread instruments (not used for spreads).
+ * @param {Object} returnsData - Historical returns map for correlation analysis.
  */
 export function initEventHandlers(groupedData, pricesData, returnsData) {
-  // Unified click handler for sidebar navigation and content swapping
+  // Sidebar instrument click events.
   document.addEventListener('click', (e) => {
-    // 1) Portfolio sidebar click
-    if (
-      e.target &&
-      e.target.tagName === 'LI' &&
-      e.target.textContent.trim().toUpperCase() === 'PORTFOLIO'
-    ) {
-      // Hide main dashboard
-      const main = document.getElementById('main-content');
-      if (main) main.style.display = 'none';
-      // Hide other templates
-      const builder = document.getElementById('portfolio-builder-template');
-      if (builder) builder.style.display = 'none';
-      const thematic = document.getElementById('thematic-portfolio-template');
-      if (thematic) thematic.style.display = 'none';
-
-      // Show portfolio container and render Risk Profile view
-      const pst = document.getElementById('portfolios-template');
-      if (pst) {
-        pst.style.display = 'block';
-        renderPortfolioPage();
-      }
-      return;
-    }
-
-    // 1.5) Adventurous page Access buttons
-    if (
-      e.target &&
-      e.target.classList.contains('portfolio-card-btn') &&
-      document.querySelector('.page-title')?.textContent.trim() === 'Adventurous Portfolios'
-    ) {
-      const tr = e.target.closest('tr');
-      const name = tr?.querySelector('td')?.textContent.trim();
-      const linkMap = {
-        'Arbitrage (Dynamic)': './nondirectional.html',
-        'Arbitrage (Tactical)': './nondirectional-2sd.html',
-        'Long / Short Equity': './equities_long_short.html',
-        'Short Only': './nondirectional.html',
-        'Emerging Markets': './nondirectional.html'
-      };
-      const link = linkMap[name];
-      if (link) {
-        window.location.href = link;
-      }
-      return;
-    }    // 2) Instrument-item click (dashboard navigation)
     if (e.target && e.target.classList.contains('instrument-item')) {
-      // Hide Portfolio view
-      const pf = document.getElementById('portfolios-template');
-      if (pf) pf.style.display = 'none';
       // Show main dashboard, hide other templates
-      const main = document.getElementById('main-content');
-      if (main) main.style.display = 'grid';
-      const builder = document.getElementById('portfolio-builder-template');
-      if (builder) builder.style.display = 'none';
-      const thematic = document.getElementById('thematic-portfolio-template');
-      if (thematic) thematic.style.display = 'none';
+      document.getElementById('main-content').style.display = 'grid';
+      document.getElementById('portfolio-builder-template').style.display = 'none';
+      document.getElementById('thematic-portfolio-template').style.display = 'none';
 
-      // Highlight selection
+      // Clear previous selection and highlight current
       document.querySelectorAll('#sidebar li.selected')
         .forEach(item => item.classList.remove('selected'));
       e.target.classList.add('selected');
@@ -93,49 +42,57 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
         return;
       }
 
-      // Show blocks 1-4 for non-spreads
+      // Non-spreads: show blocks 1–4
       ['block1','block2','block3','block4'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.style.display = 'block';
       });
 
-      // Route to proper update functions
+      // Stocks
       if (groupedData.STOCKS && groupedData.STOCKS[instrumentName]) {
         updateChart(instrumentName, groupedData.STOCKS);
         updateSymbolOverview(instrumentName, groupedData.STOCKS);
         updateBlock3(instrumentName, groupedData.STOCKS);
         updateBlock4(instrumentName, groupedData.STOCKS, returnsData);
-      } else if (groupedData.ETFS && groupedData.ETFS[instrumentName]) {
+      }
+      // ETFs
+      else if (groupedData.ETFS && groupedData.ETFS[instrumentName]) {
         updateChart(instrumentName, groupedData.ETFS);
         updateSymbolOverview(instrumentName, groupedData.ETFS);
         updateBlock3(instrumentName, groupedData.ETFS, { isETF: true });
         updateBlock4(instrumentName, groupedData.ETFS, returnsData);
-      } else if (groupedData.FUTURES && groupedData.FUTURES[instrumentName]) {
+      }
+      // Futures
+      else if (groupedData.FUTURES && groupedData.FUTURES[instrumentName]) {
         updateChart(instrumentName, groupedData.FUTURES);
         updateSymbolOverview(instrumentName, groupedData.FUTURES);
         updateBlock3(instrumentName, groupedData.FUTURES, { isFutures: true });
         updateBlock4(instrumentName, groupedData.FUTURES, returnsData);
-      } else if (groupedData.FX && groupedData.FX[instrumentName]) {
+      }
+      // FX
+      else if (groupedData.FX && groupedData.FX[instrumentName]) {
         updateChart(instrumentName, groupedData.FX);
         updateSymbolOverview(instrumentName, groupedData.FX);
         updateBlock3(instrumentName, groupedData.FX, { isFX: true });
         updateBlock4(instrumentName, groupedData.FX, returnsData);
-      } else if (groupedData.CRYPTO && groupedData.CRYPTO[instrumentName]) {
+      }
+      // Crypto
+      else if (groupedData.CRYPTO && groupedData.CRYPTO[instrumentName]) {
         updateChart(instrumentName, groupedData.CRYPTO);
         updateSymbolOverview(instrumentName, groupedData.CRYPTO);
         updateBlock3(instrumentName, groupedData.CRYPTO);
         updateBlock4(instrumentName, groupedData.CRYPTO, returnsData);
-      } else {
+      }
+      // Fallback: show trend score only
+      else {
         updateBlock3(instrumentName, groupedData.STOCKS);
       }
-      return;
     }
+  });
 
-    // 3) Portfolio Ideas click (open instrument in new tab)
+  // Portfolio Ideas → open instrument in new tab
+  document.addEventListener('click', (e) => {
     if (e.target && e.target.classList.contains('clickable-idea')) {
-      // Hide Portfolio view
-      const pf2 = document.getElementById('portfolios-template');
-      if (pf2) pf2.style.display = 'none';
       const instrument = e.target.dataset.instrument;
       const base = window.location.origin + window.location.pathname;
       window.open(
@@ -145,7 +102,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
     }
   });
 
-  // Fullscreen button
+  // Fullscreen button event
   const fsButton = document.getElementById('fullscreen-button');
   if (fsButton) {
     fsButton.addEventListener('click', () => {
@@ -156,12 +113,11 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
     });
   }
 
-  // Refresh block3 tabs on fullscreen change
   document.addEventListener('fullscreenchange', () => {
     if (typeof initBlock3Tabs === 'function') initBlock3Tabs();
   });
 
-  // YouTube popup close
+  // YouTube popup close event
   const ytClose = document.getElementById('youtube-popup-close');
   if (ytClose) {
     ytClose.addEventListener('click', () => {
@@ -170,7 +126,7 @@ export function initEventHandlers(groupedData, pricesData, returnsData) {
     });
   }
 
-  // Sidebar autocomplete
+  // jQuery UI Autocomplete for sidebar search
   if (typeof $ === 'function' && $.fn.autocomplete) {
     const instrumentNames = [];
     document.querySelectorAll('#sidebar-list .instrument-item')
