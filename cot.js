@@ -7,6 +7,8 @@ Chart.defaults.font.weight = 'normal';
 const STATS_FILE    = 'cot_backtest_stats.json';
 const PRICE_COT_FILE = 'price_and_cot.json';
 const STD_MULT      = 0.5;
+const NAME_BY_TICKER = {};
+const showName = (t, m) => NAME_BY_TICKER[t] || (m && String(m).split(' - ')[0]) || t;
 
 const fmtPct = v => (Number(v) * 100).toFixed(2) + '%';
 const num    = v => Number.isFinite(Number(v)) ? Number(v) : 0;
@@ -29,6 +31,12 @@ const fetchJSON = async (url) => {
   const openTrades = Array.isArray(stats.open_trades)
     ? stats.open_trades.slice().sort((a,b)=> new Date(a.entry_date) - new Date(b.entry_date))
     : [];
+  
+  if (stats.by_ticker){
+    for (const [t, v] of Object.entries(stats.by_ticker)){
+      NAME_BY_TICKER[t] = (v && (v.name || (v.market && v.market.split(' - ')[0]))) || t;
+    }
+  }
 
   // Period label
   let periodLabel = '';
@@ -69,8 +77,8 @@ const fetchJSON = async (url) => {
 
   // ── Modulo 4: New Strategies Alert
   try {
-  const db = await fetchJSON(PRICE_COT_FILE);
-  renderModule4(computeNewAlertsFrom(db));
+    const db = await fetchJSON(PRICE_COT_FILE);
+    renderModule4(computeNewAlertsFrom(db));
   } catch (e) { renderModule4([]); }
 })();
 
@@ -133,13 +141,13 @@ function renderReportTabs(trades, openTrades){
     const thead = panes.realized.querySelector('thead tr');
     const tbody = panes.realized.querySelector('tbody');
     thead.innerHTML = `
-      <th>Ticker</th><th>Signal</th><th>Open Date</th><th>Close Date</th>
+      <th>Instrument</th><th>Signal</th><th>Open Date</th><th>Close Date</th>
       <th>Open Price</th><th>Close Price</th><th>Target</th><th>Stop</th><th>Return</th><th>Exit</th>`;
     tbody.innerHTML = '';
     trades.forEach(t=>{
       const tr=document.createElement('tr');
       tr.innerHTML = `
-        <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
+        <td>${showName(t.spread, t.name || t.market)}</td><td>${t.type==='long'?'Long':'Short'}</td>
         <td>${t.entry_date}</td><td>${t.exit_date}</td>
         <td>${num(t.entry).toFixed(4)}</td><td>${num(t.exit).toFixed(4)}</td>
         <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
@@ -158,13 +166,13 @@ function renderReportTabs(trades, openTrades){
     const thead = panes.open.querySelector('thead tr');
     const tbody = panes.open.querySelector('tbody');
     thead.innerHTML = `
-      <th>Ticker</th><th>Signal</th><th>Open Date</th><th>Days Open</th>
+      <th>Instrument</th><th>Signal</th><th>Open Date</th><th>Days Open</th>
       <th>Entry</th><th>Last</th><th>Target</th><th>Stop</th><th>Return (MTM)</th>`;
     tbody.innerHTML = '';
     openTrades.forEach(t=>{
       const tr=document.createElement('tr');
       tr.innerHTML = `
-        <td>${t.spread}</td><td>${t.type==='long'?'Long':'Short'}</td>
+        <td>${showName(t.spread, t.name || t.market)}</td><td>${t.type==='long'?'Long':'Short'}</td>
         <td>${t.entry_date}</td><td>${num(t.days_open)}</td>
         <td>${num(t.entry).toFixed(4)}</td><td>${num(t.last).toFixed(4)}</td>
         <td>${num(t.take_profit).toFixed(4)}</td><td>${num(t.stop_loss).toFixed(4)}</td>
@@ -285,6 +293,7 @@ function computeNewAlertsFrom(db){
 
     out.push({
       spread: ticker,
+      market: payload?.market || null,   // <<< aggiunto
       signal,
       open: priceNow.toFixed(4),
       tp: isFinite(tp) ? tp.toFixed(4) : '—',
@@ -293,7 +302,6 @@ function computeNewAlertsFrom(db){
   }
   return out;
 }
-
 
 function renderModule4(alerts){
   const tbody = document.querySelector('#module4 tbody');
@@ -307,7 +315,7 @@ function renderModule4(alerts){
   }
   alerts.forEach(a=>{
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${a.spread}</td><td>${a.signal}</td><td>${a.open}</td><td>${a.tp}</td><td>${a.sl}</td>`;
+    tr.innerHTML = `<td>${showName(a.spread, a.market)}</td><td>${a.signal}</td><td>${a.open}</td><td>${a.tp}</td><td>${a.sl}</td>`;
     tbody.appendChild(tr);
   });
 }
