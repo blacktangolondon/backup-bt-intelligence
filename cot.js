@@ -166,7 +166,7 @@ function renderReportTabs(trades, openTrades){
     const thead = panes.open.querySelector('thead tr');
     const tbody = panes.open.querySelector('tbody');
     thead.innerHTML = `
-      <th>Instrument</th><th>Signal</th><th>Open Date</th><th>Days Open</th>
+      <th>Instrument</th><th>Signal</th><th>Open Date</th><th>Weeks Open</th>
       <th>Entry</th><th>Last</th><th>Target</th><th>Stop</th><th>Return (MTM)</th>`;
     tbody.innerHTML = '';
     openTrades.forEach(t=>{
