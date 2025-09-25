@@ -152,46 +152,46 @@
       <div class="table-wrapper">
         <div id="strategyDescription" class="desc-box"><h3>Core Strategy Element: Commercial Traders - COT Report</h3>
 <p>
-  The strategy is built around the need for a stable currency market in 
-  international trade between countries. This stability creates the conditions 
-  for the intrinsic low volatility and lack of directionality that 
-  characterises the advanced economies' FX pairs.
+  This strategy strictly follow the position of the Commercial Traders
+  using the COT Report data. Specifically, it waits for the NET Positions
+  to reach levels of resolved 'long' or 'short' exposure on an underlying
+  contract, before taking position accordingly.
 </p>
 <h4>Markets</h4>
-<p>The system monitors the following pairs:</p>
+<p>The system monitors the following futures:</p>
 <ul>
-  <li>Base Currency - AUD:
-      AUDCHF, AUDJPY, AUDNZD, AUDUSD</li>
-  <li>Base Currency - EUR:
-      EURAUD, EURCAD, EURCHF, EURDKK, EURGBP, EURJPY, EURNOK, EURNZD, 
-      EURMXN, EURSEK, EURUSD</li>
-  <li>Base Currency - GBP:
-      GBPAUD, GBPCAD, GBPCHF, GBPJPY, GBPNZD, GBPUSD</li>
-  <li>Base Currency - NZD:
-      NZDCAD, NZDCHF, NZDJPY, NZDUSD</li>
-  <li>Base Currency - USD:
-      USDCAD, USDCHF, USDJPY</li>
+  <li>SOFT COMMODITIES
+      SUGAR NO. 11, COTTON NO. 2, COFFEE, COCOA, ROUGH RICE, SOYBEANS,
+      SOYBEAN MEAL, WHEAT, CORN</li>
+  <li>HARD COMMODITIES
+      PLATINUM, PALLADIUM, SILVER, GOLD</li>
+  <li>ENERGY 
+      NATURAL GAS, GASOLINE, BRENT, WTI</li>
+  <li>EQUITIES
+      S&P 500, NASDAQ-100, RUSSELL 2000, NIKKEI STOCK AVERAGE YEN DENOM</li>
+  <li>CURRENCIES
+      EURO FX, BRITISH POUND, JAPANESE YEN, CANADIAN DOLLAR, AUSTRALIAN DOLLAR,
+      SWISS FRANC, MEXICAN PESO, BRAZILIAN REAL</li>
+  <li>INTEREST RATES
+      UST 5Y NOTE</li>
 </ul>
 <h4>Other Information</h4>
 <ul>
   <li>
-    This system aims to identify specific phases when volatility spikes above certain limits. 
-    It then takes contrarian positions with the goal of seeing the underlying 
-    currency's short-term movement realign to standard levels.
-  </li>
-  <li>
-    The <strong>holding period is capped at 22 days</strong>; any position still open at that point
-    is closed automatically.
+    This system aims to identify and exploit specific phases when Commercial 
+    Traders areshowing a strong convinction in buying or selling a Futures 
+    contract currency's short-term movement realign to standard levels.
   </li>
 <li>
     A risk of 2% per trade is used in the simulation. SL and TP in 'Closed Trades' may differ from 
     +-2% due to market gaps and commissions.
   </li>
   <li>
-    The simulated data is based on a total transaction cost equivalent to a 2-pip average spread.
+    The simulated data is based on a total transaction cost of 0.4%.
   </li>  
 <h4>RISK</h4>
-<p>A spike in volatility or a phase of pronounced directionality could cause substantial losses to this strategy.</p>
+<p>As the signals of this strategy often are activated as contrarian in respect to the medium 
+   term trend, a strong inertia of the same could cause substantial lossess.</p>
 </ul>
 </div>
       </div>
