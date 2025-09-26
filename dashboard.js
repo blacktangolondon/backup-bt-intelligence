@@ -1,9 +1,9 @@
 // dashboard.js
-// EQUITIES: Block2 = SIM (solo grafico); Block3 = metriche (SIM + rischio); Block4 = fondamentali.
+// EQUITIES: Block2 = SIM full chart; Block3 = metriche (SIM + rischio); Block4 = fondamentali.
 
 import { renderScatterWithRegression } from "./charts.js";
 
-/* ── Label arrays (compat con moduli legacy) ─────────────────────────── */
+/* ── Label arrays (compat) ─────────────────────────────────────────── */
 export const leftLabels        = ["SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MICRO","MATH","STATS","TECH"];
 export const rightLabels       = ["S&P500 CORRELATION","S&P500 VOLATILITY RATIO","BULLISH ALPHA","BEARISH ALPHA","ALPHA STRENGHT","PE RATIO","EPS","1 YEAR HIGH","1 YEAR LOW"];
 export const etfLeftLabels     = ["SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MATH","STATS","TECH"];
@@ -50,7 +50,7 @@ function extractClosesAndDates(series){
   }
   const rows=series.map(r=>{
     if(Array.isArray(r)){ const c=(r.length>=5)?+r[4]:+r[1]; const d=r[0]; return Number.isFinite(c)?{date:d,close:c}:null; }
-    if(typeof r==="object"&&r){ const c=+(r.close??r.Close??r.c); const d=(r.date??r.Date??r.t); return Number.isFinite(c)?{date,d,close:c}:null; }
+    if(typeof r==="object"&&r){ const c=+(r.close??r.Close??r.c); const d=(r.date??r.Date??r.t); return Number.isFinite(c)?{date:d,close:c}:null; }
     return null;
   }).filter(Boolean);
   return {closes:rows.map(x=>x.close), dates:rows.map(x=>x.date)};
@@ -82,6 +82,15 @@ function olsSlopeIntercept(x,y){
   return {a,b,r2,eps};
 }
 
+/* ========= Stato condiviso per lookback ========= */
+const LKB_DEFAULT = 252;
+function setLastContext(instrumentName, groupData, pricesData){
+  window.__equityCtx = { instrumentName, groupData, pricesData };
+}
+function getLastContext(){ return window.__equityCtx; }
+function getLastLookback(){ return window.__equityLkb ?? LKB_DEFAULT; }
+function setLastLookback(v){ window.__equityLkb = v; }
+
 /* ── Block 1: TradingView (invariato) ───────────────────────────────── */
 function updateChartGeneric(instrumentName, groupData){
   const info=groupData[instrumentName];
@@ -103,17 +112,43 @@ function updateChartGeneric(instrumentName, groupData){
 }
 export function updateChart(i,g){ updateChartGeneric(i,g); }
 
+/* Rerender coordinato SIM + Metriche con lookback corrente */
+function rerenderAll(){
+  const ctx = getLastContext();
+  if (!ctx) return;
+  const lb  = getLastLookback();
+  updateSIM(ctx.instrumentName, ctx.groupData, ctx.pricesData, lb);
+  updateBlock3(ctx.instrumentName, ctx.groupData, ctx.pricesData, lb);
+}
+
 /* ── Block 2: Single-Index Model → SOLO GRAFICO ─────────────────────── */
-export function updateSIM(instrumentName, groupData, pricesData, lookback=252){
-  const info=groupData[instrumentName]; const tv=info?.tvSymbol;
+export function updateSIM(instrumentName, groupData, pricesData, lookback=LKB_DEFAULT){
+  setLastContext(instrumentName, groupData, pricesData);
+  setLastLookback(lookback);
+
+  const tv=groupData[instrumentName]?.tvSymbol;
   const block2=document.getElementById("block2");
 
+  // header + controlli lookback
   let container=block2.querySelector("#symbol-info-container");
   if(!container){ container=document.createElement("div"); container.id="symbol-info-container"; block2.appendChild(container); }
   container.innerHTML=`
-    <div class="sim-header">Single-Index Model (daily)</div>
+    <div class="sim-header">
+      <div>Single-Index Model (daily)</div>
+      <div class="lkb-group">
+        <button class="lkb-btn" data-lkb="126">126</button>
+        <button class="lkb-btn" data-lkb="252">252</button>
+        <button class="lkb-btn" data-lkb="504">504</button>
+      </div>
+    </div>
     <div class="sim-chart sim-chart-full"><canvas id="sim-canvas"></canvas></div>
   `;
+  // attiva bottone corrente
+  container.querySelectorAll('.lkb-btn').forEach(btn=>{
+    const v = +btn.dataset.lkb;
+    if (v === lookback) btn.classList.add('active');
+    btn.onclick = () => { setLastLookback(v); rerenderAll(); };
+  });
 
   const assetSeriesRaw=getSeriesForSymbol(pricesData,tv);
   const benchSeriesRaw=getBenchmarkSeries(pricesData);
@@ -133,13 +168,23 @@ export function updateSIM(instrumentName, groupData, pricesData, lookback=252){
   const n=Math.min(R_i.length,R_m.length);
   const Yi=R_i.slice(-n), Xm=R_m.slice(-n);
 
-  const {a,b}=olsSlopeIntercept(Xm, Yi);
-  const points = Xm.map((x,i)=>({x, y: Yi[i]}));
+  const {a,b,eps}=olsSlopeIntercept(Xm, Yi);
+  const sigmaE = stdev(eps);
+  const thr = 3 * sigmaE;
+
+  // costruisci punti con tIdx (0..1) e flag outlier
+  const points = Xm.map((x, i) => ({
+    x, y: Yi[i], tIdx: (i)/(n-1 || 1), outlier: Math.abs(eps[i]) > thr
+  }));
+
   renderScatterWithRegression("sim-canvas", points, { a, b });
+
+  // forza resize per eliminare spazio vuoto
+  requestAnimationFrame(() => window.Chart?.getChart('sim-canvas')?.resize());
 }
 
 /* ── Block 3: Metriche (incl. SIM) ──────────────────────────────────── */
-export function updateBlock3(instrumentName, groupData, pricesData, lookback=252){
+export function updateBlock3(instrumentName, groupData, pricesData, lookback=LKB_DEFAULT){
   const wrap=document.getElementById("block3");
   const tabs=wrap.querySelector("#block3-tabs"); if(tabs) tabs.style.display="none";
 
@@ -190,7 +235,7 @@ export function updateBlock3(instrumentName, groupData, pricesData, lookback=252
   const n=Math.min(R_i.length,R_m.length);
   const Yi=R_i.slice(-n), Xm=R_m.slice(-n);
 
-  // Return (ann.) = CAGR sulla finestra
+  // Return (ann.) = CAGR finestra
   const nDays=(aCloses.length-1);
   const priceRatio=aCloses[aCloses.length-1]/aCloses[0];
   const cagr = nDays>0 ? Math.pow(priceRatio, 252/nDays) - 1 : 0;
@@ -217,7 +262,6 @@ export function updateBlock3(instrumentName, groupData, pricesData, lookback=252
   set("rm-r2",   r2.toFixed(3));
   set("rm-corr", corr.toFixed(3));
   set("rm-sige", (sigeAnn*100).toFixed(2)+"%");
-
   set("rm-ret",  (cagr*100).toFixed(2)+"%");
   set("rm-vol",  (volAnn*100).toFixed(2)+"%");
   set("rm-mdd",  (mdd*100).toFixed(2)+"%");
@@ -256,7 +300,8 @@ function renderFundRow(label, value, suffix="", isFraction=false){
 /* ── Compat richiesto da main.js (instrada al SIM) ───────────────────── */
 export function updateSymbolOverview(instrumentName, groupData){
   const pricesData = window?.pricesData || { stockPrices:{}, etfPrices:{}, futuresPrices:{}, fxPrices:{} };
-  return updateSIM(instrumentName, groupData, pricesData, 252);
+  // usa lookback corrente
+  return updateSIM(instrumentName, groupData, pricesData, getLastLookback());
 }
 
 /* ── No-op legacy ────────────────────────────────────────────────────── */
