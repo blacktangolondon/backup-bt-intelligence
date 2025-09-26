@@ -4,19 +4,48 @@
 // Altre asset class restano come prima.
 
 import { renderBarChart, renderPieChart, destroyChartIfExists, renderScatterWithRegression } from "./charts.js";
-// Le importazioni legacy restano disponibili; non usate qui per equities
-// import futuresMap from "./futuresMap.js";
-// import { showSpread } from "./spreadView.js";
+// import futuresMap from "./futuresMap.js"; // legacy
+// import { showSpread } from "./spreadView.js"; // legacy
 
-// ╭─────────────────────────────────────────────────────────────────────────╮
-// │ Helpers comuni                                                          │
-// ╰─────────────────────────────────────────────────────────────────────────╯
+// ───────────────────────────────────────────────────────────
+// Label arrays (reintroduced for backward-compat with portfolioBuilder)
+// ───────────────────────────────────────────────────────────
+export const leftLabels        = [
+  "SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MICRO","MATH","STATS","TECH"
+];
+export const rightLabels       = [
+  "S&P500 CORRELATION","S&P500 VOLATILITY RATIO","BULLISH ALPHA","BEARISH ALPHA",
+  "ALPHA STRENGHT","PE RATIO","EPS","1 YEAR HIGH","1 YEAR LOW"
+];
+export const etfLeftLabels     = [
+  "SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MATH","STATS","TECH"
+];
+export const etfRightLabels    = [
+  "S&P500 CORRELATION","S&P500 VOLATILITY RATIO","BULLISH ALPHA","BEARISH ALPHA",
+  "ALPHA STRENGHT","1 YEAR HIGH","1 YEAR LOW","TICKER"
+];
+export const futuresLeftLabels = [
+  "SCORE","TREND","APPROACH","GAP TO PEAK / TO VALLEY","KEY AREA","LIMIT","POTENTIAL EXTENSION"
+];
+export const futuresRightLabels= [
+  "S&P500 CORRELATION","S&P500 VOLATILITY RATIO","ALPHA STRENGHT","MID TERM PRICE % PROJECTION",
+  "MATH","STATS","TECH"
+];
+export const fxLeftLabels      = [
+  "SCORE","TREND","APPROACH","GAP TO PEAK / TO VALLEY","KEY AREA","LIMIT","POTENTIAL EXTENSION"
+];
+export const fxRightLabels     = [
+  "S&P500 CORRELATION","S&P500 VOLATILITY RATIO","ALPHA STRENGHT","MID TERM PRICE % PROJECTION",
+  "MATH","STATS","TECH"
+];
 
+// ───────────────────────────────────────────────────────────
+// Helpers comuni
+// ───────────────────────────────────────────────────────────
 export function parseGap(val) {
   return (val === "-" || isNaN(parseFloat(val))) ? 0 : parseFloat(val);
 }
 
-// Trova serie prezzi per tvSymbol
 function getSeriesForSymbol(pricesData, tvSymbol) {
   const buckets = [
     pricesData?.stockPrices || {},
@@ -30,7 +59,6 @@ function getSeriesForSymbol(pricesData, tvSymbol) {
   return null;
 }
 
-// Trova benchmark ^GSPC in qualunque bucket
 function getBenchmarkSeries(pricesData) {
   const candidates = ['^GSPC', 'GSPC', 'INDEX:GSPC', 'SPX', 'SPX500USD'];
   const buckets = [
@@ -47,12 +75,10 @@ function getBenchmarkSeries(pricesData) {
   return null;
 }
 
-// Estrae close e date da una serie (array di oggetti o [date, close])
 function normalizeCloseSeries(series) {
   if (!series) return [];
   return series.map(row => {
     if (Array.isArray(row)) {
-      // [date, close] oppure [timestamp, open, high, low, close]
       const c = (row.length >= 5) ? row[4] : row[1];
       const d = row[0];
       return { date: d, close: +c };
@@ -65,45 +91,33 @@ function normalizeCloseSeries(series) {
   }).filter(Boolean);
 }
 
-// Calcola rendimenti semplici giornalieri su N punti
 function dailyReturns(closes) {
   const rets = [];
   for (let i = 1; i < closes.length; i++) {
-    const r = (closes[i] / closes[i - 1]) - 1;
-    rets.push(r);
+    rets.push(closes[i] / closes[i - 1] - 1);
   }
   return rets;
 }
 
 function alignByDate(seriesA, seriesB) {
-  // Accetta [{date, close}, ...]; allinea per data
   const mapB = new Map(seriesB.map(r => [String(r.date), r.close]));
-  const outA = [];
-  const outB = [];
+  const outA = [], outB = [];
   for (const a of seriesA) {
     const bClose = mapB.get(String(a.date));
-    if (bClose != null) {
-      outA.push(a);
-      outB.push({ date: a.date, close: bClose });
-    }
+    if (bClose != null) { outA.push(a); outB.push({ date: a.date, close: bClose }); }
   }
   return [outA, outB];
 }
+function lastN(arr, n){ return arr.slice(Math.max(arr.length - n, 0)); }
 
-function lastN(arr, n) {
-  return arr.slice(Math.max(arr.length - n, 0));
-}
-
-// OLS su coppie (x = market, y = asset)
 function olsSlopeIntercept(x, y) {
   const n = x.length;
   const mean = a => a.reduce((s,v)=>s+v,0)/n;
   const mx = mean(x), my = mean(y);
-  let num = 0, den = 0;
+  let num=0, den=0;
   for (let i=0;i<n;i++){ num += (x[i]-mx)*(y[i]-my); den += (x[i]-mx)**2; }
-  const b = den === 0 ? 0 : num/den;     // beta
-  const a = my - b*mx;                   // alpha (giornaliero)
-  // residui e R2
+  const b = den === 0 ? 0 : num/den;
+  const a = my - b*mx;
   const yhat = x.map(xi => a + b*xi);
   const eps  = y.map((yi, i) => yi - yhat[i]);
   const sst  = y.reduce((s,yi)=>s+(yi-my)**2,0);
@@ -112,7 +126,6 @@ function olsSlopeIntercept(x, y) {
   return { a, b, r2, eps, yhat, mx, my };
 }
 
-// Statistiche base
 function stdev(arr) {
   const n = arr.length;
   if (n <= 1) return 0;
@@ -122,10 +135,7 @@ function stdev(arr) {
 }
 function maxDrawdown(closes) {
   let peak = closes[0], mdd = 0;
-  for (const c of closes) {
-    peak = Math.max(peak, c);
-    mdd = Math.min(mdd, c/peak - 1);
-  }
+  for (const c of closes) { peak = Math.max(peak, c); mdd = Math.min(mdd, c/peak - 1); }
   return mdd;
 }
 function downsideDeviation(arr, target = 0) {
@@ -134,9 +144,9 @@ function downsideDeviation(arr, target = 0) {
   return Math.sqrt(neg.reduce((s,v)=>s+v,0) / neg.length);
 }
 
-// ╭─────────────────────────────────────────────────────────────────────────╮
-/** Block 1: TradingView Advanced Chart (invariato) */
-// ╰─────────────────────────────────────────────────────────────────────────╯
+// ───────────────────────────────────────────────────────────
+// Block 1: TradingView (invariato)
+// ───────────────────────────────────────────────────────────
 function updateChartGeneric(instrumentName, groupData) {
   const info   = groupData[instrumentName];
   const symbol = ((info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN").replace(/-/g, '_');
@@ -166,13 +176,11 @@ function updateChartGeneric(instrumentName, groupData) {
   }`;
   container.appendChild(script);
 }
-export function updateChart(instrumentName, groupData) {
-  updateChartGeneric(instrumentName, groupData);
-}
+export function updateChart(instrumentName, groupData) { updateChartGeneric(instrumentName, groupData); }
 
-// ╭─────────────────────────────────────────────────────────────────────────╮
-/** Block 2: Single-Index Model (solo EQUITIES) */
-// ╰─────────────────────────────────────────────────────────────────────────╯
+// ───────────────────────────────────────────────────────────
+// Block 2: Single-Index Model (solo EQUITIES)
+// ───────────────────────────────────────────────────────────
 export function updateSIM(instrumentName, groupData, pricesData, lookback=252) {
   const info = groupData[instrumentName];
   const tv   = info?.tvSymbol;
@@ -204,9 +212,8 @@ export function updateSIM(instrumentName, groupData, pricesData, lookback=252) {
   const seriesM = normalizeCloseSeries(getBenchmarkSeries(pricesData));
 
   if (!seriesA?.length || !seriesM?.length) {
-    document.getElementById("sim-beta").textContent = "N/A";
-    container.querySelector(".sim-chart").innerHTML =
-      `<div class="sim-missing">Benchmark o serie prezzi non disponibili.</div>`;
+    const b = container.querySelector(".sim-metrics");
+    if (b) b.innerHTML = `<div class="sim-missing">Benchmark o serie prezzi non disponibili.</div>`;
     return;
   }
 
@@ -216,9 +223,7 @@ export function updateSIM(instrumentName, groupData, pricesData, lookback=252) {
 
   const ri = dailyReturns(aCloses);
   const rm = dailyReturns(mCloses);
-
-  // sicurezza: allineo lunghezze
-  const n = Math.min(ri.length, rm.length);
+  const n  = Math.min(ri.length, rm.length);
   const R_i = ri.slice(-n);
   const R_m = rm.slice(-n);
 
@@ -226,35 +231,30 @@ export function updateSIM(instrumentName, groupData, pricesData, lookback=252) {
   const corr = (function(){
     const sx = stdev(R_m), sy = stdev(R_i);
     if (sx===0 || sy===0) return 0;
-    const n = R_m.length;
-    const mx = R_m.reduce((s,v)=>s+v,0)/n;
-    const my = R_i.reduce((s,v)=>s+v,0)/n;
-    let cov = 0; for (let i=0;i<n;i++) cov += (R_m[i]-mx)*(R_i[i]-my);
-    cov /= (n-1);
+    const mx = R_m.reduce((s,v)=>s+v,0)/R_m.length;
+    const my = R_i.reduce((s,v)=>s+v,0)/R_i.length;
+    let cov = 0; for (let i=0;i<R_m.length;i++) cov += (R_m[i]-mx)*(R_i[i]-my);
+    cov /= (R_m.length-1);
     return cov / (sx*sy);
   })();
 
-  // annualizzo alpha (giornaliero * 252) e sigma_e (std residui * sqrt(252))
   const alphaAnn = a * 252;
   const sigeAnn  = stdev(eps) * Math.sqrt(252);
 
-  // aggiorno metriche
   document.getElementById("sim-beta").textContent = b.toFixed(3);
   document.getElementById("sim-alpha").textContent = (alphaAnn*100).toFixed(2) + "%";
-  document.getElementById("sim-r2").textContent = r2.toFixed(3);
+  document.getElementById("sim-r2").textContent   = r2.toFixed(3);
   document.getElementById("sim-sige").textContent = (sigeAnn*100).toFixed(2) + "%";
   document.getElementById("sim-corr").textContent = corr.toFixed(3);
 
-  // punti scatter e retta
   const points = R_m.map((x, i) => ({ x, y: R_i[i] }));
   renderScatterWithRegression("sim-canvas", points, { a, b });
 }
 
-// ╭─────────────────────────────────────────────────────────────────────────╮
-/** Block 3: Risk/Return metrics (solo EQUITIES) */
-// ╰─────────────────────────────────────────────────────────────────────────╯
+// ───────────────────────────────────────────────────────────
+// Block 3: Risk/Return metrics (solo EQUITIES)
+// ───────────────────────────────────────────────────────────
 export function updateBlock3(instrumentName, groupData, pricesData, lookback=252) {
-  // Mostro una sola tab (rimuovo TradingView)
   const wrap = document.getElementById("block3");
   const tabs = wrap.querySelector("#block3-tabs");
   if (tabs) tabs.style.display = "none";
@@ -296,17 +296,14 @@ export function updateBlock3(instrumentName, groupData, pricesData, lookback=252
   const R_i = ri.slice(-n);
   const R_m = rm.slice(-n);
 
-  // metriche base
-  const muD  = R_i.reduce((s,v)=>s+v,0)/R_i.length;      // media giornaliera
+  const muD  = R_i.reduce((s,v)=>s+v,0)/R_i.length;
   const sdD  = stdev(R_i);
   const retAnn = muD * 252;
   const volAnn = sdD * Math.sqrt(252);
 
-  // drawdown / downside
   const mdd = maxDrawdown(aCloses.slice(-lookback));
   const dd  = downsideDeviation(R_i, 0) * Math.sqrt(252);
 
-  // SIM
   const { a, b, r2, eps } = olsSlopeIntercept(R_m, R_i);
   const alphaAnn = a * 252;
   const sigeAnn  = stdev(eps) * Math.sqrt(252);
@@ -320,7 +317,6 @@ export function updateBlock3(instrumentName, groupData, pricesData, lookback=252
     return cov / (sx*sy);
   })();
 
-  // render
   const set = (id, val) => document.getElementById(id).textContent = val;
   set("rm-ret",  (retAnn*100).toFixed(2) + "%");
   set("rm-vol",  (volAnn*100).toFixed(2) + "%");
@@ -333,10 +329,10 @@ export function updateBlock3(instrumentName, groupData, pricesData, lookback=252
   set("rm-dd",   (dd*100).toFixed(2) + "%");
 }
 
-// ╭─────────────────────────────────────────────────────────────────────────╮
-/** Block 4: Fondamentali (EQUITIES/ETF) */
-// ╰─────────────────────────────────────────────────────────────────────────╯
-export function updateBlock4(instrumentName, groupData /*, returnsData not needed */) {
+// ───────────────────────────────────────────────────────────
+// Block 4: Fondamentali
+// ───────────────────────────────────────────────────────────
+export function updateBlock4(instrumentName, groupData) {
   const info = groupData[instrumentName] || {};
   const block4 = document.getElementById("block4");
   block4.innerHTML = `
@@ -369,10 +365,7 @@ function renderFundRow(label, value, suffix="", isFraction=false) {
   return `<div class="fund-row"><span>${label}</span><strong>${value}</strong></div>`;
 }
 
-// Legacy/tab init no-op (manteniamo l’export)
 export function initBlock3Tabs() { /* single tab now for equities */ }
-
-// Popup YouTube (lasciato invariato se usato altrove)
 export function openYouTubePopup() {
   const popup = document.getElementById("youtube-popup");
   if (popup) popup.style.display = "block";
