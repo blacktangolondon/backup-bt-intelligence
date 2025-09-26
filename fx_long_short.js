@@ -69,8 +69,8 @@ const fetchJSON = async (url) => {
 
   // ── Modulo 4: New Strategies Alert
   try {
-    const channels = await fetchJSON(CHANNELS_FILE);
-    renderModule4(computeNewAlertsFrom(channels));
+    renderModule4(computeNewAlertsFromOpen(openTrades));
+
   } catch (e) { console.warn('Channels load failed:', e); }
 })();
 
@@ -211,27 +211,6 @@ function renderModule3_asIndex(curve) {
 }
 
 // ───────── Module 4
-function computeNewAlertsFrom(channels){
-  const out = [];
-  if (!channels || typeof channels !== 'object') return out;
-  for (const key of Object.keys(channels)){
-    const rows = channels[key];
-    if(!Array.isArray(rows) || rows.length < 2) continue;
-    const last = rows[rows.length-1], prev = rows[rows.length-2];
-    const r_now = num(last[1]), l1 = num(last[2]), u1 = num(last[4]);
-    const r_prev= num(prev[1]), pl1= num(prev[2]), pu1= num(prev[4]);
-    const t_now = (u1 + l1)/2,  s_now = Math.abs(u1 - t_now);
-    const t_prev= (pu1 + pl1)/2, s_prev= Math.abs(pu1 - t_prev);
-    const ub = t_now + s_now*STD_MULT, lb = t_now - s_now*STD_MULT;
-    const prevUb = t_prev + s_prev*STD_MULT, prevLb = t_prev - s_prev*STD_MULT;
-    if (r_now > ub && r_prev <= prevUb)
-      out.push({spread:key, signal:'Short', open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now + Math.abs(r_now - t_now)).toFixed(4)});
-    else if (r_now < lb && r_prev >= prevLb)
-      out.push({spread:key, signal:'Long',  open:r_now.toFixed(4), tp:t_now.toFixed(4), sl:(r_now - Math.abs(t_now - r_now)).toFixed(4)});
-  }
-  return out;
-}
-
 function renderModule4(alerts){
   const tbody = document.querySelector('#module4 tbody');
   if (!tbody) return;
@@ -247,4 +226,17 @@ function renderModule4(alerts){
     tr.innerHTML = `<td>${a.spread}</td><td>${a.signal}</td><td>${a.open}</td><td>${a.tp}</td><td>${a.sl}</td>`;
     tbody.appendChild(tr);
   });
+}
+
+// Sostituiamo computeNewAlertsFrom: gli Alert = open_trades con days_open==0
+function computeNewAlertsFromOpen(openTrades){
+  return openTrades
+    .filter(t => num(t.days_open) === 0)
+    .map(t => ({
+      spread: t.spread,
+      signal: t.type === 'long' ? 'Long' : 'Short',
+      open: num(t.entry).toFixed(4),
+      tp: num(t.take_profit).toFixed(4),
+      sl: num(t.stop_loss).toFixed(4)
+    }));
 }
