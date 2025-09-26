@@ -121,25 +121,43 @@ function olsSlopeIntercept(x,y){
   return {a,b,r2,eps};
 }
 
-/* ── Block 1: TradingView (invariato) ───────────────────────────────── */
+// Replace the whole function with this:
 function updateChartGeneric(instrumentName, groupData){
-  const info=groupData[instrumentName];
-  const symbol=((info&&info.tvSymbol)?info.tvSymbol:"NASDAQ:AMZN").replace(/-/g,'_');
-  const block1=document.getElementById("block1");
-  const container=block1.querySelector(".tradingview-widget-container");
-  container.innerHTML=`<div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>`;
-  const script=document.createElement('script');
-  script.type="text/javascript";
-  script.src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
-  script.async=true;
-  script.textContent=`{
-    "autosize": true, "symbol": "${symbol}", "interval": "D", "timezone": "Etc/UTC",
-    "theme": "dark", "style": "1", "locale": "en", "withdateranges": true,
-    "hide_side_toolbar": false, "allow_symbol_change": false, "backgroundColor": "#000000",
-    "details": true, "calendar": false, "support_host": "https://www.tradingview.com"
+  const info   = groupData[instrumentName];
+  const symbol = ((info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN").replace(/-/g, '_');
+
+  const block1 = document.getElementById("block1");
+  const container = block1.querySelector(".tradingview-widget-container");
+  container.innerHTML =
+    `<div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>`;
+
+  const script = document.createElement('script');
+  script.type  = "text/javascript";
+  script.src   = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
+  script.async = true;
+  script.textContent = `{
+    "autosize": true,
+    "symbol": "${symbol}",
+    "interval": "D",
+    "timezone": "Etc/UTC",
+    "theme": "dark",
+    "style": "1",
+    "locale": "en",
+
+    /* — slim UI — */
+    "hide_top_toolbar": true,      // ⬅︎ removes the top toolbar
+    "hide_side_toolbar": true,     // ⬅︎ removes the left drawing toolbar
+    "withdateranges": false,       // ⬅︎ removes the bottom range buttons
+    "details": false,              // optional: removes extra details strip
+
+    "allow_symbol_change": false,
+    "backgroundColor": "#000000",
+    "calendar": false,
+    "support_host": "https://www.tradingview.com"
   }`;
   container.appendChild(script);
 }
+
 export function updateChart(i,g){ updateChartGeneric(i,g); }
 
 /* ── State per benchmark selezionato ─────────────────────────────────── */
