@@ -1,6 +1,6 @@
 // dashboard.js
-// Block2: tab "Single-Index" (scatter) + "Benchmark" (line chart cum %).
-// Block3: metriche (SIM + rischio). Block4: fondamentali.
+// Block2: tab "Single-Index" (scatter) + "Benchmark" (line chart cum %), con selezione benchmark.
+// Block3: metriche (SIM + rischio) coerenti con il benchmark selezionato. Block4: fondamentali.
 
 import { renderScatterWithRegression, renderBenchmarkLines } from "./charts.js";
 
@@ -39,9 +39,29 @@ function lookupAny(pricesData, keys){
   return null;
 }
 function getSeriesForSymbol(pricesData,tv){ return lookupAny(pricesData, candidatesFromTvSymbol(tv)); }
-function getBenchmarkSeries(pricesData){
-  const p=lookupAny(pricesData,['^GSPC','GSPC','INDEX:GSPC','SPX','SPX500USD']); if(p) return p;
-  return lookupAny(pricesData,['SPY','NYSEARCA:SPY','AMEX:SPY','ARCX:SPY']);
+
+/* benchmark: se "desired" è definito, prova quello. Altrimenti fallback GSPC→SPY */
+function getBenchmarkSeries(pricesData, desired){
+  if (desired && typeof desired === "string") {
+    const keys = [...candidatesFromTvSymbol(desired), desired];
+    const found = lookupAny(pricesData, keys);
+    if (found) return found;
+  }
+  const primary = lookupAny(pricesData, ['^GSPC','GSPC','INDEX:GSPC','SPX','SPX500USD']);
+  if (primary) return primary;
+  return lookupAny(pricesData, ['SPY','NYSEARCA:SPY','AMEX:SPY','ARCX:SPY']);
+}
+/* elenco chiavi disponibili per il datalist */
+function availableBenchKeys(pricesData){
+  const b = [
+    Object.keys(pricesData?.stockPrices||{}),
+    Object.keys(pricesData?.etfPrices||{}),
+    Object.keys(pricesData?.futuresPrices||{}),
+    Object.keys(pricesData?.fxPrices||{}),
+  ].flat();
+  const pref = ['^GSPC','GSPC','SPY','^GDAXI','DAX','^STOXX50E']; // alcuni utili on top
+  const set  = new Set([...pref, ...b]);
+  return Array.from(set).filter(Boolean).sort((a,b)=>a.localeCompare(b));
 }
 
 function extractClosesAndDates(series){
@@ -68,7 +88,6 @@ function getAlignedCloses(seriesA,seriesB,lookbackPlus1){
   const n=Math.min(a.length,b.length,lookbackPlus1);
   return [a.slice(-n), b.slice(-n)];
 }
-/* come sopra, ma restituisce anche le date allineate */
 function getAlignedClosesAndDates(seriesA, seriesB, lookbackPlus1){
   const A=extractClosesAndDates(seriesA), B=extractClosesAndDates(seriesB);
   if(!A.dates||!B.dates){
@@ -123,9 +142,30 @@ function updateChartGeneric(instrumentName, groupData){
 }
 export function updateChart(i,g){ updateChartGeneric(i,g); }
 
-/* ── Block 2: SIM + Benchmark (tab) ─────────────────────────────────── */
+/* ── State per benchmark selezionato ─────────────────────────────────── */
+function getInstKey(groupData, instrumentName){
+  return groupData[instrumentName]?.tvSymbol || instrumentName || "";
+}
+function readSavedBenchmark(instKey){
+  const map = (window.__simBenchmarkBySymbol ||= {});
+  return map[instKey] || window.__simBenchmarkGlobal || '^GSPC';
+}
+function saveBenchmark(instKey, benchKey){
+  const map = (window.__simBenchmarkBySymbol ||= {});
+  map[instKey] = benchKey;
+  window.__simBenchmarkGlobal = benchKey;           // fallback globale
+  try { localStorage.setItem('bt_sim_bench_map', JSON.stringify(map)); } catch(_) {}
+}
+(function restoreBenchmarkMap(){
+  try{
+    const raw = localStorage.getItem('bt_sim_bench_map');
+    if (raw) window.__simBenchmarkBySymbol = JSON.parse(raw);
+  }catch(_){}
+})();
+
+/* ── Block 2: SIM + Benchmark (tab) + bench picker ──────────────────── */
 export function updateSIM(instrumentName, groupData, pricesData){
-  const tv = groupData[instrumentName]?.tvSymbol;
+  const instKey = getInstKey(groupData, instrumentName);
   const block2 = document.getElementById("block2");
 
   let container = block2.querySelector("#symbol-info-container");
@@ -135,11 +175,20 @@ export function updateSIM(instrumentName, groupData, pricesData){
     block2.appendChild(container);
   }
 
-  // Tabs (niente titolo)
+  // Toolbar (tabs + benchmark picker)
   container.innerHTML = `
-    <div class="sim-tabs">
-      <button class="tab-btn active" data-tab="sim">Single-Index</button>
-      <button class="tab-btn" data-tab="bench">Benchmark</button>
+    <div class="sim-toolbar">
+      <div class="sim-tabs">
+        <button class="tab-btn active" data-tab="sim">Single-Index</button>
+        <button class="tab-btn" data-tab="bench">Benchmark</button>
+      </div>
+      <div class="bench-picker">
+        <label for="bench-input">Benchmark</label>
+        <input id="bench-input" list="bench-list" placeholder="^GSPC, DAX, SPY, ..." />
+        <datalist id="bench-list"></datalist>
+        <button id="bench-reset" title="Reset to S&P 500">↺</button>
+        <small id="bench-msg"></small>
+      </div>
     </div>
     <div class="sim-body">
       <div id="pane-sim" class="sim-pane"><canvas id="sim-canvas"></canvas></div>
@@ -147,42 +196,80 @@ export function updateSIM(instrumentName, groupData, pricesData){
     </div>
   `;
 
-  try {
-    const assetSeriesRaw = getSeriesForSymbol(pricesData, tv);
-    const benchSeriesRaw = getBenchmarkSeries(pricesData);
+  // Popola datalist
+  const list = container.querySelector('#bench-list');
+  const keys = availableBenchKeys(pricesData);
+  list.innerHTML = keys.map(k=>`<option value="${k}"></option>`).join("");
+
+  // Stato iniziale benchmark
+  let benchKey = readSavedBenchmark(instKey);
+  const benchInput = container.querySelector('#bench-input');
+  const benchMsg   = container.querySelector('#bench-msg');
+  benchInput.value = benchKey;
+
+  function setMsg(txt, ok=true){
+    benchMsg.textContent = txt || "";
+    benchMsg.style.color = ok ? '#7fd67f' : '#ff7d7d';
+    if (txt) setTimeout(()=>benchMsg.textContent="", 1800);
+  }
+
+  // Rendering (riusato su cambio benchmark/tab)
+  function renderAll(){
+    const assetSeriesRaw = getSeriesForSymbol(pricesData, instKey);
+    const benchSeriesRaw = getBenchmarkSeries(pricesData, benchKey);
+
     if (!assetSeriesRaw || !benchSeriesRaw) {
       container.querySelector(".sim-body").innerHTML =
-        `<div class="sim-missing">Benchmark o serie prezzi non disponibili.</div>`;
+        `<div class="sim-missing">Serie prezzi non disponibili per grafici.</div>`;
       return;
     }
 
-    // Finestra effettiva (max 252) + allineamento
     const [aAll, mAll, labelsAll] =
       getAlignedClosesAndDates(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
     const effLB = Math.min(252, Math.max(1, Math.min(aAll.length - 1, mAll.length - 1)));
     const aCloses = aAll.slice(-(effLB + 1));
     const mCloses = mAll.slice(-(effLB + 1));
-    const labels  = labelsAll.slice(-(effLB + 1)).slice(1); // per i returns
+    const labels  = labelsAll.slice(-(effLB + 1)).slice(1);
 
-    // === Single-Index (scatter) ===
     const Ri = dailyReturns(aCloses);
     const Rm = dailyReturns(mCloses);
     const n  = Math.min(Ri.length, Rm.length);
     const Yi = Ri.slice(-n), Xm = Rm.slice(-n);
+
     const { a, b } = olsSlopeIntercept(Xm, Yi);
     const points = Xm.map((x,i)=>({ x, y: Yi[i] }));
     renderScatterWithRegression(document.getElementById("sim-canvas"), points, { a, b });
 
-    // === Benchmark (linee cum %) ===
     const assetCum = cumulativeReturns(Yi);
     const benchCum = cumulativeReturns(Xm);
     renderBenchmarkLines(document.getElementById("bench-canvas"), labels.slice(-n), assetCum, benchCum);
 
-  } catch (err) {
-    console.error("updateSIM error:", err);
-    container.querySelector(".sim-body").innerHTML =
-      `<div class="sim-missing">Errore durante il rendering del grafico.</div>`;
+    // Aggiorna le metriche (Block3) con lo stesso benchmark
+    updateBlock3(instrumentName, groupData, pricesData);
   }
+
+  // Eventi benchmark
+  benchInput.addEventListener('change', ()=>{
+    const candidate = benchInput.value.trim();
+    if (!candidate) return;
+    const exists = !!getBenchmarkSeries(pricesData, candidate);
+    if (exists){
+      benchKey = candidate;
+      saveBenchmark(instKey, benchKey);
+      setMsg('Benchmark aggiornato');
+      renderAll();
+    } else {
+      setMsg('Non trovato nei dati', false);
+      benchInput.value = benchKey;
+    }
+  });
+  container.querySelector('#bench-reset').addEventListener('click', ()=>{
+    benchKey = '^GSPC';
+    benchInput.value = benchKey;
+    saveBenchmark(instKey, benchKey);
+    setMsg('Reset a S&P 500');
+    renderAll();
+  });
 
   // Switch tab
   container.querySelectorAll(".tab-btn").forEach(btn=>{
@@ -198,13 +285,8 @@ export function updateSIM(instrumentName, groupData, pricesData){
     };
   });
 
-  // Assicura il full-height
-  const simCanvas = document.getElementById('sim-canvas');
-  const benchCanvas = document.getElementById('bench-canvas');
-  requestAnimationFrame(()=>{
-    window.Chart?.getChart(simCanvas)?.resize();
-    window.Chart?.getChart(benchCanvas)?.resize();
-  });
+  // Primo render
+  renderAll();
 }
 
 /* ── Block 3: Metriche (coerenti con SIM) ───────────────────────────── */
@@ -241,9 +323,11 @@ export function updateBlock3(instrumentName, groupData, pricesData){
   `;
 
   try{
-    const tv=groupData[instrumentName]?.tvSymbol;
-    const assetSeriesRaw=getSeriesForSymbol(pricesData,tv);
-    const benchSeriesRaw=getBenchmarkSeries(pricesData);
+    const instKey = getInstKey(groupData, instrumentName);
+    const benchKey = readSavedBenchmark(instKey);
+
+    const assetSeriesRaw=getSeriesForSymbol(pricesData, instKey);
+    const benchSeriesRaw=getBenchmarkSeries(pricesData, benchKey);
     if(!assetSeriesRaw||!benchSeriesRaw){
       content.querySelector(".risk-metrics").insertAdjacentHTML('beforeend', `<div class="rm-warning">Serie prezzi mancanti per calcolare le metriche.</div>`);
       return;
