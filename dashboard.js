@@ -1,10 +1,10 @@
 // dashboard.js
-// Block2: tab "Single-Index" (scatter) + tab "Benchmark" (line chart cum %).
+// Block2: tab "Single-Index" (scatter) + "Benchmark" (line chart cum %).
 // Block3: metriche (SIM + rischio). Block4: fondamentali.
 
 import { renderScatterWithRegression, renderBenchmarkLines } from "./charts.js";
 
-/* ── Label arrays (compat) ─────────────────────────────────────────── */
+/* ── Label arrays (compat con altri moduli) ─────────────────────────── */
 export const leftLabels        = ["SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MICRO","MATH","STATS","TECH"];
 export const rightLabels       = ["S&P500 CORRELATION","S&P500 VOLATILITY RATIO","BULLISH ALPHA","BEARISH ALPHA","ALPHA STRENGHT","PE RATIO","EPS","1 YEAR HIGH","1 YEAR LOW"];
 export const etfLeftLabels     = ["SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MATH","STATS","TECH"];
@@ -73,7 +73,7 @@ function getAlignedClosesAndDates(seriesA, seriesB, lookbackPlus1){
   const A=extractClosesAndDates(seriesA), B=extractClosesAndDates(seriesB);
   if(!A.dates||!B.dates){
     const n=Math.min(A.closes.length,B.closes.length,lookbackPlus1);
-    const labels = Array.from({length:n}, (_,i)=>`D${n-i}`); // fallback: indici
+    const labels = Array.from({length:n}, (_,i)=>`D${n-i}`); // fallback indici
     return [A.closes.slice(-n), B.closes.slice(-n), labels];
   }
   const mapB=new Map(B.dates.map((d,i)=>[String(d),{idx:i,close:B.closes[i]}]));
@@ -123,6 +123,7 @@ function updateChartGeneric(instrumentName, groupData){
 }
 export function updateChart(i,g){ updateChartGeneric(i,g); }
 
+/* ── Block 2: SIM + Benchmark (tab) ─────────────────────────────────── */
 export function updateSIM(instrumentName, groupData, pricesData){
   const tv = groupData[instrumentName]?.tvSymbol;
   const block2 = document.getElementById("block2");
@@ -134,7 +135,7 @@ export function updateSIM(instrumentName, groupData, pricesData){
     block2.appendChild(container);
   }
 
-  // Niente titolo: solo le tab
+  // Tabs (niente titolo)
   container.innerHTML = `
     <div class="sim-tabs">
       <button class="tab-btn active" data-tab="sim">Single-Index</button>
@@ -154,14 +155,15 @@ export function updateSIM(instrumentName, groupData, pricesData){
     return;
   }
 
-  // finestra effettiva max 252
-  const [aAll, mAll, labelsAll] = getAlignedClosesAndDates(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
-  const effLB = Math.min(252, Math.max(1, Math.min(aAll.length-1, mAll.length-1)));
-  const aCloses = aAll.slice(-(effLB+1));
-  const mCloses = mAll.slice(-(effLB+1));
-  const labels  = labelsAll.slice(-(effLB+1)).slice(1); // allineato ai returns
+  // Finestra effettiva (max 252) + allineamento
+  const [aAll, mAll, labelsAll] =
+    getAlignedClosesAndDates(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
+  const effLB = Math.min(252, Math.max(1, Math.min(aAll.length - 1, mAll.length - 1)));
+  const aCloses = aAll.slice(-(effLB + 1));
+  const mCloses = mAll.slice(-(effLB + 1));
+  const labels  = labelsAll.slice(-(effLB + 1)).slice(1); // per i returns
 
-  // === SIM (scatter) ===
+  // === Single-Index (scatter) ===
   const Ri = dailyReturns(aCloses);
   const Rm = dailyReturns(mCloses);
   const n  = Math.min(Ri.length, Rm.length);
@@ -175,62 +177,20 @@ export function updateSIM(instrumentName, groupData, pricesData){
   const benchCum = cumulativeReturns(Xm);
   renderBenchmarkLines("bench-canvas", labels.slice(-n), assetCum, benchCum);
 
-  // tabs
+  // Switch tab
   container.querySelectorAll(".tab-btn").forEach(btn=>{
     btn.onclick = () => {
       container.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
       btn.classList.add("active");
       const tab = btn.dataset.tab;
-      document.getElementById("pane-sim").style.display   = (tab==="sim")   ? "block" : "none";
-      document.getElementById("pane-bench").style.display = (tab==="bench") ? "block" : "none";
-      const id = (tab==="sim") ? "sim-canvas" : "bench-canvas";
+      document.getElementById("pane-sim").style.display   = (tab === "sim")   ? "block" : "none";
+      document.getElementById("pane-bench").style.display = (tab === "bench") ? "block" : "none";
+      const id = (tab === "sim") ? "sim-canvas" : "bench-canvas";
       requestAnimationFrame(()=>window.Chart?.getChart(id)?.resize());
     };
   });
 
-  // forza il riempimento verticale
-  requestAnimationFrame(()=>{
-    window.Chart?.getChart('sim-canvas')?.resize();
-    window.Chart?.getChart('bench-canvas')?.resize();
-  });
-}
-
-
-  // finestra effettiva max 252
-  const [aAll, mAll, labelsAll]=getAlignedClosesAndDates(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
-  const effLB=Math.min(252, Math.max(1, Math.min(aAll.length-1, mAll.length-1)));
-  const aCloses=aAll.slice(-(effLB+1));
-  const mCloses=mAll.slice(-(effLB+1));
-  const labels=labelsAll.slice(-(effLB+1)).slice(1); // allineato ai returns
-
-  // === SIM (scatter) ===
-  const Ri=dailyReturns(aCloses);
-  const Rm=dailyReturns(mCloses);
-  const n=Math.min(Ri.length, Rm.length);
-  const Yi=Ri.slice(-n), Xm=Rm.slice(-n);
-  const {a,b}=olsSlopeIntercept(Xm, Yi);
-  const points = Xm.map((x,i)=>({ x, y: Yi[i] }));
-  renderScatterWithRegression("sim-canvas", points, { a, b });
-
-  // === Benchmark (line chart cumulative %) ===
-  const assetCum = cumulativeReturns(Yi);
-  const benchCum = cumulativeReturns(Xm);
-  renderBenchmarkLines("bench-canvas", labels.slice(-n), assetCum, benchCum);
-
-  // tabs
-  container.querySelectorAll(".tab-btn").forEach(btn=>{
-    btn.onclick = () => {
-      container.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
-      btn.classList.add("active");
-      const tab = btn.dataset.tab;
-      document.getElementById("pane-sim").style.display   = (tab==="sim")   ? "block" : "none";
-      document.getElementById("pane-bench").style.display = (tab==="bench") ? "block" : "none";
-      // assicura resize corretto quando si cambia pane
-      const id = (tab==="sim") ? "sim-canvas" : "bench-canvas";
-      requestAnimationFrame(()=>window.Chart?.getChart(id)?.resize());
-    };
-  });
-
+  // Assicura il full-height
   requestAnimationFrame(()=>{
     window.Chart?.getChart('sim-canvas')?.resize();
     window.Chart?.getChart('bench-canvas')?.resize();
@@ -350,7 +310,7 @@ function renderFundRow(label, value, suffix="", isFraction=false){
   return `<div class="fund-row"><span>${label}</span><strong>${value}</strong></div>`;
 }
 
-/* Compat richiesto da main.js */
+/* ── Compat richiesto da main.js ─────────────────────────────────────── */
 export function updateSymbolOverview(instrumentName, groupData){
   const pricesData = window?.pricesData || { stockPrices:{}, etfPrices:{}, futuresPrices:{}, fxPrices:{} };
   return updateSIM(instrumentName, groupData, pricesData);
