@@ -755,4 +755,22 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 #block2 .sim-chart { flex: 1 1 auto; min-height: 0; position: relative; }
 #block2 .sim-chart canvas { width: 100% !important; height: 100% !important; display: block; }
 
+/* Block2 full-height robusto */
+#block2 { display:flex; flex-direction:column; min-height:0; height:100%; }
+#block2 #symbol-info-container { flex:1 1 auto; display:flex; flex-direction:column; min-height:0; }
+#block2 .sim-body { flex:1 1 auto; min-height:0; position:relative; }
+#block2 .sim-pane { position:absolute; inset:0; }
+#block2 .sim-pane canvas { width:100% !important; height:100% !important; display:block; }
+.sim-missing{ color:#ccc; padding:10px; }
+
+/* Tabs dark (compact, pill) */
+.sim-tabs{ display:flex; gap:8px; padding-bottom:6px; border-bottom:1px solid #333; }
+.tab-btn{
+  background:#222; color:#ddd; border:1px solid #3a3a3a; border-radius:999px;
+  padding:4px 10px; font-size:12px; cursor:pointer; transition:all .15s ease;
+}
+.tab-btn:hover{ background:#2b2b2b; border-color:#555; }
+.tab-btn.active{ background:#ffa500; color:#000; border-color:#ffa500; }
+
+
 
