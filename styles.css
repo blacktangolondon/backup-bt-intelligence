@@ -665,3 +665,62 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 .portfolio-card-btn:hover {
   background: #cc8400;
 }
+
+
+/* === SIM (Block2) === */
+.sim-header{
+  font-weight: 700;
+  color: #ffa500;
+  padding: 6px 8px;
+  border-bottom: 1px solid #333;
+  margin-bottom: 6px;
+}
+.sim-grid{
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 8px;
+  height: 100%;
+}
+.sim-metrics{
+  display: grid;
+  grid-auto-rows: minmax(32px, auto);
+  gap: 6px;
+}
+.sim-metrics div{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:8px; border:1px solid #333; border-radius:8px; background:#1b1b1b;
+}
+.sim-metrics span{ color:#aaa; font-size:12px; }
+.sim-metrics strong{ color:#fff; font-variant-numeric: tabular-nums; }
+.sim-chart{ position: relative; min-height: 260px; height: calc(100% - 8px); }
+.sim-missing{ color:#ccc; padding:10px; }
+
+/* === Risk Metrics (Block3) === */
+.risk-metrics .rm-title{
+  font-weight:700; color:#ffa500; margin-bottom:8px;
+}
+.risk-metrics .rm-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:8px;
+}
+.risk-metrics .rm-grid > div{
+  border:1px solid #333; border-radius:8px; background:#1b1b1b;
+  padding:8px; display:flex; align-items:center; justify-content:space-between;
+}
+.risk-metrics span{ color:#aaa; font-size:12px; }
+.risk-metrics strong{ color:#fff; font-variant-numeric: tabular-nums; }
+.rm-warning{ margin-top:10px; color:#ddd; }
+
+/* === Fundamentals (Block4) === */
+.fund-card{ height:100%; display:flex; flex-direction:column; }
+.fund-title{ font-weight:700; color:#ffa500; margin-bottom:8px; }
+.fund-grid{
+  display:grid; grid-template-columns: 1fr 1fr; gap:8px;
+}
+.fund-row{
+  border:1px solid #333; border-radius:8px; background:#1b1b1b;
+  padding:8px; display:flex; align-items:center; justify-content:space-between;
+}
+.fund-row span{ color:#aaa; font-size:12px; }
+.fund-row strong{ color:#fff; font-variant-numeric: tabular-nums; }
