@@ -843,3 +843,12 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 .fund-row{ border:1px solid #333; border-radius:8px; background:#1b1b1b; padding:8px; display:flex; align-items:center; justify-content:space-between; }
 .fund-row span{ color:#aaa; font-size:12px; }
 .fund-row strong{ color:#fff; font-variant-numeric: tabular-nums; }
+
+/* TradingView in Block1: riempi completamente l'area */
+#block1,
+#block1 .tradingview-widget-container,
+#block1 .tradingview-widget-container__widget {
+  height: 100% !important;
+  width: 100% !important;
+}
+
