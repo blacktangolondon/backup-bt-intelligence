@@ -143,39 +143,46 @@ export function updateSIM(instrumentName, groupData, pricesData){
     </div>
     <div class="sim-body">
       <div id="pane-sim" class="sim-pane"><canvas id="sim-canvas"></canvas></div>
-      <div id="pane-bench" class="sim-pane" style="display:none"><canvas id="bench-canvas"></canvas></div>
+      <div id="pane-bench" class="sim-pane hidden"><canvas id="bench-canvas"></canvas></div>
     </div>
   `;
 
-  const assetSeriesRaw = getSeriesForSymbol(pricesData, tv);
-  const benchSeriesRaw = getBenchmarkSeries(pricesData);
-  if (!assetSeriesRaw || !benchSeriesRaw) {
+  try {
+    const assetSeriesRaw = getSeriesForSymbol(pricesData, tv);
+    const benchSeriesRaw = getBenchmarkSeries(pricesData);
+    if (!assetSeriesRaw || !benchSeriesRaw) {
+      container.querySelector(".sim-body").innerHTML =
+        `<div class="sim-missing">Benchmark o serie prezzi non disponibili.</div>`;
+      return;
+    }
+
+    // Finestra effettiva (max 252) + allineamento
+    const [aAll, mAll, labelsAll] =
+      getAlignedClosesAndDates(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
+    const effLB = Math.min(252, Math.max(1, Math.min(aAll.length - 1, mAll.length - 1)));
+    const aCloses = aAll.slice(-(effLB + 1));
+    const mCloses = mAll.slice(-(effLB + 1));
+    const labels  = labelsAll.slice(-(effLB + 1)).slice(1); // per i returns
+
+    // === Single-Index (scatter) ===
+    const Ri = dailyReturns(aCloses);
+    const Rm = dailyReturns(mCloses);
+    const n  = Math.min(Ri.length, Rm.length);
+    const Yi = Ri.slice(-n), Xm = Rm.slice(-n);
+    const { a, b } = olsSlopeIntercept(Xm, Yi);
+    const points = Xm.map((x,i)=>({ x, y: Yi[i] }));
+    renderScatterWithRegression(document.getElementById("sim-canvas"), points, { a, b });
+
+    // === Benchmark (linee cum %) ===
+    const assetCum = cumulativeReturns(Yi);
+    const benchCum = cumulativeReturns(Xm);
+    renderBenchmarkLines(document.getElementById("bench-canvas"), labels.slice(-n), assetCum, benchCum);
+
+  } catch (err) {
+    console.error("updateSIM error:", err);
     container.querySelector(".sim-body").innerHTML =
-      `<div class="sim-missing">Benchmark o serie prezzi non disponibili.</div>`;
-    return;
+      `<div class="sim-missing">Errore durante il rendering del grafico.</div>`;
   }
-
-  // Finestra effettiva (max 252) + allineamento
-  const [aAll, mAll, labelsAll] =
-    getAlignedClosesAndDates(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
-  const effLB = Math.min(252, Math.max(1, Math.min(aAll.length - 1, mAll.length - 1)));
-  const aCloses = aAll.slice(-(effLB + 1));
-  const mCloses = mAll.slice(-(effLB + 1));
-  const labels  = labelsAll.slice(-(effLB + 1)).slice(1); // per i returns
-
-  // === Single-Index (scatter) ===
-  const Ri = dailyReturns(aCloses);
-  const Rm = dailyReturns(mCloses);
-  const n  = Math.min(Ri.length, Rm.length);
-  const Yi = Ri.slice(-n), Xm = Rm.slice(-n);
-  const { a, b } = olsSlopeIntercept(Xm, Yi);
-  const points = Xm.map((x,i)=>({ x, y: Yi[i] }));
-  renderScatterWithRegression("sim-canvas", points, { a, b });
-
-  // === Benchmark (linee cum %) ===
-  const assetCum = cumulativeReturns(Yi);
-  const benchCum = cumulativeReturns(Xm);
-  renderBenchmarkLines("bench-canvas", labels.slice(-n), assetCum, benchCum);
 
   // Switch tab
   container.querySelectorAll(".tab-btn").forEach(btn=>{
@@ -183,17 +190,20 @@ export function updateSIM(instrumentName, groupData, pricesData){
       container.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
       btn.classList.add("active");
       const tab = btn.dataset.tab;
-      document.getElementById("pane-sim").style.display   = (tab === "sim")   ? "block" : "none";
-      document.getElementById("pane-bench").style.display = (tab === "bench") ? "block" : "none";
-      const id = (tab === "sim") ? "sim-canvas" : "bench-canvas";
-      requestAnimationFrame(()=>window.Chart?.getChart(id)?.resize());
+      document.getElementById("pane-sim").classList.toggle("hidden", tab !== "sim");
+      document.getElementById("pane-bench").classList.toggle("hidden", tab !== "bench");
+      const canvas = (tab === "sim") ? document.getElementById("sim-canvas")
+                                     : document.getElementById("bench-canvas");
+      requestAnimationFrame(()=>window.Chart?.getChart(canvas)?.resize());
     };
   });
 
   // Assicura il full-height
+  const simCanvas = document.getElementById('sim-canvas');
+  const benchCanvas = document.getElementById('bench-canvas');
   requestAnimationFrame(()=>{
-    window.Chart?.getChart('sim-canvas')?.resize();
-    window.Chart?.getChart('bench-canvas')?.resize();
+    window.Chart?.getChart(simCanvas)?.resize();
+    window.Chart?.getChart(benchCanvas)?.resize();
   });
 }
 
@@ -230,55 +240,60 @@ export function updateBlock3(instrumentName, groupData, pricesData){
     </div>
   `;
 
-  const tv=groupData[instrumentName]?.tvSymbol;
-  const assetSeriesRaw=getSeriesForSymbol(pricesData,tv);
-  const benchSeriesRaw=getBenchmarkSeries(pricesData);
-  if(!assetSeriesRaw||!benchSeriesRaw){
-    content.querySelector(".risk-metrics").insertAdjacentHTML('beforeend', `<div class="rm-warning">Serie prezzi mancanti per calcolare le metriche.</div>`);
-    return;
+  try{
+    const tv=groupData[instrumentName]?.tvSymbol;
+    const assetSeriesRaw=getSeriesForSymbol(pricesData,tv);
+    const benchSeriesRaw=getBenchmarkSeries(pricesData);
+    if(!assetSeriesRaw||!benchSeriesRaw){
+      content.querySelector(".risk-metrics").insertAdjacentHTML('beforeend', `<div class="rm-warning">Serie prezzi mancanti per calcolare le metriche.</div>`);
+      return;
+    }
+
+    const [aAll, mAll]=getAlignedCloses(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
+    const effLB=Math.min(252, Math.max(1, Math.min(aAll.length-1, mAll.length-1)));
+    document.getElementById("rm-title").textContent = `Metrics (daily, last ${effLB})`;
+
+    const aCloses=aAll.slice(-(effLB+1));
+    const mCloses=mAll.slice(-(effLB+1));
+    const Ri=dailyReturns(aCloses);
+    const Rm=dailyReturns(mCloses);
+    const n=Math.min(Ri.length, Rm.length);
+    const Yi=Ri.slice(-n), Xm=Rm.slice(-n);
+
+    // Return (ann.) = CAGR finestra effettiva
+    const nDays=(aCloses.length-1);
+    const priceRatio=aCloses[aCloses.length-1]/aCloses[0];
+    const cagr = nDays>0 ? Math.pow(priceRatio, 252/nDays) - 1 : 0;
+
+    const volAnn = stdev(Yi) * Math.sqrt(252);
+    const mdd    = maxDrawdown(aCloses.slice(-effLB));
+    const dd     = downsideDeviation(Yi, 0) * Math.sqrt(252);
+
+    const {a,b,r2,eps}=olsSlopeIntercept(Xm, Yi);
+    const alphaAnn = a * 252;
+    const sigeAnn  = stdev(eps) * Math.sqrt(252);
+
+    // correlazione
+    const sx=stdev(Xm), sy=stdev(Yi);
+    const mx=Xm.reduce((s,v)=>s+v,0)/Xm.length;
+    const my=Yi.reduce((s,v)=>s+v,0)/Yi.length;
+    let cov=0; for(let i=0;i<n;i++) cov+=(Xm[i]-mx)*(Yi[i]-my); cov/=(n-1);
+    const corr=(sx===0||sy===0)?0:(cov/(sx*sy));
+
+    const set=(id,val)=>document.getElementById(id).textContent=val;
+    set("rm-beta", b.toFixed(3));
+    set("rm-alpha",(alphaAnn*100).toFixed(2)+"%");
+    set("rm-r2",   r2.toFixed(3));
+    set("rm-corr", corr.toFixed(3));
+    set("rm-sige", (sigeAnn*100).toFixed(2)+"%");
+    set("rm-ret",  (cagr*100).toFixed(2)+"%");
+    set("rm-vol",  (volAnn*100).toFixed(2)+"%");
+    set("rm-mdd",  (mdd*100).toFixed(2)+"%");
+    set("rm-dd",   (dd*100).toFixed(2)+"%");
+  } catch(err){
+    console.error("updateBlock3 error:", err);
+    content.querySelector(".risk-metrics").insertAdjacentHTML('beforeend', `<div class="rm-warning">Errore durante il calcolo metriche.</div>`);
   }
-
-  const [aAll, mAll]=getAlignedCloses(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
-  const effLB=Math.min(252, Math.max(1, Math.min(aAll.length-1, mAll.length-1)));
-  document.getElementById("rm-title").textContent = `Metrics (daily, last ${effLB})`;
-
-  const aCloses=aAll.slice(-(effLB+1));
-  const mCloses=mAll.slice(-(effLB+1));
-  const Ri=dailyReturns(aCloses);
-  const Rm=dailyReturns(mCloses);
-  const n=Math.min(Ri.length, Rm.length);
-  const Yi=Ri.slice(-n), Xm=Rm.slice(-n);
-
-  // Return (ann.) = CAGR finestra effettiva
-  const nDays=(aCloses.length-1);
-  const priceRatio=aCloses[aCloses.length-1]/aCloses[0];
-  const cagr = nDays>0 ? Math.pow(priceRatio, 252/nDays) - 1 : 0;
-
-  const volAnn = stdev(Yi) * Math.sqrt(252);
-  const mdd    = maxDrawdown(aCloses.slice(-effLB));
-  const dd     = downsideDeviation(Yi, 0) * Math.sqrt(252);
-
-  const {a,b,r2,eps}=olsSlopeIntercept(Xm, Yi);
-  const alphaAnn = a * 252;
-  const sigeAnn  = stdev(eps) * Math.sqrt(252);
-
-  // correlazione
-  const sx=stdev(Xm), sy=stdev(Yi);
-  const mx=Xm.reduce((s,v)=>s+v,0)/Xm.length;
-  const my=Yi.reduce((s,v)=>s+v,0)/Yi.length;
-  let cov=0; for(let i=0;i<n;i++) cov+=(Xm[i]-mx)*(Yi[i]-my); cov/=(n-1);
-  const corr=(sx===0||sy===0)?0:(cov/(sx*sy));
-
-  const set=(id,val)=>document.getElementById(id).textContent=val;
-  set("rm-beta", b.toFixed(3));
-  set("rm-alpha",(alphaAnn*100).toFixed(2)+"%");
-  set("rm-r2",   r2.toFixed(3));
-  set("rm-corr", corr.toFixed(3));
-  set("rm-sige", (sigeAnn*100).toFixed(2)+"%");
-  set("rm-ret",  (cagr*100).toFixed(2)+"%");
-  set("rm-vol",  (volAnn*100).toFixed(2)+"%");
-  set("rm-mdd",  (mdd*100).toFixed(2)+"%");
-  set("rm-dd",   (dd*100).toFixed(2)+"%");
 }
 
 /* ── Block 4: Fondamentali ───────────────────────────────────────────── */
