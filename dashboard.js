@@ -123,20 +123,22 @@ function updateChartGeneric(instrumentName, groupData){
 }
 export function updateChart(i,g){ updateChartGeneric(i,g); }
 
-/* ── Block 2: SIM + Benchmark (tab) ─────────────────────────────────── */
 export function updateSIM(instrumentName, groupData, pricesData){
-  const tv=groupData[instrumentName]?.tvSymbol;
-  const block2=document.getElementById("block2");
+  const tv = groupData[instrumentName]?.tvSymbol;
+  const block2 = document.getElementById("block2");
 
-  let container=block2.querySelector("#symbol-info-container");
-  if(!container){ container=document.createElement("div"); container.id="symbol-info-container"; block2.appendChild(container); }
-  container.innerHTML=`
-    <div class="sim-header">
-      <div class="sim-title">Single-Index Model (daily)</div>
-      <div class="sim-tabs">
-        <button class="tab-btn active" data-tab="sim">Single-Index</button>
-        <button class="tab-btn" data-tab="bench">Benchmark</button>
-      </div>
+  let container = block2.querySelector("#symbol-info-container");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "symbol-info-container";
+    block2.appendChild(container);
+  }
+
+  // Niente titolo: solo le tab
+  container.innerHTML = `
+    <div class="sim-tabs">
+      <button class="tab-btn active" data-tab="sim">Single-Index</button>
+      <button class="tab-btn" data-tab="bench">Benchmark</button>
     </div>
     <div class="sim-body">
       <div id="pane-sim" class="sim-pane"><canvas id="sim-canvas"></canvas></div>
@@ -144,12 +146,55 @@ export function updateSIM(instrumentName, groupData, pricesData){
     </div>
   `;
 
-  const assetSeriesRaw=getSeriesForSymbol(pricesData,tv);
-  const benchSeriesRaw=getBenchmarkSeries(pricesData);
-  if(!assetSeriesRaw||!benchSeriesRaw){
-    container.querySelector(".sim-body").innerHTML=`<div class="sim-missing">Benchmark o serie prezzi non disponibili.</div>`;
+  const assetSeriesRaw = getSeriesForSymbol(pricesData, tv);
+  const benchSeriesRaw = getBenchmarkSeries(pricesData);
+  if (!assetSeriesRaw || !benchSeriesRaw) {
+    container.querySelector(".sim-body").innerHTML =
+      `<div class="sim-missing">Benchmark o serie prezzi non disponibili.</div>`;
     return;
   }
+
+  // finestra effettiva max 252
+  const [aAll, mAll, labelsAll] = getAlignedClosesAndDates(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
+  const effLB = Math.min(252, Math.max(1, Math.min(aAll.length-1, mAll.length-1)));
+  const aCloses = aAll.slice(-(effLB+1));
+  const mCloses = mAll.slice(-(effLB+1));
+  const labels  = labelsAll.slice(-(effLB+1)).slice(1); // allineato ai returns
+
+  // === SIM (scatter) ===
+  const Ri = dailyReturns(aCloses);
+  const Rm = dailyReturns(mCloses);
+  const n  = Math.min(Ri.length, Rm.length);
+  const Yi = Ri.slice(-n), Xm = Rm.slice(-n);
+  const { a, b } = olsSlopeIntercept(Xm, Yi);
+  const points = Xm.map((x,i)=>({ x, y: Yi[i] }));
+  renderScatterWithRegression("sim-canvas", points, { a, b });
+
+  // === Benchmark (linee cum %) ===
+  const assetCum = cumulativeReturns(Yi);
+  const benchCum = cumulativeReturns(Xm);
+  renderBenchmarkLines("bench-canvas", labels.slice(-n), assetCum, benchCum);
+
+  // tabs
+  container.querySelectorAll(".tab-btn").forEach(btn=>{
+    btn.onclick = () => {
+      container.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      const tab = btn.dataset.tab;
+      document.getElementById("pane-sim").style.display   = (tab==="sim")   ? "block" : "none";
+      document.getElementById("pane-bench").style.display = (tab==="bench") ? "block" : "none";
+      const id = (tab==="sim") ? "sim-canvas" : "bench-canvas";
+      requestAnimationFrame(()=>window.Chart?.getChart(id)?.resize());
+    };
+  });
+
+  // forza il riempimento verticale
+  requestAnimationFrame(()=>{
+    window.Chart?.getChart('sim-canvas')?.resize();
+    window.Chart?.getChart('bench-canvas')?.resize();
+  });
+}
+
 
   // finestra effettiva max 252
   const [aAll, mAll, labelsAll]=getAlignedClosesAndDates(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
