@@ -4,11 +4,9 @@
 // Altre asset class restano come prima.
 
 import { renderBarChart, renderPieChart, destroyChartIfExists, renderScatterWithRegression } from "./charts.js";
-// import futuresMap from "./futuresMap.js"; // legacy
-// import { showSpread } from "./spreadView.js"; // legacy
 
 // ───────────────────────────────────────────────────────────
-// Label arrays (reintroduced for backward-compat with portfolioBuilder)
+// Label arrays (backward-compat con altri moduli)
 // ───────────────────────────────────────────────────────────
 export const leftLabels        = [
   "SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MICRO","MATH","STATS","TECH"
@@ -40,7 +38,7 @@ export const fxRightLabels     = [
 ];
 
 // ───────────────────────────────────────────────────────────
-// Helpers comuni
+// Helpers
 // ───────────────────────────────────────────────────────────
 export function parseGap(val) {
   return (val === "-" || isNaN(parseFloat(val))) ? 0 : parseFloat(val);
@@ -116,8 +114,8 @@ function olsSlopeIntercept(x, y) {
   const mx = mean(x), my = mean(y);
   let num=0, den=0;
   for (let i=0;i<n;i++){ num += (x[i]-mx)*(y[i]-my); den += (x[i]-mx)**2; }
-  const b = den === 0 ? 0 : num/den;
-  const a = my - b*mx;
+  const b = den === 0 ? 0 : num/den;          // beta (slope)
+  const a = my - b*mx;                         // alpha (daily)
   const yhat = x.map(xi => a + b*xi);
   const eps  = y.map((yi, i) => yi - yhat[i]);
   const sst  = y.reduce((s,yi)=>s+(yi-my)**2,0);
@@ -179,7 +177,7 @@ function updateChartGeneric(instrumentName, groupData) {
 export function updateChart(instrumentName, groupData) { updateChartGeneric(instrumentName, groupData); }
 
 // ───────────────────────────────────────────────────────────
-// Block 2: Single-Index Model (solo EQUITIES)
+// Block 2: Single-Index Model (EQUITIES)
 // ───────────────────────────────────────────────────────────
 export function updateSIM(instrumentName, groupData, pricesData, lookback=252) {
   const info = groupData[instrumentName];
@@ -252,7 +250,7 @@ export function updateSIM(instrumentName, groupData, pricesData, lookback=252) {
 }
 
 // ───────────────────────────────────────────────────────────
-// Block 3: Risk/Return metrics (solo EQUITIES)
+// Block 3: Risk/Return metrics (EQUITIES)
 // ───────────────────────────────────────────────────────────
 export function updateBlock3(instrumentName, groupData, pricesData, lookback=252) {
   const wrap = document.getElementById("block3");
@@ -365,6 +363,17 @@ function renderFundRow(label, value, suffix="", isFraction=false) {
   return `<div class="fund-row"><span>${label}</span><strong>${value}</strong></div>`;
 }
 
+// ───────────────────────────────────────────────────────────
+// Compat: richiesto da main.js (instrada al SIM)
+// ───────────────────────────────────────────────────────────
+export function updateSymbolOverview(instrumentName, groupData) {
+  const pricesData = window?.pricesData || {
+    stockPrices:{}, etfPrices:{}, futuresPrices:{}, fxPrices:{}
+  };
+  return updateSIM(instrumentName, groupData, pricesData, 252);
+}
+
+// Legacy no-op
 export function initBlock3Tabs() { /* single tab now for equities */ }
 export function openYouTubePopup() {
   const popup = document.getElementById("youtube-popup");
