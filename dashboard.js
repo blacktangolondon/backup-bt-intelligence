@@ -126,13 +126,13 @@ function updateChartGeneric(instrumentName, groupData){
   const info   = groupData[instrumentName];
   const symbol = ((info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN").replace(/-/g, '_');
 
-  const block1    = document.getElementById("block1");
+  const block1 = document.getElementById("block1");
   const container = block1.querySelector(".tradingview-widget-container");
   container.innerHTML = `
     <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
   `;
 
-  const script = document.createElement("script");
+  const script = document.createElement('script');
   script.type  = "text/javascript";
   script.src   = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
   script.async = true;
@@ -144,24 +144,18 @@ function updateChartGeneric(instrumentName, groupData){
     "theme": "dark",
     "style": "1",
     "locale": "en",
-
+    "hide_top_toolbar": true,
+    "hide_side_toolbar": false,
+    "withdateranges": false,
+    "details": false,
     "allow_symbol_change": false,
     "backgroundColor": "#000000",
-    "details": false,
     "calendar": false,
-
-    /* UI */
-    "hide_side_toolbar": false,             // lascia la barra laterale
-    "withdateranges": false,                // rimuove i pulsanti range in basso
-    "disabled_features": [
-      "header_widget",                      // ⬅︎ rimuove la barra SUPERIORE
-      "timeframes_toolbar"                  // (opzionale) rimuove la fila timeframes
-    ],
-
     "support_host": "https://www.tradingview.com"
   }`;
   container.appendChild(script);
 }
+
 export function updateChart(i,g){ updateChartGeneric(i,g); }
 
 /* ── Stato per benchmark selezionato ─────────────────────────────────── */
