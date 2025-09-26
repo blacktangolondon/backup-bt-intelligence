@@ -1,12 +1,11 @@
 // dashboard.js
 // ----------------
 // EQUITIES: Block2 = Single-Index Model (SIM); Block3 = risk/return metrics; Block4 = fondamentali.
-// Altre asset class restano come prima.
 
 import { renderBarChart, renderPieChart, destroyChartIfExists, renderScatterWithRegression } from "./charts.js";
 
 // ───────────────────────────────────────────────────────────
-// Label arrays (backward-compat con altri moduli)
+// Label arrays (compat)
 // ───────────────────────────────────────────────────────────
 export const leftLabels        = [
   "SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MICRO","MATH","STATS","TECH"
@@ -44,35 +43,77 @@ export function parseGap(val) {
   return (val === "-" || isNaN(parseFloat(val))) ? 0 : parseFloat(val);
 }
 
-function getSeriesForSymbol(pricesData, tvSymbol) {
-  const buckets = [
-    pricesData?.stockPrices || {},
-    pricesData?.etfPrices || {},
-    pricesData?.futuresPrices || {},
-    pricesData?.fxPrices || {}
-  ];
-  for (const b of buckets) {
-    if (b[tvSymbol]) return b[tvSymbol];
-  }
-  return null;
+// mapping TradingView → Yahoo (suffisso borsistico)
+const TV2Y_SUFFIX = {
+  "XETR": ".DE",
+  "FWB":  ".DE",
+  "NASDAQ": "",
+  "NYSE": "",
+  "AMEX": "",
+  "NYSEARCA": "",
+  "MIL": ".MI",
+  "BIT": ".MI",
+  "BME": ".MC",
+  "BMFBOVESPA": ".SA",
+  "TSX": ".TO",
+  "TSXV": ".V",
+  "ASX": ".AX",
+  "LSE": ".L",
+  "LSEIOB": ".L",
+  "EPA": ".PA",
+  "Euronext": ".PA",
+  "AMS": ".AS",
+  "SWX": ".SW",
+  "SIX": ".SW",
+  "HKEX": ".HK",
+  "JPX": ".T",
+};
+
+// genera una lista di chiavi papabili per prices.json a partire dal tvSymbol
+function candidatesFromTvSymbol(tvSymbol) {
+  if (!tvSymbol || typeof tvSymbol !== "string") return [];
+  const [ex, raw] = tvSymbol.split(":");
+  const base = raw || tvSymbol;
+  const suffix = TV2Y_SUFFIX[ex] ?? "";
+  const yahooGuess = base + suffix;
+
+  // es. NASDAQ:AAPL → ["NASDAQ:AAPL","AAPL"]
+  //     XETR:1COV   → ["XETR:1COV","1COV",".DE mapping → 1COV.DE"]
+  const list = [tvSymbol, base];
+  if (suffix && !base.endsWith(suffix)) list.push(yahooGuess);
+  return Array.from(new Set(list));
 }
 
-function getBenchmarkSeries(pricesData) {
-  const candidates = ['^GSPC', 'GSPC', 'INDEX:GSPC', 'SPX', 'SPX500USD'];
+// Cerca una serie in qualunque bucket con una lista di chiavi
+function lookupAny(pricesData, keys) {
   const buckets = [
     pricesData?.stockPrices || {},
     pricesData?.etfPrices || {},
     pricesData?.futuresPrices || {},
     pricesData?.fxPrices || {}
   ];
-  for (const name of candidates) {
+  for (const k of keys) {
     for (const b of buckets) {
-      if (b[name]) return b[name];
+      if (b[k]) return b[k];
     }
   }
   return null;
 }
 
+// Trova serie prezzi per tvSymbol (con fallback alias)
+function getSeriesForSymbol(pricesData, tvSymbol) {
+  const keys = candidatesFromTvSymbol(tvSymbol);
+  return lookupAny(pricesData, keys);
+}
+
+// Trova benchmark: ^GSPC se presente, altrimenti SPY (o sinonimi)
+function getBenchmarkSeries(pricesData) {
+  const primary = lookupAny(pricesData, ['^GSPC','GSPC','INDEX:GSPC','SPX','SPX500USD']);
+  if (primary) return primary;
+  return lookupAny(pricesData, ['SPY','NYSEARCA:SPY','AMEX:SPY','ARCX:SPY']);
+}
+
+// Normalizza la serie in {date, close}
 function normalizeCloseSeries(series) {
   if (!series) return [];
   return series.map(row => {
@@ -114,7 +155,7 @@ function olsSlopeIntercept(x, y) {
   const mx = mean(x), my = mean(y);
   let num=0, den=0;
   for (let i=0;i<n;i++){ num += (x[i]-mx)*(y[i]-my); den += (x[i]-mx)**2; }
-  const b = den === 0 ? 0 : num/den;          // beta (slope)
+  const b = den === 0 ? 0 : num/den;          // beta
   const a = my - b*mx;                         // alpha (daily)
   const yhat = x.map(xi => a + b*xi);
   const eps  = y.map((yi, i) => yi - yhat[i]);
@@ -200,24 +241,30 @@ export function updateSIM(instrumentName, groupData, pricesData, lookback=252) {
         <div><span>σ<sub>ε</sub> (ann.)</span><strong id="sim-sige">–</strong></div>
         <div><span>Corr(i,m)</span><strong id="sim-corr">–</strong></div>
       </div>
-      <div class="sim-chart">
-        <canvas id="sim-canvas"></canvas>
-      </div>
+      <div class="sim-chart"><canvas id="sim-canvas"></canvas></div>
     </div>
   `;
 
-  const seriesA = normalizeCloseSeries(getSeriesForSymbol(pricesData, tv));
-  const seriesM = normalizeCloseSeries(getBenchmarkSeries(pricesData));
+  const assetSeriesRaw = getSeriesForSymbol(pricesData, tv);
+  const benchSeriesRaw = getBenchmarkSeries(pricesData);
 
-  if (!seriesA?.length || !seriesM?.length) {
-    const b = container.querySelector(".sim-metrics");
-    if (b) b.innerHTML = `<div class="sim-missing">Benchmark o serie prezzi non disponibili.</div>`;
+  if (!assetSeriesRaw || !benchSeriesRaw) {
+    container.querySelector(".sim-chart").innerHTML =
+      `<div class="sim-missing">Benchmark o serie prezzi non disponibili.</div>`;
     return;
   }
+
+  const seriesA = normalizeCloseSeries(assetSeriesRaw);
+  const seriesM = normalizeCloseSeries(benchSeriesRaw);
 
   const [aAligned, mAligned] = alignByDate(seriesA, seriesM);
   const aCloses = lastN(aAligned.map(r => r.close), lookback+1);
   const mCloses = lastN(mAligned.map(r => r.close), lookback+1);
+  if (aCloses.length < 2 || mCloses.length < 2) {
+    container.querySelector(".sim-chart").innerHTML =
+      `<div class="sim-missing">Dati insufficienti per la regressione.</div>`;
+    return;
+  }
 
   const ri = dailyReturns(aCloses);
   const rm = dailyReturns(mCloses);
@@ -276,17 +323,25 @@ export function updateBlock3(instrumentName, groupData, pricesData, lookback=252
   `;
 
   const tv = groupData[instrumentName]?.tvSymbol;
-  const seriesA = normalizeCloseSeries(getSeriesForSymbol(pricesData, tv));
-  const seriesM = normalizeCloseSeries(getBenchmarkSeries(pricesData));
-  if (!seriesA?.length || !seriesM?.length) {
+  const assetSeriesRaw = getSeriesForSymbol(pricesData, tv);
+  const benchSeriesRaw = getBenchmarkSeries(pricesData);
+
+  if (!assetSeriesRaw || !benchSeriesRaw) {
     content.querySelector(".risk-metrics").insertAdjacentHTML('beforeend',
       `<div class="rm-warning">Serie prezzi mancanti per calcolare le metriche.</div>`);
     return;
   }
 
+  const seriesA = normalizeCloseSeries(assetSeriesRaw);
+  const seriesM = normalizeCloseSeries(benchSeriesRaw);
   const [aAligned, mAligned] = alignByDate(seriesA, seriesM);
   const aCloses = lastN(aAligned.map(r => r.close), lookback+1);
   const mCloses = lastN(mAligned.map(r => r.close), lookback+1);
+  if (aCloses.length < 2 || mCloses.length < 2) {
+    content.querySelector(".risk-metrics").insertAdjacentHTML('beforeend',
+      `<div class="rm-warning">Dati insufficienti.</div>`);
+    return;
+  }
 
   const ri = dailyReturns(aCloses);
   const rm = dailyReturns(mCloses);
@@ -363,9 +418,7 @@ function renderFundRow(label, value, suffix="", isFraction=false) {
   return `<div class="fund-row"><span>${label}</span><strong>${value}</strong></div>`;
 }
 
-// ───────────────────────────────────────────────────────────
 // Compat: richiesto da main.js (instrada al SIM)
-// ───────────────────────────────────────────────────────────
 export function updateSymbolOverview(instrumentName, groupData) {
   const pricesData = window?.pricesData || {
     stockPrices:{}, etfPrices:{}, futuresPrices:{}, fxPrices:{}
