@@ -75,7 +75,7 @@ export function renderBenchmarkLines(canvasId, labels, assetCum, benchCum) {
   if (!canvas) return null;
   const ctx = canvas.getContext('2d');
 
-  const fmtPct = v => `${(v * 100).toFixed(0)}%`;
+  const fmtPct   = v => `${(v * 100).toFixed(0)}%`;
   const fmtPctTT = v => `${(v * 100).toFixed(2)}%`;
 
   const chart = new Chart(ctx, {
@@ -83,7 +83,7 @@ export function renderBenchmarkLines(canvasId, labels, assetCum, benchCum) {
     data: {
       labels,
       datasets: [
-        { label: 'Asset (cum %)', data: assetCum, borderWidth: 2, pointRadius: 0, tension: 0.2 },
+        { label: 'Asset (cum %)',     data: assetCum, borderWidth: 2, pointRadius: 0, tension: 0.2 },
         { label: 'Benchmark (cum %)', data: benchCum, borderWidth: 2, pointRadius: 0, tension: 0.2 }
       ]
     },
@@ -91,12 +91,8 @@ export function renderBenchmarkLines(canvasId, labels, assetCum, benchCum) {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
-        x: {
-          ticks: { color: 'white', maxRotation: 0, autoSkip: true },
-        },
-        y: {
-          ticks: { color: 'white', callback: (v)=>fmtPct(v) }
-        }
+        x: { display: false },                   // ← NIENTE etichette D104, ecc.
+        y: { ticks: { color: 'white', callback: (v)=>fmtPct(v) } }
       },
       plugins: {
         legend: { labels: { color: 'white' } },
@@ -113,6 +109,7 @@ export function renderBenchmarkLines(canvasId, labels, assetCum, benchCum) {
   requestAnimationFrame(() => chart.resize());
   return chart;
 }
+
 
 /* Stubs compat (se altri moduli li importano) */
 export function renderBarChart(){ /* no-op */ }
