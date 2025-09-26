@@ -5,36 +5,16 @@
 import { renderBarChart, renderPieChart, destroyChartIfExists, renderScatterWithRegression } from "./charts.js";
 
 // ───────────────────────────────────────────────────────────
-// Label arrays (compat)
+// Label arrays (compatibilità con moduli legacy)
 // ───────────────────────────────────────────────────────────
-export const leftLabels        = [
-  "SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MICRO","MATH","STATS","TECH"
-];
-export const rightLabels       = [
-  "S&P500 CORRELATION","S&P500 VOLATILITY RATIO","BULLISH ALPHA","BEARISH ALPHA",
-  "ALPHA STRENGHT","PE RATIO","EPS","1 YEAR HIGH","1 YEAR LOW"
-];
-export const etfLeftLabels     = [
-  "SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MATH","STATS","TECH"
-];
-export const etfRightLabels    = [
-  "S&P500 CORRELATION","S&P500 VOLATILITY RATIO","BULLISH ALPHA","BEARISH ALPHA",
-  "ALPHA STRENGHT","1 YEAR HIGH","1 YEAR LOW","TICKER"
-];
-export const futuresLeftLabels = [
-  "SCORE","TREND","APPROACH","GAP TO PEAK / TO VALLEY","KEY AREA","LIMIT","POTENTIAL EXTENSION"
-];
-export const futuresRightLabels= [
-  "S&P500 CORRELATION","S&P500 VOLATILITY RATIO","ALPHA STRENGHT","MID TERM PRICE % PROJECTION",
-  "MATH","STATS","TECH"
-];
-export const fxLeftLabels      = [
-  "SCORE","TREND","APPROACH","GAP TO PEAK / TO VALLEY","KEY AREA","LIMIT","POTENTIAL EXTENSION"
-];
-export const fxRightLabels     = [
-  "S&P500 CORRELATION","S&P500 VOLATILITY RATIO","ALPHA STRENGHT","MID TERM PRICE % PROJECTION",
-  "MATH","STATS","TECH"
-];
+export const leftLabels        = ["SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MICRO","MATH","STATS","TECH"];
+export const rightLabels       = ["S&P500 CORRELATION","S&P500 VOLATILITY RATIO","BULLISH ALPHA","BEARISH ALPHA","ALPHA STRENGHT","PE RATIO","EPS","1 YEAR HIGH","1 YEAR LOW"];
+export const etfLeftLabels     = ["SCORE","TREND","APPROACH","GAP TO PEAK","KEY AREA","MATH","STATS","TECH"];
+export const etfRightLabels    = ["S&P500 CORRELATION","S&P500 VOLATILITY RATIO","BULLISH ALPHA","BEARISH ALPHA","ALPHA STRENGHT","1 YEAR HIGH","1 YEAR LOW","TICKER"];
+export const futuresLeftLabels = ["SCORE","TREND","APPROACH","GAP TO PEAK / TO VALLEY","KEY AREA","LIMIT","POTENTIAL EXTENSION"];
+export const futuresRightLabels= ["S&P500 CORRELATION","S&P500 VOLATILITY RATIO","ALPHA STRENGHT","MID TERM PRICE % PROJECTION","MATH","STATS","TECH"];
+export const fxLeftLabels      = ["SCORE","TREND","APPROACH","GAP TO PEAK / TO VALLEY","KEY AREA","LIMIT","POTENTIAL EXTENSION"];
+export const fxRightLabels     = ["S&P500 CORRELATION","S&P500 VOLATILITY RATIO","ALPHA STRENGHT","MID TERM PRICE % PROJECTION","MATH","STATS","TECH"];
 
 // ───────────────────────────────────────────────────────────
 // Helpers
@@ -43,48 +23,32 @@ export function parseGap(val) {
   return (val === "-" || isNaN(parseFloat(val))) ? 0 : parseFloat(val);
 }
 
-// mapping TradingView → Yahoo (suffisso borsistico)
+// Mapping TradingView → suffisso Yahoo
 const TV2Y_SUFFIX = {
-  "XETR": ".DE",
-  "FWB":  ".DE",
-  "NASDAQ": "",
-  "NYSE": "",
-  "AMEX": "",
-  "NYSEARCA": "",
-  "MIL": ".MI",
-  "BIT": ".MI",
+  "XETR": ".DE", "FWB": ".DE",
+  "NASDAQ": "", "NYSE": "", "AMEX": "", "NYSEARCA": "",
+  "MIL": ".MI", "BIT": ".MI",
   "BME": ".MC",
-  "BMFBOVESPA": ".SA",
-  "TSX": ".TO",
-  "TSXV": ".V",
+  "TSX": ".TO", "TSXV": ".V",
   "ASX": ".AX",
-  "LSE": ".L",
-  "LSEIOB": ".L",
-  "EPA": ".PA",
-  "Euronext": ".PA",
-  "AMS": ".AS",
-  "SWX": ".SW",
-  "SIX": ".SW",
+  "LSE": ".L", "LSEIOB": ".L",
+  "EPA": ".PA", "Euronext": ".PA", "AMS": ".AS",
+  "SWX": ".SW", "SIX": ".SW",
   "HKEX": ".HK",
-  "JPX": ".T",
+  "JPX": ".T"
 };
 
-// genera una lista di chiavi papabili per prices.json a partire dal tvSymbol
 function candidatesFromTvSymbol(tvSymbol) {
   if (!tvSymbol || typeof tvSymbol !== "string") return [];
   const [ex, raw] = tvSymbol.split(":");
   const base = raw || tvSymbol;
   const suffix = TV2Y_SUFFIX[ex] ?? "";
   const yahooGuess = base + suffix;
-
-  // es. NASDAQ:AAPL → ["NASDAQ:AAPL","AAPL"]
-  //     XETR:1COV   → ["XETR:1COV","1COV",".DE mapping → 1COV.DE"]
   const list = [tvSymbol, base];
   if (suffix && !base.endsWith(suffix)) list.push(yahooGuess);
   return Array.from(new Set(list));
 }
 
-// Cerca una serie in qualunque bucket con una lista di chiavi
 function lookupAny(pricesData, keys) {
   const buckets = [
     pricesData?.stockPrices || {},
@@ -100,52 +64,71 @@ function lookupAny(pricesData, keys) {
   return null;
 }
 
-// Trova serie prezzi per tvSymbol (con fallback alias)
 function getSeriesForSymbol(pricesData, tvSymbol) {
-  const keys = candidatesFromTvSymbol(tvSymbol);
-  return lookupAny(pricesData, keys);
+  return lookupAny(pricesData, candidatesFromTvSymbol(tvSymbol));
 }
 
-// Trova benchmark: ^GSPC se presente, altrimenti SPY (o sinonimi)
 function getBenchmarkSeries(pricesData) {
   const primary = lookupAny(pricesData, ['^GSPC','GSPC','INDEX:GSPC','SPX','SPX500USD']);
   if (primary) return primary;
   return lookupAny(pricesData, ['SPY','NYSEARCA:SPY','AMEX:SPY','ARCX:SPY']);
 }
 
-// Normalizza la serie in {date, close}
-function normalizeCloseSeries(series) {
-  if (!series) return [];
-  return series.map(row => {
+// === NUOVO: estrazione close + eventuali date ===
+function extractClosesAndDates(series) {
+  if (!series) return { closes: [], dates: null };
+  // Caso 1: array di numeri (close-only)
+  if (Array.isArray(series) && (series.length === 0 || typeof series[0] === "number")) {
+    const closes = series.map(Number).filter(v => Number.isFinite(v));
+    return { closes, dates: null }; // niente date → si allinea per indice
+  }
+  // Caso 2: array eterogeneo/oggetti: prova a prendere date/close
+  const rows = series.map(row => {
     if (Array.isArray(row)) {
-      const c = (row.length >= 5) ? row[4] : row[1];
-      const d = row[0];
-      return { date: d, close: +c };
-    } else if (typeof row === 'object') {
-      const c = row.close ?? row.Close ?? row.c;
-      const d = row.date ?? row.Date ?? row.t;
-      return { date: d, close: +c };
+      const close = (row.length >= 5) ? +row[4] : +row[1];
+      const date  = row[0];
+      return Number.isFinite(close) ? { date: date, close } : null;
+    } else if (typeof row === "object" && row) {
+      const close = +(row.close ?? row.Close ?? row.c);
+      const date  =  (row.date ?? row.Date ?? row.t);
+      return Number.isFinite(close) ? { date, close } : null;
     }
     return null;
   }).filter(Boolean);
+  return {
+    closes: rows.map(r => r.close),
+    dates:  rows.map(r => r.date)
+  };
+}
+
+// Allineamento: se entrambe le serie hanno date, allinea per data; altrimenti per indice
+function getAlignedCloses(seriesA, seriesB, lookbackPlus1) {
+  const A = extractClosesAndDates(seriesA);
+  const B = extractClosesAndDates(seriesB);
+  // per indice (default senza date)
+  if (!A.dates || !B.dates) {
+    const n = Math.min(A.closes.length, B.closes.length, lookbackPlus1);
+    return [A.closes.slice(-n), B.closes.slice(-n)];
+    }
+  // per data
+  const mapB = new Map(B.dates.map((d,i) => [String(d), B.closes[i]]));
+  const aDates = [], aCloses = [], bCloses = [];
+  for (let i=0;i<A.dates.length;i++) {
+    const key = String(A.dates[i]);
+    if (mapB.has(key)) {
+      aDates.push(key);
+      aCloses.push(A.closes[i]);
+      bCloses.push(mapB.get(key));
+    }
+  }
+  const n = Math.min(aCloses.length, bCloses.length, lookbackPlus1);
+  return [aCloses.slice(-n), bCloses.slice(-n)];
 }
 
 function dailyReturns(closes) {
   const rets = [];
-  for (let i = 1; i < closes.length; i++) {
-    rets.push(closes[i] / closes[i - 1] - 1);
-  }
+  for (let i = 1; i < closes.length; i++) rets.push(closes[i] / closes[i - 1] - 1);
   return rets;
-}
-
-function alignByDate(seriesA, seriesB) {
-  const mapB = new Map(seriesB.map(r => [String(r.date), r.close]));
-  const outA = [], outB = [];
-  for (const a of seriesA) {
-    const bClose = mapB.get(String(a.date));
-    if (bClose != null) { outA.push(a); outB.push({ date: a.date, close: bClose }); }
-  }
-  return [outA, outB];
 }
 function lastN(arr, n){ return arr.slice(Math.max(arr.length - n, 0)); }
 
@@ -162,7 +145,7 @@ function olsSlopeIntercept(x, y) {
   const sst  = y.reduce((s,yi)=>s+(yi-my)**2,0);
   const sse  = eps.reduce((s,e)=>s+e**2,0);
   const r2   = sst === 0 ? 0 : 1 - (sse/sst);
-  return { a, b, r2, eps, yhat, mx, my };
+  return { a, b, r2, eps };
 }
 
 function stdev(arr) {
@@ -173,6 +156,7 @@ function stdev(arr) {
   return Math.sqrt(v);
 }
 function maxDrawdown(closes) {
+  if (!closes.length) return 0;
   let peak = closes[0], mdd = 0;
   for (const c of closes) { peak = Math.max(peak, c); mdd = Math.min(mdd, c/peak - 1); }
   return mdd;
@@ -254,34 +238,28 @@ export function updateSIM(instrumentName, groupData, pricesData, lookback=252) {
     return;
   }
 
-  const seriesA = normalizeCloseSeries(assetSeriesRaw);
-  const seriesM = normalizeCloseSeries(benchSeriesRaw);
-
-  const [aAligned, mAligned] = alignByDate(seriesA, seriesM);
-  const aCloses = lastN(aAligned.map(r => r.close), lookback+1);
-  const mCloses = lastN(mAligned.map(r => r.close), lookback+1);
+  const [aCloses, mCloses] = getAlignedCloses(assetSeriesRaw, benchSeriesRaw, lookback+1);
   if (aCloses.length < 2 || mCloses.length < 2) {
     container.querySelector(".sim-chart").innerHTML =
       `<div class="sim-missing">Dati insufficienti per la regressione.</div>`;
     return;
   }
 
-  const ri = dailyReturns(aCloses);
-  const rm = dailyReturns(mCloses);
-  const n  = Math.min(ri.length, rm.length);
-  const R_i = ri.slice(-n);
-  const R_m = rm.slice(-n);
+  const R_i = dailyReturns(aCloses);
+  const R_m = dailyReturns(mCloses);
+  const n   = Math.min(R_i.length, R_m.length);
+  const Yi  = R_i.slice(-n);
+  const Xm  = R_m.slice(-n);
 
-  const { a, b, r2, eps } = olsSlopeIntercept(R_m, R_i);
-  const corr = (function(){
-    const sx = stdev(R_m), sy = stdev(R_i);
-    if (sx===0 || sy===0) return 0;
-    const mx = R_m.reduce((s,v)=>s+v,0)/R_m.length;
-    const my = R_i.reduce((s,v)=>s+v,0)/R_i.length;
-    let cov = 0; for (let i=0;i<R_m.length;i++) cov += (R_m[i]-mx)*(R_i[i]-my);
-    cov /= (R_m.length-1);
-    return cov / (sx*sy);
-  })();
+  const { a, b, r2, eps } = olsSlopeIntercept(Xm, Yi);
+
+  // Corr
+  const sx = stdev(Xm), sy = stdev(Yi);
+  const mx = Xm.reduce((s,v)=>s+v,0)/Xm.length;
+  const my = Yi.reduce((s,v)=>s+v,0)/Yi.length;
+  let cov = 0; for (let i=0;i<n;i++) cov += (Xm[i]-mx)*(Yi[i]-my);
+  cov /= (n-1);
+  const corr = (sx===0 || sy===0) ? 0 : (cov/(sx*sy));
 
   const alphaAnn = a * 252;
   const sigeAnn  = stdev(eps) * Math.sqrt(252);
@@ -292,7 +270,8 @@ export function updateSIM(instrumentName, groupData, pricesData, lookback=252) {
   document.getElementById("sim-sige").textContent = (sigeAnn*100).toFixed(2) + "%";
   document.getElementById("sim-corr").textContent = corr.toFixed(3);
 
-  const points = R_m.map((x, i) => ({ x, y: R_i[i] }));
+  // punti scatter (se non ho date, uso indice; Chart.js non ha bisogno di etichette)
+  const points = Xm.map((x, i) => ({ x, y: Yi[i] }));
   renderScatterWithRegression("sim-canvas", points, { a, b });
 }
 
@@ -332,43 +311,41 @@ export function updateBlock3(instrumentName, groupData, pricesData, lookback=252
     return;
   }
 
-  const seriesA = normalizeCloseSeries(assetSeriesRaw);
-  const seriesM = normalizeCloseSeries(benchSeriesRaw);
-  const [aAligned, mAligned] = alignByDate(seriesA, seriesM);
-  const aCloses = lastN(aAligned.map(r => r.close), lookback+1);
-  const mCloses = lastN(mAligned.map(r => r.close), lookback+1);
+  const [aCloses, mCloses] = getAlignedCloses(assetSeriesRaw, benchSeriesRaw, lookback+1);
   if (aCloses.length < 2 || mCloses.length < 2) {
     content.querySelector(".risk-metrics").insertAdjacentHTML('beforeend',
       `<div class="rm-warning">Dati insufficienti.</div>`);
     return;
   }
 
-  const ri = dailyReturns(aCloses);
-  const rm = dailyReturns(mCloses);
-  const n  = Math.min(ri.length, rm.length);
-  const R_i = ri.slice(-n);
-  const R_m = rm.slice(-n);
+  const R_i = dailyReturns(aCloses);
+  const R_m = dailyReturns(mCloses);
+  const n   = Math.min(R_i.length, R_m.length);
+  const Yi  = R_i.slice(-n);
+  const Xm  = R_m.slice(-n);
 
-  const muD  = R_i.reduce((s,v)=>s+v,0)/R_i.length;
-  const sdD  = stdev(R_i);
+  // metriche base
+  const muD  = Yi.reduce((s,v)=>s+v,0)/Yi.length;
+  const sdD  = stdev(Yi);
   const retAnn = muD * 252;
   const volAnn = sdD * Math.sqrt(252);
 
+  // drawdown / downside
   const mdd = maxDrawdown(aCloses.slice(-lookback));
-  const dd  = downsideDeviation(R_i, 0) * Math.sqrt(252);
+  const dd  = downsideDeviation(Yi, 0) * Math.sqrt(252);
 
-  const { a, b, r2, eps } = olsSlopeIntercept(R_m, R_i);
+  // SIM
+  const { a, b, r2, eps } = olsSlopeIntercept(Xm, Yi);
   const alphaAnn = a * 252;
   const sigeAnn  = stdev(eps) * Math.sqrt(252);
-  const corr = (function(){
-    const sx = stdev(R_m), sy = stdev(R_i);
-    if (sx===0 || sy===0) return 0;
-    const mx = R_m.reduce((s,v)=>s+v,0)/R_m.length;
-    const my = R_i.reduce((s,v)=>s+v,0)/R_i.length;
-    let cov = 0; for (let i=0;i<R_m.length;i++) cov += (R_m[i]-mx)*(R_i[i]-my);
-    cov /= (R_m.length-1);
-    return cov / (sx*sy);
-  })();
+
+  // corr
+  const sx = stdev(Xm), sy = stdev(Yi);
+  const mx = Xm.reduce((s,v)=>s+v,0)/Xm.length;
+  const my = Yi.reduce((s,v)=>s+v,0)/Yi.length;
+  let cov = 0; for (let i=0;i<n;i++) cov += (Xm[i]-mx)*(Yi[i]-my);
+  cov /= (n-1);
+  const corr = (sx===0 || sy===0) ? 0 : (cov/(sx*sy));
 
   const set = (id, val) => document.getElementById(id).textContent = val;
   set("rm-ret",  (retAnn*100).toFixed(2) + "%");
@@ -409,12 +386,7 @@ export function updateBlock4(instrumentName, groupData) {
 }
 function renderFundRow(label, value, suffix="", isFraction=false) {
   if (value == null || value === "") value = "–";
-  else {
-    if (typeof value === "number") {
-      if (isFraction) value = (value*100).toFixed(2) + (suffix||"");
-      else value = String(value);
-    }
-  }
+  else if (typeof value === "number") value = isFraction ? (value*100).toFixed(2) + (suffix||"") : String(value);
   return `<div class="fund-row"><span>${label}</span><strong>${value}</strong></div>`;
 }
 
