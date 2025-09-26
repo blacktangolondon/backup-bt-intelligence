@@ -1,19 +1,25 @@
 /**
- * charts.js – helper per Chart.js
+ * charts.js – helpers per Chart.js
  * - scatter SIM (assi/tooltip in %)
  * - line chart benchmark vs asset (assi/tooltip in %)
  */
 
-export function destroyChartIfExists(canvasId) {
-  const existing = window.Chart && window.Chart.getChart(canvasId);
+function getCanvas(elOrId){
+  return typeof elOrId === 'string' ? document.getElementById(elOrId) : elOrId;
+}
+
+export function destroyChartIfExists(elOrId) {
+  const canvas = getCanvas(elOrId);
+  if (!canvas) return;
+  const existing = window.Chart && window.Chart.getChart(canvas);
   if (existing) existing.destroy();
 }
 
-/** Scatter r_m vs r_i con retta; assi/tooltip in % */
-export function renderScatterWithRegression(canvasId, points, line) {
-  destroyChartIfExists(canvasId);
-  const canvas = document.getElementById(canvasId);
+/* Scatter r_m vs r_i con retta; assi/tooltip in % */
+export function renderScatterWithRegression(elOrId, points, line) {
+  const canvas = getCanvas(elOrId);
   if (!canvas) return null;
+  destroyChartIfExists(canvas);
   const ctx = canvas.getContext('2d');
 
   const xs = points.map(p => p.x);
@@ -68,11 +74,11 @@ export function renderScatterWithRegression(canvasId, points, line) {
   return chart;
 }
 
-/** Line chart: cumulative returns asset vs benchmark (assi/tooltip in %) */
-export function renderBenchmarkLines(canvasId, labels, assetCum, benchCum) {
-  destroyChartIfExists(canvasId);
-  const canvas = document.getElementById(canvasId);
+/* Line chart: cumulative returns asset vs benchmark (assi/tooltip in %) */
+export function renderBenchmarkLines(elOrId, labels, assetCum, benchCum) {
+  const canvas = getCanvas(elOrId);
   if (!canvas) return null;
+  destroyChartIfExists(canvas);
   const ctx = canvas.getContext('2d');
 
   const fmtPct   = v => `${(v * 100).toFixed(0)}%`;
@@ -91,7 +97,7 @@ export function renderBenchmarkLines(canvasId, labels, assetCum, benchCum) {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
-        x: { display: false },                   // ← NIENTE etichette D104, ecc.
+        x: { display: false }, // niente D104, ecc.
         y: { ticks: { color: 'white', callback: (v)=>fmtPct(v) } }
       },
       plugins: {
@@ -110,7 +116,6 @@ export function renderBenchmarkLines(canvasId, labels, assetCum, benchCum) {
   return chart;
 }
 
-
-/* Stubs compat (se altri moduli li importano) */
+/* Stubs compat per eventuali import legacy */
 export function renderBarChart(){ /* no-op */ }
 export function renderPieChart(){ /* no-op */ }
