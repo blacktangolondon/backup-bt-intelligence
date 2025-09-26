@@ -1,6 +1,6 @@
 // dashboard.js
 // ----------------
-// EQUITIES: Block2 = Single-Index Model (SIM); Block3 = risk/return metrics; Block4 = fondamentali.
+// EQUITIES: Block2 = Single-Index Model (SIM); Block3 = risk/return metrics (Return= CAGR window); Block4 = fondamentali.
 
 import { renderBarChart, renderPieChart, destroyChartIfExists, renderScatterWithRegression } from "./charts.js";
 
@@ -74,15 +74,13 @@ function getBenchmarkSeries(pricesData) {
   return lookupAny(pricesData, ['SPY','NYSEARCA:SPY','AMEX:SPY','ARCX:SPY']);
 }
 
-// === NUOVO: estrazione close + eventuali date ===
+// Estrae close + (se disponibili) date
 function extractClosesAndDates(series) {
   if (!series) return { closes: [], dates: null };
-  // Caso 1: array di numeri (close-only)
   if (Array.isArray(series) && (series.length === 0 || typeof series[0] === "number")) {
     const closes = series.map(Number).filter(v => Number.isFinite(v));
-    return { closes, dates: null }; // niente date → si allinea per indice
+    return { closes, dates: null }; // close-only → allineamento per indice
   }
-  // Caso 2: array eterogeneo/oggetti: prova a prendere date/close
   const rows = series.map(row => {
     if (Array.isArray(row)) {
       const close = (row.length >= 5) ? +row[4] : +row[1];
@@ -95,40 +93,31 @@ function extractClosesAndDates(series) {
     }
     return null;
   }).filter(Boolean);
-  return {
-    closes: rows.map(r => r.close),
-    dates:  rows.map(r => r.date)
-  };
+  return { closes: rows.map(r => r.close), dates: rows.map(r => r.date) };
 }
 
-// Allineamento: se entrambe le serie hanno date, allinea per data; altrimenti per indice
+// Allineamento: per data se entrambe le serie hanno date, altrimenti per indice
 function getAlignedCloses(seriesA, seriesB, lookbackPlus1) {
   const A = extractClosesAndDates(seriesA);
   const B = extractClosesAndDates(seriesB);
-  // per indice (default senza date)
   if (!A.dates || !B.dates) {
     const n = Math.min(A.closes.length, B.closes.length, lookbackPlus1);
     return [A.closes.slice(-n), B.closes.slice(-n)];
-    }
-  // per data
+  }
   const mapB = new Map(B.dates.map((d,i) => [String(d), B.closes[i]]));
-  const aDates = [], aCloses = [], bCloses = [];
+  const aCloses = [], bCloses = [];
   for (let i=0;i<A.dates.length;i++) {
     const key = String(A.dates[i]);
-    if (mapB.has(key)) {
-      aDates.push(key);
-      aCloses.push(A.closes[i]);
-      bCloses.push(mapB.get(key));
-    }
+    if (mapB.has(key)) { aCloses.push(A.closes[i]); bCloses.push(mapB.get(key)); }
   }
   const n = Math.min(aCloses.length, bCloses.length, lookbackPlus1);
   return [aCloses.slice(-n), bCloses.slice(-n)];
 }
 
 function dailyReturns(closes) {
-  const rets = [];
-  for (let i = 1; i < closes.length; i++) rets.push(closes[i] / closes[i - 1] - 1);
-  return rets;
+  const out = [];
+  for (let i = 1; i < closes.length; i++) out.push(closes[i] / closes[i - 1] - 1);
+  return out;
 }
 function lastN(arr, n){ return arr.slice(Math.max(arr.length - n, 0)); }
 
@@ -270,7 +259,6 @@ export function updateSIM(instrumentName, groupData, pricesData, lookback=252) {
   document.getElementById("sim-sige").textContent = (sigeAnn*100).toFixed(2) + "%";
   document.getElementById("sim-corr").textContent = corr.toFixed(3);
 
-  // punti scatter (se non ho date, uso indice; Chart.js non ha bisogno di etichette)
   const points = Xm.map((x, i) => ({ x, y: Yi[i] }));
   renderScatterWithRegression("sim-canvas", points, { a, b });
 }
@@ -324,11 +312,13 @@ export function updateBlock3(instrumentName, groupData, pricesData, lookback=252
   const Yi  = R_i.slice(-n);
   const Xm  = R_m.slice(-n);
 
-  // metriche base
-  const muD  = Yi.reduce((s,v)=>s+v,0)/Yi.length;
-  const sdD  = stdev(Yi);
-  const retAnn = muD * 252;
-  const volAnn = sdD * Math.sqrt(252);
+  // === RETURN (ann.) come CAGR sul window ===
+  const nDays = (aCloses.length - 1);
+  const priceRatio = aCloses[aCloses.length - 1] / aCloses[0];
+  const cagr = nDays > 0 ? Math.pow(priceRatio, 252 / nDays) - 1 : 0;
+
+  // Volatilità totale ann.
+  const volAnn = stdev(Yi) * Math.sqrt(252);
 
   // drawdown / downside
   const mdd = maxDrawdown(aCloses.slice(-lookback));
@@ -348,7 +338,7 @@ export function updateBlock3(instrumentName, groupData, pricesData, lookback=252
   const corr = (sx===0 || sy===0) ? 0 : (cov/(sx*sy));
 
   const set = (id, val) => document.getElementById(id).textContent = val;
-  set("rm-ret",  (retAnn*100).toFixed(2) + "%");
+  set("rm-ret",  (cagr*100).toFixed(2) + "%");
   set("rm-vol",  (volAnn*100).toFixed(2) + "%");
   set("rm-beta", b.toFixed(3));
   set("rm-alpha",(alphaAnn*100).toFixed(2) + "%");
