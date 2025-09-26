@@ -59,7 +59,7 @@ function availableBenchKeys(pricesData){
     Object.keys(pricesData?.futuresPrices||{}),
     Object.keys(pricesData?.fxPrices||{}),
   ].flat();
-  const pref = ['^GSPC','GSPC','SPY','^GDAXI','DAX','^STOXX50E']; // alcuni utili on top
+  const pref = ['^GSPC','GSPC','SPY','^GDAXI','DAX','^STOXX50E'];
   const set  = new Set([...pref, ...b]);
   return Array.from(set).filter(Boolean).sort((a,b)=>a.localeCompare(b));
 }
@@ -121,17 +121,18 @@ function olsSlopeIntercept(x,y){
   return {a,b,r2,eps};
 }
 
-// Replace the whole function with this:
+/* ── Block 1: TradingView (barra SUP. rimossa, laterale visibile) ────── */
 function updateChartGeneric(instrumentName, groupData){
   const info   = groupData[instrumentName];
   const symbol = ((info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN").replace(/-/g, '_');
 
-  const block1 = document.getElementById("block1");
+  const block1    = document.getElementById("block1");
   const container = block1.querySelector(".tradingview-widget-container");
-  container.innerHTML =
-    `<div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>`;
+  container.innerHTML = `
+    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+  `;
 
-  const script = document.createElement('script');
+  const script = document.createElement("script");
   script.type  = "text/javascript";
   script.src   = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
   script.async = true;
@@ -144,23 +145,26 @@ function updateChartGeneric(instrumentName, groupData){
     "style": "1",
     "locale": "en",
 
-    /* — slim UI — */
-    "hide_top_toolbar": true,      // ⬅︎ removes the top toolbar
-    "hide_side_toolbar": true,     // ⬅︎ removes the left drawing toolbar
-    "withdateranges": false,       // ⬅︎ removes the bottom range buttons
-    "details": false,              // optional: removes extra details strip
-
     "allow_symbol_change": false,
     "backgroundColor": "#000000",
+    "details": false,
     "calendar": false,
+
+    /* UI */
+    "hide_side_toolbar": false,             // lascia la barra laterale
+    "withdateranges": false,                // rimuove i pulsanti range in basso
+    "disabled_features": [
+      "header_widget",                      // ⬅︎ rimuove la barra SUPERIORE
+      "timeframes_toolbar"                  // (opzionale) rimuove la fila timeframes
+    ],
+
     "support_host": "https://www.tradingview.com"
   }`;
   container.appendChild(script);
 }
-
 export function updateChart(i,g){ updateChartGeneric(i,g); }
 
-/* ── State per benchmark selezionato ─────────────────────────────────── */
+/* ── Stato per benchmark selezionato ─────────────────────────────────── */
 function getInstKey(groupData, instrumentName){
   return groupData[instrumentName]?.tvSymbol || instrumentName || "";
 }
@@ -256,11 +260,11 @@ export function updateSIM(instrumentName, groupData, pricesData){
 
     const { a, b } = olsSlopeIntercept(Xm, Yi);
     const points = Xm.map((x,i)=>({ x, y: Yi[i] }));
-    renderScatterWithRegression(document.getElementById("sim-canvas"), points, { a, b });
+    renderScatterWithRegression("sim-canvas", points, { a, b });
 
     const assetCum = cumulativeReturns(Yi);
     const benchCum = cumulativeReturns(Xm);
-    renderBenchmarkLines(document.getElementById("bench-canvas"), labels.slice(-n), assetCum, benchCum);
+    renderBenchmarkLines("bench-canvas", labels.slice(-n), assetCum, benchCum);
 
     // Aggiorna le metriche (Block3) con lo stesso benchmark
     updateBlock3(instrumentName, groupData, pricesData);
@@ -297,9 +301,8 @@ export function updateSIM(instrumentName, groupData, pricesData){
       const tab = btn.dataset.tab;
       document.getElementById("pane-sim").classList.toggle("hidden", tab !== "sim");
       document.getElementById("pane-bench").classList.toggle("hidden", tab !== "bench");
-      const canvas = (tab === "sim") ? document.getElementById("sim-canvas")
-                                     : document.getElementById("bench-canvas");
-      requestAnimationFrame(()=>window.Chart?.getChart(canvas)?.resize());
+      const id = (tab === "sim") ? "sim-canvas" : "bench-canvas";
+      requestAnimationFrame(()=>window.Chart?.getChart(id)?.resize());
     };
   });
 
