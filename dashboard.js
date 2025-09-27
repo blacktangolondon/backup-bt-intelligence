@@ -34,8 +34,15 @@ function candidatesFromTvSymbol(tvSymbol){
   return Array.from(new Set(list));
 }
 function lookupAny(pricesData, keys){
-  const buckets=[pricesData?.stockPrices||{},pricesData?.etfPrices||{},pricesData?.futuresPrices||{},pricesData?.fxPrices||{}];
-  for(const k of keys){ for(const b of buckets){ if(b[k]) return b[k]; } }
+  const buckets=[pricesData && pricesData.stockPrices || {},
+                 pricesData && pricesData.etfPrices || {},
+                 pricesData && pricesData.futuresPrices || {},
+                 pricesData && pricesData.fxPrices || {}];
+  for(let k of keys){
+    for(let b of buckets){
+      if(b[k]) return b[k];
+    }
+  }
   return null;
 }
 function getSeriesForSymbol(pricesData,tv){ return lookupAny(pricesData, candidatesFromTvSymbol(tv)); }
@@ -43,7 +50,7 @@ function getSeriesForSymbol(pricesData,tv){ return lookupAny(pricesData, candida
 /* benchmark: se "desired" è definito, prova quello. Altrimenti fallback GSPC→SPY */
 function getBenchmarkSeries(pricesData, desired){
   if (desired && typeof desired === "string") {
-    const keys = [...candidatesFromTvSymbol(desired), desired];
+    const keys = candidatesFromTvSymbol(desired).concat([desired]);
     const found = lookupAny(pricesData, keys);
     if (found) return found;
   }
@@ -54,14 +61,14 @@ function getBenchmarkSeries(pricesData, desired){
 /* elenco chiavi disponibili per il datalist */
 function availableBenchKeys(pricesData){
   const b = [
-    Object.keys(pricesData?.stockPrices||{}),
-    Object.keys(pricesData?.etfPrices||{}),
-    Object.keys(pricesData?.futuresPrices||{}),
-    Object.keys(pricesData?.fxPrices||{}),
+    Object.keys(pricesData && pricesData.stockPrices   || {}),
+    Object.keys(pricesData && pricesData.etfPrices     || {}),
+    Object.keys(pricesData && pricesData.futuresPrices || {}),
+    Object.keys(pricesData && pricesData.fxPrices      || {}),
   ].flat();
   const pref = ['^GSPC','GSPC','SPY','^GDAXI','DAX','^STOXX50E'];
-  const set  = new Set([...pref, ...b]);
-  return Array.from(set).filter(Boolean).sort((a,b)=>a.localeCompare(b));
+  const set  = new Set(pref.concat(b));
+  return Array.from(set).filter(Boolean).sort(function(a,b){ return a.localeCompare(b); });
 }
 
 function extractClosesAndDates(series){
@@ -69,12 +76,20 @@ function extractClosesAndDates(series){
   if(Array.isArray(series) && (series.length===0 || typeof series[0]==="number")){
     const closes=series.map(Number).filter(Number.isFinite); return {closes,dates:null};
   }
-  const rows=series.map(r=>{
-    if(Array.isArray(r)){ const c=(r.length>=5)?+r[4]:+r[1]; const d=r[0]; return Number.isFinite(c)?{date:d,close:c}:null; }
-    if(typeof r==="object"&&r){ const c=+(r.close??r.Close??r.c); const d=(r.date??r.Date??r.t); return Number.isFinite(c)?{date:d,close:c}:null; }
+  const rows=series.map(function(r){
+    if(Array.isArray(r)){
+      const c=(r.length>=5)?+r[4]:+r[1];
+      const d=r[0];
+      return Number.isFinite(c)?{date:d,close:c}:null;
+    }
+    if(typeof r==="object"&&r){
+      const c=+(r.close||r.Close||r.c);
+      const d=(r.date||r.Date||r.t);
+      return Number.isFinite(c)?{date:d,close:c}:null;
+    }
     return null;
   }).filter(Boolean);
-  return {closes:rows.map(x=>x.close), dates:rows.map(x=>x.date)};
+  return {closes:rows.map(function(x){return x.close;}), dates:rows.map(function(x){return x.date;})};
 }
 function getAlignedCloses(seriesA,seriesB,lookbackPlus1){
   const A=extractClosesAndDates(seriesA), B=extractClosesAndDates(seriesB);
@@ -82,9 +97,12 @@ function getAlignedCloses(seriesA,seriesB,lookbackPlus1){
     const n=Math.min(A.closes.length,B.closes.length,lookbackPlus1);
     return [A.closes.slice(-n), B.closes.slice(-n)];
   }
-  const mapB=new Map(B.dates.map((d,i)=>[String(d),B.closes[i]]));
+  const mapB=new Map(B.dates.map(function(d,i){return [String(d),B.closes[i]];}));
   const a=[], b=[];
-  for(let i=0;i<A.dates.length;i++){ const key=String(A.dates[i]); if(mapB.has(key)){ a.push(A.closes[i]); b.push(mapB.get(key)); } }
+  for(let i=0;i<A.dates.length;i++){
+    const key=String(A.dates[i]);
+    if(mapB.has(key)){ a.push(A.closes[i]); b.push(mapB.get(key)); }
+  }
   const n=Math.min(a.length,b.length,lookbackPlus1);
   return [a.slice(-n), b.slice(-n)];
 }
@@ -92,10 +110,10 @@ function getAlignedClosesAndDates(seriesA, seriesB, lookbackPlus1){
   const A=extractClosesAndDates(seriesA), B=extractClosesAndDates(seriesB);
   if(!A.dates||!B.dates){
     const n=Math.min(A.closes.length,B.closes.length,lookbackPlus1);
-    const labels = Array.from({length:n}, (_,i)=>`D${n-i}`); // fallback indici
+    const labels = Array.from({length:n}, function(_,i){return "D"+(n-i);});
     return [A.closes.slice(-n), B.closes.slice(-n), labels];
   }
-  const mapB=new Map(B.dates.map((d,i)=>[String(d),{idx:i,close:B.closes[i]}]));
+  const mapB=new Map(B.dates.map(function(d,i){return [String(d),{idx:i,close:B.closes[i]}];}));
   const a=[], b=[], lab=[];
   for(let i=0;i<A.dates.length;i++){
     const key=String(A.dates[i]);
@@ -106,75 +124,85 @@ function getAlignedClosesAndDates(seriesA, seriesB, lookbackPlus1){
 }
 
 function dailyReturns(closes){ const out=[]; for(let i=1;i<closes.length;i++) out.push(closes[i]/closes[i-1]-1); return out; }
-function cumulativeReturns(ret){ const out=[]; let acc=1; for(const r of ret){ acc*=1+r; out.push(acc-1); } return out; }
-function stdev(arr){ const n=arr.length; if(n<=1) return 0; const m=arr.reduce((s,v)=>s+v,0)/n; const v=arr.reduce((s,v)=>s+(v-m)**2,0)/(n-1); return Math.sqrt(v); }
-function maxDrawdown(closes){ if(!closes.length) return 0; let peak=closes[0],mdd=0; for(const c of closes){ peak=Math.max(peak,c); mdd=Math.min(mdd,c/peak-1);} return mdd; }
-function downsideDeviation(arr,t=0){ const neg=arr.filter(r=>r<t).map(r=>(r-t)**2); if(!neg.length) return 0; return Math.sqrt(neg.reduce((s,v)=>s+v,0)/neg.length); }
+function cumulativeReturns(ret){ const out=[]; let acc=1; for(let i=0;i<ret.length;i++){ acc*=1+ret[i]; out.push(acc-1); } return out; }
+function stdev(arr){ const n=arr.length; if(n<=1) return 0; const m=arr.reduce(function(s,v){return s+v;},0)/n; const v=arr.reduce(function(s,v){return s+(v-m)*(v-m);},0)/(n-1); return Math.sqrt(v); }
+function maxDrawdown(closes){ if(!closes.length) return 0; let peak=closes[0],mdd=0; for(let i=0;i<closes.length;i++){ const c=closes[i]; if(c>peak) peak=c; const dd=c/peak-1; if(dd<mdd) mdd=dd; } return mdd; }
+function downsideDeviation(arr,t){ t=t||0; const neg=arr.filter(function(r){return r<t;}).map(function(r){return (r-t)*(r-t);}); if(!neg.length) return 0; return Math.sqrt(neg.reduce(function(s,v){return s+v;},0)/neg.length); }
 function olsSlopeIntercept(x,y){
-  const n=x.length, mean=a=>a.reduce((s,v)=>s+v,0)/n;
+  const n=x.length, mean=function(a){return a.reduce(function(s,v){return s+v;},0)/n;};
   const mx=mean(x), my=mean(y);
-  let num=0,den=0; for(let i=0;i<n;i++){ num+=(x[i]-mx)*(y[i]-my); den+=(x[i]-mx)**2; }
+  let num=0,den=0; for(let i=0;i<n;i++){ num+=(x[i]-mx)*(y[i]-my); den+=(x[i]-mx)*(x[i]-mx); }
   const b=den===0?0:num/den; const a=my-b*mx;
-  const yhat=x.map(xi=>a+b*xi); const eps=y.map((yi,i)=>yi-yhat[i]);
-  const sst=y.reduce((s,yi)=>s+(yi-my)**2,0); const sse=eps.reduce((s,e)=>s+e**2,0);
+  const yhat=x.map(function(xi){return a+b*xi;}); const eps=y.map(function(yi,i){return yi-yhat[i];});
+  const sst=y.reduce(function(s,yi){return s+(yi-my)*(yi-my);},0); const sse=eps.reduce(function(s,e){return s+e*e;},0);
   const r2=sst===0?0:1-(sse/sst);
-  return {a,b,r2,eps};
+  return {a:a,b:b,r2:r2,eps:eps};
+}
+
+/* ── Helper: resize chart senza optional chaining ────────────────────── */
+function resizeChart(idOrCanvas){
+  try{
+    const Chart = window.Chart;
+    if (!Chart) return;
+    const el = (typeof idOrCanvas === "string") ? document.getElementById(idOrCanvas) : idOrCanvas;
+    const inst = Chart.getChart ? Chart.getChart(el) : null;
+    if (inst && typeof inst.resize === "function") inst.resize();
+  }catch(_){}
 }
 
 /* ── Block 1: TradingView (barra SUP. rimossa, laterale visibile) ────── */
 function updateChartGeneric(instrumentName, groupData){
-  const info   = groupData[instrumentName];
-  const symbol = ((info && info.tvSymbol) ? info.tvSymbol : "NASDAQ:AMZN").replace(/-/g, '_');
+  const info   = groupData[instrumentName] || {};
+  const symbol = (info.tvSymbol || "NASDAQ:AMZN").replace(/-/g, "_");
 
-  const block1 = document.getElementById("block1");
+  const block1    = document.getElementById("block1");
   const container = block1.querySelector(".tradingview-widget-container");
-  container.innerHTML = `
-    <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
-  `;
+  container.innerHTML = '<div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>';
 
-  const script = document.createElement('script');
+  const cfg = {
+    autosize: true,
+    symbol: symbol,
+    interval: "D",
+    timezone: "Etc/UTC",
+    theme: "dark",
+    style: "1",
+    locale: "en",
+    hide_top_toolbar: true,
+    hide_side_toolbar: false,
+    withdateranges: false,
+    details: false,
+    allow_symbol_change: false,
+    backgroundColor: "#000000",
+    calendar: false,
+    support_host: "https://www.tradingview.com"
+  };
+
+  const script = document.createElement("script");
   script.type  = "text/javascript";
   script.src   = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
   script.async = true;
-  script.textContent = `{
-    "autosize": true,
-    "symbol": "${symbol}",
-    "interval": "D",
-    "timezone": "Etc/UTC",
-    "theme": "dark",
-    "style": "1",
-    "locale": "en",
-    "hide_top_toolbar": true,
-    "hide_side_toolbar": false,
-    "withdateranges": false,
-    "details": false,
-    "allow_symbol_change": false,
-    "backgroundColor": "#000000",
-    "calendar": false,
-    "support_host": "https://www.tradingview.com"
-  }`;
+  script.textContent = JSON.stringify(cfg);
   container.appendChild(script);
 }
-
 export function updateChart(i,g){ updateChartGeneric(i,g); }
 
 /* ── Stato per benchmark selezionato ─────────────────────────────────── */
 function getInstKey(groupData, instrumentName){
-  return groupData[instrumentName]?.tvSymbol || instrumentName || "";
+  return (groupData[instrumentName] && groupData[instrumentName].tvSymbol) || instrumentName || "";
 }
 function readSavedBenchmark(instKey){
-  const map = (window.__simBenchmarkBySymbol ||= {});
-  return map[instKey] || window.__simBenchmarkGlobal || '^GSPC';
+  const map = (window.__simBenchmarkBySymbol = window.__simBenchmarkBySymbol || {});
+  return map[instKey] || window.__simBenchmarkGlobal || "^GSPC";
 }
 function saveBenchmark(instKey, benchKey){
-  const map = (window.__simBenchmarkBySymbol ||= {});
+  const map = (window.__simBenchmarkBySymbol = window.__simBenchmarkBySymbol || {});
   map[instKey] = benchKey;
-  window.__simBenchmarkGlobal = benchKey;           // fallback globale
-  try { localStorage.setItem('bt_sim_bench_map', JSON.stringify(map)); } catch(_) {}
+  window.__simBenchmarkGlobal = benchKey;
+  try { localStorage.setItem("bt_sim_bench_map", JSON.stringify(map)); } catch(_){}
 }
 (function restoreBenchmarkMap(){
   try{
-    const raw = localStorage.getItem('bt_sim_bench_map');
+    const raw = localStorage.getItem("bt_sim_bench_map");
     if (raw) window.__simBenchmarkBySymbol = JSON.parse(raw);
   }catch(_){}
 })();
@@ -191,31 +219,29 @@ export function updateSIM(instrumentName, groupData, pricesData){
     block2.appendChild(container);
   }
 
-  // Toolbar (tabs + benchmark picker)
-  container.innerHTML = `
-    <div class="sim-toolbar">
-      <div class="sim-tabs">
-        <button class="tab-btn active" data-tab="sim">Single-Index</button>
-        <button class="tab-btn" data-tab="bench">Benchmark</button>
-      </div>
-      <div class="bench-picker">
-        <label for="bench-input">Benchmark</label>
-        <input id="bench-input" list="bench-list" placeholder="^GSPC, DAX, SPY, ..." />
-        <datalist id="bench-list"></datalist>
-        <button id="bench-reset" title="Reset to S&P 500">↺</button>
-        <small id="bench-msg"></small>
-      </div>
-    </div>
-    <div class="sim-body">
-      <div id="pane-sim" class="sim-pane"><canvas id="sim-canvas"></canvas></div>
-      <div id="pane-bench" class="sim-pane hidden"><canvas id="bench-canvas"></canvas></div>
-    </div>
-  `;
+  container.innerHTML = '' +
+    '<div class="sim-toolbar">' +
+      '<div class="sim-tabs">' +
+        '<button class="tab-btn active" data-tab="sim">Single-Index</button>' +
+        '<button class="tab-btn" data-tab="bench">Benchmark</button>' +
+      '</div>' +
+      '<div class="bench-picker">' +
+        '<label for="bench-input">Benchmark</label>' +
+        '<input id="bench-input" list="bench-list" placeholder="^GSPC, DAX, SPY, ..." />' +
+        '<datalist id="bench-list"></datalist>' +
+        '<button id="bench-reset" title="Reset to S&P 500">↺</button>' +
+        '<small id="bench-msg"></small>' +
+      '</div>' +
+    '</div>' +
+    '<div class="sim-body">' +
+      '<div id="pane-sim" class="sim-pane"><canvas id="sim-canvas"></canvas></div>' +
+      '<div id="pane-bench" class="sim-pane hidden"><canvas id="bench-canvas"></canvas></div>' +
+    '</div>';
 
   // Popola datalist
   const list = container.querySelector('#bench-list');
   const keys = availableBenchKeys(pricesData);
-  list.innerHTML = keys.map(k=>`<option value="${k}"></option>`).join("");
+  list.innerHTML = keys.map(function(k){ return '<option value="'+k+'"></option>'; }).join("");
 
   // Stato iniziale benchmark
   let benchKey = readSavedBenchmark(instKey);
@@ -223,25 +249,28 @@ export function updateSIM(instrumentName, groupData, pricesData){
   const benchMsg   = container.querySelector('#bench-msg');
   benchInput.value = benchKey;
 
-  function setMsg(txt, ok=true){
+  function setMsg(txt, ok){
+    ok = (ok !== false);
     benchMsg.textContent = txt || "";
     benchMsg.style.color = ok ? '#7fd67f' : '#ff7d7d';
-    if (txt) setTimeout(()=>benchMsg.textContent="", 1800);
+    if (txt){
+      setTimeout(function(){ benchMsg.textContent=""; }, 1800);
+    }
   }
 
-  // Rendering (riusato su cambio benchmark/tab)
   function renderAll(){
     const assetSeriesRaw = getSeriesForSymbol(pricesData, instKey);
     const benchSeriesRaw = getBenchmarkSeries(pricesData, benchKey);
 
     if (!assetSeriesRaw || !benchSeriesRaw) {
       container.querySelector(".sim-body").innerHTML =
-        `<div class="sim-missing">Serie prezzi non disponibili per grafici.</div>`;
+        '<div class="sim-missing">Serie prezzi non disponibili per grafici.</div>';
       return;
     }
 
-    const [aAll, mAll, labelsAll] =
-      getAlignedClosesAndDates(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
+    const triple = getAlignedClosesAndDates(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
+    const aAll = triple[0], mAll = triple[1], labelsAll = triple[2];
+
     const effLB = Math.min(252, Math.max(1, Math.min(aAll.length - 1, mAll.length - 1)));
     const aCloses = aAll.slice(-(effLB + 1));
     const mCloses = mAll.slice(-(effLB + 1));
@@ -252,55 +281,55 @@ export function updateSIM(instrumentName, groupData, pricesData){
     const n  = Math.min(Ri.length, Rm.length);
     const Yi = Ri.slice(-n), Xm = Rm.slice(-n);
 
-    const { a, b } = olsSlopeIntercept(Xm, Yi);
-    const points = Xm.map((x,i)=>({ x, y: Yi[i] }));
-    renderScatterWithRegression("sim-canvas", points, { a, b });
+    const reg  = olsSlopeIntercept(Xm, Yi);
+    const a    = reg.a, b = reg.b;
+    const points = Xm.map(function(x,i){ return { x:x, y:Yi[i] }; });
+    renderScatterWithRegression("sim-canvas", points, { a:a, b:b });
 
     const assetCum = cumulativeReturns(Yi);
     const benchCum = cumulativeReturns(Xm);
     renderBenchmarkLines("bench-canvas", labels.slice(-n), assetCum, benchCum);
 
-    // Aggiorna le metriche (Block3) con lo stesso benchmark
+    // Aggiorna metriche coerenti
     updateBlock3(instrumentName, groupData, pricesData);
   }
 
   // Eventi benchmark
-  benchInput.addEventListener('change', ()=>{
+  benchInput.addEventListener('change', function(){
     const candidate = benchInput.value.trim();
     if (!candidate) return;
     const exists = !!getBenchmarkSeries(pricesData, candidate);
     if (exists){
       benchKey = candidate;
       saveBenchmark(instKey, benchKey);
-      setMsg('Benchmark aggiornato');
+      setMsg('Benchmark aggiornato', true);
       renderAll();
     } else {
       setMsg('Non trovato nei dati', false);
       benchInput.value = benchKey;
     }
   });
-  container.querySelector('#bench-reset').addEventListener('click', ()=>{
+  container.querySelector('#bench-reset').addEventListener('click', function(){
     benchKey = '^GSPC';
     benchInput.value = benchKey;
     saveBenchmark(instKey, benchKey);
-    setMsg('Reset a S&P 500');
+    setMsg('Reset a S&P 500', true);
     renderAll();
   });
 
   // Switch tab
-  container.querySelectorAll(".tab-btn").forEach(btn=>{
-    btn.onclick = () => {
-      container.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  container.querySelectorAll(".tab-btn").forEach(function(btn){
+    btn.onclick = function(){
+      container.querySelectorAll(".tab-btn").forEach(function(b){ b.classList.remove("active"); });
       btn.classList.add("active");
-      const tab = btn.dataset.tab;
+      const tab = btn.getAttribute("data-tab");
       document.getElementById("pane-sim").classList.toggle("hidden", tab !== "sim");
       document.getElementById("pane-bench").classList.toggle("hidden", tab !== "bench");
       const id = (tab === "sim") ? "sim-canvas" : "bench-canvas";
-      requestAnimationFrame(()=>window.Chart?.getChart(id)?.resize());
+      requestAnimationFrame(function(){ resizeChart(id); });
     };
   });
 
-  // Primo render
   renderAll();
 }
 
@@ -310,32 +339,29 @@ export function updateBlock3(instrumentName, groupData, pricesData){
   const tabs=wrap.querySelector("#block3-tabs"); if(tabs) tabs.style.display="none";
 
   const content=document.getElementById("block3-content");
-  content.innerHTML=`
-    <div id="risk-metrics" class="risk-metrics">
-      <div class="rm-title" id="rm-title">Metrics (daily, last ...)</div>
-
-      <div class="rm-section">
-        <div class="rm-section-title">Single-Index Model</div>
-        <div class="rm-grid rm-grid-sim">
-          <div><span>β</span><strong id="rm-beta">–</strong></div>
-          <div><span>α (ann.)</span><strong id="rm-alpha">–</strong></div>
-          <div><span>R²</span><strong id="rm-r2">–</strong></div>
-          <div><span>Corr(i,m)</span><strong id="rm-corr">–</strong></div>
-          <div><span>Idiosyncratic vol (ann.)</span><strong id="rm-sige">–</strong></div>
-        </div>
-      </div>
-
-      <div class="rm-section">
-        <div class="rm-section-title">Risk & Drawdown</div>
-        <div class="rm-grid rm-grid-risk">
-          <div><span>Return (ann.)</span><strong id="rm-ret">–</strong></div>
-          <div><span>Volatility (ann.)</span><strong id="rm-vol">–</strong></div>
-          <div><span>Max Drawdown</span><strong id="rm-mdd">–</strong></div>
-          <div><span>Downside dev.</span><strong id="rm-dd">–</strong></div>
-        </div>
-      </div>
-    </div>
-  `;
+  content.innerHTML='' +
+    '<div id="risk-metrics" class="risk-metrics">' +
+      '<div class="rm-title" id="rm-title">Metrics (daily, last ...)</div>' +
+      '<div class="rm-section">' +
+        '<div class="rm-section-title">Single-Index Model</div>' +
+        '<div class="rm-grid rm-grid-sim">' +
+          '<div><span>β</span><strong id="rm-beta">–</strong></div>' +
+          '<div><span>α (ann.)</span><strong id="rm-alpha">–</strong></div>' +
+          '<div><span>R²</span><strong id="rm-r2">–</strong></div>' +
+          '<div><span>Corr(i,m)</span><strong id="rm-corr">–</strong></div>' +
+          '<div><span>Idiosyncratic vol (ann.)</span><strong id="rm-sige">–</strong></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="rm-section">' +
+        '<div class="rm-section-title">Risk & Drawdown</div>' +
+        '<div class="rm-grid rm-grid-risk">' +
+          '<div><span>Return (ann.)</span><strong id="rm-ret">–</strong></div>' +
+          '<div><span>Volatility (ann.)</span><strong id="rm-vol">–</strong></div>' +
+          '<div><span>Max Drawdown</span><strong id="rm-mdd">–</strong></div>' +
+          '<div><span>Downside dev.</span><strong id="rm-dd">–</strong></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
 
   try{
     const instKey = getInstKey(groupData, instrumentName);
@@ -344,13 +370,14 @@ export function updateBlock3(instrumentName, groupData, pricesData){
     const assetSeriesRaw=getSeriesForSymbol(pricesData, instKey);
     const benchSeriesRaw=getBenchmarkSeries(pricesData, benchKey);
     if(!assetSeriesRaw||!benchSeriesRaw){
-      content.querySelector(".risk-metrics").insertAdjacentHTML('beforeend', `<div class="rm-warning">Serie prezzi mancanti per calcolare le metriche.</div>`);
+      content.querySelector(".risk-metrics").insertAdjacentHTML('beforeend', '<div class="rm-warning">Serie prezzi mancanti per calcolare le metriche.</div>');
       return;
     }
 
-    const [aAll, mAll]=getAlignedCloses(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
+    const pair = getAlignedCloses(assetSeriesRaw, benchSeriesRaw, Number.MAX_SAFE_INTEGER);
+    const aAll = pair[0], mAll = pair[1];
     const effLB=Math.min(252, Math.max(1, Math.min(aAll.length-1, mAll.length-1)));
-    document.getElementById("rm-title").textContent = `Metrics (daily, last ${effLB})`;
+    document.getElementById("rm-title").textContent = 'Metrics (daily, last '+effLB+')';
 
     const aCloses=aAll.slice(-(effLB+1));
     const mCloses=mAll.slice(-(effLB+1));
@@ -368,18 +395,20 @@ export function updateBlock3(instrumentName, groupData, pricesData){
     const mdd    = maxDrawdown(aCloses.slice(-effLB));
     const dd     = downsideDeviation(Yi, 0) * Math.sqrt(252);
 
-    const {a,b,r2,eps}=olsSlopeIntercept(Xm, Yi);
+    const reg = olsSlopeIntercept(Xm, Yi);
+    const a = reg.a, b = reg.b, r2 = reg.r2, eps = reg.eps;
+
     const alphaAnn = a * 252;
     const sigeAnn  = stdev(eps) * Math.sqrt(252);
 
     // correlazione
     const sx=stdev(Xm), sy=stdev(Yi);
-    const mx=Xm.reduce((s,v)=>s+v,0)/Xm.length;
-    const my=Yi.reduce((s,v)=>s+v,0)/Yi.length;
+    const mx=Xm.reduce(function(s,v){return s+v;},0)/Xm.length;
+    const my=Yi.reduce(function(s,v){return s+v;},0)/Yi.length;
     let cov=0; for(let i=0;i<n;i++) cov+=(Xm[i]-mx)*(Yi[i]-my); cov/=(n-1);
     const corr=(sx===0||sy===0)?0:(cov/(sx*sy));
 
-    const set=(id,val)=>document.getElementById(id).textContent=val;
+    function set(id,val){ var el=document.getElementById(id); if(el) el.textContent=val; }
     set("rm-beta", b.toFixed(3));
     set("rm-alpha",(alphaAnn*100).toFixed(2)+"%");
     set("rm-r2",   r2.toFixed(3));
@@ -391,11 +420,88 @@ export function updateBlock3(instrumentName, groupData, pricesData){
     set("rm-dd",   (dd*100).toFixed(2)+"%");
   } catch(err){
     console.error("updateBlock3 error:", err);
-    content.querySelector(".risk-metrics").insertAdjacentHTML('beforeend', `<div class="rm-warning">Errore durante il calcolo metriche.</div>`);
+    content.querySelector(".risk-metrics").insertAdjacentHTML('beforeend', '<div class="rm-warning">Errore durante il calcolo metriche.</div>');
   }
 }
 
-.fund-subtitle{
-  color:#ddd; font-weight:600; font-size:13px;
-  margin:6px 0 4px; text-transform:uppercase; letter-spacing:.02em;
+/* ── Block 4: Fondamentali (con sezioni richieste) ──────────────────── */
+export function updateBlock4(instrumentName, groupData){
+  const info = groupData[instrumentName] || {};
+  const block4 = document.getElementById("block4");
+
+  // Calcoli derivati
+  const pe    = toNum(info.pe_ratio);
+  const pb    = toNum(info.pb_ratio);
+  const eps   = toNum(info.eps);
+  const dy    = toNum(info.div_yield);            // frazione (0.02 = 2%)
+  const dps   = toNum(info.dividend_per_share);   // se non c'è, rimane null
+  const cov   = (eps!=null && dps>0) ? (eps/dps) : null;      // Dividend Cover
+  const ey    = (pe>0) ? (1/pe) : null;                        // Earnings Yield = 1/PE
+
+  // helper render
+  function fmt(val, opts){
+    opts = opts || {};
+    if(val==null || isNaN(val)) return "–";
+    if(opts.percent){
+      return (val*100).toFixed(opts.dp||2) + "%";
+    }
+    if(typeof val === "number"){
+      const dp = (opts.dp!=null) ? opts.dp : 2;
+      return val.toFixed(dp);
+    }
+    return String(val);
+  }
+
+  function row(label, value, opts){ 
+    return '<div class="fund-row"><span>'+label+'</span><strong>'+fmt(value, opts)+'</strong></div>'; 
+  }
+
+  block4.innerHTML =
+    '<div class="fund-card">' +
+      '<div class="fund-title">Fundamentals</div>' +
+
+      '<div class="fund-subtitle">Earnings focus</div>' +
+      '<div class="fund-grid">' +
+        row("EPS", eps, {dp:2}) +
+        row("Earnings Yield", ey, {percent:true, dp:2}) +
+      '</div>' +
+
+      '<div class="fund-subtitle">Dividend focus</div>' +
+      '<div class="fund-grid">' +
+        row("Dividend Yield", dy, {percent:true, dp:2}) +
+        row("Dividend Cover", cov, {dp:2}) +
+        row("DPS (est.)", dps, {dp:2}) +
+      '</div>' +
+
+      '<div class="fund-subtitle">Valuation focus</div>' +
+      '<div class="fund-grid">' +
+        row("P/E", pe, {dp:2}) +
+        row("P/B", pb, {dp:2}) +
+      '</div>' +
+
+      '<div class="fund-subtitle">Other</div>' +
+      '<div class="fund-grid">' +
+        row("ROE", toNum(info.return_on_equity), {percent:true, dp:2}) +
+        row("Debt/Equity", toNum(info.debt_to_equity), {dp:2}) +
+        row("Beta", toNum(info.beta), {dp:3}) +
+        row("Revenue growth", toNum(info.revenue_growth), {percent:true, dp:2}) +
+        row("Payout ratio", toNum(info.payout_ratio), {percent:true, dp:2}) +
+        row("1Y High", toNum(info.one_year_high), {dp:2}) +
+        row("1Y Low", toNum(info.one_year_low), {dp:2}) +
+      '</div>' +
+    '</div>';
+
+  function toNum(x){
+    if(x==null || x==="") return null;
+    const n = +x;
+    return isFinite(n) ? n : null;
+  }
 }
+
+/* ── Compat richiesto da main.js ─────────────────────────────────────── */
+export function updateSymbolOverview(instrumentName, groupData){
+  const pricesData = (window && window.pricesData) || { stockPrices:{}, etfPrices:{}, futuresPrices:{}, fxPrices:{} };
+  return updateSIM(instrumentName, groupData, pricesData);
+}
+export function initBlock3Tabs(){ /* no-op */ }
+export function openYouTubePopup(){ const p=document.getElementById("youtube-popup"); if(p) p.style.display="block"; }
