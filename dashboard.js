@@ -424,84 +424,83 @@ export function updateBlock3(instrumentName, groupData, pricesData){
   }
 }
 
-/* ── Block 4: Fondamentali (con sezioni richieste) ──────────────────── */
+/* ── Block 4: Fundamentals – 8 indicatori ──────────────────────────── */
+function _num(v){ const n = Number(v); return Number.isFinite(n) ? n : null; }
+function _fmt(v, {pct=false, dec=2}={}){ 
+  if(v==null) return "–"; 
+  return pct ? (v.toFixed(dec) + "%") : v.toFixed(dec);
+}
+
 export function updateBlock4(instrumentName, groupData){
   const info = groupData[instrumentName] || {};
+
+  // --- Letture base dal dataset (con alias comuni) ---
+  const eps   = _num(info.eps);                                  // Earnings Per Share
+  const pe    = _num(info.pe_ratio ?? info.pe);                  // P/E
+  const pb    = _num(info.pb_ratio ?? info.pb);                  // P/B
+  const roe   = _num(info.return_on_equity ?? info.roe);         // atteso come frazione (0.18=18%)
+  const dps   = _num(info.dividend_per_share ?? info.dps);       // Dividend per Share
+  const dyPct = _num(info.div_yield ?? info.dividend_yield);     // in percentuale (es. 2.4)
+
+  // opzionale: prezzo corrente se presente nel dataset
+  const price = _num(info.price ?? info.last ?? info.close);
+
+  // --- Derivati robusti ---
+  // Earnings Yield (%) = 100 / P/E (fallback: 100 * EPS/Price)
+  const earningsYieldPct =
+    (pe && pe > 0) ? (100/pe) :
+    (eps && price && price !== 0) ? (100 * eps / price) : null;
+
+  // Stima prezzo se serve per DPS via Dividend Yield
+  const priceEst = (price ?? ((pe && eps) ? pe * eps : null));
+
+  // Dividend Cover = EPS / DPS  (fallback: EPS / (DY% * Price))
+  let divCover = null;
+  if (eps && dps && dps !== 0) {
+    divCover = eps / dps;
+  } else if (eps && dyPct != null && priceEst) {
+    const dpsFromYield = (dyPct/100) * priceEst;
+    if (dpsFromYield) divCover = eps / dpsFromYield;
+  }
+
+  // Se manca il DPS ma ho DY% e prezzo, calcolo DPS stimato
+  const dpsShown = (dps != null) ? dps :
+                   (dyPct != null && priceEst) ? (dyPct/100) * priceEst : null;
+
+  // --- Render ---
   const block4 = document.getElementById("block4");
+  block4.innerHTML = `
+    <div class="fund-card">
+      <div class="fund-title">Fundamentals</div>
 
-  // Calcoli derivati
-  const pe    = toNum(info.pe_ratio);
-  const pb    = toNum(info.pb_ratio);
-  const eps   = toNum(info.eps);
-  const dy    = toNum(info.div_yield);            // frazione (0.02 = 2%)
-  const dps   = toNum(info.dividend_per_share);   // se non c'è, rimane null
-  const cov   = (eps!=null && dps>0) ? (eps/dps) : null;      // Dividend Cover
-  const ey    = (pe>0) ? (1/pe) : null;                        // Earnings Yield = 1/PE
+      <div class="fund-subtitle">Earnings focus</div>
+      <div class="fund-grid">
+        ${_fundRow("EPS", eps)}
+        ${_fundRow("Earnings Yield", earningsYieldPct, {pct:true})}
+      </div>
 
-  // helper render
-  function fmt(val, opts){
-    opts = opts || {};
-    if(val==null || isNaN(val)) return "–";
-    if(opts.percent){
-      return (val*100).toFixed(opts.dp||2) + "%";
-    }
-    if(typeof val === "number"){
-      const dp = (opts.dp!=null) ? opts.dp : 2;
-      return val.toFixed(dp);
-    }
-    return String(val);
-  }
+      <div class="fund-subtitle">Dividend focus</div>
+      <div class="fund-grid">
+        ${_fundRow("Dividend Yield", dyPct, {pct:true})}
+        ${_fundRow("Dividend Cover", divCover)}
+      </div>
 
-  function row(label, value, opts){ 
-    return '<div class="fund-row"><span>'+label+'</span><strong>'+fmt(value, opts)+'</strong></div>'; 
-  }
+      <div class="fund-subtitle">Valuation focus</div>
+      <div class="fund-grid">
+        ${_fundRow("P/E", pe)}
+        ${_fundRow("P/B", pb)}
+      </div>
 
-  block4.innerHTML =
-    '<div class="fund-card">' +
-      '<div class="fund-title">Fundamentals</div>' +
-
-      '<div class="fund-subtitle">Earnings focus</div>' +
-      '<div class="fund-grid">' +
-        row("EPS", eps, {dp:2}) +
-        row("Earnings Yield", ey, {percent:true, dp:2}) +
-      '</div>' +
-
-      '<div class="fund-subtitle">Dividend focus</div>' +
-      '<div class="fund-grid">' +
-        row("Dividend Yield", dy, {percent:true, dp:2}) +
-        row("Dividend Cover", cov, {dp:2}) +
-        row("DPS (est.)", dps, {dp:2}) +
-      '</div>' +
-
-      '<div class="fund-subtitle">Valuation focus</div>' +
-      '<div class="fund-grid">' +
-        row("P/E", pe, {dp:2}) +
-        row("P/B", pb, {dp:2}) +
-      '</div>' +
-
-      '<div class="fund-subtitle">Other</div>' +
-      '<div class="fund-grid">' +
-        row("ROE", toNum(info.return_on_equity), {percent:true, dp:2}) +
-        row("Debt/Equity", toNum(info.debt_to_equity), {dp:2}) +
-        row("Beta", toNum(info.beta), {dp:3}) +
-        row("Revenue growth", toNum(info.revenue_growth), {percent:true, dp:2}) +
-        row("Payout ratio", toNum(info.payout_ratio), {percent:true, dp:2}) +
-        row("1Y High", toNum(info.one_year_high), {dp:2}) +
-        row("1Y Low", toNum(info.one_year_low), {dp:2}) +
-      '</div>' +
-    '</div>';
-
-  function toNum(x){
-    if(x==null || x==="") return null;
-    const n = +x;
-    return isFinite(n) ? n : null;
-  }
+      <div class="fund-subtitle">Other</div>
+      <div class="fund-grid">
+        ${_fundRow("ROE", (roe!=null ? roe*100 : null), {pct:true})}
+        ${_fundRow("DPS (est.)", dpsShown)}
+      </div>
+    </div>
+  `;
 }
 
-/* ── Compat richiesto da main.js ─────────────────────────────────────── */
-export function updateSymbolOverview(instrumentName, groupData){
-  const pricesData = (window && window.pricesData) || { stockPrices:{}, etfPrices:{}, futuresPrices:{}, fxPrices:{} };
-  return updateSIM(instrumentName, groupData, pricesData);
+function _fundRow(label, value, opt={}){
+  const val = (value==null) ? "–" : _fmt(value, opt);
+  return `<div class="fund-row"><span>${label}</span><strong>${val}</strong></div>`;
 }
-export function initBlock3Tabs(){ /* no-op */ }
-export function openYouTubePopup(){ const p=document.getElementById("youtube-popup"); if(p) p.style.display="block"; }
