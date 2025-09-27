@@ -504,3 +504,22 @@ function _fundRow(label, value, opt={}){
   const val = (value==null) ? "–" : _fmt(value, opt);
   return `<div class="fund-row"><span>${label}</span><strong>${val}</strong></div>`;
 }
+
+/* ==== Compat per moduli esistenti (events.js, main.js) ==== */
+
+// vecchio hook: non fa nulla ma evita l'errore di import
+export function initBlock3Tabs(){ /* no-op (legacy) */ }
+
+// alias storico usato da altri moduli: chiama il nuovo updateSIM
+export function updateSymbolOverview(instrumentName, groupData){
+  const pricesData = window?.pricesData || {
+    stockPrices:{}, etfPrices:{}, futuresPrices:{}, fxPrices:{}
+  };
+  return updateSIM(instrumentName, groupData, pricesData);
+}
+
+// opzionale: alcuni punti del sito lo richiedono
+export function openYouTubePopup(){
+  const p = document.getElementById("youtube-popup");
+  if (p) p.style.display = "block";
+}
