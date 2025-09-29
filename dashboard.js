@@ -420,47 +420,61 @@ export function updateBlock4(instrumentName, groupData){
 
   const info = (groupData && groupData[instrumentName]) || {};
 
-  // helper numerico
-  const num = v => {
-    const x = (v === 0) ? 0 : (v ?? null);
-    const n = Number(x);
+  // helper numerico: niente 0 per valori mancanti
+  const num = (v) => {
+    if (v === null || v === undefined) return null;
+    if (typeof v === "string") {
+      const s = v.trim();
+      if (s === "" || s === "-" || s.toLowerCase() === "na") return null;
+      const n = Number(s);
+      return Number.isFinite(n) ? n : null;
+    }
+    const n = Number(v);
     return Number.isFinite(n) ? n : null;
+  };
+
+  // parse di valori tipo "4.7%" o 0.047 o 4.7
+  const parseYield = (v) => {
+    if (v === null || v === undefined) return null;
+    if (typeof v === "string") {
+      const s = v.replace("%", "").trim();
+      if (!s) return null;
+      const n = Number(s);
+      if (!Number.isFinite(n)) return null;
+      return n > 1.5 ? n/100 : n; // 4.7 -> 0.047, 0.047 resta 0.047
+    }
+    if (typeof v === "number") return v > 1.5 ? v/100 : v;
+    return null;
   };
 
   // letture da instruments.json
   const pe   = num(info.pe_ratio ?? info.pe);
   const pb   = num(info.pb_ratio ?? info.pb);
   const eps  = num(info.eps);
-  const yld  = num(info.div_yield ?? info.dividend_yield); // % o frazione
-  const pr   = num(info.price ?? info.last ?? info.close);  // opzionale per fallback
-
-  // payout_ratio per dividend cover
-  const payout = num(info.payout_ratio);
+  const yldF = parseYield(info.div_yield ?? info.dividend_yield);
+  const pr   = num(info.price ?? info.last ?? info.close);   // opzionale per fallback
+  const payout = num(info.payout_ratio);                     // opzionale
 
   // calcoli richiesti
   const earningsYield = (pe && pe !== 0) ? (1/pe) : (eps && pr ? (eps/pr) : null); // frazione
   const dividendCover = (payout && payout > 0) ? (1 / payout) : null;
 
-  // normalizzazioni visuali
+  // formatter
   const fmt = (v, opts={}) => {
     if (v == null) return "–";
     if (opts.percent)   return (v*100).toFixed(2) + "%";
     if (opts.decimals!=null) return v.toFixed(opts.decimals);
     return String(v);
   };
-  // Dividend Yield → mostrato in %
-  const dy_fraction = (yld != null)
-    ? (yld > 1.5 ? yld/100 : yld) // 4.69 → 0.0469; 0.0469 resta 0.0469
-    : null;
 
-  // HTML: solo i 6 valori richiesti, nell’ordine specificato
+  // HTML: solo i 6 valori richiesti, con griglia garantita
   el.innerHTML = `
     <div class="panel fundamentals">
       <h3>Fundamentals</h3>
-      <div class="grid grid-2">
+      <div class="kv-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
         <div><span>P/E</span><strong>${fmt(pe, {decimals: 2})}</strong></div>
         <div><span>P/B</span><strong>${fmt(pb, {decimals: 2})}</strong></div>
-        <div><span>Dividend Yield</span><strong>${fmt(dy_fraction, {percent: true})}</strong></div>
+        <div><span>Dividend Yield</span><strong>${fmt(yldF, {percent: true})}</strong></div>
         <div><span>Dividend Cover</span><strong>${fmt(dividendCover, {decimals: 2})}</strong></div>
         <div><span>EPS</span><strong>${fmt(eps, {decimals: 2})}</strong></div>
         <div><span>Earnings Yield</span><strong>${fmt(earningsYield, {percent: true})}</strong></div>
