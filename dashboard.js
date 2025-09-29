@@ -221,7 +221,7 @@ export function updateSIM(instrumentName, groupData, pricesData){
         '<small id="bench-msg"></small>' +
       '</div>' +
     '</div>' +
-    '<div class="sim-body">' +
+    '<div class="sim-body">'+
       '<div id="pane-sim" class="sim-pane"><canvas id="sim-canvas"></canvas></div>' +
       '<div id="pane-bench" class="sim-pane hidden"><canvas id="bench-canvas"></canvas></div>' +
     '</div>';
@@ -296,10 +296,20 @@ export function updateSIM(instrumentName, groupData, pricesData){
   renderAll();
 }
 
+// ── Compat per main.js: alias updateSymbolOverview → updateSIM ──
+export function updateSymbolOverview(instrumentName, groupData, pricesData){
+  try {
+    const pd = pricesData || (window && window.pricesData) || {};
+    return updateSIM(instrumentName, groupData, pd);
+  } catch (e) {
+    console.error('updateSymbolOverview error:', e);
+  }
+}
+
 /* ── Block3: metriche (SIM + rischio) ───────────────────────────────── */
 export function updateBlock3(instrumentName, groupData, pricesData){
   const wrap=document.getElementById("block3");
-  // Non nascondiamo i tab: Block3 deve rimanere invariato
+  // Block3 invariato: non forziamo/nascondiamo i tab
 
   const content=document.getElementById("block3-content");
   content.innerHTML =
