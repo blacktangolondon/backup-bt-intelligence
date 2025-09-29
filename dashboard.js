@@ -414,64 +414,117 @@ export function initBlock3Tabs() {
 }
 
 /* ── Block4: Fundamentals (solo 6 campi richiesti) ─────────────────── */
+/* ── Block4: Fundamentals (solo 6 campi richiesti, risoluzione robusta) ── */
 export function updateBlock4(instrumentName, groupData){
   const el = document.getElementById("block4");
   if (!el) return;
 
-  // Risolvi l'oggetto info indipendentemente da come è indicizzato
+  // -------- resolver robusto ----------
+  const norm = s => String(s||"").trim().toLowerCase();
+  const stripEx = s => String(s||"").replace(/^[A-Z]+:/, "").trim(); // NASDAQ:EBAY -> EBAY
+
+  function asList(data){
+    if (!data) return [];
+    if (Array.isArray(data)) return data;
+    // se c'è una proprietà "stocks" o simile, usala
+    if (data.stocks && typeof data.stocks === "object") return Object.values(data.stocks);
+    return Object.values(data);
+  }
+
   function resolveInfo(name, data){
     if (!data) return null;
-    // 1) accesso diretto per chiave
-    if (!Array.isArray(data) && data[name]) return data[name];
+    const direct = (!Array.isArray(data) && data[name]) ? data[name] : null;
+    if (direct) return direct;
 
-    // 2) cerca in una lista di oggetti
-    const list = Array.isArray(data) ? data : Object.values(data);
-    const norm = s => String(s||"").trim().toLowerCase();
+    const list = asList(data);
+    const nName = norm(name);
+    const nStripped = norm(stripEx(name));
 
-    // prova match su ticker e tvSymbol
-    return list.find(o =>
-      norm(o?.ticker)   === norm(name) ||
-      norm(o?.tvSymbol) === norm(name)
-    ) || null;
+    // match forte: ticker/tvSymbol uguali
+    let hit = list.find(o => norm(o?.ticker) === nStripped || norm(o?.tvSymbol) === nName || norm(stripEx(o?.tvSymbol)) === nStripped);
+    if (hit) return hit;
+
+    // match per key-like field
+    hit = list.find(o => norm(o?.symbol) === nStripped || norm(o?.code) === nStripped);
+    if (hit) return hit;
+
+    // match per "name" esatto o contains (case-insensitive)
+    hit = list.find(o => norm(o?.name) === nName || norm(o?.company) === nName);
+    if (hit) return hit;
+    hit = list.find(o => norm(o?.name).includes(nName) || nName.includes(norm(o?.name||"")));
+    if (hit) return hit;
+
+    // ultimo tentativo: se le chiavi dell'oggetto contengono il nome "ripulito"
+    if (!Array.isArray(data)) {
+      const entry = Object.entries(data).find(([k]) => norm(k) === nName || norm(k) === nStripped || norm(k).includes(nStripped));
+      if (entry) return entry[1];
+    }
+    return null;
   }
 
   const info = resolveInfo(instrumentName, groupData) || {};
 
-  // helper numerico
-  const num = v => {
-    const x = (v === 0) ? 0 : (v ?? null);
-    const n = Number(x);
+  // -------- helpers numerici ----------
+  const num = (v) => {
+    if (v === null || v === undefined) return null;
+    if (typeof v === "string") {
+      const s = v.trim();
+      if (!s || s === "-" || s.toLowerCase() === "na" || s.toLowerCase() === "n/a") return null;
+      const n = Number(s.replace(/,/g,""));
+      return Number.isFinite(n) ? n : null;
+    }
+    const n = Number(v);
     return Number.isFinite(n) ? n : null;
   };
 
-  // letture da instruments.json
-  const pe   = num(info.pe_ratio ?? info.pe);
-  const pb   = num(info.pb_ratio ?? info.pb);
-  const eps  = num(info.eps);
-  const yld  = num(info.div_yield ?? info.dividend_yield);
-  const pr   = num(info.price ?? info.last ?? info.close);
-  const payout = num(info.payout_ratio);
+  const parseYield = (v) => {
+    if (v === null || v === undefined) return null;
+    if (typeof v === "string") {
+      const s = v.replace("%","").trim();
+      if (!s) return null;
+      const n = Number(s);
+      if (!Number.isFinite(n)) return null;
+      return n > 1.5 ? n/100 : n; // 4.7 -> 0.047, già frazione rimane
+    }
+    if (typeof v === "number") return v > 1.5 ? v/100 : v;
+    return null;
+  };
 
-  // calcoli
-  const earningsYield = (pe && pe !== 0) ? (1/pe) : (eps && pr ? (eps/pr) : null);
+  // -------- letture dal JSON (con alias comuni) ----------
+  const pe   = num(info.pe_ratio ?? info.pe ?? info.pe_ttm ?? info.peRatio);
+  const pb   = num(info.pb_ratio ?? info.pb ?? info.price_to_book ?? info.pbRatio);
+  const eps  = num(info.eps ?? info.earnings_per_share ?? info.eps_ttm);
+  const yldF = parseYield(info.div_yield ?? info.dividend_yield ?? info.dividendYield ?? info.dividend_yield_percent);
+  const pr   = num(info.price ?? info.last ?? info.close ?? info.last_price);
+  const payout = num(info.payout_ratio ?? info.dividend_payout_ratio);
+
+  // -------- calcoli ----------
+  const earningsYield = (pe && pe !== 0) ? (1/pe) : (eps && pr ? (eps/pr) : null); // frazione
   const dividendCover = (payout && payout > 0) ? (1 / payout) : null;
 
-  // formattazione
+  // -------- formatter ----------
   const fmt = (v, opts={}) => {
     if (v == null) return "–";
-    if (opts.percent) return (v*100).toFixed(2) + "%";
+    if (opts.percent)   return (v*100).toFixed(2) + "%";
     if (opts.decimals!=null) return v.toFixed(opts.decimals);
     return String(v);
   };
-  const dy_fraction = (yld != null) ? (yld > 1.5 ? yld/100 : yld) : null;
 
+  // debug utile sulla console
+  try {
+    // mostra chi stiamo risolvendo e quali campi sono usciti
+    console.debug("[Block4] name:", instrumentName, "→ resolved:", (info?.ticker || info?.tvSymbol || info?.name || "(no id)"));
+    console.debug("[Block4] fields:", {pe, pb, eps, yldF, payout, pr});
+  } catch (_e) {}
+
+  // -------- render ----------
   el.innerHTML = `
     <div class="panel fundamentals">
       <h3>Fundamentals</h3>
-      <div class="grid grid-2">
+      <div class="kv-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
         <div><span>P/E</span><strong>${fmt(pe, {decimals: 2})}</strong></div>
         <div><span>P/B</span><strong>${fmt(pb, {decimals: 2})}</strong></div>
-        <div><span>Dividend Yield</span><strong>${fmt(dy_fraction, {percent: true})}</strong></div>
+        <div><span>Dividend Yield</span><strong>${fmt(yldF, {percent: true})}</strong></div>
         <div><span>Dividend Cover</span><strong>${fmt(dividendCover, {decimals: 2})}</strong></div>
         <div><span>EPS</span><strong>${fmt(eps, {decimals: 2})}</strong></div>
         <div><span>Earnings Yield</span><strong>${fmt(earningsYield, {percent: true})}</strong></div>
