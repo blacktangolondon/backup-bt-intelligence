@@ -385,72 +385,58 @@ export function updateBlock3(instrumentName, groupData, pricesData){
   }
 }
 
-/* ── Block4: Fundamentals (9 indicatori piatti) ─────────────────────── */
-function _num(v){ const n=Number(v); return Number.isFinite(n)?n:null; }
-function _fmt(v,{pct=false,dec=2}={}){ if(v==null) return "–"; return pct ? (v.toFixed(dec)+"%") : v.toFixed(dec); }
-
+/* ── Block4: Fundamentals (solo 6 campi richiesti) ─────────────────── */
 export function updateBlock4(instrumentName, groupData){
-  const info = groupData[instrumentName] || {};
+  const el = document.getElementById("block4");
+  if (!el) return;
 
-  // Base dal dataset (accettiamo alias comuni)
-  const eps   = _num(info.eps);
-  const pe    = _num(info.pe_ratio || info.pe);
-  const pb    = _num(info.pb_ratio || info.pb);
-  const roe   = _num(info.return_on_equity || info.roe);      // frazione (0.18=18%)
-  const dps   = _num(info.dividend_per_share || info.dps);    // DPS reale, se c'è
-  const dyPct = _num(info.div_yield || info.dividend_yield);  // in % (es 2.4)
-  const beta  = _num(info.beta);
+  const info = (groupData && groupData[instrumentName]) || {};
 
-  // Prezzo (se disponibile) o stima da P/E * EPS
-  const price = _num(info.price || info.last || info.close) || ((pe && eps)? pe*eps : null);
+  // helper numerico
+  const num = v => {
+    const x = (v === 0) ? 0 : (v ?? null);
+    const n = Number(x);
+    return Number.isFinite(n) ? n : null;
+  };
 
-  // Earnings Yield (%) = 100 / P/E  (fallback 100 * EPS/Price)
-  const earnYieldPct = (pe && pe>0) ? (100/pe) :
-                       ((eps!=null && price) ? (100*eps/price) : null);
+  // letture da instruments.json
+  const pe   = num(info.pe_ratio ?? info.pe);
+  const pb   = num(info.pb_ratio ?? info.pb);
+  const eps  = num(info.eps);
+  const yld  = num(info.div_yield ?? info.dividend_yield);    // già in % o frazione? → assumiamo % se >1
+  const pr   = num(info.price ?? info.last ?? info.close);     // fallback eventuale per calcoli
 
-  // DPS da yield se manca il dato
-  const dpsShown = (dps!=null) ? dps :
-                   ((dyPct!=null && price) ? (dyPct/100)*price : null);
+  // payout_ratio per dividend cover
+  const payout = num(info.payout_ratio);
 
-  // Dividend Cover = EPS / DPS (o EPS / (Yield% * Price))
-  let divCover = null;
-  if(eps!=null){
-    if(dpsShown && dpsShown!==0) divCover = eps / dpsShown;
-  }
+  // calcoli richiesti
+  const earningsYield = (pe && pe !== 0) ? (1/pe) : (eps && pr ? (eps/pr) : null); // frazione
+  const dividendCover = (payout && payout > 0) ? (1 / payout) : null;
 
-  // Render piatto (9 righe)
-  const rows = [
-    ["EPS",               eps,                        {pct:false}],
-    ["Earnings Yield",    earnYieldPct,               {pct:true}],
-    ["Dividend Yield",    dyPct,                      {pct:true}],
-    ["Dividend Cover",    divCover,                   {pct:false}],
-    ["P/E",               pe,                         {pct:false}],
-    ["P/B",               pb,                         {pct:false}],
-    ["ROE",               (roe!=null? roe*100 : null),{pct:true}],
-    ["DPS (est.)",        dpsShown,                   {pct:false}],
-    ["Beta",              beta,                       {pct:false}]
-  ];
+  // normalizzazioni di visualizzazione
+  const fmt = (v, opts={}) => {
+    if (v == null) return "–";
+    if (opts.percent)   return (v*100).toFixed(2) + "%";
+    if (opts.decimals!=null) return v.toFixed(opts.decimals);
+    return String(v);
+  };
+  // Dividend Yield: se nel JSON è espresso in % (es. 4.69), convertiamo a frazione
+  const dy_fraction = (yld != null)
+    ? (yld > 1.5 ? yld/100 : yld) // 4.69 → 0.0469, 0.0469 rimane 0.0469
+    : null;
 
-  const block4 = document.getElementById("block4");
-  block4.innerHTML =
-    '<div class="fund-card">' +
-      '<div class="fund-title">Fundamentals</div>' +
-      '<div class="fund-grid">' +
-        rows.map(([label,val,opt])=>(
-          '<div class="fund-row"><span>'+label+'</span><strong>'+_fmt(val,opt)+'</strong></div>'
-        )).join("") +
-      '</div>' +
-    '</div>';
-}
-
-/* ── Compat vecchi hook ─────────────────────────────────────────────── */
-export function initBlock3Tabs(){ /* no-op (legacy) */ }
-export function updateSymbolOverview(instrumentName, groupData){
-  const w = (typeof window!=="undefined") ? window : {};
-  const pricesData = (w && w.pricesData) ? w.pricesData : {stockPrices:{},etfPrices:{},futuresPrices:{},fxPrices:{}};
-  return updateSIM(instrumentName, groupData, pricesData);
-}
-export function openYouTubePopup(){
-  const p=document.getElementById("youtube-popup");
-  if(p) p.style.display="block";
+  // HTML minimale: solo i 6 valori richiesti, in quest’ordine
+  el.innerHTML = `
+    <div class="panel fundamentals">
+      <h3>Fundamentals</h3>
+      <div class="grid grid-2">
+        <div><span>P/E</span><strong>${fmt(pe, {decimals: 2})}</strong></div>
+        <div><span>P/B</span><strong>${fmt(pb, {decimals: 2})}</strong></div>
+        <div><span>Dividend Yield</span><strong>${fmt(dy_fraction, {percent: true})}</strong></div>
+        <div><span>Dividend Cover</span><strong>${fmt(dividendCover, {decimals: 2})}</strong></div>
+        <div><span>EPS</span><strong>${fmt(eps, {decimals: 2})}</strong></div>
+        <div><span>Earnings Yield</span><strong>${fmt(earningsYield, {percent: true})}</strong></div>
+      </div>
+    </div>
+  `;
 }
