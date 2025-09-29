@@ -5,7 +5,6 @@ import {
   updateBlock3,
   updateBlock4,
   initBlock3Tabs,
-  openYouTubePopup
 } from "./dashboard.js";
 import { showSpread } from "./spreadView.js";
 
