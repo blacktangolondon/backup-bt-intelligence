@@ -418,63 +418,60 @@ export function updateBlock4(instrumentName, groupData){
   const el = document.getElementById("block4");
   if (!el) return;
 
-  const info = (groupData && groupData[instrumentName]) || {};
+  // Risolvi l'oggetto info indipendentemente da come è indicizzato
+  function resolveInfo(name, data){
+    if (!data) return null;
+    // 1) accesso diretto per chiave
+    if (!Array.isArray(data) && data[name]) return data[name];
 
-  // helper numerico: niente 0 per valori mancanti
-  const num = (v) => {
-    if (v === null || v === undefined) return null;
-    if (typeof v === "string") {
-      const s = v.trim();
-      if (s === "" || s === "-" || s.toLowerCase() === "na") return null;
-      const n = Number(s);
-      return Number.isFinite(n) ? n : null;
-    }
-    const n = Number(v);
+    // 2) cerca in una lista di oggetti
+    const list = Array.isArray(data) ? data : Object.values(data);
+    const norm = s => String(s||"").trim().toLowerCase();
+
+    // prova match su ticker e tvSymbol
+    return list.find(o =>
+      norm(o?.ticker)   === norm(name) ||
+      norm(o?.tvSymbol) === norm(name)
+    ) || null;
+  }
+
+  const info = resolveInfo(instrumentName, groupData) || {};
+
+  // helper numerico
+  const num = v => {
+    const x = (v === 0) ? 0 : (v ?? null);
+    const n = Number(x);
     return Number.isFinite(n) ? n : null;
-  };
-
-  // parse di valori tipo "4.7%" o 0.047 o 4.7
-  const parseYield = (v) => {
-    if (v === null || v === undefined) return null;
-    if (typeof v === "string") {
-      const s = v.replace("%", "").trim();
-      if (!s) return null;
-      const n = Number(s);
-      if (!Number.isFinite(n)) return null;
-      return n > 1.5 ? n/100 : n; // 4.7 -> 0.047, 0.047 resta 0.047
-    }
-    if (typeof v === "number") return v > 1.5 ? v/100 : v;
-    return null;
   };
 
   // letture da instruments.json
   const pe   = num(info.pe_ratio ?? info.pe);
   const pb   = num(info.pb_ratio ?? info.pb);
   const eps  = num(info.eps);
-  const yldF = parseYield(info.div_yield ?? info.dividend_yield);
-  const pr   = num(info.price ?? info.last ?? info.close);   // opzionale per fallback
-  const payout = num(info.payout_ratio);                     // opzionale
+  const yld  = num(info.div_yield ?? info.dividend_yield);
+  const pr   = num(info.price ?? info.last ?? info.close);
+  const payout = num(info.payout_ratio);
 
-  // calcoli richiesti
-  const earningsYield = (pe && pe !== 0) ? (1/pe) : (eps && pr ? (eps/pr) : null); // frazione
+  // calcoli
+  const earningsYield = (pe && pe !== 0) ? (1/pe) : (eps && pr ? (eps/pr) : null);
   const dividendCover = (payout && payout > 0) ? (1 / payout) : null;
 
-  // formatter
+  // formattazione
   const fmt = (v, opts={}) => {
     if (v == null) return "–";
-    if (opts.percent)   return (v*100).toFixed(2) + "%";
+    if (opts.percent) return (v*100).toFixed(2) + "%";
     if (opts.decimals!=null) return v.toFixed(opts.decimals);
     return String(v);
   };
+  const dy_fraction = (yld != null) ? (yld > 1.5 ? yld/100 : yld) : null;
 
-  // HTML: solo i 6 valori richiesti, con griglia garantita
   el.innerHTML = `
     <div class="panel fundamentals">
       <h3>Fundamentals</h3>
-      <div class="kv-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div class="grid grid-2">
         <div><span>P/E</span><strong>${fmt(pe, {decimals: 2})}</strong></div>
         <div><span>P/B</span><strong>${fmt(pb, {decimals: 2})}</strong></div>
-        <div><span>Dividend Yield</span><strong>${fmt(yldF, {percent: true})}</strong></div>
+        <div><span>Dividend Yield</span><strong>${fmt(dy_fraction, {percent: true})}</strong></div>
         <div><span>Dividend Cover</span><strong>${fmt(dividendCover, {decimals: 2})}</strong></div>
         <div><span>EPS</span><strong>${fmt(eps, {decimals: 2})}</strong></div>
         <div><span>Earnings Yield</span><strong>${fmt(earningsYield, {percent: true})}</strong></div>
