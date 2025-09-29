@@ -1,7 +1,7 @@
 // dashboard.js
 // Block2: SIM + Benchmark (tabs) con bench selezionabile.
 // Block3: metriche coerenti col bench scelto.
-// Block4: fundamentals (9 indicatori piatti).
+// Block4: fundamentals (solo 6 indicatori richiesti).
 
 import { renderScatterWithRegression, renderBenchmarkLines } from "./charts.js";
 
@@ -67,7 +67,7 @@ function availableBenchKeys(pricesData){
   ].flat();
   const pref = ['^GSPC','GSPC','SPY','^GDAXI','DAX','^STOXX50E'];
   const set  = new Set(pref.concat(b));
-  return Array.from(set).filter(Boolean).sort(function(a,b){return a.localeCompare(b);});
+  return Array.from(set).filter(Boolean).sort((a,b)=>a.localeCompare(b));
 }
 
 function extractClosesAndDates(series){
@@ -155,8 +155,8 @@ function updateChartGeneric(instrumentName, groupData){
     theme: "dark",
     style: "1",
     locale: "en",
-    hide_top_toolbar: true,     // ← rimuove barra superiore
-    hide_side_toolbar: false,   // ← lascia la toolbar laterale
+    hide_top_toolbar: true,
+    hide_side_toolbar: false,
     withdateranges: false,
     details: false,
     allow_symbol_change: false,
@@ -299,7 +299,7 @@ export function updateSIM(instrumentName, groupData, pricesData){
 /* ── Block3: metriche (SIM + rischio) ───────────────────────────────── */
 export function updateBlock3(instrumentName, groupData, pricesData){
   const wrap=document.getElementById("block3");
-  const tabs=wrap.querySelector("#block3-tabs"); if(tabs) tabs.style.display="none";
+  // Non nascondiamo i tab: Block3 deve rimanere invariato
 
   const content=document.getElementById("block3-content");
   content.innerHTML =
@@ -385,6 +385,24 @@ export function updateBlock3(instrumentName, groupData, pricesData){
   }
 }
 
+/* ── Block3: ripristino initBlock3Tabs per compat con events.js ─────── */
+export function initBlock3Tabs() {
+  const tabsEl = document.getElementById('block3-tabs');
+  if (!tabsEl) return;
+  const btns = tabsEl.querySelectorAll('button');
+  const tscore = document.getElementById('block3-trendscore');
+  const tview  = document.getElementById('block3-tradingview');
+
+  const show = (tab) => {
+    btns.forEach(b => b.classList.toggle('active-tab', b.dataset.tab === tab));
+    if (tscore) tscore.style.display = (tab === 'trendscore') ? 'block' : 'none';
+    if (tview)  tview.style.display  = (tab === 'tradingview') ? 'block' : 'none';
+  };
+
+  btns.forEach(btn => btn.addEventListener('click', () => show(btn.dataset.tab)));
+  show((tabsEl.querySelector('.active-tab')?.dataset.tab) || 'trendscore');
+}
+
 /* ── Block4: Fundamentals (solo 6 campi richiesti) ─────────────────── */
 export function updateBlock4(instrumentName, groupData){
   const el = document.getElementById("block4");
@@ -403,8 +421,8 @@ export function updateBlock4(instrumentName, groupData){
   const pe   = num(info.pe_ratio ?? info.pe);
   const pb   = num(info.pb_ratio ?? info.pb);
   const eps  = num(info.eps);
-  const yld  = num(info.div_yield ?? info.dividend_yield);    // già in % o frazione? → assumiamo % se >1
-  const pr   = num(info.price ?? info.last ?? info.close);     // fallback eventuale per calcoli
+  const yld  = num(info.div_yield ?? info.dividend_yield); // % o frazione
+  const pr   = num(info.price ?? info.last ?? info.close);  // opzionale per fallback
 
   // payout_ratio per dividend cover
   const payout = num(info.payout_ratio);
@@ -413,19 +431,19 @@ export function updateBlock4(instrumentName, groupData){
   const earningsYield = (pe && pe !== 0) ? (1/pe) : (eps && pr ? (eps/pr) : null); // frazione
   const dividendCover = (payout && payout > 0) ? (1 / payout) : null;
 
-  // normalizzazioni di visualizzazione
+  // normalizzazioni visuali
   const fmt = (v, opts={}) => {
     if (v == null) return "–";
     if (opts.percent)   return (v*100).toFixed(2) + "%";
     if (opts.decimals!=null) return v.toFixed(opts.decimals);
     return String(v);
   };
-  // Dividend Yield: se nel JSON è espresso in % (es. 4.69), convertiamo a frazione
+  // Dividend Yield → mostrato in %
   const dy_fraction = (yld != null)
-    ? (yld > 1.5 ? yld/100 : yld) // 4.69 → 0.0469, 0.0469 rimane 0.0469
+    ? (yld > 1.5 ? yld/100 : yld) // 4.69 → 0.0469; 0.0469 resta 0.0469
     : null;
 
-  // HTML minimale: solo i 6 valori richiesti, in quest’ordine
+  // HTML: solo i 6 valori richiesti, nell’ordine specificato
   el.innerHTML = `
     <div class="panel fundamentals">
       <h3>Fundamentals</h3>
