@@ -413,111 +413,106 @@ export function initBlock3Tabs() {
   show((tabsEl.querySelector('.active-tab')?.dataset.tab) || 'trendscore');
 }
 
-/* ── Block4: Fundamentals (solo 6 campi richiesti) ─────────────────── */
-/* ── Block4: Fundamentals (solo 6 campi richiesti, risoluzione robusta) ── */
+/* ── Block4: Fundamentals (solo 6 campi, resolver multi-sorgente) ──── */
 export function updateBlock4(instrumentName, groupData){
   const el = document.getElementById("block4");
   if (!el) return;
 
-  // -------- resolver robusto ----------
+  // ---------- helpers ----------
   const norm = s => String(s||"").trim().toLowerCase();
-  const stripEx = s => String(s||"").replace(/^[A-Z]+:/, "").trim(); // NASDAQ:EBAY -> EBAY
+  const stripEx = s => String(s||"").replace(/^[A-Z]+:/, "").trim(); // NASDAQ:ADBE -> ADBE
 
-  function asList(data){
+  const asList = (data) => {
     if (!data) return [];
     if (Array.isArray(data)) return data;
-    // se c'è una proprietà "stocks" o simile, usala
-    if (data.stocks && typeof data.stocks === "object") return Object.values(data.stocks);
+    // se i dati sono in una sottochiave nota (stocks, items, data)
+    for (const k of ["stocks","items","data","list"]) {
+      if (data[k] && (Array.isArray(data[k]) || typeof data[k] === "object")) {
+        return Array.isArray(data[k]) ? data[k] : Object.values(data[k]);
+      }
+    }
     return Object.values(data);
-  }
+  };
 
-  function resolveInfo(name, data){
-    if (!data) return null;
-    const direct = (!Array.isArray(data) && data[name]) ? data[name] : null;
-    if (direct) return direct;
+  function findInfo(name, pool){
+    if (!pool) return null;
+    // 1) accesso diretto per chiave
+    if (!Array.isArray(pool) && pool[name]) return pool[name];
 
-    const list = asList(data);
+    const list = asList(pool);
     const nName = norm(name);
-    const nStripped = norm(stripEx(name));
-
-    // match forte: ticker/tvSymbol uguali
-    let hit = list.find(o => norm(o?.ticker) === nStripped || norm(o?.tvSymbol) === nName || norm(stripEx(o?.tvSymbol)) === nStripped);
+    const nStrip= norm(stripEx(name));
+    // match forte
+    let hit = list.find(o =>
+      norm(o?.ticker)         === nStrip ||
+      norm(stripEx(o?.tvSymbol)) === nStrip ||
+      norm(o?.tvSymbol)       === nName
+    );
     if (hit) return hit;
-
-    // match per key-like field
-    hit = list.find(o => norm(o?.symbol) === nStripped || norm(o?.code) === nStripped);
+    // alternative keys
+    hit = list.find(o => norm(o?.symbol) === nStrip || norm(o?.code) === nStrip);
     if (hit) return hit;
-
-    // match per "name" esatto o contains (case-insensitive)
+    // match per nome (esatto o contains)
     hit = list.find(o => norm(o?.name) === nName || norm(o?.company) === nName);
     if (hit) return hit;
-    hit = list.find(o => norm(o?.name).includes(nName) || nName.includes(norm(o?.name||"")));
+    hit = list.find(o => (o?.name && nName.includes(norm(o.name))) || (o?.company && nName.includes(norm(o.company))));
     if (hit) return hit;
-
-    // ultimo tentativo: se le chiavi dell'oggetto contengono il nome "ripulito"
-    if (!Array.isArray(data)) {
-      const entry = Object.entries(data).find(([k]) => norm(k) === nName || norm(k) === nStripped || norm(k).includes(nStripped));
-      if (entry) return entry[1];
-    }
     return null;
   }
 
-  const info = resolveInfo(instrumentName, groupData) || {};
+  // ---------- risoluzione multi-sorgente ----------
+  const candidates = [
+    groupData,
+    (window && window.stocksFullData),
+    (window && window.etfFullData),
+    (window && window.futuresFullData),
+    (window && window.fxFullData)
+  ];
+  let info = null;
+  for (const src of candidates){
+    info = findInfo(instrumentName, src);
+    if (info) break;
+  }
+  console.log("[Block4] name:", instrumentName, "→ resolved:", info?.ticker || info?.tvSymbol || info?.name || "(none)");
 
-  // -------- helpers numerici ----------
+  // ---------- numerica ----------
   const num = (v) => {
     if (v === null || v === undefined) return null;
     if (typeof v === "string") {
-      const s = v.trim();
+      const s = v.replace(/,/g,"").trim();
       if (!s || s === "-" || s.toLowerCase() === "na" || s.toLowerCase() === "n/a") return null;
-      const n = Number(s.replace(/,/g,""));
-      return Number.isFinite(n) ? n : null;
+      const n = Number(s); return Number.isFinite(n) ? n : null;
     }
-    const n = Number(v);
-    return Number.isFinite(n) ? n : null;
+    const n = Number(v); return Number.isFinite(n) ? n : null;
   };
-
   const parseYield = (v) => {
     if (v === null || v === undefined) return null;
-    if (typeof v === "string") {
-      const s = v.replace("%","").trim();
-      if (!s) return null;
-      const n = Number(s);
-      if (!Number.isFinite(n)) return null;
-      return n > 1.5 ? n/100 : n; // 4.7 -> 0.047, già frazione rimane
-    }
-    if (typeof v === "number") return v > 1.5 ? v/100 : v;
+    if (typeof v === "string") { const s=v.replace("%","").trim(); if(!s) return null; const n=Number(s); return Number.isFinite(n)? (n>1.5?n/100:n):null; }
+    if (typeof v === "number") return v>1.5 ? v/100 : v;
     return null;
   };
 
-  // -------- letture dal JSON (con alias comuni) ----------
-  const pe   = num(info.pe_ratio ?? info.pe ?? info.pe_ttm ?? info.peRatio);
-  const pb   = num(info.pb_ratio ?? info.pb ?? info.price_to_book ?? info.pbRatio);
-  const eps  = num(info.eps ?? info.earnings_per_share ?? info.eps_ttm);
-  const yldF = parseYield(info.div_yield ?? info.dividend_yield ?? info.dividendYield ?? info.dividend_yield_percent);
-  const pr   = num(info.price ?? info.last ?? info.close ?? info.last_price);
-  const payout = num(info.payout_ratio ?? info.dividend_payout_ratio);
+  // ---------- letture (con alias comuni) ----------
+  const pe   = num(info?.pe_ratio ?? info?.pe ?? info?.pe_ttm ?? info?.peRatio);
+  const pb   = num(info?.pb_ratio ?? info?.pb ?? info?.price_to_book ?? info?.pbRatio);
+  const eps  = num(info?.eps ?? info?.earnings_per_share ?? info?.eps_ttm);
+  const yldF = parseYield(info?.div_yield ?? info?.dividend_yield ?? info?.dividendYield ?? info?.dividend_yield_percent);
+  const payout = num(info?.payout_ratio ?? info?.dividend_payout_ratio);
+  const pr   = num(info?.price ?? info?.last ?? info?.close ?? info?.last_price);
 
-  // -------- calcoli ----------
-  const earningsYield = (pe && pe !== 0) ? (1/pe) : (eps && pr ? (eps/pr) : null); // frazione
-  const dividendCover = (payout && payout > 0) ? (1 / payout) : null;
+  const earningsYield = (pe && pe !== 0) ? (1/pe) : (eps && pr ? (eps/pr) : null);
+  const dividendCover = (payout && payout > 0) ? (1/payout) : null;
 
-  // -------- formatter ----------
   const fmt = (v, opts={}) => {
     if (v == null) return "–";
-    if (opts.percent)   return (v*100).toFixed(2) + "%";
+    if (opts.percent) return (v*100).toFixed(2) + "%";
     if (opts.decimals!=null) return v.toFixed(opts.decimals);
     return String(v);
   };
 
-  // debug utile sulla console
-  try {
-    // mostra chi stiamo risolvendo e quali campi sono usciti
-    console.debug("[Block4] name:", instrumentName, "→ resolved:", (info?.ticker || info?.tvSymbol || info?.name || "(no id)"));
-    console.debug("[Block4] fields:", {pe, pb, eps, yldF, payout, pr});
-  } catch (_e) {}
+  console.log("[Block4] values:", { pe, pb, eps, yldF, payout, pr, earningsYield, dividendCover });
 
-  // -------- render ----------
+  // ---------- render ----------
   el.innerHTML = `
     <div class="panel fundamentals">
       <h3>Fundamentals</h3>
