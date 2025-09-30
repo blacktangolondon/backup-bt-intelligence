@@ -269,6 +269,7 @@ export function updateSIM(instrumentName, groupData, pricesData){
     renderBenchmarkLines("bench-canvas", labels.slice(-n), cumulativeReturns(Yi), cumulativeReturns(Xm));
 
     updateBlock3(instrumentName, groupData, pricesData); // metriche coerenti
+    updateBlock4(instrumentName, groupData);
   }
 
   benchInput.addEventListener("change", function(){
