@@ -268,7 +268,7 @@ export function updateSIM(instrumentName, groupData, pricesData){
     renderBenchmarkLines("bench-canvas", labels.slice(-n), cumulativeReturns(Yi), cumulativeReturns(Xm));
 
     updateBlock3(instrumentName, groupData, pricesData); // metriche coerenti
-    updateBlock4(instrumentName, groupData);             // ← Block 4 auto-sync
+    updateBlock4(instrumentName, groupData);             // Fundamentals sempre in sync
   }
 
   benchInput.addEventListener("change", function(){
@@ -309,7 +309,6 @@ export function updateSymbolOverview(instrumentName, groupData, pricesData){
 /* ── Block3: metriche (SIM + rischio) ───────────────────────────────── */
 export function updateBlock3(instrumentName, groupData, pricesData){
   const wrap=document.getElementById("block3");
-  // Block3 invariato: non forziamo/nascondiamo i tab
 
   const content=document.getElementById("block3-content");
   content.innerHTML =
@@ -440,9 +439,9 @@ export function updateBlock4(instrumentName, groupData){
     const nName = norm(name);
     const nStrip= norm(stripEx(name));
     let hit = list.find(o =>
-      norm(o?.ticker)         === nStrip ||
-      norm(stripEx(o?.tvSymbol)) === nStrip ||
-      norm(o?.tvSymbol)       === nName
+      norm(o?.ticker)           === nStrip ||
+      norm(stripEx(o?.tvSymbol))=== nStrip ||
+      norm(o?.tvSymbol)         === nName
     );
     if (hit) return hit;
     hit = list.find(o => norm(o?.symbol) === nStrip || norm(o?.code) === nStrip);
@@ -506,24 +505,24 @@ export function updateBlock4(instrumentName, groupData){
 
   console.log("[Block4] values:", { pe, pb, eps, yldF, payout, pr, earningsYield, dividendCover });
 
-  // ---------- render (stile Block 3) ----------
-  const box = (label, value) => `
-    <div class="metric-card">
-      <div class="metric-label">${label}</div>
-      <div class="metric-value">${value}</div>
+  // ---------- render (allineato al Block 3) ----------
+  const row = (label, value) => `
+    <div class="fund-row">
+      <span>${label}</span>
+      <strong>${value}</strong>
     </div>
   `;
 
   el.innerHTML = `
-    <div class="section">
-      <div class="section-title">Fundamentals</div>
-      <div class="metrics-grid two-col">
-        ${box("P/E",            fmt(pe, {decimals: 2}))}
-        ${box("P/B",            fmt(pb, {decimals: 2}))}
-        ${box("Dividend Yield", fmt(yldF, {percent: true}))}
-        ${box("Dividend Cover", fmt(dividendCover, {decimals: 2}))}
-        ${box("EPS",            fmt(eps, {decimals: 2}))}
-        ${box("Earnings Yield", fmt(earningsYield, {percent: true}))}
+    <div class="fund-card">
+      <div class="fund-title">Fundamentals</div>
+      <div class="fund-grid">
+        ${row("P/E",            fmt(pe, {decimals: 2}))}
+        ${row("P/B",            fmt(pb, {decimals: 2}))}
+        ${row("Dividend Yield", fmt(yldF, {percent: true}))}
+        ${row("Dividend Cover", fmt(dividendCover, {decimals: 2}))}
+        ${row("EPS",            fmt(eps, {decimals: 2}))}
+        ${row("Earnings Yield", fmt(earningsYield, {percent: true}))}
       </div>
     </div>
   `;
