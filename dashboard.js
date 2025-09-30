@@ -213,8 +213,7 @@ export function updateSIM(instrumentName, groupData, pricesData){
         '<button class="tab-btn" data-tab="bench">Benchmark</button>' +
       '</div>' +
       '<div class="bench-picker">' +
-        '<label for="bench-input">Benchmark</label>' +
-        '<input id="bench-input" list="bench-list" placeholder="^GSPC, DAX, SPY, ..." />' +
+      '<input id="bench-input" list="bench-list" placeholder="Benchmark (es. ^GSPC, DAX, SPY)" />'+
         '<datalist id="bench-list"></datalist>' +
         '<button id="bench-reset" title="Reset to S&P 500">↺</button>' +
         '<small id="bench-msg"></small>' +
