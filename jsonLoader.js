@@ -107,7 +107,7 @@ export async function loadJSONData() {
     }
 
     const key = item.ticker || item.name || tvSymbol || Math.random().toString(36).slice(2);
-    bucket[key] = { summaryLeft, summaryRight, tvSymbol };
+    bucket[key] = { ...item, tvSymbol, summaryLeft, summaryRight };
   });
 
   return { stocksFullData, etfFullData, futuresFullData, fxFullData };
