@@ -1,8 +1,8 @@
-/* General Reset */
+/* ==================== General Reset ==================== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { display: flex; font-family: Arial, sans-serif; background-color: #000000; }
 
-/* Loading message style */
+/* ==================== Loading message ==================== */
 .loading-message {
   position: absolute;
   top: 50%;
@@ -12,14 +12,10 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   color: white;
   text-align: center;
 }
-@keyframes pulse {
-  0% { opacity: 0.3; }
-  50% { opacity: 1; }
-  100% { opacity: 0.3; }
-}
+@keyframes pulse { 0%{opacity:.3} 50%{opacity:1} 100%{opacity:.3} }
 .loading-message span { display: inline-block; animation: pulse 1.5s infinite; }
 
-/* Sidebar Styling */
+/* ==================== Sidebar ==================== */
 #sidebar {
   background-color: #000000;
   color: white;
@@ -35,7 +31,6 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 #collapse-btn { padding: 10px; text-align: center; cursor: pointer; background-color: #334455; }
 #collapse-btn:hover { background-color: #556677; }
 
-/* Titolo della sidebar */
 #sidebar-title {
   width: 100%;
   padding: 12px 0;
@@ -67,7 +62,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 .expandable > .sub-list { display: none; padding-left: 15px; }
 .expandable.expanded > .sub-list { display: block; }
 
-/* Main Content (Dashboard) */
+/* ==================== Main Content (Dashboard) ==================== */
 #main-content {
   flex-grow: 1;
   width: 80%;
@@ -116,7 +111,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 #block3-content { width: 100%; height: calc(100% - 30px); position: relative; }
 #block3-trendscore, #block3-tradingview { width: 100%; height: 100%; display: none; }
 
-/* External Full Screen Button */
+/* ==================== External Full Screen Button ==================== */
 .external-fullscreen-btn {
   position: absolute; bottom: 8px; right: 8px; padding: 4px 6px; font-size: 14px;
   background-color: #334455; color: white; border: none; cursor: pointer; z-index: 10; border-radius: 3px;
@@ -128,7 +123,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 .tradingview-widget-container,
 .tradingview-widget-container__widget { background-color: #000000 !important; }
 
-/* YouTube Popup */
+/* ==================== YouTube Popup ==================== */
 #youtube-popup {
   display: none; position: fixed; top: 50px; left: 50px; width: 320px; height: 240px;
   background-color: #000000; border: 1px solid #444444; z-index: 1000; padding: 10px;
@@ -138,7 +133,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 #youtube-popup input[type="text"] { width: 100%; margin-bottom: 5px; }
 #youtube-popup button { width: 100%; margin-bottom: 5px; }
 
-/* --- SPREAD Chart Block --- */
+/* ==================== SPREAD Chart Block ==================== */
 #block5 {
   grid-column: 1 / -1; grid-row: 1 / -1; width: 100%; height: 100%;
   background-color: #000000; border: 1px solid #444444; position: relative;
@@ -148,7 +143,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   position: absolute; top: 8px; left: 10px; color: #FFA500; font-size: 16px; font-weight: bold; z-index: 5; pointer-events: none;
 }
 
-/* Portfolio Builder Page Styles */
+/* ==================== Portfolio Builder ==================== */
 #portfolio-builder-page {
   width: 90%; max-width: 1200px; margin: 10px auto; background: #000000; padding: 20px; position: relative;
 }
@@ -178,7 +173,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 #portfolio-results th { background-color: #112233; color: white; font-weight: bold; }
 #portfolio-results tr:nth-child(even) { background-color: rgba(255, 165, 0, 0.1); }
 
-/* Two-section layout for Portfolio Builder page */
+/* Two-section layout */
 #portfolio-builder-container { display: flex; gap: 20px; margin-top: 10px; align-items: flex-start; }
 #portfolio_builder1, #portfolio_builder2 {
   padding: 20px; border: 1px solid #444444; background-color: #000000; border-radius: 8px; flex-shrink: 0;
@@ -186,7 +181,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 #portfolio_builder1 { width: 40%; }
 #portfolio_builder2 { width: 60%; overflow-y: auto; max-height: 600px; }
 
-/* Filter Selector Styling */
+/* Filter Selector */
 .filter-selector {
   margin: 10px auto; text-align: center; background-color: #222222; border: 1px solid #444444; border-radius: 4px; padding: 8px;
 }
@@ -213,7 +208,7 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 .no-ideas { padding: 2rem; text-align: center; color: #bbb; font-style: italic; border: 1px dashed #555; border-radius: 0.5rem; background: #0a1827; margin: 20px 0; }
 .no-ideas p { margin: 0; }
 
-/* === SIM (Block2) === */
+/* ==================== SIM (Block2) common ==================== */
 .sim-header{ font-weight:700; color:#ffa500; padding:6px 8px; border-bottom:1px solid #333; margin-bottom:6px; }
 .sim-grid{ display:grid; grid-template-columns:280px 1fr; gap:8px; height:100%; }
 .sim-metrics{ display:grid; grid-auto-rows:minmax(32px,auto); gap:6px; }
@@ -223,22 +218,51 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 .sim-chart{ position:relative; min-height:260px; height:calc(100% - 8px); }
 .sim-missing{ color:#ccc; padding:10px; }
 
-/* ==== Block2: SIM + Benchmark (layout flessibile) ==== */
+/* ==== Block2: layout flessibile + tabs ==== */
 #block2 { display:flex; flex-direction:column; min-height:0; height:100%; }
 #block2 #symbol-info-container { flex:1 1 auto; display:flex; flex-direction:column; min-height:0; }
-.sim-toolbar{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:6px; border-bottom:1px solid #333; padding-bottom:6px; }
+.sim-toolbar{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; margin-bottom:6px; border-bottom:1px solid #333; padding-bottom:6px;
+  flex-wrap: wrap; /* evita sovrapposizioni su viewport stretti */
+}
 .sim-tabs{ display:flex; gap:8px; }
 .tab-btn{
   background:#222; color:#ddd; border:1px solid #3a3a3a; border-radius:999px; padding:4px 10px; font-size:12px; cursor:pointer; transition:all .15s ease;
 }
 .tab-btn:hover{ background:#2b2b2b; border-color:#555; }
 .tab-btn.active{ background:#ffa500; color:#000; border-color:#ffa500; }
+
 #block2 .sim-body { flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
 #block2 .sim-pane { flex:1 1 auto; min-height:0; }
 #block2 .sim-pane.hidden { display:none; }
 #block2 .sim-pane canvas { width:100% !important; height:100% !important; display:block; }
 
-/* === Risk Metrics (Block3) === */
+/* ==== Block2: Benchmark picker (scuro, pill) ==== */
+#block2 #symbol-info-container .bench-picker { margin-left:auto; display:flex; align-items:center; gap:6px; }
+#block2 #symbol-info-container .bench-picker label { display:none; } /* nasconde eventuale label “Benchmark” */
+#block2 #symbol-info-container .bench-picker input#bench-input {
+  background:#0d1117 !important;
+  color:#e6edf3 !important;
+  border:1px solid #30363d !important;
+  border-radius:999px !important;
+  padding:6px 12px !important;
+  height:28px !important;
+  min-width:200px;
+  outline:none !important;
+}
+#block2 #symbol-info-container .bench-picker input#bench-input::placeholder { color:#8b949e; }
+#block2 #symbol-info-container .bench-picker input#bench-input:focus {
+  border-color:#ffa500 !important;
+  box-shadow:0 0 0 2px rgba(255,165,0,.15);
+}
+#block2 #symbol-info-container .bench-picker button#bench-reset {
+  height:28px; border-radius:999px; background:#222; border:1px solid #3a3a3a; color:#ddd; padding:0 8px;
+}
+#block2 #symbol-info-container .bench-picker button#bench-reset:hover { background:#2b2b2b; }
+#block2 #symbol-info-container .bench-picker small#bench-msg { min-width:0; font-size:11px; }
+
+/* ==================== Risk Metrics (Block3) ==================== */
 .risk-metrics .rm-title{ font-weight:700; color:#ffa500; margin-bottom:8px; }
 .risk-metrics .rm-section{ margin-bottom:12px; }
 .risk-metrics .rm-section-title{ color:#ddd; font-weight:600; font-size:13px; margin:6px 0; text-transform:uppercase; letter-spacing:.02em; }
@@ -248,35 +272,36 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 .risk-metrics strong{ color:#fff; font-variant-numeric: tabular-nums; }
 .rm-warning{ margin-top:10px; color:#ddd; }
 
-/* === Fundamentals (Block4) — identico look al Block3 === */
+/* ==================== Fundamentals (Block4) — match Block3 ==================== */
 #block4 { padding: 10px; }
 #block4 .fund-card { height:100%; display:flex; flex-direction:column; }
 #block4 .fund-title {
   height: 30px; display:flex; align-items:center; font-weight:700; color:#ffa500; margin-bottom:8px;
+  border-bottom: 1px solid #333; padding-bottom: 4px;
 }
 #block4 .fund-grid {
   flex:1; display:grid; grid-template-columns:1fr 1fr; gap:8px; align-content:start;
 }
 #block4 .fund-row {
-  border:1px solid #333; border-radius:8px; background:#1b1b1b; padding:8px;
+  border:1px solid #333; border-radius:8px; background:#1b1b1b; padding:8px; min-height:34px;
   display:flex; align-items:center; justify-content:space-between;
 }
 #block4 .fund-row span { color:#aaa; font-size:12px; }
-#block4 .fund-row strong { color:#fff; font-variant-numeric: tabular-nums; }
+#block4 .fund-row strong { color:#fff; font-variant-numeric: tabular-nums; font-weight:700; letter-spacing:.2px; }
 
-/* TradingView in Block1: full area */
+/* ==================== TradingView Block1 ==================== */
 #block1,
 #block1 .tradingview-widget-container,
 #block1 .tradingview-widget-container__widget { height: 100% !important; width: 100% !important; }
 
-/* Scrollbars */
+/* ==================== Scrollbars ==================== */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: #000000; border-radius: 4px; }
 ::-webkit-scrollbar-thumb { background: #333333; border-radius: 4px; border: 2px solid #000000; }
 ::-webkit-scrollbar-thumb:hover { background: #555555; }
 * { scrollbar-width: thin; scrollbar-color: #333333 #000000; }
 
-/* Responsive */
+/* ==================== Responsive ==================== */
 @media screen and (max-width: 768px) {
   body { flex-direction: column; }
   #sidebar { width: 100%; min-width: unset; height: auto; }
