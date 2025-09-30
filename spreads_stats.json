@@ -1,1439 +1,5018 @@
 {
   "portfolio_kpis": {
     "period": {
-      "start": "2023-07-25",
-      "end": "2025-09-29"
+      "start": "2023-07-26",
+      "end": "2025-09-30"
     },
-    "total_trades": 67,
-    "wins": 35,
-    "losses": 32,
-    "win_rate_pct": 52.2,
-    "total_pnl": 0.151855217,
-    "max_drawdown": 0.0741189844,
-    "avg_duration_days": 20.6,
-    "open_positions": 14
+    "total_trades": 284,
+    "wins": 152,
+    "losses": 132,
+    "win_rate_pct": 53.5,
+    "total_pnl": 0.34344029,
+    "max_drawdown": 0.0750139354,
+    "avg_duration_days": 21.7,
+    "open_positions": 11
   },
   "by_spread": [
     {
-      "spread": "BNP.PA/ACA.PA",
+      "spread": "AAPL/MSFT",
+      "count": 11,
+      "avg_pnl": -0.002704,
+      "max_win": 0.005603,
+      "max_loss": -0.011836
+    },
+    {
+      "spread": "AMZN/NFLX",
+      "count": 3,
+      "avg_pnl": 0.000532,
+      "max_win": 0.005732,
+      "max_loss": -0.005389
+    },
+    {
+      "spread": "BATS.L/IMB.L",
       "count": 1,
-      "avg_pnl": 0.027182,
-      "max_win": 0.027182,
-      "max_loss": 0.027182
+      "avg_pnl": -0.013613,
+      "max_win": -0.013613,
+      "max_loss": -0.013613
+    },
+    {
+      "spread": "BITCOIN/ETHEREUM",
+      "count": 9,
+      "avg_pnl": -0.00435,
+      "max_win": 0.02169,
+      "max_loss": -0.016949
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "count": 10,
+      "avg_pnl": 0.000166,
+      "max_win": 0.022311,
+      "max_loss": -0.010135
     },
     {
       "spread": "BRENT/WTI",
-      "count": 1,
-      "avg_pnl": -0.008827,
-      "max_win": -0.008827,
-      "max_loss": -0.008827
+      "count": 10,
+      "avg_pnl": 0.007251,
+      "max_win": 0.022203,
+      "max_loss": -0.022495
+    },
+    {
+      "spread": "CAC40/EU50",
+      "count": 4,
+      "avg_pnl": -0.005672,
+      "max_win": -0.002018,
+      "max_loss": -0.012656
     },
     {
       "spread": "CAT/DE",
-      "count": 1,
-      "avg_pnl": -0.020357,
-      "max_win": -0.020357,
-      "max_loss": -0.020357
+      "count": 6,
+      "avg_pnl": -0.004116,
+      "max_win": 0.011283,
+      "max_loss": -0.017932
     },
     {
       "spread": "CORN/WHEAT",
-      "count": 8,
-      "avg_pnl": 0.000573,
-      "max_win": 0.016703,
-      "max_loss": -0.011673
+      "count": 9,
+      "avg_pnl": -0.000122,
+      "max_win": 0.013084,
+      "max_loss": -0.008446
+    },
+    {
+      "spread": "DAX40/EU50",
+      "count": 10,
+      "avg_pnl": 0.003963,
+      "max_win": 0.019782,
+      "max_loss": -0.02267
     },
     {
       "spread": "DBK.DE/CBK.DE",
-      "count": 1,
-      "avg_pnl": 0.022161,
-      "max_win": 0.022161,
-      "max_loss": 0.022161
+      "count": 10,
+      "avg_pnl": 0.010337,
+      "max_win": 0.020261,
+      "max_loss": -6e-06
     },
     {
       "spread": "DIS/CMCSA",
-      "count": 1,
-      "avg_pnl": 0.004913,
-      "max_win": 0.004913,
-      "max_loss": 0.004913
+      "count": 5,
+      "avg_pnl": 0.003126,
+      "max_win": 0.011376,
+      "max_loss": -0.00163
     },
     {
       "spread": "DOW30/NASDAQ100",
-      "count": 1,
-      "avg_pnl": 0.012647,
-      "max_win": 0.012647,
-      "max_loss": 0.012647
+      "count": 4,
+      "avg_pnl": 0.001852,
+      "max_win": 0.014782,
+      "max_loss": -0.005777
     },
     {
       "spread": "DOW30/RUSSELL2000",
-      "count": 1,
-      "avg_pnl": -0.004802,
-      "max_win": -0.004802,
-      "max_loss": -0.004802
+      "count": 6,
+      "avg_pnl": -9.8e-05,
+      "max_win": 0.009157,
+      "max_loss": -0.021
+    },
+    {
+      "spread": "DOW30/S&P500",
+      "count": 2,
+      "avg_pnl": 0.006539,
+      "max_win": 0.014869,
+      "max_loss": -0.001792
     },
     {
       "spread": "FTSE100/CAC40",
-      "count": 1,
-      "avg_pnl": -0.000898,
-      "max_win": -0.000898,
-      "max_loss": -0.000898
+      "count": 4,
+      "avg_pnl": 0.001226,
+      "max_win": 0.004009,
+      "max_loss": -0.002701
     },
     {
       "spread": "FTSE100/EU50",
-      "count": 1,
-      "avg_pnl": -0.007581,
-      "max_win": -0.007581,
-      "max_loss": -0.007581
+      "count": 4,
+      "avg_pnl": 0.008659,
+      "max_win": 0.013855,
+      "max_loss": 0.003536
     },
     {
       "spread": "GM/F",
-      "count": 1,
-      "avg_pnl": 0.009804,
-      "max_win": 0.009804,
-      "max_loss": 0.009804
+      "count": 7,
+      "avg_pnl": -0.00789,
+      "max_win": 0.011317,
+      "max_loss": -0.018513
     },
     {
       "spread": "GOLD/PLATINUM",
-      "count": 12,
-      "avg_pnl": -0.000462,
-      "max_win": 0.021715,
-      "max_loss": -0.013297
+      "count": 9,
+      "avg_pnl": 0.004755,
+      "max_win": 0.020591,
+      "max_loss": -0.008111
     },
     {
       "spread": "GOLD/SILVER",
-      "count": 16,
-      "avg_pnl": 0.008862,
-      "max_win": 0.023822,
-      "max_loss": -0.020926
-    },
-    {
-      "spread": "GOOGL/META",
-      "count": 1,
-      "avg_pnl": -0.004888,
-      "max_win": -0.004888,
-      "max_loss": -0.004888
+      "count": 8,
+      "avg_pnl": 0.003699,
+      "max_win": 0.022474,
+      "max_loss": -0.004792
     },
     {
       "spread": "GS/MS",
+      "count": 5,
+      "avg_pnl": 3.3e-05,
+      "max_win": 0.00595,
+      "max_loss": -0.012326
+    },
+    {
+      "spread": "HSBA.L/BARC.L",
       "count": 1,
-      "avg_pnl": 0.007636,
-      "max_win": 0.007636,
-      "max_loss": 0.007636
+      "avg_pnl": -0.006986,
+      "max_win": -0.006986,
+      "max_loss": -0.006986
+    },
+    {
+      "spread": "HYG/LQD",
+      "count": 4,
+      "avg_pnl": 0.009198,
+      "max_win": 0.019737,
+      "max_loss": 0.00468
+    },
+    {
+      "spread": "HYG/ZB",
+      "count": 4,
+      "avg_pnl": 0.005569,
+      "max_win": 0.016219,
+      "max_loss": -0.010171
     },
     {
       "spread": "JNJ/PFE",
-      "count": 2,
-      "avg_pnl": -0.002884,
-      "max_win": 0.002036,
-      "max_loss": -0.007804
+      "count": 5,
+      "avg_pnl": 0.004305,
+      "max_win": 0.011969,
+      "max_loss": -0.01011
     },
     {
       "spread": "JPM/BAC",
-      "count": 1,
-      "avg_pnl": 0.019559,
-      "max_win": 0.019559,
-      "max_loss": 0.019559
+      "count": 3,
+      "avg_pnl": -0.011338,
+      "max_win": -0.000486,
+      "max_loss": -0.02066
+    },
+    {
+      "spread": "KO/PEP",
+      "count": 8,
+      "avg_pnl": -0.006362,
+      "max_win": 0.003199,
+      "max_loss": -0.02089
+    },
+    {
+      "spread": "LLOY.L/NWG.L",
+      "count": 9,
+      "avg_pnl": -0.004816,
+      "max_win": 0.004102,
+      "max_loss": -0.020515
+    },
+    {
+      "spread": "MC.PA/CFR.SW",
+      "count": 2,
+      "avg_pnl": -0.000152,
+      "max_win": 0.011505,
+      "max_loss": -0.011808
+    },
+    {
+      "spread": "NASDAQ100/RUSSELL2000",
+      "count": 4,
+      "avg_pnl": -0.001426,
+      "max_win": 0.007637,
+      "max_loss": -0.005463
+    },
+    {
+      "spread": "NASDAQ100/S&P500",
+      "count": 7,
+      "avg_pnl": 7e-05,
+      "max_win": 0.017507,
+      "max_loss": -0.007053
+    },
+    {
+      "spread": "NESN.SW/ULVR.L",
+      "count": 4,
+      "avg_pnl": -0.000525,
+      "max_win": 0.002691,
+      "max_loss": -0.002312
     },
     {
       "spread": "NVDA/AMD",
-      "count": 1,
-      "avg_pnl": 0.004535,
-      "max_win": 0.004535,
-      "max_loss": 0.004535
+      "count": 3,
+      "avg_pnl": -0.006474,
+      "max_win": 0.004227,
+      "max_loss": -0.020161
     },
     {
       "spread": "PG/CL",
-      "count": 1,
-      "avg_pnl": -0.020938,
-      "max_win": -0.020938,
-      "max_loss": -0.020938
+      "count": 12,
+      "avg_pnl": -0.000944,
+      "max_win": 0.009938,
+      "max_loss": -0.010414
     },
     {
       "spread": "PLATINUM/SILVER",
-      "count": 6,
-      "avg_pnl": 0.000395,
-      "max_win": 0.014794,
-      "max_loss": -0.013418
+      "count": 3,
+      "avg_pnl": -0.001999,
+      "max_win": 0.001679,
+      "max_loss": -0.007782
+    },
+    {
+      "spread": "S&P500/RUSSELL2000",
+      "count": 4,
+      "avg_pnl": 0.003637,
+      "max_win": 0.013789,
+      "max_loss": -0.005176
     },
     {
       "spread": "SIE.DE/SU.PA",
-      "count": 1,
-      "avg_pnl": -0.015541,
-      "max_win": -0.015541,
-      "max_loss": -0.015541
+      "count": 13,
+      "avg_pnl": -0.000603,
+      "max_win": 0.012009,
+      "max_loss": -0.013958
+    },
+    {
+      "spread": "SOYBEANS/CORN",
+      "count": 6,
+      "avg_pnl": 0.001514,
+      "max_win": 0.009361,
+      "max_loss": -0.006263
+    },
+    {
+      "spread": "TSLA/RIVN",
+      "count": 6,
+      "avg_pnl": 0.003664,
+      "max_win": 0.020695,
+      "max_loss": -0.019712
+    },
+    {
+      "spread": "UB/ZF",
+      "count": 3,
+      "avg_pnl": -0.002814,
+      "max_win": 0.001299,
+      "max_loss": -0.00777
     },
     {
       "spread": "ULVR.L/RKT.L",
-      "count": 2,
-      "avg_pnl": -0.006959,
-      "max_win": -0.006551,
-      "max_loss": -0.007368
+      "count": 5,
+      "avg_pnl": -0.000665,
+      "max_win": 0.003146,
+      "max_loss": -0.005796
     },
     {
       "spread": "V/MA",
-      "count": 1,
-      "avg_pnl": -0.001653,
-      "max_win": -0.001653,
-      "max_loss": -0.001653
+      "count": 11,
+      "avg_pnl": 0.006778,
+      "max_win": 0.022982,
+      "max_loss": -0.007922
     },
     {
       "spread": "VOW.DE/BMW.DE",
-      "count": 1,
-      "avg_pnl": 0.024892,
-      "max_win": 0.024892,
-      "max_loss": 0.024892
+      "count": 7,
+      "avg_pnl": 0.006332,
+      "max_win": 0.021589,
+      "max_loss": -0.008774
+    },
+    {
+      "spread": "WFC/C",
+      "count": 7,
+      "avg_pnl": 0.008057,
+      "max_win": 0.018791,
+      "max_loss": -0.004959
     },
     {
       "spread": "XOM/CVX",
-      "count": 1,
-      "avg_pnl": -0.01333,
-      "max_win": -0.01333,
-      "max_loss": -0.01333
+      "count": 7,
+      "avg_pnl": 0.005005,
+      "max_win": 0.020186,
+      "max_loss": -0.00369
     },
     {
       "spread": "ZF/ZT",
-      "count": 1,
-      "avg_pnl": -0.007287,
-      "max_win": -0.007287,
-      "max_loss": -0.007287
+      "count": 4,
+      "avg_pnl": 0.004215,
+      "max_win": 0.012171,
+      "max_loss": -0.00749
     },
     {
       "spread": "ZN/ZF",
-      "count": 1,
-      "avg_pnl": 0.001116,
-      "max_win": 0.001116,
-      "max_loss": 0.001116
+      "count": 5,
+      "avg_pnl": 0.001821,
+      "max_win": 0.010084,
+      "max_loss": -0.008058
     }
   ],
   "trades": [
     {
-      "spread": "GOLD/SILVER",
+      "spread": "V/MA",
       "type": "long",
-      "entry_date": "2023-07-25",
-      "exit_date": "2023-08-16",
-      "entry": 79.501621,
-      "exit": 84.346085,
-      "take_profit": 85.040019,
-      "stop_loss": 73.963223,
-      "pnl": 0.0169199135,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/PLATINUM",
-      "type": "short",
-      "entry_date": "2023-07-27",
-      "exit_date": "2023-08-18",
-      "entry": 2.076201,
-      "exit": 2.074461,
-      "take_profit": 1.938796,
-      "stop_loss": 2.213606,
-      "pnl": -0.0003511374,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "long",
-      "entry_date": "2023-08-23",
-      "exit_date": "2023-09-14",
-      "entry": 78.74646,
-      "exit": 83.963425,
-      "take_profit": 84.346993,
-      "stop_loss": 73.145927,
-      "pnl": 0.0180678235,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/PLATINUM",
-      "type": "short",
-      "entry_date": "2023-09-06",
-      "exit_date": "2023-09-28",
-      "entry": 2.102719,
-      "exit": 2.055009,
-      "take_profit": 1.962546,
-      "stop_loss": 2.242891,
-      "pnl": 0.0062073113,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "CORN/WHEAT",
-      "type": "long",
-      "entry_date": "2023-09-13",
-      "exit_date": "2023-10-05",
-      "entry": 0.815466,
-      "exit": 0.860355,
-      "take_profit": 0.919046,
-      "stop_loss": 0.711886,
-      "pnl": 0.0083525908,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "PLATINUM/SILVER",
-      "type": "long",
-      "entry_date": "2023-09-21",
-      "exit_date": "2023-10-13",
-      "entry": 39.438662,
-      "exit": 38.522462,
-      "take_profit": 42.425883,
-      "stop_loss": 36.451441,
-      "pnl": -0.0066622277,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/PLATINUM",
-      "type": "short",
-      "entry_date": "2023-10-05",
-      "exit_date": "2023-10-27",
-      "entry": 2.130159,
-      "exit": 2.216451,
-      "take_profit": 1.993959,
-      "stop_loss": 2.266359,
-      "pnl": -0.013296963,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "PLATINUM/SILVER",
-      "type": "long",
-      "entry_date": "2023-10-18",
-      "exit_date": "2023-11-09",
-      "entry": 38.554742,
-      "exit": 37.519163,
-      "take_profit": 41.739368,
-      "stop_loss": 35.370115,
-      "pnl": -0.0069878732,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/PLATINUM",
-      "type": "short",
-      "entry_date": "2023-11-06",
-      "exit_date": "2023-11-28",
-      "entry": 2.177104,
-      "exit": 2.16047,
-      "take_profit": 2.035166,
-      "stop_loss": 2.319042,
-      "pnl": 0.0017303037,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "CORN/WHEAT",
-      "type": "long",
-      "entry_date": "2023-11-07",
-      "exit_date": "2023-11-29",
-      "entry": 0.821569,
-      "exit": 0.808903,
-      "take_profit": 0.91299,
-      "stop_loss": 0.730148,
-      "pnl": -0.0031303832,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "PLATINUM/SILVER",
-      "type": "long",
-      "entry_date": "2023-11-16",
-      "exit_date": "2023-12-08",
-      "entry": 37.548133,
-      "exit": 39.885072,
-      "take_profit": 40.955651,
-      "stop_loss": 34.140615,
-      "pnl": 0.0132756026,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/PLATINUM",
-      "type": "short",
-      "entry_date": "2023-12-01",
-      "exit_date": "2023-12-26",
-      "entry": 2.222103,
-      "exit": 2.09999,
-      "take_profit": 2.064411,
-      "stop_loss": 2.379795,
-      "pnl": 0.0149238762,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "short",
-      "entry_date": "2024-01-03",
-      "exit_date": "2024-01-25",
-      "entry": 88.651617,
-      "exit": 88.429498,
-      "take_profit": 83.14447,
-      "stop_loss": 94.158764,
-      "pnl": 0.0001627549,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/PLATINUM",
-      "type": "short",
-      "entry_date": "2024-01-12",
-      "exit_date": "2024-02-05",
-      "entry": 2.248874,
-      "exit": 2.261078,
-      "take_profit": 2.096216,
-      "stop_loss": 2.401532,
-      "pnl": -0.0021881261,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/PLATINUM",
-      "type": "short",
-      "entry_date": "2024-02-07",
-      "exit_date": "2024-02-29",
-      "entry": 2.314305,
-      "exit": 2.324923,
-      "take_profit": 2.139286,
-      "stop_loss": 2.489324,
-      "pnl": -0.0017422806,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "short",
-      "entry_date": "2024-02-21",
-      "exit_date": "2024-03-14",
-      "entry": 88.499409,
-      "exit": 86.95827,
-      "take_profit": 83.702196,
-      "stop_loss": 93.296622,
-      "pnl": 0.0056872196,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/PLATINUM",
-      "type": "short",
-      "entry_date": "2024-03-01",
-      "exit_date": "2024-03-25",
-      "entry": 2.360213,
-      "exit": 2.398588,
-      "take_profit": 2.18133,
-      "stop_loss": 2.539096,
-      "pnl": -0.0048182808,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "short",
-      "entry_date": "2024-03-26",
-      "exit_date": "2024-04-04",
-      "entry": 88.861663,
-      "exit": 84.333088,
-      "take_profit": 84.500585,
-      "stop_loss": 93.22274,
-      "pnl": 0.0199531064,
+      "entry_date": "2023-07-26",
+      "exit_date": "2023-08-04",
+      "entry": 0.5892,
+      "exit": 0.610681,
+      "take_profit": 0.610308,
+      "stop_loss": 0.568092,
+      "pnl": 0.019236877,
       "exit_reason": "TP"
-    },
-    {
-      "spread": "GOLD/PLATINUM",
-      "type": "short",
-      "entry_date": "2024-03-27",
-      "exit_date": "2024-04-18",
-      "entry": 2.445139,
-      "exit": 2.520152,
-      "take_profit": 2.233144,
-      "stop_loss": 2.657134,
-      "pnl": -0.0075382229,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "PLATINUM/SILVER",
-      "type": "long",
-      "entry_date": "2024-04-19",
-      "exit_date": "2024-05-13",
-      "entry": 32.425021,
-      "exit": 35.622409,
-      "take_profit": 36.659964,
-      "stop_loss": 28.190078,
-      "pnl": 0.0147937668,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "long",
-      "entry_date": "2024-05-15",
-      "exit_date": "2024-05-20",
-      "entry": 80.934472,
-      "exit": 76.598762,
-      "take_profit": 85.270182,
-      "stop_loss": 76.598762,
-      "pnl": -0.0207466779,
-      "exit_reason": "SL"
-    },
-    {
-      "spread": "CORN/WHEAT",
-      "type": "long",
-      "entry_date": "2024-05-10",
-      "exit_date": "2024-06-03",
-      "entry": 0.705768,
-      "exit": 0.659234,
-      "take_profit": 0.787917,
-      "stop_loss": 0.623619,
-      "pnl": -0.0116728228,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "short",
-      "entry_date": "2024-08-05",
-      "exit_date": "2024-08-23",
-      "entry": 88.702172,
-      "exit": 84.214057,
-      "take_profit": 84.406429,
-      "stop_loss": 92.997915,
-      "pnl": 0.020069686,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "short",
-      "entry_date": "2024-09-03",
-      "exit_date": "2024-09-13",
-      "entry": 89.080888,
-      "exit": 84.084172,
-      "take_profit": 85.03534,
-      "stop_loss": 93.126436,
-      "pnl": 0.0238215155,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "long",
-      "entry_date": "2024-10-21",
-      "exit_date": "2024-11-06",
-      "entry": 80.40096,
-      "exit": 85.442494,
-      "take_profit": 84.639855,
-      "stop_loss": 76.162064,
-      "pnl": 0.0230283172,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "CORN/WHEAT",
-      "type": "short",
-      "entry_date": "2024-11-12",
-      "exit_date": "2024-12-04",
-      "entry": 0.775917,
-      "exit": 0.784387,
-      "take_profit": 0.669761,
-      "stop_loss": 0.882073,
-      "pnl": -0.0018881333,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "short",
-      "entry_date": "2024-12-19",
-      "exit_date": "2025-01-10",
-      "entry": 89.097408,
-      "exit": 87.115242,
-      "take_profit": 84.784084,
-      "stop_loss": 93.410732,
-      "pnl": 0.0083646449,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "short",
-      "entry_date": "2025-01-23",
-      "exit_date": "2025-02-14",
-      "entry": 90.082486,
-      "exit": 87.911957,
-      "take_profit": 85.74032,
-      "stop_loss": 94.424652,
-      "pnl": 0.0091676091,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "short",
-      "entry_date": "2025-02-24",
-      "exit_date": "2025-03-18",
-      "entry": 90.495776,
-      "exit": 87.772929,
-      "take_profit": 86.073901,
-      "stop_loss": 94.917651,
-      "pnl": 0.0114967314,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "short",
-      "entry_date": "2025-03-21",
-      "exit_date": "2025-04-03",
-      "entry": 90.663863,
-      "exit": 94.580964,
-      "take_profit": 86.746762,
-      "stop_loss": 94.580964,
-      "pnl": -0.0209258261,
-      "exit_reason": "SL"
-    },
-    {
-      "spread": "CORN/WHEAT",
-      "type": "short",
-      "entry_date": "2025-03-20",
-      "exit_date": "2025-04-11",
-      "entry": 0.841633,
-      "exit": 0.882141,
-      "take_profit": 0.7589,
-      "stop_loss": 0.924366,
-      "pnl": -0.0101993802,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/PLATINUM",
-      "type": "short",
-      "entry_date": "2025-04-03",
-      "exit_date": "2025-04-25",
-      "entry": 3.285942,
-      "exit": 3.402156,
-      "take_profit": 2.962238,
-      "stop_loss": 3.609646,
-      "pnl": -0.0075863063,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/PLATINUM",
-      "type": "short",
-      "entry_date": "2025-05-05",
-      "exit_date": "2025-05-21",
-      "entry": 3.458277,
-      "exit": 3.056808,
-      "take_profit": 3.094884,
-      "stop_loss": 3.82167,
-      "pnl": 0.0217149172,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "CORN/WHEAT",
-      "type": "short",
-      "entry_date": "2025-05-09",
-      "exit_date": "2025-06-02",
-      "entry": 0.873393,
-      "exit": 0.81308,
-      "take_profit": 0.803265,
-      "stop_loss": 0.94352,
-      "pnl": 0.0167029002,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "short",
-      "entry_date": "2025-06-04",
-      "exit_date": "2025-06-09",
-      "entry": 97.728787,
-      "exit": 90.822615,
-      "take_profit": 91.842401,
-      "stop_loss": 103.615172,
-      "pnl": 0.0228008002,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "PLATINUM/SILVER",
-      "type": "short",
-      "entry_date": "2025-05-21",
-      "exit_date": "2025-06-12",
-      "entry": 32.35215,
-      "exit": 35.144837,
-      "take_profit": 28.09299,
-      "stop_loss": 36.61131,
-      "pnl": -0.0134176284,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/PLATINUM",
-      "type": "long",
-      "entry_date": "2025-06-09",
-      "exit_date": "2025-07-01",
-      "entry": 2.745633,
-      "exit": 2.479159,
-      "take_profit": 3.17745,
-      "stop_loss": 2.313816,
-      "pnl": -0.0125963205,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "CORN/WHEAT",
-      "type": "long",
-      "entry_date": "2025-07-10",
-      "exit_date": "2025-08-01",
-      "entry": 0.740118,
-      "exit": 0.753749,
-      "take_profit": 0.813792,
-      "stop_loss": 0.666444,
-      "pnl": 0.0032985216,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "XOM/CVX",
-      "type": "long",
-      "entry_date": "2025-07-18",
-      "exit_date": "2025-08-11",
-      "entry": 0.718275,
-      "exit": 0.689671,
-      "take_profit": 0.763348,
-      "stop_loss": 0.673202,
-      "pnl": -0.0133297318,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "ULVR.L/RKT.L",
-      "type": "long",
-      "entry_date": "2025-07-21",
-      "exit_date": "2025-08-12",
-      "entry": 0.874604,
-      "exit": 0.824156,
-      "take_profit": 1.016294,
-      "stop_loss": 0.732914,
-      "pnl": -0.0073678041,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GM/F",
-      "type": "long",
-      "entry_date": "2025-07-22",
-      "exit_date": "2025-08-13",
-      "entry": 4.36908,
-      "exit": 4.858392,
-      "take_profit": 5.349448,
-      "stop_loss": 3.388713,
-      "pnl": 0.0098039579,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "long",
-      "entry_date": "2025-07-23",
-      "exit_date": "2025-08-14",
-      "entry": 86.412243,
-      "exit": 87.810015,
-      "take_profit": 92.234472,
-      "stop_loss": 80.590014,
-      "pnl": 0.0042078301,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "DIS/CMCSA",
-      "type": "short",
-      "entry_date": "2025-07-25",
-      "exit_date": "2025-08-18",
-      "entry": 3.606591,
-      "exit": 3.48639,
-      "take_profit": 3.146612,
-      "stop_loss": 4.066569,
-      "pnl": 0.0049127488,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "NVDA/AMD",
-      "type": "long",
-      "entry_date": "2025-07-29",
-      "exit_date": "2025-08-20",
-      "entry": 0.989123,
-      "exit": 1.061743,
-      "take_profit": 1.300689,
-      "stop_loss": 0.677557,
-      "pnl": 0.0045346253,
-      "exit_reason": "TimeCap"
     },
     {
       "spread": "JNJ/PFE",
       "type": "short",
-      "entry_date": "2025-07-30",
-      "exit_date": "2025-08-21",
-      "entry": 7.024779,
-      "exit": 6.951437,
-      "take_profit": 6.442467,
-      "stop_loss": 7.60709,
-      "pnl": 0.0020364528,
+      "entry_date": "2023-07-20",
+      "exit_date": "2023-08-11",
+      "entry": 4.579277,
+      "exit": 4.823807,
+      "take_profit": 4.077439,
+      "stop_loss": 5.081115,
+      "pnl": -0.0101103764,
       "exit_reason": "TimeCap"
     },
     {
-      "spread": "JPM/BAC",
-      "type": "short",
-      "entry_date": "2025-08-04",
-      "exit_date": "2025-08-22",
-      "entry": 6.417885,
-      "exit": 5.987065,
-      "take_profit": 5.990472,
-      "stop_loss": 6.845298,
-      "pnl": 0.0195587982,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "FTSE100/CAC40",
-      "type": "short",
-      "entry_date": "2025-08-01",
-      "exit_date": "2025-08-26",
-      "entry": 1.20175,
-      "exit": 1.201819,
-      "take_profit": 1.146683,
-      "stop_loss": 1.256817,
-      "pnl": -0.000897997,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "CORN/WHEAT",
+      "spread": "DIS/CMCSA",
       "type": "long",
-      "entry_date": "2025-08-04",
-      "exit_date": "2025-08-26",
-      "entry": 0.748911,
-      "exit": 0.76055,
-      "take_profit": 0.813921,
-      "stop_loss": 0.683901,
-      "pnl": 0.0031198825,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GS/MS",
-      "type": "short",
-      "entry_date": "2025-08-04",
-      "exit_date": "2025-08-26",
-      "entry": 5.136036,
-      "exit": 5.027522,
-      "take_profit": 4.878733,
-      "stop_loss": 5.393339,
-      "pnl": 0.0076362831,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "ZF/ZT",
-      "type": "short",
-      "entry_date": "2025-08-04",
-      "exit_date": "2025-08-26",
-      "entry": 1.049429,
-      "exit": 1.049791,
-      "take_profit": 1.042675,
-      "stop_loss": 1.056183,
-      "pnl": -0.0072871128,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "DBK.DE/CBK.DE",
-      "type": "long",
-      "entry_date": "2025-08-14",
-      "exit_date": "2025-08-27",
-      "entry": 0.823961,
-      "exit": 0.929556,
-      "take_profit": 0.91777,
-      "stop_loss": 0.730152,
-      "pnl": 0.0221614297,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "SIE.DE/SU.PA",
-      "type": "short",
-      "entry_date": "2025-08-05",
-      "exit_date": "2025-08-27",
-      "entry": 1.018622,
-      "exit": 1.101915,
-      "take_profit": 0.908806,
-      "stop_loss": 1.128437,
-      "pnl": -0.0155407265,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "DOW30/NASDAQ100",
-      "type": "long",
-      "entry_date": "2025-08-07",
-      "exit_date": "2025-08-29",
-      "entry": 1.879843,
-      "exit": 1.945081,
-      "take_profit": 1.977064,
-      "stop_loss": 1.782622,
-      "pnl": 0.0126471264,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "V/MA",
-      "type": "long",
-      "entry_date": "2025-08-07",
-      "exit_date": "2025-08-29",
-      "entry": 0.591729,
-      "exit": 0.590939,
-      "take_profit": 0.615611,
-      "stop_loss": 0.567847,
-      "pnl": -0.001652674,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "VOW.DE/BMW.DE",
-      "type": "long",
-      "entry_date": "2025-08-25",
-      "exit_date": "2025-09-09",
-      "entry": 1.143611,
-      "exit": 1.235462,
-      "take_profit": 1.215572,
-      "stop_loss": 1.07165,
-      "pnl": 0.0248923106,
-      "exit_reason": "TP"
-    },
-    {
-      "spread": "BRENT/WTI",
-      "type": "short",
-      "entry_date": "2025-08-19",
-      "exit_date": "2025-09-10",
-      "entry": 1.055172,
-      "exit": 1.059997,
-      "take_profit": 1.039458,
-      "stop_loss": 1.070886,
-      "pnl": -0.0088269619,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "FTSE100/EU50",
-      "type": "short",
-      "entry_date": "2025-08-21",
-      "exit_date": "2025-09-12",
-      "entry": 1.704307,
-      "exit": 1.722092,
-      "take_profit": 1.648395,
-      "stop_loss": 1.760219,
-      "pnl": -0.007581061,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "long",
-      "entry_date": "2025-08-22",
-      "exit_date": "2025-09-15",
-      "entry": 86.516419,
-      "exit": 86.605358,
-      "take_profit": 92.296698,
-      "stop_loss": 80.73614,
-      "pnl": -0.0002909681,
+      "entry_date": "2023-07-27",
+      "exit_date": "2023-08-18",
+      "entry": 1.882249,
+      "exit": 1.878497,
+      "take_profit": 2.393749,
+      "stop_loss": 1.37075,
+      "pnl": -0.0002939008,
       "exit_reason": "TimeCap"
     },
     {
       "spread": "PG/CL",
       "type": "short",
-      "entry_date": "2025-08-25",
-      "exit_date": "2025-09-16",
-      "entry": 1.857602,
-      "exit": 1.93974,
-      "take_profit": 1.775593,
-      "stop_loss": 1.939611,
-      "pnl": -0.0209375078,
+      "entry_date": "2023-07-28",
+      "exit_date": "2023-08-21",
+      "entry": 2.068368,
+      "exit": 2.056504,
+      "take_profit": 1.914688,
+      "stop_loss": 2.222048,
+      "pnl": 0.0010056304,
       "exit_reason": "TimeCap"
     },
     {
-      "spread": "DOW30/RUSSELL2000",
+      "spread": "BRENT/WTI",
       "type": "long",
-      "entry_date": "2025-08-26",
-      "exit_date": "2025-09-17",
-      "entry": 19.256368,
-      "exit": 19.115837,
-      "take_profit": 20.002029,
-      "stop_loss": 18.510707,
-      "pnl": -0.0048022824,
+      "entry_date": "2023-08-01",
+      "exit_date": "2023-08-23",
+      "entry": 1.043505,
+      "exit": 1.05476,
+      "take_profit": 1.078473,
+      "stop_loss": 1.008537,
+      "pnl": 0.0052436456,
       "exit_reason": "TimeCap"
     },
     {
       "spread": "CAT/DE",
       "type": "short",
-      "entry_date": "2025-09-03",
-      "exit_date": "2025-09-19",
-      "entry": 0.884137,
-      "exit": 0.983269,
-      "take_profit": 0.785004,
-      "stop_loss": 0.983269,
-      "pnl": -0.0203567514,
-      "exit_reason": "SL"
-    },
-    {
-      "spread": "JNJ/PFE",
-      "type": "short",
-      "entry_date": "2025-08-28",
-      "exit_date": "2025-09-19",
-      "entry": 7.132114,
-      "exit": 7.332085,
-      "take_profit": 6.583057,
-      "stop_loss": 7.681171,
-      "pnl": -0.0078037518,
+      "entry_date": "2023-08-01",
+      "exit_date": "2023-08-23",
+      "entry": 0.665951,
+      "exit": 0.692477,
+      "take_profit": 0.575807,
+      "stop_loss": 0.756095,
+      "pnl": -0.0061807557,
       "exit_reason": "TimeCap"
     },
     {
-      "spread": "PLATINUM/SILVER",
+      "spread": "GOLD/PLATINUM",
       "type": "short",
-      "entry_date": "2025-09-02",
-      "exit_date": "2025-09-24",
-      "entry": 34.228531,
-      "exit": 33.910501,
-      "take_profit": 30.579279,
-      "stop_loss": 37.877783,
-      "pnl": 0.0013678033,
-      "exit_reason": "TimeCap"
-    },
-    {
-      "spread": "GOOGL/META",
-      "type": "short",
-      "entry_date": "2025-09-03",
-      "exit_date": "2025-09-25",
-      "entry": 0.31295,
-      "exit": 0.328197,
-      "take_profit": 0.247997,
-      "stop_loss": 0.377903,
-      "pnl": -0.0048875033,
+      "entry_date": "2023-08-02",
+      "exit_date": "2023-08-24",
+      "entry": 2.102898,
+      "exit": 2.042594,
+      "take_profit": 1.943013,
+      "stop_loss": 2.262783,
+      "pnl": 0.0070173192,
       "exit_reason": "TimeCap"
     },
     {
       "spread": "BNP.PA/ACA.PA",
+      "type": "long",
+      "entry_date": "2023-08-04",
+      "exit_date": "2023-08-28",
+      "entry": 4.997471,
+      "exit": 5.140833,
+      "take_profit": 5.493479,
+      "stop_loss": 4.501463,
+      "pnl": 0.0053776172,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "type": "long",
+      "entry_date": "2023-08-10",
+      "exit_date": "2023-09-01",
+      "entry": 0.868801,
+      "exit": 0.873349,
+      "take_profit": 0.948886,
+      "stop_loss": 0.788716,
+      "pnl": 0.0007018538,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DOW30/NASDAQ100",
+      "type": "long",
+      "entry_date": "2023-08-14",
+      "exit_date": "2023-09-05",
+      "entry": 2.322016,
+      "exit": 2.233778,
+      "take_profit": 2.643591,
+      "stop_loss": 2.000441,
+      "pnl": -0.0057766948,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NASDAQ100/S&P500",
       "type": "short",
-      "entry_date": "2025-09-11",
-      "exit_date": "2025-09-26",
-      "entry": 4.815646,
-      "exit": 4.589523,
-      "take_profit": 4.656354,
-      "stop_loss": 4.974938,
-      "pnl": 0.0271817427,
+      "entry_date": "2023-08-14",
+      "exit_date": "2023-09-05",
+      "entry": 3.386757,
+      "exit": 3.448705,
+      "take_profit": 3.122205,
+      "stop_loss": 3.651308,
+      "pnl": -0.005195332,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PLATINUM/SILVER",
+      "type": "long",
+      "entry_date": "2023-08-15",
+      "exit_date": "2023-09-06",
+      "entry": 39.207789,
+      "exit": 39.308799,
+      "take_profit": 43.453769,
+      "stop_loss": 34.961808,
+      "pnl": 0.0001064273,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "JNJ/PFE",
+      "type": "short",
+      "entry_date": "2023-08-15",
+      "exit_date": "2023-09-06",
+      "entry": 4.886691,
+      "exit": 4.597323,
+      "take_profit": 4.273653,
+      "stop_loss": 5.499729,
+      "pnl": 0.0091216081,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NVDA/AMD",
+      "type": "short",
+      "entry_date": "2023-08-17",
+      "exit_date": "2023-09-08",
+      "entry": 0.415013,
+      "exit": 0.42956,
+      "take_profit": 0.326871,
+      "stop_loss": 0.503155,
+      "pnl": -0.0034891484,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CORN/WHEAT",
+      "type": "long",
+      "entry_date": "2023-08-18",
+      "exit_date": "2023-09-11",
+      "entry": 0.7819,
+      "exit": 0.847572,
+      "take_profit": 0.929727,
+      "stop_loss": 0.634073,
+      "pnl": 0.0086734088,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NASDAQ100/RUSSELL2000",
+      "type": "short",
+      "entry_date": "2023-08-21",
+      "exit_date": "2023-09-12",
+      "entry": 8.047742,
+      "exit": 8.241026,
+      "take_profit": 7.242507,
+      "stop_loss": 8.852977,
+      "pnl": -0.0052004566,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "LLOY.L/NWG.L",
+      "type": "short",
+      "entry_date": "2023-08-21",
+      "exit_date": "2023-09-12",
+      "entry": 0.187986,
+      "exit": 0.184696,
+      "take_profit": 0.170702,
+      "stop_loss": 0.20527,
+      "pnl": 0.0033719371,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DOW30/S&P500",
+      "type": "long",
+      "entry_date": "2023-08-23",
+      "exit_date": "2023-09-14",
+      "entry": 7.771169,
+      "exit": 7.748354,
+      "take_profit": 8.199346,
+      "stop_loss": 7.342992,
+      "pnl": -0.001791658,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BRENT/WTI",
+      "type": "long",
+      "entry_date": "2023-08-31",
+      "exit_date": "2023-09-22",
+      "entry": 1.038623,
+      "exit": 1.035988,
+      "take_profit": 1.07345,
+      "stop_loss": 1.003796,
+      "pnl": -0.0027060878,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "type": "long",
+      "entry_date": "2023-09-06",
+      "exit_date": "2023-09-28",
+      "entry": 0.870166,
+      "exit": 0.866326,
+      "take_profit": 0.946141,
+      "stop_loss": 0.794191,
+      "pnl": -0.0014689916,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DAX40/EU50",
+      "type": "short",
+      "entry_date": "2023-09-07",
+      "exit_date": "2023-09-29",
+      "entry": 3.723901,
+      "exit": 3.685708,
+      "take_profit": 3.651759,
+      "stop_loss": 3.796043,
+      "pnl": 0.0085235225,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/PLATINUM",
+      "type": "short",
+      "entry_date": "2023-09-08",
+      "exit_date": "2023-10-02",
+      "entry": 2.151396,
+      "exit": 2.086897,
+      "take_profit": 1.965474,
+      "stop_loss": 2.337318,
+      "pnl": 0.006475426,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "AAPL/MSFT",
+      "type": "long",
+      "entry_date": "2023-09-08",
+      "exit_date": "2023-10-02",
+      "entry": 0.533042,
+      "exit": 0.539932,
+      "take_profit": 0.577416,
+      "stop_loss": 0.488668,
+      "pnl": 0.0026249227,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NASDAQ100/S&P500",
+      "type": "short",
+      "entry_date": "2023-09-11",
+      "exit_date": "2023-10-03",
+      "entry": 3.445573,
+      "exit": 3.443857,
+      "take_profit": 3.186885,
+      "stop_loss": 3.704261,
+      "pnl": -0.0004001072,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DOW30/NASDAQ100",
+      "type": "long",
+      "entry_date": "2023-09-13",
+      "exit_date": "2023-10-05",
+      "entry": 2.252693,
+      "exit": 2.249479,
+      "take_profit": 2.565996,
+      "stop_loss": 1.93939,
+      "pnl": -0.0004927745,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "V/MA",
+      "type": "long",
+      "entry_date": "2023-09-14",
+      "exit_date": "2023-10-06",
+      "entry": 0.584265,
+      "exit": 0.590597,
+      "take_profit": 0.610345,
+      "stop_loss": 0.558185,
+      "pnl": 0.0039597163,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NASDAQ100/RUSSELL2000",
+      "type": "short",
+      "entry_date": "2023-09-18",
+      "exit_date": "2023-10-10",
+      "entry": 8.300371,
+      "exit": 8.52024,
+      "take_profit": 7.434586,
+      "stop_loss": 9.166156,
+      "pnl": -0.0054625511,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "LLOY.L/NWG.L",
+      "type": "short",
+      "entry_date": "2023-09-22",
+      "exit_date": "2023-10-16",
+      "entry": 0.190504,
+      "exit": 0.190666,
+      "take_profit": 0.173199,
+      "stop_loss": 0.20781,
+      "pnl": -0.0006275373,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PG/CL",
+      "type": "short",
+      "entry_date": "2023-09-22",
+      "exit_date": "2023-10-16",
+      "entry": 2.092202,
+      "exit": 2.024532,
+      "take_profit": 1.964436,
+      "stop_loss": 2.219968,
+      "pnl": 0.0099377919,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GM/F",
+      "type": "long",
+      "entry_date": "2023-09-26",
+      "exit_date": "2023-10-18",
+      "entry": 2.595334,
+      "exit": 2.508936,
+      "take_profit": 2.853978,
+      "stop_loss": 2.33669,
+      "pnl": -0.0070822186,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BRENT/WTI",
+      "type": "long",
+      "entry_date": "2023-09-27",
+      "exit_date": "2023-10-19",
+      "entry": 1.030636,
+      "exit": 1.03368,
+      "take_profit": 1.069711,
+      "stop_loss": 0.991561,
+      "pnl": 0.0005029958,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "HYG/ZB",
+      "type": "short",
+      "entry_date": "2023-09-27",
+      "exit_date": "2023-10-19",
+      "entry": 0.647401,
+      "exit": 0.665592,
+      "take_profit": 0.609083,
+      "stop_loss": 0.685719,
+      "pnl": -0.0101705736,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "type": "long",
+      "entry_date": "2023-10-03",
+      "exit_date": "2023-10-25",
+      "entry": 0.860597,
+      "exit": 0.906987,
+      "take_profit": 0.937793,
+      "stop_loss": 0.7834,
+      "pnl": 0.0115726792,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "S&P500/RUSSELL2000",
+      "type": "short",
+      "entry_date": "2023-10-04",
+      "exit_date": "2023-10-26",
+      "entry": 2.466007,
+      "exit": 2.49682,
+      "take_profit": 2.327895,
+      "stop_loss": 2.604118,
+      "pnl": -0.0051762733,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "LLOY.L/NWG.L",
+      "type": "short",
+      "entry_date": "2023-10-20",
+      "exit_date": "2023-10-27",
+      "entry": 0.19032,
+      "exit": 0.205114,
+      "take_profit": 0.175526,
+      "stop_loss": 0.205114,
+      "pnl": -0.020514587,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "CAT/DE",
+      "type": "short",
+      "entry_date": "2023-10-06",
+      "exit_date": "2023-10-30",
+      "entry": 0.702806,
+      "exit": 0.658401,
+      "take_profit": 0.626584,
+      "stop_loss": 0.779028,
+      "pnl": 0.0112826711,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NASDAQ100/RUSSELL2000",
+      "type": "short",
+      "entry_date": "2023-10-11",
+      "exit_date": "2023-11-02",
+      "entry": 8.594778,
+      "exit": 8.703455,
+      "take_profit": 7.654726,
+      "stop_loss": 9.53483,
+      "pnl": -0.0026778637,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/PLATINUM",
+      "type": "short",
+      "entry_date": "2023-10-13",
+      "exit_date": "2023-11-06",
+      "entry": 2.201485,
+      "exit": 2.177104,
+      "take_profit": 2.004202,
+      "stop_loss": 2.398768,
+      "pnl": 0.0020253169,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "type": "long",
+      "entry_date": "2023-10-16",
+      "exit_date": "2023-11-07",
+      "entry": 5.012134,
+      "exit": 4.828271,
+      "take_profit": 5.394756,
+      "stop_loss": 4.629512,
+      "pnl": -0.0101346639,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "ZN/ZF",
+      "type": "long",
+      "entry_date": "2023-10-19",
+      "exit_date": "2023-11-10",
+      "entry": 1.014434,
+      "exit": 1.023218,
+      "take_profit": 1.032884,
+      "stop_loss": 0.995984,
+      "pnl": 0.0073226363,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GS/MS",
+      "type": "short",
+      "entry_date": "2023-10-23",
+      "exit_date": "2023-11-14",
+      "entry": 4.173222,
+      "exit": 4.325374,
+      "take_profit": 3.912791,
+      "stop_loss": 4.433652,
+      "pnl": -0.0123256494,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DOW30/RUSSELL2000",
+      "type": "short",
+      "entry_date": "2023-10-25",
+      "exit_date": "2023-11-16",
+      "entry": 20.004437,
+      "exit": 19.701351,
+      "take_profit": 18.892367,
+      "stop_loss": 21.116506,
+      "pnl": 0.0047313094,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "AAPL/MSFT",
+      "type": "long",
+      "entry_date": "2023-10-25",
+      "exit_date": "2023-11-16",
+      "entry": 0.502246,
+      "exit": 0.50432,
+      "take_profit": 0.56078,
+      "stop_loss": 0.443712,
+      "pnl": 0.0003654314,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "HYG/ZB",
+      "type": "short",
+      "entry_date": "2023-10-25",
+      "exit_date": "2023-11-16",
+      "entry": 0.666014,
+      "exit": 0.646938,
+      "take_profit": 0.620098,
+      "stop_loss": 0.71193,
+      "pnl": 0.007728884,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "V/MA",
+      "type": "short",
+      "entry_date": "2023-10-26",
+      "exit_date": "2023-11-17",
+      "entry": 0.634356,
+      "exit": 0.623432,
+      "take_profit": 0.606264,
+      "stop_loss": 0.662448,
+      "pnl": 0.0068740481,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "S&P500/RUSSELL2000",
+      "type": "short",
+      "entry_date": "2023-10-27",
+      "exit_date": "2023-11-20",
+      "entry": 2.515285,
+      "exit": 2.516424,
+      "take_profit": 2.360968,
+      "stop_loss": 2.669602,
+      "pnl": -0.0007995969,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "type": "long",
+      "entry_date": "2023-10-27",
+      "exit_date": "2023-11-20",
+      "entry": 0.855725,
+      "exit": 0.904103,
+      "take_profit": 0.933447,
+      "stop_loss": 0.778003,
+      "pnl": 0.0120085819,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/PLATINUM",
+      "type": "short",
+      "entry_date": "2023-11-08",
+      "exit_date": "2023-11-30",
+      "entry": 2.255027,
+      "exit": 2.188681,
+      "take_profit": 2.039367,
+      "stop_loss": 2.470687,
+      "pnl": 0.0057345772,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NASDAQ100/RUSSELL2000",
+      "type": "short",
+      "entry_date": "2023-11-09",
+      "exit_date": "2023-12-01",
+      "entry": 9.001624,
+      "exit": 8.588659,
+      "take_profit": 7.967294,
+      "stop_loss": 10.035954,
+      "pnl": 0.0076370549,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CAC40/EU50",
+      "type": "long",
+      "entry_date": "2023-11-16",
+      "exit_date": "2023-12-08",
+      "entry": 1.66612,
+      "exit": 1.663947,
+      "take_profit": 1.694074,
+      "stop_loss": 1.638166,
+      "pnl": -0.0039387851,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "AAPL/MSFT",
+      "type": "long",
+      "entry_date": "2023-11-20",
+      "exit_date": "2023-12-12",
+      "entry": 0.507233,
+      "exit": 0.520087,
+      "take_profit": 0.549496,
+      "stop_loss": 0.46497,
+      "pnl": 0.0056027892,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GM/F",
+      "type": "short",
+      "entry_date": "2023-11-30",
+      "exit_date": "2023-12-22",
+      "entry": 3.079922,
+      "exit": 2.916599,
+      "take_profit": 2.802167,
+      "stop_loss": 3.357677,
+      "pnl": 0.0113166752,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CORN/WHEAT",
+      "type": "long",
+      "entry_date": "2023-12-04",
+      "exit_date": "2023-12-26",
+      "entry": 0.772556,
+      "exit": 0.754813,
+      "take_profit": 0.911269,
+      "stop_loss": 0.633843,
+      "pnl": -0.00278101,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "KO/PEP",
+      "type": "short",
+      "entry_date": "2023-12-05",
+      "exit_date": "2023-12-27",
+      "entry": 0.349291,
+      "exit": 0.346576,
+      "take_profit": 0.324018,
+      "stop_loss": 0.374564,
+      "pnl": 0.0015957093,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/PLATINUM",
+      "type": "short",
+      "entry_date": "2023-12-06",
+      "exit_date": "2023-12-28",
+      "entry": 2.28223,
+      "exit": 2.058666,
+      "take_profit": 2.069518,
+      "stop_loss": 2.494942,
+      "pnl": 0.0205911787,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "type": "long",
+      "entry_date": "2023-12-11",
+      "exit_date": "2024-01-02",
+      "entry": 4.837128,
+      "exit": 4.849969,
+      "take_profit": 5.196592,
+      "stop_loss": 4.477664,
+      "pnl": 0.0001761926,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PG/CL",
+      "type": "long",
+      "entry_date": "2023-12-11",
+      "exit_date": "2024-01-02",
+      "entry": 1.878156,
+      "exit": 1.842666,
+      "take_profit": 2.005538,
+      "stop_loss": 1.750774,
+      "pnl": -0.0061619871,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "JNJ/PFE",
+      "type": "short",
+      "entry_date": "2023-12-13",
+      "exit_date": "2024-01-04",
+      "entry": 5.843586,
+      "exit": 5.521829,
+      "take_profit": 4.852253,
+      "stop_loss": 6.834919,
+      "pnl": 0.006255614,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "type": "short",
+      "entry_date": "2023-12-15",
+      "exit_date": "2024-01-08",
+      "entry": 1.159559,
+      "exit": 1.075011,
+      "take_profit": 0.869335,
+      "stop_loss": 1.449783,
+      "pnl": 0.0056665804,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "type": "long",
+      "entry_date": "2024-01-03",
+      "exit_date": "2024-01-25",
+      "entry": 4.761427,
+      "exit": 4.59687,
+      "take_profit": 5.135046,
+      "stop_loss": 4.387809,
+      "pnl": -0.009318601,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CORN/WHEAT",
+      "type": "long",
+      "entry_date": "2024-01-04",
+      "exit_date": "2024-01-26",
+      "entry": 0.760391,
+      "exit": 0.74344,
+      "take_profit": 0.885279,
+      "stop_loss": 0.635503,
+      "pnl": -0.0029581356,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DAX40/EU50",
+      "type": "short",
+      "entry_date": "2024-01-08",
+      "exit_date": "2024-01-26",
+      "entry": 3.726796,
+      "exit": 3.659044,
+      "take_profit": 3.660659,
+      "stop_loss": 3.792933,
+      "pnl": 0.0182343947,
       "exit_reason": "TP"
     },
     {
-      "spread": "ULVR.L/RKT.L",
+      "spread": "KO/PEP",
+      "type": "short",
+      "entry_date": "2024-01-05",
+      "exit_date": "2024-01-29",
+      "entry": 0.353202,
+      "exit": 0.355219,
+      "take_profit": 0.32675,
+      "stop_loss": 0.379654,
+      "pnl": -0.002059129,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GM/F",
+      "type": "short",
+      "entry_date": "2024-01-09",
+      "exit_date": "2024-01-31",
+      "entry": 3.086149,
+      "exit": 3.31058,
+      "take_profit": 2.837028,
+      "stop_loss": 3.335269,
+      "pnl": -0.0185134311,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "AAPL/MSFT",
       "type": "long",
-      "entry_date": "2025-09-05",
-      "exit_date": "2025-09-29",
-      "entry": 0.835201,
-      "exit": 0.794746,
-      "take_profit": 0.963813,
-      "stop_loss": 0.706588,
-      "pnl": -0.0065507222,
+      "entry_date": "2024-01-10",
+      "exit_date": "2024-02-01",
+      "entry": 0.486428,
+      "exit": 0.462777,
+      "take_profit": 0.532615,
+      "stop_loss": 0.440241,
+      "pnl": -0.0106626782,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/SILVER",
+      "type": "short",
+      "entry_date": "2024-01-11",
+      "exit_date": "2024-02-02",
+      "entry": 89.377468,
+      "exit": 89.692084,
+      "take_profit": 83.193448,
+      "stop_loss": 95.561487,
+      "pnl": -0.001595632,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GS/MS",
+      "type": "short",
+      "entry_date": "2024-01-16",
+      "exit_date": "2024-02-07",
+      "entry": 4.425381,
+      "exit": 4.496047,
+      "take_profit": 4.035436,
+      "stop_loss": 4.815326,
+      "pnl": -0.0040783578,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "MC.PA/CFR.SW",
+      "type": "long",
+      "entry_date": "2024-01-18",
+      "exit_date": "2024-02-09",
+      "entry": 5.701762,
+      "exit": 6.014898,
+      "take_profit": 6.226302,
+      "stop_loss": 5.177222,
+      "pnl": 0.0115046508,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CAC40/EU50",
+      "type": "long",
+      "entry_date": "2024-01-24",
+      "exit_date": "2024-02-15",
+      "entry": 1.633536,
+      "exit": 1.632541,
+      "take_profit": 1.675774,
+      "stop_loss": 1.591298,
+      "pnl": -0.0020181221,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "type": "short",
+      "entry_date": "2024-01-25",
+      "exit_date": "2024-02-16",
+      "entry": 1.145567,
+      "exit": 1.107394,
+      "take_profit": 0.925202,
+      "stop_loss": 1.365932,
+      "pnl": 0.0032565848,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PG/CL",
+      "type": "long",
+      "entry_date": "2024-01-29",
+      "exit_date": "2024-02-20",
+      "entry": 1.859933,
+      "exit": 1.873419,
+      "take_profit": 1.997316,
+      "stop_loss": 1.72255,
+      "pnl": 0.0014217384,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CORN/WHEAT",
+      "type": "long",
+      "entry_date": "2024-02-01",
+      "exit_date": "2024-02-23",
+      "entry": 0.743558,
+      "exit": 0.697036,
+      "take_profit": 0.86092,
+      "stop_loss": 0.626196,
+      "pnl": -0.0081813732,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "type": "long",
+      "entry_date": "2024-02-01",
+      "exit_date": "2024-02-23",
+      "entry": 4.389396,
+      "exit": 4.493227,
+      "take_profit": 5.003586,
+      "stop_loss": 3.775206,
+      "pnl": 0.0030952053,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "WFC/C",
+      "type": "long",
+      "entry_date": "2024-02-01",
+      "exit_date": "2024-02-23",
+      "entry": 0.869247,
+      "exit": 0.962989,
+      "take_profit": 0.967171,
+      "stop_loss": 0.771323,
+      "pnl": 0.0187907982,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CAT/DE",
+      "type": "short",
+      "entry_date": "2024-02-02",
+      "exit_date": "2024-02-26",
+      "entry": 0.802573,
+      "exit": 0.895845,
+      "take_profit": 0.696754,
+      "stop_loss": 0.908392,
+      "pnl": -0.017931968,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DIS/CMCSA",
+      "type": "short",
+      "entry_date": "2024-02-08",
+      "exit_date": "2024-03-01",
+      "entry": 2.679758,
+      "exit": 2.615654,
+      "take_profit": 1.948979,
+      "stop_loss": 3.410537,
+      "pnl": 0.0016077223,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DAX40/EU50",
+      "type": "long",
+      "entry_date": "2024-02-09",
+      "exit_date": "2024-03-04",
+      "entry": 3.589263,
+      "exit": 3.606037,
+      "take_profit": 3.662482,
+      "stop_loss": 3.516044,
+      "pnl": 0.0026210339,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "KO/PEP",
+      "type": "short",
+      "entry_date": "2024-02-09",
+      "exit_date": "2024-03-04",
+      "entry": 0.355222,
+      "exit": 0.361674,
+      "take_profit": 0.331409,
+      "stop_loss": 0.379035,
+      "pnl": -0.0060155747,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "type": "long",
+      "entry_date": "2024-02-09",
+      "exit_date": "2024-03-04",
+      "entry": 0.844662,
+      "exit": 0.852542,
+      "take_profit": 0.923894,
+      "stop_loss": 0.76543,
+      "pnl": 0.0015626706,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/SILVER",
+      "type": "short",
+      "entry_date": "2024-02-13",
+      "exit_date": "2024-03-06",
+      "entry": 90.192795,
+      "exit": 88.591793,
+      "take_profit": 83.596874,
+      "stop_loss": 96.788716,
+      "pnl": 0.0043075604,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "TSLA/RIVN",
+      "type": "short",
+      "entry_date": "2024-02-23",
+      "exit_date": "2024-03-08",
+      "entry": 19.063555,
+      "exit": 13.719875,
+      "take_profit": 13.93625,
+      "stop_loss": 24.19086,
+      "pnl": 0.0206952888,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "GM/F",
+      "type": "short",
+      "entry_date": "2024-02-20",
+      "exit_date": "2024-03-13",
+      "entry": 3.18449,
+      "exit": 3.254648,
+      "take_profit": 2.891345,
+      "stop_loss": 3.477635,
+      "pnl": -0.0052211008,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "HSBA.L/BARC.L",
+      "type": "long",
+      "entry_date": "2024-02-21",
+      "exit_date": "2024-03-14",
+      "entry": 3.62374,
+      "exit": 3.362385,
+      "take_profit": 4.392717,
+      "stop_loss": 2.854763,
+      "pnl": -0.0069859692,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "type": "short",
+      "entry_date": "2024-02-22",
+      "exit_date": "2024-03-15",
+      "entry": 1.145047,
+      "exit": 1.142809,
+      "take_profit": 0.962418,
+      "stop_loss": 1.327676,
+      "pnl": -5.7049e-06,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PG/CL",
+      "type": "long",
+      "entry_date": "2024-02-22",
+      "exit_date": "2024-03-15",
+      "entry": 1.866977,
+      "exit": 1.824534,
+      "take_profit": 1.997518,
+      "stop_loss": 1.736436,
+      "pnl": -0.0070747051,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "type": "long",
+      "entry_date": "2024-02-26",
+      "exit_date": "2024-03-19",
+      "entry": 4.442126,
+      "exit": 4.682072,
+      "take_profit": 4.875633,
+      "stop_loss": 4.008619,
+      "pnl": 0.0106601161,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CAC40/EU50",
+      "type": "long",
+      "entry_date": "2024-03-01",
+      "exit_date": "2024-03-25",
+      "entry": 1.620919,
+      "exit": 1.616038,
+      "take_profit": 1.660799,
+      "stop_loss": 1.581039,
+      "pnl": -0.0040736399,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GS/MS",
+      "type": "short",
+      "entry_date": "2024-03-06",
+      "exit_date": "2024-03-28",
+      "entry": 4.547864,
+      "exit": 4.43596,
+      "take_profit": 4.177339,
+      "stop_loss": 4.918389,
+      "pnl": 0.0055493298,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DAX40/EU50",
+      "type": "long",
+      "entry_date": "2024-03-07",
+      "exit_date": "2024-04-02",
+      "entry": 3.587065,
+      "exit": 3.626166,
+      "take_profit": 3.659104,
+      "stop_loss": 3.515026,
+      "pnl": 0.0088637738,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "ULVR.L/RKT.L",
+      "type": "short",
+      "entry_date": "2024-03-15",
+      "exit_date": "2024-04-08",
+      "entry": 0.858449,
+      "exit": 0.896009,
+      "take_profit": 0.722919,
+      "stop_loss": 0.99398,
+      "pnl": -0.0057960021,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "type": "long",
+      "entry_date": "2024-03-19",
+      "exit_date": "2024-04-10",
+      "entry": 0.803716,
+      "exit": 0.834953,
+      "take_profit": 0.912426,
+      "stop_loss": 0.695006,
+      "pnl": 0.005451121,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "AAPL/MSFT",
+      "type": "long",
+      "entry_date": "2024-03-21",
+      "exit_date": "2024-04-12",
+      "entry": 0.39912,
+      "exit": 0.418464,
+      "take_profit": 0.486177,
+      "stop_loss": 0.312063,
+      "pnl": 0.0042606017,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CAT/DE",
+      "type": "short",
+      "entry_date": "2024-03-21",
+      "exit_date": "2024-04-12",
+      "entry": 0.916809,
+      "exit": 0.920356,
+      "take_profit": 0.770011,
+      "stop_loss": 1.063607,
+      "pnl": -0.0007330642,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "V/MA",
+      "type": "long",
+      "entry_date": "2024-03-27",
+      "exit_date": "2024-04-18",
+      "entry": 0.583785,
+      "exit": 0.596811,
+      "take_profit": 0.60401,
+      "stop_loss": 0.56356,
+      "pnl": 0.0117265068,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GM/F",
+      "type": "short",
+      "entry_date": "2024-04-10",
+      "exit_date": "2024-05-02",
+      "entry": 3.364472,
+      "exit": 3.576461,
+      "take_profit": 3.034199,
+      "stop_loss": 3.694746,
+      "pnl": -0.0132446359,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DAX40/EU50",
+      "type": "long",
+      "entry_date": "2024-04-19",
+      "exit_date": "2024-05-06",
+      "entry": 3.606555,
+      "exit": 3.666604,
+      "take_profit": 3.659972,
+      "stop_loss": 3.553138,
+      "pnl": 0.0197824251,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "type": "long",
+      "entry_date": "2024-04-12",
+      "exit_date": "2024-05-06",
+      "entry": 0.824546,
+      "exit": 0.816758,
+      "take_profit": 0.899648,
+      "stop_loss": 0.749444,
+      "pnl": -0.00251314,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "LLOY.L/NWG.L",
+      "type": "long",
+      "entry_date": "2024-04-23",
+      "exit_date": "2024-05-15",
+      "entry": 0.179636,
+      "exit": 0.166973,
+      "take_profit": 0.202119,
+      "stop_loss": 0.157153,
+      "pnl": -0.0115841053,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "type": "short",
+      "entry_date": "2024-04-25",
+      "exit_date": "2024-05-17",
+      "entry": 1.185343,
+      "exit": 1.011057,
+      "take_profit": 1.011203,
+      "stop_loss": 1.359483,
+      "pnl": 0.0197444945,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NESN.SW/ULVR.L",
+      "type": "long",
+      "entry_date": "2024-04-25",
+      "exit_date": "2024-05-17",
+      "entry": 0.022558,
+      "exit": 0.022386,
+      "take_profit": 0.024436,
+      "stop_loss": 0.02068,
+      "pnl": -0.0023122045,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PG/CL",
+      "type": "long",
+      "entry_date": "2024-04-25",
+      "exit_date": "2024-05-17",
+      "entry": 1.820473,
+      "exit": 1.780941,
+      "take_profit": 1.949013,
+      "stop_loss": 1.691933,
+      "pnl": -0.0067174336,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "TSLA/RIVN",
+      "type": "short",
+      "entry_date": "2024-04-29",
+      "exit_date": "2024-05-21",
+      "entry": 20.687633,
+      "exit": 18.567164,
+      "take_profit": 15.73253,
+      "stop_loss": 25.642736,
+      "pnl": 0.0083917276,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GS/MS",
+      "type": "short",
+      "entry_date": "2024-04-30",
+      "exit_date": "2024-05-22",
+      "entry": 4.69738,
+      "exit": 4.589835,
+      "take_profit": 4.310082,
+      "stop_loss": 5.084678,
+      "pnl": 0.005068461,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "type": "long",
+      "entry_date": "2024-05-08",
+      "exit_date": "2024-05-30",
+      "entry": 0.802032,
+      "exit": 0.77026,
+      "take_profit": 0.882368,
+      "stop_loss": 0.721696,
+      "pnl": -0.0083091177,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DIS/CMCSA",
+      "type": "short",
+      "entry_date": "2024-05-09",
+      "exit_date": "2024-05-31",
+      "entry": 2.7452,
+      "exit": 2.595803,
+      "take_profit": 2.115508,
+      "stop_loss": 3.374893,
+      "pnl": 0.0045706908,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/SILVER",
+      "type": "long",
+      "entry_date": "2024-05-17",
+      "exit_date": "2024-06-10",
+      "entry": 77.695107,
+      "exit": 77.520239,
+      "take_profit": 85.206682,
+      "stop_loss": 70.183532,
+      "pnl": -0.0008793315,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "KO/PEP",
+      "type": "short",
+      "entry_date": "2024-05-30",
+      "exit_date": "2024-06-10",
+      "entry": 0.363503,
+      "exit": 0.379842,
+      "take_profit": 0.347164,
+      "stop_loss": 0.379842,
+      "pnl": -0.0208899027,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "MC.PA/CFR.SW",
+      "type": "long",
+      "entry_date": "2024-05-17",
+      "exit_date": "2024-06-10",
+      "entry": 5.410708,
+      "exit": 5.023898,
+      "take_profit": 6.08421,
+      "stop_loss": 4.737206,
+      "pnl": -0.0118078763,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CORN/WHEAT",
+      "type": "long",
+      "entry_date": "2024-05-21",
+      "exit_date": "2024-06-12",
+      "entry": 0.656631,
+      "exit": 0.736224,
+      "take_profit": 0.776285,
+      "stop_loss": 0.536977,
+      "pnl": 0.0130843495,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DAX40/EU50",
+      "type": "short",
+      "entry_date": "2024-05-22",
+      "exit_date": "2024-06-13",
+      "entry": 3.717327,
+      "exit": 3.700877,
+      "take_profit": 3.662303,
+      "stop_loss": 3.772352,
+      "pnl": 0.0032768182,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NESN.SW/ULVR.L",
+      "type": "long",
+      "entry_date": "2024-05-23",
+      "exit_date": "2024-06-14",
+      "entry": 0.021637,
+      "exit": 0.021411,
+      "take_profit": 0.024096,
+      "stop_loss": 0.019178,
+      "pnl": -0.0021901098,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "LLOY.L/NWG.L",
+      "type": "long",
+      "entry_date": "2024-05-24",
+      "exit_date": "2024-06-17",
+      "entry": 0.178211,
+      "exit": 0.177078,
+      "take_profit": 0.198688,
+      "stop_loss": 0.157734,
+      "pnl": -0.0014547268,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NVDA/AMD",
+      "type": "short",
+      "entry_date": "2024-05-29",
+      "exit_date": "2024-06-18",
+      "entry": 0.695319,
+      "exit": 0.867819,
+      "take_profit": 0.522819,
+      "stop_loss": 0.867819,
+      "pnl": -0.0201612334,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "type": "short",
+      "entry_date": "2024-05-28",
+      "exit_date": "2024-06-19",
+      "entry": 1.314499,
+      "exit": 1.185905,
+      "take_profit": 0.959422,
+      "stop_loss": 1.669577,
+      "pnl": 0.0070950609,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PG/CL",
+      "type": "long",
+      "entry_date": "2024-05-31",
+      "exit_date": "2024-06-24",
+      "entry": 1.770009,
+      "exit": 1.701687,
+      "take_profit": 1.908025,
+      "stop_loss": 1.631993,
+      "pnl": -0.0104135778,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "V/MA",
+      "type": "short",
+      "entry_date": "2024-06-07",
+      "exit_date": "2024-06-25",
+      "entry": 0.619556,
+      "exit": 0.600307,
+      "take_profit": 0.601385,
+      "stop_loss": 0.637727,
+      "pnl": 0.0198226713,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "type": "long",
+      "entry_date": "2024-06-06",
+      "exit_date": "2024-06-28",
+      "entry": 0.768,
+      "exit": 0.774498,
+      "take_profit": 0.8505,
+      "stop_loss": 0.6855,
+      "pnl": 0.0012029091,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CAC40/EU50",
+      "type": "long",
+      "entry_date": "2024-06-11",
+      "exit_date": "2024-07-03",
+      "entry": 1.568795,
+      "exit": 1.536929,
+      "take_profit": 1.624111,
+      "stop_loss": 1.513479,
+      "pnl": -0.0126558645,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "FTSE100/CAC40",
+      "type": "short",
+      "entry_date": "2024-06-13",
+      "exit_date": "2024-07-05",
+      "entry": 1.059118,
+      "exit": 1.068826,
+      "take_profit": 0.971544,
+      "stop_loss": 1.146692,
+      "pnl": -0.0027008555,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/SILVER",
+      "type": "long",
+      "entry_date": "2024-06-12",
+      "exit_date": "2024-07-05",
+      "entry": 77.412513,
+      "exit": 76.09596,
+      "take_profit": 84.466967,
+      "stop_loss": 70.358059,
+      "pnl": -0.0041714866,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DAX40/EU50",
+      "type": "short",
+      "entry_date": "2024-06-14",
+      "exit_date": "2024-07-08",
+      "entry": 3.720086,
+      "exit": 3.716837,
+      "take_profit": 3.66674,
+      "stop_loss": 3.773432,
+      "pnl": -0.0015713163,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "LLOY.L/NWG.L",
+      "type": "long",
+      "entry_date": "2024-06-19",
+      "exit_date": "2024-07-11",
+      "entry": 0.176704,
+      "exit": 0.180967,
+      "take_profit": 0.195767,
+      "stop_loss": 0.157641,
+      "pnl": 0.0041017594,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NVDA/AMD",
+      "type": "short",
+      "entry_date": "2024-06-25",
+      "exit_date": "2024-07-17",
+      "entry": 0.786833,
+      "exit": 0.740074,
+      "take_profit": 0.573041,
+      "stop_loss": 1.000625,
+      "pnl": 0.0042270369,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DAX40/EU50",
+      "type": "short",
+      "entry_date": "2024-07-15",
+      "exit_date": "2024-07-25",
+      "entry": 3.730781,
+      "exit": 3.786677,
+      "take_profit": 3.674885,
+      "stop_loss": 3.786677,
+      "pnl": -0.0226698018,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "WFC/C",
+      "type": "long",
+      "entry_date": "2024-07-12",
+      "exit_date": "2024-08-05",
+      "entry": 0.876317,
+      "exit": 0.927237,
+      "take_profit": 0.958308,
+      "stop_loss": 0.794326,
+      "pnl": 0.0119933568,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DOW30/RUSSELL2000",
+      "type": "long",
+      "entry_date": "2024-07-15",
+      "exit_date": "2024-08-06",
+      "entry": 18.386535,
+      "exit": 18.891469,
+      "take_profit": 19.409092,
+      "stop_loss": 17.363977,
+      "pnl": 0.0091566626,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "AAPL/MSFT",
+      "type": "short",
+      "entry_date": "2024-07-16",
+      "exit_date": "2024-08-07",
+      "entry": 0.522379,
+      "exit": 0.526617,
+      "take_profit": 0.435775,
+      "stop_loss": 0.608983,
+      "pnl": -0.0012199801,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "LLOY.L/NWG.L",
+      "type": "long",
+      "entry_date": "2024-07-22",
+      "exit_date": "2024-08-13",
+      "entry": 0.174188,
+      "exit": 0.168743,
+      "take_profit": 0.193776,
+      "stop_loss": 0.1546,
+      "pnl": -0.0059152297,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GM/F",
+      "type": "short",
+      "entry_date": "2024-07-25",
+      "exit_date": "2024-08-16",
+      "entry": 3.954301,
+      "exit": 4.312084,
+      "take_profit": 3.410274,
+      "stop_loss": 4.498328,
+      "pnl": -0.0134438769,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NESN.SW/ULVR.L",
+      "type": "long",
+      "entry_date": "2024-07-25",
+      "exit_date": "2024-08-16",
+      "entry": 0.019015,
+      "exit": 0.018997,
+      "take_profit": 0.022921,
+      "stop_loss": 0.015109,
+      "pnl": -0.000286892,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "ULVR.L/RKT.L",
+      "type": "short",
+      "entry_date": "2024-07-25",
+      "exit_date": "2024-08-16",
+      "entry": 1.066682,
+      "exit": 1.106742,
+      "take_profit": 0.878971,
+      "stop_loss": 1.254393,
+      "pnl": -0.0044955665,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PG/CL",
+      "type": "long",
+      "entry_date": "2024-07-30",
+      "exit_date": "2024-08-21",
+      "entry": 1.609115,
+      "exit": 1.644535,
+      "take_profit": 1.823812,
+      "stop_loss": 1.394418,
+      "pnl": 0.002999741,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "V/MA",
+      "type": "long",
+      "entry_date": "2024-07-31",
+      "exit_date": "2024-08-22",
+      "entry": 0.572923,
+      "exit": 0.57152,
+      "take_profit": 0.600631,
+      "stop_loss": 0.545214,
+      "pnl": -0.0018397243,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "ZF/ZT",
+      "type": "short",
+      "entry_date": "2024-08-01",
+      "exit_date": "2024-08-23",
+      "entry": 1.053801,
+      "exit": 1.056645,
+      "take_profit": 1.040579,
+      "stop_loss": 1.067023,
+      "pnl": -0.007489944,
       "exit_reason": "TimeCap"
     },
     {
       "spread": "ZN/ZF",
       "type": "short",
+      "entry_date": "2024-08-02",
+      "exit_date": "2024-08-26",
+      "entry": 1.041488,
+      "exit": 1.040728,
+      "take_profit": 1.028115,
+      "stop_loss": 1.054861,
+      "pnl": -0.0019785777,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "FTSE100/EU50",
+      "type": "short",
+      "entry_date": "2024-08-02",
+      "exit_date": "2024-08-27",
+      "entry": 1.762283,
+      "exit": 1.703587,
+      "take_profit": 1.587093,
+      "stop_loss": 1.937474,
+      "pnl": 0.0062984325,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "XOM/CVX",
+      "type": "short",
+      "entry_date": "2024-08-05",
+      "exit_date": "2024-08-27",
+      "entry": 0.793378,
+      "exit": 0.800817,
+      "take_profit": 0.739497,
+      "stop_loss": 0.847259,
+      "pnl": -0.0033502556,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "HYG/LQD",
+      "type": "long",
+      "entry_date": "2024-08-05",
+      "exit_date": "2024-08-27",
+      "entry": 0.699964,
+      "exit": 0.708326,
+      "take_profit": 0.721156,
+      "stop_loss": 0.678772,
+      "pnl": 0.0065704719,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "HYG/ZB",
+      "type": "long",
+      "entry_date": "2024-08-05",
+      "exit_date": "2024-08-27",
+      "entry": 0.615759,
+      "exit": 0.638631,
+      "take_profit": 0.666681,
+      "stop_loss": 0.564837,
+      "pnl": 0.0084994627,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BITCOIN/ETHEREUM",
+      "type": "short",
+      "entry_date": "2024-08-07",
+      "exit_date": "2024-08-29",
+      "entry": 23.550334,
+      "exit": 23.484796,
+      "take_profit": 20.430036,
+      "stop_loss": 26.670631,
+      "pnl": 0.0001181768,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GS/MS",
+      "type": "short",
+      "entry_date": "2024-08-07",
+      "exit_date": "2024-08-29",
+      "entry": 5.135273,
+      "exit": 4.971735,
+      "take_profit": 4.620123,
+      "stop_loss": 5.650423,
+      "pnl": 0.005950401,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "AMZN/NFLX",
+      "type": "long",
+      "entry_date": "2024-08-08",
+      "exit_date": "2024-08-30",
+      "entry": 0.263028,
+      "exit": 0.254509,
+      "take_profit": 0.296599,
+      "stop_loss": 0.229457,
+      "pnl": -0.0053886128,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SOYBEANS/CORN",
+      "type": "long",
+      "entry_date": "2024-08-15",
+      "exit_date": "2024-09-06",
+      "entry": 2.537333,
+      "exit": 2.57785,
+      "take_profit": 2.893757,
+      "stop_loss": 2.180909,
+      "pnl": 0.0019887737,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BRENT/WTI",
+      "type": "short",
+      "entry_date": "2024-08-30",
+      "exit_date": "2024-09-09",
+      "entry": 1.07138,
+      "exit": 1.045554,
+      "take_profit": 1.047093,
+      "stop_loss": 1.095667,
+      "pnl": 0.0195028122,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "ULVR.L/RKT.L",
+      "type": "short",
+      "entry_date": "2024-08-20",
+      "exit_date": "2024-09-11",
+      "entry": 1.118692,
+      "exit": 1.08709,
+      "take_profit": 0.931996,
+      "stop_loss": 1.305388,
+      "pnl": 0.0031457145,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "UB/ZF",
+      "type": "short",
+      "entry_date": "2024-08-21",
+      "exit_date": "2024-09-12",
+      "entry": 1.228306,
+      "exit": 1.2342,
+      "take_profit": 1.143579,
+      "stop_loss": 1.313033,
+      "pnl": -0.0019711809,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "LLOY.L/NWG.L",
+      "type": "long",
+      "entry_date": "2024-08-27",
+      "exit_date": "2024-09-18",
+      "entry": 0.169433,
+      "exit": 0.172776,
+      "take_profit": 0.189711,
+      "stop_loss": 0.149155,
+      "pnl": 0.002962949,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PG/CL",
+      "type": "long",
+      "entry_date": "2024-08-27",
+      "exit_date": "2024-09-18",
+      "entry": 1.597904,
+      "exit": 1.685598,
+      "take_profit": 1.770447,
+      "stop_loss": 1.425361,
+      "pnl": 0.0097944503,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "ZN/ZF",
+      "type": "short",
+      "entry_date": "2024-09-04",
+      "exit_date": "2024-09-26",
+      "entry": 1.041158,
+      "exit": 1.044135,
+      "take_profit": 1.028601,
+      "stop_loss": 1.053715,
+      "pnl": -0.0080581604,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BITCOIN/ETHEREUM",
+      "type": "short",
+      "entry_date": "2024-09-06",
+      "exit_date": "2024-09-28",
+      "entry": 24.25888,
+      "exit": 24.607539,
+      "take_profit": 21.289099,
+      "stop_loss": 27.228662,
+      "pnl": -0.0026747873,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "KO/PEP",
+      "type": "short",
+      "entry_date": "2024-09-06",
+      "exit_date": "2024-09-30",
+      "entry": 0.40115,
+      "exit": 0.422582,
+      "take_profit": 0.372794,
+      "stop_loss": 0.429506,
+      "pnl": -0.0156822542,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "XOM/CVX",
+      "type": "short",
+      "entry_date": "2024-09-09",
+      "exit_date": "2024-10-01",
+      "entry": 0.819743,
+      "exit": 0.801136,
+      "take_profit": 0.755846,
+      "stop_loss": 0.88364,
+      "pnl": 0.0053108953,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "type": "short",
+      "entry_date": "2024-09-10",
+      "exit_date": "2024-10-02",
+      "entry": 1.2853,
+      "exit": 1.196083,
+      "take_profit": 1.105959,
+      "stop_loss": 1.464641,
+      "pnl": 0.0096627542,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "HYG/LQD",
+      "type": "long",
+      "entry_date": "2024-09-10",
+      "exit_date": "2024-10-02",
+      "entry": 0.701391,
+      "exit": 0.70778,
+      "take_profit": 0.722699,
+      "stop_loss": 0.680083,
+      "pnl": 0.004680137,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SOYBEANS/CORN",
+      "type": "long",
+      "entry_date": "2024-09-13",
+      "exit_date": "2024-10-07",
+      "entry": 2.525272,
+      "exit": 2.42723,
+      "take_profit": 2.854461,
+      "stop_loss": 2.196083,
+      "pnl": -0.0062634258,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "WFC/C",
+      "type": "long",
+      "entry_date": "2024-09-19",
+      "exit_date": "2024-10-11",
+      "entry": 0.885433,
+      "exit": 0.927746,
+      "take_profit": 0.9614,
+      "stop_loss": 0.809466,
+      "pnl": 0.0106736172,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "FTSE100/CAC40",
+      "type": "short",
+      "entry_date": "2024-09-20",
+      "exit_date": "2024-10-14",
+      "entry": 1.097295,
+      "exit": 1.090849,
+      "take_profit": 1.032161,
+      "stop_loss": 1.162428,
+      "pnl": 0.001305455,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NESN.SW/ULVR.L",
+      "type": "long",
+      "entry_date": "2024-09-20",
+      "exit_date": "2024-10-14",
+      "entry": 0.016905,
+      "exit": 0.017487,
+      "take_profit": 0.020979,
+      "stop_loss": 0.012831,
+      "pnl": 0.0026911635,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "TSLA/RIVN",
+      "type": "short",
+      "entry_date": "2024-09-24",
+      "exit_date": "2024-10-16",
+      "entry": 21.475507,
+      "exit": 21.614258,
+      "take_profit": 16.887797,
+      "stop_loss": 26.063217,
+      "pnl": -0.0007921251,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "V/MA",
+      "type": "long",
+      "entry_date": "2024-09-24",
+      "exit_date": "2024-10-16",
+      "entry": 0.559652,
+      "exit": 0.559301,
+      "take_profit": 0.592739,
+      "stop_loss": 0.526566,
+      "pnl": -0.0008887771,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "AAPL/MSFT",
+      "type": "short",
+      "entry_date": "2024-09-27",
+      "exit_date": "2024-10-21",
+      "entry": 0.532195,
+      "exit": 0.564688,
+      "take_profit": 0.45792,
+      "stop_loss": 0.60647,
+      "pnl": -0.0090359852,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "ZF/ZT",
+      "type": "short",
+      "entry_date": "2024-09-27",
+      "exit_date": "2024-10-21",
+      "entry": 1.05602,
+      "exit": 1.046067,
+      "take_profit": 1.043135,
+      "stop_loss": 1.068905,
+      "pnl": 0.0121706791,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "type": "long",
+      "entry_date": "2024-09-30",
+      "exit_date": "2024-10-22",
+      "entry": 0.937852,
+      "exit": 0.996884,
+      "take_profit": 1.0573,
+      "stop_loss": 0.818404,
+      "pnl": 0.0095700717,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BITCOIN/ETHEREUM",
+      "type": "short",
+      "entry_date": "2024-10-03",
+      "exit_date": "2024-10-25",
+      "entry": 25.857361,
+      "exit": 27.358053,
+      "take_profit": 22.402759,
+      "stop_loss": 29.311963,
+      "pnl": -0.0089874708,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "XOM/CVX",
+      "type": "short",
+      "entry_date": "2024-10-07",
+      "exit_date": "2024-10-29",
+      "entry": 0.829606,
+      "exit": 0.789658,
+      "take_profit": 0.766417,
+      "stop_loss": 0.892795,
+      "pnl": 0.0121188144,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "AMZN/NFLX",
+      "type": "long",
+      "entry_date": "2024-10-08",
+      "exit_date": "2024-10-30",
+      "entry": 0.253159,
+      "exit": 0.255698,
+      "take_profit": 0.285598,
+      "stop_loss": 0.22072,
+      "pnl": 0.0012532335,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/SILVER",
+      "type": "long",
+      "entry_date": "2024-10-22",
+      "exit_date": "2024-11-06",
+      "entry": 78.786139,
+      "exit": 85.442494,
+      "take_profit": 84.569562,
+      "stop_loss": 73.002716,
+      "pnl": 0.0224738281,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "V/MA",
+      "type": "long",
+      "entry_date": "2024-10-21",
+      "exit_date": "2024-11-06",
+      "entry": 0.556979,
+      "exit": 0.589872,
+      "take_profit": 0.584634,
+      "stop_loss": 0.529324,
+      "pnl": 0.0229824929,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "FTSE100/CAC40",
+      "type": "short",
+      "entry_date": "2024-10-16",
+      "exit_date": "2024-11-07",
+      "entry": 1.111732,
+      "exit": 1.096302,
+      "take_profit": 1.045842,
+      "stop_loss": 1.177622,
+      "pnl": 0.0040086617,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "WFC/C",
+      "type": "short",
+      "entry_date": "2024-10-21",
+      "exit_date": "2024-11-12",
+      "entry": 1.03542,
+      "exit": 1.051869,
+      "take_profit": 0.960732,
+      "stop_loss": 1.110108,
+      "pnl": -0.0049592545,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GM/F",
+      "type": "short",
+      "entry_date": "2024-10-22",
+      "exit_date": "2024-11-13",
+      "entry": 4.836184,
+      "exit": 5.199099,
+      "take_profit": 4.012125,
+      "stop_loss": 5.660243,
+      "pnl": -0.0090427352,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "TSLA/RIVN",
+      "type": "short",
+      "entry_date": "2024-10-24",
+      "exit_date": "2024-11-15",
+      "entry": 24.974113,
+      "exit": 31.880716,
+      "take_profit": 17.915837,
+      "stop_loss": 32.032389,
+      "pnl": -0.0197117574,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "LLOY.L/NWG.L",
+      "type": "long",
+      "entry_date": "2024-10-25",
+      "exit_date": "2024-11-18",
+      "entry": 0.15845,
+      "exit": 0.142128,
+      "take_profit": 0.182774,
+      "stop_loss": 0.134126,
+      "pnl": -0.0136810557,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BITCOIN/ETHEREUM",
+      "type": "short",
+      "entry_date": "2024-10-29",
+      "exit_date": "2024-11-20",
+      "entry": 27.566969,
+      "exit": 30.707591,
+      "take_profit": 23.55414,
+      "stop_loss": 31.579798,
+      "pnl": -0.0159276956,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "type": "long",
+      "entry_date": "2024-10-30",
+      "exit_date": "2024-11-21",
+      "entry": 0.949173,
+      "exit": 1.02727,
+      "take_profit": 1.062118,
+      "stop_loss": 0.836228,
+      "pnl": 0.0134930548,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "AAPL/MSFT",
+      "type": "short",
+      "entry_date": "2024-10-31",
+      "exit_date": "2024-11-22",
+      "entry": 0.555949,
+      "exit": 0.551247,
+      "take_profit": 0.468104,
+      "stop_loss": 0.643794,
+      "pnl": 0.000817372,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DOW30/RUSSELL2000",
+      "type": "long",
+      "entry_date": "2024-11-06",
+      "exit_date": "2024-11-29",
+      "entry": 18.274715,
+      "exit": 18.445843,
+      "take_profit": 19.282874,
+      "stop_loss": 17.266556,
+      "pnl": 0.0026697886,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BRENT/WTI",
+      "type": "short",
+      "entry_date": "2024-11-29",
+      "exit_date": "2024-12-11",
+      "entry": 1.072647,
+      "exit": 1.045952,
+      "take_profit": 1.048892,
+      "stop_loss": 1.096402,
+      "pnl": 0.0206690852,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "AMZN/NFLX",
+      "type": "long",
+      "entry_date": "2024-11-19",
+      "exit_date": "2024-12-11",
+      "entry": 0.234828,
+      "exit": 0.245857,
+      "take_profit": 0.271674,
+      "stop_loss": 0.197982,
+      "pnl": 0.0057316094,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "FTSE100/CAC40",
+      "type": "short",
+      "entry_date": "2024-11-21",
+      "exit_date": "2024-12-13",
+      "entry": 1.129757,
+      "exit": 1.120213,
+      "take_profit": 1.066134,
+      "stop_loss": 1.19338,
+      "pnl": 0.0022898908,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "S&P500/RUSSELL2000",
+      "type": "long",
+      "entry_date": "2024-11-25",
+      "exit_date": "2024-12-17",
+      "entry": 2.4518,
+      "exit": 2.592289,
+      "take_profit": 2.648459,
+      "stop_loss": 2.255141,
+      "pnl": 0.0137888833,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "FTSE100/EU50",
+      "type": "short",
+      "entry_date": "2024-11-27",
+      "exit_date": "2024-12-19",
+      "entry": 1.748265,
+      "exit": 1.661263,
+      "take_profit": 1.627722,
+      "stop_loss": 1.868808,
+      "pnl": 0.013854885,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "type": "long",
+      "entry_date": "2024-12-05",
+      "exit_date": "2024-12-27",
+      "entry": 1.092819,
+      "exit": 1.131733,
+      "take_profit": 1.180829,
+      "stop_loss": 1.004809,
+      "pnl": 0.0083464065,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "AAPL/MSFT",
+      "type": "short",
+      "entry_date": "2024-12-09",
+      "exit_date": "2024-12-31",
+      "entry": 0.553226,
+      "exit": 0.594116,
+      "take_profit": 0.482262,
+      "stop_loss": 0.624189,
+      "pnl": -0.0118361546,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DIS/CMCSA",
+      "type": "short",
+      "entry_date": "2024-12-09",
+      "exit_date": "2024-12-31",
+      "entry": 2.934955,
+      "exit": 2.96696,
+      "take_profit": 2.470101,
+      "stop_loss": 3.399809,
+      "pnl": -0.00162954,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CORN/WHEAT",
+      "type": "short",
+      "entry_date": "2024-12-10",
+      "exit_date": "2025-01-02",
+      "entry": 0.812731,
+      "exit": 0.841961,
+      "take_profit": 0.674937,
+      "stop_loss": 0.950525,
+      "pnl": -0.0044784914,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "TSLA/RIVN",
+      "type": "short",
+      "entry_date": "2024-12-10",
+      "exit_date": "2025-01-02",
+      "entry": 28.519915,
+      "exit": 28.624906,
+      "take_profit": 21.157324,
+      "stop_loss": 35.882506,
+      "pnl": -0.0004401462,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/SILVER",
+      "type": "short",
+      "entry_date": "2024-12-31",
+      "exit_date": "2025-01-22",
+      "entry": 90.850035,
+      "exit": 88.594388,
+      "take_profit": 85.22426,
+      "stop_loss": 96.47581,
+      "pnl": 0.0073730177,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BRENT/WTI",
+      "type": "long",
+      "entry_date": "2025-01-13",
+      "exit_date": "2025-01-24",
+      "entry": 1.027785,
+      "exit": 1.051433,
+      "take_profit": 1.050352,
+      "stop_loss": 1.005218,
+      "pnl": 0.0191362875,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "V/MA",
+      "type": "short",
+      "entry_date": "2025-01-06",
+      "exit_date": "2025-01-28",
+      "entry": 0.61149,
+      "exit": 0.611079,
+      "take_profit": 0.582006,
+      "stop_loss": 0.640974,
+      "pnl": -0.0005507937,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "XOM/CVX",
+      "type": "long",
+      "entry_date": "2025-01-08",
+      "exit_date": "2025-01-30",
+      "entry": 0.711444,
+      "exit": 0.700934,
+      "take_profit": 0.776118,
+      "stop_loss": 0.64677,
+      "pnl": -0.0036901654,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "HYG/LQD",
+      "type": "short",
+      "entry_date": "2025-01-13",
+      "exit_date": "2025-02-04",
+      "entry": 0.747003,
+      "exit": 0.739972,
+      "take_profit": 0.727926,
+      "stop_loss": 0.76608,
+      "pnl": 0.0058048897,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "ZF/ZT",
+      "type": "long",
+      "entry_date": "2025-01-13",
+      "exit_date": "2025-02-04",
+      "entry": 1.02801,
+      "exit": 1.036195,
+      "take_profit": 1.041014,
+      "stop_loss": 1.015006,
+      "pnl": 0.0094262996,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "JPM/BAC",
+      "type": "short",
+      "entry_date": "2025-01-22",
+      "exit_date": "2025-02-13",
+      "entry": 5.740118,
+      "exit": 5.96417,
+      "take_profit": 5.374041,
+      "stop_loss": 6.106195,
+      "pnl": -0.0128679068,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PG/CL",
+      "type": "short",
+      "entry_date": "2025-01-22",
+      "exit_date": "2025-02-13",
+      "entry": 1.881668,
+      "exit": 1.948946,
+      "take_profit": 1.690994,
+      "stop_loss": 2.072342,
+      "pnl": -0.0074516018,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "TSLA/RIVN",
+      "type": "short",
+      "entry_date": "2025-01-22",
+      "exit_date": "2025-02-13",
+      "entry": 32.711584,
+      "exit": 26.762406,
+      "take_profit": 24.208479,
+      "stop_loss": 41.214689,
+      "pnl": 0.0138390737,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DAX40/EU50",
+      "type": "short",
+      "entry_date": "2025-01-28",
+      "exit_date": "2025-02-19",
+      "entry": 4.124668,
+      "exit": 4.107843,
+      "take_profit": 3.926881,
+      "stop_loss": 4.322455,
+      "pnl": 0.0008671615,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "type": "short",
+      "entry_date": "2025-01-28",
+      "exit_date": "2025-02-19",
+      "entry": 0.882444,
+      "exit": 0.891383,
+      "take_profit": 0.723505,
+      "stop_loss": 1.041383,
+      "pnl": -0.0013469177,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CAT/DE",
+      "type": "long",
+      "entry_date": "2025-01-30",
+      "exit_date": "2025-02-21",
+      "entry": 0.781225,
+      "exit": 0.693988,
+      "take_profit": 0.992203,
+      "stop_loss": 0.570247,
+      "pnl": -0.0084178872,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DIS/CMCSA",
+      "type": "short",
+      "entry_date": "2025-01-30",
+      "exit_date": "2025-02-21",
+      "entry": 3.411429,
+      "exit": 2.998344,
+      "take_profit": 2.697209,
+      "stop_loss": 4.125649,
+      "pnl": 0.0113763866,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "V/MA",
+      "type": "short",
+      "entry_date": "2025-01-31",
+      "exit_date": "2025-02-24",
+      "entry": 0.615379,
+      "exit": 0.625868,
+      "take_profit": 0.585791,
+      "stop_loss": 0.644967,
+      "pnl": -0.007921967,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BITCOIN/ETHEREUM",
+      "type": "short",
+      "entry_date": "2025-02-03",
+      "exit_date": "2025-02-25",
+      "entry": 35.154473,
+      "exit": 35.585675,
+      "take_profit": 28.501274,
+      "stop_loss": 41.807672,
+      "pnl": -0.0015075784,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "KO/PEP",
+      "type": "short",
+      "entry_date": "2025-02-11",
+      "exit_date": "2025-03-05",
+      "entry": 0.464158,
+      "exit": 0.45542,
+      "take_profit": 0.415327,
+      "stop_loss": 0.512989,
+      "pnl": 0.0031986582,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SOYBEANS/CORN",
+      "type": "long",
+      "entry_date": "2025-02-12",
+      "exit_date": "2025-03-06",
+      "entry": 2.096379,
+      "exit": 2.25584,
+      "take_profit": 2.428121,
+      "stop_loss": 1.764637,
+      "pnl": 0.0093607829,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "XOM/CVX",
+      "type": "long",
+      "entry_date": "2025-02-12",
+      "exit_date": "2025-03-06",
+      "entry": 0.693028,
+      "exit": 0.703629,
+      "take_profit": 0.769721,
+      "stop_loss": 0.616335,
+      "pnl": 0.002403073,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "AAPL/MSFT",
+      "type": "short",
+      "entry_date": "2025-02-13",
+      "exit_date": "2025-03-07",
+      "entry": 0.588323,
+      "exit": 0.607841,
+      "take_profit": 0.51196,
+      "stop_loss": 0.664686,
+      "pnl": -0.0054200715,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DOW30/RUSSELL2000",
+      "type": "short",
+      "entry_date": "2025-02-24",
+      "exit_date": "2025-03-10",
+      "entry": 19.952169,
+      "exit": 20.749868,
+      "take_profit": 19.15447,
+      "stop_loss": 20.749868,
+      "pnl": -0.0210004861,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "ULVR.L/RKT.L",
+      "type": "long",
+      "entry_date": "2025-02-14",
+      "exit_date": "2025-03-10",
+      "entry": 0.843367,
+      "exit": 0.87789,
+      "take_profit": 1.065516,
+      "stop_loss": 0.621217,
+      "pnl": 0.0029562247,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CORN/WHEAT",
+      "type": "short",
+      "entry_date": "2025-02-19",
+      "exit_date": "2025-03-13",
+      "entry": 0.840372,
+      "exit": 0.828689,
+      "take_profit": 0.732498,
+      "stop_loss": 0.948246,
+      "pnl": 0.0018544331,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/SILVER",
+      "type": "short",
+      "entry_date": "2025-02-25",
+      "exit_date": "2025-03-19",
+      "entry": 91.333606,
+      "exit": 89.356877,
+      "take_profit": 86.112445,
+      "stop_loss": 96.554767,
+      "pnl": 0.0068722715,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PG/CL",
+      "type": "short",
+      "entry_date": "2025-02-26",
+      "exit_date": "2025-03-20",
+      "entry": 1.899745,
+      "exit": 1.855893,
+      "take_profit": 1.713854,
+      "stop_loss": 2.085636,
+      "pnl": 0.0043092468,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BITCOIN/ETHEREUM",
+      "type": "short",
+      "entry_date": "2025-03-01",
+      "exit_date": "2025-03-23",
+      "entry": 38.811799,
+      "exit": 42.913484,
+      "take_profit": 31.144604,
+      "stop_loss": 46.478994,
+      "pnl": -0.0109017929,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "type": "long",
+      "entry_date": "2025-03-04",
+      "exit_date": "2025-03-26",
+      "entry": 0.937888,
+      "exit": 0.992909,
+      "take_profit": 1.058993,
+      "stop_loss": 0.816783,
+      "pnl": 0.0087767184,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "JPM/BAC",
+      "type": "short",
+      "entry_date": "2025-03-04",
+      "exit_date": "2025-03-26",
+      "entry": 5.864776,
+      "exit": 5.862447,
+      "take_profit": 5.478008,
+      "stop_loss": 6.251544,
+      "pnl": -0.0004861081,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "type": "short",
+      "entry_date": "2025-03-04",
+      "exit_date": "2025-03-26",
+      "entry": 1.277528,
+      "exit": 1.271443,
+      "take_profit": 1.207607,
+      "stop_loss": 1.347449,
+      "pnl": 0.0010096949,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DAX40/EU50",
+      "type": "short",
+      "entry_date": "2025-03-06",
+      "exit_date": "2025-03-28",
+      "entry": 4.242298,
+      "exit": 4.213062,
+      "take_profit": 3.99826,
+      "stop_loss": 4.486336,
+      "pnl": 0.0017006699,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DOW30/NASDAQ100",
+      "type": "short",
+      "entry_date": "2025-03-10",
+      "exit_date": "2025-04-01",
+      "entry": 2.156956,
+      "exit": 2.160375,
+      "take_profit": 2.01664,
+      "stop_loss": 2.297273,
+      "pnl": -0.001102206,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NASDAQ100/S&P500",
+      "type": "long",
+      "entry_date": "2025-03-10",
+      "exit_date": "2025-04-01",
+      "entry": 3.460814,
+      "exit": 3.450413,
+      "take_profit": 3.564509,
+      "stop_loss": 3.357119,
+      "pnl": -0.003341073,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "type": "short",
+      "entry_date": "2025-03-18",
+      "exit_date": "2025-04-09",
+      "entry": 4.774405,
+      "exit": 4.259098,
+      "take_profit": 4.321042,
+      "stop_loss": 5.227767,
+      "pnl": 0.0223114505,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "JPM/BAC",
+      "type": "short",
+      "entry_date": "2025-03-28",
+      "exit_date": "2025-04-09",
+      "entry": 5.887273,
+      "exit": 6.244025,
+      "take_profit": 5.530521,
+      "stop_loss": 6.244025,
+      "pnl": -0.020660097,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "XOM/CVX",
+      "type": "long",
+      "entry_date": "2025-03-21",
+      "exit_date": "2025-04-14",
+      "entry": 0.701062,
+      "exit": 0.764041,
+      "take_profit": 0.762072,
+      "stop_loss": 0.640052,
+      "pnl": 0.0201858305,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BITCOIN/ETHEREUM",
+      "type": "short",
+      "entry_date": "2025-03-29",
+      "exit_date": "2025-04-20",
+      "entry": 45.201482,
+      "exit": 53.652622,
+      "take_profit": 35.122375,
+      "stop_loss": 55.280589,
+      "pnl": -0.0169490074,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CORN/WHEAT",
+      "type": "short",
+      "entry_date": "2025-03-28",
+      "exit_date": "2025-04-21",
+      "entry": 0.858022,
+      "exit": 0.894615,
+      "take_profit": 0.767307,
+      "stop_loss": 0.948737,
+      "pnl": -0.0084460219,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "HYG/LQD",
+      "type": "long",
+      "entry_date": "2025-04-04",
+      "exit_date": "2025-04-21",
+      "entry": 0.705644,
+      "exit": 0.732102,
+      "take_profit": 0.731025,
+      "stop_loss": 0.680263,
+      "pnl": 0.0197365841,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "DOW30/NASDAQ100",
+      "type": "short",
+      "entry_date": "2025-04-03",
+      "exit_date": "2025-04-25",
+      "entry": 2.189131,
+      "exit": 2.064242,
+      "take_profit": 2.026076,
+      "stop_loss": 2.352187,
+      "pnl": 0.0147815153,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/SILVER",
+      "type": "short",
+      "entry_date": "2025-04-03",
+      "exit_date": "2025-04-25",
+      "entry": 97.25537,
+      "exit": 99.49983,
+      "take_profit": 87.076351,
+      "stop_loss": 107.434389,
+      "pnl": -0.0047921528,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DOW30/S&P500",
+      "type": "short",
+      "entry_date": "2025-04-04",
+      "exit_date": "2025-04-28",
+      "entry": 7.551095,
+      "exit": 7.276073,
+      "take_profit": 7.201489,
+      "stop_loss": 7.900701,
+      "pnl": 0.0148692992,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "type": "long",
+      "entry_date": "2025-04-04",
+      "exit_date": "2025-04-28",
+      "entry": 0.920823,
+      "exit": 0.970346,
+      "take_profit": 1.037136,
+      "stop_loss": 0.804509,
+      "pnl": 0.00819873,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "WFC/C",
+      "type": "short",
+      "entry_date": "2025-04-04",
+      "exit_date": "2025-04-28",
+      "entry": 1.049028,
+      "exit": 1.016842,
+      "take_profit": 0.9798,
+      "stop_loss": 1.118257,
+      "pnl": 0.0086922948,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "HYG/ZB",
+      "type": "long",
+      "entry_date": "2025-04-04",
+      "exit_date": "2025-04-28",
+      "entry": 0.636517,
+      "exit": 0.677207,
+      "take_profit": 0.685124,
+      "stop_loss": 0.58791,
+      "pnl": 0.0162186376,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "JNJ/PFE",
+      "type": "short",
+      "entry_date": "2025-04-08",
+      "exit_date": "2025-04-30",
+      "entry": 6.868132,
+      "exit": 6.403523,
+      "take_profit": 6.114743,
+      "stop_loss": 7.621521,
+      "pnl": 0.0119691882,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "type": "short",
+      "entry_date": "2025-04-08",
+      "exit_date": "2025-04-30",
+      "entry": 1.308161,
+      "exit": 1.284522,
+      "take_profit": 1.230211,
+      "stop_loss": 1.386111,
+      "pnl": 0.0053938879,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BRENT/WTI",
+      "type": "short",
+      "entry_date": "2025-04-30",
+      "exit_date": "2025-05-01",
+      "entry": 1.08435,
+      "exit": 1.048785,
+      "take_profit": 1.051457,
+      "stop_loss": 1.117243,
+      "pnl": 0.0203060226,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "UB/ZF",
+      "type": "long",
+      "entry_date": "2025-04-10",
+      "exit_date": "2025-05-02",
+      "entry": 1.09133,
+      "exit": 1.097332,
+      "take_profit": 1.150138,
+      "stop_loss": 1.032522,
+      "pnl": 0.0012989185,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "S&P500/RUSSELL2000",
+      "type": "short",
+      "entry_date": "2025-04-11",
+      "exit_date": "2025-05-05",
+      "entry": 2.883217,
+      "exit": 2.819185,
+      "take_profit": 2.710145,
+      "stop_loss": 3.05629,
+      "pnl": 0.0067330625,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NASDAQ100/S&P500",
+      "type": "long",
+      "entry_date": "2025-04-16",
+      "exit_date": "2025-05-08",
+      "entry": 3.460705,
+      "exit": 3.542333,
+      "take_profit": 3.546048,
+      "stop_loss": 3.375362,
+      "pnl": 0.0175073738,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "KO/PEP",
+      "type": "short",
+      "entry_date": "2025-04-16",
+      "exit_date": "2025-05-08",
+      "entry": 0.511671,
+      "exit": 0.541505,
+      "take_profit": 0.447716,
+      "stop_loss": 0.575626,
+      "pnl": -0.0096497043,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BITCOIN/ETHEREUM",
+      "type": "short",
+      "entry_date": "2025-04-24",
+      "exit_date": "2025-05-13",
+      "entry": 53.080639,
+      "exit": 38.867453,
+      "take_profit": 40.073028,
+      "stop_loss": 66.08825,
+      "pnl": 0.0216904161,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "GOLD/PLATINUM",
+      "type": "short",
+      "entry_date": "2025-04-21",
+      "exit_date": "2025-05-13",
+      "entry": 3.556275,
+      "exit": 3.269728,
+      "take_profit": 3.033788,
+      "stop_loss": 4.078761,
+      "pnl": 0.0106963421,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "type": "short",
+      "entry_date": "2025-04-22",
+      "exit_date": "2025-05-14",
+      "entry": 0.948497,
+      "exit": 1.022712,
+      "take_profit": 0.808116,
+      "stop_loss": 1.088878,
+      "pnl": -0.0108436318,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "type": "short",
+      "entry_date": "2025-05-15",
+      "exit_date": "2025-05-20",
+      "entry": 1.337974,
+      "exit": 1.237831,
+      "take_profit": 1.24768,
+      "stop_loss": 1.428268,
+      "pnl": 0.0215888214,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "DOW30/RUSSELL2000",
+      "type": "short",
+      "entry_date": "2025-04-30",
+      "exit_date": "2025-05-22",
+      "entry": 20.706148,
+      "exit": 20.463388,
+      "take_profit": 19.696754,
+      "stop_loss": 21.715542,
+      "pnl": 0.0039894769,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "WFC/C",
+      "type": "short",
+      "entry_date": "2025-05-01",
+      "exit_date": "2025-05-23",
+      "entry": 1.05386,
+      "exit": 0.996443,
+      "take_profit": 0.984787,
+      "stop_loss": 1.122933,
+      "pnl": 0.0160147322,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "AAPL/MSFT",
+      "type": "long",
+      "entry_date": "2025-05-05",
+      "exit_date": "2025-05-27",
+      "entry": 0.455992,
+      "exit": 0.434587,
+      "take_profit": 0.541188,
+      "stop_loss": 0.370796,
+      "pnl": -0.0052389746,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "UB/ZF",
+      "type": "long",
+      "entry_date": "2025-05-12",
+      "exit_date": "2025-06-03",
+      "entry": 1.088242,
+      "exit": 1.068289,
+      "take_profit": 1.145201,
+      "stop_loss": 1.031283,
+      "pnl": -0.0077703204,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CAT/DE",
+      "type": "long",
+      "entry_date": "2025-05-14",
+      "exit_date": "2025-06-05",
+      "entry": 0.702834,
+      "exit": 0.683231,
+      "take_profit": 0.857524,
+      "stop_loss": 0.548144,
+      "pnl": -0.0027162283,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "KO/PEP",
+      "type": "short",
+      "entry_date": "2025-05-15",
+      "exit_date": "2025-06-06",
+      "entry": 0.544563,
+      "exit": 0.54872,
+      "take_profit": 0.469346,
+      "stop_loss": 0.61978,
+      "pnl": -0.0013949309,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "ZN/ZF",
+      "type": "long",
+      "entry_date": "2025-05-21",
+      "exit_date": "2025-06-12",
+      "entry": 1.019939,
+      "exit": 1.026578,
+      "take_profit": 1.029061,
+      "stop_loss": 1.010817,
+      "pnl": 0.0100835825,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BRENT/WTI",
+      "type": "long",
+      "entry_date": "2025-06-02",
+      "exit_date": "2025-06-13",
+      "entry": 1.033749,
+      "exit": 1.017177,
+      "take_profit": 1.050321,
+      "stop_loss": 1.017177,
+      "pnl": -0.0224951702,
+      "exit_reason": "SL"
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "type": "short",
+      "entry_date": "2025-05-26",
+      "exit_date": "2025-06-17",
+      "entry": 4.731618,
+      "exit": 4.782499,
+      "take_profit": 4.366028,
+      "stop_loss": 5.097208,
+      "pnl": -0.0033011973,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "type": "short",
+      "entry_date": "2025-06-02",
+      "exit_date": "2025-06-24",
+      "entry": 0.972462,
+      "exit": 0.981918,
+      "take_profit": 0.852691,
+      "stop_loss": 1.092234,
+      "pnl": -0.0019037712,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NASDAQ100/S&P500",
+      "type": "short",
+      "entry_date": "2025-06-04",
+      "exit_date": "2025-06-26",
+      "entry": 3.638019,
+      "exit": 3.655303,
+      "take_profit": 3.549082,
+      "stop_loss": 3.726955,
+      "pnl": -0.0055230813,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "type": "long",
+      "entry_date": "2025-06-05",
+      "exit_date": "2025-06-27",
+      "entry": 0.87746,
+      "exit": 0.955531,
+      "take_profit": 0.983378,
+      "stop_loss": 0.771543,
+      "pnl": 0.0144105441,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/PLATINUM",
+      "type": "long",
+      "entry_date": "2025-06-11",
+      "exit_date": "2025-07-03",
+      "entry": 2.639933,
+      "exit": 2.42828,
+      "take_profit": 3.17486,
+      "stop_loss": 2.105007,
+      "pnl": -0.0081107617,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PLATINUM/SILVER",
+      "type": "short",
+      "entry_date": "2025-06-11",
+      "exit_date": "2025-07-03",
+      "entry": 34.786816,
+      "exit": 37.298826,
+      "take_profit": 28.151939,
+      "stop_loss": 41.421693,
+      "pnl": -0.0077818583,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SOYBEANS/CORN",
+      "type": "short",
+      "entry_date": "2025-06-23",
+      "exit_date": "2025-07-15",
+      "entry": 2.525343,
+      "exit": 2.479751,
+      "take_profit": 2.181007,
+      "stop_loss": 2.869679,
+      "pnl": 0.0023547531,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BRENT/WTI",
+      "type": "long",
+      "entry_date": "2025-07-01",
+      "exit_date": "2025-07-23",
+      "entry": 1.025363,
+      "exit": 1.049962,
+      "take_profit": 1.045674,
+      "stop_loss": 1.005052,
+      "pnl": 0.0222030171,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DBK.DE/CBK.DE",
+      "type": "long",
+      "entry_date": "2025-07-08",
+      "exit_date": "2025-07-24",
+      "entry": 0.833667,
+      "exit": 0.95557,
+      "take_profit": 0.952354,
+      "stop_loss": 0.71498,
+      "pnl": 0.0202609664,
+      "exit_reason": "TP"
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "type": "long",
+      "entry_date": "2025-07-02",
+      "exit_date": "2025-07-24",
+      "entry": 1.149975,
+      "exit": 1.108058,
+      "take_profit": 1.250764,
+      "stop_loss": 1.049186,
+      "pnl": -0.0087741619,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "type": "short",
+      "entry_date": "2025-07-03",
+      "exit_date": "2025-07-25",
+      "entry": 4.741796,
+      "exit": 4.832721,
+      "take_profit": 4.472716,
+      "stop_loss": 5.010876,
+      "pnl": -0.0074631033,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BATS.L/IMB.L",
+      "type": "short",
+      "entry_date": "2025-07-07",
+      "exit_date": "2025-07-29",
+      "entry": 1.250175,
+      "exit": 1.350962,
+      "take_profit": 1.098429,
+      "stop_loss": 1.401922,
+      "pnl": -0.0136130994,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NASDAQ100/S&P500",
+      "type": "short",
+      "entry_date": "2025-07-08",
+      "exit_date": "2025-07-30",
+      "entry": 3.646643,
+      "exit": 3.668989,
+      "take_profit": 3.562601,
+      "stop_loss": 3.730685,
+      "pnl": -0.0070534461,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "WFC/C",
+      "type": "long",
+      "entry_date": "2025-07-15",
+      "exit_date": "2025-08-06",
+      "entry": 0.869268,
+      "exit": 0.841483,
+      "take_profit": 0.992054,
+      "stop_loss": 0.746482,
+      "pnl": -0.0048089417,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SOYBEANS/CORN",
+      "type": "short",
+      "entry_date": "2025-07-17",
+      "exit_date": "2025-08-08",
+      "entry": 2.541045,
+      "exit": 2.5258,
+      "take_profit": 2.192144,
+      "stop_loss": 2.889946,
+      "pnl": 0.000582567,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BITCOIN/ETHEREUM",
+      "type": "long",
+      "entry_date": "2025-07-20",
+      "exit_date": "2025-08-11",
+      "entry": 31.201405,
+      "exit": 28.089041,
+      "take_profit": 47.028019,
+      "stop_loss": 15.374791,
+      "pnl": -0.0040119343,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "CORN/WHEAT",
+      "type": "long",
+      "entry_date": "2025-07-22",
+      "exit_date": "2025-08-13",
+      "entry": 0.72657,
+      "exit": 0.737309,
+      "take_profit": 0.813649,
+      "stop_loss": 0.639491,
+      "pnl": 0.0021327438,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "ULVR.L/RKT.L",
+      "type": "long",
+      "entry_date": "2025-07-24",
+      "exit_date": "2025-08-15",
+      "entry": 0.811259,
+      "exit": 0.821546,
+      "take_profit": 1.012197,
+      "stop_loss": 0.610321,
+      "pnl": 0.0008624035,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "FTSE100/EU50",
+      "type": "short",
+      "entry_date": "2025-07-31",
+      "exit_date": "2025-08-22",
+      "entry": 1.716718,
+      "exit": 1.698435,
+      "take_profit": 1.632724,
+      "stop_loss": 1.800712,
+      "pnl": 0.003535863,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "JNJ/PFE",
+      "type": "short",
+      "entry_date": "2025-08-04",
+      "exit_date": "2025-08-26",
+      "entry": 7.269018,
+      "exit": 7.082263,
+      "take_profit": 6.466216,
+      "stop_loss": 8.07182,
+      "pnl": 0.004290397,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "XOM/CVX",
+      "type": "long",
+      "entry_date": "2025-08-05",
+      "exit_date": "2025-08-27",
+      "entry": 0.700732,
+      "exit": 0.708051,
+      "take_profit": 0.75834,
+      "stop_loss": 0.643124,
+      "pnl": 0.0020544147,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/PLATINUM",
+      "type": "long",
+      "entry_date": "2025-08-06",
+      "exit_date": "2025-08-28",
+      "entry": 2.54902,
+      "exit": 2.53008,
+      "take_profit": 3.046622,
+      "stop_loss": 2.051419,
+      "pnl": -0.0009661572,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "NASDAQ100/S&P500",
+      "type": "short",
+      "entry_date": "2025-08-06",
+      "exit_date": "2025-08-28",
+      "entry": 3.674518,
+      "exit": 3.645641,
+      "take_profit": 3.578791,
+      "stop_loss": 3.770245,
+      "pnl": 0.0044977831,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PLATINUM/SILVER",
+      "type": "short",
+      "entry_date": "2025-08-06",
+      "exit_date": "2025-08-28",
+      "entry": 35.110946,
+      "exit": 34.61087,
+      "take_profit": 29.991968,
+      "stop_loss": 40.229924,
+      "pnl": 0.0016794528,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SIE.DE/SU.PA",
+      "type": "short",
+      "entry_date": "2025-08-08",
+      "exit_date": "2025-09-01",
+      "entry": 1.046847,
+      "exit": 1.137693,
+      "take_profit": 0.913675,
+      "stop_loss": 1.180019,
+      "pnl": -0.0139578431,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "SOYBEANS/CORN",
+      "type": "short",
+      "entry_date": "2025-08-11",
+      "exit_date": "2025-09-02",
+      "entry": 2.57013,
+      "exit": 2.545285,
+      "take_profit": 2.19784,
+      "stop_loss": 2.942419,
+      "pnl": 0.0010585722,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BNP.PA/ACA.PA",
+      "type": "short",
+      "entry_date": "2025-08-12",
+      "exit_date": "2025-09-03",
+      "entry": 4.808824,
+      "exit": 4.910732,
+      "take_profit": 4.579778,
+      "stop_loss": 5.03787,
+      "pnl": -0.0097382751,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "BRENT/WTI",
+      "type": "short",
+      "entry_date": "2025-08-20",
+      "exit_date": "2025-09-11",
+      "entry": 1.057428,
+      "exit": 1.064133,
+      "take_profit": 1.039518,
+      "stop_loss": 1.075338,
+      "pnl": -0.0098490854,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "V/MA",
+      "type": "long",
+      "entry_date": "2025-08-20",
+      "exit_date": "2025-09-11",
+      "entry": 0.580296,
+      "exit": 0.583442,
+      "take_profit": 0.614694,
+      "stop_loss": 0.545899,
+      "pnl": 0.0011544077,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "GOLD/PLATINUM",
+      "type": "long",
+      "entry_date": "2025-09-02",
+      "exit_date": "2025-09-24",
+      "entry": 2.524826,
+      "exit": 2.514045,
+      "take_profit": 2.999656,
+      "stop_loss": 2.049996,
+      "pnl": -0.0006667924,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "PG/CL",
+      "type": "short",
+      "entry_date": "2025-09-04",
+      "exit_date": "2025-09-26",
+      "entry": 1.902594,
+      "exit": 1.91607,
+      "take_profit": 1.786452,
+      "stop_loss": 2.018736,
+      "pnl": -0.0029758723,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "ZF/ZT",
+      "type": "short",
+      "entry_date": "2025-09-04",
+      "exit_date": "2025-09-26",
+      "entry": 1.052034,
+      "exit": 1.04865,
+      "take_profit": 1.042741,
+      "stop_loss": 1.061327,
+      "pnl": 0.0027546153,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "DOW30/RUSSELL2000",
+      "type": "long",
       "entry_date": "2025-09-05",
       "exit_date": "2025-09-29",
-      "entry": 1.032814,
-      "exit": 1.030346,
-      "take_profit": 1.025606,
-      "stop_loss": 1.040022,
-      "pnl": 0.0011164595,
+      "entry": 18.987834,
+      "exit": 19.019021,
+      "take_profit": 20.004309,
+      "stop_loss": 17.971359,
+      "pnl": -0.0001335727,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "FTSE100/EU50",
+      "type": "short",
+      "entry_date": "2025-09-05",
+      "exit_date": "2025-09-29",
+      "entry": 1.731467,
+      "exit": 1.688769,
+      "take_profit": 1.659793,
+      "stop_loss": 1.803142,
+      "pnl": 0.0109480477,
+      "exit_reason": "TimeCap"
+    },
+    {
+      "spread": "ZN/ZF",
+      "type": "short",
+      "entry_date": "2025-09-08",
+      "exit_date": "2025-09-30",
+      "entry": 1.03358,
+      "exit": 1.030823,
+      "take_profit": 1.025619,
+      "stop_loss": 1.04154,
+      "pnl": 0.0017332663,
       "exit_reason": "TimeCap"
     }
   ],
   "equity_curve": [
     {
-      "date": "2023-08-16",
-      "cumulative_pnl": 0.0169199135
+      "date": "2023-08-04",
+      "cumulative_pnl": 0.019236877
+    },
+    {
+      "date": "2023-08-11",
+      "cumulative_pnl": 0.0091265006
     },
     {
       "date": "2023-08-18",
-      "cumulative_pnl": 0.0165687761
+      "cumulative_pnl": 0.0088325998
+    },
+    {
+      "date": "2023-08-21",
+      "cumulative_pnl": 0.0098382302
+    },
+    {
+      "date": "2023-08-23",
+      "cumulative_pnl": 0.0150818758
+    },
+    {
+      "date": "2023-08-23",
+      "cumulative_pnl": 0.0089011201
+    },
+    {
+      "date": "2023-08-24",
+      "cumulative_pnl": 0.0159184393
+    },
+    {
+      "date": "2023-08-28",
+      "cumulative_pnl": 0.0212960565
+    },
+    {
+      "date": "2023-09-01",
+      "cumulative_pnl": 0.0219979103
+    },
+    {
+      "date": "2023-09-05",
+      "cumulative_pnl": 0.0162212155
+    },
+    {
+      "date": "2023-09-05",
+      "cumulative_pnl": 0.0110258835
+    },
+    {
+      "date": "2023-09-06",
+      "cumulative_pnl": 0.0111323108
+    },
+    {
+      "date": "2023-09-06",
+      "cumulative_pnl": 0.0202539189
+    },
+    {
+      "date": "2023-09-08",
+      "cumulative_pnl": 0.0167647705
+    },
+    {
+      "date": "2023-09-11",
+      "cumulative_pnl": 0.0254381793
+    },
+    {
+      "date": "2023-09-12",
+      "cumulative_pnl": 0.0202377227
+    },
+    {
+      "date": "2023-09-12",
+      "cumulative_pnl": 0.0236096598
     },
     {
       "date": "2023-09-14",
-      "cumulative_pnl": 0.0346365996
+      "cumulative_pnl": 0.0218180018
+    },
+    {
+      "date": "2023-09-22",
+      "cumulative_pnl": 0.019111914
     },
     {
       "date": "2023-09-28",
-      "cumulative_pnl": 0.0408439109
+      "cumulative_pnl": 0.0176429224
+    },
+    {
+      "date": "2023-09-29",
+      "cumulative_pnl": 0.0261664449
+    },
+    {
+      "date": "2023-10-02",
+      "cumulative_pnl": 0.0326418709
+    },
+    {
+      "date": "2023-10-02",
+      "cumulative_pnl": 0.0352667936
+    },
+    {
+      "date": "2023-10-03",
+      "cumulative_pnl": 0.0348666864
     },
     {
       "date": "2023-10-05",
-      "cumulative_pnl": 0.0491965017
+      "cumulative_pnl": 0.0343739119
     },
     {
-      "date": "2023-10-13",
-      "cumulative_pnl": 0.042534274
+      "date": "2023-10-06",
+      "cumulative_pnl": 0.0383336282
+    },
+    {
+      "date": "2023-10-10",
+      "cumulative_pnl": 0.0328710771
+    },
+    {
+      "date": "2023-10-16",
+      "cumulative_pnl": 0.0322435398
+    },
+    {
+      "date": "2023-10-16",
+      "cumulative_pnl": 0.0421813317
+    },
+    {
+      "date": "2023-10-18",
+      "cumulative_pnl": 0.0350991131
+    },
+    {
+      "date": "2023-10-19",
+      "cumulative_pnl": 0.0356021089
+    },
+    {
+      "date": "2023-10-19",
+      "cumulative_pnl": 0.0254315353
+    },
+    {
+      "date": "2023-10-25",
+      "cumulative_pnl": 0.0370042145
+    },
+    {
+      "date": "2023-10-26",
+      "cumulative_pnl": 0.0318279412
     },
     {
       "date": "2023-10-27",
-      "cumulative_pnl": 0.029237311
+      "cumulative_pnl": 0.0113133542
     },
     {
-      "date": "2023-11-09",
-      "cumulative_pnl": 0.0222494378
+      "date": "2023-10-30",
+      "cumulative_pnl": 0.0225960253
     },
     {
-      "date": "2023-11-28",
-      "cumulative_pnl": 0.0239797415
+      "date": "2023-11-02",
+      "cumulative_pnl": 0.0199181616
     },
     {
-      "date": "2023-11-29",
-      "cumulative_pnl": 0.0208493583
+      "date": "2023-11-06",
+      "cumulative_pnl": 0.0219434785
+    },
+    {
+      "date": "2023-11-07",
+      "cumulative_pnl": 0.0118088146
+    },
+    {
+      "date": "2023-11-10",
+      "cumulative_pnl": 0.0191314509
+    },
+    {
+      "date": "2023-11-14",
+      "cumulative_pnl": 0.0068058015
+    },
+    {
+      "date": "2023-11-16",
+      "cumulative_pnl": 0.0115371109
+    },
+    {
+      "date": "2023-11-16",
+      "cumulative_pnl": 0.0119025423
+    },
+    {
+      "date": "2023-11-16",
+      "cumulative_pnl": 0.0196314263
+    },
+    {
+      "date": "2023-11-17",
+      "cumulative_pnl": 0.0265054744
+    },
+    {
+      "date": "2023-11-20",
+      "cumulative_pnl": 0.0257058775
+    },
+    {
+      "date": "2023-11-20",
+      "cumulative_pnl": 0.0377144594
+    },
+    {
+      "date": "2023-11-30",
+      "cumulative_pnl": 0.0434490366
+    },
+    {
+      "date": "2023-12-01",
+      "cumulative_pnl": 0.0510860915
     },
     {
       "date": "2023-12-08",
-      "cumulative_pnl": 0.0341249609
+      "cumulative_pnl": 0.0471473064
+    },
+    {
+      "date": "2023-12-12",
+      "cumulative_pnl": 0.0527500956
+    },
+    {
+      "date": "2023-12-22",
+      "cumulative_pnl": 0.0640667708
     },
     {
       "date": "2023-12-26",
-      "cumulative_pnl": 0.0490488371
+      "cumulative_pnl": 0.0612857608
+    },
+    {
+      "date": "2023-12-27",
+      "cumulative_pnl": 0.0628814701
+    },
+    {
+      "date": "2023-12-28",
+      "cumulative_pnl": 0.0834726488
+    },
+    {
+      "date": "2024-01-02",
+      "cumulative_pnl": 0.0836488414
+    },
+    {
+      "date": "2024-01-02",
+      "cumulative_pnl": 0.0774868543
+    },
+    {
+      "date": "2024-01-04",
+      "cumulative_pnl": 0.0837424683
+    },
+    {
+      "date": "2024-01-08",
+      "cumulative_pnl": 0.0894090487
     },
     {
       "date": "2024-01-25",
-      "cumulative_pnl": 0.049211592
+      "cumulative_pnl": 0.0800904477
     },
     {
-      "date": "2024-02-05",
-      "cumulative_pnl": 0.0470234659
+      "date": "2024-01-26",
+      "cumulative_pnl": 0.0771323121
     },
     {
-      "date": "2024-02-29",
-      "cumulative_pnl": 0.0452811853
+      "date": "2024-01-26",
+      "cumulative_pnl": 0.0953667068
+    },
+    {
+      "date": "2024-01-29",
+      "cumulative_pnl": 0.0933075778
+    },
+    {
+      "date": "2024-01-31",
+      "cumulative_pnl": 0.0747941467
+    },
+    {
+      "date": "2024-02-01",
+      "cumulative_pnl": 0.0641314685
+    },
+    {
+      "date": "2024-02-02",
+      "cumulative_pnl": 0.0625358365
+    },
+    {
+      "date": "2024-02-07",
+      "cumulative_pnl": 0.0584574787
+    },
+    {
+      "date": "2024-02-09",
+      "cumulative_pnl": 0.0699621295
+    },
+    {
+      "date": "2024-02-15",
+      "cumulative_pnl": 0.0679440074
+    },
+    {
+      "date": "2024-02-16",
+      "cumulative_pnl": 0.0712005922
+    },
+    {
+      "date": "2024-02-20",
+      "cumulative_pnl": 0.0726223306
+    },
+    {
+      "date": "2024-02-23",
+      "cumulative_pnl": 0.0644409574
+    },
+    {
+      "date": "2024-02-23",
+      "cumulative_pnl": 0.0675361627
+    },
+    {
+      "date": "2024-02-23",
+      "cumulative_pnl": 0.0863269609
+    },
+    {
+      "date": "2024-02-26",
+      "cumulative_pnl": 0.0683949929
+    },
+    {
+      "date": "2024-03-01",
+      "cumulative_pnl": 0.0700027152
+    },
+    {
+      "date": "2024-03-04",
+      "cumulative_pnl": 0.0726237491
+    },
+    {
+      "date": "2024-03-04",
+      "cumulative_pnl": 0.0666081744
+    },
+    {
+      "date": "2024-03-04",
+      "cumulative_pnl": 0.068170845
+    },
+    {
+      "date": "2024-03-06",
+      "cumulative_pnl": 0.0724784054
+    },
+    {
+      "date": "2024-03-08",
+      "cumulative_pnl": 0.0931736942
+    },
+    {
+      "date": "2024-03-13",
+      "cumulative_pnl": 0.0879525934
     },
     {
       "date": "2024-03-14",
-      "cumulative_pnl": 0.0509684049
+      "cumulative_pnl": 0.0809666242
+    },
+    {
+      "date": "2024-03-15",
+      "cumulative_pnl": 0.0809609193
+    },
+    {
+      "date": "2024-03-15",
+      "cumulative_pnl": 0.0738862142
+    },
+    {
+      "date": "2024-03-19",
+      "cumulative_pnl": 0.0845463303
     },
     {
       "date": "2024-03-25",
-      "cumulative_pnl": 0.0461501241
+      "cumulative_pnl": 0.0804726904
     },
     {
-      "date": "2024-04-04",
-      "cumulative_pnl": 0.0661032305
+      "date": "2024-03-28",
+      "cumulative_pnl": 0.0860220202
+    },
+    {
+      "date": "2024-04-02",
+      "cumulative_pnl": 0.094885794
+    },
+    {
+      "date": "2024-04-08",
+      "cumulative_pnl": 0.0890897919
+    },
+    {
+      "date": "2024-04-10",
+      "cumulative_pnl": 0.0945409129
+    },
+    {
+      "date": "2024-04-12",
+      "cumulative_pnl": 0.0988015146
+    },
+    {
+      "date": "2024-04-12",
+      "cumulative_pnl": 0.0980684504
     },
     {
       "date": "2024-04-18",
-      "cumulative_pnl": 0.0585650076
+      "cumulative_pnl": 0.1097949572
     },
     {
-      "date": "2024-05-13",
-      "cumulative_pnl": 0.0733587744
+      "date": "2024-05-02",
+      "cumulative_pnl": 0.0965503213
     },
     {
-      "date": "2024-05-20",
-      "cumulative_pnl": 0.0526120965
+      "date": "2024-05-06",
+      "cumulative_pnl": 0.1163327464
     },
     {
-      "date": "2024-06-03",
-      "cumulative_pnl": 0.0409392737
+      "date": "2024-05-06",
+      "cumulative_pnl": 0.1138196064
+    },
+    {
+      "date": "2024-05-15",
+      "cumulative_pnl": 0.1022355011
+    },
+    {
+      "date": "2024-05-17",
+      "cumulative_pnl": 0.1219799956
+    },
+    {
+      "date": "2024-05-17",
+      "cumulative_pnl": 0.1196677911
+    },
+    {
+      "date": "2024-05-17",
+      "cumulative_pnl": 0.1129503575
+    },
+    {
+      "date": "2024-05-21",
+      "cumulative_pnl": 0.1213420851
+    },
+    {
+      "date": "2024-05-22",
+      "cumulative_pnl": 0.1264105461
+    },
+    {
+      "date": "2024-05-30",
+      "cumulative_pnl": 0.1181014284
+    },
+    {
+      "date": "2024-05-31",
+      "cumulative_pnl": 0.1226721192
+    },
+    {
+      "date": "2024-06-10",
+      "cumulative_pnl": 0.1217927877
+    },
+    {
+      "date": "2024-06-10",
+      "cumulative_pnl": 0.100902885
+    },
+    {
+      "date": "2024-06-10",
+      "cumulative_pnl": 0.0890950087
+    },
+    {
+      "date": "2024-06-12",
+      "cumulative_pnl": 0.1021793582
+    },
+    {
+      "date": "2024-06-13",
+      "cumulative_pnl": 0.1054561764
+    },
+    {
+      "date": "2024-06-14",
+      "cumulative_pnl": 0.1032660666
+    },
+    {
+      "date": "2024-06-17",
+      "cumulative_pnl": 0.1018113398
+    },
+    {
+      "date": "2024-06-18",
+      "cumulative_pnl": 0.0816501064
+    },
+    {
+      "date": "2024-06-19",
+      "cumulative_pnl": 0.0887451673
+    },
+    {
+      "date": "2024-06-24",
+      "cumulative_pnl": 0.0783315895
+    },
+    {
+      "date": "2024-06-25",
+      "cumulative_pnl": 0.0981542608
+    },
+    {
+      "date": "2024-06-28",
+      "cumulative_pnl": 0.0993571699
+    },
+    {
+      "date": "2024-07-03",
+      "cumulative_pnl": 0.0867013054
+    },
+    {
+      "date": "2024-07-05",
+      "cumulative_pnl": 0.0840004499
+    },
+    {
+      "date": "2024-07-05",
+      "cumulative_pnl": 0.0798289633
+    },
+    {
+      "date": "2024-07-08",
+      "cumulative_pnl": 0.078257647
+    },
+    {
+      "date": "2024-07-11",
+      "cumulative_pnl": 0.0823594064
+    },
+    {
+      "date": "2024-07-17",
+      "cumulative_pnl": 0.0865864433
+    },
+    {
+      "date": "2024-07-25",
+      "cumulative_pnl": 0.0639166415
+    },
+    {
+      "date": "2024-08-05",
+      "cumulative_pnl": 0.0759099983
+    },
+    {
+      "date": "2024-08-06",
+      "cumulative_pnl": 0.0850666609
+    },
+    {
+      "date": "2024-08-07",
+      "cumulative_pnl": 0.0838466808
+    },
+    {
+      "date": "2024-08-13",
+      "cumulative_pnl": 0.0779314511
+    },
+    {
+      "date": "2024-08-16",
+      "cumulative_pnl": 0.0644875742
+    },
+    {
+      "date": "2024-08-16",
+      "cumulative_pnl": 0.0642006822
+    },
+    {
+      "date": "2024-08-16",
+      "cumulative_pnl": 0.0597051157
+    },
+    {
+      "date": "2024-08-21",
+      "cumulative_pnl": 0.0627048567
+    },
+    {
+      "date": "2024-08-22",
+      "cumulative_pnl": 0.0608651324
     },
     {
       "date": "2024-08-23",
-      "cumulative_pnl": 0.0610089597
+      "cumulative_pnl": 0.0533751884
     },
     {
-      "date": "2024-09-13",
-      "cumulative_pnl": 0.0848304752
+      "date": "2024-08-26",
+      "cumulative_pnl": 0.0513966107
+    },
+    {
+      "date": "2024-08-27",
+      "cumulative_pnl": 0.0576950432
+    },
+    {
+      "date": "2024-08-27",
+      "cumulative_pnl": 0.0543447876
+    },
+    {
+      "date": "2024-08-27",
+      "cumulative_pnl": 0.0609152595
+    },
+    {
+      "date": "2024-08-27",
+      "cumulative_pnl": 0.0694147222
+    },
+    {
+      "date": "2024-08-29",
+      "cumulative_pnl": 0.069532899
+    },
+    {
+      "date": "2024-08-29",
+      "cumulative_pnl": 0.0754833
+    },
+    {
+      "date": "2024-08-30",
+      "cumulative_pnl": 0.0700946872
+    },
+    {
+      "date": "2024-09-06",
+      "cumulative_pnl": 0.0720834609
+    },
+    {
+      "date": "2024-09-09",
+      "cumulative_pnl": 0.0915862731
+    },
+    {
+      "date": "2024-09-11",
+      "cumulative_pnl": 0.0947319876
+    },
+    {
+      "date": "2024-09-12",
+      "cumulative_pnl": 0.0927608067
+    },
+    {
+      "date": "2024-09-18",
+      "cumulative_pnl": 0.0957237557
+    },
+    {
+      "date": "2024-09-18",
+      "cumulative_pnl": 0.105518206
+    },
+    {
+      "date": "2024-09-26",
+      "cumulative_pnl": 0.0974600456
+    },
+    {
+      "date": "2024-09-28",
+      "cumulative_pnl": 0.0947852583
+    },
+    {
+      "date": "2024-09-30",
+      "cumulative_pnl": 0.0791030041
+    },
+    {
+      "date": "2024-10-01",
+      "cumulative_pnl": 0.0844138994
+    },
+    {
+      "date": "2024-10-02",
+      "cumulative_pnl": 0.0940766536
+    },
+    {
+      "date": "2024-10-02",
+      "cumulative_pnl": 0.0987567906
+    },
+    {
+      "date": "2024-10-07",
+      "cumulative_pnl": 0.0924933648
+    },
+    {
+      "date": "2024-10-11",
+      "cumulative_pnl": 0.103166982
+    },
+    {
+      "date": "2024-10-14",
+      "cumulative_pnl": 0.104472437
+    },
+    {
+      "date": "2024-10-14",
+      "cumulative_pnl": 0.1071636005
+    },
+    {
+      "date": "2024-10-16",
+      "cumulative_pnl": 0.1063714754
+    },
+    {
+      "date": "2024-10-16",
+      "cumulative_pnl": 0.1054826983
+    },
+    {
+      "date": "2024-10-21",
+      "cumulative_pnl": 0.0964467131
+    },
+    {
+      "date": "2024-10-21",
+      "cumulative_pnl": 0.1086173922
+    },
+    {
+      "date": "2024-10-22",
+      "cumulative_pnl": 0.1181874639
+    },
+    {
+      "date": "2024-10-25",
+      "cumulative_pnl": 0.1091999931
+    },
+    {
+      "date": "2024-10-29",
+      "cumulative_pnl": 0.1213188075
+    },
+    {
+      "date": "2024-10-30",
+      "cumulative_pnl": 0.122572041
     },
     {
       "date": "2024-11-06",
-      "cumulative_pnl": 0.1078587924
+      "cumulative_pnl": 0.1450458691
     },
     {
-      "date": "2024-12-04",
-      "cumulative_pnl": 0.1059706591
+      "date": "2024-11-06",
+      "cumulative_pnl": 0.168028362
     },
     {
-      "date": "2025-01-10",
-      "cumulative_pnl": 0.114335304
+      "date": "2024-11-07",
+      "cumulative_pnl": 0.1720370237
     },
     {
-      "date": "2025-02-14",
-      "cumulative_pnl": 0.1235029131
+      "date": "2024-11-12",
+      "cumulative_pnl": 0.1670777692
     },
     {
-      "date": "2025-03-18",
-      "cumulative_pnl": 0.1349996445
+      "date": "2024-11-13",
+      "cumulative_pnl": 0.158035034
     },
     {
-      "date": "2025-04-03",
-      "cumulative_pnl": 0.1140738184
+      "date": "2024-11-15",
+      "cumulative_pnl": 0.1383232766
     },
     {
-      "date": "2025-04-11",
-      "cumulative_pnl": 0.1038744382
+      "date": "2024-11-18",
+      "cumulative_pnl": 0.1246422209
+    },
+    {
+      "date": "2024-11-20",
+      "cumulative_pnl": 0.1087145253
+    },
+    {
+      "date": "2024-11-21",
+      "cumulative_pnl": 0.1222075801
+    },
+    {
+      "date": "2024-11-22",
+      "cumulative_pnl": 0.1230249521
+    },
+    {
+      "date": "2024-11-29",
+      "cumulative_pnl": 0.1256947407
+    },
+    {
+      "date": "2024-12-11",
+      "cumulative_pnl": 0.1463638259
+    },
+    {
+      "date": "2024-12-11",
+      "cumulative_pnl": 0.1520954353
+    },
+    {
+      "date": "2024-12-13",
+      "cumulative_pnl": 0.1543853261
+    },
+    {
+      "date": "2024-12-17",
+      "cumulative_pnl": 0.1681742094
+    },
+    {
+      "date": "2024-12-19",
+      "cumulative_pnl": 0.1820290944
+    },
+    {
+      "date": "2024-12-27",
+      "cumulative_pnl": 0.1903755009
+    },
+    {
+      "date": "2024-12-31",
+      "cumulative_pnl": 0.1785393463
+    },
+    {
+      "date": "2024-12-31",
+      "cumulative_pnl": 0.1769098063
+    },
+    {
+      "date": "2025-01-02",
+      "cumulative_pnl": 0.1724313149
+    },
+    {
+      "date": "2025-01-02",
+      "cumulative_pnl": 0.1719911687
+    },
+    {
+      "date": "2025-01-22",
+      "cumulative_pnl": 0.1793641864
+    },
+    {
+      "date": "2025-01-24",
+      "cumulative_pnl": 0.1985004739
+    },
+    {
+      "date": "2025-01-28",
+      "cumulative_pnl": 0.1979496802
+    },
+    {
+      "date": "2025-01-30",
+      "cumulative_pnl": 0.1942595148
+    },
+    {
+      "date": "2025-02-04",
+      "cumulative_pnl": 0.2000644045
+    },
+    {
+      "date": "2025-02-04",
+      "cumulative_pnl": 0.2094907041
+    },
+    {
+      "date": "2025-02-13",
+      "cumulative_pnl": 0.1966227973
+    },
+    {
+      "date": "2025-02-13",
+      "cumulative_pnl": 0.1891711955
+    },
+    {
+      "date": "2025-02-13",
+      "cumulative_pnl": 0.2030102692
+    },
+    {
+      "date": "2025-02-19",
+      "cumulative_pnl": 0.2038774307
+    },
+    {
+      "date": "2025-02-19",
+      "cumulative_pnl": 0.202530513
+    },
+    {
+      "date": "2025-02-21",
+      "cumulative_pnl": 0.1941126258
+    },
+    {
+      "date": "2025-02-21",
+      "cumulative_pnl": 0.2054890124
+    },
+    {
+      "date": "2025-02-24",
+      "cumulative_pnl": 0.1975670454
+    },
+    {
+      "date": "2025-02-25",
+      "cumulative_pnl": 0.196059467
+    },
+    {
+      "date": "2025-03-05",
+      "cumulative_pnl": 0.1992581252
+    },
+    {
+      "date": "2025-03-06",
+      "cumulative_pnl": 0.2086189081
+    },
+    {
+      "date": "2025-03-06",
+      "cumulative_pnl": 0.2110219811
+    },
+    {
+      "date": "2025-03-07",
+      "cumulative_pnl": 0.2056019096
+    },
+    {
+      "date": "2025-03-10",
+      "cumulative_pnl": 0.1846014235
+    },
+    {
+      "date": "2025-03-10",
+      "cumulative_pnl": 0.1875576482
+    },
+    {
+      "date": "2025-03-13",
+      "cumulative_pnl": 0.1894120813
+    },
+    {
+      "date": "2025-03-19",
+      "cumulative_pnl": 0.1962843528
+    },
+    {
+      "date": "2025-03-20",
+      "cumulative_pnl": 0.2005935996
+    },
+    {
+      "date": "2025-03-23",
+      "cumulative_pnl": 0.1896918067
+    },
+    {
+      "date": "2025-03-26",
+      "cumulative_pnl": 0.1984685251
+    },
+    {
+      "date": "2025-03-26",
+      "cumulative_pnl": 0.197982417
+    },
+    {
+      "date": "2025-03-26",
+      "cumulative_pnl": 0.1989921119
+    },
+    {
+      "date": "2025-03-28",
+      "cumulative_pnl": 0.2006927818
+    },
+    {
+      "date": "2025-04-01",
+      "cumulative_pnl": 0.1995905758
+    },
+    {
+      "date": "2025-04-01",
+      "cumulative_pnl": 0.1962495028
+    },
+    {
+      "date": "2025-04-09",
+      "cumulative_pnl": 0.2185609533
+    },
+    {
+      "date": "2025-04-09",
+      "cumulative_pnl": 0.1979008563
+    },
+    {
+      "date": "2025-04-14",
+      "cumulative_pnl": 0.2180866868
+    },
+    {
+      "date": "2025-04-20",
+      "cumulative_pnl": 0.2011376794
+    },
+    {
+      "date": "2025-04-21",
+      "cumulative_pnl": 0.1926916575
+    },
+    {
+      "date": "2025-04-21",
+      "cumulative_pnl": 0.2124282416
     },
     {
       "date": "2025-04-25",
-      "cumulative_pnl": 0.0962881319
+      "cumulative_pnl": 0.2272097569
     },
     {
-      "date": "2025-05-21",
-      "cumulative_pnl": 0.1180030491
+      "date": "2025-04-25",
+      "cumulative_pnl": 0.2224176041
     },
     {
-      "date": "2025-06-02",
-      "cumulative_pnl": 0.1347059493
+      "date": "2025-04-28",
+      "cumulative_pnl": 0.2372869033
     },
     {
-      "date": "2025-06-09",
-      "cumulative_pnl": 0.1575067495
+      "date": "2025-04-28",
+      "cumulative_pnl": 0.2454856333
+    },
+    {
+      "date": "2025-04-28",
+      "cumulative_pnl": 0.2541779281
+    },
+    {
+      "date": "2025-04-28",
+      "cumulative_pnl": 0.2703965657
+    },
+    {
+      "date": "2025-04-30",
+      "cumulative_pnl": 0.2823657539
+    },
+    {
+      "date": "2025-04-30",
+      "cumulative_pnl": 0.2877596418
+    },
+    {
+      "date": "2025-05-01",
+      "cumulative_pnl": 0.3080656644
+    },
+    {
+      "date": "2025-05-02",
+      "cumulative_pnl": 0.3093645829
+    },
+    {
+      "date": "2025-05-05",
+      "cumulative_pnl": 0.3160976454
+    },
+    {
+      "date": "2025-05-08",
+      "cumulative_pnl": 0.3336050192
+    },
+    {
+      "date": "2025-05-08",
+      "cumulative_pnl": 0.3239553149
+    },
+    {
+      "date": "2025-05-13",
+      "cumulative_pnl": 0.345645731
+    },
+    {
+      "date": "2025-05-13",
+      "cumulative_pnl": 0.3563420731
+    },
+    {
+      "date": "2025-05-14",
+      "cumulative_pnl": 0.3454984413
+    },
+    {
+      "date": "2025-05-20",
+      "cumulative_pnl": 0.3670872627
+    },
+    {
+      "date": "2025-05-22",
+      "cumulative_pnl": 0.3710767396
+    },
+    {
+      "date": "2025-05-23",
+      "cumulative_pnl": 0.3870914718
+    },
+    {
+      "date": "2025-05-27",
+      "cumulative_pnl": 0.3818524972
+    },
+    {
+      "date": "2025-06-03",
+      "cumulative_pnl": 0.3740821768
+    },
+    {
+      "date": "2025-06-05",
+      "cumulative_pnl": 0.3713659485
+    },
+    {
+      "date": "2025-06-06",
+      "cumulative_pnl": 0.3699710176
     },
     {
       "date": "2025-06-12",
-      "cumulative_pnl": 0.1440891211
+      "cumulative_pnl": 0.3800546001
     },
     {
-      "date": "2025-07-01",
-      "cumulative_pnl": 0.1314928006
+      "date": "2025-06-13",
+      "cumulative_pnl": 0.3575594299
     },
     {
-      "date": "2025-08-01",
-      "cumulative_pnl": 0.1347913222
+      "date": "2025-06-17",
+      "cumulative_pnl": 0.3542582326
+    },
+    {
+      "date": "2025-06-24",
+      "cumulative_pnl": 0.3523544614
+    },
+    {
+      "date": "2025-06-26",
+      "cumulative_pnl": 0.3468313801
+    },
+    {
+      "date": "2025-06-27",
+      "cumulative_pnl": 0.3612419242
+    },
+    {
+      "date": "2025-07-03",
+      "cumulative_pnl": 0.3531311625
+    },
+    {
+      "date": "2025-07-03",
+      "cumulative_pnl": 0.3453493042
+    },
+    {
+      "date": "2025-07-15",
+      "cumulative_pnl": 0.3477040573
+    },
+    {
+      "date": "2025-07-23",
+      "cumulative_pnl": 0.3699070744
+    },
+    {
+      "date": "2025-07-24",
+      "cumulative_pnl": 0.3901680408
+    },
+    {
+      "date": "2025-07-24",
+      "cumulative_pnl": 0.3813938789
+    },
+    {
+      "date": "2025-07-25",
+      "cumulative_pnl": 0.3739307756
+    },
+    {
+      "date": "2025-07-29",
+      "cumulative_pnl": 0.3603176762
+    },
+    {
+      "date": "2025-07-30",
+      "cumulative_pnl": 0.3532642301
+    },
+    {
+      "date": "2025-08-06",
+      "cumulative_pnl": 0.3484552884
+    },
+    {
+      "date": "2025-08-08",
+      "cumulative_pnl": 0.3490378554
     },
     {
       "date": "2025-08-11",
-      "cumulative_pnl": 0.1214615904
-    },
-    {
-      "date": "2025-08-12",
-      "cumulative_pnl": 0.1140937863
+      "cumulative_pnl": 0.3450259211
     },
     {
       "date": "2025-08-13",
-      "cumulative_pnl": 0.1238977442
+      "cumulative_pnl": 0.3471586649
     },
     {
-      "date": "2025-08-14",
-      "cumulative_pnl": 0.1281055743
-    },
-    {
-      "date": "2025-08-18",
-      "cumulative_pnl": 0.1330183231
-    },
-    {
-      "date": "2025-08-20",
-      "cumulative_pnl": 0.1375529484
-    },
-    {
-      "date": "2025-08-21",
-      "cumulative_pnl": 0.1395894012
+      "date": "2025-08-15",
+      "cumulative_pnl": 0.3480210684
     },
     {
       "date": "2025-08-22",
-      "cumulative_pnl": 0.1591481994
+      "cumulative_pnl": 0.3515569314
     },
     {
       "date": "2025-08-26",
-      "cumulative_pnl": 0.1582502024
-    },
-    {
-      "date": "2025-08-26",
-      "cumulative_pnl": 0.1613700849
-    },
-    {
-      "date": "2025-08-26",
-      "cumulative_pnl": 0.169006368
-    },
-    {
-      "date": "2025-08-26",
-      "cumulative_pnl": 0.1617192552
+      "cumulative_pnl": 0.3558473284
     },
     {
       "date": "2025-08-27",
-      "cumulative_pnl": 0.1838806849
+      "cumulative_pnl": 0.3579017431
     },
     {
-      "date": "2025-08-27",
-      "cumulative_pnl": 0.1683399584
+      "date": "2025-08-28",
+      "cumulative_pnl": 0.3569355859
     },
     {
-      "date": "2025-08-29",
-      "cumulative_pnl": 0.1809870848
+      "date": "2025-08-28",
+      "cumulative_pnl": 0.361433369
     },
     {
-      "date": "2025-08-29",
-      "cumulative_pnl": 0.1793344108
+      "date": "2025-08-28",
+      "cumulative_pnl": 0.3631128218
     },
     {
-      "date": "2025-09-09",
-      "cumulative_pnl": 0.2042267214
+      "date": "2025-09-01",
+      "cumulative_pnl": 0.3491549787
     },
     {
-      "date": "2025-09-10",
-      "cumulative_pnl": 0.1953997595
+      "date": "2025-09-02",
+      "cumulative_pnl": 0.3502135509
     },
     {
-      "date": "2025-09-12",
-      "cumulative_pnl": 0.1878186985
+      "date": "2025-09-03",
+      "cumulative_pnl": 0.3404752758
     },
     {
-      "date": "2025-09-15",
-      "cumulative_pnl": 0.1875277304
+      "date": "2025-09-11",
+      "cumulative_pnl": 0.3306261904
     },
     {
-      "date": "2025-09-16",
-      "cumulative_pnl": 0.1665902226
-    },
-    {
-      "date": "2025-09-17",
-      "cumulative_pnl": 0.1617879402
-    },
-    {
-      "date": "2025-09-19",
-      "cumulative_pnl": 0.1414311888
-    },
-    {
-      "date": "2025-09-19",
-      "cumulative_pnl": 0.133627437
+      "date": "2025-09-11",
+      "cumulative_pnl": 0.3317805981
     },
     {
       "date": "2025-09-24",
-      "cumulative_pnl": 0.1349952403
-    },
-    {
-      "date": "2025-09-25",
-      "cumulative_pnl": 0.130107737
+      "cumulative_pnl": 0.3311138057
     },
     {
       "date": "2025-09-26",
-      "cumulative_pnl": 0.1572894797
+      "cumulative_pnl": 0.3281379334
+    },
+    {
+      "date": "2025-09-26",
+      "cumulative_pnl": 0.3308925487
     },
     {
       "date": "2025-09-29",
-      "cumulative_pnl": 0.1507387575
+      "cumulative_pnl": 0.330758976
     },
     {
       "date": "2025-09-29",
-      "cumulative_pnl": 0.151855217
+      "cumulative_pnl": 0.3417070237
+    },
+    {
+      "date": "2025-09-30",
+      "cumulative_pnl": 0.34344029
     }
   ],
   "open_trades": [
     {
-      "spread": "XOM/CVX",
-      "type": "long",
-      "entry_date": "2025-09-05",
-      "days_open": 21,
-      "entry": 0.710855,
-      "last": 0.731893,
-      "take_profit": 0.749484,
-      "stop_loss": 0.672226,
-      "mtm_return": 0.0105242926
+      "spread": "GOOGL/META",
+      "type": "short",
+      "entry_date": "2025-09-10",
+      "days_open": 19,
+      "entry": 0.318054,
+      "last": 0.328289,
+      "take_profit": 0.250252,
+      "stop_loss": 0.385856,
+      "mtm_return": -0.0031129035
     },
     {
       "spread": "HYG/LQD",
       "type": "long",
-      "entry_date": "2025-09-05",
-      "days_open": 21,
-      "entry": 0.727444,
-      "last": 0.729071,
-      "take_profit": 0.740067,
-      "stop_loss": 0.71482,
-      "mtm_return": 0.0014251521
+      "entry_date": "2025-09-11",
+      "days_open": 18,
+      "entry": 0.722217,
+      "last": 0.727908,
+      "take_profit": 0.739938,
+      "stop_loss": 0.704496,
+      "mtm_return": 0.0056077908
     },
     {
-      "spread": "GOLD/PLATINUM",
-      "type": "long",
-      "entry_date": "2025-09-10",
-      "days_open": 20,
-      "entry": 2.615838,
-      "last": 2.4,
-      "take_profit": 2.986725,
-      "stop_loss": 2.244951,
-      "mtm_return": -0.0117800752
-    },
-    {
-      "spread": "NASDAQ100/S&P500",
+      "spread": "SOYBEANS/CORN",
       "type": "short",
-      "entry_date": "2025-09-15",
-      "days_open": 11,
-      "entry": 3.672374,
-      "last": 3.688283,
-      "take_profit": 3.600135,
-      "stop_loss": 3.744613,
-      "mtm_return": -0.0054212749
-    },
-    {
-      "spread": "LLOY.L/NWG.L",
-      "type": "short",
-      "entry_date": "2025-09-16",
-      "days_open": 13,
-      "entry": 0.158162,
-      "last": 0.159786,
-      "take_profit": 0.135467,
-      "stop_loss": 0.180857,
-      "mtm_return": -0.0015705327
-    },
-    {
-      "spread": "FTSE100/EU50",
-      "type": "short",
-      "entry_date": "2025-09-17",
-      "days_open": 12,
-      "entry": 1.714882,
-      "last": 1.695666,
-      "take_profit": 1.667098,
-      "stop_loss": 1.762666,
-      "mtm_return": 0.0073250954
-    },
-    {
-      "spread": "DBK.DE/CBK.DE",
-      "type": "short",
-      "entry_date": "2025-09-17",
-      "days_open": 12,
-      "entry": 0.995627,
-      "last": 0.942224,
-      "take_profit": 0.893498,
-      "stop_loss": 1.097756,
-      "mtm_return": 0.0102629758
-    },
-    {
-      "spread": "S&P500/RUSSELL2000",
-      "type": "long",
-      "entry_date": "2025-09-18",
-      "days_open": 8,
-      "entry": 2.687507,
-      "last": 2.729181,
-      "take_profit": 2.837836,
-      "stop_loss": 2.537178,
-      "mtm_return": 0.0051868226
-    },
-    {
-      "spread": "GOLD/SILVER",
-      "type": "long",
-      "entry_date": "2025-09-19",
-      "days_open": 11,
-      "entry": 86.315121,
-      "last": 82.29006,
-      "take_profit": 91.937956,
-      "stop_loss": 80.692286,
-      "mtm_return": -0.0146238548
+      "entry_date": "2025-09-12",
+      "days_open": 18,
+      "entry": 2.570802,
+      "last": 2.393939,
+      "take_profit": 2.250091,
+      "stop_loss": 2.891513,
+      "mtm_return": 0.0108691126
     },
     {
       "spread": "JNJ/PFE",
       "type": "short",
-      "entry_date": "2025-09-23",
-      "days_open": 3,
-      "entry": 7.317862,
-      "last": 7.563552,
-      "take_profit": 6.725859,
-      "stop_loss": 7.909865,
-      "mtm_return": -0.0085475196
+      "entry_date": "2025-09-12",
+      "days_open": 17,
+      "entry": 7.459573,
+      "last": 7.615094,
+      "take_profit": 6.661285,
+      "stop_loss": 8.25786,
+      "mtm_return": -0.0040832576
     },
     {
-      "spread": "VOW.DE/BMW.DE",
-      "type": "long",
-      "entry_date": "2025-09-24",
-      "days_open": 5,
-      "entry": 1.117661,
-      "last": 1.098618,
-      "take_profit": 1.197415,
-      "stop_loss": 1.037907,
-      "mtm_return": -0.0050557116
-    },
-    {
-      "spread": "PLATINUM/SILVER",
+      "spread": "CAT/DE",
       "type": "short",
-      "entry_date": "2025-09-25",
-      "days_open": 5,
-      "entry": 34.246146,
-      "last": 34.287525,
-      "take_profit": 30.878955,
-      "stop_loss": 37.613337,
-      "mtm_return": -0.0004491883
-    },
-    {
-      "spread": "PG/CL",
-      "type": "short",
-      "entry_date": "2025-09-25",
-      "days_open": 1,
-      "entry": 1.909034,
-      "last": 1.91607,
-      "take_profit": 1.811184,
-      "stop_loss": 2.006883,
-      "mtm_return": -0.0018283343
+      "entry_date": "2025-09-15",
+      "days_open": 14,
+      "entry": 0.929292,
+      "last": 1.013147,
+      "take_profit": 0.784039,
+      "stop_loss": 1.074545,
+      "mtm_return": -0.011674016
     },
     {
       "spread": "V/MA",
       "type": "long",
+      "entry_date": "2025-09-15",
+      "days_open": 14,
+      "entry": 0.581601,
+      "last": 0.598726,
+      "take_profit": 0.613543,
+      "stop_loss": 0.549659,
+      "mtm_return": 0.010358399
+    },
+    {
+      "spread": "BATS.L/IMB.L",
+      "type": "short",
+      "entry_date": "2025-09-16",
+      "days_open": 14,
+      "entry": 1.315857,
+      "last": 1.248166,
+      "take_profit": 1.191442,
+      "stop_loss": 1.440272,
+      "mtm_return": 0.0106699583
+    },
+    {
+      "spread": "VOW.DE/BMW.DE",
+      "type": "long",
+      "entry_date": "2025-09-23",
+      "days_open": 7,
+      "entry": 1.114805,
+      "last": 1.0679,
+      "take_profit": 1.204235,
+      "stop_loss": 1.025375,
+      "mtm_return": -0.010739082
+    },
+    {
+      "spread": "GOLD/PLATINUM",
+      "type": "long",
       "entry_date": "2025-09-25",
-      "days_open": 1,
-      "entry": 0.590393,
-      "last": 0.596978,
-      "take_profit": 0.612884,
-      "stop_loss": 0.567902,
-      "mtm_return": 0.0053306718
+      "days_open": 5,
+      "entry": 2.441301,
+      "last": 2.446933,
+      "take_profit": 2.961919,
+      "stop_loss": 1.920683,
+      "mtm_return": 0.0001225735
+    },
+    {
+      "spread": "GOLD/SILVER",
+      "type": "long",
+      "entry_date": "2025-09-25",
+      "days_open": 5,
+      "entry": 83.605161,
+      "last": 82.861454,
+      "take_profit": 91.817495,
+      "stop_loss": 75.392827,
+      "mtm_return": -0.002014804
+    },
+    {
+      "spread": "BITCOIN/ETHEREUM",
+      "type": "long",
+      "entry_date": "2025-09-26",
+      "days_open": 4,
+      "entry": 27.18431,
+      "last": 27.200308,
+      "take_profit": 40.666587,
+      "stop_loss": 13.702033,
+      "mtm_return": -1.65941e-05
     }
   ]
 }
