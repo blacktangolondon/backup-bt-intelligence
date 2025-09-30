@@ -137,7 +137,6 @@ function resizeChart(idOrCanvas){
     if(inst && typeof inst.resize==="function") inst.resize();
   }catch(_){}
 }
-
 /* ── Block1: TradingView (top bar nascosta, barra laterale visibile) ── */
 function updateChartGeneric(instrumentName, groupData){
   const info   = groupData[instrumentName] || {};
@@ -269,7 +268,7 @@ export function updateSIM(instrumentName, groupData, pricesData){
     renderBenchmarkLines("bench-canvas", labels.slice(-n), cumulativeReturns(Yi), cumulativeReturns(Xm));
 
     updateBlock3(instrumentName, groupData, pricesData); // metriche coerenti
-    updateBlock4(instrumentName, groupData);
+    updateBlock4(instrumentName, groupData);             // ← Block 4 auto-sync
   }
 
   benchInput.addEventListener("change", function(){
@@ -413,8 +412,7 @@ export function initBlock3Tabs() {
   btns.forEach(btn => btn.addEventListener('click', () => show(btn.dataset.tab)));
   show((tabsEl.querySelector('.active-tab')?.dataset.tab) || 'trendscore');
 }
-
-/* ── Block4: Fundamentals (solo 6 campi, resolver multi-sorgente) ──── */
+/* ── Block4: Fundamentals (6 campi, design come Block3) ────────────── */
 export function updateBlock4(instrumentName, groupData){
   const el = document.getElementById("block4");
   if (!el) return;
@@ -426,7 +424,6 @@ export function updateBlock4(instrumentName, groupData){
   const asList = (data) => {
     if (!data) return [];
     if (Array.isArray(data)) return data;
-    // se i dati sono in una sottochiave nota (stocks, items, data)
     for (const k of ["stocks","items","data","list"]) {
       if (data[k] && (Array.isArray(data[k]) || typeof data[k] === "object")) {
         return Array.isArray(data[k]) ? data[k] : Object.values(data[k]);
@@ -437,23 +434,19 @@ export function updateBlock4(instrumentName, groupData){
 
   function findInfo(name, pool){
     if (!pool) return null;
-    // 1) accesso diretto per chiave
     if (!Array.isArray(pool) && pool[name]) return pool[name];
 
     const list = asList(pool);
     const nName = norm(name);
     const nStrip= norm(stripEx(name));
-    // match forte
     let hit = list.find(o =>
       norm(o?.ticker)         === nStrip ||
       norm(stripEx(o?.tvSymbol)) === nStrip ||
       norm(o?.tvSymbol)       === nName
     );
     if (hit) return hit;
-    // alternative keys
     hit = list.find(o => norm(o?.symbol) === nStrip || norm(o?.code) === nStrip);
     if (hit) return hit;
-    // match per nome (esatto o contains)
     hit = list.find(o => norm(o?.name) === nName || norm(o?.company) === nName);
     if (hit) return hit;
     hit = list.find(o => (o?.name && nName.includes(norm(o.name))) || (o?.company && nName.includes(norm(o.company))));
@@ -493,7 +486,7 @@ export function updateBlock4(instrumentName, groupData){
     return null;
   };
 
-  // ---------- letture (con alias comuni) ----------
+  // ---------- letture ----------
   const pe   = num(info?.pe_ratio ?? info?.pe ?? info?.pe_ttm ?? info?.peRatio);
   const pb   = num(info?.pb_ratio ?? info?.pb ?? info?.price_to_book ?? info?.pbRatio);
   const eps  = num(info?.eps ?? info?.earnings_per_share ?? info?.eps_ttm);
@@ -513,17 +506,24 @@ export function updateBlock4(instrumentName, groupData){
 
   console.log("[Block4] values:", { pe, pb, eps, yldF, payout, pr, earningsYield, dividendCover });
 
-  // ---------- render ----------
+  // ---------- render (stile Block 3) ----------
+  const box = (label, value) => `
+    <div class="metric-card">
+      <div class="metric-label">${label}</div>
+      <div class="metric-value">${value}</div>
+    </div>
+  `;
+
   el.innerHTML = `
-    <div class="panel fundamentals">
-      <h3>Fundamentals</h3>
-      <div class="kv-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-        <div><span>P/E</span><strong>${fmt(pe, {decimals: 2})}</strong></div>
-        <div><span>P/B</span><strong>${fmt(pb, {decimals: 2})}</strong></div>
-        <div><span>Dividend Yield</span><strong>${fmt(yldF, {percent: true})}</strong></div>
-        <div><span>Dividend Cover</span><strong>${fmt(dividendCover, {decimals: 2})}</strong></div>
-        <div><span>EPS</span><strong>${fmt(eps, {decimals: 2})}</strong></div>
-        <div><span>Earnings Yield</span><strong>${fmt(earningsYield, {percent: true})}</strong></div>
+    <div class="section">
+      <div class="section-title">Fundamentals</div>
+      <div class="metrics-grid two-col">
+        ${box("P/E",            fmt(pe, {decimals: 2}))}
+        ${box("P/B",            fmt(pb, {decimals: 2}))}
+        ${box("Dividend Yield", fmt(yldF, {percent: true}))}
+        ${box("Dividend Cover", fmt(dividendCover, {decimals: 2}))}
+        ${box("EPS",            fmt(eps, {decimals: 2}))}
+        ${box("Earnings Yield", fmt(earningsYield, {percent: true}))}
       </div>
     </div>
   `;
