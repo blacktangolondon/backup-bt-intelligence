@@ -852,3 +852,43 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   width: 100% !important;
 }
 
+/* ===== Block 4: allineamento 1:1 al Block 3 ===== */
+#block4 { padding: 10px; }               /* come il contenitore interno del Block 3 */
+
+#block4 .fund-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;                 /* titolo (30px) + contenuto che riempie */
+}
+
+#block4 .fund-title {
+  height: 30px;                           /* stessa “fascia” dei tab del Block 3 */
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: #ffa500;
+  margin-bottom: 8px;                     /* come le sezioni del Block 3 */
+}
+
+#block4 .fund-grid {
+  flex: 1;                                /* riempi lo spazio rimanente */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-content: start;                   /* evita “stretch” verticale */
+}
+
+#block4 .fund-row {
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #1b1b1b;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#block4 .fund-row span { color: #aaa; font-size: 12px; }
+#block4 .fund-row strong { color: #fff; font-variant-numeric: tabular-nums; }
+
+
