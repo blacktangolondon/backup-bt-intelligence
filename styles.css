@@ -367,3 +367,30 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 @media (max-width: 860px){
   .fund-avg-grid{ grid-template-columns: 1fr; }
 }
+
+/* === Fix distanza tabs medie (Block4) e righe === */
+.fund-avg-tabs{
+  margin: 10px 0 18px !important;   /* più aria sotto i chip */
+  gap: 10px;                        /* chip un filo più distanziati */
+  justify-content: flex-start;
+}
+
+.fund-avg-tab{
+  padding: 7px 14px;                /* chip un pelo più alti */
+  line-height: 1;
+}
+
+.fund-avg-grid{
+  gap: 10px;                        /* aumenta lo spazio tra i box */
+}
+
+#block4 .fund-row{
+  min-height: 40px;                 /* più spazio verticale, evita sfioramenti */
+}
+
+/* mobile: ancora più aria, niente sovrapposizioni */
+@media (max-width: 860px){
+  .fund-avg-tabs{ margin: 10px 0 20px !important; }
+  #block4 .fund-row{ min-height: 42px; }
+}
+
