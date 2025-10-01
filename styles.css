@@ -394,3 +394,43 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   #block4 .fund-row{ min-height: 42px; }
 }
 
+/* === Block4: più spazio verticale, senza titolo === */
+#block4 .fund-title{
+  display: none !important;     /* rimuove la fascia "Fundamentals" */
+}
+
+#block4 { 
+  padding-top: 8px !important;  /* compatta un filo il padding del blocco */
+}
+
+/* compattiamo il layout del contenuto */
+#block4 .fund-grid{
+  margin-top: 0 !important;     /* nessuno spazio “dopo il titolo” */
+  gap: 10px !important;          /* spazio tra le card */
+}
+
+/* Tabs: un po’ di aria sotto, ma zero sopra */
+.fund-avg-tabs{
+  margin: 0 0 18px 0 !important; /* niente margine sopra, aria sotto */
+  gap: 10px;
+}
+
+/* chip leggermente più compatti, per guadagnare altezza */
+.fund-avg-tab{
+  padding: 6px 12px !important;
+  line-height: 1 !important;
+  font-size: 12px;               /* compattiamo il testo */
+}
+
+/* righe valori: un filo più sottili ma leggibili */
+#block4 .fund-row{
+  padding: 6px 8px !important;
+  min-height: 36px !important;   /* era 40px: guadagni spazio */
+}
+
+/* mobile: più aria sotto i chip per evitare qualsiasi contatto */
+@media (max-width: 860px){
+  .fund-avg-tabs{ margin: 0 0 20px 0 !important; }
+  #block4 .fund-row{ min-height: 38px !important; }
+}
+
