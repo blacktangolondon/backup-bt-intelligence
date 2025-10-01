@@ -315,3 +315,55 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   .external-fullscreen-btn { padding: 2px 4px; font-size: 12px; }
   table, th, td { font-size: 10px; }
 }
+
+/* === Block4 – Fundamentals: tabs medie (All / Index / Industry) === */
+
+/* contenitore della parte con le medie */
+.fund-avg{
+  margin-top: 12px;              /* stacca dal blocco sopra */
+  display: flex;
+  flex-direction: column;
+}
+
+/* barra tab: chip a pill, con wrap e spazio sotto */
+.fund-avg-tabs{
+  display: flex;
+  flex-wrap: wrap;               /* evita sovrapposizioni quando va a capo */
+  gap: 8px;
+  margin: 4px 0 12px 0;          /* spazio sotto i chip */
+  position: relative;
+  z-index: 0;                    /* non sovrapporsi ai box sotto */
+}
+
+/* singolo chip */
+.fund-avg-tab{
+  background:#222;
+  color:#ddd;
+  border:1px solid #3a3a3a;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+.fund-avg-tab:hover{ background:#2b2b2b; border-color:#555; }
+.fund-avg-tab.active{ background:#ffa500; color:#000; border-color:#ffa500; }
+
+/* griglia dei 6 indicatori medi (2 colonne) */
+.fund-avg-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* nota a piè di sezione */
+.fund-avg-footnote{
+  margin-top: 8px;
+  color:#9aa0a6;
+  font-size: 11px;
+}
+
+/* responsive: su schermi stretti metti tutto in una colonna */
+@media (max-width: 860px){
+  .fund-avg-grid{ grid-template-columns: 1fr; }
+}
