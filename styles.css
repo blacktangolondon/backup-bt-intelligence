@@ -434,3 +434,54 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
   #block4 .fund-row{ min-height: 38px !important; }
 }
 
+/* --- Block4: posizionamento “centrato” dei tab tra le due griglie --- */
+
+/* 1) Spazio simmetrico attorno ai tab */
+#block4 .fund-grid { 
+  margin-bottom: 18px !important;   /* spazio sotto la griglia superiore */
+}
+#block4 .fund-avg-grid { 
+  margin-top: 18px !important;      /* spazio sopra la griglia inferiore */
+}
+
+/* 2) I tab occupano una fascia propria (altezza garantita) */
+#block4 .fund-avg-tabs{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+
+  /* fascia centrale ben definita: niente sovrapposizioni */
+  margin: 0 !important;             /* margini gestiti dalle griglie sopra/sotto */
+  min-height: 36px;                  /* riserva sempre altezza visibile */
+  position: relative;
+  z-index: 1;
+}
+
+/* 3) Chip compatti ma leggibili */
+#block4 .fund-avg-tab{
+  padding: 7px 12px;
+  line-height: 1;
+  font-size: 12px;
+}
+
+/* 4) Righe valori leggermente più sottili per guadagnare altezza utile */
+#block4 .fund-row{
+  padding: 6px 8px !important;
+  min-height: 36px !important;
+}
+
+/* 5) Mobile / viewport stretti: un filo più di aria per evitare contatti */
+@media (max-width: 1024px){
+  #block4 .fund-grid { margin-bottom: 16px !important; }
+  #block4 .fund-avg-grid { margin-top: 16px !important; }
+  #block4 .fund-avg-tabs { min-height: 38px; }
+}
+@media (max-width: 860px){
+  #block4 .fund-grid { margin-bottom: 14px !important; }
+  #block4 .fund-avg-grid { margin-top: 14px !important; }
+  #block4 .fund-avg-tabs { min-height: 40px; }
+}
+
+
