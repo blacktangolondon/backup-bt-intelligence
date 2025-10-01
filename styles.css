@@ -485,3 +485,50 @@ body { display: flex; font-family: Arial, sans-serif; background-color: #000000;
 }
 
 
+/* === Block4: layout a griglia senza collasso di margini === */
+#block4 .fund-card{
+  display: grid !important;
+  grid-template-rows: auto auto auto;  /* Top grid, Tabs, Bottom grid */
+  row-gap: 18px;                       /* spazio “simmetrico” tra le tre righe */
+  align-content: start;
+}
+
+/* Azzeriamo margini locali: il distanziamento lo fa row-gap */
+#block4 .fund-grid,
+#block4 .fund-avg-tabs,
+#block4 .fund-avg-grid{
+  margin: 0 !important;
+}
+
+/* Fascia dei TAB: altezza garantita e nessuna chance di overlappare */
+#block4 .fund-avg-tabs{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  min-height: 36px;    /* tiene aria tra le due griglie */
+}
+
+/* Chip */
+#block4 .fund-avg-tab{
+  padding: 7px 12px;
+  line-height: 1;
+  font-size: 12px;
+}
+
+/* Righe valori leggermente più compatte = più aria */
+#block4 .fund-row{
+  padding: 6px 8px !important;
+  min-height: 36px !important;
+}
+
+/* Responsive: manteniamo sempre una fascia “centrale” comoda */
+@media (max-width: 1024px){
+  #block4 .fund-card{ row-gap: 16px; }
+  #block4 .fund-avg-tabs{ min-height: 38px; }
+}
+@media (max-width: 860px){
+  #block4 .fund-card{ row-gap: 14px; }
+  #block4 .fund-avg-tabs{ min-height: 40px; }
+}
+
