@@ -1,7 +1,7 @@
 // dashboard.js
 // Block2: SIM + Benchmark (tabs) con bench selezionabile.
 // Block3: metriche coerenti col bench scelto.
-// Block4: fundamentals (solo 6 indicatori richiesti).
+// Block4: fundamentals (6 indicatori) + medie per All / Index / Industry.
 
 import { renderScatterWithRegression, renderBenchmarkLines } from "./charts.js";
 
@@ -137,6 +137,7 @@ function resizeChart(idOrCanvas){
     if(inst && typeof inst.resize==="function") inst.resize();
   }catch(_){}
 }
+
 /* ── Block1: TradingView (top bar nascosta, barra laterale visibile) ── */
 function updateChartGeneric(instrumentName, groupData){
   const info   = groupData[instrumentName] || {};
@@ -213,7 +214,7 @@ export function updateSIM(instrumentName, groupData, pricesData){
         '<button class="tab-btn" data-tab="bench">Benchmark</button>' +
       '</div>' +
       '<div class="bench-picker">' +
-      '<input id="bench-input" list="bench-list" placeholder="Benchmark (es. ^GSPC, DAX, SPY)" />'+
+        '<input id="bench-input" list="bench-list" placeholder="Benchmark (es. ^GSPC, DAX, SPY)" />' +
         '<datalist id="bench-list"></datalist>' +
         '<button id="bench-reset" title="Reset to S&P 500">↺</button>' +
         '<small id="bench-msg"></small>' +
@@ -267,7 +268,7 @@ export function updateSIM(instrumentName, groupData, pricesData){
     renderBenchmarkLines("bench-canvas", labels.slice(-n), cumulativeReturns(Yi), cumulativeReturns(Xm));
 
     updateBlock3(instrumentName, groupData, pricesData); // metriche coerenti
-    updateBlock4(instrumentName, groupData);             // Fundamentals sempre in sync
+    updateBlock4(instrumentName, groupData);             // fundamentals + medie
   }
 
   benchInput.addEventListener("change", function(){
@@ -304,11 +305,9 @@ export function updateSymbolOverview(instrumentName, groupData, pricesData){
     console.error('updateSymbolOverview error:', e);
   }
 }
-
 /* ── Block3: metriche (SIM + rischio) ───────────────────────────────── */
 export function updateBlock3(instrumentName, groupData, pricesData){
   const wrap=document.getElementById("block3");
-
   const content=document.getElementById("block3-content");
   content.innerHTML =
     '<div id="risk-metrics" class="risk-metrics">' +
@@ -410,7 +409,7 @@ export function initBlock3Tabs() {
   btns.forEach(btn => btn.addEventListener('click', () => show(btn.dataset.tab)));
   show((tabsEl.querySelector('.active-tab')?.dataset.tab) || 'trendscore');
 }
-/* ── Block4: Fundamentals (6 campi, design come Block3) ────────────── */
+/* ── Block4: Fundamentals (sopra) + medie (sotto: All / Index / Industry) ── */
 export function updateBlock4(instrumentName, groupData){
   const el = document.getElementById("block4");
   if (!el) return;
@@ -438,9 +437,9 @@ export function updateBlock4(instrumentName, groupData){
     const nName = norm(name);
     const nStrip= norm(stripEx(name));
     let hit = list.find(o =>
-      norm(o?.ticker)           === nStrip ||
-      norm(stripEx(o?.tvSymbol))=== nStrip ||
-      norm(o?.tvSymbol)         === nName
+      norm(o?.ticker)            === nStrip ||
+      norm(stripEx(o?.tvSymbol)) === nStrip ||
+      norm(o?.tvSymbol)          === nName
     );
     if (hit) return hit;
     hit = list.find(o => norm(o?.symbol) === nStrip || norm(o?.code) === nStrip);
@@ -452,22 +451,6 @@ export function updateBlock4(instrumentName, groupData){
     return null;
   }
 
-  // ---------- risoluzione multi-sorgente ----------
-  const candidates = [
-    groupData,
-    (window && window.stocksFullData),
-    (window && window.etfFullData),
-    (window && window.futuresFullData),
-    (window && window.fxFullData)
-  ];
-  let info = null;
-  for (const src of candidates){
-    info = findInfo(instrumentName, src);
-    if (info) break;
-  }
-  console.log("[Block4] name:", instrumentName, "→ resolved:", info?.ticker || info?.tvSymbol || info?.name || "(none)");
-
-  // ---------- numerica ----------
   const num = (v) => {
     if (v === null || v === undefined) return null;
     if (typeof v === "string") {
@@ -483,18 +466,6 @@ export function updateBlock4(instrumentName, groupData){
     if (typeof v === "number") return v>1.5 ? v/100 : v;
     return null;
   };
-
-  // ---------- letture ----------
-  const pe   = num(info?.pe_ratio ?? info?.pe ?? info?.pe_ttm ?? info?.peRatio);
-  const pb   = num(info?.pb_ratio ?? info?.pb ?? info?.price_to_book ?? info?.pbRatio);
-  const eps  = num(info?.eps ?? info?.earnings_per_share ?? info?.eps_ttm);
-  const yldF = parseYield(info?.div_yield ?? info?.dividend_yield ?? info?.dividendYield ?? info?.dividend_yield_percent);
-  const payout = num(info?.payout_ratio ?? info?.dividend_payout_ratio);
-  const pr   = num(info?.price ?? info?.last ?? info?.close ?? info?.last_price);
-
-  const earningsYield = (pe && pe !== 0) ? (1/pe) : (eps && pr ? (eps/pr) : null);
-  const dividendCover = (payout && payout > 0) ? (1/payout) : null;
-
   const fmt = (v, opts={}) => {
     if (v == null) return "–";
     if (opts.percent) return (v*100).toFixed(2) + "%";
@@ -502,16 +473,36 @@ export function updateBlock4(instrumentName, groupData){
     return String(v);
   };
 
-  console.log("[Block4] values:", { pe, pb, eps, yldF, payout, pr, earningsYield, dividendCover });
+  // ---------- risoluzione info del titolo ----------
+  const candidates = [
+    groupData,
+    (window && window.stocksFullData),
+    (window && window.etfFullData),
+    (window && window.futuresFullData),
+    (window && window.fxFullData),
+    (window && window.instrumentsData) // se lo carichi da instruments.json altrove
+  ];
+  let info = null;
+  for (const src of candidates){
+    info = findInfo(instrumentName, src);
+    if (info) break;
+  }
 
-  // ---------- render (allineato al Block 3) ----------
+  // fondamentali del titolo
+  const pe   = num(info?.pe_ratio ?? info?.pe ?? info?.pe_ttm ?? info?.peRatio);
+  const pb   = num(info?.pb_ratio ?? info?.pb ?? info?.price_to_book ?? info?.pbRatio);
+  const eps  = num(info?.eps ?? info?.earnings_per_share ?? info?.eps_ttm);
+  const yldF = parseYield(info?.div_yield ?? info?.dividend_yield ?? info?.dividendYield ?? info?.dividend_yield_percent);
+  const payout = num(info?.payout_ratio ?? info?.dividend_payout_ratio);
+  const price  = num(info?.price ?? info?.last ?? info?.close ?? info?.last_price);
+
+  const earningsYield = (pe && pe !== 0) ? (1/pe) : (eps && price ? (eps/price) : null);
+  const dividendCover = (payout && payout > 0) ? (1/payout) : null;
+
+  // ---------- UI: top (titolo) + bottom (tabs medie) ----------
   const row = (label, value) => `
-    <div class="fund-row">
-      <span>${label}</span>
-      <strong>${value}</strong>
-    </div>
+    <div class="fund-row"><span>${label}</span><strong>${value}</strong></div>
   `;
-
   el.innerHTML = `
     <div class="fund-card">
       <div class="fund-title">Fundamentals</div>
@@ -523,6 +514,142 @@ export function updateBlock4(instrumentName, groupData){
         ${row("EPS",            fmt(eps, {decimals: 2}))}
         ${row("Earnings Yield", fmt(earningsYield, {percent: true}))}
       </div>
+
+      <div style="height:10px"></div>
+
+      <div class="sim-tabs fund-tabs" id="fund-tabs">
+        <button class="tab-btn active" data-tab="all">All</button>
+        <button class="tab-btn" data-tab="index">Index</button>
+        <button class="tab-btn" data-tab="industry">Industry</button>
+      </div>
+      <div class="fund-grid" id="fund-avg-grid">
+        ${row("P/E", "–")}
+        ${row("P/B", "–")}
+        ${row("Dividend Yield", "–")}
+        ${row("Dividend Cover", "–")}
+        ${row("EPS", "–")}
+        ${row("Earnings Yield", "–")}
+      </div>
+      <small id="fund-avg-note" style="margin-top:6px;color:#aaa;"></small>
     </div>
   `;
+
+  // ---------- raccolta universo & medie ----------
+  function toFundRec(o){
+    // normalizza record generico in forma standard
+    const ex = (o?.tvSymbol && String(o.tvSymbol).split(":")[0]) || o?.exchange || o?.exch;
+    const idx = o?.index || o?.index_name || o?.indexName || o?.indexCode || o?.indexTicker || o?.benchmark || o?.parentIndex;
+    const sector = o?.sector || o?.industry || o?.sector_name || o?.GICS || o?.category;
+    const price_ = num(o?.price ?? o?.last ?? o?.close ?? o?.last_price);
+    const pe_   = num(o?.pe_ratio ?? o?.pe ?? o?.pe_ttm ?? o?.peRatio);
+    const pb_   = num(o?.pb_ratio ?? o?.pb ?? o?.price_to_book ?? o?.pbRatio);
+    const eps_  = num(o?.eps ?? o?.earnings_per_share ?? o?.eps_ttm);
+    const yld_  = parseYield(o?.div_yield ?? o?.dividend_yield ?? o?.dividendYield ?? o?.dividend_yield_percent);
+    const payout_ = num(o?.payout_ratio ?? o?.dividend_payout_ratio);
+
+    const ey_ = (pe_ && pe_ !== 0) ? 1/pe_ : (eps_ && price_ ? (eps_/price_) : null);
+    const cov_ = (payout_ && payout_>0) ? 1/payout_ : null;
+
+    return {
+      pe: pe_, pb: pb_, eps: eps_, yld: yld_, cov: cov_, ey: ey_,
+      indexKey: idx || ex || null,
+      exchange: ex || null,
+      sector: sector || null
+    };
+  }
+
+  function collectUniverse(){
+    const pools = [
+      groupData,
+      (window && window.stocksFullData),
+      (window && window.etfFullData),
+      (window && window.futuresFullData),
+      (window && window.fxFullData),
+      (window && window.instrumentsData)
+    ];
+    const out=[];
+    for(const p of pools){
+      const list = asList(p);
+      for(const it of list){ 
+        if (it && (it.pe_ratio || it.pe || it.pb || it.eps || it.div_yield || it.dividend_yield || it.dividendYield)) {
+          out.push(toFundRec(it));
+        }
+      }
+    }
+    return out;
+  }
+
+  function averageOf(list){
+    const only = (k) => list.map(x=>x[k]).filter(v => v!=null && isFinite(v));
+    const avg  = (arr) => arr.length ? arr.reduce((s,v)=>s+v,0)/arr.length : null;
+    return {
+      pe:  avg(only('pe')),
+      pb:  avg(only('pb')),
+      eps: avg(only('eps')),
+      yld: avg(only('yld')),
+      cov: avg(only('cov')),
+      ey:  avg(only('ey')),
+      n:   list.length
+    };
+  }
+
+  // universo completo
+  const universe = collectUniverse();
+
+  // chiavi di cluster per "index" e "industry"
+  const my = toFundRec(info || {});
+  const myIndexKey = my.indexKey;
+  const mySector   = my.sector;
+
+  // filtri
+  const listAll = universe;
+  const listIndex = (myIndexKey)
+    ? universe.filter(x => x.indexKey && String(x.indexKey).toLowerCase() === String(myIndexKey).toLowerCase())
+    : (my.exchange ? universe.filter(x => x.exchange && x.exchange === my.exchange) : []);
+  const listIndustry = (mySector)
+    ? universe.filter(x => x.sector && String(x.sector).toLowerCase() === String(mySector).toLowerCase())
+    : [];
+
+  const avgAll      = averageOf(listAll);
+  const avgIndex    = averageOf(listIndex);
+  const avgIndustry = averageOf(listIndustry);
+
+  function applyAverages(avg){
+    const grid = document.getElementById("fund-avg-grid");
+    if(!grid) return;
+    const rows = grid.querySelectorAll(".fund-row strong");
+    const vals = [
+      avg.pe != null ? avg.pe.toFixed(2) : "–",
+      avg.pb != null ? avg.pb.toFixed(2) : "–",
+      avg.yld != null ? (avg.yld*100).toFixed(2)+"%" : "–",
+      avg.cov != null ? avg.cov.toFixed(2) : "–",
+      avg.eps != null ? avg.eps.toFixed(2) : "–",
+      avg.ey  != null ? (avg.ey*100).toFixed(2)+"%" : "–"
+    ];
+    rows.forEach((el,i)=>{ if(vals[i]!=null) el.textContent = vals[i]; });
+  }
+
+  function setNote(text){
+    const n = document.getElementById("fund-avg-note");
+    if(n) n.textContent = text || "";
+  }
+
+  // tab behavior
+  const tabs = el.querySelectorAll("#fund-tabs .tab-btn");
+  function activate(tab){
+    tabs.forEach(b=>b.classList.toggle("active", b.dataset.tab===tab));
+    if(tab==="all"){ applyAverages(avgAll); setNote(`All: media su ${avgAll.n} strumenti disponibili.`); }
+    else if(tab==="index"){ applyAverages(avgIndex); setNote(avgIndex.n?`Index: media su ${avgIndex.n} strumenti (cluster: ${myIndexKey||my.exchange||"n/d"}).`:`Index: nessun cluster trovato per questo titolo.`); }
+    else { applyAverages(avgIndustry); setNote(avgIndustry.n?`Industry: media su ${avgIndustry.n} strumenti (settore: ${mySector||"n/d"}).`:`Industry: settore non disponibile.`); }
+  }
+  tabs.forEach(b=>b.addEventListener("click", ()=>activate(b.dataset.tab)));
+
+  // default: All
+  activate("all");
+
+  // log diagnostico
+  try{
+    console.log("[Block4] instrument:", instrumentName, "indexKey:", myIndexKey, "sector:", mySector, 
+      "counts:", {all:avgAll.n, index:avgIndex.n, industry:avgIndustry.n});
+  }catch(_){}
 }
